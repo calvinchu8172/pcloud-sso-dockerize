@@ -1,5 +1,5 @@
 class CreateDeviceSessions < ActiveRecord::Migration
-  def change
+  def up
     create_table :device_sessions do |t|
       t.references :device, index: true
       t.string :ip, limit: 64
@@ -7,5 +7,9 @@ class CreateDeviceSessions < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+
+  def down
+  	drop_table :device_sessions
   end
 end
