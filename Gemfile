@@ -44,3 +44,4 @@ gem 'spring',        group: :development
 gem 'log4r'
 gem 'xmpp4r'
 gem 'rails_config'
+gem 'unicorn'
