@@ -1,0 +1,34 @@
+log4r_config:
+  # define all loggers:
+  loggers:
+    - name          : development
+      level         : DEBUG
+      trace         : 'true'
+      outputters    : 
+      - datefile
+
+  loggers:
+    - name          : test
+      level         : DEBUG
+      trace         : 'true'
+      outputters    : 
+      - datefile
+
+  loggers:
+    - name          : production
+      level         : DEBUG
+      trace         : 'true'
+      outputters    : 
+      - datefile
+
+
+  # define all outputters (incl. formatters)
+  outputters:
+  - type: StdoutOutputter
+    name: datefile
+    dirname: "log"
+    filename: "my_app.log"
+    formatter:
+      date_pattern: '%H:%M:%S'
+      pattern     : '%d %l: %m'
+      type        : PatternFormatter
