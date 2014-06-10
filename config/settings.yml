@@ -1,7 +1,2 @@
-magic_number: 890980
 
-xmpp:
-  server : localhost
-  admin  :
-    account   : bot01
-    password  : 1234
+

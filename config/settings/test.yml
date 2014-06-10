@@ -1,0 +1,12 @@
+xmpp:
+  server : 54.187.136.193
+  admin  :
+    account   : admin
+    password  : password
+  bots : 
+    - bot01@localhost
+    - bot02@localhost
+    - bot03@localhost
+    - bot04@localhost
+    - bot05@localhost
+    - bot06@localhost

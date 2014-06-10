@@ -1,0 +1,15 @@
+magic_number: 890980
+xmpp:
+  server : localhost
+  admin  :
+    account   : bot01
+    password  : 1234567
+  bots : 
+    - bot01@localhost
+    - bot02@localhost
+    - bot03@localhost
+    - bot04@localhost
+    - bot05@localhost
+    - bot06@localhost
+    - bot07@localhost
+    - bot08@localhost

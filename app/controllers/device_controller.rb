@@ -14,7 +14,7 @@ class DeviceController < ApplicationController
 
     device_session_checkin
     
-  	render :json => {:error => "Success", :ip => request.remote_ip.gsub('.', ''), :device => @device.inspect, :account => @account.inspect, :permit => params.permit(:mac_address, :serial_number), :apply_reuslt => @apply_reuslt.inspect}
+  	render :json => {:xmpp_account => @account[:name], :xmpp_password => @account[:password], :xmpp_bots => Settings.xmpp.bots}
   end
 
   private
@@ -31,16 +31,19 @@ class DeviceController < ApplicationController
 
   def xmpp_checkin
 
+    xmpp_host = Settings.xmpp.server
+    admin_username = Settings.xmpp.admin.account
+    admin_password = Settings.xmpp.admin.password
+
     if(@device.device_session.nil?)
-      connect_to_xmpp("bot01@localhost", "1234567")
+      connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
       @account = {:name => generate_new_username, :password => generate_new_passoword}
     else
-      connect_to_xmpp(@device.device_session.xmpp_account + "@localhost", @device.device_session.password)
+      connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
       @account = {:name => @device.device_session.xmpp_account, :password => generate_new_passoword}
     end
 
     apply_for_xmpp_account
-    # @session = @device.build_device_session(:ip => request.remote_ip)
   end
 
   def connect_to_xmpp (username, password)
@@ -101,7 +104,8 @@ class DeviceController < ApplicationController
     signature_inside = sha224.hexdigest(data)
 
     unless signature == signature_inside
-	    render :json => {:error => "Failure", :signature => signature_inside}
+      # , :signature => signature_inside
+	    render :json => {:error => "Failure"}, :status => 503
 	  end
   end
 end
