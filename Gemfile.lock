@@ -122,7 +122,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   log4r
-  mysql2
+  mysql2 (= 0.3.16)
   rails (= 4.1.0)
   rails_config
   sass-rails (~> 4.0.3)
