@@ -41,3 +41,6 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'log4r'
+gem 'xmpp4r'
+gem 'rails_config'
