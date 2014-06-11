@@ -105,7 +105,7 @@ class DeviceController < ApplicationController
 
     unless signature == signature_inside
       # , :signature => signature_inside
-	    render :json => {:error => "Failure"}, :status => 503
+	    render :json => {:error => "Failure"}, :status => 400
 	  end
   end
 end

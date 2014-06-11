@@ -1,12 +1,12 @@
 xmpp:
-  server : 54.187.136.193
+  server : xmpp.pcloud.ecoworkinc.com
   admin  :
     account   : admin
-    password  : password
+    password  : abcdefg
   bots : 
-    - bot01@localhost
-    - bot02@localhost
-    - bot03@localhost
-    - bot04@localhost
-    - bot05@localhost
-    - bot06@localhost
+    - bot01@xmpp.pcloud.ecoworkinc.com
+    - bot02@xmpp.pcloud.ecoworkinc.com
+    - bot03@xmpp.pcloud.ecoworkinc.com
+    - bot04@xmpp.pcloud.ecoworkinc.com
+    - bot05@xmpp.pcloud.ecoworkinc.com
+    - bot06@xmpp.pcloud.ecoworkinc.com
