@@ -89,7 +89,7 @@ class DeviceController < ApplicationController
 
   def validate_signature
 
-  	magic_number = 123
+  	magic_number = Settings.magic_number
   	mac_address = params[:mac_address] || ''
   	serial_number = params[:serial_number] || ''
   	model_name = params[:model_name] || ''
@@ -97,11 +97,11 @@ class DeviceController < ApplicationController
   	signature = params[:signature] || ''
   	algo = params[:algo]
 
-    logger.warn "signature:" + signature
-
   	data = mac_address + serial_number.to_s + model_name + firmware_version + magic_number.to_s
     sha224 = OpenSSL::Digest::SHA224.new
     signature_inside = sha224.hexdigest(data)
+
+    logger.debug "signature:" + signature_inside
 
     unless signature == signature_inside
       # , :signature => signature_inside
