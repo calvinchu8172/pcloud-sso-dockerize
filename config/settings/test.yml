@@ -1,3 +1,4 @@
+magic_number: 0800
 xmpp:
   server : xmpp.pcloud.ecoworkinc.com
   admin  :
