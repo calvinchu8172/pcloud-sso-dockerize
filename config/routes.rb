@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root 'welcome#index'
+
+  devise_for :users
   get 'device/register'
 
   post '/d/1/:action' => "device"

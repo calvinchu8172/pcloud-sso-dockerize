@@ -45,3 +45,9 @@ gem 'log4r'
 gem 'xmpp4r'
 gem 'rails_config'
 gem 'unicorn'
+# portal
+gem 'bootstrap-sass'
+#  Devise 3.1 no longer signs the user automatically in after confirmation
+gem 'devise', '3.1.0'
+gem 'devise-i18n'
+gem 'rails-i18n'
