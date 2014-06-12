@@ -9,12 +9,10 @@ class DeviceController < ApplicationController
   def register
 
     @device = Device.checkin(api_permit)
-
     xmpp_checkin
-
     device_session_checkin
     
-  	render :json => {:xmpp_account => @account[:name], :xmpp_password => @account[:password], :xmpp_bots => Settings.xmpp.bots}
+  	render :json => {:xmpp_account => @account[:name] + "@" + Settings.xmpp.server, :xmpp_password => @account[:password], :xmpp_bots => Settings.xmpp.bots}
   end
 
   private
