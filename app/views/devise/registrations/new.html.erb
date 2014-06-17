@@ -5,6 +5,11 @@
     <%= devise_error_messages! %>
 
     <div class="form-group">
+      <%= f.label :email%>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :first_name, for: "first_name" %>
       <%= f.text_field :first_name, autofocus: true, id: "first_name", class: "form-control" %>
     </div>
@@ -14,10 +19,7 @@
       <%= f.text_field :last_name, id: "last_name", class: "form-control" %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :email%>
-      <%= f.email_field :email, class: "form-control" %>
-    </div>
+    
     <div class="form-group">
       <%= f.label :password %>
       <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
@@ -29,13 +31,45 @@
     </div>
 
     <div class="form-group">
+
       <%= f.label :gender, for: "gender" %>
-      <%= f.text_field :gender, id: "gender", class: "form-control" %>
+      <%= f.radio_button :gender, "1"%>
+      <%= label :gender, 'Male', for: "user_gender_1"%>
+      <%= f.radio_button :gender, "2"%>
+      <%= label :gender, 'Female', for: "user_gender_2"%>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :birthday, for: "birthday" %>
+      <%= f.date_select :birthday, {:include_blank => true, :start_year => 1992, :end_year => 2010}, id: "birthday"%>
     </div>
 
     <div class="form-group">
       <%= f.label :mobile_number, for: "mobile_number" %>
       <%= f.text_field :mobile_number, id: "mobile_number", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :language, for: "mobile_number" %>
+      <%= f.select :language, @locale_options, id: "language", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :country %>
+      <%= f.country_select :country, {'' => ''}  %>
+    </div>
+
+    <div class="form-group">
+      <%= f.check_box :agreement %>
+      <%= label :agreement, 'I agree to ', for: "user_agreement" %>
+      terms
+    </div>
+    <div class="form-group">
+      <%= f.check_box :edm_accept %>
+      <%= label :edm_accept, 'I accept edm', for: "user_edm_accept" %>
+    </div>
+    <div class="form-group">
+      <%= recaptcha_tags ajax: true %>
     </div>
 
     <div><%= f.submit "Sign up", class: "btn btn-default" %></div>

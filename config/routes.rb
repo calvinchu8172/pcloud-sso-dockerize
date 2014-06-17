@@ -1,10 +1,23 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
 
-  devise_for :users
+  get 'hint/signup'
+  get 'hint/confirm'
+
+  get 'registrations/success'
+
+  # devise_scope :user do
+  #   get '/confirmation-getting-started' => 'registrations#getting_started', as: 'confirmation_getting_started'
+  # end
+
+  root 'device#register'
+
+  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations' }
+
   get 'device/register'
 
   post '/d/1/:action' => "device"
+
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

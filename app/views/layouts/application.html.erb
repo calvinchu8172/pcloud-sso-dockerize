@@ -7,11 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+	<div>
+      <h1>Personal Cloud</h1>
+	</div>
     <div class="container">
-      <%= yield %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+      
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <% if flash[:error] %>  
+        <p class="error"><%= flash[:error] %></p>
+      <% end %>
+      <%= yield %>  
     </div>
     
 </body>
