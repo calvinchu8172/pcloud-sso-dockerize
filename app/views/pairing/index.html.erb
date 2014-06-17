@@ -1,0 +1,24 @@
+<h1>Find devices</h1>
+<div class="pairing">
+
+  <%# Top content - result text and re-find button %>
+  <div class="top-content row">
+    <div class="result_text col-xs-7 col-sm-7">
+  	  搜尋結果
+    </div>
+    <div class="col-xs-5 col-xs-5">
+      <button class="btn btn-deafult">重新搜尋</button>
+    </div>
+  </div>
+  <%# Top content end %>
+
+  <%# device list is render from pairing/shard folder %>
+	<%= render 'pairing/shared/device_list' %>
+	<%# device list end %>
+
+	<%# bottom content - Manually Add button %>
+	<div class="bottom-content">
+		<%= link_to('手動加入裝置', pairing_add_path(), class: "btn-primary") %>
+	</div>
+	<%# bottom content %>
+</div>

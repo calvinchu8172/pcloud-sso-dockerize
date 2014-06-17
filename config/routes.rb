@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
 
+  resources :devices
   get 'hint/signup'
   get 'hint/confirm'
+  
+  get 'pairing/index'
+  get 'pairing/find'
+  get 'pairing/add'
+  get 'pairing/unpairing'
+  get 'pairing/success'
+  get 'pairing/check'
 
   get 'registrations/success'
 
