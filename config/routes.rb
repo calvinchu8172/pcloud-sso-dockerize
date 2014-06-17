@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   #   get '/confirmation-getting-started' => 'registrations#getting_started', as: 'confirmation_getting_started'
   # end
 
-  root 'device#register'
+  root 'hint#signup'
 
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations' }
 
