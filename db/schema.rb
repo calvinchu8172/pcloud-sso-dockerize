@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616064339) do
+ActiveRecord::Schema.define(version: 20140617105133) do
 
   create_table "device_sessions", force: true do |t|
     t.integer  "device_id"
@@ -35,6 +35,18 @@ ActiveRecord::Schema.define(version: 20140616064339) do
 
   add_index "devices", ["serial_number", "mac_address"], name: "index_devices_on_serial_number_and_mac_address", using: :btree
 
+  create_table "paring_sessions", force: true do |t|
+    t.integer  "user_id",                null: false
+    t.integer  "device_id",              null: false
+    t.integer  "status",     default: 0, null: false
+    t.datetime "exprie_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "paring_sessions", ["device_id"], name: "index_paring_sessions_on_device_id", using: :btree
+  add_index "paring_sessions", ["user_id"], name: "index_paring_sessions_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
     t.string   "encrypted_password",                 default: "", null: false
@@ -46,9 +58,6 @@ ActiveRecord::Schema.define(version: 20140616064339) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"
@@ -56,6 +65,9 @@ ActiveRecord::Schema.define(version: 20140616064339) do
     t.integer  "gender"
     t.string   "mobile_number"
     t.boolean  "is_accept_edm"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "language",               limit: 30
     t.datetime "birthday"
@@ -63,6 +75,7 @@ ActiveRecord::Schema.define(version: 20140616064339) do
     t.string   "country",                limit: 100,              null: false
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
