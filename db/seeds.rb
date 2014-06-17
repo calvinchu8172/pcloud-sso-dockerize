@@ -9,9 +9,14 @@
 
 @localip = '127.0.0.1'
 
+product_list = [
+	Product.create(:name => 'NSA325', :model_name => 'SHG3505'), 
+	Product.create(:name => 'NSA320S', :model_name => 'NSA325'),
+	Product.create(:name => 'NSA310', :model_name => 'BCG230')]
+
 12.times do |num|
   
-  device_params = {:mac_address => Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2), :serial_number => Faker::Address.building_number, :model_name => Faker::Code.isbn, :firmware_version => 'v' + Faker::Address.zip_code}
+  device_params = {:mac_address => Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2), :serial_number => Faker::Address.building_number, :model_name => product_list.sample.model_name, :firmware_version => 'v' + Faker::Address.zip_code}
   @device = Device.create(device_params)
 
   ip = @localip
