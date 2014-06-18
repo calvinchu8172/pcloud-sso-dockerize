@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
 
   resources :devices
+
+  post '/d/1/:action' => "device"
+  
   get 'hint/signup'
   get 'hint/confirm'
   
+  root 'hint#signup'
+
+  get '/:controller(/:action(/:id))(.format)'
+
   get 'pairing/index'
   get 'pairing/find'
   get 'pairing/add'
@@ -13,17 +20,13 @@ Rails.application.routes.draw do
 
   get 'registrations/success'
 
-  # devise_scope :user do
-  #   get '/confirmation-getting-started' => 'registrations#getting_started', as: 'confirmation_getting_started'
-  # end
-
-  root 'hint#signup'
+  
 
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations' }
 
   get 'device/register'
 
-  post '/d/1/:action' => "device"
+  
 
   
 

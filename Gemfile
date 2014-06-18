@@ -52,3 +52,7 @@ gem 'rails-i18n'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'countries', :require => 'iso3166'
 gem 'country_select'
+
+group :test, :development do
+  gem 'faker'
+end

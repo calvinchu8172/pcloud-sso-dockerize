@@ -1,5 +1,6 @@
 class Device < ActiveRecord::Base
 
+  belongs_to :product, foreign_key: 'model_name', primary_key: 'model_name'
   has_one :device_session
 
   def self.checkin args

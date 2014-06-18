@@ -1,5 +1,6 @@
-<div class="devices_list">
-  <div class="device">
+<ul class="devices_list" class="list-unstyled">
+  <% @device_session_list.each { |device_session| %>
+  <li class="device">
     <div class="device_img">
       <%= image_tag 'tmp.jpg', size: "60" %> 
     </div>
@@ -11,5 +12,6 @@
       </div>
   	<% end %>
 
-  </div>
-</div>
+  </li>
+  <% } %>
+</ul>
