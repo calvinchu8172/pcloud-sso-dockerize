@@ -38,5 +38,12 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 's3-pcloud-test',
+      :access_key_id => 'AKIAJS52YFZUARWCSMVQ',
+      :secret_access_key => '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'
+    }
+  }
 end
