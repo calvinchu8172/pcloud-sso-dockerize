@@ -14,7 +14,7 @@
     <% @device_session_list.each { |device_session| %>
       <li class="device">
         <div class="device_img">
-          <%= image_tag 'tmp.jpg', size: "60" %> 
+          <%= image_tag device_session.device.product.asset.url(:square), size: "60" %> 
         </div>
         <div class="device_name"><%= device_session.device.product.name %></div>
 
@@ -40,5 +40,5 @@
 
 </div>
 <script type="text/javascript">
-  var data = <%= @data.html_safe %>;
+  var data = <%= @result.html_safe %>;
 </script>

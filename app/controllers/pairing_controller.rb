@@ -3,31 +3,12 @@ class PairingController < ApplicationController
     # @ip = request.remote_ip
     @device_session_list = DeviceSession.where(:ip => request.remote_ip)
 
-    @data = @device_session_list.to_json(
-            {:only => 
-              [:id], 
-             :include => {
-                :device => {
-                  :only => [:id],
-                  :include => 
-                    :product 
-                }}})
+    @result = @device_session_list.map{|session| {:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url}}.to_json
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { 
-        render :json => 
-          @device_session_list.to_json(
-            {:only => 
-              [:id], 
-             :include => {
-                :device => {
-                  :only => [:id],
-                  :include => :product
-                }
-              }
-            }
-          ) 
+        render :json => @result
       }
     end
   end
