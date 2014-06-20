@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_filter :set_locale
 
+  def check_login
+
+    if not user_signed_in?
+      logger.debug 'not login yet'
+      redirect_to new_user_session_path
+      #redirect_to :controller => '/message', :action => 'landing'
+    end
+  end
+
   protected
 
     def configure_devise_permitted_parameters

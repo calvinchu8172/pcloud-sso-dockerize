@@ -1,29 +1,36 @@
 Rails.application.routes.draw do
 
-  resources :devices
-  get 'hint/signup'
-  get 'hint/confirm'
+  # resources :devices
+
+  # post '/d/1/:action' => "device"
   
-  get 'pairing/index'
-  get 'pairing/find'
-  get 'pairing/add'
-  get 'pairing/unpairing'
-  get 'pairing/success'
-  get 'pairing/check'
+  # get 'hint/signup'
+  # get 'hint/confirm'
+  # get 'pairing/index'
+  
+  # get 'pairing/add'
+  root 'hint#signup'
+
+  # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  get '/:controller(/:action(/:id))(.format)'
+  
+  # get ':controller(/:action(/:id))'
+
+  # get 'pairing/index'
+  # get 'pairing/find'
+  # get 'pairing/add'
+  # get 'pairing/unpairing'
+  # get 'pairing/success'
+  # get 'pairing/check'
 
   get 'registrations/success'
-
-  # devise_scope :user do
-  #   get '/confirmation-getting-started' => 'registrations#getting_started', as: 'confirmation_getting_started'
-  # end
-
-  root 'hint#signup'
 
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations' }
 
   get 'device/register'
 
-  post '/d/1/:action' => "device"
+  
 
   
 
