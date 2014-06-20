@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   post 'pairing/search'
 
   # get 'pairing/add'
-  root 'hint#signup'
+  root 'pairing#index'
 
-  # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
   get '/:controller(/:action(/:id))(.format)'
   
