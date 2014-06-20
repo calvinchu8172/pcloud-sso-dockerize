@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620065345) do
+ActiveRecord::Schema.define(version: 20140620083418) do
 
   create_table "device_sessions", force: true do |t|
     t.integer  "device_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140620065345) do
     t.integer  "user_id",                null: false
     t.integer  "device_id",              null: false
     t.integer  "status",     default: 0, null: false
-    t.datetime "exprie_at",              null: false
+    t.datetime "expire_at",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
