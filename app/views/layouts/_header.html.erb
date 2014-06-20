@@ -1,5 +1,11 @@
-<header class="navbar-inverse">
-	<div>
-		<h1 class="title">Personal Cloud</h1>
+<header class="navbar-inverse row">
+	<h1 class="title col-xs-7 col-sm-7">Personal Cloud</h1>
+	<div class="language col-xs-5 col-xs-5">
+		<div>
+		  <%= I18n.t('labels.language') %>
+
+		  <%# This inline script is temporary %>
+		  <%= select_tag :locale, options_for_select(@locale_options, I18n.locale.to_s), onchange: "if (location.href.match(/locale=[a-z\\-]+/)) { location.href = location.href.replace(/locale=([a-z\\-]+)/, 'locale=' + this.value); } else { location.href += ((location.href.match(/\\?/)) ? '&' : '?') + 'locale=' + this.value; }" %>
+		</div>
 	</div>
 </header>

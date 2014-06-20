@@ -3,6 +3,10 @@ class Device < ActiveRecord::Base
   belongs_to :product, foreign_key: 'model_name', primary_key: 'model_name'
   has_one :device_session
 
+  before_save { mac_address.downcase! }
+  VALID_MAC_ADDRESS_REGEX = /^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i
+  validates :mac_address, format: { with VALID_MAC_ADDRESS_REGEX }
+
   def self.checkin args
 
   	result = self.where( args.permit(:mac_address, :serial_number))

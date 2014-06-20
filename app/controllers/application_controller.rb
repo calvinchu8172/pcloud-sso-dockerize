@@ -32,7 +32,16 @@ class ApplicationController < ActionController::Base
       
     end
 
+    # i18n setting
     def set_locale
-      @locale_options = { :English => 'en', :Italiano => 'it'}
+      if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym) 
+        session[:locale] = params[:locale]
+      end
+      I18n.locale = session[:locale] || I18n.default_locale
+
+      # language select option
+      @locale_options = { :English => 'en', 
+                          :Italiano => 'it'}
     end
+    # i18n setting - end
 end
