@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620063028) do
+ActiveRecord::Schema.define(version: 20140620065345) do
 
   create_table "device_sessions", force: true do |t|
     t.integer  "device_id"
@@ -46,6 +46,16 @@ ActiveRecord::Schema.define(version: 20140620063028) do
 
   add_index "pairing_sessions", ["device_id"], name: "index_pairing_sessions_on_device_id", using: :btree
   add_index "pairing_sessions", ["user_id"], name: "index_pairing_sessions_on_user_id", using: :btree
+
+  create_table "pairings", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pairings", ["device_id"], name: "index_pairings_on_device_id", using: :btree
+  add_index "pairings", ["user_id"], name: "index_pairings_on_user_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"
