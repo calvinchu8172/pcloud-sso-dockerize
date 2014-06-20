@@ -6,20 +6,12 @@
 		<div class="form-group">
 			<div class="tmp-form">
 			  
-			  <div>
-			    <label for="mac_address">Mac Address</label>
-          <input id="mac_address">
-        </div>
+        <%= simple_form_for @device, :url => '/pairing/search' do |f| %>
+          <%= f.input :mac_address, wrapper_html: { class: 'username' } %>
+          <%= f.input :serial_number, wrapper_html: { id: 'password' } %>
+          <%= f.button :submit %>
+        <% end %>
 
-        <div>
-          <label for="serial_number">Serial Number</label>
-          <input id="serial_number">
-        </div>
-
-        <div class="bottom-content">
-        	<button class="btn btn-primary">新增</button>
-        	<button class="btn btn-default">取消</button>
-        </div>
       </div>
 		</div>
 	</div>

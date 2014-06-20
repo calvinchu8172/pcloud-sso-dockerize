@@ -40,6 +40,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'simple_form'
+
 gem 'log4r'
 gem 'xmpp4r'
 gem 'rails_config'
@@ -58,6 +60,8 @@ gem 'rails_admin'
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
 gem 'aws-sdk'
+
+
 
 group :test, :development do
   gem 'faker'

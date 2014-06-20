@@ -1,13 +1,11 @@
 class PairingController < ApplicationController
-  # {0 => 'start', 1 => 'waiting', 2 => 'done', 3 => 'offline', 4 => 'failure'}
   
   before_filter :check_login
-  before_filter :check_device_pairing_avaliable, :only => [:check]
+  before_filter :check_device_avaliable, :only => [:check]
 
   def index
     
-    @device_session_list = DeviceSession.where("ip = ? AND device_id not in (?) AND device_id not in (?)",  request.remote_ip , PairingSession.handling_by_user(current_user.id).select(:device_id), Pairing.where(:user_id => current_user.id).select(:device_id))
-    # @device_session_list = DeviceSession.where("ip = ?", request.remote_ip)
+    @device_session_list = search_available_device.where(:ip => request.remote_ip)
 
     @result = @device_session_list.map{|session| {:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url}}.to_json
     respond_to do |format|
@@ -22,6 +20,17 @@ class PairingController < ApplicationController
   end
 
   def add
+    @device = Device.new
+  end
+
+  def search
+    device = Device.where(params['device']);
+    if device.empty?
+      flash[:alert] = "device not found"
+      redirect_to action: 'add'
+    else
+      redirect_to action: 'check', id: device.first.id
+    end
   end
 
   def unpairing
@@ -31,22 +40,41 @@ class PairingController < ApplicationController
   end
 
   def check
+
   end
 
 
 
   private 
-  def check_device_pairing_avaliable
-    device_id = params[:id]
-    redirect_to controller: "pairing", action: "index" if device_registered?(device_id) 
 
+  def search_available_device
+    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling_by_user(current_user.id).select(:device_id), Pairing.where(:user_id => current_user.id).select(:device_id))
+  end
+
+  def check_device_avaliable
+
+    device_id = params[:id]
+    if device_registered?(device_id) 
+      flash[:alert] = "device not found"
+      redirect_to controller: "pairing", action: "index" 
+    elsif handling?(current_user.id, device_id)
+      flash[:alert] = "device is pairing"
+      redirect_to controller: "pairing", action: "index" 
+    elsif paired?(current_user.id, device_id)
+      flash[:alert] = "device is paired already"
+      redirect_to controller: "pairing", action: "index" 
+    end
   end
 
   def device_registered?(device_id)
-    !(DeviceSession.where(:device_id => device_id).empty?)
+    DeviceSession.where(:device_id => device_id).empty?
   end
 
-  def paring_device?(user_id, device_id)
+  def handling?(user_id, device_id)
     !PairingSession.handling_by_user(user_id).where(:device_id => device_id).empty?
+  end
+
+  def paired?(user_id, device_id)
+    !Pairing.where(:user_id => user_id, :device_id => device_id).empty?
   end
 end
