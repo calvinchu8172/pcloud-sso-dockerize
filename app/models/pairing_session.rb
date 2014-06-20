@@ -5,7 +5,13 @@ class PairingSession < ActiveRecord::Base
   belongs_to :user
   belongs_to :device
 
-  def self.unavailable_status
-    Hash[self.statuses.sort_by { |k,v| -v }[0..1]]
+  def self.handling_status
+    self.statuses.slice(:start, :waiting, :done)
   end
+
+  def self.handling_by_user(user_id)
+  	self.where("user_id = ? AND status not in (?) AND exprie_at > NOW()", user_id, self.handling_status.map{|k,v| v}.join(','));
+  end
+
+
 end
