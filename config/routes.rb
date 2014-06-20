@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
 
-  
-  resources :devices
+  # resources :devices
 
-  post '/d/1/:action' => "device"
+  # post '/d/1/:action' => "device"
   
-  get 'hint/signup'
-  get 'hint/confirm'
-  get 'pairing/index'
-  get 'pairing/check'
-  get 'pairing/add'
+  # get 'hint/signup'
+  # get 'hint/confirm'
+  # get 'pairing/index'
+  
+  # get 'pairing/add'
   root 'hint#signup'
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  # get '/:controller(/:action(/:id))(.format)'
+  # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  get '/:controller(/:action(/:id))(.format)'
+  
   # get ':controller(/:action(/:id))'
 
   # get 'pairing/index'

@@ -1,5 +1,5 @@
 <h1>Find devices</h1>
-<div class="pairing">
+<div class="pairing" ng-app="device_list_app"  ng-controller="DeviceListCtrl">
 
   <%# Top content - result text and re-find button %>
   <div class="top-content row">
@@ -7,25 +7,19 @@
   	  搜尋結果
     </div>
     <div class="col-xs-5 col-xs-5">
-      <button class="btn btn-deafult">重新搜尋</button>
+      <button class="btn btn-deafult" ng-click="doClick()">重新搜尋</button>
     </div>
   </div>
   <ul class="devices_list" class="list-unstyled">
-    <% @device_session_list.each { |device_session| %>
-      <li class="device">
+    <li class="device" ng-repeat="device in devices">
         <div class="device_img">
-          <%= image_tag device_session.device.product.asset.url(:square), size: "60" %> 
+          <img ng-src="{{device.img_url}}" style="width:100px;">
         </div>
-        <div class="device_name"><%= device_session.device.product.name %></div>
-
-        <% if request.fullpath =~ /pairing\/index/ %>
-          <div class="device_btn">
-            <%= link_to('裝置配對', pairing_check_path(device_session), :class => "btn btn-default") %>
-          </div>
-        <% end %>
-
-      </li>
-    <% } %>
+        <div class="device_name">{{device.product_name}}</div>
+        <div class="device_btn">
+          <a href="/pairing/check/{{device.device_id}}" class="btn btn-default" >裝置配對</a>
+        </div>
+    </li>
   </ul>
   <%# Top content end %>
   <%# device list is render from pairing/shard folder %>
@@ -34,11 +28,28 @@
 
 	<%# bottom content - Manually Add button %>
 	<div class="bottom-content">
-		<%= link_to('手動加入裝置', pairing_add_path(), class: "btn-primary") %>
+		<%= link_to('手動加入裝置', "/pairing/add/", class: "btn-primary") %>
 	</div>
 	<%# bottom content %>
+  <script type="text/javascript">
+  
+    var device_list_app = angular.module('device_list_app', []);
+    device_list_app.controller('DeviceListCtrl', function ($scope, $http) {
+      $scope.devices = <%= @result.html_safe %>;
+      $scope.doClick = function() {
+        console.log('click');
+        $scope.devices = [];
+        $http.get("/pairing/index.json").success(function(response) {
+          $scope.devices = response;
+          console.log(response);
+        });
 
+        // var responsePromise = ;
+        // responsePromise.success(function(data, status, headers, config) {
+        //             // $scope.devices.fromServer = data.title;
+        //   $scope.devices = data;
+        // });
+      }
+    });
+  </script>
 </div>
-<script type="text/javascript">
-  var data = <%= @result.html_safe %>;
-</script>
