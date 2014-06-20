@@ -1,6 +1,9 @@
 class PairingController < ApplicationController
+  # {0 => 'start', 1 => 'waiting', 2 => 'done', 3 => 'offline', 4 => 'failure'}
+  
 
   before_filter :check_login
+  before_filter :check_device_pairing_avaliable, :only => [:check]
 
   def index
     
@@ -28,5 +31,16 @@ class PairingController < ApplicationController
   end
 
   def check
+  end
+
+
+
+  private 
+  def check_device_pairing_avaliable
+
+    device_id = params[:id]
+    device_session = DeviceSession.where(:device_id => device_id)
+
+    pairing_session = PairingSession.where("user_id = ? AND device_id = (?) AND status not in", current_user.id, device_id, )
   end
 end
