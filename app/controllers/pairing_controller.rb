@@ -7,11 +7,14 @@ class PairingController < ApplicationController
     
     @device_session_list = search_available_device.where(:ip => request.remote_ip)
 
-    @result = @device_session_list.map{|session| {
-      :device_id => session.device.id, 
-      :product_name => session.device.try(:product).try(:name), 
-      :img_url => session.device.product.asset.url}
-    }.to_json
+    raw_result = Array.new
+    @device_session_list.each do |session|
+
+      raw_result.push({:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url})
+    end
+
+
+    @result = raw_result.to_json
 
     respond_to do |format|
       format.html # index.html.erb
