@@ -1,5 +1,5 @@
 <h1>Find devices</h1>
-<div class="pairing" ng-app="device_list_app"  ng-controller="DeviceListCtrl">
+<div class="pairing" ng-app="device_list_app" ng-controller="DeviceListCtrl">
 
   <%# Top content - result text and re-find button %>
   <div class="top-content row">
@@ -32,12 +32,12 @@
 	</div>
 	<%# bottom content %>
   <script type="text/javascript">
-  
+    
     var device_list_app = angular.module('device_list_app', []);
     device_list_app.controller('DeviceListCtrl', function ($scope, $http) {
       $scope.devices = <%= @result.html_safe %>;
       $scope.doClick = function() {
-        console.log('click');
+        
         $scope.devices = [];
         $http.get("/pairing/index.json").success(function(response) {
           $scope.devices = response;

@@ -1,22 +1,18 @@
 Rails.application.routes.draw do
 
   # resources :devices
-
+  root 'pairing#index'
   post '/d/1/:action' => "device"
   
-  # get 'hint/signup'
-  # get 'hint/confirm'
+  get 'hint/signup'
+  get 'hint/confirm'
   # get 'pairing/index'
   
   post 'pairing/search'
 
   # get 'pairing/add'
-  root 'pairing#index'
+    
 
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  
-  get '/:controller(/:action(/:id))(.format)'
-  
   # get ':controller(/:action(/:id))'
 
   # get 'pairing/index'
@@ -31,7 +27,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations' }
 
   get 'device/register'
-
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  get '/:controller(/:action(/:id))(.format)'
 
 
   
