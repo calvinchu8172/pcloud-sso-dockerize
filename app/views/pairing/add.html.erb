@@ -4,15 +4,14 @@
 
 	<div class="device_info">
 		<div class="form-group">
-			<div class="tmp-form">
 			  
-        <%= simple_form_for @device, :url => '/pairing/search' do |f| %>
-          <%= f.input :mac_address, wrapper_html: { class: 'username' } %>
-          <%= f.input :serial_number, wrapper_html: { id: 'password' } %>
-          <%= f.button :submit %>
-        <% end %>
+      <%= simple_form_for @device, :url => '/pairing/search' do |f| %>
+        <%= f.input :mac_address, wrapper_html: { class: 'username' } %>
+        <%= f.input :serial_number, wrapper_html: { id: 'password' } %>
+        <%= f.button :submit, "Add" %>
+        <%= link_to("Cancel", "/pairing/index", class: "btn btn-default") %>
+      <% end %>
 
-      </div>
 		</div>
 	</div>
 </div>
