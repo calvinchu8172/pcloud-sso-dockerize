@@ -10,6 +10,7 @@ class PairingController < ApplicationController
     raw_result = Array.new
     @device_session_list.each do |session|
 
+      new if(session.device.product.blank?)
       raw_result.push({:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url})
     end
 
