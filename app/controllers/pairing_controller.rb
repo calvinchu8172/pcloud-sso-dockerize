@@ -1,6 +1,6 @@
 class PairingController < ApplicationController
   
-  before_filter :check_login
+  before_action :authenticate_user!
   before_filter :check_device_avaliable, :only => [:check]
 
   def index
