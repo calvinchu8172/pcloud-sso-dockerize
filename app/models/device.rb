@@ -15,6 +15,7 @@ class Device < ActiveRecord::Base
   		instance = self.create(args)
   	else
   		instance = result.first
+      instance.update_attribute(:firmware_version, args[:firmware_version]) unless args[:firmware_version] == instance.firmware_version
   	end
   	return instance
   end

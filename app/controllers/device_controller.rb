@@ -12,7 +12,7 @@ class DeviceController < ApplicationController
     xmpp_checkin
     device_session_checkin
     
-  	render :json => {:xmpp_account => @account[:name] + "@" + Settings.xmpp.server, :xmpp_password => @account[:password], :xmpp_bots => Settings.xmpp.bots}
+  	render :json => {:xmpp_account => @account[:name] + "@" + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id, :xmpp_password => @account[:password], :xmpp_bots => Settings.xmpp.bots}
   end
 
   private
@@ -23,7 +23,9 @@ class DeviceController < ApplicationController
       @session = @device.build_device_session(:ip => request.remote_ip, :xmpp_account => @account[:name], :password => @account[:password])
       @session.save
     else
-      @session = @device.device_session.update_attribute(:password, @account[:password]);
+      @session = @device.device_session.update_attributes({:ip => request.remote_ip, :password => @account[:password]});
+      # @session.ip = request.remote_ip
+      # @session.password = @account[:password]
     end
   end
 

@@ -1,9 +1,10 @@
 magic_number: 890980
 xmpp:
   server : localhost
+  device_rescource_id: device
   admin  :
     account   : bot01
-    password  : 1234567
+    password  : 1234
   bots : 
     - bot01@localhost
     - bot02@localhost
