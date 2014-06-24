@@ -1,5 +1,5 @@
 <h1>Pairing</h1>
-<div class="pairing">
+<div class="discoverer">
   <div class="sub_title">裝置配對</div>
 	<div class="device">
 		<div class="device_img">
@@ -9,7 +9,7 @@
 	</div>
 
 	<%# Pairing information content %>
-	<div class="pairing-info">
+	<div class="discoverer-info">
     <div class="check">請問您是否要與此裝置進行配對動作？</div>
     <div class="start hidden">配對開始 <br/>請於<p class="warning">10:00內</p>點擊裝置上之配對功能鍵</div>
     <div class="unconnect hidden">目前偵測不到您的裝置，請確認裝置是否連上線</div>
@@ -31,10 +31,10 @@
   		<button class="btn btn-primary">Retry</button>
   	</div>
   	<div class="check unconnect timeout">
-  	  <%= link_to("Cancel", "/pairing/index", class: "btn btn-default") %>
+  	  <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
   	</div>
   	<div class="success hidden">
-  		<%= link_to("Confirm", "pairing/index", class: "btn btn-primary") %>
+  		<%= link_to("Confirm", "discoverer/index", class: "btn btn-primary") %>
   	</div>
   </div>
   <%# end - Pairing bottom content %>

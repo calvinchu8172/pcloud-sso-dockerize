@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
 
   # resources :devices
-  root 'pairing#index'
+  root 'discoverer#index'
   post '/d/1/:action' => "device"
   
   get 'hint/signup'
   get 'hint/confirm'
   # get 'pairing/index'
   
-  post 'pairing/search'
+  post 'discoverer/search'
 
   # get 'pairing/add'
     
