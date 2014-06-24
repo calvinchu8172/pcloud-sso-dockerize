@@ -1,0 +1,13 @@
+it:
+  user:
+    labels:
+      address: Indirizzo
+      country: Paese
+      email: E-mail
+      first_name: Nome
+      last_name: Cognome
+      password: Password
+      password_confirmation: Conferma password
+      phone_number: Numero di telefono
+      remember_me: Ricordami
+      language: Lingua
