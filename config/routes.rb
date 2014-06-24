@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'pairing/index'
+  
 
   # resources :devices
   root 'discoverer#index'
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   # get 'pairing/check'
 
   get 'registrations/success'
-
+  # get '/pairing/index/:id' => "pairing#index", :constraints => {:id => /\d/}
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations' }
 
   get 'device/register'

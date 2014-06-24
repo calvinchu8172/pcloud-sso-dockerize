@@ -11,15 +11,11 @@
 	</div>
 
 	<%# Pairing information content %>
-<<<<<<< HEAD:app/views/discoverer/check.html.erb
-	<div class="discoverer-info">
-    <div class="check">請問您是否要與此裝置進行配對動作？</div>
-=======
+
 	<div class="discoverer-info ">
     <div class="check ">
       <center>請問您是否要與此裝置進行配對動作？</center>
     </div>
->>>>>>> feature/refactore_config_file:app/views/discoverer/check.html.erb
     <div class="start hidden">配對開始 <br/>請於<p class="warning">10:00內</p>點擊裝置上之配對功能鍵</div>
     <div class="unconnect hidden">目前偵測不到您的裝置，請確認裝置是否連上線</div>
     <div class="timeout hidden">您的配對已逾時，請重新操作以進行配對</div>
@@ -31,7 +27,7 @@
   <%# Pairing bottom content include confirm button, loading image, and retry button %>
 	<div class="bottom-content ">
 	  <center>
-	    <button class="btn btn-primary">Confirm</button>
+      <%= link_to("Confirm", "/pairing/index/" + @device.id.to_s, class: "btn btn-primary") %>
       <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
     </center>
   	<div class="start hidden">
@@ -40,15 +36,9 @@
   	<div class="unconnect timeout hidden">
   		<button class="btn btn-primary">Retry</button>
   	</div>
-  	<div class="check unconnect timeout">
-<<<<<<< HEAD:app/views/discoverer/check.html.erb
-  	  <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
-=======
-  	  
->>>>>>> feature/refactore_config_file:app/views/discoverer/check.html.erb
-  	</div>
+
   	<div class="success hidden">
-  		<%= link_to("Confirm", "discoverer/index", class: "btn btn-primary") %>
+  		<%= link_to("Confirm", "/" + @device_id.to_s, class: "btn btn-primary") %>
   	</div>
   </div>
   <%# end - Pairing bottom content %>

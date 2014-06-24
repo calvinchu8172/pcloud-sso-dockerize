@@ -10,8 +10,10 @@ class PairingSession < ActiveRecord::Base
   end
 
   def self.handling_by_user(user_id)
-  	self.where("user_id = ? AND status not in (?) AND expire_at > NOW()", user_id, self.handling_status.map{|k,v| v}.join(','));
+  	self.where("user_id = ? AND status in (?) AND expire_at > NOW()", user_id, self.handling_status.map{|k,v| v}.join(','));
   end
 
-
+  def self.handling()
+  	self.where("status in (?) AND expire_at > NOW()", self.handling_status.map{|k,v| v}.join(','));
+  end
 end

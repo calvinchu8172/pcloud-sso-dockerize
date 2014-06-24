@@ -43,11 +43,9 @@ class DiscovererController < ApplicationController
     @device = Device.find(params[:id])
   end
 
-
-
   private 
 
   def search_available_device
-    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling_by_user(current_user.id).select(:device_id), Pairing.where(:user_id => current_user.id).select(:device_id))
+    DeviceSession.where("device_id not in (?)" , PairingSession.handling().select(:device_id))
   end
 end
