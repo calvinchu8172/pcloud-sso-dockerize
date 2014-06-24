@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'pairing/index'
+
   # resources :devices
   root 'discoverer#index'
   post '/d/1/:action' => "device"
