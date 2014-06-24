@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620083418) do
+ActiveRecord::Schema.define(version: 20140624095145) do
 
   create_table "device_sessions", force: true do |t|
     t.integer  "device_id"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 20140620083418) do
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
   end
+
+  create_table "upnp_sessions", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "device_id"
+    t.integer  "status",       default: 0, null: false
+    t.text     "service_list"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "upnp_sessions", ["device_id"], name: "index_upnp_sessions_on_device_id", using: :btree
+  add_index "upnp_sessions", ["user_id"], name: "index_upnp_sessions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                              default: "", null: false
