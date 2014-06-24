@@ -79,7 +79,7 @@ class DeviceController < ApplicationController
   end
 
   def generate_new_username
-    'd' + request.remote_ip.gsub('.', '') + "-" + @device.mac_address[-3, 2]
+    'd' + request.remote_ip.gsub('.', '') + "-" + @device.mac_address[-2, 2]
   end
 
   def generate_new_passoword
