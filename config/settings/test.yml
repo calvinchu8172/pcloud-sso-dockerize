@@ -21,7 +21,7 @@ environments:
         s3_host_name: 's3-us-west-2.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
-    name: 'personal_cloud_queue_test'
+    name: 'personal_cloud_queue_stagging'
     attributes:
       access_key_id: 'AKIAIOKGDAZ2CJ7QW3HQ'
       secret_access_key: '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'
