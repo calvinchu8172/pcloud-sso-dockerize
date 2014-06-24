@@ -1,4 +1,4 @@
-class PairingController < ApplicationController
+class DiscovererController < ApplicationController
   
   before_action :authenticate_user!
   before_filter :check_device_avaliable, :only => [:check]
@@ -42,14 +42,11 @@ class PairingController < ApplicationController
     end
   end
 
-  def unpairing
-  end
-
   def success
   end
 
   def check
-
+    @device = Device.find(params[:id])
   end
 
 

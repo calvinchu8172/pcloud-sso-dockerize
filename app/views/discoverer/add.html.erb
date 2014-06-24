@@ -1,15 +1,15 @@
 <h1>Manually Add Device</h1>
-<div class="pairing">
+<div class="discoverer">
 	<div class="sub_title">手動加入裝置</div>
 
 	<div class="device_info">
 		<div class="form-group">
 			  
-      <%= simple_form_for @device, :url => '/pairing/search' do |f| %>
+      <%= simple_form_for @device, :url => '/discoverer/search' do |f| %>
         <%= f.input :mac_address, wrapper_html: { class: 'username' } %>
         <%= f.input :serial_number, wrapper_html: { id: 'password' } %>
         <%= f.button :submit, "Add" %>
-        <%= link_to("Cancel", "/pairing/index", class: "btn btn-default") %>
+        <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
       <% end %>
 
 		</div>

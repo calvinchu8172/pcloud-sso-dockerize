@@ -1,0 +1,1 @@
+AWS.config(Settings.environments.sqs.attributes);
