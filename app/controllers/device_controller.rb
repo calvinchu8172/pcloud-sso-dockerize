@@ -12,7 +12,9 @@ class DeviceController < ApplicationController
     xmpp_checkin
     device_session_checkin
     
-  	render :json => {:xmpp_account => @account[:name] + "@" + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id, :xmpp_password => @account[:password], :xmpp_bots => Settings.xmpp.bots}
+  	render :json => {:xmpp_account => @account[:name] + "@" + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
+                     :xmpp_password => @account[:password],
+                     :xmpp_bots => Settings.xmpp.bots}
   end
 
   private
