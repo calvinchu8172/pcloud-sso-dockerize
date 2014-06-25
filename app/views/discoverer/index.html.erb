@@ -10,7 +10,9 @@
       <button class="btn btn-deafult" ng-click="doClick()">重新搜尋</button>
     </div>
   </div>
-  <ul class="devices_list" class="list-unstyled">
+
+  <%# device list %>
+  <ul class="devices_list list-unstyled">
     <li class="device" ng-repeat="device in devices">
         <div class="device_img">
           <img ng-src="{{device.img_url}}" style="width:100px;">
@@ -21,29 +23,15 @@
         </div>
     </li>
   </ul>
+  <%# device list end %>
   <%# Top content end %>
-  <%# device list is render from pairing/shard folder %>
-	<%# render 'pairing/shared/device_list' %>
-	<%# device list end %>
 
 	<%# bottom content - Manually Add button %>
 	<div class="bottom-content">
 		<%= link_to('手動加入裝置', "/discoverer/add/", class: "btn-primary") %>
 	</div>
 	<%# bottom content %>
-  <script type="text/javascript">
-    
-    var device_list_app = angular.module('device_list_app', []);
-    device_list_app.controller('DeviceListCtrl', function ($scope, $http) {
-      $scope.devices = <%= @result.html_safe %>;
-      $scope.doClick = function() {
-        
-        $scope.devices = [];
-        $http.get("/discoverer/index.json").success(function(response) {
-          $scope.devices = response;
-          console.log(response);
-        });
-      }
-    });
-  </script>
+
+  <%# save json data in this node %>
+  <%= tag("div", data: @result, id: "device-data") %>
 </div>

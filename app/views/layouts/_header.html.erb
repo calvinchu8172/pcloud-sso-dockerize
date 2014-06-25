@@ -4,8 +4,7 @@
 		<div>
 		  <%= I18n.t('labels.language') %>
 
-		  <%# This inline script is temporary %>
-		  <%= select_tag :locale, options_for_select(@locale_options, I18n.locale.to_s), onchange: "if (location.href.match(/locale=[a-z\\-]+/)) { location.href = location.href.replace(/locale=([a-z\\-]+)/, 'locale=' + this.value); } else { location.href += ((location.href.match(/\\?/)) ? '&' : '?') + 'locale=' + this.value; }" %>
+		  <%= select_tag :locale, options_for_select(@locale_options, I18n.locale.to_s), onchange: "change_language(this)" %>
 		</div>
 	</div>
 </header>
