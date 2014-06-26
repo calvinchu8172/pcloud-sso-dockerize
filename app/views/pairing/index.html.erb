@@ -1,3 +1,96 @@
-<h1>Pairing#index</h1>
-<%= @session.inspect %>
-<p>pairing request has been sent</p>
+<h1>Pairing</h1>
+<div class="discoverer" ng-app="device_list_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>">
+  <div class="sub_title">裝置配對</div>
+	<div class="device">
+    <center>
+  		<div class="device_img">
+        <%= image_tag @device.product.asset.url :square %>
+      </div>
+      <div class="device_name"><%= @device.product.name %></div>
+    </center>
+	</div>
+
+	<%# Pairing information content %>
+
+	<div class="discoverer-info" ng-switch on="step">
+      <div ng-switch-when="checking"><center>請問您是否要與此裝置進行配對動作？</center></div>
+      <div ng-switch-when="connecting"><center>與裝置連線中..</center></div>
+      <div ng-switch-when="waiting">配對開始 <br/>請於<p class="warning">10:00內</p>點擊裝置上之配對功能鍵</div>
+      <div ng-switch-when="disconnection">目前偵測不到您的裝置，請確認裝置是否連上線</div>
+      <div ng-switch-when="failure">您的配對已逾時，請重新操作以進行配對</div>
+      <div ng-switch-when="done">已與此裝置完成配對<br/>點選“確定”按鈕以繼續設定裝置的ddns設定與uPnP設定</div>
+    </div>
+	<%# end - Pairing information content %>
+
+    <%# Pairing bottom content include confirm button, loading image, and retry button %>
+	<div class="bottom-content" ng-switch on="panel">
+	  <center>
+	  	<div  ng-switch-when="checking">
+          <%= link_to("Confirm", "/pairing/index/" + @device.id.to_s, class: "btn btn-primary") %>
+          <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
+      	</div>
+  	    <div  ng-switch-when="loading">
+  		  <%= image_tag 'loading.gif', size: "60" %> 
+  	    </div>
+  	    <div  ng-switch-when="retry">
+  		  <button class="btn btn-primary" ng-click="reconnect()">Retry</button>
+  		  <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
+  	    </div>
+
+  	    <div  ng-switch-when="done">
+  		  <%= link_to("Confirm", "/" + @device.id.to_s, class: "btn btn-primary") %>
+  	    </div>
+  	  </center>
+    </div>
+  <%# end - Pairing bottom content %>
+
+  <script type="text/javascript">
+
+    var device_list_app = angular.module('device_list_app', []);
+
+    device_list_app.controller('PairingCtrl', function ($scope, $timeout, $http) {
+      
+      $scope.step = 'connecting';
+      $scope.panel ='loading';
+
+      $scope.checkConnection = function(){
+      	console.log("check connection for device " + $scope.device_id);
+      	$http.get("/pairing/check_connection/" + $scope.sessionId).success(function(response) {
+
+      	  if('waiting' == response.status){
+      	  	console.log("in step waiting");
+      	  	console.log(response);
+      	  	$scope.step = response.status
+      	  	return;
+      	  }
+
+      	  console.log("device is offline");
+      	  $scope.step = 'disconnection';
+      	  $scope.panel = 'retry';
+      	  
+      	  console.log("check_connection:");
+          console.log(response);
+        });
+      };
+      $scope.reconnect = function(){
+      	$scope.panel = 'loading';
+      	console.log("reconnect");
+      	$http.get("/pairing/index/" + $scope.deviceId + ".json").success(function(response) {
+      	  console.log("index:");
+          console.log(response);
+          $scope.sessionId = response.id;
+          waitingForCheckConnect();
+        });
+      };
+      
+      var waitingForCheckConnect = function(){
+      	$scope.step = 'connecting';
+      	$scope.panel = 'loading';
+      	$timeout($scope.checkConnection, 9500); 	
+      }
+      
+      waitingForCheckConnect();
+    });
+
+  </script>
+</div>

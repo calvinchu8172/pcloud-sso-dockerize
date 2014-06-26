@@ -3,10 +3,10 @@
   <div class="sub_title">裝置配對</div>
 	<div class="device">
     <center>
-		<div class="device_img">
-      <%= image_tag @device.product.asset.url :square %>
-    </div>
-    <div class="device_name"><%= @device.product.name %></div>
+  		<div class="device_img">
+        <%= image_tag @device.product.asset.url :square %>
+      </div>
+      <div class="device_name"><%= @device.product.name %></div>
     </center>
 	</div>
 
@@ -38,7 +38,7 @@
   	</div>
 
   	<div class="success hidden">
-  		<%= link_to("Confirm", "/" + @device_id.to_s, class: "btn btn-primary") %>
+  		<%= link_to("Confirm", "/" + @device.id.to_s, class: "btn btn-primary") %>
   	</div>
   </div>
   <%# end - Pairing bottom content %>

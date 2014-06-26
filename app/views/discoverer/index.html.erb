@@ -4,7 +4,7 @@
   <%# Top content - result text and re-find button %>
   <div class="top-content row">
     <div class="result_text col-xs-7 col-sm-7">
-  	  搜尋結果
+  	  搜尋結果 <timer countdown="10041" max-time-unit="'minute'" interval="1000">{{mminutes}} minute{{minutesS}}, {{sseconds}} second{{secondsS}}</timer>
     </div>
     <div class="col-xs-5 col-xs-5">
       <button class="btn btn-deafult" ng-click="doClick()">重新搜尋</button>

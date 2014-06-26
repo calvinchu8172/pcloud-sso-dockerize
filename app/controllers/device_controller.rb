@@ -6,6 +6,7 @@ class DeviceController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_filter :validate_signature, :only => :register
 
+  # POST /d/1/register
   def register
 
     @device = Device.checkin(api_permit)
