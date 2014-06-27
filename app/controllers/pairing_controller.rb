@@ -3,8 +3,8 @@ class PairingController < ApplicationController
   before_action :authenticate_user!
   before_action :check_device_available, :only => :index
 
-  before_action :device_registered, :except => :index
-  before_action :paired, :except => :index
+  # before_action :check_device_registered_for_rest, :except => :index
+  # before_action :check_paired_for_rest, :except => :index
 
   before_action
 
@@ -21,7 +21,7 @@ class PairingController < ApplicationController
 
   # GET /pairing/check_connection/:id
   def check_connection
-    session_id = params[:id];
+    session_id = params[:id]
     @session = PairingSession.find(session_id)
 
     logger.debug "session: " + @session.to_json
@@ -30,6 +30,16 @@ class PairingController < ApplicationController
       @session.save!
     end
 
+    render :json => @session.to_json(:only => [:id, :status])
+  end
+
+  # GET /pairing/waiting/:id
+  def waiting
+    session_id = params[:id]
+    @session = PairingSession.find(session_id)
+
+    
+    
     render :json => @session.to_json(:only => [:id, :status])
   end
 

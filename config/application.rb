@@ -44,5 +44,8 @@ module Pcloud
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:en, :it]
     config.autoload_paths += %W(#{config.root}/lib)
+
+    # for bower install path
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
   end
 end

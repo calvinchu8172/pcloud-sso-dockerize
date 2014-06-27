@@ -12,5 +12,7 @@
 //
 // require jquery
 // require jquery_ujs
+//= require jquery/dist/jquery.min
 //= require angular
+//= require angular-timer/dist/angular-timer.min 
 //= require_tree .
