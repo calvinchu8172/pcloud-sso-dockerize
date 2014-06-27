@@ -4,20 +4,25 @@
 .personal {
   .device-box {
     width: 80%;
-    .device {
-      .device-img > img {
-        width: 100%;
-      }
-      .device-name {
-        font-size: 30px;
-      }
-      > div {
-        display: inline-block;
-        width: 20%;
-      }
-      > a {
-        width: 15%;
-      }
+  }
+  .device {
+    .device-img > img {
+      width: 100%;
     }
+    .device-name {
+      font-size: 30px;
+    }
+    > div {
+      display: inline-block;
+      width: 20%;
+    }
+    > a {
+      width: 15%;
+    }
+  }
+  .info {
+    background-color: #FFED97;
+    padding: 10px;
+    margin: 10px 0;
   }
 }

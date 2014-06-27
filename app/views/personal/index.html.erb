@@ -1,22 +1,39 @@
 <h1>My devices</h1>
 <div class="personal">
+
   <%# paired device list %>
   <div class="device-box">
     <div class="device-list">
+
+      <%# check paired devices %>
       <% if !@pairing.empty? %>
+
+        <%# show all paired devices %>
         <% @pairing.each do |pairing| %>
           <div class="device" >
-            <% device_id = pairing.device_id.to_s %>
-            <div class="device-img"><%= image_tag pairing.device.product.asset.url %></div>
-            <div class="device-name"><%= pairing.device.model_name %></div>
-            <%= link_to "DDNS 設定", "/personal/ddns/" + device_id, class: "btn btn-default" %>
-            <%= link_to "uPNP 設定", "/personal/upnp/" + device_id, class: "btn btn-default" %>
-            <%= link_to "取消配對", "/personal/unpairing/" + device_id, class: "btn btn-default" %>
+
+            <%# change the data format to string %>
+            <% pairing_id = pairing.id.to_s %>
+            
+            <div class="device-img">
+              <%= image_tag pairing.device.product.asset.url %>
+            </div>
+            <div class="device-name">
+              <%= pairing.device.model_name %>
+            </div>
+            <%= link_to "DDNS 設定", "/personal/ddns/" + pairing_id, class: "btn btn-default" %>
+            <%= link_to "uPNP 設定", "/personal/upnp/" + pairing_id, class: "btn btn-default" %>
+            <%= link_to "取消配對", "/personal/unpairing/" + pairing_id, class: "btn btn-default" %>
           </div>
         <% end %>
+        <%# show all paired devices - end %>
+
+      <%# display message if paired devices are empty %>
       <% else %>
         <div class="empty">您沒有已配對的裝置</div>
       <% end %>
+      <%# check paired devices - end %>
+
     </div>
   </div>
   <%# paired device list - end %>
