@@ -38,8 +38,6 @@ class PairingController < ApplicationController
     session_id = params[:id]
     @session = PairingSession.find(session_id)
 
-    
-    
     render :json => @session.to_json(:only => [:id, :status])
   end
 
