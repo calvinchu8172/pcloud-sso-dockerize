@@ -57,6 +57,6 @@ class PairingController < ApplicationController
     @session = PairingSession.create(:user_id => current_user.id,
                                      :device_id => @device.id,
                                      :expire_at => (Time.now + (12.minutes)))
-    # push_to_queue
+    push_to_queue
   end
 end
