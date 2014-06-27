@@ -1,7 +1,4 @@
-// Place all the styles related to the Personal controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-.personal {
+.unpairing {
   .device-box {
     width: 80%;
   }
@@ -19,5 +16,10 @@
     > a {
       width: 15%;
     }
+  }
+  .info {
+    background-color: #FFED97;
+    padding: 10px;
+    margin: 10px 0;
   }
 }

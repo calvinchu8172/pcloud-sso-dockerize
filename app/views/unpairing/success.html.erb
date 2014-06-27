@@ -1,0 +1,13 @@
+<h1>Unpairing</h1>
+
+<div class="unpairing">
+ 
+  <%# display the unpairing device %>
+  <%= render "/unpairing/device_list" %>
+
+  <%# unpairing information %>
+  <div class="info">已取消與此裝置之配對</div>
+  <%# unpairing information - end %>
+
+  <%= link_to "確定", "/personal/index", class: "btn btn-primary" %>
+</div>
