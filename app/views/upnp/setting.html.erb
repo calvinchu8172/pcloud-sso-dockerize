@@ -1,0 +1,39 @@
+<h1>UPnP Setting</h1>
+<div class="upnp">
+
+  <%# display device information %>
+  <div class="device">
+    <div class="device-img">
+      <%= image_tag @device.product.asset.url %>
+    </div>
+    <div class="device-name">
+      <%= @device.model_name %>
+    </div>
+  </div>
+  <%# display device information - end %>
+
+  <%# setting information %>
+  <div class="service-list">
+    <table>
+      <thead>
+        <tr>
+          <td>Enabled</td>
+          <td>Status</td>
+          <td>Service Name</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <%# setting information - end %>
+
+  <%# Panel %>
+  <%= link_to("Confirm", "", class: "btn btn-primary") %>
+  <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
+</div>

@@ -2,11 +2,18 @@
 
 <div class="unpairing">
   <%# display the unpairing device %>
-  <%= render "/unpairing/device_list" %>
+  <div class="device">
+    <div class="device-img">
+      <%= image_tag @device.product.asset.url %>
+    </div>
+    <div class="device-name">
+      <%= @device.model_name %>
+    </div>
+  </div>
+  <%# display the unpairing device - end %>
 
   <%# unpairing information %>
-  <div class="info">請問您是否要取消與此裝置的配對？</div>
-  <%# unpairing information - end %>
+  <div class="pairing-info">請問您是否要取消與此裝置的配對？</div>
 
   <%# unpairing button %>
   <%= link_to "確定", "/unpairing/destroy/" + params[:id].to_s, method: :delete, class: "btn btn-primary" %>

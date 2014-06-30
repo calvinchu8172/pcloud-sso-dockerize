@@ -13,7 +13,7 @@
           <div class="device" >
 
             <%# change the data format to string %>
-            <% pairing_id = pairing.id.to_s %>
+            <% device_id = pairing.device_id.to_s %>
             
             <div class="device-img">
               <%= image_tag pairing.device.product.asset.url %>
@@ -21,9 +21,9 @@
             <div class="device-name">
               <%= pairing.device.model_name %>
             </div>
-            <%= link_to "DDNS 設定", "/personal/ddns/" + pairing_id, class: "btn btn-default" %>
-            <%= link_to "uPNP 設定", "/personal/upnp/" + pairing_id, class: "btn btn-default" %>
-            <%= link_to "取消配對", "/unpairing/index/" + pairing_id, class: "btn btn-default" %>
+            <%= link_to "DDNS 設定", "/ddns/setting/" + device_id, class: "btn btn-default" %>
+            <%= link_to "uPNP 設定", "/upnp/search/" + device_id, class: "btn btn-default" %>
+            <%= link_to "取消配對", "/unpairing/index/" + pairing.id.to_s, class: "btn btn-default" %>
           </div>
         <% end %>
         <%# show all paired devices - end %>
