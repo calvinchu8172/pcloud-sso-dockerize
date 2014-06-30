@@ -2,10 +2,34 @@
 <div class="ddns">
   <%# display name of device %>
   <div class="sub-breadcrumb">
-    <%= @device.model_name + "> DDNS setting" %>
+    <%= @device.model_name %>  &gt; DDNS setting
   </div>
 
+  <%# Content %>
   <div class="setting-form">
-    
+    <%= form_for @ddns_session, url: "/ddns/check" do |f| %>
+      <div class="sub-title">Host Name</div>
+
+      <%= f.text_field :device_id, class: "hidden", value: params[:id] %>
+
+      <%# Update data when user entered the correct host name %>
+      <%= f.text_field :full_domain, class: "hidden"%>
+      <input id="ddns-host-name" type="text" onblur="check_hostname(this, 'hostname_error')">
+      <label id="domain-name" class="domain-name">.zyxelcloud.com</label>
+
+      <%# Error message for host name %>
+      <div id="hostname_error" class="error hidden">格式錯誤</div>
+
+      <%# Information for host name format %>
+      <div>注意: 名稱中不可包含以下特殊元<br /><br />
+以逗號 (，)波狀符號 (~)冒號 (:)驚嘆號 (!)數字符號 (#)<br />
+錢幣符號 ($)at 符號 (@)百分比 (%)乘冪符號 (^)連字號 (&)<br />
+單引號 (')句號 (.)括號 (())大括號 ({})底線 (_)泛空白字元 (空白)
+      </div>
+
+      <%= f.submit "Confirm", id: "submit-btn", class: "btn btn-primary", disabled: "disabled" %>
+      <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
+    <% end %>
   </div>
+  <%# Content - end %>
 </div>

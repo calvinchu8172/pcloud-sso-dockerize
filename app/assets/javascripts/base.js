@@ -11,7 +11,7 @@ function change_language(language) {
 // remove class function
 function remove_class(node, class_name) {
   if (node && node.className.match(class_name)) {
-  	var classReg = new RegExp("(.*)[^\w]\s?"+ class_name +"($|[^\w])(.*)");
+  	var classReg = new RegExp("(.*)[^\w]?\s?"+ class_name +"($|[^\w])(.*)");
   	var current_class = node.className;
   	current_class = current_class.replace(classReg, "$1 $3");
   	node.setAttribute("class", current_class);
@@ -22,5 +22,17 @@ function remove_class(node, class_name) {
 function add_class(node, class_name) {
   if (node) {
   	node.setAttribute("class", node.className + " " + class_name);
+  }
+}
+
+// change submit button status
+function trigger_submit_btn() {
+  var submit_btn = document.getElementById("submit-btn");
+  if (submit_btn) {
+    if (submit_btn.getAttribute("disabled")) {
+      submit_btn.removeAttribute("disabled");
+    } else {
+      submit_btn.setAttribute("disabled", "disabled");
+    }
   }
 }

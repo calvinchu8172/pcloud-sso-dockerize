@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'hint/signup'
   get 'hint/confirm'
   # get 'pairing/index'
-  
+  post 'ddns/check'
   post 'discoverer/search'
 
   # get 'pairing/add'

@@ -1,2 +1,13 @@
-<h1>Ddns#success</h1>
-<p>Find me in app/views/ddns/success.html.erb</p>
+<h1>DDNS Setting</h1>
+<div class="ddns">
+  <%# display name of device %>
+  <div class="sub-breadcrumb">
+    <%= @ddns_session.device.model_name %>  &gt; DDNS setting
+  </div>
+
+  <div class="success-info">
+    <div>已完成DDNS設定</div>
+    <div><%= @ddns_session.full_domain %></div>
+  </div>
+  <%= link_to "Confirm", "/personal/index", class: "btn btn-primary" %>
+</div>
