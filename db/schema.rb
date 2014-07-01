@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140627080727) do
+ActiveRecord::Schema.define(version: 20140701094929) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -87,6 +87,14 @@ ActiveRecord::Schema.define(version: 20140627080727) do
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
   end
+
+  create_table "unpairing_sessions", force: true do |t|
+    t.integer  "device_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "unpairing_sessions", ["device_id"], name: "index_unpairing_sessions_on_device_id", using: :btree
 
   create_table "upnp_sessions", force: true do |t|
     t.integer  "user_id"
