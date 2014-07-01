@@ -41,7 +41,6 @@ class UpnpController < ApplicationController
     sqs = AWS::SQS.new
     queue = sqs.queues.create(Settings.environments.sqs.name)
     queue.send_message(data.to_json)
-    render :json =>  {:result => 'success'}
   end
 
   def update_permit

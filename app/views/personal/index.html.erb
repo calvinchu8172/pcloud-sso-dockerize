@@ -22,7 +22,7 @@
               <%= pairing.device.model_name %>
             </div>
             <%= link_to "DDNS 設定", "/ddns/setting/" + device_id, class: "btn btn-default" %>
-            <%= link_to "uPNP 設定", "/upnp/search/" + device_id, class: "btn btn-default" %>
+            <%= link_to "UPnP 設定", upnp_path(device_id), class: "btn btn-default" %>
             <%= link_to "取消配對", "/unpairing/index/" + pairing.id.to_s, class: "btn btn-default" %>
           </div>
         <% end %>
