@@ -7,8 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 	<%= render 'layouts/header' %>
-  
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li>
+        <a class="btn" href="/personal/">我的裝置</a>
+      </li>
+      <li>
+        <a class="btn" href="/">搜尋裝置</a>
+      </li>
+    </ul>
+  <div>
   <div class="container">
     
     <p class="notice"><%= flash[:notice] %></p>

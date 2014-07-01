@@ -1,20 +1,18 @@
 Rails.application.routes.draw do
 
-  
-
   # resources :devices
   root 'discoverer#index'
   post '/d/1/:action' => "device"
   
   get 'hint/signup'
   get 'hint/confirm'
+  
   # get 'pairing/index'
   
   post 'discoverer/search'
 
   # get 'pairing/add'
     
-
   # get ':controller(/:action(/:id))'
 
   # get 'pairing/index'
@@ -30,12 +28,12 @@ Rails.application.routes.draw do
 
   get 'device/register'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  
+  # put 'upnp/update/:id'
+  resources :upnp
+
+  get 'upnp/check/:id' , to: 'upnp#check'
   get '/:controller(/:action(/:id))(.format)'
-
-
-  
-
-  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
