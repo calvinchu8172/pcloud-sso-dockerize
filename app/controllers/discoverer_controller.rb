@@ -8,7 +8,6 @@ class DiscovererController < ApplicationController
     @device_session_list = search_available_device.where(:ip => request.remote_ip)
     raw_result = Array.new
     @device_session_list.each do |session|
-
       next if(session.device.product.blank?)
       raw_result.push({:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url})
     end
@@ -43,6 +42,6 @@ class DiscovererController < ApplicationController
   private 
 
   def search_available_device
-    DeviceSession.where("device_id not in (?)" , PairingSession.handling().select(:device_id))
+    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling().select(:device_id), Pairing.select(:device_id))
   end
 end

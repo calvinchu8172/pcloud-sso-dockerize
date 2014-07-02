@@ -2,7 +2,7 @@ class PairingController < ApplicationController
   include PairingHelper
   before_action :authenticate_user!
   before_action :check_device_available, :only => :index
-
+  before_action :check_pairing_session, :only => [:check_connection, :waiting]
   # before_action :check_device_registered_for_rest, :except => :index
   # before_action :check_paired_for_rest, :except => :index
 
@@ -26,11 +26,8 @@ class PairingController < ApplicationController
 
     logger.debug "session: " + @session.to_json
 
-    if @session.status == "start"
-      @session.status = :offline
-      @session.save!
-    end
-
+    check_status
+    
     render :json => @session.to_json(:only => [:id, :status])
   end
 
@@ -44,6 +41,13 @@ class PairingController < ApplicationController
 
   private
 
+  def check_status
+    if @session.status == "start"
+      @session.status = :offline
+      @session.save!
+    end
+  end
+
   def push_to_queue
   	data = {:job => "pair", :session_id => @session.id}
   	sqs = AWS::SQS.new
@@ -56,6 +60,6 @@ class PairingController < ApplicationController
     @session = PairingSession.create(:user_id => current_user.id,
                                      :device_id => @device.id,
                                      :expire_at => (Time.now + (12.minutes)))
-    push_to_queue
+    # push_to_queue
   end
 end

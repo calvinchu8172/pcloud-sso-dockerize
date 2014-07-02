@@ -15,16 +15,10 @@ module PairingHelper
     end
   end
 
-  def check_device_registered_for_rest
-    render :json => {:error => 'not registered'} unless device_registered?(params[:id]) 
-  end
-  
-  def check_handling_for_rest
-    render :json => {:error => 'handling'} if handling?(params[:id])
-  end
-
-  def check_paired_for_rest
-    render :json => {:error => 'paired'} if paired?(params[:id])
+  def check_pairing_session
+    session_id = params[:id]
+    @session = PairingSession.find(session_id)
+    render :json => {:id => session_id, :status => 'invalid'} unless current_user.id == @session.user_id
   end
 
   def device_registered?(device_id)
