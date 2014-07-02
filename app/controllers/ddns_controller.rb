@@ -8,26 +8,32 @@ class DdnsController < ApplicationController
 
   def success
     @ddns_session = DdnsSession.find(params[:id])
-    connect_to_device
+  end
+
+  # set error message and redirect to setting page
+  def failure
+    flash[:error] = "更新失敗，請稍後再試!"
+    redirect_to action: 'setting', id: params[:id]
   end
 
   def check
-    ddns_params = params[:ddns_session]
-    ddns = Ddns.exists?(:full_domain => ddns_params[:full_domain])
-    puts ddns
+    @ddns_params = params[:ddns_session]
+    ddns = Ddns.exists?(:full_domain => @ddns_params[:full_domain])
 
     # If full domain was exits, it will redirct to setting page and display error message
     if ddns
-      flash[:error] = ddns_params[:full_domain]+"已存在"
-      redirect_to '/ddns/setting/' + ddns_params[:device_id]
-
-    # If full domain was not exits, it will insert data to database and redirct to success page
-    else
-      ddns_session = DdnsSession.new(device_id: ddns_params[:device_id], full_domain: ddns_params[:full_domain])
-      if ddns_session.save
-        redirect_to '/ddns/success/' + ddns_session.id.to_s
-      end
+      flash[:error] = @ddns_params[:full_domain]+"已存在"
+      redirect_to action: 'setting', id: @ddns_params[:device_id]
+      return
     end
+
+    save_ddns_setting
+  end
+
+  # send ajax
+  def status
+    @session = DdnsSession.find(params[:id])
+    render :json => @session.to_json(:only => [:id, :device_id, :full_domain, :status])
   end
 
   private
@@ -38,8 +44,12 @@ class DdnsController < ApplicationController
       queue.send_message(data.to_json)
     end
 
-    def connect_to_device
-      @session = DdnsSession.find(params[:id])
-      push_to_queue
+    # If full domain was not exits, it will insert data to database and redirct to success page
+    def save_ddns_setting
+      @session = DdnsSession.new(device_id: @ddns_params[:device_id], full_domain: @ddns_params[:full_domain])
+      if @session.save
+        push_to_queue
+        redirect_to action: 'success', id: @session.id
+      end
     end
 end
