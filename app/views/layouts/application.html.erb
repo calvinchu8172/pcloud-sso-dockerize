@@ -9,6 +9,7 @@
 <body>
 
 	<%= render 'layouts/header' %>
+  <% if user_signed_in? %>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
       <li>
@@ -19,6 +20,7 @@
       </li>
     </ul>
   <div>
+  <% end %>
   <div class="container">
     
     <p class="notice"><%= flash[:notice] %></p>
