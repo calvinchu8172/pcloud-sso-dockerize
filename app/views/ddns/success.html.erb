@@ -1,2 +1,20 @@
-<h1>Ddns#success</h1>
-<p>Find me in app/views/ddns/success.html.erb</p>
+<h1>DDNS Setting</h1>
+<div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json(:only => [:id, :device_id]) %>; checkStatus();">
+  <%# display name of device %>
+  <div class="sub-breadcrumb">
+    <%= @ddns_session.device.model_name %>  &gt; DDNS setting
+  </div>
+  <div ng-switch on="step">
+    <%# display success information when bot change the session status %>
+    <div ng-switch-when="success">
+      <div>已完成DDNS設定</div>
+      <div><%= @ddns_session.full_domain %></div>
+      <%= link_to "Confirm", "/personal/index", class: "btn btn-primary" %>
+    </div>
+    <%# display success information - end %>
+
+    <div ng-switch-when="loading">
+      <%= image_tag 'loading.gif', size: "60" %>
+    </div>
+  </div>
+</div>
