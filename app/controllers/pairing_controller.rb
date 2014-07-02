@@ -25,7 +25,8 @@ class PairingController < ApplicationController
     @session = PairingSession.find(session_id)
 
     logger.debug "session: " + @session.to_json
-    unless(@session.status.eql? 'waiting')
+
+    if @session.status == "start"
       @session.status = :offline
       @session.save!
     end

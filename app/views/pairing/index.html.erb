@@ -1,5 +1,5 @@
 <h1>Pairing</h1>
-<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>">
+<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>;waitingForCheckConnect();">
   <div class="sub_title">裝置配對</div>
 	<div class="device">
     <center>
@@ -18,6 +18,7 @@
       <div ng-switch-when="waiting">配對開始 <br/>請於<p class="warning" ><timer id="countdown-timer" countdown="600" max-time-unit="'minute'" autostart="false" interval="1000">{{mminutes}} : {{sseconds}} </timer>內</p>點擊裝置上之配對功能鍵</div>
       <div ng-switch-when="disconnection">目前偵測不到您的裝置，請確認裝置是否連上線</div>
       <div ng-switch-when="failure">您的配對已逾時，請重新操作以進行配對</div>
+      <div ng-switch-when="canceled">配對流程已取消</div>
       <div ng-switch-when="done">已與此裝置完成配對<br/>點選“確定”按鈕以繼續設定裝置的ddns設定與uPnP設定</div>
     </div>
 	<%# end - Pairing information content %>
