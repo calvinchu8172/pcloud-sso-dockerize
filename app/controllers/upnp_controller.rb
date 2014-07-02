@@ -52,7 +52,7 @@ class UpnpController < ApplicationController
     params.permit(:service_list);
   end
 
-    def get_device_info
-      @device = Device.find(params[:id])
-    end
+  def get_device_info
+    @device = Device.find(params[:id])
+  end
 end
