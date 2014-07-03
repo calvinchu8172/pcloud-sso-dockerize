@@ -26,12 +26,14 @@ function add_class(node, class_name) {
 }
 
 // change submit button status
-function trigger_submit_btn() {
+function trigger_submit_btn(status) {
   var submit_btn = document.getElementById("submit-btn");
+  // check button exist
   if (submit_btn) {
-    if (submit_btn.getAttribute("disabled")) {
+    var exist = submit_btn.getAttribute("disabled");
+    if (status == "enabled" && exist) {
       submit_btn.removeAttribute("disabled");
-    } else {
+    } else if (status == "disabled" && !exist) {
       submit_btn.setAttribute("disabled", "disabled");
     }
   }

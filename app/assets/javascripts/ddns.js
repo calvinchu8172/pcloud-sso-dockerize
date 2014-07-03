@@ -8,10 +8,10 @@ function check_hostname(hostname, node_id) {
         add_class(error_node, "hidden");
       }
       insert_value(hostname.value);
-      trigger_submit_btn();
+      trigger_submit_btn("enabled");
     } else {
       remove_class(error_node, "hidden");
-      trigger_submit_btn();
+      trigger_submit_btn("disabled");
     }
   }
 }
