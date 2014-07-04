@@ -26,6 +26,9 @@
             case 'failure':
               $scope.canceledStep();
               break;
+            case 'done':
+              $scope.completedStep();
+              break;
             default:
               //don't do anything, keep polling;
           }

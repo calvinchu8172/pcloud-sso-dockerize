@@ -56,13 +56,13 @@ gem "recaptcha", :require => "recaptcha/rails"
 gem 'countries', :require => 'iso3166'
 gem 'country_select'
 
-gem 'rails_admin'
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
 gem 'aws-sdk'
 
-
-
-group :test, :development do
+group :development do
+  gem 'rails_admin'
   gem 'faker'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
 end

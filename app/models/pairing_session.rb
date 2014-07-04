@@ -14,6 +14,6 @@ class PairingSession < ActiveRecord::Base
   end
 
   def self.handling()
-  	self.where("status in (?) AND expire_at > NOW()", self.handling_status.map{|k,v| v}.join(','));
+  	self.where("status in (?) AND expire_at > NOW()", self.handling_status.map{|k,v| v});
   end
 end
