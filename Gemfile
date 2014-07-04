@@ -59,10 +59,9 @@ gem 'country_select'
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
 gem 'aws-sdk'
-gem 'rails_admin'
+gem 'rails_admin', group: [:test, :development]
 
 group :development do
-  gem 'rails_admin'
   gem 'faker'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'

@@ -16,7 +16,7 @@
   <div class="pairing-info">請問您是否要取消與此裝置的配對？</div>
 
   <%# unpairing button %>
-  <%= link_to "確定", "/unpairing/destroy/" + params[:id].to_s, method: :delete, class: "btn btn-primary" %>
+  <%= link_to "確定", "/unpairing/destroy/" + params[:id].to_s, class: "btn btn-primary" %>
   <%= link_to "取消", "/personal/index", class: "btn btn-default" %>
   <%# unpairing button -end %>
 </div>

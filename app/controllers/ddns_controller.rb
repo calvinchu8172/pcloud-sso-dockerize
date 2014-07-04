@@ -69,7 +69,7 @@ class DdnsController < ApplicationController
     end
 
     def paired?(device_id)
-      Pairing.exists?(['device_id = ? and user_id = ?', device_id, current_user.id])
+      Pairing.exists?(['device_id = ? and user_id = ? and enabled = 1', device_id, current_user.id])
     end
 
     def error_action
