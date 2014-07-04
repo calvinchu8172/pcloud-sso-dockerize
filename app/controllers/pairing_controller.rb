@@ -3,8 +3,6 @@ class PairingController < ApplicationController
   before_action :authenticate_user!
   before_action :check_device_available, :only => :index
   before_action :check_pairing_session, :only => [:check_connection, :waiting]
-  # before_action :check_device_registered_for_rest, :except => :index
-  # before_action :check_paired_for_rest, :except => :index
 
   before_action
 

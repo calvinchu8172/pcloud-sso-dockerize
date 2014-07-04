@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   protected
-
+  
     def configure_devise_permitted_parameters
       registration_params = [:first_name, :last_name, :email, :password, :password_confirmation, :gender, :mobile_number, :birthday, :language, :edm_accept, :agreement, :country]
 
@@ -19,8 +19,6 @@ class ApplicationController < ActionController::Base
         	|u| u.permit(registration_params)
         }
       end
-
-      
     end
 
     # i18n setting
@@ -39,4 +37,16 @@ class ApplicationController < ActionController::Base
                           :Italiano => 'it'}
     end
     # i18n setting - end
+
+    def device_paired_with?
+      device_id = params[:id]
+      unless(paired?(device_id, current_user.id))
+        flash[:alert] = "invalid device"
+        redirect_to :root 
+      end
+    end
+
+    def paired?(device_id, user_id)
+      Pairing.exists?({:device_id => device_id, :user_id => user_id})
+    end
 end

@@ -1,5 +1,6 @@
 class UpnpController < ApplicationController
   before_action :authenticate_user!
+  before_action :device_paired_with?, :only => :show
   before_action :service_list_to_json, :only => :update
   
   def show
