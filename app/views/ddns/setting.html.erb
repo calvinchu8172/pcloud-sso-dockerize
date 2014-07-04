@@ -1,5 +1,5 @@
 <h1>DDNS Setting</h1>
-<div class="ddns">
+<div class="ddns" ng-app>
   <%# display name of device %>
   <div class="sub-breadcrumb">
     <%= @device.model_name %>  &gt; DDNS setting
@@ -7,18 +7,22 @@
 
   <%# Content %>
   <div class="setting-form">
-    <%= form_for @ddns_session, url: "/ddns/check" do |f| %>
+    <%= form_for @ddns_session, url: "/ddns/check", html: {name: "ddnsForm"} do |f| %>
       <div class="sub-title">Host Name</div>
 
       <%= f.text_field :device_id, class: "hidden", value: params[:id] %>
-
       <%# Update data when user entered the correct host name %>
-      <%= f.text_field :full_domain, class: "hidden"%>
-      <input id="ddns-host-name" type="text" onblur="check_hostname(this, 'hostname_error')">
+      <%= f.text_field :full_domain, class: "hidden", value: "{{ hostName }}.zyxelcloud.com" %>
+      <input id="ddns-host-name" type="text" name="hostName" ng-model="hostName" ng-trim="false" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9\-]*$/" ng-maxlength="64" ng-minlength="3">
       <label id="domain-name" class="domain-name">.zyxelcloud.com</label>
 
       <%# Error message for host name %>
-      <div id="hostname_error" class="error hidden">格式錯誤</div>
+      <div class="error" ng-show="ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid">Error:
+        <span class="error" ng-show="ddnsForm.hostName.$error.pattern">格式錯誤</span>
+        <span class="error" ng-show="ddnsForm.hostName.$error.required">Hostname 不能是空的</span>
+        <span class="error" ng-show="ddnsForm.hostName.$error.maxlength">Hostname 長度不能超過64個字元</span>
+        <span class="error" ng-show="ddnsForm.hostName.$error.minlength">Hostname 長度不能少於3個字元</span>
+      </div>
 
       <%# Information for host name format %>
       <div>注意: 名稱中不可包含以下特殊元<br /><br />
@@ -27,7 +31,7 @@
 單引號 (')句號 (.)括號 (())大括號 ({})底線 (_)泛空白字元 (空白)
       </div>
 
-      <%= f.submit "Confirm", id: "submit-btn", class: "btn btn-primary", disabled: "disabled" %>
+      <%= f.submit "Confirm", id: "submit-btn", class: "btn btn-primary", "ng-disabled" => "ddnsForm.hostName.$pristine || ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid" %>
       <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
     <% end %>
   </div>

@@ -1,6 +1,6 @@
 class DdnsController < ApplicationController
   before_action :authenticate_user!
-  before_action :device_available, :only => [:setting, :success]
+  before_action :device_available, :only => [:setting]
 
   def setting
     @ddns_session = DdnsSession.new
