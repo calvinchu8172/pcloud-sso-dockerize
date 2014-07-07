@@ -24,17 +24,3 @@ function add_class(node, class_name) {
   	node.setAttribute("class", node.className + " " + class_name);
   }
 }
-
-// change submit button status
-function trigger_submit_btn(status) {
-  var submit_btn = document.getElementById("submit-btn");
-  // check button exist
-  if (submit_btn) {
-    var exist = submit_btn.getAttribute("disabled");
-    if (status == "enabled" && exist) {
-      submit_btn.removeAttribute("disabled");
-    } else if (status == "disabled" && !exist) {
-      submit_btn.setAttribute("disabled", "disabled");
-    }
-  }
-}
