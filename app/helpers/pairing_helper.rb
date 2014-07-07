@@ -30,6 +30,6 @@ module PairingHelper
   end
 
   def paired?(device_id)
-    !Pairing.where(:device_id => device_id).empty?
+    !Pairing.enabled.where(:device_id => device_id).empty?
   end
 end

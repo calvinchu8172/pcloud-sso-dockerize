@@ -47,6 +47,6 @@ class ApplicationController < ActionController::Base
     end
 
     def paired?(device_id, user_id)
-      Pairing.exists?({:device_id => device_id, :user_id => user_id})
+      Pairing.enabled.exists?({:device_id => device_id, :user_id => user_id})
     end
 end
