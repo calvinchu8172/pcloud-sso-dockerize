@@ -1,10 +1,12 @@
 class DdnsController < ApplicationController
   before_action :authenticate_user!
   before_action :device_available, :only => [:setting]
+  before_action :validate_host_name, :only => [:check]
 
   def setting
     @ddns_session = DdnsSession.new
     @device = Device.find(params[:id])
+    @domain_name = Settings.environments.ddns
   end
 
   def success
@@ -20,11 +22,12 @@ class DdnsController < ApplicationController
   # Check full domain name
   def check
     @ddns_params = params[:ddns_session]
-    ddns = Ddns.exists?(:full_domain => @ddns_params[:full_domain])
+    @full_domain = params[:hostName] + "." + Settings.environments.ddns
+    ddns = Ddns.exists?(:full_domain => @full_domain)
 
     # If full domain was exits, it will redirct to setting page and display error message
     if ddns
-      flash[:error] = @ddns_params[:full_domain]+"已存在"
+      flash[:error] = @full_domain + "已存在"
       redirect_to action: 'setting', id: @ddns_params[:device_id]
       return
     end
@@ -49,11 +52,15 @@ class DdnsController < ApplicationController
 
     # If full domain was not exits, it will insert data to database and redirct to success page
     def save_ddns_setting
-      @session = DdnsSession.new(device_id: @ddns_params[:device_id], full_domain: @ddns_params[:full_domain])
+      @session = DdnsSession.new(device_id: @ddns_params[:device_id], full_domain: @full_domain)
       if @session.save
         push_to_queue
         redirect_to action: 'success', id: @session.id
-      end
+        return
+      end 
+
+      flash[:error] = params[:hostName] + " is invalid"
+      redirect_to action: 'setting', id: @ddns_params[:device_id]
     end
 
     # Redirct to my device page when device is not paired for current user
@@ -77,4 +84,13 @@ class DdnsController < ApplicationController
       redirect_to "/personal/index"
     end
     # Redirct to my device page when device is not paired for current user - end
+
+    def validate_host_name
+      logger.debug("host name:" + params[:hostName]);
+      if /^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:hostName]).nil?
+        flash[:error] = params[:hostName] + " is invalid"
+        logger.debug("host name:" + params[:hostName] + " is invalid");
+        redirect_to action: 'setting', id: params[:ddns_session][:device_id]
+      end
+    end
 end

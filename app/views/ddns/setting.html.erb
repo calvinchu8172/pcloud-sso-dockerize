@@ -12,9 +12,9 @@
 
       <%= f.text_field :device_id, class: "hidden", value: params[:id] %>
       <%# Update data when user entered the correct host name %>
-      <%= f.text_field :full_domain, class: "hidden", value: "{{ hostName }}.zyxelcloud.com" %>
+      
       <input id="ddns-host-name" type="text" name="hostName" ng-model="hostName" ng-trim="false" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9\-]*$/" ng-maxlength="64" ng-minlength="3">
-      <label id="domain-name" class="domain-name">.zyxelcloud.com</label>
+      <label id="domain-name" class="domain-name">.<%= @domain_name %></label>
 
       <%# Error message for host name %>
       <div class="error" ng-show="ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid">Error:
