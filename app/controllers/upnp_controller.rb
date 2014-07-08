@@ -7,7 +7,7 @@ class UpnpController < ApplicationController
     get_device_info
     @session = UpnpSession.create(:user_id => current_user.id,
                                   :device_id => @device.id)
-    # push_to_queue "upnp_query"
+    push_to_queue "upnp_query"
 
     respond_to do |format|
       format.json { render :json => @session.to_json(:only => [:id, :user_id, :device_id, :service_list]) }
@@ -26,7 +26,7 @@ class UpnpController < ApplicationController
     settings = update_permit.merge({:status => :submit})
     result = @session.update_attributes(settings);
 
-    # push_to_queue "upnp_submit" if result
+    push_to_queue "upnp_submit" if result
 
     render :json => {:result => result}.to_json
   end
