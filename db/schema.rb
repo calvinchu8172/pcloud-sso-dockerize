@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140704093701) do
+ActiveRecord::Schema.define(version: 20140707034052) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20140704093701) do
     t.integer  "device_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "enabled",    default: 1
+    t.boolean  "enabled",    default: true, null: false
   end
 
   add_index "pairings", ["device_id"], name: "index_pairings_on_device_id", using: :btree

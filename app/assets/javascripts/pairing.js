@@ -10,29 +10,45 @@
       
       $scope.step = 'connecting';
       $scope.panel ='loading';
+      $scope.watingUrl = '/pairing/waiting/';
+      $scope.checkConnectionUrl = '/pairing/check_connection/';
+      $scope.checkTimes = 0;
+      $scope.timesLimit = 16; //16
+      $scope.interval = 3500;
 
       $scope.checkConnection = function(){
-        
-        $http.get("/pairing/check_connection/" + $scope.sessionId).success(function(response) {
-
-          switch(response.status){
-            case 'offline':
-              $scope.disconnectionStep();
-              break;
-            case 'waiting':
-              $scope.step = response.status;
-              $timeout(startTimer, 1000);
-              break;
-            case 'failure':
-              $scope.canceledStep();
-              break;
-            case 'done':
-              $scope.completedStep();
-              break;
-            default:
-              //don't do anything, keep polling;
-          }
-        });
+        $timeout(function(){
+          var url = $scope.checkConnectionUrl;
+          $scope.checkTimes++;
+          console.log("tick:" + $scope.checkTimes);
+          if($scope.checkTimes < $scope.timesLimit){
+            url = $scope.watingUrl;
+          }   
+          console.log("url:" + url);
+          $http.get(url + $scope.sessionId).success(function(response) {
+            switch(response.status){
+              case 'offline':
+                $scope.disconnectionStep();
+                break;
+              case 'waiting':
+                $scope.step = response.status;
+                $timeout(startTimer, 1000);
+                break;
+              case 'failure':
+                $scope.canceledStep();
+                break;
+              case 'done':
+                $scope.completedStep();
+                break;
+              case 'start':
+                if($scope.checkTimes <= $scope.timesLimit){
+                  $scope.checkConnection();
+                  break;
+                }
+                $scope.disconnectionStep();
+                break;
+            }
+          });}, $scope.interval);
       };
 
       $scope.reconnect = function(){
@@ -49,6 +65,7 @@
 
       $scope.waitingForCheckConnect = function(){
         $scope.connectingStep();
+        $scope.checkTimes = 0;
         $timeout($scope.checkConnection, 9500);   
       }
       

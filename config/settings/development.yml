@@ -33,4 +33,5 @@ environments:
       access_key_id: 'AKIAIOKGDAZ2CJ7QW3HQ'
       secret_access_key: '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'
       region: 'us-west-2'
+  ddns: pcloud.ecoworkinc.com
 
