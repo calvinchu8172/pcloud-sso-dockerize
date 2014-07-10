@@ -11,39 +11,32 @@
 	</div>
 
 	<%# Pairing information content %>
-
 	<div class="pairing-info" ng-switch on="step">
-      <div ng-switch-when="checking"><center>請問您是否要與此裝置進行配對動作？</center></div>
-      <div ng-switch-when="connecting"><center>與裝置連線中..</center></div>
-      <div ng-switch-when="waiting">配對開始 <br/>請於<p class="warning" ><timer id="countdown-timer" countdown="600" max-time-unit="'minute'" autostart="false" interval="1000">{{mminutes}} : {{sseconds}} </timer>內</p>點擊裝置上之配對功能鍵</div>
-      <div ng-switch-when="disconnection">目前偵測不到您的裝置，請確認裝置是否連上線</div>
-      <div ng-switch-when="failure">您的配對已逾時，請重新操作以進行配對</div>
-      <div ng-switch-when="canceled">配對流程已取消</div>
-      <div ng-switch-when="done">已與此裝置完成配對<br/>點選“確定”按鈕以繼續設定裝置的ddns設定與UPnP設定</div>
-    </div>
+    <div ng-switch-when="connecting"><center>與裝置連線中..</center></div>
+    <div ng-switch-when="waiting">配對開始 <br/>請於<p class="warning" ><timer id="countdown-timer" countdown="600" max-time-unit="'minute'" autostart="false" interval="1000">{{mminutes}} : {{sseconds}} </timer>內</p>點擊裝置上之配對功能鍵</div>
+    <div ng-switch-when="disconnection">目前偵測不到您的裝置，請確認裝置是否連上線</div>
+    <div ng-switch-when="failure">您的配對已逾時，請重新操作以進行配對</div>
+    <div ng-switch-when="canceled">配對流程已取消</div>
+    <div ng-switch-when="done">已與此裝置完成配對<br/>點選“確定”按鈕以繼續設定裝置的ddns設定與UPnP設定</div>
+  </div>
 	<%# end - Pairing information content %>
 
-    <%# Pairing bottom content include confirm button, loading image, and retry button %>
+  <%# Pairing bottom content include confirm button, loading image, and retry button %>
 	<div class="bottom-content" ng-switch on="panel">
 	  <center>
-	  	<div  ng-switch-when="checking">
-        <%= link_to("Confirm", "/pairing/index/" + @device.id.to_s, class: "btn btn-primary") %>
-        <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
-      </div>
   	  <div  ng-switch-when="loading">
   		  <%= image_tag 'loading.gif', size: "60" %> 
   	  </div>
   	  <div  ng-switch-when="retry">
   	    <button class="btn btn-primary" ng-click="reconnect()">Retry</button>
-  		    <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
-  	    </div>
-  	    <div  ng-switch-when="done">
-  		    <%= link_to("Confirm", "/" + @device.id.to_s, class: "btn btn-primary") %>
-  	    </div>
-  	  </center>
-    </div>
+  		  <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
+      </div>
+  	  <div  ng-switch-when="done">
+        <% session[:first_pairing] = true %>
+  		  <%= link_to("Confirm", "/ddns/setting/" + @device.id.to_s, class: "btn btn-primary") %>
+  	  </div>
+  	</center>
+  </div>
   <%# end - Pairing bottom content %>
-
-
 </div>
 
