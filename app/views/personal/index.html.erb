@@ -6,7 +6,7 @@
     <div class="device-list">
 
       <%# check paired devices %>
-      <% if !@pairing.empty? %>
+      <% if @paired %>
 
         <%# show all paired devices %>
         <% @pairing.each do |pairing| %>
