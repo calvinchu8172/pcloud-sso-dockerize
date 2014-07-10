@@ -17,3 +17,4 @@
 //= require angular-timer/dist/angular-timer.min 
 //= require ng-table/ng-table.min
 //= require_tree .
+//= require twitter/bootstrap

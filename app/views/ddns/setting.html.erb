@@ -1,38 +1,50 @@
-<h1>DDNS Setting</h1>
 <div class="ddns" ng-app>
   <%# display name of device %>
-  <div class="sub-breadcrumb">
-    <%= @device.model_name %>  &gt; DDNS setting
+  <%# need-add-i18n %>
+  <div class="zyxel_bread">
+    <%= @device.model_name %> &gt; <span>DDNS setting</span>
   </div>
 
   <%# Content %>
-  <div class="setting-form">
+  <div class="zyxel_content">
+    <%# need-add-i18n %>
+    <h2 class="zyxel_h2">Host name:</h2>
+
     <%= form_for @ddns_session, url: "/ddns/check", html: {name: "ddnsForm"} do |f| %>
-      <div class="sub-title">Host Name</div>
 
       <%= f.text_field :device_id, class: "hidden", value: params[:id] %>
       <%# Update data when user entered the correct host name %>
       <%= f.text_field :full_domain, class: "hidden", value: "{{ hostName }}.zyxelcloud.com" %>
-      <input id="ddns-host-name" type="text" name="hostName" ng-model="hostName" ng-trim="false" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9\-]*$/" ng-maxlength="64" ng-minlength="3">
-      <label id="domain-name" class="domain-name">.zyxelcloud.com</label>
+
+      <div class="zyxel_host_name">
+        <input id="ddns-host-name" type="text" name="hostName" ng-model="hostName" ng-trim="false" required ng-pattern="/^[a-zA-Z][a-zA-Z0-9\-]*$/" ng-maxlength="64" ng-minlength="3">
+        <label id="domain-name" class="zyxel_span1">.zyxelcloud.com</label>
+      </div>
+
 
       <%# Error message for host name %>
-      <div class="error" ng-show="ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid">Error:
-        <span class="error" ng-show="ddnsForm.hostName.$error.pattern">格式錯誤</span>
-        <span class="error" ng-show="ddnsForm.hostName.$error.required">Hostname 不能是空的</span>
-        <span class="error" ng-show="ddnsForm.hostName.$error.maxlength">Hostname 長度不能超過64個字元</span>
-        <span class="error" ng-show="ddnsForm.hostName.$error.minlength">Hostname 長度不能少於3個字元</span>
+      <%# need-add-i18n %>
+      <div class="zyxel_arlert_area" ng-show="ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid">
+        <span class="error_message" ng-show="ddnsForm.hostName.$error.pattern">名稱中不可包含特殊字元</span>
+        <span class="error_message" ng-show="ddnsForm.hostName.$error.required">Hostname 不能是空的</span>
+        <span class="error_message" ng-show="ddnsForm.hostName.$error.maxlength">Hostname 長度不能超過64個字元</span>
+        <span class="error_message" ng-show="ddnsForm.hostName.$error.minlength">Hostname 長度不能少於3個字元</span>
       </div>
+      <%# Error message for host name - end %>
 
       <%# Information for host name format %>
-      <div>注意: 名稱中不可包含以下特殊元<br /><br />
-以逗號 (，)波狀符號 (~)冒號 (:)驚嘆號 (!)數字符號 (#)<br />
-錢幣符號 ($)at 符號 (@)百分比 (%)乘冪符號 (^)連字號 (&)<br />
-單引號 (')句號 (.)括號 (())大括號 ({})底線 (_)泛空白字元 (空白)
-      </div>
+      <%# need-add-i18n %>
+      <span class="zyxel_note">注意: 名稱中不可包含以下特殊字元<br />
+逗號( ， )、波狀符號( ~ )、冒號( ： )、驚嘆號(！ )、數字符號( ＃ )、
+錢幣符號( ＄ )、at符號( @ )、百分比( ％ )、乘幕符號( ＾ )、連字號( ＆ )、
+單引號( ' )、句號( ． )、括號( (  ) )、大括號( { } )、底線( ＿ )、空白字元(  )
+      </span>
 
-      <%= f.submit "Confirm", id: "submit-btn", class: "btn btn-primary", "ng-disabled" => "ddnsForm.hostName.$pristine || ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid" %>
-      <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
+      <div class="zyxel_btn_area">
+        <%# need-add-i18n %>
+        <%= link_to("Cancel", "/personal/index", class: "zyxel_btn_back") %>
+        <%= f.submit "Confirm", id: "submit-btn", class: "zyxel_btn_submit", "ng-disabled" => "ddnsForm.hostName.$pristine || ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid" %>
+      </div>
     <% end %>
   </div>
   <%# Content - end %>

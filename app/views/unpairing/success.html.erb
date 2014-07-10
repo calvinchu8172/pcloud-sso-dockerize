@@ -1,20 +1,26 @@
-<h1>Unpairing</h1>
-
 <div class="unpairing">
- 
-  <%# display the unpairing device %>
-  <div class="device">
-    <div class="device-img">
-      <%= image_tag @device.product.asset.url %>
+  <%# need-add-i18n %>
+  <div class="zyxel_bread">
+    <%= @device.model_name %> &gt; <span> Unpairing</span>
+  </div> 
+
+  <div class="zyxel_content">
+     
+    <%# display the unpairing device %>
+    <div class="zyxel_device">
+      <%= image_tag @device.product.asset.url, class: "zyxel_device_image" %>
+      <h2 class="zyxel_h2_icon1"><%= @device.model_name %></h2>
     </div>
-    <div class="device-name">
-      <%= @device.model_name %>
+    <%# display the unpairing device - end %>
+
+    <%# unpairing information %>
+    <%# need-add-i18n %>   
+    <span class="zyxel_span2">已取消與此裝置之配對</span>
+    <%# unpairing information - end %>
+
+    <div class="zyxel_btn_area">
+        <%= link_to "確定", "/personal/index", class: "zyxel_btn_ok" %>
     </div>
+
   </div>
-
-  <%# unpairing information %>
-  <div class="info">已取消與此裝置之配對</div>
-  <%# unpairing information - end %>
-
-  <%= link_to "確定", "/personal/index", class: "btn btn-primary" %>
 </div>

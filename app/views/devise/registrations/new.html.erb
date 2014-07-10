@@ -1,80 +1,169 @@
-<h1><%= I18n.t("titles.sign_up") %></h1>
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
+<div class="zyxel_bread"><%= I18n.t("titles.sign_up") %></div>
 
-      <div class="form-group">
-        <%= f.label :email, I18n.t("user.labels.email") %>
-        <%= f.email_field :email, class: "form-control" %>
-      </div>
+<div class="zyxel_content">
+  <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <fieldset>
+      <table class="zyxel_table_style">
 
-      <div class="form-group">
-        <%= f.label :first_name, I18n.t("user.labels.first_name"), for: "first_name" %>
-        <%= f.text_field :first_name, autofocus: true, id: "first_name", class: "form-control" %>
-      </div>
+        <%# e-Mail %>
+        <tr>
+          <th>
+            <span>* </span>
+            <%= f.label :email, I18n.t("user.labels.email"), class: "th_label" %>
+          </th>
+          <td colspan="3">
+            <%= f.email_field :email, class: "input_style1 td_field" %>
+          </td>
+        </tr>
+        <%# e-Mail - end %>
 
-      <div class="form-group">
-        <%= f.label :last_name, I18n.t("user.labels.last_name"), for: "last_name" %>
-        <%= f.text_field :last_name, id: "last_name", class: "form-control" %>
-      </div>
+        <%# Password %>
+        <tr>
+          <th>
+            <span>* </span>
+            <%= f.label :password, I18n.t("user.labels.password"), class: "th_label" %>
+          </th>
+          <td colspan="3">
+            <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field" %>
+          </td>
+        </tr>
+        <%# Password -end %>
 
-      
-      <div class="form-group">
-        <%= f.label :password, I18n.t("user.labels.password") %>
-        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-      </div>
+        <tr>
+          <th>
+            <span>* </span>
+            <%= f.label :password_confirmation, I18n.t("user.labels.password_confirmation"), class: "th_label" %>
+          </th>
+          <td colspan="3">
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field" %>
+          </td>
+        </tr>
 
-      <div class="form-group">
-        <%= f.label :password_confirmation, I18n.t("user.labels.password_confirmation") %>
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-      </div>
+        <%# User name %>
+        <tr>
+          <th>
+            <%= f.label :first_name, I18n.t("user.labels.first_name") %>
+          </th>
+          <td colspan="3">
+            <%= f.text_field :first_name, autofocus: true, class: "input_style1" %>
+          </td>
+        </tr>
+        <tr>
+          <th style="width:10%">
+            <%= f.label :last_name, I18n.t("user.labels.last_name") %>
+          </th>
+          <td colspan="3">
+            <%= f.text_field :last_name, class: "input_style1" %>
+          </td>
+        </tr>
+        <%# User name - end %>
 
-      <div class="form-group">
+        <%# Gender %>
+        <tr>
+          <%# need-add-I18n %>
+          <th>
+            <%= f.label :gender %>
+          </th>
+          <td colspan="3">
+            <label class="radio-inline">
+              <%= f.radio_button :gender, "1"%>
+              <%= label :gender, 'Male' %>
+            </label>
+            <label class="radio-inline">
+              <%= f.radio_button :gender, "2"%>
+              <%= label :gender, 'Female' %>
+            </label>
+          </td>
+        </tr>
+        <%# Gender - end %>
 
-        <%= f.label :gender, for: "gender" %>
-        <%= f.radio_button :gender, "1"%>
-        <%= label :gender, 'Male', for: "user_gender_1"%>
-        <%= f.radio_button :gender, "2"%>
-        <%= label :gender, 'Female', for: "user_gender_2"%>
-      </div>
+        <%# Birthday %>
+        <tr>
+          <%# need-add-I18n %>
+          <th>
+            <%= f.label :birthday %>
+          </th>
+          <td colspan="3" class="date_select">
+            <%= f.date_select :birthday, {start_year: 1955, end_year: 2012, use_month_numbers: true, prompt: { day: 'Day', month: 'Month', year: 'Year' }}, class: "select_style" %>
+          </td>
+        </tr>
+        <%# Birthday - end %>
 
-      <div class="form-group">
-        <%= f.label :birthday, for: "birthday" %>
-        <%= f.date_select :birthday, {:include_blank => true, :start_year => 1955, :end_year => 2012}, id: "birthday"%>
-      </div>
+        <%# Phone number %>
+        <tr>
+          <th>
+            <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
+          </th>
+          <td colspan="3">
+            <%= f.text_field :mobile_number, class: "input_style1" %>
+          </td>
+        </tr>
+        <%# Phone number - end %>
 
-      <div class="form-group">
-        <%= f.label :mobile_number, I18n.t("user.labels.phone_number"), for: "mobile_number" %>
-        <%= f.text_field :mobile_number, id: "mobile_number", class: "form-control" %>
-      </div>
+        <%# Language %>
+        <tr>
+          <th>
+            <%= f.label :language, I18n.t("user.labels.language") %>
+          </th>
+          <td colspan="3">
+            <%= f.select :language, @locale_options, {}, {class: "select_style"} %>
+          </td>
+        </tr>
+        <%# Language - end %>
 
-      <div class="form-group">
-        <%= f.label :language, I18n.t("user.labels.language") %>
-        <%= f.select :language, @locale_options, id: "language", class: "form-control" %>
-      </div>
+        <%# Country %>
+        <tr>
+          <th>
+            <%= f.label :country, I18n.t("user.labels.country") %>
+          </th>
+          <td colspan="3">
+            <%= f.country_select :country, {'' => ''}, {}, {class: "select_style"} %>
+          </td>
+        </tr>
+        <%# Country - end %>
 
-      <div class="form-group">
-        <%= f.label :country, I18n.t("user.labels.country") %>
-        <%= f.country_select :country, {'' => ''}  %>
-      </div>
+        <%# Recaptcha %>
+        <tr>
+          <%# need-add-I18n %>
+          <th><span>* </span>驗證碼</th>
+          <td colspan="3">
+            <%= recaptcha_tags ajax: true %>
+            <% if flash[:alert] %>
+              <div class="error">
+                <div class="zyxel_arlert_area">
+                  <label class="error_message"><%= flash[:alert] %></label>
+                </div>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+        <%# Recaptcha - end %>
 
-      <div class="form-group">
-        <%= f.check_box :agreement %>
-        <%= label :agreement, 'I agree to ', for: "user_agreement" %>
-        terms
-      </div>
-      <div class="form-group">
-        <%= f.check_box :edm_accept %>
-        <%= label :edm_accept, 'I accept edm', for: "user_edm_accept" %>
-      </div>
-      <div class="form-group">
-        <%= recaptcha_tags ajax: true %>
-      </div>
+      </table>
+    </fieldset>
 
-      <div><%= f.submit I18n.t("labels.sign_up"), class: "btn btn-default" %></div>
-    <% end %>
+    <%# Terms accept %>
+    <div class="checkbox">
+      <%# need-add-I18n %>
+      <label for="user_agreement" class="checkbox_label">I agree to the <a href="#">Terms</a> of ZyXEL <span> *</span></label>
+      <%= f.check_box :agreement, class: "th_label" %>
+    </div>
+    <%# Terms accept - end %>
 
-    <%= render "devise/shared/links" %>
-  </div>
+    <%# e-Mail DM %>
+    <div class="checkbox">
+      <%# need-add-I18n %>
+      <%= f.check_box :edm_accept %>
+      <%= label :edm_accept, 'I accept edm', for: "user_edm_accept", class: "checkbox_label" %>
+    </div>
+    <%# e-Mail DM - end %>
+
+    <%# Submit and cancel button %>
+    <div class="zyxel_btn_area">
+      <%# need-add-I18n %>
+      <a href="<%= new_session_path(resource_name) %>" class="zyxel_btn_back">Cancel</a>
+      <%= f.submit I18n.t("labels.sign_up"), class: "zyxel_btn_submit" %>
+    </div>
+    <%# Submit and cancel button - end %>
+  <% end %>
 </div>

@@ -47,5 +47,10 @@ module Pcloud
 
     # for bower install path
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
+    # override ActionView::Base.field_error_proc
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      html_tag
+    }
   end
 end
