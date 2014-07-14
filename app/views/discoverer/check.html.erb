@@ -16,11 +16,6 @@
     <div class="check ">
       <center>請問您是否要與此裝置進行配對動作？</center>
     </div>
-    <div class="start hidden">配對開始 <br/>請於<p class="warning">10:00內</p>點擊裝置上之配對功能鍵</div>
-    <div class="unconnect hidden">目前偵測不到您的裝置，請確認裝置是否連上線</div>
-    <div class="timeout hidden">您的配對已逾時，請重新操作以進行配對</div>
-		<div class="success hidden">已與此裝置完成配對<br/>
-點選“確定”按鈕以繼續設定裝置的ddns設定與uPnP設定</div>
 	</div>
 	<%# end - Pairing information content %>
 
@@ -30,16 +25,6 @@
       <%= link_to("Confirm", "/pairing/index/" + @device.id.to_s, class: "btn btn-primary") %>
       <%= link_to("Cancel", "/discoverer/index", class: "btn btn-default") %>
     </center>
-  	<div class="start hidden">
-  		<%= image_tag 'loading.gif', size: "60" %> 
-  	</div>
-  	<div class="unconnect timeout hidden">
-  		<button class="btn btn-primary">Retry</button>
-  	</div>
-
-  	<div class="success hidden">
-  		<%= link_to("Confirm", "/" + @device.id.to_s, class: "btn btn-primary") %>
-  	</div>
   </div>
   <%# end - Pairing bottom content %>
 </div>

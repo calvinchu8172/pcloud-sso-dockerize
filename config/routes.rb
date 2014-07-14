@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # resources :devices
-  root 'discoverer#index'
+  root 'personal#index'
   post '/d/1/:action' => "device"
   
   get 'hint/signup'
