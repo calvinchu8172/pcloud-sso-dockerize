@@ -1,5 +1,7 @@
 # require 'xmpp4r/client'
 require 'xmpp4r'
+require 'xmpp4r/dataforms'
+require 'xmpp4r/command/iq/command'
 
 class DeviceController < ApplicationController
 
@@ -11,24 +13,65 @@ class DeviceController < ApplicationController
 
     @device = Device.checkin(api_permit)
     xmpp_checkin
+    update_checkin
     device_session_checkin
-    
-  	render :json => {:xmpp_account => @account[:name] + "@" + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
+    reset 
+
+  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
                      :xmpp_password => @account[:password],
                      :xmpp_bots => Settings.xmpp.bots}
   end
 
   private
 
-  def device_session_checkin
+  def reset
+    if params[:reset].nil? || params[:reset] != 1.to_s
+      logger.debug("don't reset");
+      return
+    end
 
+    device_id = @device.id.to_s
+
+    logger.debug("reset reset:" + params[:reset] + ", device id" + device_id)
+    pairing = Pairing.find_by_device_id(device_id)
+    return if pairing.nil?
+
+    Job::UnpairMessage.new.push_device_id(device_id)
+    pairing.disable
+  end
+
+  def device_session_checkin
+    origianl_ip = nil
+    ip = request.remote_ip
     if(@device.device_session.nil?)
-      @session = @device.build_device_session(:ip => request.remote_ip, :xmpp_account => @account[:name], :password => @account[:password])
-      @session.save
+      session = @device.build_device_session(:ip => ip, :xmpp_account => @account[:name], :password => @account[:password])
+      session.save
+      logger.info('create device session: ' + session.to_json(:except => :password))
     else
-      @session = @device.device_session.update_attributes({:ip => request.remote_ip, :password => @account[:password]});
-      # @session.ip = request.remote_ip
-      # @session.password = @account[:password]
+      origianl_ip = @device.device_session.ip;
+      session = @device.device_session.update_attributes({:ip => ip, :password => @account[:password]})
+      logger.info('update device session new password and ip: ' + ip)
+    end
+  end
+
+  # 每次device 登入，會更改DDNS 上的對應IP
+  #
+  # 以下情況忽略不做 update
+  # * 這次登入的IP 跟 上一次的一樣
+  # * 當device reset的時候
+  # * 該device 還未做過DDNS 註冊
+  def update_checkin
+
+    return if !@device.device_session.nil? && @device.device_session.ip == request.remote_ip
+    return if !params[:reset].nil? && params[:reset] == 1
+
+    ddns = Ddns.find_by_device_id(@device.id)
+    return if ddns.nil?
+    
+    ddns_session = DdnsSession.new(device_id: @device.id, full_domain: ddns.full_domain)
+    if ddns_session.save
+      logger.info("update ddns ddns_session id:" + ddns_session.id)
+      Job::DdnsMessage.new.push_session_id ddns_session.id
     end
   end
 
@@ -39,14 +82,18 @@ class DeviceController < ApplicationController
     admin_password = Settings.xmpp.admin.password
 
     if(@device.device_session.nil?)
-      connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
+      # connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
       @account = {:name => generate_new_username, :password => generate_new_passoword}
+      apply_new_account
+      logger.info('create new xmpp account:' + @account[:name]);
     else
-      connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
+      # connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
       @account = {:name => @device.device_session.xmpp_account, :password => generate_new_passoword}
+      logger.info('change password for account:' + @account[:name]);
+      apply_new_password
     end
 
-    apply_for_xmpp_account
+    # apply_for_xmpp_account
   end
 
   def connect_to_xmpp (username, password)
@@ -63,24 +110,76 @@ class DeviceController < ApplicationController
     params.permit(:mac_address, :serial_number, :model_name, :firmware_version);
   end
 
-  def apply_for_xmpp_account
+  def apply_new_account
 
     iq = Jabber::Iq.new(:set)
-    iq.id = 'change1'
-    query = Jabber::IqQuery.new
-    query.add_namespace('jabber:iq:register')
+    iq.id= "a" + generate_new_passoword
+    iq.to = Settings.xmpp.server
 
-    logger.debug "xmpp account username:" + @account[:name] + ", password:" + @account[:password]
-    query.add(REXML::Element.new('username').add_text(@account[:name]))
-    query.add(REXML::Element.new('password').add_text(@account[:password]))
-    iq.add(query)
-    @apply_reuslt = @client.send iq
+    command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#add-user')
+
+    x = Jabber::Dataforms::XData.new(:submit)
+    command.add(x)
+
+    form_type_field = Jabber::Dataforms::XDataField.new("FORM_TYPE", :hidden)
+    form_type_field.value = 'http://jabber.org/protocol/admin'
+    x.add(form_type_field)
+
+    account_field = Jabber::Dataforms::XDataField.new("accountjid", "jid-single")
+    account_field.value = @account[:name] + '@' + Settings.xmpp.server
+    x.add(account_field)
+
+    passowrd_field = Jabber::Dataforms::XDataField.new("password", "text-private")
+    passowrd_field.value = @account[:password]
+    x.add(passowrd_field)
+
+    passowrd_verify_field = Jabber::Dataforms::XDataField.new("password-verify", "text-private")
+    passowrd_verify_field.value = @account[:password]
+    x.add(passowrd_verify_field)
+
+    iq.add(command)
+    logger.debug('apply_new_account:' + iq.to_s);
+    post_to_xmpp_server iq.to_s
+  end
+
+  def apply_new_password
+
+    iq = Jabber::Iq.new(:set)
+    iq.id= "a" + generate_new_passoword
+    iq.to = Settings.xmpp.server
+
+    command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#change-user-password')
+
+    x = Jabber::Dataforms::XData.new(:submit)
+    command.add(x)
+
+    form_type_field = Jabber::Dataforms::XDataField.new("FORM_TYPE", :hidden)
+    form_type_field.value = 'http://jabber.org/protocol/admin'
+    x.add(form_type_field)
+
+    account_field = Jabber::Dataforms::XDataField.new("accountjid", "jid-single")
+    account_field.value = @account[:name] + '@' + Settings.xmpp.server
+    x.add(account_field)
+
+    passowrd_field = Jabber::Dataforms::XDataField.new("password", "text-private")
+    passowrd_field.value = @account[:password]
+    x.add(passowrd_field)
+
+    iq.add(command)
+    logger.debug('apply_new_password:' + iq.to_s);
+    post_to_xmpp_server iq.to_s
+  end
+
+  def post_to_xmpp_server(content)
+    result = RestClient.post 'http://' + Settings.xmpp.server + ':5280/rest/', content
+    logger.debug('post to xmpp server result:' + result.to_s);
   end
 
   def change_xmpp_password
     iq = Jabber::Iq.new(:set)
   end
 
+  # 產生用IP跟MAC 後兩碼的英文字母作為帳號
   def generate_new_username
     'd' + request.remote_ip.gsub('.', '') + "-" + @device.mac_address[-2, 2]
   end

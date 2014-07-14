@@ -62,6 +62,8 @@ gem 'rmagick'
 gem 'aws-sdk'
 gem 'rails_admin', group: [:test, :development]
 
+gem 'rest_client'
+
 group :development do
   gem 'faker'
   gem 'cucumber-rails', :require => false

@@ -42,22 +42,15 @@ class DdnsController < ApplicationController
   end
 
   private
-    # Push message to queue
-    def push_to_queue
-      data = {:job => "ddns", :session_id => @session.id}
-      sqs = AWS::SQS.new
-      queue = sqs.queues.create(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
-    end
 
     # If full domain was not exits, it will insert data to database and redirct to success page
     def save_ddns_setting
-      @session = DdnsSession.new(device_id: @ddns_params[:device_id], full_domain: @full_domain)
-      if @session.save
-        push_to_queue
-        redirect_to action: 'success', id: @session.id
+      job = Job::DdnsMessage.new
+      
+      if job.push({device_id: @ddns_params[:device_id], full_domain: @full_domain})
+        redirect_to action: 'success', id: job.session.id
         return
-      end 
+      end
 
       flash[:error] = params[:hostName] + " is invalid"
       redirect_to action: 'setting', id: @ddns_params[:device_id]

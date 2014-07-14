@@ -121,9 +121,6 @@ ActiveRecord::Schema.define(version: 20140707034052) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "first_name"
@@ -131,6 +128,9 @@ ActiveRecord::Schema.define(version: 20140707034052) do
     t.integer  "gender"
     t.string   "mobile_number"
     t.boolean  "is_accept_edm"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "language",               limit: 30
     t.datetime "birthday"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 20140707034052) do
     t.string   "country",                limit: 100,              null: false
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

@@ -127,6 +127,7 @@ GEM
     multi_test (0.1.1)
     mysql2 (0.3.16)
     nested_form (0.3.2)
+    netrc (0.7.7)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
@@ -177,6 +178,8 @@ GEM
       json (~> 1.4)
     recaptcha (0.3.6)
     remotipart (1.2.1)
+    rest_client (1.7.3)
+      netrc (~> 0.7.7)
     rmagick (2.13.2)
     safe_yaml (1.0.3)
     sass (3.2.19)
@@ -254,6 +257,7 @@ DEPENDENCIES
   rails_admin
   rails_config
   recaptcha
+  rest_client
   rmagick
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

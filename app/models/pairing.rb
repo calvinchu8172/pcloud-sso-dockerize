@@ -5,7 +5,8 @@ class Pairing < ActiveRecord::Base
   belongs_to :user
   belongs_to :device
 
-  def ping 
-
+  def disable
+  	self.enabled = false
+  	save
   end
 end

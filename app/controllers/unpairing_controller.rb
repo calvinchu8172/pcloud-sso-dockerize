@@ -14,7 +14,7 @@ class UnpairingController < ApplicationController
     pairing = Pairing.find(params[:id])
     pairing.enabled = 0
     pairing.save
-    push_to_queue(pairing.device_id.to_s)
+    Job::UnpairMessage.new.push_device_id(pairing.device_id.to_s)
     redirect_to "/unpairing/success/" + pairing.device_id.to_s
   end
 
@@ -29,14 +29,6 @@ class UnpairingController < ApplicationController
       else
         error_action
       end
-    end
-
-    # Push message to queue
-    def push_to_queue(device_id)
-      data = {:job => "unpair", :device_id => device_id}
-      sqs = AWS::SQS.new
-      queue = sqs.queues.create(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
     end
 
     def user_paired_with?(pairing_id)
