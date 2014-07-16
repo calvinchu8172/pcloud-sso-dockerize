@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     # i18n setting
     def set_locale
       if user_signed_in?
-        session[:locale] = current_user.language
+        session[:locale] = I18n.available_locales.include?( current_user.language.to_sym) ? current_user.language.to_sym : false
       else
         if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym) 
           session[:locale] = params[:locale]
