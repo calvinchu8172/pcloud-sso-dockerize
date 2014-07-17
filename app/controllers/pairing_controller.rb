@@ -8,12 +8,14 @@ class PairingController < ApplicationController
 
   # GET /pairing/index/:id
   def index
-    connect_to_device
+    @device = Device.find(params[:id])
+    init_session
   end
 
   # GET /pairing/reconnect/:id
   def reconnect
-    connect_to_device
+    @device = Device.find(params[:id])
+    init_session
     render :json => @session.to_json(:only => [:id, :status])
   end
 
@@ -23,7 +25,6 @@ class PairingController < ApplicationController
     @session = PairingSession.find(session_id)
 
     logger.debug "session: " + @session.to_json
-
     check_status
     
     render :json => @session.to_json(:only => [:id, :status])
@@ -46,13 +47,13 @@ class PairingController < ApplicationController
     end
   end
 
-  def push_to_queue
-  	data = {:job => "pair", :session_id => @session.id}
-  	sqs = AWS::SQS.new
-  	queue = sqs.queues.create(Settings.environments.sqs.name)
-  	queue.send_message(data.to_json)
+  def init_session
+    if @last_session.nil?
+      connect_to_device
+    else
+      @session = @last_session
+    end
   end
-
   def connect_to_device
     @device = Device.find(params[:id])
 
@@ -61,5 +62,12 @@ class PairingController < ApplicationController
               :device_id => @device.id,
               :expire_at => (Time.now + (12.minutes))})
     @session = job.session
+  end
+  def init_session
+    if @last_session.nil?
+      connect_to_device
+    else
+      @session = @last_session
+    end
   end
 end
