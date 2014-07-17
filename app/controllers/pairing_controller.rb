@@ -56,9 +56,11 @@ class PairingController < ApplicationController
   def connect_to_device
     @device = Device.find(params[:id])
 
-    job = Job::PairingMessage.new.push({:user_id => current_user.id,
-                                        :device_id => @device.id,
-                                        :expire_at => (Time.now + (12.minutes))})
+    job = Job::PairingMessage.new
+    job.push({:user_id => current_user.id,
+              :device_id => @device.id,
+              :expire_at => (Time.now + (12.minutes))})
+    @session = job.session
     # @session = PairingSession.create(:user_id => current_user.id,
     #                                  :device_id => @device.id,
     #                                  :expire_at => (Time.now + (12.minutes)))
