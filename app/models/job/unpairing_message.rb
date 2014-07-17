@@ -1,3 +1,3 @@
-class Job::UnpairingMessage < Job
+class Job::UnpairMessage < Job
 
 end

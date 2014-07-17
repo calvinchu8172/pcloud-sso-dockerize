@@ -14,7 +14,7 @@ class UnpairingController < ApplicationController
     pairing = Pairing.find(params[:id])
     pairing.enabled = 0
     pairing.save
-    Job::UnpairingMessage.new.push_device_id(pairing.device_id.to_s)
+    Job::UnpairMessage.new.push_device_id(pairing.device_id.to_s)
     redirect_to "/unpairing/success/" + pairing.device_id.to_s
   end
 
