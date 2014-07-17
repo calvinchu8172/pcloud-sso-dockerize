@@ -7,9 +7,8 @@
 
 				<%# oAuth sign in %>
 				<div class="sns_sign">
-			    <a href="#" class="zyxel_btn_sns sns_fb">Fackbook</a>
-			    <a href="#" class="zyxel_btn_sns sns_twitter">Twitter</a>
-			    <a href="#" class="zyxel_btn_sns sns_google" style="margin-right:0">Google</a>
+          <%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "zyxel_btn_sns sns_fb" %>
+          <%= link_to "Google", user_omniauth_authorize_path(:google_oauth2), class: "zyxel_btn_sns sns_google", style: "margin-right:0" %>
 				</div>
 				<%# oAuth sign in - end %>
 

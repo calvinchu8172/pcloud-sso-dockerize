@@ -12,7 +12,7 @@
             <%= f.label :email, I18n.t("user.labels.email"), class: "th_label" %>
           </th>
           <td colspan="3">
-            <%= f.email_field :email, class: "input_style1 td_field" %>
+            <%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %>
           </td>
         </tr>
         <%# e-Mail - end %>
@@ -45,7 +45,7 @@
             <%= f.label :first_name, I18n.t("user.labels.first_name") %>
           </th>
           <td colspan="3">
-            <%= f.text_field :first_name, autofocus: true, class: "input_style1" %>
+            <%= f.text_field :first_name, class: "input_style1" %>
           </td>
         </tr>
         <tr>
