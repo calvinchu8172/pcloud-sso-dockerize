@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707034052) do
+ActiveRecord::Schema.define(version: 20140717093812) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20140707034052) do
 
   add_index "ddns", ["device_id"], name: "index_ddns_on_device_id", using: :btree
   add_index "ddns", ["full_domain"], name: "index_ddns_on_full_domain", unique: true, using: :btree
+
+  create_table "ddns_retry_sessions", force: true do |t|
+    t.integer  "device_id",                 null: false
+    t.string   "full_domain", default: "0", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ddns_retry_sessions", ["device_id"], name: "index_ddns_retry_sessions_on_device_id", using: :btree
 
   create_table "ddns_sessions", force: true do |t|
     t.integer  "device_id"

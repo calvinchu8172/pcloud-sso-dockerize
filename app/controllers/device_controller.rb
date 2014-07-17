@@ -36,7 +36,7 @@ class DeviceController < ApplicationController
     pairing = Pairing.find_by_device_id(device_id)
     return if pairing.nil?
 
-    Job::UnpairMessage.new.push_device_id(device_id)
+    Job::UnpairingMessage.new.push_device_id(device_id)
     pairing.disable
   end
 
