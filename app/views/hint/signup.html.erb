@@ -1,8 +1,15 @@
-<% if user_signed_in? %>
+<%# need-add-i18n %>
+<% provide(:flow, I18n.t("labels.sign_up")) %>
 
-<%= link_to('確定', "/", :method => :delete) %>
-<br />
-<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
-<% else %>
-<%= link_to "sign in", new_user_session_path %>
-<% end %>
+<div class="zyxel_content">
+
+  <h2 class="zyxel_h2_icon_small"><%= @success_info %></h2>
+  <%# need-add-i18n %>
+  <span class="zyxel_span3">您的帳戶已可開始使用 Personal Cloud 之各項服務。</span>
+
+  <div class="zyxel_btn_area">
+    <%# need-add-i18n %>
+    <%= link_to 'Confirm', "/", class: "zyxel_btn_ok" %>
+  </div><!-- zyxel_btn_area -->
+
+</div><!-- content -->

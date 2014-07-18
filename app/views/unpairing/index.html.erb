@@ -1,9 +1,7 @@
-<div class="unpairing">
-  <%# need-add-i18n %>
-  <div class="zyxel_bread">
-    <%= @device.model_name %> &gt; <span> Unpairing</span>
-  </div>
+<%# need-add-i18n %>
+<% provide(:flow, @device.model_name + ",Unpairing") %>
 
+<div class="unpairing">
   <div class="zyxel_content">
     <%# display the unpairing device %>
     <div class="zyxel_device">

@@ -12,7 +12,7 @@
     <%# header %>
     <%= render 'layouts/header' %>
 
-    <%# breadcrumb - when user signed in %>
+    <%# tab - when user signed in %>
     <% if user_signed_in? %>
       <div class="zyxel_tab">
         <div class="btn-group btn-group-justified">
@@ -24,13 +24,33 @@
     <% end %>
     <%# breadcrumb - end %>
 
-    <%# need remove when release %>
-    <p class="notice"><%= flash[:notice] %></p>
-    <p class="alert"><%= flash[:alert] %></p>
-    <% if flash[:error] %>  
-      <p class="error"><%= flash[:error] %></p>
+    <%# breadcrumb %>
+    <% page_flow = breadcrumb(yield(:flow)) %>
+    <% if page_flow %>
+      <div class="zyxel_bread">
+        <% page_flow.each_with_index do |flow, index| %>
+          <% if index == page_flow.length - 1 %>
+            <span><%= flow %></span>
+          <% else %>
+            <%= flow %> &gt; 
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
-    <%= yield %>  
+    <%# breadcrumb %>
+    <%= yield %>
+
+    <%# need remove when release %>
+    <% if flash[:notice] || flash[:alert] || flash[:error] %>
+      <div class="test">
+        <p>Test Information, it will be removed when release.</p>
+        <p class="notice"><%= flash[:notice] %></p>
+        <p class="alert"><%= flash[:alert] %></p>
+        <% if flash[:error] %>
+        <p class="error"><%= flash[:error] %></p>
+        <% end %>
+      </div>
+    <% end %>
   </div>
     
 </body>
