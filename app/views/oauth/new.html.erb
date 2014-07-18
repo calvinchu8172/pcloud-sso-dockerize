@@ -1,36 +1,11 @@
-<h1>Terms</h1>
-<div class="zyxel_content" ng-app>
-  <div class="content">Term of Content</div>
-  <%= form_for(@user, html: {role: "form", name: "oauthForm"},as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
+<%# need-add-i18n %>
+<% provide(:flow, "Terms") %>
 
-    <%# Display email field when provider is twitter %>
-    <% if @need_email %>
-      <div class="email">
-        </fieldset>
-          <table class="zyxel_table_style">
-            <%# e-Mail %>
-            <tr>
-              <th>
-                <span>* </span>
-                <%= f.label :email, I18n.t("user.labels.email"), class: "th_label" %>
-              </th>
-              <td colspan="3">
-                <%= f.email_field :email, name: "email", class: "input_style1 td_field", "ng-model" => "email" %>
-                <%# need-add-I18n %>
-                <div class="zyxel_arlert_area" ng-show="oauthForm.email.$dirty && oauthForm.email.$invalid">
-                  <span class="error_message" ng-show="oauthForm.email.$error.required">
-                    Required!</span>
-                  <span class="error_message" ng-show="oauthForm.email.$error.email">
-                    Not valid email!</span>
-                </div>
-              </td>
-            </tr>
-            <%# e-Mail - end %>
-          </table>
-        </fieldset>
-      </div>
-    <% end %>
-    <%# Display email field when provider is twitter - end %>
+<div class="zyxel_content" ng-app>
+  <div class="agree_note_box">
+    Terms
+  </div>
+  <%= form_for(@user, html: {role: "form", name: "oauthForm"},as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
 
     <div class="checkbox">
       <%# need-add-I18n %>

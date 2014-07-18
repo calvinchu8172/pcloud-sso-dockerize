@@ -1,5 +1,4 @@
-<div class="zyxel_bread"><%= I18n.t("titles.sign_up") %></div>
-
+<% provide(:flow, I18n.t("titles.sign_up")) %>
 <div class="zyxel_content">
   <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
     <fieldset>

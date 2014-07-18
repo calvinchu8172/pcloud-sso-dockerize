@@ -1,6 +1,17 @@
-<%# need-add-i18n %>
-<h1>已完成您的帳⼾戶申請,請⾄至您所填寫的信箱中收取
-帳⼾戶開通信,並透過信中連結完成帳⼾戶開通之動作</h1>
-<%= link_to('resend', new_confirmation_path("user")) %>
-<%= link_to('確定', "/") %>
+<% provide(:flow, I18n.t("titles.sign_up")) %>
 
+<div class="zyxel_content">
+
+  <%# need-add-i18n %>
+  <h2 class="zyxel_h2_icon_small">已完成您的帳戶申請</h2>
+
+  <span class="zyxel_span3"><%= session[:notice] %></span>
+
+  <div class="zyxel_btn_area">
+    <%= link_to I18n.t("labels.resend_confirmation"), new_confirmation_path(:user), class: "zyxel_btn_submit_gray zyxel_resend_btn" %>
+
+    <%# need-add-i18n %>
+    <%= link_to 'Confirm', "/", class: "zyxel_btn_ok" %>
+  </div><!-- zyxel_btn_area -->
+
+</div><!-- content -->

@@ -1,9 +1,7 @@
+<%# need-add-i18n %>
+<% provide(:flow, @ddns_session.device.model_name + ",DDNS setting") %>
+
 <div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json(:only => [:id, :device_id]) %>; checkStatus();">
-  <%# display name of device %>
-  <%# need-add-i18n %>
-  <div class="zyxel_bread">
-    <%= @ddns_session.device.model_name %> &gt; <span>DDNS setting</span>
-  </div>
 
   <div ng-switch on="step" class="zyxel_content">
     <%# display success information when bot change the session status %>

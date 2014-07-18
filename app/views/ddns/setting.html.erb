@@ -1,9 +1,7 @@
+<%# need-add-i18n %>
+<% provide(:flow, @device.model_name + ",DDNS setting") %>
+
 <div class="ddns" ng-app>
-  <%# display name of device %>
-  <%# need-add-i18n %>
-  <div class="zyxel_bread">
-    <%= @device.model_name %> &gt; <span>DDNS setting</span>
-  </div>
 
   <%# Content %>
   <div class="zyxel_content">
