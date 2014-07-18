@@ -13,7 +13,7 @@ class DeviceController < ApplicationController
 
     @device = Device.checkin(api_permit)
     xmpp_checkin
-    update_checkin
+    ddns_checkin
     device_session_checkin
     reset 
 
@@ -25,7 +25,7 @@ class DeviceController < ApplicationController
   private
 
   def reset
-    if params[:reset].nil? || params[:reset] != 1.to_s
+    unless reset_requestment?
       logger.debug("don't reset");
       return
     end
@@ -41,17 +41,19 @@ class DeviceController < ApplicationController
   end
 
   def device_session_checkin
-    origianl_ip = nil
     ip = request.remote_ip
     if(@device.device_session.nil?)
       session = @device.build_device_session(:ip => ip, :xmpp_account => @account[:name], :password => @account[:password])
       session.save
       logger.info('create device session: ' + session.to_json(:except => :password))
     else
-      origianl_ip = @device.device_session.ip;
-      session = @device.device_session.update_attributes({:ip => ip, :password => @account[:password]})
+      session = @device.device_session.update_attributes(:ip => ip, :password => @account[:password])
       logger.info('update device session new password and ip: ' + ip)
     end
+  end
+
+  def reset_requestment?
+    !params[:reset].nil? && params[:reset] == 1.to_s
   end
 
   # 每次device 登入，會更改DDNS 上的對應IP
@@ -60,19 +62,16 @@ class DeviceController < ApplicationController
   # * 這次登入的IP 跟 上一次的一樣
   # * 當device reset的時候
   # * 該device 還未做過DDNS 註冊
-  def update_checkin
+  def ddns_checkin
 
     return if !@device.device_session.nil? && @device.device_session.ip == request.remote_ip
-    return if !params[:reset].nil? && params[:reset] == 1
+    return if reset_requestment?
 
     ddns = Ddns.find_by_device_id(@device.id)
     return if ddns.nil?
     
-    ddns_session = DdnsSession.new(device_id: @device.id, full_domain: ddns.full_domain)
-    if ddns_session.save
-      logger.info("update ddns ddns_session id:" + ddns_session.id)
-      Job::DdnsMessage.new.push_session_id ddns_session.id
-    end
+    logger.debug('update ddns id:' + ddns.id.to_s)
+    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.full_domain})
   end
 
   def xmpp_checkin
