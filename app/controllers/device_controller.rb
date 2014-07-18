@@ -49,7 +49,7 @@ class DeviceController < ApplicationController
       logger.info('create device session: ' + session.to_json(:except => :password))
     else
       origianl_ip = @device.device_session.ip;
-      session = @device.device_session.update_attributes({:ip => ip, :password => @account[:password]})
+      session = @device.device_session.update_attributes(:ip => ip, :password => @account[:password])
       logger.info('update device session new password and ip: ' + ip)
     end
   end
