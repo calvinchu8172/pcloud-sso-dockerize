@@ -27,7 +27,7 @@ class Job
 
   def push(data)
     @session = get_session_model.new data
-    if @session.save
+    if @session.save!
       push_session_id @session.id
       return true
     end
