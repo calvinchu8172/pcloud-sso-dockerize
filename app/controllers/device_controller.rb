@@ -6,6 +6,7 @@ require 'xmpp4r/command/iq/command'
 class DeviceController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
+  skip_before_filter :authenticate_user!
   before_filter :validate_signature, :only => :register
 
   # POST /d/1/register
