@@ -55,6 +55,7 @@ class DdnsController < ApplicationController
     def save_ddns_setting
       job = Job::DdnsMessage.new
       
+      logger.info("save ddns setting:" + @ddns_params[:device_id] + ", full_domain:" + @full_domain);
       if job.push({device_id: @ddns_params[:device_id], full_domain: @full_domain})
         redirect_to action: 'success', id: job.session.id
         return
