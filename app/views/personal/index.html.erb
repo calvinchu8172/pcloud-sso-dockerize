@@ -1,30 +1,55 @@
-<h1>My devices</h1>
+<%# need-add-i18n %>
+<% provide(:flow, "Has been searched") %>
+
 <div class="personal">
 
   <%# paired device list %>
-  <div class="device-box">
-    <div class="device-list">
+  <div class="zyxel_content" style="max-width:620px">
+    <table class="zyxel_table_style3">
 
       <%# check paired devices %>
       <% if @paired %>
 
         <%# show all paired devices %>
         <% @pairing.each do |pairing| %>
-          <div class="device" >
-
-            <%# change the data format to string %>
-            <% device_id = pairing.device_id.to_s %>
+          <tr>
+            <th><%= image_tag pairing.device.product.asset.url, width: "100" %></th>
             
-            <div class="device-img">
-              <%= image_tag pairing.device.product.asset.url %>
-            </div>
-            <div class="device-name">
-              <%= pairing.device.model_name %>
-            </div>
-            <%= link_to "DDNS 設定", "/ddns/setting/" + device_id, class: "btn btn-default" %>
-            <%= link_to "UPnP 設定", upnp_path(device_id), class: "btn btn-default" %>
-            <%= link_to "取消配對", "/unpairing/index/" + pairing.id.to_s, class: "btn btn-default" %>
-          </div>
+            <%# show ddns information %>
+            <td>
+              <table class="zyxel_table_style4">
+                <% if pairing.device.ddns %>
+                  <tr>
+                    <td class="orange"><%= pairing.device.ddns.full_domain %></td>
+                  </tr>
+                  <tr>
+                    <td><span>IP</span><%= pairing.device.ddns.ip_address %></td>
+                  </tr>
+                  <tr>
+                    <td><span>Model</span><%= pairing.device.ddns.device.model_name %></td>
+                  </tr>
+                  <tr>
+                    <td><span>Last update</span><%= pairing.device.ddns.updated_at.strftime("%Y/%m/%d") %></td>
+                  </tr>
+                <% else %>
+                  <%# need-add-i18n %>
+                  <tr>
+                    <td class="orange">Needed set up your device.</td>
+                  </tr>
+                <% end %>
+              </table>
+            </td>
+            <%# show ddns information - end %>
+
+            <td>
+              <%# change the data format to string %>
+              <% device_id = pairing.device_id.to_s %>
+
+              <%= link_to "ddns設定", "/ddns/setting/" + device_id, class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to "uPNP設定", upnp_path(device_id), class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to "取消配對", "/unpairing/index/" + pairing.id.to_s, class: "zyxel_btn_style2" %>
+            </td>
+          </tr>
         <% end %>
         <%# show all paired devices - end %>
 
@@ -34,7 +59,7 @@
       <% end %>
       <%# check paired devices - end %>
 
-    </div>
+    </table>
   </div>
   <%# paired device list - end %>
 </div>
