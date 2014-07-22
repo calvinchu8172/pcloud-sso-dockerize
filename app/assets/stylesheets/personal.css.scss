@@ -1,0 +1,23 @@
+// Place all the styles related to the Personal controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.personal {
+  .device-box {
+    width: 80%;
+  }
+  .device {
+    .device-img > img {
+      width: 100%;
+    }
+    .device-name {
+      font-size: 30px;
+    }
+    > div {
+      display: inline-block;
+      width: 20%;
+    }
+    > a {
+      width: 15%;
+    }
+  }
+}

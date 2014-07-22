@@ -1,0 +1,177 @@
+<h1>UPnP</h1>
+<div class="upnp" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json(:only => [:id, :user_id, :device_id, :service_list]) %>;loadConfig();">
+
+  <%# display name of device %>
+  <div class="sub-breadcrumb">
+    <%= @device.model_name %>  &gt; UPnP setting
+  </div>
+
+  <%# Pairing information %>
+  <div  ng-switch on="step">
+    <center>
+      {{wording}}
+      <div class="pairing-info" ng-switch-when="updating">正在同步裝置的UPnP設定中</div>
+      <div ng-switch-when="form">
+        <p>service list</p>
+        <table ng-table class="table table-bordered">
+            <td >
+              enabled
+            </td>
+            <td >
+              status
+            </td>
+            <td >
+              Name
+            </td>
+            <td>
+              description
+            </td>
+          </tr>
+          <tr ng-repeat="service in session.service_list" >
+            <td data-title="'enabled'">
+              <input type="checkbox" ng-model="service.enabled" ng-disabled="panel != 'form'" >
+            </td>
+            <td data-title="'status'" ng-switch on="service.status">
+              <span ng-switch-when="true" class="">OK</span>
+              <span ng-switch-when="false" class="">---</span>
+            </td>
+            <td data-title="'Name'">
+              {{service.service_name}}
+            </td>
+            <td data-title="'description'">
+              {{service.description}}
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="pairing-info" ng-switch-when="failure">目前偵測不到您的裝置，請確認裝置是否連上線</div>
+    </center>
+  </div>
+  <%# Pairing information - end %>
+
+  <%# Bottom content include loading image and retry button %>
+  <div class="pairing-panel" ng-switch on="panel">
+    <center>
+      <div ng-switch-when="loading">
+        <%= image_tag 'loading.gif', size: "60" %>
+      </div>
+      <div ng-switch-when="retry">
+        <button class="btn btn-primary" ng-click="retry()">Retry</button>
+        <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
+      </div>
+      <div ng-switch-when="form">
+        <button class="btn btn-primary" ng-click="submit()">Submit</button>
+        <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
+      </div>
+      <div ng-switch-when="confirm">
+        <%= link_to("OK", "/personal/index", class: "btn") %>
+      </div>
+    </center>
+  </div>
+  <%# Bottom content include loading image and retry button - end %>
+</div>
+<script type="text/javascript">
+  var upnp_app = angular.module('upnp_app', ['timer']);
+  upnp_app.config([
+    '$httpProvider',
+    function($httpProvider) {
+        $httpProvider.defaults.headers
+          .common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
+      }
+    ]);
+  upnp_app.controller('UpnpCtrl', function ($scope, $http, $timeout) {
+    $scope.session;
+    // $scope.service_list = [{"service_name":"null","status":false,"enabled":false,"description":"null"}];
+    $scope.indexPath = '/upnp/';
+    $scope.checkPath = '/upnp/check/';
+    $scope.step = "updating";
+    $scope.panel = "loading";
+    $scope.loadTimes = 0;
+    $scope.checkTimes = 0;
+    $scope.timesLimit = 16; //16
+    $scope.interval = 3500;
+    $scope.wording;
+    $scope.init = function(){
+      console.log("init");
+
+      $scope.step = "updating";
+      $scope.panel = "loading";
+      $scope.wording = '';
+
+      $http.get($scope.indexPath + $scope.session.device_id + ".json", { cache: false}).success(function(response){
+        $scope.session = response;
+        $scope.loadConfig();  
+      });
+    };
+    $scope.loadConfig = function(){
+      
+      console.log($scope.session.id);
+      $timeout(function() {
+            $scope.loadTimes++;
+            $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
+
+              console.log(response);
+              console.log("tick: " + $scope.loadTimes);
+              if('form' == response.status){
+                $scope.step = response.status;
+                $scope.panel = response.status;
+                $scope.session = response;
+                $scope.service_list = response.service_list;
+                return;
+              }
+
+              if($scope.loadTimes < $scope.timesLimit){
+                $scope.loadConfig();
+              }else{
+                $scope.loadTimes = 0;
+                $scope.step = "failure";
+                $scope.panel = "retry";
+              }
+            });
+        }, $scope.interval);
+
+    };
+
+    $scope.submit = function(){
+
+      console.log($scope.session.service_list);
+      console.log("loop:");
+      
+        $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
+          if(response.result){
+            console.log("ok");
+            $scope.checkSubmit();
+          }else{
+            console.log("failure");
+          }
+        });
+
+        $scope.panel = "loading";
+    };
+    $scope.retry = function(){
+      $scope.init();
+    };
+    $scope.checkSubmit = function(){
+      
+      $timeout(function() {
+        $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
+          console.log(response);
+          $scope.checkTimes++;
+          if('updated' == response.status){
+            $scope.panel = 'confirm';
+            $scope.wording = '已完成 UPnP 設定';
+            return;
+          }
+
+          if($scope.checkTimes < $scope.timesLimit){
+            $scope.checkSubmit();
+          }else{
+            $scope.checkTimes = 0;
+            $scope.step = "failure";
+            $scope.panel = "retry";
+          }
+        });
+      }, $scope.interval);
+    };
+  });
+</script>

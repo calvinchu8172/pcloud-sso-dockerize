@@ -1,0 +1,38 @@
+<div class="header">
+  <%# LOGO %>
+  <h1 class="header_h1_rwd">
+    <a href="/">
+      <%= image_tag "logo.png", width: "110", height: "60" %>
+    </a>
+  </h1>
+
+  <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
+
+    <%# Display member link when user signed in %>
+    <% if user_signed_in? %>
+      <li>
+        <%= link_to image_tag("member.png", width: "35", height: "35"), edit_user_registration_path, class: "member" %>
+      </li>
+    <% end %>
+
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <%= I18n.t('labels.language') %> <span class="caret_zyxel"></span>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <% @locale_options.each do |l, value| %>
+          <li><%= link_to l, params.merge("locale" => value) %></li>
+        <% end %>
+      </ul>
+    </li>
+
+    <%# Display sign out link when user signed in %>
+    <% if user_signed_in? %>
+      <li>
+        <%# need-add-i18n %>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "sign_out" %>
+      </li>
+    <% end %>
+
+  </ul>
+</div>

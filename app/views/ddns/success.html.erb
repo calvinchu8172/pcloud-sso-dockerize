@@ -1,0 +1,22 @@
+<%# need-add-i18n %>
+<% provide(:flow, @ddns_session.device.model_name + ",DDNS setting") %>
+
+<div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json(:only => [:id, :device_id]) %>; checkStatus();">
+
+  <div ng-switch on="step" class="zyxel_content">
+    <%# display success information when bot change the session status %>
+    <div ng-switch-when="success">
+      <%# need-add-i18n %>
+      <h2 class="zyxel_h2_icon">已完成DDNS設定</h2>
+      <span class="zyxel_span2"><%= @ddns_session.full_domain %></span>
+      <div class="zyxel_btn_area">
+        <%= link_to "Confirm", @link_path, class: "zyxel_btn_ok" %>
+      </div>
+    </div>
+    <%# display success information - end %>
+
+    <div ng-switch-when="loading">
+      <%= image_tag 'loading.gif', size: "60" %>
+    </div>
+  </div>
+</div>

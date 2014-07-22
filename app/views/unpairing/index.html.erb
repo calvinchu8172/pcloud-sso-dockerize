@@ -1,0 +1,26 @@
+<%# need-add-i18n %>
+<% provide(:flow, @device.model_name + ",Unpairing") %>
+
+<div class="unpairing">
+  <div class="zyxel_content">
+    <%# display the unpairing device %>
+    <div class="zyxel_device">
+      <%= image_tag @device.product.asset.url, class: "zyxel_device_image" %>
+      <h2 class="zyxel_h2_icon1"><%= @device.model_name %></h2>
+    </div>
+    <%# display the unpairing device - end %>
+
+
+    <%# unpairing information %>
+    <%# need-add-i18n %>
+    <span class="zyxel_span2">請問您是否要取消與此裝置的配對？</span>
+
+    <%# unpairing button %>
+    <div class="zyxel_btn_area">
+      <%# need-add-i18n %>
+      <%= link_to "取消", "/personal/index", class: "zyxel_btn_back" %>
+      <%= link_to "確定", "/unpairing/destroy/" + params[:id].to_s, class: "zyxel_btn_ok" %>
+    </div>
+    <%# unpairing button -end %>
+  </div>
+</div>

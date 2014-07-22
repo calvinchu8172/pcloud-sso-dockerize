@@ -1,0 +1,22 @@
+<%# need-add-i18n %>
+<% provide(:flow, "Terms") %>
+
+<div class="zyxel_content" ng-app>
+  <div class="agree_note_box">
+    Terms
+  </div>
+  <%= form_for(@user, html: {role: "form", name: "oauthForm"},as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
+
+    <div class="checkbox">
+      <%# need-add-I18n %>
+      <label for="user_agreement" class="checkbox_label">I agree to the <a href="#">Terms</a> of ZyXEL <span> *</span></label>
+      <%= f.check_box :agreement, class: "th_label" %>
+    </div>
+
+    <div class="zyxel_btn_area">
+      <%# need-add-I18n %>
+      <a href="/" class="zyxel_btn_back">Cancel</a>
+      <%= f.submit "Confirm", class: "zyxel_btn_submit", "ng-disabled" => "oauthForm.email.$pristine || oauthForm.email.$dirty && oauthForm.email.$invalid" %>
+    </div>
+  <% end %>
+</div>

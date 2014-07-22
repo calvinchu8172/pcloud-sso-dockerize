@@ -1,0 +1,19 @@
+<%# need-add-i18n %>
+<% provide(:flow, "Reset Password") %>
+
+<div class="zyxel_content">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <table class="zyxel_table_style">
+      <tr>
+        <th><span>* </span><%= f.label :email, class: "th_label" %></th>
+        <td colspan="3"><%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %></td>
+      </tr>
+    </table>
+    <div class="zyxel_btn_area">
+      <%# need-add-i18n %>
+      <a href="/" class="zyxel_btn_back">Cancel</a>
+      <%= f.submit "Submit", class: "zyxel_btn_submit" %>
+    </div><!-- zyxel_btn_area -->
+
+  <% end %>
+</div>

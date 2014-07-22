@@ -1,0 +1,9 @@
+{
+  "name": "personal-cloud-portal",
+  "dependencies": {
+    "angular-timer": "*",
+    "ng-table": "*",
+    "jquery": "*",
+    "jqlite": "*"
+  }
+}

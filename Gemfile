@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
-
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-gem 'mysql2'
+gem 'mysql2', '0.3.16'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -18,7 +16,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+# gem 'jquery-rails'
+gem 'angularjs-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -41,3 +40,36 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'simple_form'
+
+gem 'log4r'
+gem 'xmpp4r'
+gem 'rails_config'
+gem 'unicorn'
+# portal
+gem 'bootstrap-sass'
+gem "twitter-bootstrap-rails"
+gem "omniauth"
+gem "omniauth-facebook"
+gem 'omniauth-google-oauth2'
+gem 'omniauth-twitter'
+#  Devise 3.1 no longer signs the user automatically in after confirmation
+gem 'devise', '3.1.0'
+gem 'devise-i18n'
+gem 'rails-i18n'
+gem "recaptcha", :require => "recaptcha/rails"
+gem 'countries', :require => 'iso3166'
+gem 'country_select'
+
+gem 'paperclip', github: 'thoughtbot/paperclip'
+gem 'rmagick'
+gem 'aws-sdk'
+gem 'rails_admin', group: [:test, :development]
+
+gem 'rest_client'
+
+group :development do
+  gem 'faker'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+end
