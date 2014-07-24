@@ -1,5 +1,5 @@
 <%# need-add-i18n %>
-<% provide(:flow, "Has been searched") %>
+<% provide(:flow, "Search Results") %>
 
 <div class="personal">
 
@@ -18,25 +18,32 @@
             <%# show ddns information %>
             <td>
               <table class="zyxel_table_style4">
+
+                <%# Setting information %>
+                <% setting_model = pairing.device.model_name %>
                 <% if pairing.device.ddns %>
-                  <tr>
-                    <td class="orange"><%= pairing.device.ddns.full_domain %></td>
-                  </tr>
-                  <tr>
-                    <td><span>IP</span><%= pairing.device.ddns.ip_address %></td>
-                  </tr>
-                  <tr>
-                    <td><span>Model</span><%= pairing.device.ddns.device.model_name %></td>
-                  </tr>
-                  <tr>
-                    <td><span>Last update</span><%= pairing.device.ddns.updated_at.strftime("%Y/%m/%d") %></td>
-                  </tr>
+                  <% setting_title = pairing.device.ddns.full_domain %>
+                  <% setting_ip = pairing.device.ddns.ip_address %>
+                  <% setting_date = pairing.device.ddns.updated_at.strftime("%Y/%m/%d") %>
                 <% else %>
                   <%# need-add-i18n %>
-                  <tr>
-                    <td class="orange">Needed set up your device.</td>
-                  </tr>
+                  <% setting_title = "DDNS is not Configured" %>
+                  <% setting_ip = pairing.device.device_session.ip %>
                 <% end %>
+                <%# Setting information - end %>
+
+                <tr>
+                  <td class="orange"><%= setting_title %></td>
+                </tr>
+                <tr>
+                  <td><span>WAN IP</span><%= setting_ip %></td>
+                </tr>
+                <tr>
+                  <td><span>Model</span><%= setting_model %></td>
+                </tr>
+                <tr>
+                  <td><span>Last update</span><%= setting_date %></td>
+                </tr>
               </table>
             </td>
             <%# show ddns information - end %>
@@ -45,6 +52,7 @@
               <%# change the data format to string %>
               <% device_id = pairing.device_id.to_s %>
 
+              <%# need-add-i18n %>
               <%= link_to "ddns設定", "/ddns/setting/" + device_id, class: "zyxel_btn_style1 margin_right5" %>
               <%= link_to "uPNP設定", upnp_path(device_id), class: "zyxel_btn_style1 margin_right5" %>
               <%= link_to "取消配對", "/unpairing/index/" + pairing.id.to_s, class: "zyxel_btn_style2" %>

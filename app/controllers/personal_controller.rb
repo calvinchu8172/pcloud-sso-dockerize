@@ -13,4 +13,7 @@ class PersonalController < ApplicationController
     end
   end
 
+  def profile
+    @language = @locale_options.has_value?(current_user.language) ? @locale_options.key(current_user.language) : "English"
+  end
 end

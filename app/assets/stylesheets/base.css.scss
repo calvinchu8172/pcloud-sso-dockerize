@@ -906,7 +906,13 @@ body {
 .margin_rignt5 {
   margin-right: 5px;
 }
-
+.zyxel_edm {
+  color: $zyxel_color2;
+  padding-left: 30px;
+  label {
+    margin-left: 5px;
+  }
+}
 @media all and (max-width: 500px){
   .zyxel_btn_sns{ width: 100%; }
   .zyxel_table_style1 th{ padding-left:10px; width:35%; }

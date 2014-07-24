@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
   protected
   
     def configure_devise_permitted_parameters
-      registration_params = [:first_name, :last_name, :email, :password, :password_confirmation, :gender, :mobile_number, :birthday, :language, :edm_accept, :agreement, :country]
+      registration_params = [:first_name, :middle_name, :last_name, :email, :password, :password_confirmation, :gender, :mobile_number, :birthday, :language, :edm_accept, :agreement, :country]
 
       if params[:action] == 'update'
-        devise_parameter_sanitizer.for(:accout_update) {
+        devise_parameter_sanitizer.for(:account_update) {
         	|u| u.permit(registration_params << :current_password)
         }
       elsif params[:action] == 'create'
@@ -33,8 +33,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = session[:locale] || I18n.default_locale
 
       # language select option
-      @locale_options = { :English => 'en', 
-                          :Italiano => 'it'}
+      @locale_options = { :English => 'en'}
     end
     # i18n setting - end
 

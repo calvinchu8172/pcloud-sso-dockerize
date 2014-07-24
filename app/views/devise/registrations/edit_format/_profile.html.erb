@@ -1,0 +1,105 @@
+<fieldset>
+  <table class="zyxel_table_style">
+    <tr>
+      <th><%= I18n.t("user.labels.email") %></th>
+      <td colspan="3"><%= current_user.email %></td>
+    </tr>
+    <%# User name %>
+    <tr>
+      <th>
+        <%= f.label :first_name, I18n.t("user.labels.first_name") %>
+      </th>
+      <td colspan="3">
+        <%= f.text_field :first_name, class: "input_style1" %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= f.label :middle_name, I18n.t("user.labels.middle_name") %>
+      </th>
+      <td colspan="3">
+        <%= f.text_field :middle_name, class: "input_style1" %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= f.label :last_name, I18n.t("user.labels.last_name") %>
+      </th>
+      <td colspan="3">
+        <%= f.text_field :last_name, class: "input_style1" %>
+      </td>
+    </tr>
+    <%# User name - end %>
+
+    <%# Gender %>
+    <tr>
+      <th>
+        <%= f.label :gender, I18n.t("user.labels.gender") %>
+      </th>
+      <td colspan="3">
+        <%# need-add-I18n %>
+        <label class="radio-inline">
+          <%= f.radio_button :gender, "1"%>
+          <%= label :gender, 'Male' %>
+        </label>
+        <label class="radio-inline">
+          <%= f.radio_button :gender, "2"%>
+          <%= label :gender, 'Female' %>
+        </label>
+      </td>
+    </tr>
+    <%# Gender - end %>
+
+    <%# Birthday %>
+    <tr>
+      <th>
+        <%= f.label :birthday, I18n.t("user.labels.birthday") %>
+      </th>
+      <td colspan="3" class="date_select">
+        <%= f.date_select :birthday, {start_year: 1955, end_year: 2012, use_month_numbers: true, prompt: { day: 'Day', month: 'Month', year: 'Year' }}, class: "select_style" %>
+      </td>
+    </tr>
+    <%# Birthday - end %>
+
+    <%# Phone number %>
+    <tr>
+      <th>
+        <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
+      </th>
+      <td colspan="3">
+        <%= f.text_field :mobile_number, class: "input_style1" %>
+      </td>
+    </tr>
+    <%# Phone number - end %>
+
+    <%# Language %>
+    <tr>
+      <th>
+        <%= f.label :language, I18n.t("user.labels.language") %>
+      </th>
+      <td colspan="3">
+        <%= f.select :language, @locale_options, {}, {class: "select_style"} %>
+      </td>
+    </tr>
+    <%# Language - end %>
+
+    <%# Country %>
+    <tr>
+      <th>
+        <%= f.label :country, I18n.t("user.labels.country") %>
+      </th>
+      <td colspan="3">
+        <%= f.country_select :country, {'' => ''}, {}, {class: "select_style"} %>
+      </td>
+    </tr>
+    <%# Country - end %>
+
+  </table>
+</fieldset>
+<%# e-Mail DM %>
+<div class="checkbox">
+  <%# need-add-I18n %>
+  <%= f.check_box :edm_accept %>
+  <%= label :edm_accept, 'I accept edm', for: "user_edm_accept", class: "checkbox_label" %>
+</div>
+<%# e-Mail DM - end %>
