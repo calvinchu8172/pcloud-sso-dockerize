@@ -3,8 +3,8 @@ xmpp:
   server: xmpp.pcloud.ecoworkinc.com
   device_rescource_id: device
   admin:
-    account   : admin
-    password  : abcdefg
+    account   : bot01
+    password  : 1234
   bots : 
     - bot1@xmpp.pcloud.ecoworkinc.com/robot
 environments:
