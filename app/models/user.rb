@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
     if identity.user.blank?
       user = current_user.nil? ? User.where('email = ?', auth["info"]["email"]).first : current_user
       if user.blank?
+        Rails.logger.debug auth
         user = User.new
         user.skip_confirmation!
         user.password = Devise.friendly_token[0, 20]
@@ -44,6 +45,7 @@ class User < ActiveRecord::Base
     self.last_name = auth["info"]["last_name"]
     self.display_name = auth["info"]["name"]
     self.email = auth["info"]["email"]
+    self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"]
   end
