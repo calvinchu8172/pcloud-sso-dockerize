@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717093812) do
+ActiveRecord::Schema.define(version: 20140725024036) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -154,6 +154,8 @@ ActiveRecord::Schema.define(version: 20140717093812) do
     t.datetime "birthday"
     t.integer  "edm_accept"
     t.string   "country",                limit: 100
+    t.string   "middle_name"
+    t.string   "display_name",                                      null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
