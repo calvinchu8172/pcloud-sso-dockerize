@@ -12,14 +12,21 @@ class RegistrationsController < Devise::RegistrationsController
         account_update_params.delete("password_confirmation")
       end
 
-      @user = User.find(current_user.id)
-      if @user.update_attributes(account_update_params)
-        set_flash_message :notice, :updated
-        sign_in @user, :bypass => true
-        redirect_to after_update_path_for(@user)
-      else
+      # Show error message when display name was blank
+      if account_update_params[:display_name].blank?
+        resource.errors.add(:display_name, :blank)
         render "edit"
+      else
+        @user = User.find(current_user.id)
+        if @user.update_attributes(account_update_params)
+          set_flash_message :notice, :updated
+          sign_in @user, :bypass => true
+          redirect_to after_update_path_for(@user)
+        else
+          render "edit"
+        end
       end
+      
 
     # Change password when type is password
     elsif params[:type] == "password"

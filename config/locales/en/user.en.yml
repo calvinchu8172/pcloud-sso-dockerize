@@ -4,6 +4,7 @@ en:
       address: 'Address'
       country: 'Country'
       email: 'Email'
+      display_name: 'Display as'
       first_name: 'First Name'
       middle_name: 'Middle Name'
       last_name: 'Last Name'

@@ -21,6 +21,12 @@
       <% end %>
       <% if !current_user.middle_name.blank? %>
         <tr>
+          <th><%= I18n.t("user.labels.display_name") %></th>
+          <td colspan="3"><%= current_user.display_name %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.middle_name.blank? %>
+        <tr>
           <th><%= I18n.t("user.labels.middle_name") %></th>
           <td colspan="3"><%= current_user.middle_name %></td>
         </tr>
@@ -31,14 +37,18 @@
           <td colspan="3"><%= current_user.last_name %></td>
         </tr>
       <% end %>
-      <tr>
-        <th><%= I18n.t("user.labels.gender") %></th>
-        <td colspan="3"><%= current_user.gender %></td>
-      </tr>
-      <tr>
-        <th><%= I18n.t("user.labels.birthday") %></th>
-        <td colspan="3"><%= current_user.birthday.strftime("%m/%d") %></td>
-      </tr>
+      <% if !current_user.gender.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.gender") %></th>
+          <td colspan="3"><%= current_user.gender %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.birthday.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.birthday") %></th>
+          <td colspan="3"><%= current_user.birthday.strftime("%m/%d") %></td>
+        </tr>
+      <% end %>
       <% if !current_user.mobile_number.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.phone_number") %></th>

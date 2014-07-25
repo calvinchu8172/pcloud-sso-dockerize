@@ -7,6 +7,14 @@
     <%# User name %>
     <tr>
       <th>
+        <%= f.label :display_name, "<span>* </span>#{I18n.t("user.labels.display_name")}".html_safe, class: "th_label" %>
+      </th>
+      <td colspan="3">
+        <%= f.text_field :display_name, class: "input_style1 td_field" %>
+      </td>
+    </tr>
+    <tr>
+      <th>
         <%= f.label :first_name, I18n.t("user.labels.first_name") %>
       </th>
       <td colspan="3">
