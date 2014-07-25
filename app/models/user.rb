@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   before_create :add_default_display_name
+  has_many :identity
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -25,7 +26,6 @@ class User < ActiveRecord::Base
     if identity.user.blank?
       user = current_user.nil? ? User.where('email = ?', auth["info"]["email"]).first : current_user
       if user.blank?
-        Rails.logger.debug auth
         user = User.new
         user.skip_confirmation!
         user.password = Devise.friendly_token[0, 20]
