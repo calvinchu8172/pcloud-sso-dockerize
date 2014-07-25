@@ -115,7 +115,8 @@ class DeviceController < ApplicationController
     iq = Jabber::Iq.new(:set)
     iq.id= "a" + generate_new_passoword
     iq.to = Settings.xmpp.server
-
+    iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
+    
     command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#add-user')
 
     x = Jabber::Dataforms::XData.new(:submit)
@@ -147,6 +148,7 @@ class DeviceController < ApplicationController
     iq = Jabber::Iq.new(:set)
     iq.id= "a" + generate_new_passoword
     iq.to = Settings.xmpp.server
+    iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
 
     command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#change-user-password')
 
