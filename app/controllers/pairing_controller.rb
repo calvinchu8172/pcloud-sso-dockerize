@@ -47,13 +47,6 @@ class PairingController < ApplicationController
     end
   end
 
-  def init_session
-    if @last_session.nil?
-      connect_to_device
-    else
-      @session = @last_session
-    end
-  end
   def connect_to_device
     @device = Device.find(params[:id])
 
@@ -63,6 +56,7 @@ class PairingController < ApplicationController
               :expire_at => (Time.now + (12.minutes))})
     @session = job.session
   end
+  
   def init_session
     if @last_session.nil?
       connect_to_device

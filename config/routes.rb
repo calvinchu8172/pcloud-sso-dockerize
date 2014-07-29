@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   post 'discoverer/search'
 
   get 'registrations/success'
-  # get '/pairing/index/:id' => "pairing#index", :constraints => {:id => /\d/}
+  
   devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords',:omniauth_callbacks => "users/omniauth_callbacks" }
 
   get 'device/register'

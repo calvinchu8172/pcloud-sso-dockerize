@@ -1,5 +1,5 @@
 <h1>Pairing</h1>
-<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>;waitingForCheckConnect();">
+<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>;session=<%= @session.to_json(:except => [ :id, :created_at, :expire_at ], :methods => :expire_in) %>;waitingForCheckConnect();">
   <div class="sub_title">裝置配對</div>
 	<div class="device">
     <center>
