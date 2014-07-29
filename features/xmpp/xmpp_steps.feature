@@ -1,6 +1,6 @@
-Feature: check response from REST API
+Feature: XMPP Bot
   
-  Scenario: get success response
+  Scenario: Get response message from bot
     Given the device with get::
 
       | mac_address      | 099789665701                                             |
@@ -12,3 +12,6 @@ Feature: check response from REST API
 
     When the device request POST /d/1/register
     Then I will get http code and JSON
+
+    When I ack bot
+    Then I will get message from bot
