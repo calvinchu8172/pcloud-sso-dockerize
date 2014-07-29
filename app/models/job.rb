@@ -9,7 +9,7 @@ class Job
   # Push message to queue
   def push_to_queue(body)
     data = body.merge({:job => get_job_name})
-    get_queue.send_message(data.to_json)
+    # get_queue.send_message(data.to_json)
   end
 
   def push_session_id(session_id)
