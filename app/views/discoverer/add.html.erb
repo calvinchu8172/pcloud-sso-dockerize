@@ -1,5 +1,5 @@
-<%# need-add-i18n %>
-<% provide(:flow, "Manually Add Device") %>
+<% provide(:flow, I18n.t("titles.manually")) %>
+<% provide(:tab, 'search') %>
 
 <div class="discoverer">
 
@@ -26,6 +26,7 @@
             </td>
           </tr>
           <tr>
+            <%# need-add-i18n %>
             <th class="width25">
               <%= f.label :serial_number %>
             </th>
@@ -48,9 +49,8 @@
       </fieldset>
 
       <div class="zyxel_btn_area">
-        <%# need-add-i18n %>
-        <%= link_to("Cancel", "/discoverer/index", class: "zyxel_btn_back") %>
-        <%= f.submit "Add", class: "zyxel_btn_submit" %>
+        <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
+        <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
       </div>
     <% end %>
   </div>

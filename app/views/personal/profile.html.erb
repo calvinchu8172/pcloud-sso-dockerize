@@ -1,14 +1,13 @@
-<%# need-add-i18n %>
-<% provide(:flow, "Profile") %>
+<%= render 'devise/shared/profile_breadcrumb' %>
 
 <div class="personal">
-  <div class="zyxel_content">
+  <div class="zyxel_content" style="max-width: 530px;">
     <% if flash[:notice] %>
       <div class="zyxel_smallok_area">
         <span><%= flash[:notice] %></span>
       </div>
     <% end %>
-    <table class="zyxel_table_style zyxel_table_style1">
+    <table class="zyxel_table_style zyxel_table_style1 user_info">
       <tr>
         <th><%= I18n.t("user.labels.email") %></th>
         <td colspan="3"><%= current_user.email %></td>
@@ -68,15 +67,14 @@
     </table>
     <div class="zyxel_edm">
       <%= check_box_tag "edm_accept", value = current_user.edm_accept, !current_user.edm_accept.zero?, disabled: true %>
-      <label>同意收到ZyXEL相關活動之Email</label>
+      <label><span></span><%= I18n.t("user.labels.edm") %></label>
     </div>
 
     <div class="zyxel_btn_area">
-      <%# need-add-i18n %>
       <% if !session[:oauth] %>
-        <%= link_to "Change Password", edit_user_registration_path(type: "password"), class: "zyxel_btn_ok zyxel_btn_ok1" %>
+        <%= link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "zyxel_btn_ok zyxel_btn_ok1" %>
       <% end %>
-      <%= link_to "Edit Profile", edit_user_registration_path(type: "profile"), class: "zyxel_btn_ok" %>
+      <%= link_to I18n.t("labels.edit_profile"), edit_user_registration_path(type: "profile"), class: "zyxel_btn_ok" %>
     </div><!-- zyxel_btn_area --> 
 
   </div><!-- content -->

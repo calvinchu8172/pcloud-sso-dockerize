@@ -1,5 +1,6 @@
-<%# need-add-i18n %>
-<% provide(:flow, @device.model_name + ",Pairing") %>
+<% provide(:flow, @device.model_name + "," + I18n.t("titles.pairing")) %>
+<% provide(:tab, 'search') %>
+
 <h2 class="zyxel_h2_icon1">
   <%= image_tag @device.product.asset.url :square %>
   <%= @device.product.name %>

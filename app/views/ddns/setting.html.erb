@@ -1,5 +1,5 @@
-<%# need-add-i18n %>
-<% provide(:flow, @device.model_name + ",DDNS setting") %>
+<% provide(:flow, @device.model_name + "," + I18n.t("titles.settings.ddns")) %>
+<% provide(:tab, 'my_devices') %>
 
 <div class="ddns" ng-app>
 
@@ -36,9 +36,8 @@
       </span>
 
       <div class="zyxel_btn_area">
-        <%# need-add-i18n %>
-        <%= link_to("Cancel", "/personal/index", class: "zyxel_btn_back") %>
-        <%= f.submit "Confirm", id: "submit-btn", class: "zyxel_btn_submit", "ng-disabled" => "ddnsForm.hostName.$pristine || ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid" %>
+        <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
+        <%= f.submit I18n.t("labels.submit"), id: "submit-btn", class: "zyxel_btn_submit", "ng-disabled" => "ddnsForm.hostName.$pristine || ddnsForm.hostName.$dirty && ddnsForm.hostName.$invalid" %>
       </div>
     <% end %>
   </div>

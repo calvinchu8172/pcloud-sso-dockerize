@@ -1,5 +1,4 @@
-<%# need-add-i18n %>
-<% provide(:flow, "Reset Password") %>
+<% provide(:flow, I18n.t("titles.forgot_password")) %>
 
 <div class="zyxel_content">
   <%# need-add-i18n %>
@@ -8,8 +7,7 @@
   <span class="zyxel_span3"><%= session[:notice] %></span>
 
   <div class="zyxel_btn_area">
-    <%# need-add-i18n %>
-    <%= link_to "Confirm", "/", class: "zyxel_btn_ok" %>
+    <%= link_to I18n.t("labels.confirm"), "/", class: "zyxel_btn_ok" %>
   </div><!-- zyxel_btn_area -->
 
 </div><!-- content -->

@@ -1,5 +1,4 @@
-<%# need-add-i18n %>
-<% provide(:flow, "Reset Password") %>
+<% provide(:flow, I18n.t("titles.forgot_password")) %>
 
 <div class="zyxel_content">
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
@@ -10,9 +9,8 @@
       </tr>
     </table>
     <div class="zyxel_btn_area">
-      <%# need-add-i18n %>
-      <a href="/" class="zyxel_btn_back">Cancel</a>
-      <%= f.submit "Submit", class: "zyxel_btn_submit" %>
+      <%= link_to(I18n.t("labels.cancel"), "/", class: "zyxel_btn_back") %>
+      <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
     </div><!-- zyxel_btn_area -->
 
   <% end %>

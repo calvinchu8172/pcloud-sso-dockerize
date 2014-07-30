@@ -1,4 +1,3 @@
-<%# need-add-i18n %>
 <% provide(:flow, I18n.t("labels.sign_up")) %>
 
 <div class="zyxel_content">
@@ -8,8 +7,7 @@
   <span class="zyxel_span3">您的帳戶已可開始使用 Personal Cloud 之各項服務。</span>
 
   <div class="zyxel_btn_area">
-    <%# need-add-i18n %>
-    <%= link_to 'Confirm', "/", class: "zyxel_btn_ok" %>
+    <%= link_to I18n.t("labels.confirm"), "/", class: "zyxel_btn_ok" %>
   </div><!-- zyxel_btn_area -->
 
 </div><!-- content -->

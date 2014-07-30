@@ -1,10 +1,10 @@
+<% provide(:tab, 'search') %>
+
 <div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl">
-  <%# need-add-i18n %>
   <div class="zyxel_bread">
-    <span>Search Results</span>
+    <span><%= I18n.t("titles.search_devices") %></span>
     <%# Top content - result text and re-find button %>
-    <%# need-add-i18n %>
-    <button class="zyxel_btn_main icon_research" ng-click="doClick()">Research</button>
+    <button class="zyxel_btn_main icon_research" ng-click="doClick()"><%= I18n.t("labels.research") %></button>
   </div>
 
   <div class="zyxel_content">
@@ -13,16 +13,14 @@
       <tr class="device" ng-repeat="device in devices">
         <td class="td_left"><img ng-src="{{device.img_url}}" style="width:100px;"></td>
         <th>{{device.product_name}}</th>
-        <%# need-add-i18n %>
-        <td class="td_right"><a href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" >Pairing</a></td>
+        <td class="td_right"><a href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a></td>
       </tr>
     </table>
     <%# Device list - end %>
 
     <%# bottom content - Manually Add button %>
     <div class="zyxel_btn_area">
-      <%# need-add-i18n %>
-      <%= link_to('Manually Add', "/discoverer/add/", class: "zyxel_btn_ok") %>
+      <%= link_to(I18n.t("labels.manually"), "/discoverer/add/", class: "zyxel_btn_ok") %>
     </div>
 
     <%# save json data in this node %>

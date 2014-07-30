@@ -1,5 +1,5 @@
-<%# need-add-i18n %>
-<% provide(:flow, @ddns_session.device.model_name + ",DDNS setting") %>
+<% provide(:flow, @ddns_session.device.model_name + "," + I18n.t("titles.settings.ddns")) %>
+<% provide(:tab, 'my_devices') %>
 
 <div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json(:only => [:id, :device_id]) %>; checkStatus();">
 
@@ -10,7 +10,7 @@
       <h2 class="zyxel_h2_icon">已完成DDNS設定</h2>
       <span class="zyxel_span2"><%= @ddns_session.full_domain %></span>
       <div class="zyxel_btn_area">
-        <%= link_to "Confirm", @link_path, class: "zyxel_btn_ok" %>
+        <%= link_to I18n.t("labels.confirm"), @link_path, class: "zyxel_btn_ok" %>
       </div>
     </div>
     <%# display success information - end %>

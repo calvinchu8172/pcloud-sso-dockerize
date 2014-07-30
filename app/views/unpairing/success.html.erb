@@ -1,5 +1,4 @@
-<%# need-add-i18n %>
-<% provide(:flow, @device.model_name + ",Unpairing") %>
+<% provide(:flow, @device.model_name + "," + I18n.t("titles.unpairing")) %>
 
 <div class="unpairing">
 
@@ -18,7 +17,7 @@
     <%# unpairing information - end %>
 
     <div class="zyxel_btn_area">
-        <%= link_to "確定", "/personal/index", class: "zyxel_btn_ok" %>
+        <%= link_to I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok" %>
     </div>
 
   </div>

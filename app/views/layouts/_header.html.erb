@@ -29,8 +29,7 @@
     <%# Display sign out link when user signed in %>
     <% if user_signed_in? %>
       <li>
-        <%# need-add-i18n %>
-        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "sign_out" %>
+        <%= link_to I18n.t("labels.sign_out") , destroy_user_session_path, method: :delete, class: "sign_out" %>
       </li>
     <% end %>
 

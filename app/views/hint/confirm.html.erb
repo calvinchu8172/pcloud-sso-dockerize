@@ -9,9 +9,7 @@
 
   <div class="zyxel_btn_area">
     <%= link_to I18n.t("labels.resend_confirmation"), new_confirmation_path(:user), class: "zyxel_btn_submit_gray zyxel_resend_btn" %>
-
-    <%# need-add-i18n %>
-    <%= link_to 'Confirm', "/", class: "zyxel_btn_ok" %>
+    <%= link_to I18n.t("labels.confirm"), "/", class: "zyxel_btn_ok" %>
   </div><!-- zyxel_btn_area -->
 
 </div><!-- content -->
