@@ -9,7 +9,7 @@ When /^the device request POST (.*)$/ do |path|
 end
 
 Then(/^I will get http code and (.*)$/) do |json|
-  puts 'The http code is ' + @this_status = last_response.status.to_s
+  puts @this_status = last_response.status.to_s
 
   # Backup for document status
   #
@@ -29,15 +29,21 @@ When(/^I ack bot$/) do
 
   # Backup for dev env 
   #
-  puts @username = @xmpp_table["xmpp_account"].gsub('/device', '')
-  @password = @xmpp_table["xmpp_password"]
-  puts @bot      = @xmpp_table["xmpp_bots"].to_s.gsub('/robot', '')
+  # puts @username = @xmpp_table["xmpp_account"].gsub('/device', '')
+  # @password = @xmpp_table["xmpp_password"]
+  # puts @bot      = @xmpp_table["xmpp_bots"].to_s.gsub('/robot', '')
 
-  # Set client and client data for reset password issue
-  # puts " It's test env, not real pass data"
-  # @username = 'd127001-01@aphpxmpp.pcloud.ecoworkinc.com/device'.gsub('/device', '')
-  # @password = 'jSBFVbnKzD'
-  # @bot      = 'bot01@aphpxmpp.pcloud.ecoworkinc.com/robot'.gsub('/robot', '')
+  # for reset password issue
+  puts " It's test env, not real pass data"
+  @username = 'd127001-01@aphpxmpp.pcloud.ecoworkinc.com/device'.gsub('/device', '')
+  @password = 'jSBFVbnKzD'
+
+  # @xmpp_table["xmpp_bots"] = ["bot01@aphpxmpp.pcloud.ecoworkinc.com/robot"]
+  # clean the hash
+  # Ref.http://stackoverflow.com/a/13972656
+  @bot = @xmpp_table["xmpp_bots"]*","
+  @bot = @bot.gsub('/robot', '')
+
   Bot.new(@username, @password, @bot).connect
 end
 

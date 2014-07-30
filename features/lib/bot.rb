@@ -21,36 +21,42 @@ class Bot
     @client.send(Presence.new.set_type(:available))
 
     send
-    on_message
+    switch_return_message
   end
 
   def send
     # get_connect
-
     message = Message.new(@jabber_bot, "message test")
     message.type=:chat
-    puts message
     @client.send(message)
   end
 
-  def on_message
-    # mainthread = Thread.current
+  def return_message
     @client.add_message_callback do |message|
       unless message.body.nil? && message.type != :error
-        # reply = case message.body
-        #   when "time" then reply(message, "Current time is #{Time.now}")
-        #   when "help" then reply(message, "Available commands are: 'Time', 'Help'.")
-        #   else reply(message, "You said: #{message.body}")
-        # end
         puts "Received message: #{message.body}"
         reply = Message.new(message.from, message.body)
         reply.type = message.type
         @client.send(reply)
       end
     end
-    # Thread.stop
-    # @client.close
   end
+
+  def switch_return_message
+    mainthread = Thread.current
+    @client.add_message_callback do |message|
+      unless message.body.nil? && message.type != :error
+        reply = case message.body
+          when "time" then reply(message, "Current time is #{Time.now}")
+          when "help" then reply(message, "Available commands are: 'Time', 'Help'.")
+          else reply(message, "You said: #{message.body}")
+        end
+      end
+    end
+    Thread.stop
+    @client.close
+  end
+
 
   def reply message, reply_content
     reply_message = Message.new(message.from, reply_content)
