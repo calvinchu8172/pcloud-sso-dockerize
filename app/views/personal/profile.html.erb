@@ -12,16 +12,16 @@
         <th><%= I18n.t("user.labels.email") %></th>
         <td colspan="3"><%= current_user.email %></td>
       </tr>
+      <% if !current_user.display_name.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.display_name") %></th>
+          <td colspan="3"><%= current_user.display_name %></td>
+        </tr>
+      <% end %>
       <% if !current_user.first_name.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.first_name") %></th>
           <td colspan="3"><%= current_user.first_name %></td>
-        </tr>
-      <% end %>
-      <% if !current_user.middle_name.blank? %>
-        <tr>
-          <th><%= I18n.t("user.labels.display_name") %></th>
-          <td colspan="3"><%= current_user.display_name %></td>
         </tr>
       <% end %>
       <% if !current_user.middle_name.blank? %>
