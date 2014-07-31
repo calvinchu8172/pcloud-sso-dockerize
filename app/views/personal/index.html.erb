@@ -40,8 +40,8 @@
               <%# change the data format to string %>
               <% device_id = pairing.device_id.to_s %>
 
-              <%= link_to I18n.t("labels.settings.ddns") , "/ddns/setting/" + device_id, class: "zyxel_btn_style1 margin_right5" %>
-              <%= link_to I18n.t("labels.settings.upnp") , upnp_path(device_id), class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to I18n.t("labels.settings.ddns.instruction") , "/ddns/setting/" + device_id, class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to I18n.t("labels.settings.upnp.instruction") , upnp_path(device_id), class: "zyxel_btn_style1 margin_right5" %>
               <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.id.to_s, class: "zyxel_btn_style2" %>
             </td>
           </tr>
@@ -50,7 +50,7 @@
 
       <%# display message if paired devices are empty %>
       <% else %>
-        <div class="empty">您沒有已配對的裝置</div>
+        <div class="empty"><%= I18n.t("warnings.settings.pairing.not_found") %></div>
       <% end %>
       <%# check paired devices - end %>
 

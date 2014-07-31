@@ -28,7 +28,7 @@ class DiscovererController < ApplicationController
   def search
     device = Device.where(params['device']);
     if device.empty?
-      flash[:alert] = "device not found"
+      flash[:alert] = I18n.t("devise.errors.messages.not_found")
       redirect_to action: 'add'
     else
       redirect_to action: 'check', id: device.first.id

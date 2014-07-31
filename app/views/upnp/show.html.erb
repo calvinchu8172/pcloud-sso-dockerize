@@ -6,18 +6,21 @@
   <%# Pairing information %>
   <div  ng-switch on="step">
     <div class="waiting" ng-switch-when="updating">
-      <span class="zyxel_span2">正在同步裝置的UPnP設定中</span>
+      <span class="zyxel_span2"><%= I18n.t("warnings.settings.upnp.sync") %></span>
     </div>
     <div ng-switch-when="form">
       <div ng-switch on="result">
-        <div ng-switch-when="true" class="zyxel_smallok_area"><span>{{wording}}</span></div>
+        <h2 ng-switch-when="true" class="zyxel_h2_icon1">
+          <%= image_tag @session.device.product.asset.url, width: "100" %>
+          <span>{{wording}}</span>
+        </h2>
       </div>
       <table ng-table class="zyxel_table_style5">
         <tr>
-          <th>Enabled</th>
-          <th>Status</th>
-          <th>Service Name</th>
-          <th>Description</th>
+          <th><%= I18n.t("labels.settings.upnp.table_head1") %></th>
+          <th><%= I18n.t("labels.settings.upnp.table_head2") %></th>
+          <th><%= I18n.t("labels.settings.upnp.table_head3") %></th>
+          <th><%= I18n.t("labels.settings.upnp.table_head4") %></th>
         </tr>
         <tr ng-repeat="service in session.service_list" >
           <td data-title="'enabled'" class="column1">
@@ -45,7 +48,7 @@
       </table>
     </div>
     <div class="waiting" ng-switch-when="failure">
-      <span class="zyxel_span4">目前偵測不到您的裝置，請確認裝置是否連上線</span>
+      <span class="zyxel_span4"><%= I18n.t("warnings.settings.upnp.not_found") %></span>
     </div>
   </div>
   <%# Pairing information - end %>
@@ -69,7 +72,8 @@
   </div>
   <%# Bottom content include loading image and retry button - end %>
 </div>
-<script type="text/javascript">
+
+<%= javascript_tag do %>
   var upnp_app = angular.module('upnp_app', ['timer']);
   upnp_app.config([
     '$httpProvider',
@@ -162,7 +166,7 @@
             $scope.step = "form";
             $scope.panel = 'confirm';
             $scope.result = "true";
-            $scope.wording = '已完成 UPnP 設定';
+            $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
             return;
           }
 
@@ -177,4 +181,4 @@
       }, $scope.interval);
     };
   });
-</script>
+<% end %>

@@ -1,8 +1,7 @@
 <% provide(:flow, I18n.t("titles.forgot_password")) %>
 
 <div class="zyxel_content">
-  <%# need-add-i18n %>
-  <h2 class="zyxel_h2_icon_small">Your password has been reset</h2>
+  <h2 class="zyxel_h2_icon_small"><%= I18n.t("warnings.forgot_password") %></h2>
 
   <span class="zyxel_span3"><%= session[:notice] %></span>
 

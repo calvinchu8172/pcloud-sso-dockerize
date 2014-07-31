@@ -32,6 +32,7 @@
                 break;
               case 'waiting':
                 $scope.step = response.status;
+                $scope.panel = "waiting"
                 $timeout(startTimer, 1000);
                 break;
               case 'failure':

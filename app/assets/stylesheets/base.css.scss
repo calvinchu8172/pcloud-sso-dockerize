@@ -252,12 +252,12 @@ body {
 .zyxel_h2_icon1 {
   color: $zyxel_color1;
   font-size: 28px;
-  background-image: image-url("device_icon.png");
+  background-image: image-url("device_icon_org_small_new1.png");
   background-repeat: no-repeat;
   background-position: left center;
   margin: 0 0 10px 0;
   line-height: 40px;
-  padding: 10px 0 10px 45px;
+  padding: 10px 0 10px 65px;
 }
 .zyxel_span1  {
   color: #838383;
@@ -357,9 +357,17 @@ body {
   -webkit-appearance: none  ;
   -moz-appearance: none; 
 }
+// changed
 .zyxel_note {
   color: #B2B2B2;
-  font-size: 0.8em;
+  div {
+    font-size: 0.9em;
+  }
+  p {
+    margin: 5px 80px 0;
+    font-size: 0.8em;
+    line-height: 1.5em;
+  }
 }
 .zyxel_btn_area {
   text-align: center;
@@ -548,6 +556,14 @@ body {
   background-color:#a3a3a3;
   color: #FFF;
 }
+
+.zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{
+  max-width: 90px;
+  display: inline-block;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
 .zyxel_btn_sns {
   background-color: #ffac87;
   width: 48%;
@@ -815,7 +831,9 @@ body {
   margin-left: 0px
 }
 // changed
-.user_info.zyxel_table_style th { width: 35% }
+.user_info.zyxel_table_style, .add_label.zyxel_table_style {
+  th { width: 35% }
+} 
 
 .zyxel_table_style {
   width: 100%;
@@ -879,6 +897,9 @@ body {
 .zyxel_table_style2 .td_left {
   padding-left: 10px;
 }
+.zyxel_table_style2 tr td:first-child {
+  text-align:center;
+}
 .agree_note_box {
   border-style: solid;
   border-width: 1px;
@@ -906,7 +927,7 @@ body {
   padding-left: 10px;
   text-align: center;
 }
-.zyxel_table_style3 th img{
+.zyxel_table_style3 th img, .zyxel_table_style2 th img {
   height: 75px;
 }
 .zyxel_table_style3 td{

@@ -7,10 +7,10 @@
 
     <%= form_for @device, :url => '/discoverer/search' do |f| %>
       <fieldset>
-        <table class="zyxel_table_style">
+        <table class="zyxel_table_style add_label">
           <tr>
             <th class="width25">
-              <%= f.label :mac_address %>
+              <%= f.label :mac_address, I18n.t("labels.mac_address") %>
             </th>
             <td colspan="3">
               <%= f.text_field :mac_address, class: "input_style1", onblur: "check_mac_address(this, 'address_error')" %>
@@ -19,16 +19,14 @@
           <tr>
             <th class="error"></th>
             <td colspan="3" class="error">
-            <%# need-add-i18n %>
               <div id="address_error" class="zyxel_arlert_area hidden">
-                <span class="error_message">Error: Mac Address</span>
+                <span class="error_message"><%= I18n.t("warnings.invalid") %></span>
               </div>
             </td>
           </tr>
           <tr>
-            <%# need-add-i18n %>
             <th class="width25">
-              <%= f.label :serial_number %>
+              <%= f.label :serial_number, I18n.t("labels.serial_number") %>
             </th>
             <td colspan="3">
               <%= f.text_field :serial_number, class: "input_style1" %>
@@ -38,7 +36,6 @@
             <tr>
               <th class="error"></th>
               <td colspan="3" class="error">
-              <%# need-add-i18n %>
                 <div class="zyxel_arlert_area">
                   <span class="error_message"><%= flash[:alert] %></span>
                 </div>

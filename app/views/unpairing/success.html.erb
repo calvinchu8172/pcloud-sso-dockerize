@@ -3,7 +3,7 @@
 <div class="unpairing">
 
   <div class="zyxel_content">
-     
+
     <%# display the unpairing device %>
     <div class="zyxel_device">
       <%= image_tag @device.product.asset.url, class: "zyxel_device_image" %>
@@ -12,9 +12,7 @@
     <%# display the unpairing device - end %>
 
     <%# unpairing information %>
-    <%# need-add-i18n %>   
-    <span class="zyxel_span2">已取消與此裝置之配對</span>
-    <%# unpairing information - end %>
+    <span class="zyxel_span2"><%= I18n.t("warnings.settings.unpairing.success") %></span>
 
     <div class="zyxel_btn_area">
         <%= link_to I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok" %>

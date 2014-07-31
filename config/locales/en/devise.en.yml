@@ -20,7 +20,7 @@ en:
       confirmation_instructions:
         subject: "ZyXEL Cloud - Account Confirmation"
         instruction: "Thank you for registering with ZyXEL Cloud, please click on the following link to confirm your account registration:"
-        instruction_2: "Please click on this link within 2 days of receiving this email."
+        instruction_2: "Please click on this link within 3 days of receiving this email."
       reset_password_instructions:
         subject: "ZyXEL Cloud - Change Password Request"
         instruction: "You have requested to change your ZyXEL Cloud account's password. Please click on the following link to begin changing password:"
