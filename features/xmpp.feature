@@ -10,8 +10,8 @@ Feature: XMPP Bot
       | algo             | 1                                                        |
       | signature        | 677303d9df9f26cd696c1c986bd30ca112d98122876516fe1177bd0b |
 
-    When the device request POST /d/1/register
-    Then I will get http code and JSON
+    When the device request POST http://127.0.0.1:3000/d/1/register
+    Then I will get HTTP: 200 and xmpp_acount JSON
 
-    When I ack bot
+    Then I use xmpp_acount to ack bot
     Then I will get message from bot

@@ -6,7 +6,6 @@ include Jabber
 class Bot 
   attr_reader :client
 
-
   def initialize jabber_id, password, bot
     @jabber_id = jabber_id
     @jabber_password  = password
@@ -17,16 +16,19 @@ class Bot
     jid = JID.new(@jabber_id)
     @client = Client.new jid
     @client.connect
-    @client.auth @jabber_password
+    if @client.auth @jabber_password 
+      @status = 'good'
+    else
+      @status = 'bad'
+    end
     @client.send(Presence.new.set_type(:available))
 
     send
-    switch_return_message
   end
 
   def send
     # get_connect
-    message = Message.new(@jabber_bot, "message test")
+    message = Message.new(@jabber_id, "I am login")
     message.type=:chat
     @client.send(message)
   end
@@ -43,7 +45,7 @@ class Bot
   end
 
   def switch_return_message
-    mainthread = Thread.current
+    # mainthread = Thread.current
     @client.add_message_callback do |message|
       unless message.body.nil? && message.type != :error
         reply = case message.body
@@ -53,8 +55,10 @@ class Bot
         end
       end
     end
-    Thread.stop
-    @client.close
+    # Thread.stop
+    # @client.close
+
+    sleep(100)
   end
 
 
@@ -64,4 +68,4 @@ class Bot
     @client.send reply_message
   end
 
-  end
+end
