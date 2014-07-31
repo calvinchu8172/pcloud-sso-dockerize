@@ -149,9 +149,10 @@
 
     <%# Terms accept %>
     <div class="checkbox_area">
-      <%= f.check_box :agreement, class: "th_label" %>
-      <label class="checkbox_label" for="user_agreement"><span></span><%= I18n.t("user.labels.terms.instruction") %> </label>
+      <label class="checkbox_label" for="user_agreement"><%= I18n.t("user.labels.terms.instruction") %> </label>
       <a href="#"><%= I18n.t("user.labels.terms.instruction_2") %></a><strong> *</strong>
+      <%= f.check_box :agreement, class: "th_label" %>
+      <label class="check_icon" for="user_agreement"><span></span></label>
     </div>
     <%# Terms accept - end %>
 

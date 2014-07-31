@@ -305,27 +305,6 @@ body {
   color:#FEC66C;
 }
 // changed
-.checkbox {
-  margin-top:0px;
-  /* [disabled]margin-bottom:0px; */
-  label {
-    color: $zyxel_color2;
-  }
-  a {
-    color: #666;
-    text-decoration:none;
-    &:hover {
-      color:$zyxel_color1;
-    }
-  }
-  .checkbox_label {
-    margin-bottom: 10px;
-    padding-left: 10px;
-  }
-  input[type="checkbox"] {
-    margin-left: 0px;
-  }
-}
 .zyxel_device {
   overflow: hidden;
   .zyxel_device_image {
@@ -1001,6 +980,14 @@ input[type="checkbox"]:checked + label span {
   background:image-url("check-box.png") -18px center no-repeat;
 }
 
+input[type="checkbox"].th_label {
+  & + .check_icon {
+    float: left;
+  }
+  & + .check_icon ~ .check_icon {
+    display: none;
+  }
+}
 // changed
 .zyxel_table_style5 {
   input[type="checkbox"] {
