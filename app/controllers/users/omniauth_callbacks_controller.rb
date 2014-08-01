@@ -3,6 +3,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     identity = User.from_omniauth(request.env["omniauth.auth"])
 
+    session[:oauth] = identity.provider
     if !identity.user.blank?
       sign_in_and_redirect identity.user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => User::SOCIALS[params[:action].to_sym]) if is_navigational_format?

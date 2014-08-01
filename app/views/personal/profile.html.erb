@@ -1,0 +1,83 @@
+<%# need-add-i18n %>
+<% provide(:flow, "Profile") %>
+
+<div class="personal">
+  <div class="zyxel_content">
+    <% if flash[:notice] %>
+      <div class="zyxel_smallok_area">
+        <span><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+    <table class="zyxel_table_style zyxel_table_style1">
+      <tr>
+        <th><%= I18n.t("user.labels.email") %></th>
+        <td colspan="3"><%= current_user.email %></td>
+      </tr>
+      <% if !current_user.first_name.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.first_name") %></th>
+          <td colspan="3"><%= current_user.first_name %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.middle_name.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.display_name") %></th>
+          <td colspan="3"><%= current_user.display_name %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.middle_name.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.middle_name") %></th>
+          <td colspan="3"><%= current_user.middle_name %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.last_name.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.last_name") %></th>
+          <td colspan="3"><%= current_user.last_name %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.gender.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.gender") %></th>
+          <td colspan="3"><%= current_user.gender %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.birthday.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.birthday") %></th>
+          <td colspan="3"><%= current_user.birthday.strftime("%m/%d") %></td>
+        </tr>
+      <% end %>
+      <% if !current_user.mobile_number.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.phone_number") %></th>
+          <td colspan="3"><%= current_user.mobile_number %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <th><%= I18n.t("user.labels.language") %></th>
+        <td colspan="3"><%= @language %></td>
+      </tr>
+      <% if !current_user.country.blank? %>
+        <tr>
+          <th><%= I18n.t("user.labels.country") %></th>
+          <td colspan="3"><%= current_user.country %></td>
+        </tr>
+      <% end %>
+    </table>
+    <div class="zyxel_edm">
+      <%= check_box_tag "edm_accept", value = current_user.edm_accept, !current_user.edm_accept.zero?, disabled: true %>
+      <label>同意收到ZyXEL相關活動之Email</label>
+    </div>
+
+    <div class="zyxel_btn_area">
+      <%# need-add-i18n %>
+      <% if !session[:oauth] %>
+        <%= link_to "Change Password", edit_user_registration_path(type: "password"), class: "zyxel_btn_ok zyxel_btn_ok1" %>
+      <% end %>
+      <%= link_to "Edit Profile", edit_user_registration_path(type: "profile"), class: "zyxel_btn_ok" %>
+    </div><!-- zyxel_btn_area --> 
+
+  </div><!-- content -->
+</div>

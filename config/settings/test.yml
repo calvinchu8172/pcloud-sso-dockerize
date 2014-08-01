@@ -1,9 +1,9 @@
 magic_number: 0800
 xmpp:
-  server: xmpp.pcloud.ecoworkinc.com
+  server: localhost
   device_rescource_id: device
   admin:
-    account   : bot01
+    account   : admin
     password  : 1234
   bots : 
     - bot1@xmpp.pcloud.ecoworkinc.com/robot

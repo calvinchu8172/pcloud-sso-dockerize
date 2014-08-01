@@ -18,9 +18,13 @@ en:
       unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "ZyXEL Cloud - Account Confirmation"
+        instruction: "Thank you for registering with ZyXEL Cloud, please click on the following link to confirm your account registration:"
+        instruction_2: "Please click on this link within 2 days of receiving this email."
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "ZyXEL Cloud - Change Password Request"
+        instruction: "You have requested to change your ZyXEL Cloud account's password. Please click on the following link to begin changing password:"
+        instruction_2: "If you didn't request this, please ignore this email."
       unlock_instructions:
         subject: "Unlock Instructions"
     omniauth_callbacks:

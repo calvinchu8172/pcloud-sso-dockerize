@@ -1,7 +1,15 @@
 # require 'xmpp4r/client'
-require 'xmpp4r'
-require 'xmpp4r/dataforms'
+# require 'xmpp4r'
+# require 'xmpp4r/dataforms'
+# require 'xmpp4r/command/iq/command'
+
+require 'xmpp4r/client'
+require 'xmpp4r/pubsub/iq/pubsub'
 require 'xmpp4r/command/iq/command'
+require 'xmpp4r/roster/iq/roster'
+require 'xmpp4r/discovery/iq/discoitems'
+require 'xmpp4r/discovery'
+include Jabber
 
 class DeviceController < ApplicationController
 

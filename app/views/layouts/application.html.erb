@@ -3,6 +3,7 @@
 <head>
   <title>Pcloud</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'http://fonts.googleapis.com/css?family=Raleway:400,300' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -17,12 +18,11 @@
       <div class="zyxel_tab">
         <div class="btn-group btn-group-justified">
           <%# need-add-i18n %>
-          <a class="btn btn_tab_color1 zyxel_tab_btn" href="/personal/index">我的裝置</a>
-          <a class="btn btn_tab_color2 zyxel_tab_btn" href="/discoverer/index">搜尋裝置</a>
+          <a class="btn btn_tab_color1 zyxel_tab_btn" href="/personal/index">My Devices</a>
+          <a class="btn btn_tab_color2 zyxel_tab_btn" href="/discoverer/index">Search Devices</a>
         </div>
       </div>
     <% end %>
-    <%# breadcrumb - end %>
 
     <%# breadcrumb %>
     <% page_flow = breadcrumb(yield(:flow)) %>
@@ -37,7 +37,7 @@
         <% end %>
       </div>
     <% end %>
-    <%# breadcrumb %>
+    <%# breadcrumb - end %>
     <%= yield %>
 
     <%# need remove when release %>
