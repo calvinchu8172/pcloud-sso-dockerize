@@ -348,7 +348,7 @@ body {
   }
   p:not(.please) {
     &:before {
-      content: "✓";
+      content: "\2713";
       padding-right: 2px;
     }
     font-size: 0.8em;
