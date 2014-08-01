@@ -1,5 +1,5 @@
-<%# need-add-i18n %>
-<% provide(:flow, "Manually Add Device") %>
+<% provide(:flow, I18n.t("titles.manually")) %>
+<% provide(:tab, 'search') %>
 
 <div class="discoverer">
 
@@ -7,27 +7,28 @@
 
     <%= form_for @device, :url => '/discoverer/search' do |f| %>
       <fieldset>
-        <table class="zyxel_table_style">
+        <table class="zyxel_table_style add_label">
           <tr>
             <th class="width25">
-              <%= f.label :mac_address %>
+              <%= f.label :mac_address, I18n.t("labels.mac_address") %>
             </th>
             <td colspan="3">
-              <%= f.text_field :mac_address, class: "input_style1", onblur: "check_mac_address(this, 'address_error')" %>
+              <%= f.text_field :mac_address, class: "input_style1" %>
             </td>
           </tr>
-          <tr>
-            <th class="error"></th>
-            <td colspan="3" class="error">
-            <%# need-add-i18n %>
-              <div id="address_error" class="zyxel_arlert_area hidden">
-                <span class="error_message">Error: Mac Address</span>
-              </div>
-            </td>
-          </tr>
+          <% if flash[:error] %>
+            <tr>
+              <th class="error"></th>
+              <td colspan="3" class="error">
+                <div class="zyxel_arlert_area">
+                  <span class="error_message"><%= flash[:error] %></span>
+                </div>
+              </td>
+            </tr>
+          <% end %>
           <tr>
             <th class="width25">
-              <%= f.label :serial_number %>
+              <%= f.label :serial_number, I18n.t("labels.serial_number") %>
             </th>
             <td colspan="3">
               <%= f.text_field :serial_number, class: "input_style1" %>
@@ -37,7 +38,6 @@
             <tr>
               <th class="error"></th>
               <td colspan="3" class="error">
-              <%# need-add-i18n %>
                 <div class="zyxel_arlert_area">
                   <span class="error_message"><%= flash[:alert] %></span>
                 </div>
@@ -48,9 +48,8 @@
       </fieldset>
 
       <div class="zyxel_btn_area">
-        <%# need-add-i18n %>
-        <%= link_to("Cancel", "/discoverer/index", class: "zyxel_btn_back") %>
-        <%= f.submit "Add", class: "zyxel_btn_submit" %>
+        <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
+        <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
       </div>
     <% end %>
   </div>

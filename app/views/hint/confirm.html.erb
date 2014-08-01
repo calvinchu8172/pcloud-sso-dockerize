@@ -2,16 +2,13 @@
 
 <div class="zyxel_content">
 
-  <%# need-add-i18n %>
-  <h2 class="zyxel_h2_icon_small">已完成您的帳戶申請</h2>
+  <h2 class="zyxel_h2_icon_small"><%= I18n.t("warnings.applied_success") %></h2>
 
   <span class="zyxel_span3"><%= session[:notice] %></span>
 
   <div class="zyxel_btn_area">
     <%= link_to I18n.t("labels.resend_confirmation"), new_confirmation_path(:user), class: "zyxel_btn_submit_gray zyxel_resend_btn" %>
-
-    <%# need-add-i18n %>
-    <%= link_to 'Confirm', "/", class: "zyxel_btn_ok" %>
+    <%= link_to I18n.t("labels.confirm"), "/", class: "zyxel_btn_ok" %>
   </div><!-- zyxel_btn_area -->
 
 </div><!-- content -->

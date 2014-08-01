@@ -1,11 +1,11 @@
-Given(/^the device with the following payload::$/) do |form|
-  @form = form.rows_hash
-end 
+# Given(/^the device with the following payload::$/) do |form|
+#   @form = form.rows_hash
+# end 
 
-When /^the device requests POST (.*)$/ do |path|
-  option = {:method => :post, :params => @form}
-  request path, option
-end
+# When /^the device requests POST (.*)$/ do |path|
+#   option = {:method => :post, :params => @form}
+#   request path, option
+# end
 
 Then(/^response should be "(.*?)"$/) do |status|
   if self.respond_to? :should
@@ -40,3 +40,4 @@ Then(/^xmpp_acount is available$/)  do
 
   # client.auth(@password).is_a?(status)
 end
+

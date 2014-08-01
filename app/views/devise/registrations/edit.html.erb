@@ -1,6 +1,6 @@
-<% provide(:flow, "Profile") %>
+<%= render 'devise/shared/profile_breadcrumb' %>
 
-<div class="zyxel_content">
+<div class="zyxel_content" style="max-width: 530px;">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name, type: params[:type]), html: { method: :put }) do |f| %>
     <%= f.hidden_field :email %>
 
@@ -13,9 +13,8 @@
     <% end %>
     <%# Submit and cancel button %>
     <div class="zyxel_btn_area">
-      <%# need-add-I18n %>
-      <%= link_to "Cancel", "/personal/profile", class: "zyxel_btn_back" %>
-      <%= f.submit "Update", class: "zyxel_btn_submit" %>
+      <%= link_to I18n.t("labels.cancel"), "/personal/profile", class: "zyxel_btn_back" %>
+      <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
     </div>
     <%# Submit and cancel button - end %>
   <% end %>

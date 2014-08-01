@@ -6,29 +6,30 @@
 
     <%# Pairing information content %>
     <span class="zyxel_span2" ng-switch on="step">
-      <%# need-add-i18n %>
-      <span ng-switch-when="connecting">與裝置連線中..</span>
-      <span ng-switch-when="waiting">配對開始，請於<timer id="countdown-timer" countdown="600" max-time-unit="'minute'" autostart="false" interval="1000" class="countdown_number" >{{mminutes}} : {{sseconds}} </timer>內點擊裝置上之配對功能鍵</span>
-      <span ng-switch-when="disconnection">目前偵測不到您的裝置，請確認裝置是否連上線</span>
-      <span ng-switch-when="failure">您的配對已逾時，請重新操作以進行配對</span>
-      <span ng-switch-when="canceled">配對流程已取消</span>
-      <span ng-switch-when="done">已與此裝置完成配對，點選“確定”按鈕以繼續設定裝置的ddns設定與UPnP設定</span>
+      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.pairing.connecting") %></span>
+      <span ng-switch-when="waiting"><%= I18n.t("warnings.settings.pairing.start.instruction") %> <%= I18n.t("warnings.settings.pairing.start.instruction_2") %><timer id="countdown-timer" countdown="600" max-time-unit="'minute'" autostart="false" interval="1000" class="countdown_number" >{{mminutes}} : {{sseconds}} </timer></span>
+      <span ng-switch-when="disconnection"><%= I18n.t("warnings.settings.pairing.not_found") %></span>
+      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.pairing.failure") %></span>
+      <span ng-switch-when="canceled"><%= I18n.t("warnings.settings.pairing.canceled") %></span>
+      <span ng-switch-when="done"><%= I18n.t("warnings.settings.pairing.success") %></span>
     </span>
     <%# end - Pairing information content %>
 
     <%# Pairing bottom content include confirm button, loading image, and retry button %>
     <div class="bottom-content" ng-switch on="panel">
-        <div  class="countdown" ng-switch-when="loading">
-          <%= image_tag 'loading.gif', size: "60" %>
+        <div class="countdown" ng-switch-when="loading">
+          <%= image_tag 'loading.gif' %>
+        </div>
+        <div class="countdown" ng-switch-when="waiting">
+          <%= image_tag 'animate4.gif' %>
         </div>
         <div  ng-switch-when="retry" class="zyxel_btn_area">
-          <%# need-add-i18n %>
-          <%= link_to("Cancel", "/discoverer/index", class: "zyxel_btn_back") %>
-          <button class="zyxel_btn_submit" ng-click="reconnect()">Retry</button>
+          <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
+          <button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button>
         </div>
         <div  ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
-          <%= link_to("Confirm", "/ddns/setting/" + @device.id.to_s, class: "zyxel_btn_ok") %>
+          <%= link_to(I18n.t("labels.confirm"), "/ddns/setting/" + @device.id.to_s, class: "zyxel_btn_ok") %>
         </div>
     </div>
     <%# end - Pairing bottom content %>

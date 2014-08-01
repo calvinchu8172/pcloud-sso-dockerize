@@ -1,76 +1,79 @@
-<h1>UPnP</h1>
-<div class="upnp" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json(:only => [:id, :user_id, :device_id, :service_list]) %>;loadConfig();">
+<% provide(:flow, @device.model_name + "," + I18n.t("titles.settings.upnp")) %>
+<% provide(:tab, 'my_devices') %>
 
-  <%# display name of device %>
-  <div class="sub-breadcrumb">
-    <%= @device.model_name %>  &gt; UPnP setting
-  </div>
+<div class="upnp zyxel_content" style="max-width:570px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json(:only => [:id, :user_id, :device_id, :service_list]) %>;loadConfig();">
 
   <%# Pairing information %>
   <div  ng-switch on="step">
-    <center>
-      {{wording}}
-      <div class="pairing-info" ng-switch-when="updating">正在同步裝置的UPnP設定中</div>
-      <div ng-switch-when="form">
-        <p>service list</p>
-        <table ng-table class="table table-bordered">
-            <td >
-              enabled
-            </td>
-            <td >
-              status
-            </td>
-            <td >
-              Name
-            </td>
-            <td>
-              description
-            </td>
-          </tr>
-          <tr ng-repeat="service in session.service_list" >
-            <td data-title="'enabled'">
-              <input type="checkbox" ng-model="service.enabled" ng-disabled="panel != 'form'" >
-            </td>
-            <td data-title="'status'" ng-switch on="service.status">
-              <span ng-switch-when="true" class="">OK</span>
-              <span ng-switch-when="false" class="">---</span>
-            </td>
-            <td data-title="'Name'">
-              {{service.service_name}}
-            </td>
-            <td data-title="'description'">
-              {{service.description}}
-            </td>
-          </tr>
-        </table>
+    <div class="waiting" ng-switch-when="updating">
+      <span class="zyxel_span2"><%= I18n.t("warnings.settings.upnp.sync") %></span>
+    </div>
+    <div ng-switch-when="form">
+      <div ng-switch on="result">
+        <h2 ng-switch-when="true" class="zyxel_h2_icon1">
+          <%= image_tag @session.device.product.asset.url, width: "100" %>
+          <span>{{wording}}</span>
+        </h2>
       </div>
-      <div class="pairing-info" ng-switch-when="failure">目前偵測不到您的裝置，請確認裝置是否連上線</div>
-    </center>
+      <table ng-table class="zyxel_table_style5">
+        <tr>
+          <th><%= I18n.t("labels.settings.upnp.table_head1") %></th>
+          <th><%= I18n.t("labels.settings.upnp.table_head2") %></th>
+          <th><%= I18n.t("labels.settings.upnp.table_head3") %></th>
+          <th><%= I18n.t("labels.settings.upnp.table_head4") %></th>
+        </tr>
+        <tr ng-repeat="service in session.service_list" >
+          <td data-title="'enabled'" class="column1">
+            <div ng-switch on="result">
+              <input id="check{{$index}}" type="checkbox" ng-model="service.enabled" ng-disabled="panel != 'form'" >
+              <div ng-switch-when="true">
+                <label><span></span></label>
+              </div>
+              <div ng-switch-when="false">
+                <label for="check{{$index}}"><span></span></label>
+              </div>
+            </div>
+          </td>
+          <td data-title="'status'" ng-switch on="service.status" class="column2">
+            <span ng-switch-when="true" class="">OK</span>
+            <span ng-switch-when="false" class="">---</span>
+          </td>
+          <td data-title="'Name'">
+            {{service.service_name}}
+          </td>
+          <td data-title="'description'" class="column3">
+            {{service.description}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="waiting" ng-switch-when="failure">
+      <span class="zyxel_span4"><%= I18n.t("warnings.settings.upnp.not_found") %></span>
+    </div>
   </div>
   <%# Pairing information - end %>
 
   <%# Bottom content include loading image and retry button %>
   <div class="pairing-panel" ng-switch on="panel">
-    <center>
-      <div ng-switch-when="loading">
-        <%= image_tag 'loading.gif', size: "60" %>
-      </div>
-      <div ng-switch-when="retry">
-        <button class="btn btn-primary" ng-click="retry()">Retry</button>
-        <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
-      </div>
-      <div ng-switch-when="form">
-        <button class="btn btn-primary" ng-click="submit()">Submit</button>
-        <%= link_to("Cancel", "/personal/index", class: "btn btn-default") %>
-      </div>
-      <div ng-switch-when="confirm">
-        <%= link_to("OK", "/personal/index", class: "btn") %>
-      </div>
-    </center>
+    <div ng-switch-when="loading">
+      <div class="waiting"><%= image_tag 'loading.gif', size: "54x55" %></div>
+    </div>
+    <div ng-switch-when="retry" class="zyxel_btn_area">
+      <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
+      <button class="zyxel_btn_submit" ng-click="retry()"><%= I18n.t("labels.retry") %></button>
+    </div>
+    <div ng-switch-when="form" class="zyxel_btn_area">
+      <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
+      <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
+    </div>
+    <div ng-switch-when="confirm" class="zyxel_btn_area">
+      <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok") %>
+    </div>
   </div>
   <%# Bottom content include loading image and retry button - end %>
 </div>
-<script type="text/javascript">
+
+<%= javascript_tag do %>
   var upnp_app = angular.module('upnp_app', ['timer']);
   upnp_app.config([
     '$httpProvider',
@@ -86,6 +89,7 @@
     $scope.checkPath = '/upnp/check/';
     $scope.step = "updating";
     $scope.panel = "loading";
+    $scope.result = "false"
     $scope.loadTimes = 0;
     $scope.checkTimes = 0;
     $scope.timesLimit = 16; //16
@@ -146,6 +150,7 @@
           }
         });
 
+        $scope.step = "updating"
         $scope.panel = "loading";
     };
     $scope.retry = function(){
@@ -158,8 +163,10 @@
           console.log(response);
           $scope.checkTimes++;
           if('updated' == response.status){
+            $scope.step = "form";
             $scope.panel = 'confirm';
-            $scope.wording = '已完成 UPnP 設定';
+            $scope.result = "true";
+            $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
             return;
           }
 
@@ -174,4 +181,4 @@
       }, $scope.interval);
     };
   });
-</script>
+<% end %>
