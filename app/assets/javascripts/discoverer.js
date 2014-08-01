@@ -11,19 +11,3 @@ discoverer_app.controller('DeviceListCtrl', function ($scope, $http) {
   }
 });
 // get devices data - end
-
-// check mac address format when user entered 
-function check_mac_address(mac_address, node_id) {
-  var address_format = new RegExp("^([0-9a-f]{2}:){5}[0-9a-f]{2}$", "i");
-  var error_node = document.getElementById(node_id);
-  if (error_node) {
-	  if (mac_address && mac_address.value.match(address_format)) {
-	  	if (!error_node.className.match("hidden")) {
-	  		add_class(error_node, "hidden");
-	  	}
-	  } else {
-	  	remove_class(error_node, "hidden");
-	  }
-	}
-}
-// check mac address - end

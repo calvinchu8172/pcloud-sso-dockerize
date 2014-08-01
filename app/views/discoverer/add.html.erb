@@ -13,17 +13,19 @@
               <%= f.label :mac_address, I18n.t("labels.mac_address") %>
             </th>
             <td colspan="3">
-              <%= f.text_field :mac_address, class: "input_style1", onblur: "check_mac_address(this, 'address_error')" %>
+              <%= f.text_field :mac_address, class: "input_style1" %>
             </td>
           </tr>
-          <tr>
-            <th class="error"></th>
-            <td colspan="3" class="error">
-              <div id="address_error" class="zyxel_arlert_area hidden">
-                <span class="error_message"><%= I18n.t("warnings.invalid") %></span>
-              </div>
-            </td>
-          </tr>
+          <% if flash[:error] %>
+            <tr>
+              <th class="error"></th>
+              <td colspan="3" class="error">
+                <div class="zyxel_arlert_area">
+                  <span class="error_message"><%= flash[:error] %></span>
+                </div>
+              </td>
+            </tr>
+          <% end %>
           <tr>
             <th class="width25">
               <%= f.label :serial_number, I18n.t("labels.serial_number") %>
