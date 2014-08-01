@@ -20,6 +20,7 @@ class PersonalController < ApplicationController
     def get_info(pairing)
       info_hash = Hash.new
       info_hash[:model_name] = pairing.device.model_name
+      info_hash[:firmware_version] = pairing.device.firmware_version
       if pairing.device.ddns
         info_hash[:class_name] = "orange"
         info_hash[:title] = pairing.device.ddns.full_domain

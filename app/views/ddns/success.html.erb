@@ -14,7 +14,8 @@
     </div>
     <%# display success information - end %>
 
-    <div ng-switch-when="loading">
+    <div ng-switch-when="loading" class="waiting">
+      <span class="zyxel_span2"><%= I18n.t("warnings.settings.ddns.sync") %></span>
       <%= image_tag 'loading.gif' %>
     </div>
   </div>

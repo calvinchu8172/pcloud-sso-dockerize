@@ -26,9 +26,14 @@ class DiscovererController < ApplicationController
   end
 
   def search
+    valid = mac_address_valid?(params[:device][:mac_address])
     device = Device.where(params['device']);
-    if device.empty?
-      flash[:alert] = I18n.t("devise.errors.messages.not_found")
+
+    if !valid
+      flash[:error] = I18n.t("warnings.invalid")
+      redirect_to action: 'add'
+    elsif device.empty?
+      flash[:alert] = I18n.t("errors.messages.not_found")
       redirect_to action: 'add'
     else
       redirect_to action: 'check', id: device.first.id
@@ -43,5 +48,9 @@ class DiscovererController < ApplicationController
 
   def search_available_device
     DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling().select(:device_id), Pairing.enabled.select(:device_id))
+  end
+
+  def mac_address_valid?(mac_address)
+    /^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i.match(mac_address)
   end
 end

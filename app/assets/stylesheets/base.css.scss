@@ -339,13 +339,21 @@ body {
 // changed
 .zyxel_note {
   color: #B2B2B2;
-  div {
+  .please {
     font-size: 0.9em;
+    font-weight: bold;
   }
   p {
-    margin: 5px 80px 0;
+    display: inline;
+  }
+  p:not(.please) {
+    &:before {
+      content: "✓";
+      padding-right: 2px;
+    }
     font-size: 0.8em;
     line-height: 1.5em;
+    margin-left: 5px;
   }
 }
 .zyxel_btn_area {

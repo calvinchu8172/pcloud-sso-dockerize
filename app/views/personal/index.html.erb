@@ -24,13 +24,16 @@
                   <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title] %></td>
                 </tr>
                 <tr>
-                  <td><span>WAN IP</span><%= info_hash[:ip] %></td>
+                  <td><span><%= I18n.t("labels.settings.ddns.wan_ip") %></span><%= info_hash[:ip] %></td>
                 </tr>
                 <tr>
-                  <td><span>Model</span><%= info_hash[:model_name] %></td>
+                  <td><span><%= I18n.t("labels.settings.ddns.model") %></span><%= info_hash[:model_name] %></td>
                 </tr>
                 <tr>
-                  <td><span>Last update</span><%= info_hash[:date] %></td>
+                  <td><span><%= I18n.t("labels.settings.ddns.last_update") %></span><%= info_hash[:date] %></td>
+                </tr>
+                <tr>
+                  <td><span><%= I18n.t("labels.settings.ddns.firmware_version") %></span><%= info_hash[:firmware_version] %></td>
                 </tr>
               </table>
             </td>

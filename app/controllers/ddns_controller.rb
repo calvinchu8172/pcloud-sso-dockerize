@@ -34,9 +34,8 @@ class DdnsController < ApplicationController
   # Check full domain name
   def check
     @ddns_params = params[:ddns_session]
-    @full_domain = params[:hostName] + "." + Settings.environments.ddns
+    @full_domain = params[:hostName].downcase + "." + Settings.environments.ddns
     ddns = Ddns.find_by_full_domain(@full_domain)
-
     # If full domain was exits, it will redirct to setting page and display error message
     if ddns && !paired?(ddns.device_id)
       flash[:error] = @full_domain + " " + I18n.t("errors.messages.expired")
@@ -96,7 +95,7 @@ class DdnsController < ApplicationController
       if params[:hostName].length <= 3 
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_short")
-      elsif params[:hostName].length > 12
+      elsif params[:hostName].length > 63
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_long")
       elsif /^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:hostName]).nil?

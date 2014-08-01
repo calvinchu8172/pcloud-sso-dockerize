@@ -17,6 +17,10 @@ en:
       ddns:
         instruction: 'DDNS Setup'
         host_name: 'Host Name'
+        wan_ip: 'WAN IP'
+        model: 'Model'
+        last_update: 'Last Update'
+        firmware_version: 'Firmware Ver.'
       upnp:
         instruction: 'UPnP Setup'
         table_head1: 'Enabled'
@@ -69,13 +73,18 @@ en:
         canceled: 'Pairing has been canceled'
         success: 'Successfully paired. Please click "Confirm" button to setup DDNS and UPnP.'
       ddns:
-        instruction: 'WARNING: Hostname cannot contain the following specific characters -'
-        instruction_2: 'comma(,), tilde(~), colon(:), exclamation mark screamer(!), number(#), dollar sign($), at(@), percent(%), hat(^), and(&), single quote(''), quotation mark("), dot(.), underline(_), slash(/), backslash(\), question mark(?), parentheses(()), brackets([]), braces({}), greater than(>), less than(<), star(*), vertical bar(|), white space( )'
+        instruction: 'Please use:'
+        instruction_2: '3 to 63 characters'
+        instruction_3: 'First character should be a letter'
+        instruction_4: 'Numbers(0-9)'
+        instruction_5: 'Lowercase letters(a-z)'
+        instruction_6: 'Hyphen(-)'
+        sync: 'Synchronizing DDNS settings...'
         success: 'DDNS settings have been successfully.'
         failure: 'Update failed. Please try again later.'
         not_found: 'Device is not found'
         too_short: 'Your host name must be at least 3 characters long. Please try another.'
-        too_long: 'Your host name must be shorter than 12 characters long. Please try another.'
+        too_long: 'Your host name must be shorter than 63 characters long. Please try another.'
       upnp:
         sync: 'Synchronizing UPnP settings...'
         success: 'UPnP settings have been successfully.'
