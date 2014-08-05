@@ -6,7 +6,7 @@ class PairingSession < ActiveRecord::Base
   belongs_to :device
 
   def self.handling_status
-    self.statuses.slice(:start, :waiting, :done)
+    self.statuses.slice(:start, :waiting)
   end
 
   def self.handling_by_user(user_id)
