@@ -9,13 +9,14 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
   $scope.loadTimes = 0;
   $scope.timesLimit = 16;
   $scope.interval = 3500;
+  $scope.formateSuffix = ".json";
 
   $scope.checkStatus = function() {
     $timeout(function() {
       $scope.loadTimes++;
 
       // get ajax
-      $http.get($scope.statusPath + $scope.session.id, { cache: false}).success(function(response) {
+      $http.get($scope.statusPath + $scope.session.id + $scope.formateSuffix, { cache: false}).success(function(response) {
 
         // display success information when status was changed to success
         if(response.status == "success") {
