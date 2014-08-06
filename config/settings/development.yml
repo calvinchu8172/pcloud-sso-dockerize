@@ -19,13 +19,13 @@ environments:
     default:
       storage: :s3
       s3_credentials: 
-        bucket: 's3-pcloud-test'
-        access_key_id: 'AKIAJS52YFZUARWCSMVQ'
-        secret_access_key: 'vsys5QRBqdhzurgBfR8NgKP1zHojPcF'
+        bucket: 'mycloud_beta'
+        access_key_id: 'AKIAJQC6CFQZZALCZZ2A'
+        secret_access_key: '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'
     attachment:
       default:
-        url: ':s3-pcloud-test.s3.amazonaws.com'
-        s3_host_name: 's3-us-west-2.amazonaws.com'
+        url: ':mycloud_beta.s3.amazonaws.com'
+        s3_host_name: 's3-website-us-east-1.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
     name: 'personal_cloud_queue_test'
