@@ -7,7 +7,7 @@ class PersonalController < ApplicationController
       @paired = true
     else
       @paired = false
-      flash[:alert] = I18n.t("warnings.no_pairing_device") if current_user.sign_in_count == 0
+      flash[:alert] = I18n.t("warnings.no_pairing_device") if current_user.sign_in_count > 1
       redirect_to "/discoverer/index"
     end
   end

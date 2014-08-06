@@ -64,7 +64,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
-      flash.now[:alert] = I18n.t("devise.registrations.captcha")
+      flash.now[:error] = I18n.t("devise.registrations.captcha")
       flash.delete :recaptcha_error
       render :new
     end

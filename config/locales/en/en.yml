@@ -58,6 +58,7 @@ en:
     applied_success: 'You have applied your account successfully.'
     confirmation_success: 'Feel free to enjoy the ZyXEL Cloud Services.'
     forgot_password: 'Your password has been reset.'
+    sent_email: 'Email has been sent'
     settings:
       unpairing:
         instruction: 'Are you sure you want to unpair with this device?'

@@ -12,7 +12,7 @@
 
     <%# header %>
     <%= render 'layouts/header' %>
-    
+
     <%# tab %>
     <%= render 'layouts/devices_tab' %>
 
@@ -29,20 +29,20 @@
         <% end %>
       </div>
     <% end %>
+
+    <% if yield(:disable_alert) != "hidden" %>
+      <% if flash[:alert] || flash[:notice] %>
+        <div class="alert_info">
+          <div class="zyxel_arlert_area">
+            <span class="error_message"><%= info = flash[:alert] ? flash[:alert] : flash[:notice] %></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
     <%# breadcrumb - end %>
     <%= yield %>
 
-    <%# need remove when release %>
-    <% if flash[:notice] || flash[:alert] || flash[:error] %>
-      <div class="test">
-        <p>Test Information, it will be removed when release.</p>
-        <p class="notice"><%= flash[:notice] %></p>
-        <p class="alert"><%= flash[:alert] %></p>
-        <% if flash[:error] %>
-        <p class="error"><%= flash[:error] %></p>
-        <% end %>
-      </div>
-    <% end %>
   </div>
     
 </body>
