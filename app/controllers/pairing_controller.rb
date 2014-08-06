@@ -25,8 +25,11 @@ class PairingController < ApplicationController
     @session = PairingSession.find(session_id)
 
     logger.debug "session: " + @session.to_json
-    check_status
-    
+    if @session.status == "start" && (Time.now.to_f - @session.created_at.to_f) > 60
+      @session.status = :offline
+      @session.save!
+    end
+
     render :json => @session.to_json(:only => [:id, :status])
   end
 
@@ -40,20 +43,15 @@ class PairingController < ApplicationController
 
   private
 
-  def check_status
-    if @session.status == "start"
-      @session.status = :offline
-      @session.save!
-    end
-  end
-
   def connect_to_device
     @device = Device.find(params[:id])
 
+    job_params = {:user_id => current_user.id,
+                  :device_id => @device.id,
+                  :expire_at => (Time.now + (12.minutes))}
+    logger.info("connect to device params:" + job_params.to_s)
     job = Job::PairingMessage.new
-    job.push({:user_id => current_user.id,
-              :device_id => @device.id,
-              :expire_at => (Time.now + (12.minutes))})
+    job.push(job_params)
     @session = job.session
   end
   
@@ -62,6 +60,7 @@ class PairingController < ApplicationController
       connect_to_device
     else
       @session = @last_session
+      logger.info("resume from pairing session id:" + @session.id.to_s)
     end
   end
 end

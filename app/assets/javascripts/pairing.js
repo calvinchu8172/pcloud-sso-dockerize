@@ -19,21 +19,17 @@
       $scope.step = 'connecting';
       $scope.panel = 'loading';
       $scope.watingUrl = '/pairing/waiting/';
-      $scope.checkConnectionUrl = '/pairing/check_connection/';
       $scope.checkTimes = 0;
       $scope.timesLimit = 20;
       $scope.interval = 3000;
       $scope.formateSuffix = ".json";
+      $scope.checkConnectionUrl = '/pairing/check_connection/';
 
       $scope.checkConnection = function(){
         $timeout(function(){
-          var url = $scope.checkConnectionUrl;
-          $scope.checkTimes++;
-          if($scope.checkTimes < $scope.timesLimit){
-            url = $scope.watingUrl;
-          }   
-          
-          $http.get(url + $scope.sessionId + $scope.formateSuffix).success(function(response) {
+
+          var url = $scope.checkConnectionUrl  + $scope.sessionId + $scope.formateSuffix;
+          $http.get(url).success(function(response) {
             switch(response.status){
               case 'offline':
                 $scope.disconnectionStep();
@@ -50,11 +46,12 @@
                 $scope.completedStep();
                 break;
               case 'start':
-                if($scope.checkTimes <= $scope.timesLimit){
-                  $scope.checkConnection();
-                  break;
-                }
-                $scope.disconnectionStep();
+                $scope.checkConnection();
+                // if($scope.checkTimes <= $scope.timesLimit){
+                //   $scope.checkConnection();
+                //   break;
+                // }
+                // $scope.disconnectionStep();
                 break;
             }
           });}, $scope.interval);
@@ -94,7 +91,7 @@
       $scope.$on('timer-tick', function (event, args) {
         $timeout(function (){
           if((args.millis % 10000) == 0){
-            $http.get("/pairing/waiting/" + $scope.sessionId + $scope.formateSuffix).success(function(response) {
+            $http.get($scope.checkConnectionUrl + $scope.sessionId + $scope.formateSuffix).success(function(response) {
 
               switch(response.status){
                 case 'done':
