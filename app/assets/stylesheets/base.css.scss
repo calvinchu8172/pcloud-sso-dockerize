@@ -1,10 +1,10 @@
 @import "bootstrap";
 
 $zyxel_white: #ffffff;
-$zyxel_color1: #ff793e; // orange
+$zyxel_color1: #EE7532; // orange
 $zyxel_color2: #999999; // gray
 $zyxel_color3: #d8d8d8; // light gray
-$zyxel_color4: #ffc76c; // light orange
+$zyxel_color4: #FEDCA5; // light orange
 
 html, body {
   min-height: 100%;
@@ -238,6 +238,7 @@ body {
   padding-left: 33px;
   margin: 0 0 10px 0;
   line-height: 40px;
+  padding: 10px 0 10px 75px;
 }
 .zyxel_h2_icon_small {
   color: $zyxel_color1;
@@ -287,7 +288,7 @@ body {
   line-height: 28px;
 }
 .checkbox_area label {
-  color: #999999;
+  color: $zyxel_color2;
   font-weight:normal;
 }
 .checkbox_area {
@@ -299,7 +300,7 @@ body {
   text-decoration:none;
 }
 .checkbox_area a:hover {
-  color:#ff793e;
+  color: $zyxel_color1;
 }
 .checkbox_area strong {
   color:#FEC66C;
@@ -497,7 +498,7 @@ body {
 }
 .zyxel_btn_style1 {
   background-color: transparent;
-  color: #FD7747;
+  color: $zyxel_color1;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -509,14 +510,14 @@ body {
   -moz-transition: background-color .2s, color .2s;/* firefox */
   -o-transition: background-color .2s, color .2s;
   line-height: 24px;
-  border-color: #FD7747;
+  border-color: $zyxel_color1;
   border-style: solid;
   border-width: 1px;
   text-align: center;
 }
 .zyxel_btn_style1:hover {
   text-decoration:none;
-  background-color:#FD793E;
+  background-color: $zyxel_color1;
   color: #FFF;
 }
 .zyxel_btn_style2 {
@@ -545,12 +546,15 @@ body {
 }
 
 .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{
-  max-width: 90px;
+  // max-width: 90px;
   display: inline-block;
   line-height: 18px;
   vertical-align: middle;
 }
-
+.zyxel_table_style3 .table_btn_area{
+  border-bottom: 1px solid #EEE;
+  padding:10px 0 30px 0;
+}
 .zyxel_btn_sns {
   background-color: #ffac87;
   width: 48%;
@@ -640,7 +644,7 @@ body {
   background-image: image-url("ok_small.png");
   background-repeat: no-repeat;
   background-position: left center;
-  color: #FD7747;
+  color: $zyxel_color1;
   font-size: 15px;
   line-height: 12px;
   padding: 5px 0 5px 27px;
@@ -734,7 +738,7 @@ body {
   -o-transition: color .3s;
 }
 .login_footer a span:hover {
-  color:#FD7747;
+  color: $zyxel_color1;
 }
 .login_footer_forgot {
   background-image: image-url("forgot_password.png");
@@ -910,22 +914,23 @@ body {
   margin-bottom: 70px;
 }
 .zyxel_table_style3 th {
-  border-bottom: 1px solid #EEE;
+  // border-bottom: 1px solid #EEE;
   padding-left: 10px;
   text-align: center;
+  width: 120px;
 }
 .zyxel_table_style3 th img, .zyxel_table_style2 th img {
-  height: 75px;
+  height: 85px;
 }
 .zyxel_table_style3 td{
   padding-top: 4px;
   padding-bottom: 4px;
-  border-bottom: 1px solid #EEE;
+  // border-bottom: 1px solid #EEE;
   color: #999;
   padding-left: 10px;
 }
 .zyxel_table_style4 {
-  margin: 15px 0;
+  margin-top: 15px;
 }
 .zyxel_table_style4 td {
   border-bottom: none;
@@ -933,8 +938,14 @@ body {
   padding: 3px 0;
 }
 .zyxel_table_style4 td.orange {
-  color: #FD7747;
+  color: $zyxel_color1;
   font-size: 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  max-width:450px;
 }
 .zyxel_table_style4 td.gray {
   color: #616161;
@@ -966,7 +977,7 @@ body {
 }
 .zyxel_table_style5 td.column2{
   text-align: center;
-  color: #FD793E;
+  color: $zyxel_color1;
 }
 .zyxel_table_style5 td.column3{
   padding-right: 0px;
@@ -1071,18 +1082,14 @@ input[type="checkbox"].th_label {
   .header .header_h1_rwd{ float:none; }
   .nav_zyxel_rwd{ float:none; display:inline-block; margin-top:10px; }
   .header{ height:120px; text-align:center; }
-  .zyxel_table_style3 th{ display:none; }
+  // .zyxel_table_style3 th{ display:none; }
   /*.zyxel_table_style4 td span{ display:block; }*/
   .zyxel_host_name input{ width:100%; }/* modify */
+  .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{ display: block; margin:10px 0; }
 }
-@media all and (max-width: 640px){/* modify */
-  .zyxel_btn_style1, .zyxel_btn_style2{ display: block; margin:10px 0; max-width:100px; padding:3px; }
+@media all and (max-width: 600px){/* modify */
+
 }
 @media all and (min-width: 768px){
   .zyxel_table_style5 td.column3{ width:50%; }
-}
-.test {
-  padding: 10px;
-  border: 1px solid red;
-  background-color: #FFD2D2;
 }
