@@ -962,6 +962,38 @@ body {
   padding-right: 10px;
   color: #FEC675;
 }
+.hide_domain_name{
+  display: none;
+  position: absolute;
+  top:250px;
+  left: 70px;
+  font-size: 20px;
+  /*background:$zyxel_color3;*/
+  border:1px solid $zyxel_color3 !important;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.hide_domain_name:after, .hide_domain_name:before { 
+  top: 100%; 
+  left: 50%; 
+  border: solid transparent; 
+  content: " "; 
+  height: 0; 
+  width: 0; 
+  position: absolute; 
+  pointer-events: none; 
+} 
+.hide_domain_name:after{  
+  border-color: rgba(216, 216, 216, 0); 
+  border-top-color: $zyxel_color3; 
+  border-width: 10px; 
+  margin-left: 10px;
+}
+.zyxel_table_style4 td.orange:hover + .hide_domain_name{
+  display: inline;
+}
+
 .zyxel_table_style5{
   margin-top: 25px;
 }

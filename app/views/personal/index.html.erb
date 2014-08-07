@@ -22,6 +22,7 @@
                 <% info_hash = get_info(pairing) %>
                 <tr>
                   <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title] %></td>
+                  <td class="hide_domain_name"><span><%= info_hash[:title] %></span></td>
                 </tr>
                 <tr>
                   <td><span><%= I18n.t("labels.settings.ddns.wan_ip") %></span><%= info_hash[:ip] %></td>
