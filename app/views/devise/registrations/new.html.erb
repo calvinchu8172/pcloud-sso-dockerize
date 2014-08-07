@@ -133,10 +133,10 @@
           <th><span>* </span><%= I18n.t("user.labels.captcha") %></th>
           <td>
             <%= recaptcha_tags ajax: true %>
-            <% if flash[:alert] %>
+            <% if flash[:error] %>
               <div class="error">
                 <div class="zyxel_arlert_area">
-                  <label class="error_message"><%= flash[:alert] %></label>
+                  <label class="error_message"><%= flash[:error] %></label>
                 </div>
               </div>
             <% end %>

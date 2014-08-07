@@ -21,6 +21,13 @@ body {
   background: linear-gradient(to bottom,  $zyxel_white 0%,#fffaf1 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fffaf1',GradientType=0 ); /* IE6-9 */
 }
+
+// changed
+.alert_info {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
 .index {
   max-width: 650px;
   margin: 50px auto;
@@ -253,7 +260,7 @@ body {
 .zyxel_h2_icon1 {
   color: $zyxel_color1;
   font-size: 28px;
-  background-image: image-url("device_icon_org_small_new1.png");
+  // background-image: image-url("device_icon_org_small_new1.png");
   background-repeat: no-repeat;
   background-position: left center;
   margin: 0 0 10px 0;

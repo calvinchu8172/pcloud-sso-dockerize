@@ -1,3 +1,5 @@
+<% provide(:disable_alert, "hidden") %>
+
 <div class="container">
   <div class="zyxel_content">
     <div class="signupForm">
@@ -7,11 +9,16 @@
 
         <%# Warning information %>
         <% if flash[:alert] && !flash[:alert].index("password") %>
+          <% message = flash[:alert] %>
+        <% elsif flash[:notice] %>
+          <% message = flash[:notice] %>
+        <% end %>
+
+        <% if !message.blank? %>
           <div class="zyxel_arlert_area">
-            <span class="error_message"><%= flash[:alert] %></span>
+            <span class="error_message"><%= message %></span>
           </div>
         <% end %>
-            
         <%# oAuth sign in %>
         <div class="sns_sign">
           <%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "zyxel_btn_sns sns_fb" %>

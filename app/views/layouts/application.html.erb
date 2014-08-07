@@ -12,7 +12,7 @@
 
     <%# header %>
     <%= render 'layouts/header' %>
-    
+
     <%# tab %>
     <%= render 'layouts/devices_tab' %>
 
@@ -29,6 +29,17 @@
         <% end %>
       </div>
     <% end %>
+
+    <% if yield(:disable_alert) != "hidden" %>
+      <% if flash[:alert] || flash[:notice] %>
+        <div class="alert_info">
+          <div class="zyxel_arlert_area">
+            <span class="error_message"><%= info = flash[:alert] ? flash[:alert] : flash[:notice] %></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
     <%# breadcrumb - end %>
     <%= yield %>
 
