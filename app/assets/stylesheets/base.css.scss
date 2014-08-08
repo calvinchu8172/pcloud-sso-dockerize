@@ -965,14 +965,22 @@ body {
 .hide_domain_name{
   display: none;
   position: absolute;
-  top:250px;
-  left: 70px;
-  font-size: 20px;
+  left: -50%;
+  right: -50%;
+  top:-130%;
+  text-align: center;
   /*background:$zyxel_color3;*/
-  border:1px solid $zyxel_color3 !important;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  span{
+    font-size: 15px;
+    color: $zyxel_color1 !important;
+    background:white;
+    border:1px solid $zyxel_color3 !important;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;  
+    padding: 5px 10px !important;
+  }
+
 }
 .hide_domain_name:after, .hide_domain_name:before { 
   top: 100%; 

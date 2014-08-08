@@ -20,7 +20,7 @@
               <table class="zyxel_table_style4">
               <%# get setting information %>
                 <% info_hash = get_info(pairing) %>
-                <tr>
+                <tr style="position:relative">
                   <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title] %></td>
                   <td class="hide_domain_name"><span><%= info_hash[:title] %></span></td>
                 </tr>
