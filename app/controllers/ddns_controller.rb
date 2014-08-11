@@ -36,9 +36,15 @@ class DdnsController < ApplicationController
     @ddns_params = params[:ddns_session]
     @full_domain = params[:hostName].downcase + "." + Settings.environments.ddns
     ddns = Ddns.find_by_full_domain(@full_domain)
+    filter_list = Settings.environments.filter_list
+
     # If full domain was exits, it will redirct to setting page and display error message
     if ddns && !paired?(ddns.device_id)
-      flash[:error] = @full_domain + " " + I18n.t("errors.messages.expired")
+      flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
+      redirect_to action: 'setting', id: @ddns_params[:device_id]
+      return
+    elsif filter_list.include?(params[:hostName])
+      flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
       redirect_to action: 'setting', id: @ddns_params[:device_id]
       return
     end
@@ -92,17 +98,12 @@ class DdnsController < ApplicationController
     def validate_host_name
       valid = false
 
-      filter_list = Settings.environments.filter_list
-
       if params[:hostName].length <= 3 
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_short")
       elsif params[:hostName].length > 63
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_long")
-      elsif filter_list.include?(params[:hostName])
-        valid = true
-        error_message = I18n.t("warnings.settings.ddns.not_acepet")
       elsif /^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:hostName]).nil?
         valid = true
         error_message = I18n.t("warnings.invalid")
