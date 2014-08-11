@@ -86,6 +86,7 @@ en:
         not_found: 'Device is not found'
         too_short: 'Your host name must be at least 3 characters long. Please try another.'
         too_long: 'Your host name must be shorter than 63 characters long. Please try another.'
+        not_acepet: 'Your host name not acepet. Please try another.'
       upnp:
         sync: 'Synchronizing UPnP settings...'
         success: 'UPnP settings have been successfully.'

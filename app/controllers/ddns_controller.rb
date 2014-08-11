@@ -92,12 +92,17 @@ class DdnsController < ApplicationController
     def validate_host_name
       valid = false
 
+      filter_list = Settings.environments.filter_list
+
       if params[:hostName].length <= 3 
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_short")
       elsif params[:hostName].length > 63
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_long")
+      elsif filter_list.include?(params[:hostName])
+        valid = true
+        error_message = I18n.t("warnings.settings.ddns.not_acepet")
       elsif /^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:hostName]).nil?
         valid = true
         error_message = I18n.t("warnings.invalid")
