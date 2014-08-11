@@ -96,10 +96,10 @@ body {
 .nav .open>a, .nav .open>a:hover, .nav .open>a:focus{
   background-color: $zyxel_white;
 }
-// .dropdown-menu{
-//   right:0;
-//   left: inherit;
-// }
+.dropdown-menu{
+  right:0;
+  left: inherit;
+}
 .nav_zyxel li a{
   color: $zyxel_color2;
   font-weight: normal;
