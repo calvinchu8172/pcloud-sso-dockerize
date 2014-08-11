@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725024036) do
+ActiveRecord::Schema.define(version: 20140811041043) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140725024036) do
     t.string   "asset_content_type"
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
+    t.string   "pairing_type"
   end
 
   create_table "unpairing_sessions", force: true do |t|
