@@ -2,13 +2,16 @@
 
 <div class="zyxel_content">
   <div class="agree_note_box">
-    Terms
+    <%= render partial:'hint/agreement', layout: false %>
   </div>
   <%= form_for(@user, html: {role: "form", name: "oauthForm"}, as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
 
     <div class="checkbox_area">
-      <label for="user_agreement" class="checkbox_label"><span></span><%= I18n.t("user.labels.terms.instruction") %> </label>
-      <a href="#"><%= I18n.t("user.labels.terms.instruction_2") %></a><strong> *</strong>
+      <label for="user_agreement" class="checkbox_label"><span></span>
+        <%= I18n.t("user.labels.terms.instruction") %> 
+        <%= I18n.t("user.labels.terms.instruction_2") %>
+      </label>
+      <strong> *</strong>
 
       <%= f.check_box :agreement, class: "th_label" %>
       <label class="check_icon" for="user_agreement"><span></span></label>

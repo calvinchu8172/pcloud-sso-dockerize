@@ -1,0 +1,11 @@
+<% provide(:flow, I18n.t("titles.terms")) %>
+
+<div class="zyxel_content">
+  <div class="agree_note_box">
+    <%= render partial:'hint/agreement', layout: false %>
+  </div>
+
+    <div class="zyxel_btn_area">
+      <a class="zyxel_btn_back" href="#" onclick="window.close();"><%= I18n.t("labels.cancel") %></a>
+    </div>
+</div>
