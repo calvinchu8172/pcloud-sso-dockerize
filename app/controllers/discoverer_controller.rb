@@ -9,6 +9,7 @@ class DiscovererController < ApplicationController
     raw_result = Array.new
     @device_session_list.each do |session|
       next if(session.device.product.blank?)
+      logger.info "discovered device id:" + session.device.id.to_s + ", product name:" + session.device.product.name
       raw_result.push({:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url})
     end
 
@@ -26,8 +27,10 @@ class DiscovererController < ApplicationController
   end
 
   def search
+
     valid = mac_address_valid?(params[:device][:mac_address])
     device = Device.where(params['device']);
+    logger.info "searched device:" + params['device'].inspect
 
     if !valid
       flash[:error] = I18n.t("warnings.invalid")
@@ -42,6 +45,7 @@ class DiscovererController < ApplicationController
 
   def check
     @device = Device.find(params[:id])
+    logger.info "checking device id:" + @device.id.to_s
   end
 
   private 

@@ -18,14 +18,14 @@ environments:
   paperclip:
     default:
       storage: :s3
-      s3_credentials: 
-        bucket: 'mycloud_beta'
-        access_key_id: 'AKIAJQC6CFQZZALCZZ2A'
-        secret_access_key: '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'
+      s3_credentials:
+        bucket: 'mycloud-beta'
+        access_key_id: 'AKIAJRREKZSZGSF3DPWQ'
+        secret_access_key: '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'
     attachment:
       default:
-        url: ':mycloud_beta.s3.amazonaws.com'
-        s3_host_name: 's3-website-us-east-1.amazonaws.com'
+        url: ':mycloud-beta.s3.amazonaws.com'
+        s3_host_name: 's3-external-1.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
     name: 'personal_cloud_queue_test'
@@ -35,3 +35,20 @@ environments:
       region: 'us-west-2'
   ddns: pcloud.ecoworkinc.com
 
+  log4r_config:
+    loggers:
+      - name          : mycloud
+        level         : DEBUG
+        trace         : 'true'
+        outputters    : 
+        - datefile
+
+    outputters:
+    - type: DateFileOutputter
+      name: datefile
+      dirname: "log"
+      filename: "mycloud.log"
+      formatter:
+        date_pattern: '%H:%M:%S'
+        pattern     : '%d %l: %m'
+        type        : PatternFormatter
