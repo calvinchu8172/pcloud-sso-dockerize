@@ -22,7 +22,7 @@ log4r_config:
     filename: "app.log"
     formatter:
       date_pattern: '%H:%M:%S'
-      pattern     : '%d %l: %m'
+      pattern     : '%d %X{context} %l: %m'
       type        : PatternFormatter
   - type: DateFileOutputter
     name: db_log

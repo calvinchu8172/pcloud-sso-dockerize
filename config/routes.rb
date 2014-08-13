@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
   get 'registrations/success'
   
-  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords',:omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords',:omniauth_callbacks => "users/omniauth_callbacks"}
 
   get 'device/register'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

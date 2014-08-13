@@ -4,9 +4,26 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_filter :set_locale
+  before_filter :setup_log_context
 
   protected
   
+    def log4r_context
+      ctx = Log4r::MDC.get_context.collect {|k, v| k.to_s + "=" + v.to_s }.join(" ")
+      ctx.gsub!('%', '%%') # escape out embedded %'s so pattern formatter doesn't get confused
+      return ctx
+    end
+
+    def setup_log_context
+      Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
+
+      context = { pid: Process.pid, ip: request.remote_ip}
+      context["user_id"] = current_user.id  if current_user
+
+      content = context.map{|k,v| "#{k}=#{v}"}.join(' ')
+      Log4r::MDC.put("context", content)
+    end
+
     def configure_devise_permitted_parameters
       registration_params = [:first_name, :middle_name, :last_name, :display_name, :email, :password, :password_confirmation, :gender, :mobile_number, :birthday, :language, :edm_accept, :agreement, :country]
 
