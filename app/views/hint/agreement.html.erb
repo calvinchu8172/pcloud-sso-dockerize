@@ -2,10 +2,10 @@
 
 <div class="zyxel_content">
   <div class="agree_note_box">
-    <%= render partial:'hint/agreement', layout: false %>
+    <%= render 'hint/terms' %>
   </div>
 
     <div class="zyxel_btn_area">
-      <a class="zyxel_btn_back" href="#" onclick="window.close();"><%= I18n.t("labels.cancel") %></a>
+      <a class="zyxel_btn_ok" href="#" onclick="window.close();"><%= I18n.t("labels.confirm") %></a>
     </div>
 </div>
