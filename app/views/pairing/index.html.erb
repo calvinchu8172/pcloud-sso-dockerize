@@ -21,7 +21,7 @@
         </div>
         <div class="countdown" ng-switch-when="waiting">
           <%# sample: pairing_image_3_1.gif %>
-          <%= image_tag "pairing_image_#{@device.product.pairing_type}.gif" %>
+          <%= image_tag @device.product.pairing.url %>
         </div>
         <div  ng-switch-when="retry" class="zyxel_btn_area">
           <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>

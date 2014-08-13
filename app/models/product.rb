@@ -5,6 +5,8 @@ class Product < ActiveRecord::Base
     square: '200x200#',
     medium: '380x380>'
   }
+  has_attached_file :pairing
 
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :pairing, :content_type => /\Aimage\/.*\Z/
 end
