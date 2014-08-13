@@ -2,7 +2,7 @@
 
 <div class="zyxel_content">
   <div class="agree_note_box">
-    <%= render partial:'hint/agreement', layout: false %>
+    <%= render 'hint/terms' %>
   </div>
   <%= form_for(@user, html: {role: "form", name: "oauthForm"}, as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
 
