@@ -68,8 +68,11 @@ gem 'rails_admin', group: [:test, :development]
 
 gem 'rest_client'
 
-group :development do
+group :development, :test do
   gem 'faker'
+  gem 'capybara'
   gem 'cucumber-rails', :require => false
+  gem 'selenium-webdriver'
+  gem 'rspec-rails'
   gem 'database_cleaner'
 end

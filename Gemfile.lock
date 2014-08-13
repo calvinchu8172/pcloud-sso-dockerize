@@ -54,6 +54,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    childprocess (0.5.3)
+      ffi (~> 1.0, >= 1.0.11)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -97,6 +99,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    ffi (1.9.3)
     font-awesome-rails (4.1.0.0)
       railties (>= 3.2, < 5.0)
     gherkin (2.12.2)
@@ -213,6 +216,22 @@ GEM
     rest_client (1.7.3)
       netrc (~> 0.7.7)
     rmagick (2.13.2)
+    rspec-collection_matchers (0.0.4)
+      rspec-expectations (>= 2.99.0.beta1)
+    rspec-core (2.99.0)
+    rspec-expectations (2.99.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.99.0)
+    rspec-rails (2.99.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-collection_matchers
+      rspec-core (~> 2.99.0)
+      rspec-expectations (~> 2.99.0)
+      rspec-mocks (~> 2.99.0)
+    rubyzip (1.1.6)
     safe_yaml (1.0.3)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -223,6 +242,11 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    selenium-webdriver (2.42.0)
+      childprocess (>= 0.5.0)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0.4)
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -261,6 +285,7 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
+    websocket (1.0.7)
     xmpp4r (0.5.6)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -272,6 +297,7 @@ DEPENDENCIES
   angularjs-rails
   aws-sdk
   bootstrap-sass
+  capybara
   coffee-rails (~> 4.0.0)
   countries
   country_select
@@ -295,8 +321,10 @@ DEPENDENCIES
   recaptcha
   rest_client
   rmagick
+  rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  selenium-webdriver
   simple_form
   spring
   sqlite3
