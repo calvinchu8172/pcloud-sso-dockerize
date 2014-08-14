@@ -53,6 +53,10 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def after_sign_in_path_for(resource)
+      session[:previous_url] || authenticated_root
+    end
+
     def device_paired_with?
       device_id = params[:id]
       unless(paired?(device_id, current_user.id))
