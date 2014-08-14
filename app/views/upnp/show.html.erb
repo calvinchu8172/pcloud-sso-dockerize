@@ -95,7 +95,6 @@
     $scope.timesLimit = 16; //16
     $scope.interval = 3500;
     $scope.wording;
-    $scope.formateSuffix = ".json";
     $scope.init = function(){
       console.log("init");
 
@@ -103,7 +102,7 @@
       $scope.panel = "loading";
       $scope.wording = '';
 
-      $http.get($scope.indexPath + $scope.session.device_id + $scope.formateSuffix, { cache: false}).success(function(response){
+      $http.get($scope.indexPath + $scope.session.device_id + ".json", { cache: false}).success(function(response){
         $scope.session = response;
         $scope.loadConfig();  
       });
@@ -113,7 +112,7 @@
       console.log($scope.session.id);
       $timeout(function() {
             $scope.loadTimes++;
-            $http.get($scope.indexPath + $scope.session.id + "/edit" + $scope.formateSuffix, { cache: false}).success(function(response) {
+            $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
               console.log(response);
               console.log("tick: " + $scope.loadTimes);
@@ -142,7 +141,7 @@
       console.log($scope.session.service_list);
       console.log("loop:");
       
-        $http.put($scope.indexPath + $scope.session.id, $scope.session + $scope.formateSuffix, { cache: false}).success(function(response){
+        $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
           if(response.result){
             console.log("ok");
             $scope.checkSubmit();
@@ -160,7 +159,7 @@
     $scope.checkSubmit = function(){
       
       $timeout(function() {
-        $http.get($scope.checkPath + $scope.session.id + $scope.formateSuffix, { cache: false}).success(function(response){
+        $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
           console.log(response);
           $scope.checkTimes++;
           if('updated' == response.status){

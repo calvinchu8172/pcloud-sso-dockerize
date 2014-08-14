@@ -27,6 +27,10 @@ en:
         table_head2: 'Status'
         table_head3: 'Service Name'
         table_head4: 'Description'
+        table_head4: 'Update Result'
+        result:
+          success: 'Success'
+          failure: 'Failure'
     pairing: 'Pairing'
     unpairing: 'Unpairing'
     manually: 'Manually Add'
