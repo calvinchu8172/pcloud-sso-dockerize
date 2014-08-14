@@ -69,9 +69,11 @@ class PairingController < ApplicationController
     job = Job::PairingMessage.new
     job.push(job_params)
     @session = job.session
+    logger.info("connect to device session:" + @session.inspect)
   end
   
   def init_session
+    logger.info "init session last_session:" + @last_session.inspect
     if @last_session.nil?
       connect_to_device
     else
