@@ -12,8 +12,6 @@ log4r_config:
       outputters    : 
       - db_log
 
-  # StdoutOutputter
-  # 
   # define all outputters (incl. formatters)
   outputters:
   - type: DateFileOutputter
