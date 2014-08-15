@@ -37,6 +37,7 @@
               case 'waiting':
                 $scope.step = response.status;
                 $scope.panel = "waiting"
+                $scope.disableBtn();
                 $timeout(startTimer, 1000);
                 break;
               case 'failure':
@@ -110,6 +111,7 @@
       $scope.connectingStep = function(){
         $scope.step = 'connecting';
         $scope.panel = 'loading';
+        $scope.disableBtn();
       };
 
       $scope.failureStep = function(){
@@ -120,16 +122,39 @@
       $scope.disconnectionStep = function(){
         $scope.step = 'disconnection';
         $scope.panel = 'retry';
+        $scope.enableBtn();
       };
 
       $scope.canceledStep = function(){
         $scope.step = 'canceled';
         $scope.panel = 'retry';
+        $scope.enableBtn();
       };
 
       $scope.completedStep = function(){
         $scope.step = 'done';
         $scope.panel = 'done';
+        $scope.enableBtn();
+      };
+
+      $scope.disableBtn = function(){
+        var allButton = document.getElementsByTagName("a");
+        for(var i=0; i<allButton.length; i++){
+          var $thisBtn = allButton[i];
+          var $thisUrl = $thisBtn.getAttribute('href');
+          if ($thisUrl != "#"){
+            $thisBtn.setAttribute('data-href', $thisBtn.getAttribute('href'));
+            $thisBtn.setAttribute('href', '#');
+          };
+        };
+      };
+
+      $scope.enableBtn = function(){
+        var allButton = document.getElementsByTagName("a");
+        for(var i=0; i<allButton.length; i++){
+          var $thisBtn = allButton[i];
+          $thisBtn.setAttribute('href', $thisBtn.getAttribute('data-href'));
+        };
       };
 
     });
