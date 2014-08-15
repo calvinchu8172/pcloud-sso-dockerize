@@ -16,6 +16,7 @@
       $scope.checkConnectionUrl = '/pairing/check_connection/';
 
       $scope.checkConnection = function(){
+        $scope.disableBtn();
         $timeout(function(){
 
           var url = $scope.checkConnectionUrl  + $scope.sessionId + $scope.formateSuffix;
@@ -30,6 +31,7 @@
                   $scope.step = response.status;
                   $scope.panel = "waiting"
                   $timeout(startTimer, 500);
+                  $scope.disableBtn();
                 }
                 $scope.checkConnection();
                 break;
@@ -115,6 +117,7 @@
       $scope.connectingStep = function(){
         $scope.step = 'connecting';
         $scope.panel = 'loading';
+        $scope.disableBtn();
       };
 
       $scope.failureStep = function(){
@@ -125,16 +128,42 @@
       $scope.disconnectionStep = function(){
         $scope.step = 'disconnection';
         $scope.panel = 'retry';
+        $scope.enableBtn();
       };
 
       $scope.canceledStep = function(){
         $scope.step = 'canceled';
         $scope.panel = 'retry';
+        $scope.enableBtn();
       };
 
       $scope.completedStep = function(){
         $scope.step = 'done';
         $scope.panel = 'done';
+        $scope.enableBtn();
+      };
+
+      $scope.disableBtn = function(){
+        var allButton = document.getElementsByTagName("a");
+        for(var i=0; i<allButton.length; i++){
+          var $thisBtn = allButton[i];
+          var $thisUrl = $thisBtn.getAttribute('href');
+          if ($thisUrl != "#"){
+            $thisBtn.setAttribute('data-href', $thisUrl);
+            $thisBtn.setAttribute('href', '#');
+          };
+        };
+      };
+
+      $scope.enableBtn = function(){
+        var allButton = document.getElementsByTagName("a");
+        for(var i=0; i<allButton.length; i++){
+          var $thisBtn = allButton[i];
+          var $dataUrl = $thisBtn.getAttribute('data-href');
+          if ($dataUrl){
+            $thisBtn.setAttribute('href', $dataUrl);
+          };
+        };
       };
 
     });

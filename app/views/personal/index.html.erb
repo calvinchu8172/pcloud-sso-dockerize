@@ -13,8 +13,8 @@
         <%# show all paired devices %>
         <% @pairing.each do |pairing| %>
           <tr>
-            <th><%= image_tag pairing.device.product.asset.url, width: "100" %></th>
-            
+            <th><%= image_tag pairing.device.product.asset.url(:medium) %></th>
+
             <%# show ddns information %>
             <td>
               <table class="zyxel_table_style4">
