@@ -4,5 +4,5 @@ execute "bower install" do
   Chef::Log.info("Node: #{node.inspect}")
   Chef::Log.info("Release path is: #{release_path}")
   cwd "#{release_path}"
-  command "bower install"
+  command "bower --allow-root install"
 end
