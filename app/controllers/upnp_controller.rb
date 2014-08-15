@@ -2,11 +2,12 @@ class UpnpController < ApplicationController
   before_action :authenticate_user!
   before_action :device_paired_with?, :only => :show
   before_action :service_list_to_json, :only => :update
-  
+
   def show
     get_device_info
     @session = UpnpSession.create(:user_id => current_user.id,
                                   :device_id => @device.id)
+    @device_ip = DeviceSession.find_by_device_id(@session.device_id).ip
     push_to_queue "upnp_query"
 
     respond_to do |format|
@@ -14,7 +15,7 @@ class UpnpController < ApplicationController
       format.html
     end
   end
-  
+
   def edit
     @session = UpnpSession.find(params[:id])
     @session.service_list = JSON.parse(@session.service_list) if(@session.status == 'form' && !@session.service_list.empty?)
@@ -33,7 +34,8 @@ class UpnpController < ApplicationController
 
   def check
     @session = UpnpSession.find(params[:id]);
-    render :json => @session.to_json(:only => :status)
+    @session.service_list = JSON.parse(@session.service_list) if(@session.status == 'form' && !@session.service_list.empty?)
+    render :json => @session.to_json(:only => [:id, :device_id, :service_list, :status])
   end
 
   private
