@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'hint/confirm'
   get 'hint/reset'
   get 'hint/sent'
+  get 'hint/agreement'
   
   post 'ddns/check'
   post 'discoverer/search'

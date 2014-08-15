@@ -5,14 +5,15 @@ class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_filter :set_locale
   before_filter :setup_log_context
+  after_action :store_location
 
   protected
   
-    def log4r_context
-      ctx = Log4r::MDC.get_context.collect {|k, v| k.to_s + "=" + v.to_s }.join(" ")
-      ctx.gsub!('%', '%%') # escape out embedded %'s so pattern formatter doesn't get confused
-      return ctx
-    end
+    # def log4r_context
+    #   ctx = Log4r::MDC.get_context.collect {|k, v| k.to_s + "=" + v.to_s }.join(" ")
+    #   ctx.gsub!('%', '%%') # escape out embedded %'s so pattern formatter doesn't get confused
+    #   return ctx
+    # end
 
     def setup_log_context
       Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
@@ -43,7 +44,7 @@ class ApplicationController < ActionController::Base
       if user_signed_in?
         session[:locale] = I18n.available_locales.include?( current_user.language.to_sym) ? current_user.language.to_sym : false
       else
-        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym) 
+        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym)
           session[:locale] = params[:locale]
         end
       end
@@ -54,11 +55,30 @@ class ApplicationController < ActionController::Base
     end
     # i18n setting - end
 
+    # Redirect back to current page after sign in
+    def store_location
+      return unless request.get?
+      if(request.path != "/users/sign_in" &&
+         request.path != "/users/sign_up" &&
+         request.path != "/users/password/new" &&
+         request.path != "/users/password/edit" &&
+         request.path != "/users/confirmation" &&
+         request.path != "/users/sign_out" &&
+         !request.xhr? && # don't store ajax calls
+         !request.accept.match(/json/)) # don't store json calls
+        session[:previous_url] = request.fullpath
+      end
+    end
+
+    def after_sign_in_path_for(resource)
+      session[:previous_url] || authenticated_root
+    end
+
     def device_paired_with?
       device_id = params[:id]
       unless(paired?(device_id, current_user.id))
         flash[:alert] = "invalid device"
-        redirect_to :root 
+        redirect_to :root
       end
     end
 

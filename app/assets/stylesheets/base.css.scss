@@ -8,7 +8,7 @@ $zyxel_color4: #FEDCA5; // light orange
 
 html, body {
   min-height: 100%;
-  font-family: "Raleway", sans-serif, "微軟正黑體";
+  font-family: 'Open Sans', sans-serif, "微軟正黑體";
   font-weight: normal;
   letter-spacing: .3px;
 }
@@ -96,10 +96,10 @@ body {
 .nav .open>a, .nav .open>a:hover, .nav .open>a:focus{
   background-color: $zyxel_white;
 }
-// .dropdown-menu{
-//   right:0;
-//   left: inherit;
-// }
+.dropdown-menu{
+  right:0;
+  left: inherit;
+}
 .nav_zyxel li a{
   color: $zyxel_color2;
   font-weight: normal;
@@ -959,6 +959,46 @@ body {
   padding-right: 10px;
   color: #FEC675;
 }
+.hide_domain_name{
+  display: none;
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  top:-130%;
+  text-align: center;
+  /*background:$zyxel_color3;*/
+  span{
+    font-size: 15px;
+    color: $zyxel_color1 !important;
+    background:white;
+    border:1px solid $zyxel_color3 !important;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;  
+    padding: 5px 10px !important;
+  }
+
+}
+.hide_domain_name:after, .hide_domain_name:before { 
+  top: 100%; 
+  left: 50%; 
+  border: solid transparent; 
+  content: " "; 
+  height: 0; 
+  width: 0; 
+  position: absolute; 
+  pointer-events: none; 
+} 
+.hide_domain_name:after{  
+  border-color: rgba(216, 216, 216, 0); 
+  border-top-color: $zyxel_color3; 
+  border-width: 10px; 
+  margin-left: 10px;
+}
+.zyxel_table_style4 td.orange:hover + .hide_domain_name{
+  display: inline;
+}
+
 .zyxel_table_style5{
   margin-top: 25px;
 }

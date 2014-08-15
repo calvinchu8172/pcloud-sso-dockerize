@@ -15,6 +15,9 @@ class HintController < ApplicationController
   def reset
   end
 
+  def agrement
+  end
+
   private
     def get_info
       if flash[:notice]
