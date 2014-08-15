@@ -18,14 +18,14 @@ environments:
   paperclip:
     default:
       storage: :s3
-      s3_credentials: 
-        bucket: 's3-pcloud-test'
-        access_key_id: 'AKIAJS52YFZUARWCSMVQ'
-        secret_access_key: 'vsys5QRBqdhzurgBfR8NgKP1zHojPcF'
+      s3_credentials:
+        bucket: 'mycloud-beta'
+        access_key_id: 'AKIAJRREKZSZGSF3DPWQ'
+        secret_access_key: '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'
     attachment:
       default:
-        url: ':s3-pcloud-test.s3.amazonaws.com'
-        s3_host_name: 's3-us-west-2.amazonaws.com'
+        url: ':mycloud-beta.s3.amazonaws.com'
+        s3_host_name: 's3-external-1.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
     name: 'personal_cloud_queue_test'
@@ -34,4 +34,34 @@ environments:
       secret_access_key: 'CzT3ufnkS85CfbPEF/3Z5n2B7TWmTS8Bbw+9VX1Q'
       region: 'us-west-2'
   ddns: pcloud.ecoworkinc.com
+  filter_list:
+    - api
+    - www
+    - dns
+    - ddns
+    - upnp
+    - blog
+    - zyxel
+    - store
+    - host
+    - support
+    - service
+    - services
 
+  log4r_config:
+    loggers:
+      - name          : mycloud
+        level         : DEBUG
+        trace         : 'true'
+        outputters    : 
+        - datefile
+
+    outputters:
+    - type: DateFileOutputter
+      name: datefile
+      dirname: "log"
+      filename: "mycloud.log"
+      formatter:
+        date_pattern: '%H:%M:%S'
+        pattern     : '%d %l: %m'
+        type        : PatternFormatter

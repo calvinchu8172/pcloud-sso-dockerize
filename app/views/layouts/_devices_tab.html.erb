@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+  <% if yield(:tab) == "my_devices" %>
+    <% btn1 = "btn_tab_color1" %>
+    <% btn2 = "btn_tab_color2" %>
+  <% elsif yield(:tab) == "search" %>
+    <% btn1 = "btn_tab_color2" %>
+    <% btn2 = "btn_tab_color1" %>
+  <% end %>
+
+  <% if btn1 && btn2 %>
+    <div class="zyxel_tab">
+      <div class="btn-group btn-group-justified">
+        <%= link_to I18n.t("labels.my_devices"), "/personal/index", class: "btn zyxel_tab_btn #{btn1}" %>
+        <%= link_to I18n.t("labels.search_devices"), "/discoverer/index", class: "btn zyxel_tab_btn #{btn2}" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

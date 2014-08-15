@@ -1,22 +1,3 @@
 // Place all the styles related to the Upnp controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.upnp {
-  .device {
-    .device-img > img {
-      width: 100%;
-    }
-    .device-name {
-      font-size: 30px;
-    }
-    > div {
-      display: inline-block;
-      width: 20%;
-    }
-  }
-  .service-list {
-    td {
-      padding: 10px;
-    }
-  }
-}

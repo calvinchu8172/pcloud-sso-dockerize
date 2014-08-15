@@ -36,7 +36,7 @@ class UnpairingController < ApplicationController
     end
 
     def error_action
-      flash[:error] = "您沒有與該device配對，或是該device不存在！"
+      flash[:error] = I18n.t("warnings.settings.pairing.not_found")
       redirect_to "/personal/index"
     end
 end

@@ -1,5 +1,18 @@
 class PasswordsController < Devise::PasswordsController
 
+  def create
+    # Cannot reset password when user was login with oauth
+    if omniauth_accout?(params[:user][:email])
+      self.resource = resource_class.send_reset_password_instructions(resource_params)
+      yield resource if block_given?
+
+      resource.errors.add(:email, :not_found)
+      render "new"
+    else
+      super
+    end
+  end
+
   def edit
     super
     @email = get_user_email_by_password_token(params[:reset_password_token])
@@ -24,5 +37,16 @@ class PasswordsController < Devise::PasswordsController
       reset_pwd_token = Devise.token_generator.digest(self, :reset_password_token, password_token)
       email = User.to_adapter.find_first(reset_password_token: reset_pwd_token).email
       email
+    end
+
+    def omniauth_accout?(user_email)
+      oauth = false
+      user = User.find_by_email(user_email)
+      if !user.nil?
+        user.identity.each do |auth|
+          oauth = true if user.created_at <= auth.created_at
+        end
+      end
+      oauth
     end
 end

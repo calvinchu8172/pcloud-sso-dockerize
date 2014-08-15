@@ -1,5 +1,4 @@
-<%# need-add-i18n %>
-<% provide(:flow, "Reset Password") %>
+<% provide(:flow, I18n.t("titles.forgot_password")) %>
 
 <div class="zyxel_content">
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
@@ -7,31 +6,27 @@
     <fieldset>
       <table class="zyxel_table_style">
         <tr>
-          <%# need-add-i18n %>
-          <th>Account</th>
+          <th><%= I18n.t("user.labels.email") %></th>
           <td colspan="3"><%= @email %></td>
         </tr>
 
         <tr>
-          <%# need-add-i18n %>
-          <th><span>* </span><%= f.label :password, "New password", class: "th_label" %></th>
+          <th><span>* </span><%= f.label :password, I18n.t("user.labels.new_password"), class: "th_label" %></th>
           <td colspan="3">
             <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "input_style1 td_field" %>
           </td>
         </tr>
 
         <tr>
-          <%# need-add-i18n %>
-          <th><span>* </span><%= f.label :password_confirmation, "Confirm new password", class: "th_label" %></th>
+          <th><span>* </span><%= f.label :password_confirmation, I18n.t("user.labels.new_password_confirmation"), class: "th_label" %></th>
           <td colspan="3">
             <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field" %>
           </td>
         </tr>
       </table>
       <div class="zyxel_btn_area">
-        <%# need-add-i18n %>
-        <a href="/" class="zyxel_btn_back">Cancel</a>
-        <%= f.submit "Submit", class: "zyxel_btn_submit" %>
+        <%= link_to(I18n.t("labels.cancel"), "/", class: "zyxel_btn_back") %>
+        <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
       </div><!-- zyxel_btn_area -->
     </fieldset>
   <% end %>

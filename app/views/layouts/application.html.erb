@@ -3,6 +3,7 @@
 <head>
   <title>Pcloud</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -12,17 +13,8 @@
     <%# header %>
     <%= render 'layouts/header' %>
 
-    <%# tab - when user signed in %>
-    <% if user_signed_in? %>
-      <div class="zyxel_tab">
-        <div class="btn-group btn-group-justified">
-          <%# need-add-i18n %>
-          <a class="btn btn_tab_color1 zyxel_tab_btn" href="/personal/index">我的裝置</a>
-          <a class="btn btn_tab_color2 zyxel_tab_btn" href="/discoverer/index">搜尋裝置</a>
-        </div>
-      </div>
-    <% end %>
-    <%# breadcrumb - end %>
+    <%# tab %>
+    <%= render 'layouts/devices_tab' %>
 
     <%# breadcrumb %>
     <% page_flow = breadcrumb(yield(:flow)) %>
@@ -37,20 +29,20 @@
         <% end %>
       </div>
     <% end %>
-    <%# breadcrumb %>
+
+    <% if yield(:disable_alert) != "hidden" %>
+      <% if flash[:alert] || flash[:notice] %>
+        <div class="alert_info">
+          <div class="zyxel_arlert_area">
+            <span class="error_message"><%= info = flash[:alert] ? flash[:alert] : flash[:notice] %></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%# breadcrumb - end %>
     <%= yield %>
 
-    <%# need remove when release %>
-    <% if flash[:notice] || flash[:alert] || flash[:error] %>
-      <div class="test">
-        <p>Test Information, it will be removed when release.</p>
-        <p class="notice"><%= flash[:notice] %></p>
-        <p class="alert"><%= flash[:alert] %></p>
-        <% if flash[:error] %>
-        <p class="error"><%= flash[:error] %></p>
-        <% end %>
-      </div>
-    <% end %>
   </div>
     
 </body>

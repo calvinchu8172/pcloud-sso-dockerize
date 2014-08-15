@@ -6,7 +6,7 @@ class PairingSession < ActiveRecord::Base
   belongs_to :device
 
   def self.handling_status
-    self.statuses.slice(:start, :waiting, :done)
+    self.statuses.slice(:start, :waiting)
   end
 
   def self.handling_by_user(user_id)
@@ -15,5 +15,14 @@ class PairingSession < ActiveRecord::Base
 
   def self.handling()
   	self.where("status in (?) AND expire_at > NOW()", self.handling_status.map{|k,v| v});
+  end
+
+  def expire_in
+
+    time_difference = Time.now.to_f - self.updated_at.to_f
+
+    expire_time = 600
+    expire_time -= time_difference if time_difference > 5
+    return expire_time.to_i
   end
 end

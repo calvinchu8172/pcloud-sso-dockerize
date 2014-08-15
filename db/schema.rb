@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717093812) do
+ActiveRecord::Schema.define(version: 20140811065233) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -100,13 +100,17 @@ ActiveRecord::Schema.define(version: 20140717093812) do
 
   create_table "products", force: true do |t|
     t.string   "name"
-    t.string   "model_name",         limit: 120
+    t.string   "model_name",           limit: 120
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "asset_file_name"
     t.string   "asset_content_type"
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
+    t.string   "pairing_file_name"
+    t.string   "pairing_content_type"
+    t.integer  "pairing_file_size"
+    t.datetime "pairing_updated_at"
   end
 
   create_table "unpairing_sessions", force: true do |t|
@@ -154,6 +158,8 @@ ActiveRecord::Schema.define(version: 20140717093812) do
     t.datetime "birthday"
     t.integer  "edm_accept"
     t.string   "country",                limit: 100
+    t.string   "middle_name"
+    t.string   "display_name",                                      null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

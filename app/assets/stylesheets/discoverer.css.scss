@@ -2,33 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .discoverer {
-	width: 50%;
-	padding: 20px;
-	border: 1px solid #e0e0e0;
-	border-radius: 5px;
-
-  .bottom-content {
-  	a.btn-primary {
-  		display: inline-block;
-  		padding: 5px 10px;
-  		border-radius: 5px;
-  		margin: 20px;
-  	}
+  .zyxel_table_style2 {
+    .td_left {
+      width: 100px;
+    }
   }
-
-  .devices_list {
-  	overflow: hidden;
-  	.device {
-  		overflow: hidden;
-  		> div {
-  		  float: left;
-  		  &.device_name {
-  		  	padding: 20px;
-  		  }
-  		  &.device_btn {
-  		  	padding: 13px;
-  		  }
-  		}
-  	}
+  .zyxel_resend_btn {
+    padding-top: 10px;
   }
 }

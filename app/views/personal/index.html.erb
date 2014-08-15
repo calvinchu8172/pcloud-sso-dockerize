@@ -1,40 +1,67 @@
-<h1>My devices</h1>
+<% provide(:flow, I18n.t("titles.my_devices") ) %>
+<% provide(:tab, 'my_devices') %>
+
 <div class="personal">
 
   <%# paired device list %>
-  <div class="device-box">
-    <div class="device-list">
+  <div class="zyxel_content" style="max-width:660px">
+    <table class="zyxel_table_style3">
 
       <%# check paired devices %>
       <% if @paired %>
 
         <%# show all paired devices %>
         <% @pairing.each do |pairing| %>
-          <div class="device" >
+          <tr>
+            <th><%= image_tag pairing.device.product.asset.url(:medium) %></th>
 
-            <%# change the data format to string %>
-            <% device_id = pairing.device_id.to_s %>
-            
-            <div class="device-img">
-              <%= image_tag pairing.device.product.asset.url %>
-            </div>
-            <div class="device-name">
-              <%= pairing.device.model_name %>
-            </div>
-            <%= link_to "DDNS 設定", "/ddns/setting/" + device_id, class: "btn btn-default" %>
-            <%= link_to "UPnP 設定", upnp_path(device_id), class: "btn btn-default" %>
-            <%= link_to "取消配對", "/unpairing/index/" + pairing.id.to_s, class: "btn btn-default" %>
-          </div>
+            <%# show ddns information %>
+            <td>
+              <table class="zyxel_table_style4">
+              <%# get setting information %>
+                <% info_hash = get_info(pairing) %>
+                <tr style="position:relative">
+                  <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title] %></td>
+                  <% if info_hash[:title].length > 50 %>
+                  <td class="hide_domain_name"><span><%= info_hash[:title] %></span></td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <td><span><%= I18n.t("labels.settings.ddns.wan_ip") %></span><%= info_hash[:ip] %></td>
+                </tr>
+                <tr>
+                  <td><span><%= I18n.t("labels.settings.ddns.model") %></span><%= info_hash[:model_name] %></td>
+                </tr>
+                <tr>
+                  <td><span><%= I18n.t("labels.settings.ddns.last_update") %></span><%= info_hash[:date] %></td>
+                </tr>
+                <tr>
+                  <td><span><%= I18n.t("labels.settings.ddns.firmware_version") %></span><%= info_hash[:firmware_version] %></td>
+                </tr>
+              </table>
+            </td>
+            <%# show ddns information - end %>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-right table_btn_area">
+              <%# change the data format to string %>
+              <% device_id = pairing.device_id.to_s %>
+
+              <%= link_to I18n.t("labels.settings.ddns.instruction") , "/ddns/setting/" + device_id, class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to I18n.t("labels.settings.upnp.instruction") , upnp_path(device_id), class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.id.to_s, class: "zyxel_btn_style2" %>
+            </td>
+          </tr>
         <% end %>
         <%# show all paired devices - end %>
 
       <%# display message if paired devices are empty %>
       <% else %>
-        <div class="empty">您沒有已配對的裝置</div>
+        <div class="empty"><%= I18n.t("warnings.settings.pairing.not_found") %></div>
       <% end %>
       <%# check paired devices - end %>
 
-    </div>
+    </table>
   </div>
   <%# paired device list - end %>
 </div>

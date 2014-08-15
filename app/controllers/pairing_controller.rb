@@ -8,12 +8,14 @@ class PairingController < ApplicationController
 
   # GET /pairing/index/:id
   def index
-    connect_to_device
+    @device = Device.find(params[:id])
+    init_session
   end
 
   # GET /pairing/reconnect/:id
   def reconnect
-    connect_to_device
+    @device = Device.find(params[:id])
+    init_session
     render :json => @session.to_json(:only => [:id, :status])
   end
 
@@ -22,11 +24,14 @@ class PairingController < ApplicationController
     session_id = params[:id]
     @session = PairingSession.find(session_id)
 
+    check_timeout
     logger.debug "session: " + @session.to_json
+    if @session.status == "start" && (Time.now.to_f - @session.created_at.to_f) > 60
+      @session.status = :offline
+      @session.save!
+    end
 
-    check_status
-    
-    render :json => @session.to_json(:only => [:id, :status])
+    render :json => @session.to_json(:only => [ :id, :status], :methods => :expire_in)
   end
 
   # GET /pairing/waiting/:id
@@ -34,36 +39,46 @@ class PairingController < ApplicationController
     session_id = params[:id]
     @session = PairingSession.find(session_id)
 
-    render :json => @session.to_json(:only => [:id, :status])
+    render :json => @session.to_json(:only => [ :id, :status ], :methods => :expire_in)
   end
 
   private
 
-  def check_status
-    if @session.status == "start"
-      @session.status = :offline
-      @session.save!
+  def check_timeout
+    case @session.status
+    when "start"
+      if((Time.now.to_f - @session.created_at.to_f) > 60)
+        @session.status = :offline
+        @session.save!
+      end
+    when "waiting"
+      if((Time.now.to_f - @session.updated_at.to_f) > 599)
+        @session.status = :failure
+        @session.save!
+      end
     end
-  end
-
-  def push_to_queue
-  	data = {:job => "pair", :session_id => @session.id}
-  	sqs = AWS::SQS.new
-  	queue = sqs.queues.create(Settings.environments.sqs.name)
-  	queue.send_message(data.to_json)
   end
 
   def connect_to_device
     @device = Device.find(params[:id])
 
+    job_params = {:user_id => current_user.id,
+                  :device_id => @device.id,
+                  :expire_at => (Time.now + (12.minutes))}
+    logger.info("connect to device params:" + job_params.to_s)
     job = Job::PairingMessage.new
-    job.push({:user_id => current_user.id,
-              :device_id => @device.id,
-              :expire_at => (Time.now + (12.minutes))})
+    job.push(job_params)
     @session = job.session
-    # @session = PairingSession.create(:user_id => current_user.id,
-    #                                  :device_id => @device.id,
-    #                                  :expire_at => (Time.now + (12.minutes)))
-    # push_to_queue
+    logger.info("connect to device session:" + @session.inspect)
+  end
+  
+  def init_session
+    logger.info "init session last_session:" + @last_session.inspect
+    if @last_session.nil?
+      connect_to_device
+    else
+      @session = @last_session
+      logger.info("resume from pairing session id:" + @session.id.to_s)
+    end
   end
 end

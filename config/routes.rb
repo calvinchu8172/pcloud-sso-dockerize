@@ -18,13 +18,14 @@ Rails.application.routes.draw do
   get 'hint/confirm'
   get 'hint/reset'
   get 'hint/sent'
+  get 'hint/agreement'
   
   post 'ddns/check'
   post 'discoverer/search'
 
   get 'registrations/success'
-  # get '/pairing/index/:id' => "pairing#index", :constraints => {:id => /\d/}
-  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords',:omniauth_callbacks => "users/omniauth_callbacks" }
+  
+  devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords',:omniauth_callbacks => "users/omniauth_callbacks"}
 
   get 'device/register'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
