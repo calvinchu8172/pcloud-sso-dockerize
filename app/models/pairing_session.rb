@@ -18,7 +18,11 @@ class PairingSession < ActiveRecord::Base
   end
 
   def expire_in
-    expire_time = 600 - (Time.now.to_f - self.updated_at.to_f)
+
+    time_difference = Time.now.to_f - self.updated_at.to_f
+
+    expire_time = 600
+    expire_time -= time_difference if time_difference > 5
     return expire_time.to_i
   end
 end

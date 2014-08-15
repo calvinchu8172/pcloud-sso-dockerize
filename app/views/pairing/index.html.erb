@@ -6,7 +6,7 @@
     <%# Pairing information content %>
     <span class="zyxel_span2" ng-switch on="step">
       <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.pairing.connecting") %></span>
-      <span ng-switch-when="waiting"><%= I18n.t("warnings.settings.pairing.start.instruction") %> <%= I18n.t("warnings.settings.pairing.start.instruction_2") %><timer id="countdown-timer" countdown="600" max-time-unit="'minute'" autostart="false" interval="1000" class="countdown_number" >{{mminutes}} : {{sseconds}} </timer></span>
+      <span ng-switch-when="waiting"><%= I18n.t("warnings.settings.pairing.start.instruction") %> <%= I18n.t("warnings.settings.pairing.start.instruction_2") %><timer id="countdown-timer" countdown="session.expire_in" max-time-unit="'minute'" autostart="false" interval="1000" class="countdown_number" >{{mminutes}} : {{sseconds}} </timer></span>
       <span ng-switch-when="disconnection"><%= I18n.t("warnings.settings.pairing.not_found") %></span>
       <span ng-switch-when="failure"><%= I18n.t("warnings.settings.pairing.failure") %></span>
       <span ng-switch-when="canceled"><%= I18n.t("warnings.settings.pairing.canceled") %></span>
