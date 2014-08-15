@@ -26,6 +26,7 @@
       $scope.checkConnectionUrl = '/pairing/check_connection/';
 
       $scope.checkConnection = function(){
+        $scope.disableBtn();
         $timeout(function(){
 
           var url = $scope.checkConnectionUrl  + $scope.sessionId + $scope.formateSuffix;
