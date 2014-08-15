@@ -44,7 +44,7 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
       var $thisBtn = allButton[i];
       var $thisUrl = $thisBtn.getAttribute('href');
       if ($thisUrl != "#"){
-        $thisBtn.setAttribute('data-href', $thisBtn.getAttribute('href'));
+        $thisBtn.setAttribute('data-href', $thisUrl);
         $thisBtn.setAttribute('href', '#');
       };
     };
@@ -54,7 +54,10 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
     var allButton = document.getElementsByTagName("a");
     for(var i=0; i<allButton.length; i++){
       var $thisBtn = allButton[i];
-      $thisBtn.setAttribute('href', $thisBtn.getAttribute('data-href'));
+      var $dataUrl = $thisBtn.getAttribute('data-href');
+      if ($dataUrl){
+        $thisBtn.setAttribute('href', $dataUrl);
+      };
     };
   };
 
