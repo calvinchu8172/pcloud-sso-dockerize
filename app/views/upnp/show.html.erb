@@ -204,6 +204,7 @@
           }else if('form' == response.status){
             $scope.step = response.status;
             $scope.panel = response.status;
+            $scope.enableBtn();
             $scope.session = response;
             $scope.service_list = response.service_list;
             return;
