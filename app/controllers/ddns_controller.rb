@@ -98,9 +98,7 @@ class DdnsController < ApplicationController
 
     def validate_host_name
       valid = false
-
-      reserverd_list = Settings.environments.ddns.reserved_name
-
+      
       if params[:hostName].length <= 3 
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_short")
