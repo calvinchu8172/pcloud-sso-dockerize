@@ -150,7 +150,7 @@
     <%# Terms accept %>
     <div class="checkbox_area">
       <label class="checkbox_label" for="user_agreement"><%= I18n.t("user.labels.terms.instruction") %> </label>
-      <%= link_to I18n.t("user.labels.terms.instruction_2"), hint_agreement_path, target: "_blank" %>
+      <a href="#"  onClick="window.open('<%= hint_agreement_path %>','_blank')" ><%= I18n.t("user.labels.terms.instruction_2") %></a>
       <strong> *</strong>
       <%= f.check_box :agreement, class: "th_label" %>
       <label class="check_icon" for="user_agreement"><span></span></label>
