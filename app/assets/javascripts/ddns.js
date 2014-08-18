@@ -12,6 +12,7 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
   $scope.formateSuffix = ".json";
 
   $scope.checkStatus = function() {
+    $scope.disableBtn();
     $timeout(function() {
       $scope.loadTimes++;
 
@@ -22,6 +23,7 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
         if(response.status == "success") {
           $scope.step = "success";
           $scope.session = response;
+          $scope.enableBtn();
           return;
 
         // redirect to setting page and set error message when timeout or failure
@@ -35,5 +37,29 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
     }, $scope.interval);
 
   };
+
+  $scope.disableBtn = function(){
+    var allButton = document.getElementsByTagName("a");
+    for(var i=0; i<allButton.length; i++){
+      var $thisBtn = allButton[i];
+      var $thisUrl = $thisBtn.getAttribute('href');
+      if ($thisUrl != "#"){
+        $thisBtn.setAttribute('data-href', $thisUrl);
+        $thisBtn.setAttribute('href', '#');
+      };
+    };
+  };
+
+  $scope.enableBtn = function(){
+    var allButton = document.getElementsByTagName("a");
+    for(var i=0; i<allButton.length; i++){
+      var $thisBtn = allButton[i];
+      var $dataUrl = $thisBtn.getAttribute('data-href');
+      if ($dataUrl){
+        $thisBtn.setAttribute('href', $dataUrl);
+      };
+    };
+  };
+
 });
 // check DDNS session status - end

@@ -123,6 +123,7 @@
 
       $scope.step = "updating";
       $scope.panel = "loading";
+      $scope.disableBtn();
       $scope.wording = '';
 
       $http.get($scope.indexPath + $scope.session.device_id + ".json", { cache: false}).success(function(response){
@@ -144,6 +145,7 @@
                 $scope.panel = response.status;
                 $scope.session = response;
                 $scope.service_list = response.service_list;
+                $scope.enableBtn();
                 return;
               }
 
@@ -153,10 +155,12 @@
                 $scope.loadTimes = 0;
                 $scope.step = "failure";
                 $scope.panel = "retry";
+                $scope.enableBtn();
               }
             });
         }, $scope.interval);
 
+      $scope.disableBtn();
     };
 
     $scope.submit = function(){
@@ -175,6 +179,7 @@
 
         $scope.step = "updating"
         $scope.panel = "loading";
+        $scope.disableBtn();
     };
     $scope.retry = function(){
       $scope.init();
@@ -192,12 +197,14 @@
           if('updated' == response.status){
             $scope.step = "form";
             $scope.panel = 'confirm';
+            $scope.enableBtn();
             $scope.result = "true";
             $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
             return;
           }else if('form' == response.status){
             $scope.step = response.status;
             $scope.panel = response.status;
+            $scope.enableBtn();
             $scope.session = response;
             $scope.service_list = response.service_list;
             return;
@@ -209,9 +216,36 @@
             $scope.checkTimes = 0;
             $scope.step = "failure";
             $scope.panel = "retry";
+            $scope.enableBtn();
           }
         });
       }, $scope.interval);
+
+      $scope.disableBtn();
     };
+
+    $scope.disableBtn = function(){
+      var allButton = document.getElementsByTagName("a");
+      for(var i=0; i<allButton.length; i++){
+        var $thisBtn = allButton[i];
+        var $thisUrl = $thisBtn.getAttribute('href');
+        if ($thisUrl != "#"){
+          $thisBtn.setAttribute('data-href', $thisUrl);
+          $thisBtn.setAttribute('href', '#');
+        };
+      };
+    };
+
+    $scope.enableBtn = function(){
+      var allButton = document.getElementsByTagName("a");
+      for(var i=0; i<allButton.length; i++){
+        var $thisBtn = allButton[i];
+        var $dataUrl = $thisBtn.getAttribute('data-href');
+        if ($dataUrl){
+          $thisBtn.setAttribute('href', $dataUrl);
+        };
+      };
+    };
+
   });
 <% end %>
