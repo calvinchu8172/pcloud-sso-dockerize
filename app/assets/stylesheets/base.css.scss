@@ -277,6 +277,12 @@ body {
   color: #838383;
   font-size: 19px;
   line-height: 28px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  max-width:500px;
 }
 .zyxel_span3 {
   color: #838383;
@@ -1005,6 +1011,8 @@ body {
 
 .zyxel_table_style5{
   margin-top: 25px;
+  width:100%;/* modify0815 */
+  text-align:center;/* modify0815 */
 }
 .zyxel_table_style5 th {
   color: #FEC675;
@@ -1028,9 +1036,33 @@ body {
   color: $zyxel_color1;
 }
 .zyxel_table_style5 td.column3{
-  padding-right: 0px;
+  /*padding-right: 0px;*//* modify0815 */
+  text-align:left;/* modify0815 */
 }
-
+.zyxel_table_style5 td a{/* new0815 */
+  color:#999;
+}
+.zyxel_table_style5 td a:hover{/* new0815 */
+  color:#EE7532;
+  text-decoration:none;
+}
+.zyxel_table_style5 td.update_result {
+  min-width: 90px;
+}
+.zyxel_table_style5 td span.green{/* new0815 */
+  color: #3C6;
+}
+.zyxel_table_style5 td span.red{/* new0815 */
+  color:#F00;
+}
+.zyxel_table_style5 td span.green:before {/* new0815 */
+  content: "\2713";
+  padding-right: 3px;
+}
+.zyxel_table_style5 td span.red:before {/* new0815 */
+  content: "\2717";
+  padding-right: 5px;
+}
 input[type="checkbox"]{ /* 把原生隱藏 */
   display:none;
 }
@@ -1121,6 +1153,9 @@ input[type="checkbox"].th_label {
     margin-left: 5px;
   }
 }
+@media all and (min-width: 501px) and  (max-width: 767px) {/* modify0815 */
+  .zyxel_table_style4 td.orange{ width:380px; }/* modify0815 */
+}
 @media all and (max-width: 500px){
   .zyxel_btn_sns{ width: 100%; }
   .zyxel_table_style1 th{ padding-left:10px; width:35%; }
@@ -1134,9 +1169,8 @@ input[type="checkbox"].th_label {
   /*.zyxel_table_style4 td span{ display:block; }*/
   .zyxel_host_name input{ width:100%; }/* modify */
   .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{ display: block; margin:10px 0; }
-}
-@media all and (max-width: 600px){/* modify */
-
+  .zyxel_table_style4 td.orange{ width:265px; }/* modify0815 */
+  .zyxel_table_style3 th{ display:none; }/* modify0815 */
 }
 @media all and (min-width: 768px){
   .zyxel_table_style5 td.column3{ width:50%; }

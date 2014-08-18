@@ -55,11 +55,11 @@
             {{service.description}}
           </td>
           <%# display update result after submited %>
-          <td data-title="'error_code'" ng-if="submited">
-            <span ng-if="service.error_code.length == 0">
+          <td data-title="'error_code'" class="update_result" ng-if="submited">
+            <span ng-if="service.error_code.length == 0" class="green">
               <%= I18n.t("labels.settings.upnp.result.success") %>
             </span>
-            <span ng-if="service.error_code.length != 0">
+            <span ng-if="service.error_code.length != 0" class="red">
               <%= I18n.t("labels.settings.upnp.result.failure") %>
             </span>
           </td>
