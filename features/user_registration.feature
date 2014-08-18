@@ -138,3 +138,10 @@ Feature: [PCP_001_01] Sign Up
     And one new user created by personal@example.com
     And the new user should receive an email confirmation
 
+    When the new user confirmed account within email
+
+    Then the page will redirect to confirmed page
+
+    When user click the confirm button
+
+    Then user will auto login and redirect to dashboard

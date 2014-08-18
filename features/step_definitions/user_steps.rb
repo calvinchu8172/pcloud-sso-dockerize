@@ -99,6 +99,7 @@ Then(/^one new user created by (.*?)$/) do |account|
   @email = account
   user = User.find_by_email(@email)
   user.should_not be_nil
+  user.confirmation_token.should_not be_nil
 end
 
 # Check confirmation email status
@@ -110,6 +111,28 @@ end
 Then(/^the new user should see "(.*?)" and "(.*?)" button$/) do |btn1, btn2|
   expect(page).to have_link(btn1, href: new_user_confirmation_path)
   expect(page).to have_link(btn2, href: unauthenticated_root_path)
+end
+
+# -------------------------------------------------------------------
+# ------------------------ Confirm Account --------------------------
+# -------------------------------------------------------------------
+
+Then(/^the new user confirmed account within email$/) do
+  confirm_token = @email.body.match(/confirmation_token=\w*/)
+  visit "/users/confirmation?#{confirm_token}"
+end
+
+Then(/^the page will redirect to confirmed page$/) do
+  expect(page.body).to have_content("Your account was successfully confirmed.")
+  expect(page.body).to have_link("Confirm", href: "/")
+end
+
+When(/^user click the confirm button$/) do
+  click_link("Confirm")
+end
+
+Then(/^user will auto login and redirect to dashboard$/) do
+  expect(page.current_path).to eq("/discoverer/index")
 end
 
 # Analog method of captcha
@@ -144,9 +167,9 @@ end
 
 # Check Confirmation email content.
 def check_email_content(user_email)
-  email = ActionMailer::Base.deliveries.first
-  puts email
-  expect(email.from.first).to eq("do-not-reply@ecoworkinc.com")
-  expect(email.to.first).to eq(user_email)
-  expect(email.body).to have_content("Thank you for registering with ZyXEL Cloud")
+  @email = ActionMailer::Base.deliveries.first
+  expect(@email.from.first).to eq("do-not-reply@ecoworkinc.com")
+  expect(@email.to.first).to eq(user_email)
+  expect(@email.body).to have_content("Thank you for registering with ZyXEL Cloud")
+  expect(@email.body).to match(/\/users\/confirmation/)
 end
