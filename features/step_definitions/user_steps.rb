@@ -12,7 +12,7 @@ Given(/^the visitor agreed the terms of use$/) do
   check('user[agreement]')
 end
 
-# Assign the invalid value to item of field text 
+# Assign the invalid value to item of field text
 Given(/^the visitor filled the invalid "(.*?)" (.*?)$/) do |item, value|
   fill_in item, with: value
 end
@@ -25,6 +25,7 @@ Given(/^the visitor filled the captcha incorrectly$/) do
   captcha_evaluates_to false
 end
 
+# Filled user information
 Given(/^the visitor filled the user information:$/) do |table|
   # filled in information to field text on sign up page
   filled_in_info(table)
@@ -36,9 +37,22 @@ Given(/^the visitor filled all the required fields:$/) do |table|
   setup_test_email
 end
 
+Given(/^the email of "(.*?)" has been existed$/) do |email|
+  FactoryGirl.create(:user)
+end
+
 # Click submit button with value
 When(/^the visitor click "(.*?)" button$/) do |button|
   click_button button
+end
+
+# Sign up successfully
+When(/^the visitor success sign up an account:$/) do |table|
+  filled_in_info(table)
+  check('user[agreement]')
+  captcha_evaluates_to true
+  setup_test_email
+  click_button "Sign Up"
 end
 
 # -------------------------------------------------------------------
@@ -53,7 +67,7 @@ Then(/^the visitor should see an error message for "(.*?)"$/) do |item|
       input_name << value
     else
       input_name << value << "_"
-    end 
+    end
   end
   expect(page).to have_selector('div.input_error input[name="user[' + input_name + ']"]' )
   puts item + " " + find('div.zyxel_arlert_area>label.error_message').text
@@ -69,15 +83,6 @@ end
 Then(/^the visitor should see an error message for Terms of Use$/) do
   expect(page).to have_selector('input[name="user[agreement]"]~div.zyxel_arlert_area')
   puts "Terms of Use " + find('input[name="user[agreement]"]~div.zyxel_arlert_area>label.error_message').text
-end
-
-
-When(/^the visitor success sign up an account:$/) do |table|
-  filled_in_info(table)
-  check('user[agreement]')
-  captcha_evaluates_to true
-  setup_test_email
-  click_button "Sign Up"
 end
 
 # -------------------------------------------------------------------
@@ -101,12 +106,13 @@ Then(/^the new user should receive an email confirmation$/) do
   check_email_content(@email)
 end
 
+# Check content for sent email page
 Then(/^the new user should see "(.*?)" and "(.*?)" button$/) do |btn1, btn2|
   expect(page).to have_link(btn1, href: new_user_confirmation_path)
   expect(page).to have_link(btn2, href: unauthenticated_root_path)
 end
 
-# Get the captcha method
+# Analog method of captcha
 def captcha_evaluates_to(result)
   eval <<-CODE
     module Recaptcha
@@ -136,9 +142,10 @@ def setup_test_email
   ActionMailer::Base.deliveries.clear
 end
 
-# Confirmation email
+# Check Confirmation email content.
 def check_email_content(user_email)
   email = ActionMailer::Base.deliveries.first
+  puts email
   expect(email.from.first).to eq("do-not-reply@ecoworkinc.com")
   expect(email.to.first).to eq(user_email)
   expect(email.body).to have_content("Thank you for registering with ZyXEL Cloud")
