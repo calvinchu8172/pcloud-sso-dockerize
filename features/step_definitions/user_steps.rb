@@ -118,7 +118,7 @@ end
 # -------------------------------------------------------------------
 
 Then(/^the new user confirmed account within email$/) do
-  confirm_token = @email.body.match(/confirmation_token=\w*/)
+  confirm_token = @email.body.match(/confirmation_token=[\w\-]*/)
   visit "/users/confirmation?#{confirm_token}"
 end
 
