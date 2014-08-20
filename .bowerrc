@@ -1,3 +1,4 @@
 {
-  "directory": "vendor/assets/components"
+  "directory": "vendor/assets/components",
+  "analytics": false
 }
