@@ -52,7 +52,7 @@ When(/^the visitor success sign up an account:$/) do |table|
   check('user[agreement]')
   captcha_evaluates_to true
   setup_test_email
-  click_button "Sign Up"
+  click_button I18n.t("labels.sign_up")
 end
 
 # -------------------------------------------------------------------
@@ -123,12 +123,12 @@ Then(/^the new user confirmed account within email$/) do
 end
 
 Then(/^the page will redirect to confirmed page$/) do
-  expect(page.body).to have_content("Your account was successfully confirmed.")
-  expect(page.body).to have_link("Confirm", href: "/")
+  expect(page.body).to have_content(I18n.t("devise.confirmations.confirmed"))
+  expect(page.body).to have_link(I18n.t("labels.confirm"), href: "/")
 end
 
 When(/^user click the confirm button$/) do
-  click_link("Confirm")
+  click_link I18n.t("labels.confirm")
 end
 
 Then(/^user will auto login and redirect to dashboard$/) do
@@ -170,6 +170,6 @@ def check_email_content(user_email)
   @email = ActionMailer::Base.deliveries.first
   expect(@email.from.first).to eq("mycloud@zyxel.com.tw")
   expect(@email.to.first).to eq(user_email)
-  expect(@email.body).to have_content("Thank you for registering with ZyXEL Cloud")
+  expect(@email.body).to have_content(I18n.t("devise.mailer.confirmation_instructions.instruction"))
   expect(@email.body).to match(/\/users\/confirmation/)
 end

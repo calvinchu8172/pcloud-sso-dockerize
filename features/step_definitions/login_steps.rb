@@ -30,7 +30,7 @@ end
 
 # Click button
 When(/^the user click Log In button$/) do
-  click_button "Log In"
+  click_button I18n.t("labels.sign_in")
 end
 
 # -------------------------------------------------------------------
@@ -41,15 +41,15 @@ Then(/^the page should redirect to resend email of confirmation page$/) do
 end
 
 Then(/^the user should see the warning message$/) do
-  expect(page).to have_content("You have to confirm your account before continuing.")
+  expect(page).to have_content(I18n.t("devise.failure.unconfirmed"))
 end
 
 Then(/^the user should see the error message$/) do
-  expect(page).to have_content("Invalid email or password.")
+  expect(page).to have_content(I18n.t("devise.failure.invalid"))
 end
 
 Then(/^the user should see the information when login successfully$/) do
-  expect(page).to have_content("Signed in successfully.")
+  expect(page).to have_content(I18n.t("devise.sessions.signed_in"))
 end
 
 def filled_in_login_info(password)
