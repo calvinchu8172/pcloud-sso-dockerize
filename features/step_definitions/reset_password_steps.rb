@@ -46,10 +46,16 @@ When(/^the user click "(.*?)" link$/) do |link|
   click_link link
 end
 
+# Check redirect link for reset password page
+Then(/^the user will redirect to reset password page$/) do
+  this_page = '/users/password/new'
+  expect(page.current_path).to eq(this_page)
+end
 
-# Check redirect link
-Then(/^i will redirect to "(.*?)"$/) do |link|
-  expect(page.current_path).to eq(link)
+# Check redirect link for reset password success page
+Then(/^the user will redirect to reset password success page$/) do
+  this_page = '/hint/reset'
+  expect(page.current_path).to eq(this_page)
 end
 
 # Check error message
@@ -65,7 +71,7 @@ Then(/^the user should see an doesn't match error message$/) do
 end
 
 # Check error message with different password
-Then(/^the user fill in password New:"(.*?)", Confirm:"(.*?)" and submit$/) do |password1, password2|
+And(/^the user fill in password New:"(.*?)", Confirm:"(.*?)" and submit$/) do |password1, password2|
   @user.confirm!
   fill_in I18n.t("user.labels.new_password"), with: password1
   fill_in I18n.t("user.labels.new_password_confirmation"), with: password2

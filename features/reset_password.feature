@@ -30,9 +30,9 @@ Feature: [PCP_001_02] Reset Password
     When the user finish reset password with "personal@example.com"
 
     And the user click "Resend Confirmation" link
-    Then i will redirect to "/users/password/new"
+    Then the user will redirect to reset password page
     Given the user filled correct email with "personal@example.com"
-    When the user click "Submit" button
+    And the user click "Submit" button
     Then the user should receive an reset password email
 
   Scenario: [PCP_001_02_06] 
@@ -40,7 +40,7 @@ Feature: [PCP_001_02] Reset Password
 
     When the user finish reset password with "personal@example.com"
 
-    Then the user click reset password email link
+    And the user click reset password email link
     And the user fill in password New:"password1", Confirm:"password2" and submit
     Then the user should see an doesn't match error message
 
@@ -48,7 +48,7 @@ Feature: [PCP_001_02] Reset Password
     Redirect to success page when password changed
 
     When the user finish reset password with "personal@example.com"
-    Then the user click reset password email link
+    And the user click reset password email link
     And the user fill in password New:"password1", Confirm:"password1" and submit
-    Then i will redirect to "/hint/reset"
+    Then the user will redirect to reset password success page
 
