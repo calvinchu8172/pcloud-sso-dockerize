@@ -1,21 +1,8 @@
-# Set a user
-Given(/^a user change the password$/) do
-  @user = FactoryGirl.create(:user)
-  @user.confirm!
-  @user.save
-end
-
 # Set a user who visit password change page
-Then(/^the user is login and visits password change page$/) do
-	visit unauthenticated_root_path
-	fill_in 'user_email', with: @user.email
-	fill_in 'user_password', with: @user.password
-	click_button I18n.t("labels.sign_in")
-	visit '/users/edit?type=password'
-	# find("a[@href='/personal/profile']").click   
-	# click_link I18n.t("labels.change_password")
+Given(/^the user is login and visits password change page$/) do
+  @user = TestingHelper.create_and_signin
+	visit edit_user_registration_path(type: "password")
 end
-
 
 # -------------------------------------------------------------------
 # ---------------------------    input   ----------------------------

@@ -1,8 +1,7 @@
 Feature: [PCP_002_02] Change Password
 
-  Background: 
-    Given a user change the password
-    And the user is login and visits password change page
+  Background:
+    Given the user is login and visits password change page
 
   Scenario:	[PCP_002_02_01]
     Show error message when password invaild on change password page

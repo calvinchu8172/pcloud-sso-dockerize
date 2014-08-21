@@ -1,3 +1,6 @@
+include Warden::Test::Helpers
+Warden.test_mode!
+
 module TestingHelper
   def self.setup_test_email
     # make your delivery state to 'test' mode

@@ -1,6 +1,3 @@
-include Warden::Test::Helpers
-Warden.test_mode!
-
 # Sign Account and Go to Profile page
 Given(/^a user visits profile page$/) do
   @user = TestingHelper.create_and_signin
