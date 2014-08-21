@@ -4,7 +4,7 @@ Given(/^a user visits sign up page$/) do
 end
 
 # -------------------------------------------------------------------
-# ----------------- filled In Sign Up Information ---------------------
+# ---------------- Filled in Sign Up information --------------------
 # -------------------------------------------------------------------
 
 # Check the user agreement item
@@ -34,7 +34,7 @@ end
 Given(/^the visitor filled all the required fields:$/) do |table|
   captcha_evaluates_to true
   filled_in_info(table)
-  setup_test_email
+  TestingHelper.setup_test_email
 end
 
 Given(/^the email of "(.*?)" has been existed$/) do |email|
@@ -51,8 +51,8 @@ When(/^the visitor success sign up an account:$/) do |table|
   filled_in_info(table)
   check('user[agreement]')
   captcha_evaluates_to true
-  setup_test_email
-  click_button "Sign Up"
+  TestingHelper.setup_test_email
+  click_button I18n.t("labels.sign_up")
 end
 
 # -------------------------------------------------------------------
@@ -86,7 +86,7 @@ Then(/^the visitor should see an error message for Terms of Use$/) do
 end
 
 # -------------------------------------------------------------------
-# ------------------------ Create Account ---------------------------
+# ------------------------ Create account ---------------------------
 # -------------------------------------------------------------------
 
 # Check the sign up flow
@@ -114,7 +114,7 @@ Then(/^the new user should see "(.*?)" and "(.*?)" button$/) do |btn1, btn2|
 end
 
 # -------------------------------------------------------------------
-# ------------------------ Confirm Account --------------------------
+# ------------------------ Confirm account --------------------------
 # -------------------------------------------------------------------
 
 Then(/^the new user confirmed account within email$/) do
@@ -123,12 +123,12 @@ Then(/^the new user confirmed account within email$/) do
 end
 
 Then(/^the page will redirect to confirmed page$/) do
-  expect(page.body).to have_content("Your account was successfully confirmed.")
-  expect(page.body).to have_link("Confirm", href: "/")
+  expect(page.body).to have_content(I18n.t("devise.confirmations.confirmed"))
+  expect(page.body).to have_link(I18n.t("labels.confirm"), href: "/")
 end
 
 When(/^user click the confirm button$/) do
-  click_link("Confirm")
+  click_link I18n.t("labels.confirm")
 end
 
 Then(/^user will auto login and redirect to dashboard$/) do
@@ -155,21 +155,11 @@ def filled_in_info(info_table)
   }
 end
 
-# Send test email for confirmation account
-def setup_test_email
-  # make your delivery state to 'test' mode
-  ActionMailer::Base.delivery_method = :test
-  # make sure that actionMailer perform an email delivery
-  ActionMailer::Base.perform_deliveries = true
-  # clear all the email deliveries, so we can easily checking the new ones
-  ActionMailer::Base.deliveries.clear
-end
-
 # Check Confirmation email content.
 def check_email_content(user_email)
   @email = ActionMailer::Base.deliveries.first
-  expect(@email.from.first).to eq("do-not-reply@ecoworkinc.com")
+  expect(@email.from.first).to eq(ActionMailer::Base.default[:from])
   expect(@email.to.first).to eq(user_email)
-  expect(@email.body).to have_content("Thank you for registering with ZyXEL Cloud")
+  expect(@email.body).to have_content(I18n.t("devise.mailer.confirmation_instructions.instruction"))
   expect(@email.body).to match(/\/users\/confirmation/)
 end
