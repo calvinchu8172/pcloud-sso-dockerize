@@ -168,7 +168,7 @@ end
 # Check Confirmation email content.
 def check_email_content(user_email)
   @email = ActionMailer::Base.deliveries.first
-  expect(@email.from.first).to eq("do-not-reply@ecoworkinc.com")
+  expect(@email.from.first).to eq(ActionMailer::Base.default[:from])
   expect(@email.to.first).to eq(user_email)
   expect(@email.body).to have_content("Thank you for registering with ZyXEL Cloud")
   expect(@email.body).to match(/\/users\/confirmation/)

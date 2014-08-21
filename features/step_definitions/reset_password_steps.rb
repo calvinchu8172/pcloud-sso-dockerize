@@ -12,7 +12,7 @@ Given(/^the user filled correct email with "(.*?)"$/) do |email|
   setup_test_email
 end
 
-# Finish reset password 
+# Finish reset password
 When(/^the user finish reset password with "(.*?)"$/) do |email|
   @email = email
   filled_in_email(@email)
@@ -77,7 +77,7 @@ Then(/^the user should receive an reset password email$/) do
   check_resetpwd_email(@email)
 end
 
-# Click reset password link 
+# Click reset password link
 Then(/^the user click reset password email link/) do
   click_resetpwd_link
 end
@@ -102,7 +102,7 @@ end
 # Check reset password email content.
 def check_resetpwd_email(user_email)
   @email = ActionMailer::Base.deliveries.first
-  expect(@email.from.first).to eq("do-not-reply@pcloud.ecoworkinc.com")
+  expect(@email.from.first).to eq(ActionMailer::Base.default[:from])
   expect(@email.to.first).to eq(user_email)
   expect(@email.body).to have_content(I18n.t("devise.mailer.reset_password_instructions.instruction"))
   expect(@email.body).to match(/\/users\/password/)
