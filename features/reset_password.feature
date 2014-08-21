@@ -35,7 +35,7 @@ Feature: [PCP_001_02] Reset Password
     And the user click "Submit" button
     Then the user should receive an reset password email
 
-  Scenario: [PCP_001_02_06] 
+  Scenario: [PCP_001_02_05] 
     Show error messages when password and confirm password was different
 
     When the user finish reset password with "personal@example.com"
@@ -44,7 +44,7 @@ Feature: [PCP_001_02] Reset Password
     And the user fill in password New:"password1", Confirm:"password2" and submit
     Then the user should see an doesn't match error message
 
-  Scenario: [PCP_001_02_07]
+  Scenario: [PCP_001_02_06]
     Redirect to success page when password changed
 
     When the user finish reset password with "personal@example.com"
