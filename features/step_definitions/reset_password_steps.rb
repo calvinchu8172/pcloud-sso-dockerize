@@ -69,7 +69,7 @@ Then(/^the user fill in password New:"(.*?)", Confirm:"(.*?)" and submit$/) do |
   @user.confirm!
   fill_in I18n.t("user.labels.new_password"), with: password1
   fill_in I18n.t("user.labels.new_password_confirmation"), with: password2
-  click_button "Submit"
+  click_button I18n.t("labels.submit")
 end
 
 # Check email contents
