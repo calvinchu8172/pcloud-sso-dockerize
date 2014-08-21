@@ -34,7 +34,7 @@ end
 Given(/^the visitor filled all the required fields:$/) do |table|
   captcha_evaluates_to true
   filled_in_info(table)
-  setup_test_email
+  TestingHelper.setup_test_email
 end
 
 Given(/^the email of "(.*?)" has been existed$/) do |email|
@@ -51,7 +51,7 @@ When(/^the visitor success sign up an account:$/) do |table|
   filled_in_info(table)
   check('user[agreement]')
   captcha_evaluates_to true
-  setup_test_email
+  TestingHelper.setup_test_email
   click_button I18n.t("labels.sign_up")
 end
 
@@ -153,16 +153,6 @@ def filled_in_info(info_table)
   info_table.each_cells_row { |info|
     fill_in info.value(0), with: info.value(1)
   }
-end
-
-# Send test email for confirmation account
-def setup_test_email
-  # make your delivery state to 'test' mode
-  ActionMailer::Base.delivery_method = :test
-  # make sure that actionMailer perform an email delivery
-  ActionMailer::Base.perform_deliveries = true
-  # clear all the email deliveries, so we can easily checking the new ones
-  ActionMailer::Base.deliveries.clear
 end
 
 # Check Confirmation email content.

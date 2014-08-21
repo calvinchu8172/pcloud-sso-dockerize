@@ -1,22 +1,20 @@
 # Setup the user account
 Given(/^a user forgot the password$/) do
-  @user = FactoryGirl.create(:user)
-  @user.confirm!
-  @user.save
+  @user = TestingHelper.create_and_confirm
 end
 
 # Sign-up a account
 Given(/^the user filled correct email with "(.*?)"$/) do |email|
   @email = email
   filled_in_email(@email)
-  setup_test_email
+  TestingHelper.setup_test_email
 end
 
 # Finish reset password
 When(/^the user finish reset password with "(.*?)"$/) do |email|
   @email = email
   filled_in_email(@email)
-  setup_test_email
+  TestingHelper.setup_test_email
   click_button I18n.t("labels.submit")
   check_resetpwd_email(@email)
 end
@@ -36,26 +34,14 @@ When(/^the user didn't filled email$/) do
   click_button I18n.t("labels.submit")
 end
 
-# Click submit button
-When(/^the user click "(.*?)" button$/) do |button|
-  click_button button
-end
-
-# Click link
-When(/^the user click "(.*?)" link$/) do |link|
-  click_link link
-end
-
 # Check redirect link for reset password page
 Then(/^the user will redirect to reset password page$/) do
-  this_page = '/users/password/new'
-  expect(page.current_path).to eq(this_page)
+  expect(page.current_path).to eq("/users/password/new")
 end
 
 # Check redirect link for reset password success page
 Then(/^the user will redirect to reset password success page$/) do
-  this_page = '/hint/reset'
-  expect(page.current_path).to eq(this_page)
+  expect(page.current_path).to eq("/hint/reset")
 end
 
 # Check error message
@@ -72,7 +58,6 @@ end
 
 # Check error message with different password
 And(/^the user fill in password New:"(.*?)", Confirm:"(.*?)" and submit$/) do |password1, password2|
-  @user.confirm!
   fill_in I18n.t("user.labels.new_password"), with: password1
   fill_in I18n.t("user.labels.new_password_confirmation"), with: password2
   click_button I18n.t("labels.submit")
@@ -88,19 +73,8 @@ Then(/^the user click reset password email link/) do
   click_resetpwd_link
 end
 
-# Send test email for confirmation account
-def setup_test_email
-  # make your delivery state to 'test' mode
-  ActionMailer::Base.delivery_method = :test
-  # make sure that actionMailer perform an email delivery
-  ActionMailer::Base.perform_deliveries = true
-  # clear all the email deliveries, so we can easily checking the new ones
-  ActionMailer::Base.deliveries.clear
-end
-
 # Click reset password link(with token url)
 def click_resetpwd_link
-  @email = ActionMailer::Base.deliveries.first
   confirm_token = @email.body.match(/reset_password_token=[\w\-]*/)
   visit "/users/password/edit?#{confirm_token}"
 end
