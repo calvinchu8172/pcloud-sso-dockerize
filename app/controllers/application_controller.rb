@@ -58,20 +58,16 @@ class ApplicationController < ActionController::Base
     # Redirect back to current page after sign in
     def store_location
       return unless request.get?
-      if(request.path != "/users/sign_in" &&
-         request.path != "/users/sign_up" &&
-         request.path != "/users/password/new" &&
-         request.path != "/users/password/edit" &&
-         request.path != "/users/confirmation" &&
-         request.path != "/users/sign_out" &&
+      if(!request.path.match("/users") &&
+         !request.path.match("/hint") &&
          !request.xhr? && # don't store ajax calls
-         !request.accept.match(/json/)) # don't store json calls
+         (request.accept && !request.accept.match(/json/))) # don't store json calls
         session[:previous_url] = request.fullpath
       end
     end
 
     def after_sign_in_path_for(resource)
-      session[:previous_url] || authenticated_root
+      session[:previous_url] || authenticated_root_path
     end
 
     def device_paired_with?

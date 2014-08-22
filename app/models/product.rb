@@ -6,7 +6,7 @@ class Product < ActiveRecord::Base
     square: '200x200#',
     medium: 'x85'
   }
-  has_attached_file :pairing
+  has_attached_file :pairing, :default_url => "animate_default.gif"
 
   validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/
   validates_attachment_content_type :pairing, :content_type => /\Aimage\/.*\Z/
