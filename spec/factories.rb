@@ -12,4 +12,15 @@ FactoryGirl.define do
     model_name                "NSA325"
     firmware_version          "V4.70(AALS.0)_GPL_20140820"
   end
+  factory :device_session do
+    association :device_id, factory: :device_id
+    xmpp_account          "personal@example.com"
+    password              "12345678"
+    ip                    "127.0.0.1"
+  end
+  factory :identity do
+    association :user_id, factory: :user_id
+    association :provider, factory: :provider
+    association :uid, factory: :uid
+  end
 end
