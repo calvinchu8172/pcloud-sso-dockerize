@@ -82,3 +82,17 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+
+module ActiveRecord
+  module ConnectionAdapters
+    class MysqlAdapter < AbstractAdapter
+      def begin_db_transaction
+      end
+      def commit_db_transaction
+      end
+      def rollback_db_transaction
+      end
+    end
+  end
+end
