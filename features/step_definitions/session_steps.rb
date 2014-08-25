@@ -29,6 +29,12 @@ module TestingHelper
     signin_user(user)
     user
   end
+  def self.create_device_session
+    device = create_device
+    device_session = FactoryGirl.create(:device_session, device_id: device.id)
+    device_session.save
+    device_session
+  end
 end
 
 # Click submit button
