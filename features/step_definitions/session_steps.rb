@@ -19,6 +19,11 @@ module TestingHelper
     user.save
     user
   end
+  def self.create_device
+    device = FactoryGirl.create(:device)
+    device.save
+    device
+  end
   def self.create_and_signin
     user = create_and_confirm
     signin_user(user)
