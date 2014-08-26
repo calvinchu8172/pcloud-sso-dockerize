@@ -82,7 +82,3 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
-
-Netrc.configure do |config|
-  config[:allow_permissive_netrc_file] = true
-end
