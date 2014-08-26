@@ -46,3 +46,16 @@ end
 When(/^the user click "(.*?)" link$/) do |link|
   click_link link
 end
+
+When(/^the user finished the pairing$/) do
+  create_pairing
+end
+
+# set pairing, need current user_id & device_id
+def create_pairing
+  device_id = @device_session.device.id
+  user_id = @user.id
+  pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device_id)
+  pairing.save
+  pairing
+end

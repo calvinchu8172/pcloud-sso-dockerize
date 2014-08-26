@@ -40,4 +40,5 @@ end
 
 Then(/^the user will redirect to pairing check page$/) do
 	expect(page.current_path).to include('/discoverer/check')
+  puts page.current_path
 end

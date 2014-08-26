@@ -18,6 +18,10 @@ FactoryGirl.define do
     password              "12345678"
     ip                    "127.0.0.1"
   end
+  factory :pairing do
+    association :user_id, factory: :user_id
+    association :device_id, factory: :device_id
+  end  
   factory :identity do
     association :user_id, factory: :user_id
     association :provider, factory: :provider

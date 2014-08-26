@@ -5,7 +5,8 @@ class DiscovererController < ApplicationController
 
   def index
 
-    @device_session_list = search_available_device.where(:ip => request.remote_ip)
+    # @device_session_list = search_available_device.where(:ip => request.remote_ip)
+    @device_session_list = search_available_device.where(:ip => request.remote_ip, :xmpp_account => current_user.email)
     raw_result = Array.new
     @device_session_list.each do |session|
       next if(session.device.product.blank?)
