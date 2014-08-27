@@ -28,7 +28,7 @@ end
 # -------------------------------------------------------------------
 
 
-Then(/^the user should see mac address error message$/) do 
+Then(/^the user should see mac address error message$/) do
   expect(page).to have_selector('div.zyxel_arlert_area')
   puts "Mac Address " + find('div.zyxel_arlert_area > span').text
 end
@@ -40,5 +40,4 @@ end
 
 Then(/^the user will redirect to pairing check page$/) do
 	expect(page.current_path).to include('/discoverer/check')
-  puts page.current_path
 end
