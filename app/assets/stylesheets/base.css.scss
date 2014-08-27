@@ -779,7 +779,8 @@ body {
   -moz-appearance: none;
 }
 .input_style1:focus {
-  border-color: $zyxel_color4;
+  /*border-color: $zyxel_color4;*/
+  border-color:#f0e049;
 }
 .input_captcha {
   width: 45%;
@@ -793,6 +794,12 @@ body {
   color:#999;
 }*/
 
+.birth_select option:hover,
+.birth_select option:focus,
+.birth_select option:active,
+.birth_select option:checked {
+    background: linear-gradient(#34d9c3, #34d9c3);
+}
 
 // changed
 .user_info_select {
