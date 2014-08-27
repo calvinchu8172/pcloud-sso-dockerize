@@ -7,7 +7,6 @@ end
 # Set a user have not device
 When(/^the user have not any devices$/) do
   visit(page.current_path)  # Refresh
-  ask('wait?')
 end
 
 # Set a user have a device
