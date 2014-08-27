@@ -59,10 +59,6 @@ When(/^the user finished the pairing$/) do
   @pairing = create_pairing(@device_session, @user)
 end
 
-Then(/^wait for ajax response$/) do
-  sleep(5)
-end
-
 # set pairing, need current @device_session & @user
 def create_pairing(device_session, user)
   device_id = device_session.device.id
@@ -70,4 +66,8 @@ def create_pairing(device_session, user)
   pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device_id)
   pairing.save
   pairing
+end
+
+def wait_server_response
+  sleep(5)
 end
