@@ -24,6 +24,20 @@ FactoryGirl.define do
     association :user_id, factory: :user_id
     association :device_id, factory: :device_id
   end
+  factory :ddns_session do 
+    status                "start"
+    association :device_id, factory: :device_id
+    association :full_domain, factory: :full_domain
+  end
+  factory :pairing do
+    association :user_id, factory: :user_id
+    association :device_id, factory: :device_id
+  end  
+  factory :ddns do
+    ip_address            "127.0.0.1"
+    association :device_id, factory: :device_id
+    association :full_domain, factory: :full_domain
+  end  
   factory :identity do
     association :user_id, factory: :user_id
     association :provider, factory: :provider
