@@ -35,14 +35,14 @@ module TestingHelper
     device_session.save
     device_session
   end
-  def self.create_pairing_session
-    device_session = create_device_session
+  def self.create_pairing
     user = create_and_signin
-    pairing_session = FactoryGirl.create(:pairing_session, user_id: user.id,
-      device_id: device_session.device.id)
-    pairing_session.save
-    pairing_session
+    device = create_device_session.device
+    pairing = FactoryGirl.create(:pairing, user_id: user.id, device_id: device.id)
+    pairing.save
+    pairing
   end
+
 end
 
 # Click submit button
