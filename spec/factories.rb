@@ -43,4 +43,10 @@ FactoryGirl.define do
     association :provider, factory: :provider
     association :uid, factory: :uid
   end
+  factory :upnp_session do
+    association :user_id,       factory: :user_id
+    association :device_id,     factory: :device_id
+    association :status,        factory: :status
+    association :service_list,  factory: :service_list
+  end
 end

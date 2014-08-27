@@ -35,10 +35,9 @@ module TestingHelper
     device_session.save
     device_session
   end
-  def self.create_pairing
-    user = create_and_signin
-    device = create_device_session.device
-    pairing = FactoryGirl.create(:pairing, user_id: user.id, device_id: device.id)
+  def self.create_pairing(user_id)
+    device_session = create_device_session
+    pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device_session.device_id)
     pairing.save
     pairing
   end
@@ -56,18 +55,9 @@ When(/^the user click "(.*?)" link$/) do |link|
 end
 
 When(/^the user finished the pairing$/) do
-  @pairing = create_pairing(@device_session, @user)
-end
-
-# set pairing, need current @device_session & @user
-def create_pairing(device_session, user)
-  device_id = device_session.device.id
-  user_id = user.id
-  pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device_id)
-  pairing.save
-  pairing
+  @pairing = TestingHelper.create_pairing(@user_id)
 end
 
 def wait_server_response
-  sleep(5)
+  sleep 5
 end
