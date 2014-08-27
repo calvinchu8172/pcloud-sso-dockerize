@@ -25,7 +25,6 @@ end
 # check user in search result page when user haven't pairing
 When(/^the user will redirect to Search Results page$/) do
 	expect(page.current_path).to include('/discoverer/index')
-	puts page.current_path
 end
 
 # user should see device info and pairing link

@@ -28,7 +28,7 @@ end
 # -------------------------------------------------------------------
 
 
-Then(/^the user should see mac address error message$/) do 
+Then(/^the user should see mac address error message$/) do
   expect(page).to have_selector('div.zyxel_arlert_area')
   puts "Mac Address " + find('div.zyxel_arlert_area > span').text
 end

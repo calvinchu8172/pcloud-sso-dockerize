@@ -38,7 +38,7 @@ module TestingHelper
   def self.create_pairing_session
     device_session = create_device_session
     user = create_and_signin
-    pairing_session = FactoryGirl.create(:pairing_session, user_id: user.id, 
+    pairing_session = FactoryGirl.create(:pairing_session, user_id: user.id,
       device_id: device_session.device.id)
     pairing_session.save
     pairing_session
