@@ -18,12 +18,6 @@ FactoryGirl.define do
     password              "12345678"
     ip                    "127.0.0.1"
   end
-  factory :pairing_session do
-    sequence(:expire_at)  { |n| Time.now + 12.minutes}
-    status                "start"
-    association :user_id, factory: :user_id
-    association :device_id, factory: :device_id
-  end
   factory :ddns_session do
     status                "start"
     association :device_id, factory: :device_id
@@ -42,11 +36,5 @@ FactoryGirl.define do
     association :user_id, factory: :user_id
     association :provider, factory: :provider
     association :uid, factory: :uid
-  end
-  factory :upnp_session do
-    association :user_id,       factory: :user_id
-    association :device_id,     factory: :device_id
-    association :status,        factory: :status
-    association :service_list,  factory: :service_list
   end
 end

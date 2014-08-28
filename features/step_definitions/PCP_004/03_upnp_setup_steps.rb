@@ -13,7 +13,7 @@ Given(/^the user changed UPnP setting$/) do
 end
 
 When(/^the device was offline$/) do
-  @upnp_session = set_upnp_status(@upnp_session, "failure")
+  set_upnp_status(@upnp_session, "failure")
   sleep 300
 end
 
@@ -36,11 +36,11 @@ When(/^the device was online the device will response service list$/) do
                     "description":"HTTP configuration",
                     "port":"80",
                     "path":"http://wanip:port"}]'
-  @upnp_session = set_upnp_status(@upnp_session, "form", service_list)
+  set_upnp_status(@upnp_session, "form", service_list)
 end
 
 When(/^the services was success updated$/) do
-  @upnp_session = set_upnp_status(@upnp_session, "updated")
+  set_upnp_status(@upnp_session, "updated")
   wait_server_response
 end
 

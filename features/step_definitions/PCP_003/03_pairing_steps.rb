@@ -1,62 +1,59 @@
-# Set a user have device session and visit pairing page
-Given(/^a user visit device's pairing page$/) do
+Given(/^a user choose a device$/) do
 	@user = TestingHelper.create_and_signin
-	@device_id = TestingHelper.create_device_session.device_id
-  visit "/discoverer/check/#{@device_id}"
+  @device_session = TestingHelper.create_device_session
 end
 
-# -------------------------------------------------------------------
-# ---------------------------    input   ----------------------------
-# -------------------------------------------------------------------
-
-When (/^the user pairing is start$/) do
-	click_link I18n.t("labels.confirm")
+Given(/^the user will redirect to pairing page$/) do
+  visit "/discoverer/check/#{@device_session.device_id}"
 end
 
-When(/^the user pairing is not connection$/) do
-	click_link I18n.t("labels.confirm")
-	@pair_statu = 'failure'
+When(/^the user click "(.*?)" button to start pairing flow$/) do |link|
+	click_link link
+	@pairing_session = get_pairing_session(@user.id, @device_session.device_id)
 end
 
-When(/^the user pairing is timeout$/) do
-	click_link I18n.t("labels.confirm")
-	@pair_statu = 'failure'
+When(/^the device was connection$/) do
+	pairing_session_behavior(@pairing_session, "waiting")
 end
 
-When(/^the user pairing is finished$/) do
-	click_link I18n.t("labels.confirm")
-	@pair_statu = 'done'
+When(/^the device was not connection$/) do
+	pairing_session_behavior(@pairing_session, "offline")
 end
 
-# -------------------------------------------------------------------
-# ---------------------------   output   ----------------------------
-# -------------------------------------------------------------------
-
-
-Then(/^the user should see the countdown and pairing information$/) do
-  expect(page).to have_selector('div.countdown')
-  expect(page).to have_selector('div.zyxel_content > h2.zyxel_h2_icon1')
+When(/^the user didn't click on the copy button of device within (\d+) minutes$/) do |arg1|
+  pairing_session_behavior(@pairing_session, "failure")
 end
 
-Then(/^the user should see pairing feature "(.*?)" message$/) do |msg|
-	# sleep(5)
-	ask('here')
-	expect(page).to have_content(msg)
+When(/^the user click the copy button of device within (\d+) minutes$/) do |arg1|
+	pairing_session_behavior(@pairing_session, "done")
+	sleep 15
 end
 
-Then(/^the user will redirect to personal page$/) do
-	expect(page.current_path).to eq(authenticated_root_path)
+When(/^the user click "(.*?)" button when finished pairing$/) do |link|
+	FactoryGirl.create(:pairing, user_id: @user.id, device_id: @device_session.device_id)
+	wait_server_response
+	click_link link
 end
 
-
-
-def set_pairing_status(status)
-	@pairing_session = TestingHelper.create_pairing_session
-	@pairing_session.user_id = @user.id
-	@pairing_session.device_id = @device_id
-	@pairing_session.status = status
+Then(/^the user should see "(.*?)" message on pairing page$/) do |msg|
+  expect(page).to have_content(msg)
 end
 
-def refresh
-	visit [ current_path, page.driver.request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
+Then(/^the user should see the pairing information$/) do
+  expect(page).to have_content(I18n.t("warnings.settings.pairing.start.instruction"))
+end
+
+Then(/^the user will redirect to DDNS setup page$/) do
+	expect(page.current_path).to eq("/ddns/setting/#{@pairing_session.device_id}")
+end
+
+def get_pairing_session(user_id, device_id)
+	pairing_session = PairingSession.where("device_id = ? and user_id = ?", device_id, user_id).last
+end
+
+def pairing_session_behavior(pairing_session, status)
+	pairing_session.status = status
+	pairing_session.save
+	wait_server_response
+	pairing_session
 end
