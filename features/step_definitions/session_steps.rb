@@ -54,8 +54,9 @@ When(/^the user click "(.*?)" link$/) do |link|
   click_link link
 end
 
-When(/^the user finished the pairing$/) do
-  @pairing = TestingHelper.create_pairing(@user_id)
+Given(/^the user have a paired device$/) do
+  @user = TestingHelper.create_and_signin
+  @pairing = TestingHelper.create_pairing(@user.id)
 end
 
 def wait_server_response

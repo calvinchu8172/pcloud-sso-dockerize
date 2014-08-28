@@ -7,7 +7,7 @@ Given(/^the user will redirect to pairing page$/) do
   visit "/discoverer/check/#{@device_session.device_id}"
 end
 
-When(/^the user click "(.*?)" button to start pairing flow$/) do |link|
+When(/^the user click "(.*?)" button to start pairing$/) do |link|
 	click_link link
 	@pairing_session = get_pairing_session(@user.id, @device_session.device_id)
 end

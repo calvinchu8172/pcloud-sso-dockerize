@@ -14,7 +14,7 @@ end
 
 When(/^the device was offline$/) do
   set_upnp_status(@upnp_session, "failure")
-  sleep 300
+  sleep 500
 end
 
 When(/^the device was online the device will response service list$/) do
@@ -64,5 +64,6 @@ def set_upnp_status(upnp_session, status, service_list = "")
   upnp_session.status = status
   upnp_session.service_list = service_list
   upnp_session.save
+  wait_server_response
   upnp_session
 end

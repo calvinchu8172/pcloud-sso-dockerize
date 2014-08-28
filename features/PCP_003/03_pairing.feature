@@ -13,7 +13,7 @@ Feature: [PCP_003_03] Pairing
 	Scenario:  [PCP_003_03_02]
 	  Show countdown and pairing information when pairing start
 
-	  When the user click "Confirm" button to start pairing flow
+	  When the user click "Confirm" button to start pairing
 
 		Then the user should see "Connecting" message on pairing page
 
@@ -24,7 +24,7 @@ Feature: [PCP_003_03] Pairing
 	Scenario:  [PCP_003_03_03]
 	  Show "Device is not found" message when device was not connection
 
-	  When the user click "Confirm" button to start pairing flow
+	  When the user click "Confirm" button to start pairing
 	  But the device was not connection
 
 	  Then the user should see "Device is not found" message on pairing page
@@ -33,7 +33,7 @@ Feature: [PCP_003_03] Pairing
 	Scenario:  [PCP_003_03_04]
 	  Show timeout information
 
-	  When the user click "Confirm" button to start pairing flow
+	  When the user click "Confirm" button to start pairing
 
 	  Then the user should see "Connecting" message on pairing page
 
@@ -45,7 +45,7 @@ Feature: [PCP_003_03] Pairing
 	Scenario:  [PCP_003_03_05]
 	  Show paired information and redirect to DDNS setting page when click confirm button
 
-	  When the user click "Confirm" button to start pairing flow
+	  When the user click "Confirm" button to start pairing
 	  And the user click the copy button of device within 10 minutes
 
 	  Then the user should see "Successfully paired." message on pairing page

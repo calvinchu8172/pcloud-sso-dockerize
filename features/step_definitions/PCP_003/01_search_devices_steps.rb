@@ -1,19 +1,18 @@
 # Visit search page with a user
 Given(/^a user visits search devices page$/) do
   @user = TestingHelper.create_and_signin
-  visit '/discoverer/index'
 end
 
 # Set a user have not device
-When(/^the user have not any devices$/) do
-  visit(page.current_path)  # Refresh
+When(/^the device didn't connection$/) do
+  visit '/discoverer/index'
 end
 
 # Set a user have a device
-When(/^the user have a device$/) do
+When(/^the device connect$/) do
 	@user
   device_session = TestingHelper.create_device_session
-  visit(page.current_path)  # Refresh
+  visit '/discoverer/index'
 end
 
 Then(/^the user should not see devices list$/) do
