@@ -1,10 +1,11 @@
 @import "bootstrap";
 
 $zyxel_white: #ffffff;
-$zyxel_color1: #EE7532; // orange
+$zyxel_color1: #F0E049; // orange
 $zyxel_color2: #999999; // gray
 $zyxel_color3: #d8d8d8; // light gray
-$zyxel_color4: #FEDCA5; // light orange
+$zyxel_color4: #34d9c3; // blue
+
 
 html, body {
   min-height: 100%;
@@ -134,7 +135,7 @@ body {
 .nav > li > a.member:focus {
   text-decoration: none;
   background-color: transparent;
-  background-position: center bottom;
+  /*background-position: center bottom;*/
 }
 .nav>li>a.sign_out{
   border: 1px solid $zyxel_color3;
@@ -184,8 +185,8 @@ body {
 .btn_tab_color1.active,
 .open > .dropdown-toggle.btn_tab_color1 {
   color: $zyxel_white;
-  background-color: #ffbe54;
-  border-color: $zyxel_color4;
+  background-color: $zyxel_color1;
+  border-color: $zyxel_color1;
 }
 .btn_tab_color1:active,
 .btn_tab_color1.active,
@@ -204,9 +205,9 @@ body {
 .btn_tab_color2:active,
 .btn_tab_color2.active,
 .open > .dropdown-toggle.btn_tab_color2 {
-  color: #ffbe54;
+  color: $zyxel_color1;
   background-color: #fcfcfc;
-  border-color: $zyxel_color4;
+  border-color: $zyxel_color1;
 }
 .btn_tab_color2:active,
 .btn_tab_color2.active,
@@ -231,13 +232,13 @@ body {
   color: #A0A0A0;
 }
 .zyxel_h2{
-  color: $zyxel_color1;
+  color: $zyxel_color4;
   font-size: 33px;
   margin: 0 0 10px 0;
   line-height: 40px;
 }
 .zyxel_h2_icon {
-  color: $zyxel_color1;
+  color: $zyxel_color4;
   font-size: 28px;
   background-image: image-url("ok_icon.png");
   background-repeat: no-repeat;
@@ -258,7 +259,7 @@ body {
   line-height: 40px;
 }
 .zyxel_h2_icon1 {
-  color: $zyxel_color1;
+  color: $zyxel_color4;
   font-size: 28px;
   margin: 0 0 10px 0;
   line-height: 40px;
@@ -397,7 +398,7 @@ body {
   background-color:#909090;
 }
 .zyxel_btn_submit {
-  background-color: $zyxel_color1;
+  background-color: $zyxel_color4;
   width: 45%;
   max-width: 140px;
   height: 45px;
@@ -417,7 +418,7 @@ body {
 .zyxel_btn_submit:hover {
   text-decoration:none;
   color:$zyxel_white;
-  background-color:#FF892D;
+  background-color:$zyxel_color1;
 }
 // changed
 .zyxel_resend_btn {
@@ -449,7 +450,7 @@ body {
   background-color:#909090;
 }
 .zyxel_btn_ok {
-  background-color: $zyxel_color1;
+  background-color: $zyxel_color4;
   width: 45%;
   max-width: 140px;
   color: $zyxel_white;
@@ -470,13 +471,13 @@ body {
 .zyxel_btn_ok:hover {
   text-decoration:none;
   color:$zyxel_white;
-  background-color:#FF892D;
+  background-color:$zyxel_color1;
 }
 .zyxel_btn_ok1 {
   background-color: #FF972F;
 }
 .zyxel_btn_main {
-  background-color: #FEC66C;
+  background-color: $zyxel_color4;
   color: #FFF;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -498,7 +499,7 @@ body {
 }
 .zyxel_btn_main:hover {
   text-decoration:none;
-  background-color:#FFAE5B;
+  background-color:$zyxel_color1;
   color: #FFF;
 }
 .icon_home {
@@ -509,7 +510,7 @@ body {
 }
 .zyxel_btn_style1 {
   background-color: transparent;
-  color: $zyxel_color1;
+  color: $zyxel_color4;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -521,14 +522,14 @@ body {
   -moz-transition: background-color .2s, color .2s;/* firefox */
   -o-transition: background-color .2s, color .2s;
   line-height: 24px;
-  border-color: $zyxel_color1;
+  border-color: $zyxel_color4;
   border-style: solid;
   border-width: 1px;
   text-align: center;
 }
 .zyxel_btn_style1:hover {
   text-decoration:none;
-  background-color: $zyxel_color1;
+  background-color: $zyxel_color4;
   color: #FFF;
 }
 .zyxel_btn_style2 {
@@ -567,7 +568,7 @@ body {
   padding:10px 0 30px 0;
 }
 .zyxel_btn_sns {
-  background-color: #ffac87;
+  /*background-color: $zyxel_color4;*/
   width: 48%;
   color: $zyxel_white;
   -webkit-border-radius: 5px;
@@ -593,10 +594,11 @@ body {
 .zyxel_btn_sns:hover {
   text-decoration:none;
   color:$zyxel_white;
-  background-color:$zyxel_color1;
+  /*background-color:$zyxel_color1;*/
+  opacity: 0.8;
 }
 .zyxel_btn_login_submit {
-  background-color: $zyxel_color1;
+  background-color: $zyxel_color4;
   width: 100%;
   height: 40px;
   color: $zyxel_white;
@@ -615,7 +617,7 @@ body {
 .zyxel_btn_login_submit:hover {
   text-decoration:none;
   color:$zyxel_white;
-  background-color:#FF892D;
+  background-color:$zyxel_color1;
 }
 .zyxel_btn_submit.disabled, .zyxel_btn_login_submit.disabled {
   background-color: #F0F0F0;
@@ -626,12 +628,14 @@ body {
   text-align: center;
 }
 .sns_fb {
+  background-color: #3A5794;
   background-image: image-url("fb.png");
 }
 .sns_twitter {
   background-image: image-url("twitter.png");
 }
 .sns_google {
+  background-color: #dd4b39;
   background-image: image-url("google.png");
 }
 .zyxel_arlert_area{
@@ -662,7 +666,6 @@ body {
 }
 .signupForm {
   border: none;
-  background-color: $zyxel_white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -670,14 +673,11 @@ body {
 }
 .signupForm header {
   position: relative;
-  background: $zyxel_color4;
   padding: 28px 0 23px 0;
-  -webkit-border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  border-radius: 8px 8px 0 0;
+  border-bottom: 2px solid $zyxel_color4;
   text-align: center;
-  color: $zyxel_white;
-  font-size: 21px;
+  color: $zyxel_color4;
+  font-size: 32px;
 }
 .signupForm header:after {
   content: '';
@@ -689,8 +689,11 @@ body {
   margin-left: -8px;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
+  border-top: 8px solid #34d9c3;/*  margin-left: -8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
   border-top: 8px solid $zyxel_color4;
-}
+*/}
 .signup_cont {
   padding: 8% 7% 7% 7%;
 }
@@ -779,8 +782,7 @@ body {
   -moz-appearance: none;
 }
 .input_style1:focus {
-  /*border-color: $zyxel_color4;*/
-  border-color:#f0e049;
+  border-color:$zyxel_color1;
 }
 .input_captcha {
   width: 45%;
@@ -955,8 +957,8 @@ option:checked {
   color: #999;
   padding: 3px 0;
 }
-.zyxel_table_style4 td.orange {
-  color: $zyxel_color1;
+.zyxel_table_style4 td.blue  {
+  color: $zyxel_color4;
   font-size: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -971,7 +973,8 @@ option:checked {
 }
 .zyxel_table_style4 td span{
   padding-right: 10px;
-  color: #FEC675;
+  color: #999;
+  font-weight: bold;
 }
 .hide_domain_name{
   display: none;
@@ -983,7 +986,7 @@ option:checked {
   /*background:$zyxel_color3;*/
   span{
     font-size: 15px;
-    color: $zyxel_color1 !important;
+    color: $zyxel_color4 !important;
     background:white;
     border:1px solid $zyxel_color3 !important;
     -webkit-border-radius: 5px;
@@ -1009,7 +1012,7 @@ option:checked {
   border-width: 10px;
   margin-left: 10px;
 }
-.zyxel_table_style4 td.orange:hover + .hide_domain_name{
+.zyxel_table_style4 td.blue:hover + .hide_domain_name{
   display: inline;
 }
 
@@ -1019,7 +1022,7 @@ option:checked {
   text-align:center;/* modify0815 */
 }
 .zyxel_table_style5 th {
-  color: #FEC675;
+  color: #999;
   border-bottom: 2px solid #EEE;
   text-align: center;
   padding: 0 5px 15px 5px;
@@ -1158,7 +1161,7 @@ input[type="checkbox"].th_label {
   }
 }
 @media all and (min-width: 501px) and  (max-width: 767px) {/* modify0815 */
-  .zyxel_table_style4 td.orange{ width:380px; }/* modify0815 */
+  .zyxel_table_style4 td.blue{ width:380px; }/* modify0815 */
 }
 @media all and (max-width: 500px){
   .zyxel_btn_sns{ width: 100%; }
@@ -1173,7 +1176,7 @@ input[type="checkbox"].th_label {
   /*.zyxel_table_style4 td span{ display:block; }*/
   .zyxel_host_name input{ width:100%; }/* modify */
   .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{ display: block; margin:10px 0; }
-  .zyxel_table_style4 td.orange{ width:265px; }/* modify0815 */
+  .zyxel_table_style4 td.blue{ width:265px; }/* modify0815 */
   .zyxel_table_style3 th{ display:none; }/* modify0815 */
 }
 @media all and (min-width: 768px){
