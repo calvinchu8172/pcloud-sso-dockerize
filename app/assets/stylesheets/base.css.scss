@@ -14,12 +14,12 @@ html, body {
   letter-spacing: .3px;
 }
 body {
-  background: -moz-linear-gradient(top,  $zyxel_white 0%, #fffaf1 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$zyxel_white), color-stop(100%,#fffaf1)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  $zyxel_white 0%,#fffaf1 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  $zyxel_white 0%,#fffaf1 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  $zyxel_white 0%,#fffaf1 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  $zyxel_white 0%,#fffaf1 100%); /* W3C */
+  background: -moz-linear-gradient(top,  #ffffff 0%, #fafffe 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#fafffe)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ffffff 0%,#fafffe 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #ffffff 0%,#fafffe 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #ffffff 0%,#fafffe 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #ffffff 0%,#fafffe 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fffaf1',GradientType=0 ); /* IE6-9 */
 }
 
@@ -62,20 +62,29 @@ body {
   float: left;
 }
 .zyxel_content{
-  max-width: 460px;
+  max-width: 480px;
   margin: 0 auto;
 }
 .nav_zyxel {
   float: right;
   margin-top: 20px;
 }
-.caret_zyxel {
+/*.caret_zyxel {
   background-image: image-url("caret_zyxel.png");
   background-repeat: no-repeat;
   background-position: right center;
   width: 10px;
   height: 7px;
   display: inline-block;
+}*/
+.dropdown-toggle:after{
+  display: inline-block;
+  content: ">";
+  padding: 0px 0px 0px 2px;
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
 }
 .nav_zyxel .dropdown{
   border: 1px solid $zyxel_color3;
@@ -92,10 +101,11 @@ body {
   -o-transition: background .3s;
 }
 .nav .dropdown>a:hover, .nav .dropdown>a:focus{
-  background-color: $zyxel_white;
+  color:$zyxel_white;
+  background-color: $zyxel_color4;
 }
 .nav .open>a, .nav .open>a:hover, .nav .open>a:focus{
-  background-color: $zyxel_white;
+  background-color: $zyxel_color4;
 }
 .dropdown-menu{
   right:0;
@@ -135,7 +145,7 @@ body {
 .nav > li > a.member:focus {
   text-decoration: none;
   background-color: transparent;
-  /*background-position: center bottom;*/
+  background-position: center bottom;
 }
 .nav>li>a.sign_out{
   border: 1px solid $zyxel_color3;
@@ -147,7 +157,7 @@ body {
 .nav > li > a.sign_out:hover,
 .nav > li > a.sign_out:focus {
   text-decoration: none;
-  background-color: $zyxel_color3;
+  background-color: $zyxel_color4;
   color: $zyxel_white;
 }
 .dropdown-menu > li > a:hover,
@@ -394,7 +404,7 @@ body {
 }
 .zyxel_btn_back:hover {
   text-decoration:none;
-  color:$zyxel_white;
+  color:$zyxel_color1;
   background-color:#909090;
 }
 .zyxel_btn_submit {
@@ -554,7 +564,7 @@ body {
 .zyxel_btn_style2:hover {
   text-decoration:none;
   background-color:#a3a3a3;
-  color: #FFF;
+  color: $zyxel_color1;
 }
 
 .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{
@@ -592,10 +602,10 @@ body {
   margin-bottom: 9px;
 }
 .zyxel_btn_sns:hover {
+  font-weight: bold;
   text-decoration:none;
   color:$zyxel_white;
-  /*background-color:$zyxel_color1;*/
-  opacity: 0.8;
+  background-color:$zyxel_color1;
 }
 .zyxel_btn_login_submit {
   background-color: $zyxel_color4;
@@ -615,6 +625,7 @@ body {
   margin-bottom: 20px;
 }
 .zyxel_btn_login_submit:hover {
+  font-weight: bold;
   text-decoration:none;
   color:$zyxel_white;
   background-color:$zyxel_color1;
@@ -689,7 +700,7 @@ body {
   margin-left: -8px;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: 8px solid #34d9c3;/*  margin-left: -8px;
+  border-top: 8px solid $zyxel_color4;/*  margin-left: -8px;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 8px solid $zyxel_color4;
@@ -752,7 +763,7 @@ body {
   -o-transition: color .3s;
 }
 .login_footer a span:hover {
-  color: $zyxel_color1;
+  color: $zyxel_color4;
 }
 .login_footer_forgot {
   background-image: image-url("forgot_password.png");
@@ -800,7 +811,7 @@ option:hover,
 option:focus,
 option:active,
 option:checked {
-    background: linear-gradient(#34d9c3, #34d9c3);
+    background: linear-gradient($zyxel_color4, $zyxel_color4);
 }
 
 // changed
@@ -1023,13 +1034,16 @@ option:checked {
 }
 .zyxel_table_style5 th {
   color: #999;
-  border-bottom: 2px solid #EEE;
+  border-bottom: 2px solid #B8EBE3;
   text-align: center;
   padding: 0 5px 15px 5px;
 }
+
+.zyxel_table_style5 tr:nth-child(even){
+  background-color:#ECFFFC;
+}
 .zyxel_table_style5 td{
   padding-right: 10px;
-  border-bottom: 1px solid #EEE;
   color: #999;
   padding-top: 14px;
   padding-bottom: 14px;
@@ -1040,7 +1054,6 @@ option:checked {
 }
 .zyxel_table_style5 td.column2{
   text-align: center;
-  color: $zyxel_color1;
 }
 .zyxel_table_style5 td.column3{
   /*padding-right: 0px;*//* modify0815 */
