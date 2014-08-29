@@ -31,6 +31,7 @@ en:
         result:
           success: 'Success'
           failure: 'Failure'
+          no_update: 'No Update'
     pairing: 'Pairing'
     unpairing: 'Unpairing'
     manually: 'Manually Add'
