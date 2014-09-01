@@ -3,7 +3,7 @@
 
 <div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json(:only => [:id, :device_id]) %>; checkStatus();">
 
-  <div ng-switch on="step" class="zyxel_content">
+  <div ng-switch on="step" class="zyxel_content" style="max-width: 550px">
     <%# display success information when bot change the session status %>
     <div ng-switch-when="success">
       <h2 class="zyxel_h2_icon"><%= I18n.t("warnings.settings.ddns.success") %></h2>

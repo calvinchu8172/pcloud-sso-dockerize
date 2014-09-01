@@ -22,9 +22,9 @@
       <div class="zyxel_bread">
         <% page_flow.each_with_index do |flow, index| %>
           <% if index == page_flow.length - 1 %>
-            <span><%= flow %></span>
+            <span class="last"><%= flow %></span>
           <% else %>
-            <%= flow %> &gt; 
+            <span><%= flow %> &gt; </span>
           <% end %>
         <% end %>
       </div>
@@ -44,6 +44,6 @@
     <%= yield %>
 
   </div>
-    
+
 </body>
 </html>
