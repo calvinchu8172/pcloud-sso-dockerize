@@ -56,11 +56,16 @@
           </td>
           <%# display update result after submited %>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
-            <span ng-if="service.error_code.length == 0" class="green">
-              <%= I18n.t("labels.settings.upnp.result.success") %>
+            <span ng-if="service.status == service.enabled">
+              <%= I18n.t("labels.settings.upnp.result.no_update") %>
             </span>
-            <span ng-if="service.error_code.length != 0" class="red">
-              <%= I18n.t("labels.settings.upnp.result.failure") %>
+            <span ng-if="service.status != service.enabled">
+              <span ng-if="service.error_code.length == 0" class="green">
+                <%= I18n.t("labels.settings.upnp.result.success") %>
+              </span>
+              <span ng-if="service.error_code.length != 0" class="red">
+                <%= I18n.t("labels.settings.upnp.result.failure") %>
+              </span>
             </span>
           </td>
           <%# display update result - end %>
@@ -185,7 +190,7 @@
       $scope.init();
     };
     $scope.bind_url = function(service,path, port){
-      $scope.service_url = path.replace(/(\/\/).*(:).*/, '$1'+$scope.device_ip+'$2'+port);
+      $scope.service_url = path.replace(/(\/\/+).*(:).*/, '$1'+$scope.device_ip+'$2'+port);
       return $scope.service_url;
     };
     $scope.checkSubmit = function(){

@@ -1,31 +1,35 @@
 Feature: [PCP_003_02] Manually Add
 
-	Background: 
-	  Given a user visit Manually Add page
+	Background:
+	  Given a user visits manually add page
 
-	Scenario:  [PCP_003_02_01]
+	Scenario Outline:  [PCP_003_02_01]
 	  Show error messages when mac address invalid
+	  And the user filled the invalid "Mac Address" <Mac Address>
 
-	  When the user filled the invalid Mac Address
-	  And the user filled the "Serial Number"
-	  And the user click "Submit"
+	  When the user click "Submit" button
 
-	  Then the user should see manually add feature "is invalid" message
+	  Then the user should see error message for mac address
+
+	  Examples:
+      | Mac Address        |
+      | %%:%%:%%:%%:%%:%%  |
+      | GE:00:33:AR:00:00  |
+      | 00:00:00:00:00:00: |
+      | 000000000000			 |
 
 	Scenario:  [PCP_003_02_02]
 	  Show error messages when device not found
+	  And the user filled the not exists device information
 
-	  When the user filled the valid Mac Address
-	  And the user filled the incorrect Serial Number
-	  And the user click "Submit"
+	  When the user click "Submit" button
 
-	  Then the user should see manually add feature "is invalid" message
+	  Then the user should see error message on manually add page
 
 	Scenario:  [PCP_003_02_03]
-	  Redirect to pairing page when device connecting 
-	  
-	  When the user filled the valid Mac Address
-	  And the user filled the correct Serial Number
-	  And the user click "Submit"
+	  Redirect to pairing page when device connecting
+		And the user filled the exists device information
 
-	  Then the user should see manually add feature pairing success message
+	  When the user click "Submit" button
+
+	  Then the user will redirect to pairing check page

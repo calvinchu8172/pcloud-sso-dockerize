@@ -90,7 +90,7 @@
             <%= f.label :birthday, I18n.t("user.labels.birthday") %>
           </th>
           <td class="user_info_select">
-            <%= f.date_select :birthday, {start_year: 1955, end_year: 2012, use_month_numbers: true, prompt: { day: I18n.t("user.labels.day"), month: I18n.t("user.labels.month"), year: I18n.t("user.labels.year") }}, class: "select_style select_width100" %>
+            <%= f.date_select :birthday, {start_year: 1955, end_year: Time.now.year, use_month_numbers: true, prompt: { day: I18n.t("user.labels.day"), month: I18n.t("user.labels.month"), year: I18n.t("user.labels.year") }}, class: "select_style select_width100" %>
           </td>
         </tr>
         <%# Birthday - end %>

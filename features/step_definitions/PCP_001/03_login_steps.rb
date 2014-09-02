@@ -28,11 +28,6 @@ Given(/^the account was confirmed$/) do
   @user.confirm!
 end
 
-# Click button
-When(/^the user click Log In button$/) do
-  click_button I18n.t("labels.sign_in")
-end
-
 # -------------------------------------------------------------------
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------

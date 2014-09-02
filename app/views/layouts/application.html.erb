@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= javascript_tag do %> $(document).ready(function() { $(".select_style").select2(); }); <% end %>
 </head>
 <body>
   <div class="container">
@@ -22,9 +23,9 @@
       <div class="zyxel_bread">
         <% page_flow.each_with_index do |flow, index| %>
           <% if index == page_flow.length - 1 %>
-            <span><%= flow %></span>
+            <span class="last"><%= flow %></span>
           <% else %>
-            <%= flow %> &gt; 
+            <span><%= flow %> &gt; </span>
           <% end %>
         <% end %>
       </div>
@@ -44,6 +45,6 @@
     <%= yield %>
 
   </div>
-    
+
 </body>
 </html>
