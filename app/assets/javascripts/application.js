@@ -14,7 +14,8 @@
 // require jquery_ujs
 //= require jquery/dist/jquery.min
 //= require angular
-//= require angular-timer/dist/angular-timer.min 
+//= require angular-timer/dist/angular-timer.min
 //= require ng-table/ng-table.min
 //= require_tree .
 //= require twitter/bootstrap
+//= require select2

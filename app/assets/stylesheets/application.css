@@ -13,4 +13,5 @@
  *= require_tree .
  *= require ng-table/ng-table.min
  *= require_self
+ *= require select2
  */
