@@ -2,13 +2,17 @@
 
 <div class="zyxel_content">
   <div class="agree_note_box">
-    <%= render 'hint/terms' %>
+    <% if session[:locale]  == 'zh-TW' %>
+      <%= render "hint/terms/zh_TW" %>
+    <% else %>
+      <%= render "hint/terms/en" %>
+    <% end %>
   </div>
   <%= form_for(@user, html: {role: "form", name: "oauthForm"}, as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
 
     <div class="checkbox_area">
       <label for="user_agreement" class="checkbox_label"><span></span>
-        <%= I18n.t("user.labels.terms.instruction") %> 
+        <%= I18n.t("user.labels.terms.instruction") %>
         <%= I18n.t("user.labels.terms.instruction_2") %>
       </label>
       <strong> *</strong>
