@@ -1,6 +1,6 @@
 nl:
   labels:
-    language: "Taal"
+    language: "Nederlands"
     forgot_password: 'Wachtwoord vergeten'
     resend_confirmation: 'Verzend opnieuw'
     sign_in: 'Log in'
