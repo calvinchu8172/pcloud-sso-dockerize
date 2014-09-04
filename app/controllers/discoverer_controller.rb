@@ -5,8 +5,7 @@ class DiscovererController < ApplicationController
 
   def index
 
-    # @device_session_list = search_available_device.where(:ip => request.remote_ip)
-    @device_session_list = search_available_device.where(:ip => request.remote_ip, :xmpp_account => current_user.email)
+    @device_session_list = search_available_device.where(:ip => request.remote_ip)
     raw_result = Array.new
     @device_session_list.each do |session|
       next if(session.device.product.blank?)
@@ -52,9 +51,9 @@ class DiscovererController < ApplicationController
   private
 
   def search_available_device
-    
-    # PairingSession.handling().select(:device_id)
-    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling.where.not(:user_id => current_user.id).select(:device_id), Pairing.enabled.select(:device_id))
+    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , 
+                         PairingSession.handling.where.not(:user_id => current_user.id).select(:device_id),
+                         Pairing.enabled.select(:device_id))
   end
 
   def mac_address_valid?(mac_address)
