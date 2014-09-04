@@ -14,7 +14,7 @@
               <%= f.label :mac_address, I18n.t("labels.mac_address") %>
             </th>
             <td colspan="3">
-              <%= f.text_field :mac_address, class: "input_style1" %>
+              <%= f.text_field :mac_address, class: "input_style1" ,:placeholder => "00:00:00:00:00:00" %>
             </td>
           </tr>
           <% if flash[:error] %>
