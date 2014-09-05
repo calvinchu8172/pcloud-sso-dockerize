@@ -40,7 +40,7 @@
       <% if !current_user.gender.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.gender") %></th>
-          <td colspan="3"><%= current_user.gender %></td>
+          <td colspan="3"><%= I18n.t("user.labels.#{current_user.gender}")%></td>
         </tr>
       <% end %>
       <% if !current_user.birthday.blank? %>
