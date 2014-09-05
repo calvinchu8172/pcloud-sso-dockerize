@@ -35,8 +35,12 @@ class PasswordsController < Devise::PasswordsController
   private
     def get_user_email_by_password_token(password_token)
       reset_pwd_token = Devise.token_generator.digest(self, :reset_password_token, password_token)
-      email = User.to_adapter.find_first(reset_password_token: reset_pwd_token).email
-      email
+      user = User.to_adapter.find_first(reset_password_token: reset_pwd_token)
+      if user.nil?
+        redirect_to new_session_path(resource_name)
+      else
+        user.email
+      end
     end
 
     def omniauth_accout?(user_email)
