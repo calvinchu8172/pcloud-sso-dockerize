@@ -28,14 +28,14 @@ class User < ActiveRecord::Base
       if user.blank?
         user = User.new
         user.skip_confirmation!
-        user.password = Devise.friendly_token[0, 20]
+        user.password = Devise.friendly_token[0, 14]
         user.fetch_details(auth)
         user.edm_accept = 0
         user.agreement = agreement
-        user.save
+        user.save!
       end
       identity.user = user
-      identity.save
+      identity.save!
     end
     identity
   end
@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
     self.email = auth["info"]["email"]
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"]
-    self.gender = auth["extra"]["raw_info"]["gender"]
+    self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"]
   end
 
   private
