@@ -146,6 +146,9 @@
               console.log(response);
               console.log("tick: " + $scope.loadTimes);
               if('form' == response.status){
+                if($scope.device_ip == '') {
+                  $scope.device_ip = response.lan_ip;
+                }
                 $scope.step = response.status;
                 $scope.panel = response.status;
                 $scope.session = response;
