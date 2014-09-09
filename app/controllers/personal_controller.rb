@@ -23,7 +23,8 @@ class PersonalController < ApplicationController
       info_hash[:firmware_version] = pairing.device.firmware_version
       if pairing.device.ddns
         info_hash[:class_name] = "blue"
-        info_hash[:title] = pairing.device.ddns.full_domain
+        # remove ddns domain name last dot
+        info_hash[:title] = pairing.device.ddns.full_domain.chomp('.')
         info_hash[:ip] = pairing.device.ddns.ip_address
         info_hash[:date] = pairing.device.ddns.updated_at.strftime("%Y/%m/%d")
       else
