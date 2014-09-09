@@ -30,6 +30,7 @@ class DiscovererController < ApplicationController
   def search
 
     valid = mac_address_valid?(params[:device][:mac_address])
+    params[:device][:mac_address].gsub!(/:/, '')
     device = Device.where(params['device']);
     logger.info "searched device:" + params['device'].inspect
 
@@ -58,8 +59,6 @@ class DiscovererController < ApplicationController
   end
 
   def mac_address_valid?(mac_address)
-    # /^([0-9a-f]{2}:){5}[0-9a-f]{2}$/i.match(mac_address)
-    # Ref.http://stackoverflow.com/a/4260512/2281129
     # Sample: 20:13:10:00:00:A0  |  2013100000A0
     /^(([0-9A-f]{2}:){5}[0-9A-f]{2})|([0-9A-f]{12})$/i.match(mac_address)
   end
