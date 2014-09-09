@@ -60,6 +60,7 @@ class ApplicationController < ActionController::Base
       end
 
       I18n.locale = session[:locale] || I18n.default_locale
+
       # language select option
       @locale_options = { :English => 'en',
                           :Deutsch => 'de',
