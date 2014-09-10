@@ -680,7 +680,7 @@ body {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  margin: 50px 0;
+  margin: 50px 0 0;
 }
 .signupForm header {
   position: relative;
@@ -1223,5 +1223,13 @@ body {
     .select2-highlighted {
       background: $zyxel_color4;
     }
+  }
+}
+
+div.footer{
+  text-align: center;
+  margin: -15px auto;
+  span{
+    color:$zyxel_color2;
   }
 }
