@@ -12,7 +12,7 @@
       <%= f.text_field :device_id, class: "hidden", value: params[:id] %>
 
       <div class="zyxel_host_name">
-        <%= text_field_tag "hostName", @hostname, id: "ddns-host-name" %>
+        <%= text_field_tag "hostName", @hostname, id: "ddns-host-name", maxlength: 63 %>
         <label id="domain-name" class="zyxel_span1">.<%= @domain_name %></label>
       </div>
 
