@@ -60,6 +60,6 @@ class DiscovererController < ApplicationController
 
   def mac_address_valid?(mac_address)
     # Sample: 20:13:10:00:00:A0  |  2013100000A0
-    /(^([0-9A-f]{2}:){5}[0-9A-f]{2}$)|(^[0-9A-f]{12}$)/i.match(mac_address)
+    /^((([0-9A-F]{2}:){5}[0-9A-F]{2})|([0-9A-F]{12}))$/i.match(mac_address)
   end
 end
