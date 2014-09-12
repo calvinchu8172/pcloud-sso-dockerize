@@ -59,17 +59,16 @@ gem 'devise', '3.1.0'
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem "recaptcha", :require => "recaptcha/rails"
-gem 'countries', :require => 'iso3166'
-gem 'country_select'
+gem 'i18n_country_select'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
 gem 'aws-sdk'
-gem 'rails_admin', group: [:test, :development]
+gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
 
-group :development, :test do
+group :development, :test, :staging do
   gem 'faker'
   gem 'capybara'
   gem 'cucumber-rails', :require => false
