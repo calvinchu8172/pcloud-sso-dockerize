@@ -64,11 +64,11 @@ gem 'i18n_country_select'
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
 gem 'aws-sdk'
-gem 'rails_admin', group: [:test, :development]
+gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
 
-group :development, :test do
+group :development, :test, :staging do
   gem 'faker'
   gem 'capybara'
   gem 'cucumber-rails', :require => false
