@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
       @locale_options = { :English => 'en',
                           :German => 'de',
                           :Dutch => 'nl',
-                          :"繁體中文" => "zh-TW",
+                          :"正體中文" => "zh-TW",
                           :Thai => 'th',
                           :Turkish => 'tr'}
     end

@@ -62,7 +62,7 @@
       <% if !current_user.country.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.country") %></th>
-          <td colspan="3"><%= current_user.country %></td>
+          <td colspan="3"><%= I18n.t(current_user.country, :scope => :countries)%></td>
         </tr>
       <% end %>
     </table>

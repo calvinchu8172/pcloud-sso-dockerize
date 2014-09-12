@@ -59,8 +59,7 @@ gem 'devise', '3.1.0'
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem "recaptcha", :require => "recaptcha/rails"
-gem 'countries', :require => 'iso3166'
-gem 'country_select'
+gem 'i18n_country_select'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
