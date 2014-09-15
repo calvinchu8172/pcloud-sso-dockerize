@@ -1,6 +1,6 @@
 zh-TW:
   labels:
-    language: "繁體中文"
+    language: "語言"
     forgot_password: '忘記密碼'
     resend_confirmation: '重新寄送'
     sign_in: '登入'
