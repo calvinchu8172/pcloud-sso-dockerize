@@ -10,7 +10,7 @@ class DdnsController < ApplicationController
     if @device.ddns
       @hostname = @device.ddns.full_domain.split(".").first
     end
-    @domain_name = Settings.environments.ddns.chomp('.')
+    @domain_name = Settings.environments.ddns
   end
 
   def success

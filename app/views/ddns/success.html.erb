@@ -7,7 +7,7 @@
     <%# display success information when bot change the session status %>
     <div ng-switch-when="success">
       <h2 class="zyxel_h2_icon"><%= I18n.t("warnings.settings.ddns.success") %></h2>
-      <span class="zyxel_span2"><%= @ddns_session.full_domain %></span>
+      <span class="zyxel_span2"><%= @ddns_session.full_domain.chomp('.') %></span>
       <div class="zyxel_btn_area">
         <%= link_to I18n.t("labels.confirm"), @link_path, class: "zyxel_btn_ok" %>
       </div>
