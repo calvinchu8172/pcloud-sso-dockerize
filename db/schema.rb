@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915033027) do
+ActiveRecord::Schema.define(version: 20140915083224) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
@@ -75,13 +75,14 @@ ActiveRecord::Schema.define(version: 20140915033027) do
   add_index "domains", ["id", "domain_name"], name: "index_domains_on_id_and_domain_name", unique: true, using: :btree
 
   create_table "identities", force: true do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
+    t.integer  "user_id",               null: false
+    t.string   "provider",   limit: 15, null: false
+    t.string   "uid",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "identities", ["provider", "user_id"], name: "index_identities_on_provider_and_user_id", unique: true, using: :btree
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "pairing_sessions", force: true do |t|
@@ -144,12 +145,12 @@ ActiveRecord::Schema.define(version: 20140915033027) do
   add_index "upnp_sessions", ["user_id"], name: "index_upnp_sessions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                              default: "",   null: false
-    t.string   "encrypted_password",                 default: "",   null: false
+    t.string   "email",                             default: "",   null: false
+    t.string   "encrypted_password",     limit: 60, default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,    null: false
+    t.integer  "sign_in_count",                     default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -164,12 +165,12 @@ ActiveRecord::Schema.define(version: 20140915033027) do
     t.integer  "gender"
     t.string   "mobile_number"
     t.string   "unconfirmed_email"
-    t.string   "language",               limit: 30,  default: "en", null: false
+    t.string   "language",               limit: 5,  default: "en", null: false
     t.datetime "birthday"
-    t.integer  "edm_accept"
-    t.string   "country",                limit: 100
+    t.boolean  "edm_accept"
+    t.string   "country",                limit: 2
     t.string   "middle_name"
-    t.string   "display_name",                                      null: false
+    t.string   "display_name",                                     null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
