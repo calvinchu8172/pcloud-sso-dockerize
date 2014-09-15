@@ -11,18 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905063942) do
+ActiveRecord::Schema.define(version: 20140915033027) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id"
-    t.string   "ip_address",  limit: 100
-    t.string   "full_domain", limit: 100
+    t.string   "ip_address", limit: 100
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "domain_id"
+    t.string   "hostname",   limit: 63
   end
 
   add_index "ddns", ["device_id"], name: "index_ddns_on_device_id", using: :btree
-  add_index "ddns", ["full_domain"], name: "index_ddns_on_full_domain", unique: true, using: :btree
+  add_index "ddns", ["device_id"], name: "index_ddns_on_device_id_unique", unique: true, using: :btree
+  add_index "ddns", ["domain_id"], name: "index_ddns_on_domain_id", using: :btree
+  add_index "ddns", ["hostname", "domain_id"], name: "index_ddns_on_hostname_and_domain_id", unique: true, using: :btree
 
   create_table "ddns_retry_sessions", force: true do |t|
     t.integer  "device_id",                 null: false
@@ -64,6 +67,12 @@ ActiveRecord::Schema.define(version: 20140905063942) do
   end
 
   add_index "devices", ["serial_number", "mac_address"], name: "index_devices_on_serial_number_and_mac_address", using: :btree
+
+  create_table "domains", force: true do |t|
+    t.string "domain_name", limit: 192
+  end
+
+  add_index "domains", ["id", "domain_name"], name: "index_domains_on_id_and_domain_name", unique: true, using: :btree
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
