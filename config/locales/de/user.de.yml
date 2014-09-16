@@ -11,7 +11,7 @@ de:
       password_confirmation: 'Passwort bestätigen'
       new_password: 'Neues Passwort'
       new_password_confirmation: 'Neues Passwort bestätigen'
-      current_password: "Current Password"
+      current_password: "Aktuelles Passwort"
       gender: 'Geschlecht'
       male: 'Männlich'
       female: 'Weiblich'

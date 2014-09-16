@@ -2,6 +2,11 @@
 
 <div class="zyxel_content" style="max-width: 530px;">
   <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+    <%# Hidden current user language %>
+    <%=  f.hidden_field :language, :value => I18n.locale.to_s %>
+    <%# Hidden current user language - end %>
+
     <fieldset>
       <table class="zyxel_table_style user_info">
 
@@ -105,17 +110,6 @@
           </td>
         </tr>
         <%# Phone number - end %>
-
-        <%# Language %>
-        <tr>
-          <th>
-            <%= f.label :language, I18n.t("user.labels.language") %>
-          </th>
-          <td class="user_info_select">
-            <%= f.select :language, @locale_options, {}, {class: "select_style"} %>
-          </td>
-        </tr>
-        <%# Language - end %>
 
         <%# Country %>
         <tr>

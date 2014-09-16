@@ -31,7 +31,7 @@ th:
         result:
           success: 'สำเร็จ'
           failure: 'ล้มเหลว'
-          no_update: 'No Update'
+          no_update: 'ไม่มีการปรับปรุง'
     pairing: 'จับคู่'
     unpairing: 'เลิกจับคู่'
     manually: 'เพิ่มด้วยตนเอง'

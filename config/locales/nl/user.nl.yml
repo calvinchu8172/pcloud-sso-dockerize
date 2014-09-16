@@ -11,7 +11,7 @@ nl:
       password_confirmation: 'Bevestig wachtwoord'
       new_password: 'Nieuw wachtwoord'
       new_password_confirmation: 'Bevestig nieuw wachtwoord'
-      current_password: "Current Password"
+      current_password: "Huidig ​​wachtwoord"
       gender: 'Geslacht'
       male: 'Man'
       female: 'Vrouw'
