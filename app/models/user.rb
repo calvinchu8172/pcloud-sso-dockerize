@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  enum gender: {male: 1, female: 2}
+  enum gender: {male: true, female: false}
   before_create :add_default_display_name
   has_many :identity
 
