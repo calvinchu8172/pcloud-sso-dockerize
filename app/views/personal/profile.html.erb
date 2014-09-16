@@ -55,10 +55,6 @@
           <td colspan="3"><%= current_user.mobile_number %></td>
         </tr>
       <% end %>
-      <tr>
-        <th><%= I18n.t("user.labels.language") %></th>
-        <td colspan="3"><%= @language %></td>
-      </tr>
       <% if !current_user.country.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.country") %></th>
