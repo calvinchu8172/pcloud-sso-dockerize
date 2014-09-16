@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915083224) do
+ActiveRecord::Schema.define(version: 20140916033628) do
 
   create_table "ddns", force: true do |t|
-    t.integer  "device_id"
-    t.string   "ip_address", limit: 100
+    t.integer  "device_id",             null: false
+    t.string   "ip_address", limit: 8,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "domain_id"
@@ -58,18 +58,21 @@ ActiveRecord::Schema.define(version: 20140915083224) do
   add_index "device_sessions", ["device_id"], name: "index_device_sessions_on_device_id", using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "serial_number",    limit: 100
-    t.string   "mac_address",      limit: 100
-    t.string   "model_name",       limit: 120
+    t.string   "serial_number",    limit: 100, null: false
+    t.string   "mac_address",      limit: 12,  null: false
     t.string   "firmware_version", limit: 120
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "product_id",                   null: false
   end
 
-  add_index "devices", ["serial_number", "mac_address"], name: "index_devices_on_serial_number_and_mac_address", using: :btree
+  add_index "devices", ["mac_address", "serial_number"], name: "index_devices_on_mac_address_and_serial_number", unique: true, using: :btree
+  add_index "devices", ["product_id"], name: "index_devices_on_product_id", using: :btree
 
   create_table "domains", force: true do |t|
-    t.string "domain_name", limit: 192
+    t.string   "domain_name", limit: 192, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "domains", ["id", "domain_name"], name: "index_domains_on_id_and_domain_name", unique: true, using: :btree
@@ -98,14 +101,15 @@ ActiveRecord::Schema.define(version: 20140915083224) do
   add_index "pairing_sessions", ["user_id"], name: "index_pairing_sessions_on_user_id", using: :btree
 
   create_table "pairings", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "device_id"
+    t.integer  "user_id",    null: false
+    t.integer  "device_id",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "enabled",    default: true, null: false
+    t.boolean  "ownership"
   end
 
   add_index "pairings", ["device_id"], name: "index_pairings_on_device_id", using: :btree
+  add_index "pairings", ["user_id", "device_id"], name: "index_pairings_on_user_id_and_device_id", unique: true, using: :btree
   add_index "pairings", ["user_id"], name: "index_pairings_on_user_id", using: :btree
 
   create_table "products", force: true do |t|
@@ -162,7 +166,7 @@ ActiveRecord::Schema.define(version: 20140915083224) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "gender"
+    t.boolean  "gender"
     t.string   "mobile_number"
     t.string   "unconfirmed_email"
     t.string   "language",               limit: 5,  default: "en", null: false
