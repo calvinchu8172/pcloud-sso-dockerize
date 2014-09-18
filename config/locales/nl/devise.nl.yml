@@ -1,0 +1,64 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+nl:
+  devise:
+    confirmations:
+      confirmed: "Uw account is succesvol bevestigd."
+      send_instructions: "U ontvangt een e-mail met instructies over hoe u uw account te bevestigen in een paar minuten."
+      send_paranoid_instructions: "Als uw e-mailadres bestaat in onze database ontvangt u een e-mail met instructies over hoe u uw account te bevestigen in een paar minuten."
+    failure:
+      already_authenticated: "U bent al aangemeld."
+      inactive: "Uw account is nog niet geactiveerd."
+      invalid: "Ongeldig e-mailadres of wachtwoord."
+      locked: "Uw account is geblokkeerd."
+      last_attempt: "U hebt nog een poging voordat uw account wordt geblokkeerd."
+      not_found_in_database: "Ongeldig e-mailadres of wachtwoord."
+      timeout: "Uw sessie verlopen. Meld u opnieuw aan om verder te gaan."
+      unauthenticated: "U moet inloggen of aanmelden voordat u verder gaat."
+      unconfirmed: "U moet uw account te bevestigen voordat u verder gaat."
+    mailer:
+      confirmation_instructions:
+        subject: "ZyXEL Cloud - Account Bevestiging"
+        instruction: "Bedankt voor het registreren met ZyXEL Cloud, klik dan op de volgende link om uw account registratie te bevestigen:"
+        instruction_2: "Klik op deze link binnen 3 dagen na ontvangst van deze e-mail."
+      reset_password_instructions:
+        subject: "ZyXEL Cloud - Wachtwoord verander verzoek"
+        instruction: "U heeft gevraagd om het wachtwoord van uw ZyXEL Cloud-account te wijzigen. Klik op de volgende link om te beginnen met het veranderen van het wachtwoord:"
+        instruction_2: "Als u dit niet heeft aangevraagd, negeer deze e-mail."
+      unlock_instructions:
+        subject: "Deblokkeer instructies"
+    omniauth_callbacks:
+      failure: "Kon u niet verifiëren van% {kind} omdat \"% {reason}\"."
+      success: "Succesvol geauthenticeerd van %{kind} account."
+    passwords:
+      no_token: "U heeft geen toegang tot deze pagina zonder dat u afkomstig bent van een wachtwoord reset e-mail. Als u via een wachtwoord reset e-mail komt , controleer dan of u de volledige URL gebruikt."
+      send_instructions: "U ontvangt een e-mail met instructies over hoe u uw wachtwoord opnieuw in te stellen in een paar minuten."
+      send_paranoid_instructions: "Als uw e-mailadres bestaat in onze database, krijgt u een wachtwoord herstel link aan uw e-mailadres te ontvangen in een paar minuten."
+      updated: "Uw wachtwoord is gewijzigd. U bent nu aangemeld."
+      updated_not_active: "Uw wachtwoord is gewijzigd."
+    registrations:
+      destroyed: "To ziens! Uw account werd succesvol geannuleerd. Wij hopen u binnenkort weer te zien."
+      signed_up: "Welkom! U bent succesvol aangemeld."
+      signed_up_but_inactive: "U bent succesvol aangemeld. Echter, we kunnen u niet aanmelden omdat uw account nog niet is geactiveerd."
+      signed_up_but_locked: "U bent succesvol aangemeld. Echter, we kunnen u niet aanmelden omdat uw account is geblokkeerd."
+      signed_up_but_unconfirmed: "Een bericht met een bevestiging link is verzonden naar uw e-mailadres. Open onderstaande link om uw account te activeren."
+      update_needs_confirmation: "Uw account is met succes aangepast, maar u moet uw nieuwe e-mailadres nog verifiëren. Controleer uw e-mail en klik op de confirm link voor bevestiging van uw nieuwe e-mailadres."
+      updated: "U met succes uw account aangepast."
+      captcha: "Er is een fout opgetreden met de captcha code hieronder. Voer alstublieft de code opnieuw in."
+    sessions:
+      signed_in: "U bent succesvol ingelogt."
+      signed_out: "U bent succesvol uitgelogd."
+    unlocks:
+      send_instructions: "U ontvangt in een paar minuten een e-mail met instructies over hoe u uw account kunt deblokkeren."
+      send_paranoid_instructions: "Als uw account bestaat,  ontvangt u in een paar minuten een e-mail met instructies over hoe het te openen."
+      unlocked: "Uw account is succesvol ontgrendeld. Meld u aan om verder te gaan."
+  errors:
+    messages:
+      already_confirmed: "werd al bevestigd, probeert u zich opnieuw aan te melden"
+      confirmation_period_expired: "dient te worden bevestigd binnen %{period}, doe alstublieft een nieuwe aanvraag."
+      expired: "has expired, please request a new one"
+      not_found: "Niet gevonden"
+      not_locked: "was niet geblokkeerd"
+      not_saved:
+        one: "1 fout geblokkeerd %{resource} deze zorgt ervoor dat u niet kunt opslaan:"
+        other: "%{count} fouten zorgen ervoor dat %{resource} niet opgeslagen kan worden"

@@ -36,7 +36,7 @@
                 $scope.checkConnection();
                 break;
               case 'failure':
-                $scope.canceledStep();
+                $scope.failureStep();
                 break;
               case 'done':
                 $scope.completedStep();

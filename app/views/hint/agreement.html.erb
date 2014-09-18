@@ -1,8 +1,12 @@
 <% provide(:flow, I18n.t("titles.terms")) %>
-
 <div class="zyxel_content">
+
   <div class="agree_note_box">
-    <%= render 'hint/terms' %>
+    <% if session[:locale]  == 'zh-TW' %>
+      <%= render "hint/terms/zh_TW" %>
+    <% else %>
+      <%= render "hint/terms/en" %>
+    <% end %>
   </div>
 
     <div class="zyxel_btn_area">

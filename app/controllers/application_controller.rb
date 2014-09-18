@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   after_action :store_location
 
   protected
-  
+
     # def log4r_context
     #   ctx = Log4r::MDC.get_context.collect {|k, v| k.to_s + "=" + v.to_s }.join(" ")
     #   ctx.gsub!('%', '%%') # escape out embedded %'s so pattern formatter doesn't get confused
@@ -42,16 +42,32 @@ class ApplicationController < ActionController::Base
     # i18n setting
     def set_locale
       if user_signed_in?
-        session[:locale] = I18n.available_locales.include?( current_user.language.to_sym) ? current_user.language.to_sym : false
+        # Return param to session
+        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym )
+          session[:locale] = params[:locale]
+        # Prevent session rewrite to default in other page
+        elsif session[:locale]
+          session[:locale]
+        # If user haven't session before, rewrite to DB setting
+        else
+          session[:locale] = I18n.available_locales.include?( current_user.language.to_sym ) ? current_user.language.to_sym : false
+        end
       else
-        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym)
+        # Return param to session
+        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym )
           session[:locale] = params[:locale]
         end
       end
+
       I18n.locale = session[:locale] || I18n.default_locale
 
       # language select option
-      @locale_options = { :English => 'en'}
+      @locale_options = { :English => 'en',
+                          :Deutsch => 'de',
+                          :Nederlands => 'nl',
+                          :"正體中文" => "zh-TW",
+                          :"ไทย" => 'th',
+                          :"Türkçe" => 'tr'}
     end
     # i18n setting - end
 

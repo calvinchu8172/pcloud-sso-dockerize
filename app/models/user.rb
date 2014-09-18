@@ -1,11 +1,16 @@
 class User < ActiveRecord::Base
+  enum gender: {male: 1, female: 2}
   before_create :add_default_display_name
   has_many :identity
+
+  attr_accessor :input
+  validate :input, length: {maximum:255}
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable, :omniauthable
+         :confirmable, :timeoutable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
   validates_acceptance_of :agreement, :allow_nil => false,
   :acceptance => true, :on => :create
@@ -28,14 +33,14 @@ class User < ActiveRecord::Base
       if user.blank?
         user = User.new
         user.skip_confirmation!
-        user.password = Devise.friendly_token[0, 20]
+        user.password = Devise.friendly_token[0, 14]
         user.fetch_details(auth)
         user.edm_accept = 0
         user.agreement = agreement
-        user.save
+        user.save!
       end
       identity.user = user
-      identity.save
+      identity.save!
     end
     identity
   end
@@ -47,7 +52,7 @@ class User < ActiveRecord::Base
     self.email = auth["info"]["email"]
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"]
-    self.gender = auth["extra"]["raw_info"]["gender"]
+    self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"]
   end
 
   private

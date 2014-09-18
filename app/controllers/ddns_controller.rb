@@ -96,10 +96,11 @@ class DdnsController < ApplicationController
     end
     # Redirct to my device page when device is not paired for current user - end
 
+    # Validation for hostname
     def validate_host_name
       valid = false
-      
-      if params[:hostName].length <= 3 
+
+      if params[:hostName].length < 3
         valid = true
         error_message = I18n.t("warnings.settings.ddns.too_short")
       elsif params[:hostName].length > 63

@@ -2,7 +2,7 @@ en:
   user:
     labels:
       country: 'Country'
-      email: 'Email'
+      email: 'E-mail'
       display_name: 'Display as'
       first_name: 'First Name'
       middle_name: 'Middle Name'

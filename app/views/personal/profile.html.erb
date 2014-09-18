@@ -40,7 +40,7 @@
       <% if !current_user.gender.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.gender") %></th>
-          <td colspan="3"><%= current_user.gender %></td>
+          <td colspan="3"><%= I18n.t("user.labels.#{current_user.gender}")%></td>
         </tr>
       <% end %>
       <% if !current_user.birthday.blank? %>
@@ -62,7 +62,7 @@
       <% if !current_user.country.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.country") %></th>
-          <td colspan="3"><%= current_user.country %></td>
+          <td colspan="3"><%= I18n.t(current_user.country, :scope => :countries)%></td>
         </tr>
       <% end %>
     </table>
@@ -73,10 +73,10 @@
 
     <div class="zyxel_btn_area">
       <% if !session[:oauth] %>
-        <%= link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "zyxel_btn_ok zyxel_btn_ok1" %>
+        <%= link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "zyxel_btn_ok" %>
       <% end %>
       <%= link_to I18n.t("labels.edit_profile"), edit_user_registration_path(type: "profile"), class: "zyxel_btn_ok" %>
-    </div><!-- zyxel_btn_area --> 
+    </div><!-- zyxel_btn_area -->
 
   </div><!-- content -->
 </div>

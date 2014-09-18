@@ -20,7 +20,7 @@ module Pcloud
     # log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
     # YamlConfigurator.decode_yaml( log4r_config['log4r_config'] )
     # log_cfg = Log4r::YamlConfigurator
-    # log_cfg["ENV"] = Rails.env 
+    # log_cfg["ENV"] = Rails.env
     # log_cfg["APPNAME"] = Rails.application.class.parent_name
     # log_cfg.decode_yaml( log4r_config['log4r_config'] )
 
@@ -43,14 +43,14 @@ module Pcloud
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en]
+    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr]
     config.autoload_paths += %W(#{config.root}/lib)
 
     # for bower install path
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
     # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
-    
+
     # override ActionView::Base.field_error_proc
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
       html_tag
