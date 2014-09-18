@@ -4,8 +4,8 @@ module PairingHelper
     device_id = params[:id]
 
     @last_session = PairingSession.handling.find_by_device_id device_id
-    
-    if !device_registered?(device_id) 
+
+    if !device_registered?(device_id)
       flash[:alert] = "device not found"
       redirect_to controller: "discoverer", action: "index"
     elsif paired?(device_id)
@@ -32,7 +32,7 @@ module PairingHelper
   end
 
   def paired?(device_id)
-    !Pairing.enabled.where(:device_id => device_id).empty?
+    !Pairing.owner.where(:device_id => device_id).empty?
   end
 
 end

@@ -1,4 +1,4 @@
-<% provide(:flow, @ddns_session.device.model_name + "," + I18n.t("titles.settings.ddns")) %>
+<% provide(:flow, @ddns_session.device.product.model_name + "," + I18n.t("titles.settings.ddns")) %>
 <% provide(:tab, 'my_devices') %>
 
 <div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json(:only => [:id, :device_id]) %>; checkStatus();">

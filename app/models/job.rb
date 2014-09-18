@@ -3,7 +3,7 @@ class Job
   attr_reader :session
 
   def initialize
-  	
+
   end
 
   # Push message to queue
@@ -27,6 +27,10 @@ class Job
 
   def push(data)
     @session = get_session_model.new data
+    Rails.logger.debug "@@@@@@@@@@@@@@@"
+    Rails.logger.debug get_session_model
+    Rails.logger.debug data
+    Rails.logger.debug @session
     if @session.save
       push_session_id @session.id
       return true
@@ -42,7 +46,7 @@ class Job
   	  class_name = self.class.name
   	  @job_name = class_name.split('::')[1].downcase
   	  @job_name['message'] = ''
-    end 
+    end
     return @job_name
   end
 

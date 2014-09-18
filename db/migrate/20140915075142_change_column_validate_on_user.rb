@@ -5,6 +5,7 @@ class ChangeColumnValidateOnUser < ActiveRecord::Migration
     change_column :users, :country,            "char(2)"
     change_column :users, :edm_accept,         :boolean
     change_column :users, :gender,             :boolean
+    change_column :users, :mobile_number,      :string,    limit: 40
   end
   def down
     change_column :users, :encrypted_password, :string,    default: "", null: false
@@ -12,5 +13,6 @@ class ChangeColumnValidateOnUser < ActiveRecord::Migration
     change_column :users, :country,            :string,    limit: 120
     change_column :users, :edm_accept,         :integer
     change_column :users, :gender,             :integer
+    change_column :users, :mobile_number,      :string
   end
 end

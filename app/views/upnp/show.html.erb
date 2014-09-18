@@ -1,4 +1,4 @@
-<% provide(:flow, @device.model_name + "," + I18n.t("titles.settings.upnp")) %>
+<% provide(:flow, @device.product.model_name + "," + I18n.t("titles.settings.upnp")) %>
 <% provide(:tab, 'my_devices') %>
 
 <div class="upnp zyxel_content" style="max-width:570px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json(:only => [:id, :user_id, :device_id, :service_list]) %>;loadConfig();">

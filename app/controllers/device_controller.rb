@@ -24,7 +24,7 @@ class DeviceController < ApplicationController
     xmpp_checkin
     ddns_checkin
     device_session_checkin
-    reset 
+    reset
 
   	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
                      :xmpp_password => @account[:password],
@@ -46,7 +46,7 @@ class DeviceController < ApplicationController
     return if pairing.nil?
 
     Job::UnpairMessage.new.push_device_id(device_id)
-    pairing.disable
+    pairing.destroy
   end
 
   def device_session_checkin
@@ -78,9 +78,9 @@ class DeviceController < ApplicationController
 
     ddns = Ddns.find_by_device_id(@device.id)
     return if ddns.nil?
-    
+
     logger.debug('update ddns id:' + ddns.id.to_s)
-    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.full_domain})
+    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.hostname + ddns.domain.domain_name})
   end
 
   def xmpp_checkin
@@ -124,7 +124,7 @@ class DeviceController < ApplicationController
     iq.id= "a" + generate_new_passoword
     iq.to = Settings.xmpp.server
     iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
-    
+
     command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#add-user')
 
     x = Jabber::Dataforms::XData.new(:submit)

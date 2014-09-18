@@ -8,7 +8,7 @@ class DdnsController < ApplicationController
     @device = Device.find(params[:id])
     @hostname = ""
     if @device.ddns
-      @hostname = @device.ddns.full_domain.split(".").first
+      @hostname = @device.ddns.hostname
     end
     @domain_name = Settings.environments.ddns
   end
@@ -35,11 +35,13 @@ class DdnsController < ApplicationController
   def check
     @ddns_params = params[:ddns_session]
     hostname = params[:hostName].downcase
+
     @full_domain = hostname + "." + Settings.environments.ddns
-    ddns = Ddns.find_by_full_domain(@full_domain)
+    # Need compare domain id when domain name have multiple
+    ddns = Ddns.find_by_hostname(hostname)
     filter_list = Settings.environments.filter_list
 
-    # If full domain was exits, it will redirct to setting page and display error message
+    # If hostname was exits, it will redirct to setting page and display error message
     if ddns && !paired?(ddns.device_id)
       flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
       redirect_to action: 'setting', id: @ddns_params[:device_id]
@@ -87,7 +89,7 @@ class DdnsController < ApplicationController
     end
 
     def paired?(device_id)
-      Pairing.exists?(['device_id = ? and user_id = ? and enabled = 1', device_id, current_user.id])
+      Pairing.owner.exists?(['device_id = ? and user_id = ?', device_id, current_user.id])
     end
 
     def error_action

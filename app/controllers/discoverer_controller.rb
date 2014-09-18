@@ -55,7 +55,7 @@ class DiscovererController < ApplicationController
   def search_available_device
 
     # PairingSession.handling().select(:device_id)
-    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling.where.not(:user_id => current_user.id).select(:device_id), Pairing.enabled.select(:device_id))
+    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling.where.not(:user_id => current_user.id).select(:device_id), Pairing.owner.select(:device_id))
   end
 
   def mac_address_valid?(mac_address)
