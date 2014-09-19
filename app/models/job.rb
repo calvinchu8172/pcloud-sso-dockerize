@@ -27,10 +27,6 @@ class Job
 
   def push(data)
     @session = get_session_model.new data
-    Rails.logger.debug "@@@@@@@@@@@@@@@"
-    Rails.logger.debug get_session_model
-    Rails.logger.debug data
-    Rails.logger.debug @session
     if @session.save
       push_session_id @session.id
       return true

@@ -15,11 +15,11 @@ ActiveRecord::Schema.define(version: 20140917094430) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
-    t.string   "ip_address", limit: 8
+    t.string   "ip_address", limit: 8,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "domain_id"
-    t.string   "hostname",   limit: 63
+    t.string   "hostname",   limit: 63, null: false
   end
 
   add_index "ddns", ["device_id"], name: "index_ddns_on_device_id", using: :btree
@@ -58,9 +58,9 @@ ActiveRecord::Schema.define(version: 20140917094430) do
   add_index "device_sessions", ["device_id"], name: "index_device_sessions_on_device_id", using: :btree
 
   create_table "devices", force: true do |t|
-    t.string   "serial_number",    limit: 100
-    t.string   "mac_address",      limit: 12
-    t.string   "firmware_version", limit: 120
+    t.string   "serial_number",    limit: 100, null: false
+    t.string   "mac_address",      limit: 12,  null: false
+    t.string   "firmware_version", limit: 120, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id",                   null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140917094430) do
   add_index "devices", ["product_id"], name: "devices_product_id_fk", using: :btree
 
   create_table "domains", force: true do |t|
-    t.string   "domain_name", limit: 192
+    t.string   "domain_name", limit: 192, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -150,8 +150,8 @@ ActiveRecord::Schema.define(version: 20140917094430) do
   add_index "upnp_sessions", ["user_id"], name: "index_upnp_sessions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email"
-    t.string   "encrypted_password",     limit: 60
+    t.string   "email",                             default: "",   null: false
+    t.string   "encrypted_password",     limit: 60, default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
