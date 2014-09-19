@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
+  enum gender: {male: 1, female: 2}
   before_create :add_default_display_name
   has_many :identity
+
+  attr_accessor :input
+  validate :input, length: {maximum:255}
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

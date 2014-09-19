@@ -1,11 +1,12 @@
 magic_number: 890980
+version: V.B.20140910_01
 xmpp:
   server: localhost
   device_rescource_id: device
   admin:
     account   : bot01
     password  : 1234
-  bots: 
+  bots:
     - bot01@localhost
     - bot02@localhost
     - bot03@localhost
@@ -64,7 +65,7 @@ environments:
       - name          : mycloud
         level         : DEBUG
         trace         : 'true'
-        outputters    : 
+        outputters    :
         - datefile
 
     outputters:

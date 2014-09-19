@@ -44,7 +44,7 @@
           </td>
           <td data-title="'Name'">
             <%# add service link %>
-            <a ng-if="service.path.length > 0" href="{{bind_url(service, service.path, service.port)}}">
+            <a ng-if="service.path.length > 0" href="{{bind_url(service, service.path, service.port)}}" target="_blank">
               {{service.service_name}}
             </a>
             <span ng-if="service.path.length == 0">
@@ -146,6 +146,9 @@
               console.log(response);
               console.log("tick: " + $scope.loadTimes);
               if('form' == response.status){
+                if($scope.device_ip == '') {
+                  $scope.device_ip = response.lan_ip;
+                }
                 $scope.step = response.status;
                 $scope.panel = response.status;
                 $scope.session = response;

@@ -6,7 +6,12 @@
   <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <%= javascript_tag do %> $(document).ready(function() { $(".select_style").select2(); }); <% end %>
+  <%= javascript_tag do %>
+  $(document).ready(function() {
+    $(".select_style").select2();
+    $("input:not([maxlength])").attr("maxlength", "255")
+  });
+  <% end %>
 </head>
 <body>
   <div class="container">
@@ -43,7 +48,6 @@
 
     <%# breadcrumb - end %>
     <%= yield %>
-
   </div>
 
 </body>
