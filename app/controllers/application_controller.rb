@@ -42,24 +42,27 @@ class ApplicationController < ActionController::Base
     # i18n setting
     def set_locale
 
-      # Check current locale
+      # note: cookie(change before) > user.lang(registered) > browser > default
       locale = if params[:locale]
-                 params[:locale].to_sym if I18n.available_locales.include?(params[:locale].to_sym)
-               # Return cookie if user change languag before
+               # Return cookie if user change locale
+                  params[:locale].to_sym if I18n.available_locales.include?(params[:locale].to_sym)
+                  cookies[:locale] = params[:locale]
                elsif cookies[:locale]
-                 cookies[:locale].to_sym if I18n.available_locales.include?(cookies[:locale].to_sym)
-               # Return browser languages if user have't cookie before
+                  cookies[:locale] if I18n.available_locales.include?(cookies[:locale].to_sym)
+
+               # Return db setting if registered user haven't change before
+               elsif user_signed_in?
+                 current_user.language if I18n.available_locales.include?(current_user.language.to_sym)
+
                elsif request.env['HTTP_ACCEPT_LANGUAGE']
-                get_browser_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
+                 check_browser_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
+
+               else
+                 I18n.available_locales.first unless locale
                end
 
-      # Set default locale if system can't support current language
-      locale = I18n.available_locales.first unless locale
-
-      # Set to system
       if locale
         current_user.change_locale!(locale.to_s) if user_signed_in?
-        cookies[:locale] = locale.to_s
         I18n.locale = locale
       end
 
@@ -101,7 +104,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Split browser locales array and find first support language
-    def get_browser_locale(browser_langs)
+    def check_browser_locale(browser_langs)
       accept_locales = []
       browser_langs.split(',').each do |l|
        l = l.split(';').first
