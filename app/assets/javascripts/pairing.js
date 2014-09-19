@@ -19,7 +19,7 @@
         $scope.disableBtn();
         $timeout(function(){
 
-          var url = $scope.checkConnectionUrl  + $scope.sessionId + $scope.formateSuffix;
+          var url = $scope.checkConnectionUrl  + $scope.deviceId;
           $http.get(url).success(function(response) {
             $scope.session = response;
             switch(response.status){
@@ -63,20 +63,17 @@
 
       $scope.waitingForCheckConnect = function(){
 
-        if($scope.session.expire_in <= 0){
+        if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
           $scope.failureStep();
           return;
         }
 
         $scope.connectingStep();
         $scope.checkConnection();
-        // $timeout($scope.checkConnection, 9500);
       };
       
       var startTimer = function(){
-      // $scope.startTimer = function(){
-        
-        // var timer = angular.element('#countdown-timer');
+      
         $scope.$broadcast('timer-set-countdown-seconds', $scope.session.expire_in);
         $scope.$broadcast('timer-start');
       };

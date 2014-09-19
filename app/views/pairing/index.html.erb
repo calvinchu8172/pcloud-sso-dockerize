@@ -1,4 +1,4 @@
-<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>;session=<%= @session.to_json(:except => [ :id, :created_at, :expire_at ], :methods => :expire_in) %>;waitingForCheckConnect();">
+<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="deviceId=<%= @device.id.to_s %>;session=<%= @session.to_json() %>;waitingForCheckConnect();">
 
   <div class="zyxel_content">
     <%= render "discoverer/shared/device_info" %>

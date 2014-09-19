@@ -220,6 +220,9 @@ GEM
     rdoc (4.1.1)
       json (~> 1.4)
     recaptcha (0.3.6)
+    redis (3.1.0)
+    redis-objects (1.0.0)
+      redis (>= 3.0.2)
     remotipart (1.2.1)
     rest_client (1.7.3)
       netrc (~> 0.7.7)
@@ -331,6 +334,7 @@ DEPENDENCIES
   rails_admin
   rails_config
   recaptcha
+  redis-objects
   rest_client
   rmagick
   rspec-rails

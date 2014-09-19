@@ -5,6 +5,7 @@ gem 'rails', '4.1.0'
 gem 'sqlite3'
 
 gem 'mysql2', '0.3.16'
+gem 'redis-objects'
 
 gem 'select2-rails'
 # Use SCSS for stylesheets
