@@ -1,6 +1,6 @@
 tr:
   labels:
-    language: "Türkçe"
+    language: "Dil"
     forgot_password: 'Şifremi Unuttum'
     resend_confirmation: 'Onayı Tekrar Gönder'
     sign_in: 'Oturum Aç'

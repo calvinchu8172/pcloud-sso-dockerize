@@ -1,6 +1,6 @@
 de:
   labels:
-    language: "Deutsch"
+    language: "Sprache"
     forgot_password: 'Passwort vergessen'
     resend_confirmation: 'Bestätigung erneut senden'
     sign_in: 'Anmelden'
