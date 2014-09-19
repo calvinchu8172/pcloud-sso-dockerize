@@ -322,6 +322,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   log4r
   mysql2 (= 0.3.16)
+  netrc
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
