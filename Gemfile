@@ -67,6 +67,7 @@ gem 'aws-sdk'
 gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
+gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 
 group :development, :test, :staging do
   gem 'faker'

@@ -181,7 +181,7 @@ class DeviceController < ApplicationController
   end
 
   def post_to_xmpp_server(content)
-    url = 'http://'  + Settings.xmpp.server + ':5280/rest/'
+    url = 'http://'  + Settings.xmpp.nodes[0] + ':5280/rest/'
     logger.info('post to: ' + url)
     result = RestClient.post(url, content)
     logger.debug('post to xmpp server result:' + result.to_s);

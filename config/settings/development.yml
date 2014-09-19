@@ -15,6 +15,11 @@ xmpp:
     - bot06@localhost
     - bot07@localhost
     - bot08@localhost
+  nodes:
+    - 172.31.25.84
+    - 172.31.25.84
+    - 172.31.25.84
+    - 172.31.25.84
 environments:
   paperclip:
     default:
@@ -48,7 +53,13 @@ environments:
     - support
     - service
     - services
-
+  OmniAuth:
+    facebook:
+      facebook_app_id: 'faefaesfase'
+      facebook_secret: 'faefasefasefase'
+    google_oauth2:
+      google_app_id: 'faefasef'
+      google_secret: 'fasefaesf'
   log4r_config:
     loggers:
       - name          : mycloud
