@@ -231,8 +231,11 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook, APP_CONFIG['facebook_app_id'], APP_CONFIG['facebook_secret'],
-    :auth_type => 'reauthenticate'
-  config.omniauth :google_oauth2, APP_CONFIG['google_app_id'], APP_CONFIG['google_secret']
+                  :auth_type => 'reauthenticate'
+  config.omniauth :google_oauth2, APP_CONFIG['google_app_id'], APP_CONFIG['google_secret'],
+              {
+                :prompt => "consent"
+              }
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
