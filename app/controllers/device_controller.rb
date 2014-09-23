@@ -58,10 +58,10 @@ class DeviceController < ApplicationController
     @device.update_ip_list request.remote_ip if request.remote_ip != @device_session[:ip]
 
     if request.remote_ip != @device_session[:ip] || xmpp_account != @device_session[:xmpp_account]
-      @device_session[:ip] == request.remote_ip
+      @device_session[:ip] = request.remote_ip
       @device_session[:xmpp_account] = xmpp_account
-      @device.session.bulk_set @device_session
-      logger.info('create or update device session: ' + @device_session.inspect)
+      @device.session.update @device_session
+      logger.info('create or update device session: ' + @device_session.inspect + ', raw data:' + @device_session.inspect)
     end
   end
 

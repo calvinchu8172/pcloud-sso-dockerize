@@ -5,7 +5,6 @@ class DiscovererController < ApplicationController
 
   def index
 
-    @devices_list = 
     raw_result = Array.new
     search_available_device.each do |device|
       logger.debug('get device product:' + device.product.to_json)
@@ -49,15 +48,14 @@ class DiscovererController < ApplicationController
     logger.info "checking device id:" + @device.id.to_s
   end
 
-  private
 
   def search_available_device
 
     available_device_list = []
-    available_ip_list = Redis::HashKey.new('device:ip_addresses:' + request.remote_ip).keys
-    
-    Device.where('id in (?)', available_device_list).each do |device|
-      available_device_list << device unless device.pairing_session.empty? || Device.handling_status.include(device.pairing_session.get(:status))
+
+    available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
+    Device.where('id in (?)', available_ip_list).each do |device|
+      available_device_list << device unless !device.pairing_session.empty? || Device.handling_status.include?(device.pairing_session.get(:status))
     end
     logger.debug('result of searching available device list:' + available_device_list.inspect)
     available_device_list

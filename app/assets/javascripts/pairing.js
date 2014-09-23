@@ -10,7 +10,6 @@
       
       $scope.step = 'connecting';
       $scope.panel = 'loading';
-      $scope.watingUrl = '/pairing/waiting/';
       $scope.interval = 3000;
       $scope.formateSuffix = ".json";
       $scope.checkConnectionUrl = '/pairing/check_connection/';
@@ -21,6 +20,7 @@
 
           var url = $scope.checkConnectionUrl  + $scope.deviceId;
           $http.get(url).success(function(response) {
+            
             $scope.session = response;
             switch(response.status){
               case 'offline':
@@ -28,12 +28,30 @@
                 break;
               case 'waiting':
                 if($scope.step == 'connecting'){
-                  $scope.step = response.status;
-                  $scope.panel = "waiting"
+
+                  var expireIn = parseInt($scope.session.expire_in);
+                  console.log('time difference:' + ($scope.timeout - expireIn));
+                  if (($scope.timeout - expireIn) <= 5){
+                    expireIn = $scope.timeout;
+                  }
+           
+                  $scope.expireIn = expireIn;
+                  $scope.step = "waiting";
+                  $scope.panel = "waiting";
+
                   $timeout(startTimer, 500);
                   $scope.disableBtn();
                 }
                 $scope.checkConnection();
+                break;
+              case 'timeout':
+                /***
+                  there is time difference between server and client, 
+                  so just go by browser's timer
+                ***/
+                break;
+              case 'cancel':
+                $scope.canceledStep();
                 break;
               case 'failure':
                 $scope.canceledStep();
@@ -50,7 +68,7 @@
 
       $scope.reconnect = function(){
         $scope.connectingStep();
-        $http.get("/pairing/reconnect/" + $scope.deviceId + $scope.formateSuffix).success(function(response) {
+        $http.get("/pairing/reconnect/" + $scope.deviceId).success(function(response) {
           $scope.sessionId = response.id;
           $scope.session = response;
           $scope.waitingForCheckConnect();
@@ -58,7 +76,9 @@
       };
 
       $scope.$on('timer-stopped', function (event, args) {
-        $scope.failureStep();
+        if($scope.session.status == 'waiting' || $scope.session.status == 'timeout'){
+          $scope.failureStep();
+        }
       });
 
       $scope.waitingForCheckConnect = function(){
@@ -73,8 +93,8 @@
       };
       
       var startTimer = function(){
-      
-        $scope.$broadcast('timer-set-countdown-seconds', $scope.session.expire_in);
+        
+        // $scope.$broadcast('timer-set-countdown-seconds', expireIn);
         $scope.$broadcast('timer-start');
       };
       
@@ -92,23 +112,27 @@
         });
       };
 
-      $scope.$on('timer-tick', function (event, args) {
-        $timeout(function (){
-          if((args.millis % 10000) == 0){
-            $http.get($scope.checkConnectionUrl + $scope.sessionId + $scope.formateSuffix).success(function(response) {
+      // $scope.$on('timer-tick', function (event, args) {
+      //   $timeout(function (){
+      //     if((args.millis % 10000) == 0){
+      //       $http.get($scope.checkConnectionUrl + $scope.sessionId + $scope.formateSuffix).success(function(response) {
 
-              switch(response.status){
-                case 'done':
-                  $scope.$broadcast('timer-stop');
-                  $scope.completedStep();
-                  break;
-                case 'failure':
-                  $scope.canceledStep();
-                  break;
-              }
-            });
-          }
-        });
+      //         switch(response.status){
+      //           case 'done':
+      //             $scope.$broadcast('timer-stop');
+      //             $scope.completedStep();
+      //             break;
+      //           case 'failure':
+      //             $scope.canceledStep();
+      //             break;
+      //         }
+      //       });
+      //     }
+      //   });
+      // });
+
+      $scope.$on('timer-stopped', function (event, data){
+        
       });
 
       $scope.connectingStep = function(){
