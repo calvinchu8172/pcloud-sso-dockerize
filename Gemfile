@@ -72,8 +72,8 @@ gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 group :development, :test, :staging do
   gem 'faker'
   gem 'capybara'
+  gem "capybara-webkit"
   gem 'cucumber-rails', :require => false
-  gem 'selenium-webdriver'
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
