@@ -71,7 +71,7 @@
       <label><span></span><%= I18n.t("user.labels.edm") %></label>
     </div>
 
-    <div class="zyxel_btn_area">
+    <div class="zyxel_btn_area i18n_fix">
       <% if !session[:oauth] %>
         <%= link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "zyxel_btn_ok" %>
       <% end %>
