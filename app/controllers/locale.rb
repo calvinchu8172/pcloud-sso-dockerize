@@ -6,13 +6,13 @@ module Locale
     # Setting locale variable
     locale = if params[:locale]
                # Setup cookie and change locale when user changed locale
-               cookies[:locale] = params[:locale] if I18n.available_locales.include?(params[:locale].to_sym)
+               cookies[:locale] = params[:locale] if I18n.available_locales.include?(params[:locale])
              elsif cookies[:locale]
                # Setup locale when cookie exist
-               cookies[:locale] if I18n.available_locales.include?(cookies[:locale].to_sym)
+               cookies[:locale] if I18n.available_locales.include?(cookies[:locale])
              elsif user_signed_in?
                # Return db setting if registered user haven't change before
-               current_user.language if I18n.available_locales.include?(current_user.language.to_sym)
+               current_user.language if I18n.available_locales.include?(current_user.language)
              elsif request.env['HTTP_ACCEPT_LANGUAGE']
                check_browser_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
              else
