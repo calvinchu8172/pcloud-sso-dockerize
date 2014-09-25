@@ -1,7 +1,7 @@
 <% provide(:flow, @device.product.model_name + "," + I18n.t("titles.settings.upnp")) %>
 <% provide(:tab, 'my_devices') %>
 
-<div class="upnp zyxel_content" style="max-width:570px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json(:only => [:id, :user_id, :device_id, :service_list]) %>;loadConfig();">
+<div class="upnp zyxel_content" style="max-width:570px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json() %>;loadConfig();">
 
   <%# Pairing information %>
   <div  ng-switch on="step">
@@ -11,7 +11,7 @@
     <div ng-switch-when="form">
       <div ng-switch on="result">
         <h2 ng-switch-when="true" class="zyxel_h2_icon1">
-          <%= image_tag @session.device.product.asset.url(:medium) %>
+          <%= image_tag @device.product.asset.url(:medium) %>
           <span>{{wording}}</span>
         </h2>
       </div>
@@ -26,7 +26,7 @@
             <%= I18n.t("labels.settings.upnp.table_head5") %>
           </th>
         </tr>
-        <tr ng-repeat="service in session.service_list">
+        <tr ng-repeat="service in service_list">
           <td data-title="'enabled'" class="column1">
             <div ng-switch on="result">
               <input id="check{{$index}}" type="checkbox" ng-model="service.enabled" ng-disabled="panel != 'form'" >
@@ -44,31 +44,29 @@
           </td>
           <td data-title="'Name'">
             <%# add service link %>
-            <a ng-if="service.path.length > 0" href="{{bind_url(service, service.path, service.port)}}" target="_blank">
+            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank">
               {{service.service_name}}
             </a>
-            <span ng-if="service.path.length == 0">
+            <span ng-if="isFieldEmpty(service.path)">
               {{service.service_name}}
             </span>
           </td>
           <td data-title="'description'" class="column3">
             {{service.description}}
           </td>
-          <%# display update result after submited %>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
             <span ng-if="service.status == service.enabled">
               <%= I18n.t("labels.settings.upnp.result.no_update") %>
             </span>
             <span ng-if="service.status != service.enabled">
-              <span ng-if="service.error_code.length == 0" class="green">
+              <span ng-if="isFieldEmpty(service.error_code.length)" class="green">
                 <%= I18n.t("labels.settings.upnp.result.success") %>
               </span>
-              <span ng-if="service.error_code.length != 0" class="red">
+              <span ng-if="!isFieldEmpty(service.error_code.length)" class="red">
                 <%= I18n.t("labels.settings.upnp.result.failure") %>
               </span>
             </span>
           </td>
-          <%# display update result - end %>
         </tr>
       </table>
     </div>
@@ -98,16 +96,19 @@
   <%# Bottom content include loading image and retry button - end %>
 </div>
 
-<%= javascript_tag do %>
+<!-- %= javascript_tag do % -->
+<script type="text/javascript">
   var upnp_app = angular.module('upnp_app', ['timer']);
   upnp_app.config([
     '$httpProvider',
     function($httpProvider) {
         $httpProvider.defaults.headers
           .common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
-      }
-    ]);
+    }
+  ]);
+
   upnp_app.controller('UpnpCtrl', function ($scope, $http, $timeout) {
+
     $scope.session;
     // $scope.service_list = [{"service_name":"null","status":false,"enabled":false,"description":"null"}];
     $scope.indexPath = '/upnp/';
@@ -119,102 +120,76 @@
     $scope.checkTimes = 0;
     $scope.timesLimit = 85;
     $scope.interval = 3500;
+    $scope.pathIp;
     $scope.wording;
     $scope.submited = false;
-    $scope.device_ip = '<%= @device_ip %>'
     $scope.service_url = "";
+
     $scope.init = function(){
-      console.log("init");
 
       $scope.step = "updating";
       $scope.panel = "loading";
       $scope.disableBtn();
       $scope.wording = '';
-
-      $http.get($scope.indexPath + $scope.session.device_id + ".json", { cache: false}).success(function(response){
-        $scope.session = response;
-        $scope.loadConfig();
-      });
+      $scope.loadConfig();
     };
     $scope.loadConfig = function(){
 
-      console.log($scope.session.id);
       $timeout(function() {
-            $scope.loadTimes++;
-            $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
+          $scope.loadTimes++;
+          $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
-              console.log(response);
-              console.log("tick: " + $scope.loadTimes);
-              if('form' == response.status){
-                if($scope.device_ip == '') {
-                  $scope.device_ip = response.lan_ip;
-                }
-                $scope.step = response.status;
-                $scope.panel = response.status;
-                $scope.session = response;
-                $scope.service_list = response.service_list;
-                $scope.enableBtn();
-                return;
-              }
+          if('form' == response.status){
+            $scope.pathIp = response.path_ip;
+            $scope.formPanel(response);
+            return;
+          }
 
-              if($scope.loadTimes < $scope.timesLimit){
-                $scope.loadConfig();
-              }else{
-                $scope.loadTimes = 0;
-                $scope.step = "failure";
-                $scope.panel = "retry";
-                $scope.enableBtn();
-              }
-            });
-        }, $scope.interval);
+          if($scope.loadTimes < $scope.timesLimit){
+            $scope.loadConfig();
+          }else{
+            $scope.loadTimes = 0;
+            $scope.step = "failure";
+            $scope.panel = "retry";
+            $scope.enableBtn();
+          }
+        });
+      }, $scope.interval);
 
       $scope.disableBtn();
     };
 
     $scope.submit = function(){
 
-      console.log($scope.session.service_list);
-      console.log("loop:");
+      $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
+        if(response.result){
+          $scope.checkSubmit();
+        }
+      });
 
-        $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
-          if(response.result){
-            console.log("ok");
-            $scope.checkSubmit();
-          }else{
-            console.log("failure");
-          }
-        });
-
-        $scope.step = "updating"
-        $scope.panel = "loading";
-        $scope.disableBtn();
+      $scope.step = "updating"
+      $scope.panel = "loading";
+      $scope.disableBtn();
     };
     $scope.retry = function(){
       $scope.init();
     };
     $scope.bind_url = function(service,path, port){
-      $scope.service_url = path.replace(/(\/\/+).*(:).*/, '$1'+$scope.device_ip+'$2'+port);
+      $scope.service_url = path.replace(/(\/\/+).*(:).*/, '$1' + $scope.pathIp + '$2' + port);
       return $scope.service_url;
     };
     $scope.checkSubmit = function(){
-      $scope.submited = true;
+
       $timeout(function() {
         $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
-          console.log(response);
+
           $scope.checkTimes++;
           if('updated' == response.status){
-            $scope.step = "form";
-            $scope.panel = 'confirm';
-            $scope.enableBtn();
-            $scope.result = "true";
-            $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
+            $scope.successPanel();
             return;
           }else if('form' == response.status){
-            $scope.step = response.status;
-            $scope.panel = response.status;
-            $scope.enableBtn();
-            $scope.session = response;
-            $scope.service_list = response.service_list;
+            $scope.submited = true;
+            $scope.formPanel(response);
             return;
           }
 
@@ -243,6 +218,25 @@
         };
       };
     };
+    $scope.formPanel = function(response){
+      $scope.step = response.status;
+      $scope.panel = response.status;
+      $scope.enableBtn();
+      $scope.session = response;
+      $scope.service_list = response.service_list;
+    }
+    $scope.successPanel = function(){
+      $scope.submited = false;
+      $scope.step = "form";
+      $scope.panel = 'confirm';
+      $scope.enableBtn();
+      $scope.result = "true";
+      $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
+    }
+
+    $scope.isFieldEmpty = function(name){
+      (typeof(name) == 'undefined' || name == null || name.length == 0)
+    }
 
     $scope.enableBtn = function(){
       var allButton = document.getElementsByTagName("a");
@@ -256,4 +250,5 @@
     };
 
   });
-<% end %>
+  </script>
+  <!-- % end % -->

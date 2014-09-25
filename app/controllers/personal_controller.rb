@@ -2,10 +2,9 @@ class PersonalController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
     @pairing = Pairing.owner.where(user_id: current_user.id)
-    if !@pairing.empty?
-      @paired = true
-    else
+    if @pairing.empty?
       @paired = false
       flash[:alert] = I18n.t("warnings.no_pairing_device") if current_user.sign_in_count > 1
       redirect_to "/discoverer/index"
@@ -31,7 +30,7 @@ class PersonalController < ApplicationController
       else
         info_hash[:class_name] = "gray"
         info_hash[:title] = I18n.t("warnings.not_config")
-        info_hash[:ip] = device.device_session.ip
+        info_hash[:ip] = device.session.hget :ip
       end
       info_hash
     end

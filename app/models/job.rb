@@ -52,7 +52,7 @@ class Job
   end
 
   def get_session_model
-    class_name = get_job_name.capitalize + 'Session'
+    class_name = get_job_name + '::session'
     @session_model = class_name.constantize if @session_model.nil?
     return @session_model
   end
