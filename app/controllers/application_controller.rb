@@ -42,6 +42,43 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    # i18n setting
+    def set_locale
+
+      # note: cookie(change before) > user.lang(registered) > browser > default
+      locale = if params[:locale]
+               # Return cookie if user change locale
+                  params[:locale] if I18n.available_locales.include?(params[:locale])
+                  cookies[:locale] = params[:locale]
+               elsif cookies[:locale]
+                  cookies[:locale] if I18n.available_locales.include?(cookies[:locale])
+
+               # Return db setting if registered user haven't change before
+               elsif user_signed_in?
+                 current_user.language if I18n.available_locales.include?(current_user.language)
+
+               elsif request.env['HTTP_ACCEPT_LANGUAGE']
+                 check_browser_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
+
+               else
+                 I18n.default_locale
+               end
+
+      if locale
+        current_user.change_locale!(locale.to_s) if user_signed_in?
+        I18n.locale = locale
+      end
+
+      # language select option
+      @locale_options = { :English => 'en',
+                          :Deutsch => 'de',
+                          :Nederlands => 'nl',
+                          :"正體中文" => "zh-TW",
+                          :"ไทย" => 'th',
+                          :"Türkçe" => 'tr'}
+    end
+    # i18n setting - end
+
     # Redirect back to current page after sign in
     def store_location
       return unless request.get?
