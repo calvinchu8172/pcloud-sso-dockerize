@@ -7,12 +7,12 @@
   <div class="zyxel_content" style="max-width: 530px;">
     <h2 class="zyxel_h2"><%= I18n.t("labels.settings.ddns.host_name") %></h2>
 
-    <%= form_for @ddns_session, url: "/ddns/check", html: {name: "ddnsForm"} do |f| %>
+    <%= form_tag "/ddns/check", :name => 'ddnsForm' do %>
 
-      <%= f.text_field :device_id, class: "hidden", value: params[:id] %>
+      <%= hidden_field_tag :id, params[:id] %>
 
       <div class="zyxel_host_name">
-        <%= text_field_tag "hostName", @hostname, id: "ddns-host-name" %>
+        <%= text_field_tag "host_name", @hostname, id: "ddns-host-name" %>
         <label id="domain-name" class="zyxel_span1">.<%= @domain_name %></label>
       </div>
 
@@ -36,7 +36,7 @@
 
       <div class="zyxel_btn_area">
         <%= link_to I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back" %>
-        <%= f.submit I18n.t("labels.submit"), id: "submit-btn", class: "zyxel_btn_submit" %>
+        <%= submit_tag I18n.t("labels.submit"), id: "submit-btn", class: "zyxel_btn_submit" %>
       </div>
     <% end %>
   </div>

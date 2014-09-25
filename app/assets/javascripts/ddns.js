@@ -12,9 +12,12 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
   $scope.formateSuffix = ".json";
 
   $scope.checkStatus = function() {
+
     $scope.disableBtn();
     $timeout(function() {
       $scope.loadTimes++;
+
+      console.log('id:' + $scope.session.id);
 
       // get ajax
       $http.get($scope.statusPath + $scope.session.id + $scope.formateSuffix, { cache: false}).success(function(response) {
@@ -28,7 +31,7 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
 
         // redirect to setting page and set error message when timeout or failure
         } else if(response.status == "failure" || $scope.loadTimes >= $scope.timesLimit) {
-          $window.location.href = $scope.failurePath + $scope.session.device_id;
+          $window.location.href = $scope.failurePath + response.device_id;
         } else {
           $scope.checkStatus();
         }

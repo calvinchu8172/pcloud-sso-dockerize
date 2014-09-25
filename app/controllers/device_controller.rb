@@ -191,11 +191,7 @@ class DeviceController < ApplicationController
     logger.debug('post to xmpp server result:' + result.to_s);
   end
 
-  def change_xmpp_password
-    iq = Jabber::Iq.new(:set)
-  end
-
-  # 產生用IP跟MAC 後兩碼的英文字母作為帳號
+  # 用Mac Address 和 序號的英數產生
   def generate_new_username
     'd' + @device.mac_address.gsub(':', '-') + '-' + @device.serial_number.gsub(/([^\w])/, '-')
   end
