@@ -32,3 +32,43 @@ Feature: [PCP_001_03] Login
     When the user click "Sign in" button
 
     Then the user should see the information when login successfully
+
+  Scenario Outline: [PCP_001_03_05]
+    Show valid language when user change language menu
+
+    When the user change language
+      | Language       | locale   |
+      | English        | en       |
+      | German         | de       |
+      | Dutch          | nl       |
+      | Trad-Chinese   | zh-TW    |
+      | Thai           | th       |
+      | Turkish        | tr       |
+
+    Then the user should see "Sign In" in correct language
+
+    Examples:
+      | Examples       |
+      | English        |
+      | German         |
+      | Dutch          |
+      | Trad-Chinese   |
+      | Thai           |
+      | Turkish        |
+
+  Scenario Outline: [PCP_001_03_06]
+
+    Test each field length
+
+    When the user filled the user information over length limit
+      | Text field        | length limit           |
+      | E-mail            | 255                    |
+      | Password          | 14                     |
+
+    Then the user should see error message for over length limit
+
+    Examples:
+      | Text field        |
+      | E-mail            |
+      | Password          |
+

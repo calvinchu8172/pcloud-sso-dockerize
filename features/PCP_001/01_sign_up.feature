@@ -146,3 +146,36 @@ Feature: [PCP_001_01] Sign Up
 
     Then user will auto login and redirect to dashboard
 
+
+  Scenario: [PCP_001_01_10]
+    Redirect to login page when user click cancel button in sign up page
+
+    When user click the cancel button
+
+    Then the page will redirect to login page
+
+  Scenario Outline: [PCP_001_01_11]
+    Test each field length
+
+    When the user filled the user information over length limit
+      | Text field        | length limit           |
+      | E-mail            | 255                    |
+      | Password          | 14                     |
+      | Display as        | 255                    |
+      | First Name        | 255                    |
+      | Middle Name       | 255                    |
+      | Last Name         | 255                    |
+      | Mobile Number     | 40                     |
+
+    Then the user should see error message for over length limit
+
+    Examples:
+      | Text field        |
+      | E-mail            |
+      | Password          |
+      | Display as        |
+      | First Name        |
+      | Middle Name       |
+      | Last Name         |
+      | Mobile Number     |
+
