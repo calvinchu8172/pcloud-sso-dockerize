@@ -5,7 +5,7 @@ xmpp:
   admin:
     account   : bot01
     password  : 1234
-  bots: 
+  bots:
     - bot01@localhost
     - bot02@localhost
     - bot03@localhost
@@ -47,19 +47,13 @@ environments:
     - support
     - service
     - services
-  OmniAuth:
-    facebook:
-      facebook_app_id: 'faefaesfase'
-      facebook_secret: 'faefasefasefase'
-    google_oauth2:
-      google_app_id: 'faefasef'
-      google_secret: 'fasefaesf'
+
   log4r_config:
     loggers:
       - name          : mycloud
         level         : DEBUG
         trace         : 'true'
-        outputters    : 
+        outputters    :
         - datefile
 
     outputters:
