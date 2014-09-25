@@ -6,7 +6,8 @@ module Locale
     # Setting locale variable
     locale = if params[:locale]
                # Setup cookie and change locale when user changed locale
-               cookies[:locale] = params[:locale] if I18n.available_locales.include?(params[:locale])
+               params[:locale] if I18n.available_locales.include?(params[:locale])
+               cookies[:locale] = params[:locale]
              elsif cookies[:locale]
                # Setup locale when cookie exist
                cookies[:locale] if I18n.available_locales.include?(cookies[:locale])
