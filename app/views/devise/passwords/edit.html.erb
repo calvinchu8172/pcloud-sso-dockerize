@@ -13,14 +13,14 @@
         <tr>
           <th><span>* </span><%= f.label :password, I18n.t("user.labels.new_password"), class: "th_label" %></th>
           <td colspan="3">
-            <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "input_style1 td_field" %>
+            <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
           </td>
         </tr>
 
         <tr>
           <th><span>* </span><%= f.label :password_confirmation, I18n.t("user.labels.new_password_confirmation"), class: "th_label" %></th>
           <td colspan="3">
-            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
           </td>
         </tr>
       </table>
