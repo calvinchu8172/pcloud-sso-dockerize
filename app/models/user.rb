@@ -57,8 +57,10 @@ class User < ActiveRecord::Base
   end
 
   def change_locale!(new_locale)
+                logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@7"
     new_locale = new_locale.to_s
     if self.language != new_locale
+                logger.debug "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@8"
       self.language = new_locale
       self.save
     end
