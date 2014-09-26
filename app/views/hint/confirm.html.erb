@@ -7,7 +7,7 @@
 
   <span class="zyxel_span3"><%= session[:notice] %></span>
 
-  <div class="zyxel_btn_area">
+  <div class="zyxel_btn_area i18n_fix">
     <%= link_to I18n.t("labels.resend_confirmation"), new_confirmation_path(:user), class: "zyxel_btn_submit_gray zyxel_resend_btn" %>
     <%= link_to I18n.t("labels.confirm"), "/", class: "zyxel_btn_ok" %>
   </div><!-- zyxel_btn_area -->

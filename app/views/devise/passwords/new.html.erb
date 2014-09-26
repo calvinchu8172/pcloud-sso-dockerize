@@ -8,7 +8,7 @@
         <td colspan="3"><%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %></td>
       </tr>
     </table>
-    <div class="zyxel_btn_area">
+    <div class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.cancel"), "/", class: "zyxel_btn_back") %>
       <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
     </div><!-- zyxel_btn_area -->

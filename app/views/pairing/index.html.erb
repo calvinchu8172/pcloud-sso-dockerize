@@ -22,7 +22,7 @@
         <div class="countdown" ng-switch-when="waiting">
             <%= image_tag @device.product.pairing.url %>
         </div>
-        <div  ng-switch-when="retry" class="zyxel_btn_area">
+        <div  ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
           <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
           <button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button>
         </div>
