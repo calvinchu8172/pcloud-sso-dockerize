@@ -56,14 +56,6 @@ class User < ActiveRecord::Base
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
   end
 
-  def change_locale!(new_locale)
-    new_locale = new_locale.to_s
-    if self.language != new_locale
-      self.language = new_locale
-      self.save
-    end
-  end
-
 
   private
     def add_default_display_name

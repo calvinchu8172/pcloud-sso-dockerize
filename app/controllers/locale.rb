@@ -35,6 +35,13 @@ module Locale
   end
   # i18n setting - end
 
+  def change_locale!(new_locale)
+    new_locale = new_locale.to_s
+    if self.language != new_locale
+      self.language = new_locale
+      self.save
+    end
+  end
 
   # Split browser locales array and find first support language
   def check_browser_locale(browser_langs)
