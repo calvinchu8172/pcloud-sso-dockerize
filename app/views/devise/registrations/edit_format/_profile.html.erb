@@ -74,7 +74,7 @@
         <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
       </th>
       <td>
-        <%= f.text_field :mobile_number, class: "input_style1" %>
+        <%= f.text_field :mobile_number, class: "input_style1", maxlength: 40 %>
       </td>
     </tr>
     <%# Phone number - end %>

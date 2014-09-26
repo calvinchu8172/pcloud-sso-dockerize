@@ -29,7 +29,7 @@
             <%= f.label :password, I18n.t("user.labels.password"), class: "th_label" %>
           </th>
           <td>
-            <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field" %>
+            <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
           </td>
         </tr>
         <%# Password -end %>
@@ -40,7 +40,7 @@
             <%= f.label :password_confirmation, I18n.t("user.labels.password_confirmation"), class: "th_label" %>
           </th>
           <td>
-            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
           </td>
         </tr>
 
@@ -106,7 +106,7 @@
             <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
           </th>
           <td>
-            <%= f.text_field :mobile_number, class: "input_style1" %>
+            <%= f.text_field :mobile_number, class: "input_style1", maxlength: 40 %>
           </td>
         </tr>
         <%# Phone number - end %>
