@@ -1,4 +1,5 @@
 magic_number: 890980
+version: V.B.20140919_01
 xmpp:
   server: localhost
   device_rescource_id: device
@@ -14,6 +15,11 @@ xmpp:
     - bot06@localhost
     - bot07@localhost
     - bot08@localhost
+  nodes:
+    - 172.31.25.84
+    - 172.31.25.84
+    - 172.31.25.84
+    - 172.31.25.84
 environments:
   paperclip:
     default:

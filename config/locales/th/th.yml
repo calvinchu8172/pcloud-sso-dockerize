@@ -1,6 +1,6 @@
 th:
   labels:
-    language: "ไทย"
+    language: "ภาษา"
     forgot_password: 'ลืมรหัสผ่าน'
     resend_confirmation: 'ส่งการยืนยันใหม่อีกครั้ง'
     sign_in: 'ล็อกอิน'

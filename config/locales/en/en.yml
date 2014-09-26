@@ -1,6 +1,6 @@
 en:
   labels:
-    language: "English"
+    language: "Language"
     forgot_password: 'Forgot My Password'
     resend_confirmation: 'Resend Confirmation'
     sign_in: 'Sign in'

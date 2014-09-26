@@ -48,6 +48,6 @@ Then(/^the user should see the information when login successfully$/) do
 end
 
 def filled_in_login_info(password)
-  fill_in "Email", with: @user.email
-  fill_in "Password", with: password
+  fill_in "user[email]", with: @user.email
+  fill_in "user[password]", with: password
 end

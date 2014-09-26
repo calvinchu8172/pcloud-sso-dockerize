@@ -66,3 +66,27 @@ Feature: [PCP_004_02] DDNS Setup
 	  When the user click "Confirm" link
 
 	  Then the user will redirect to UPnP setup page
+
+
+  Scenario Outline: [PCP_004_02_07]
+    Test each field length
+
+    When the user filled the user information over length limit
+      | Text field        | length limit           |
+      | host_name         | 63                     |
+
+    Then the user should see error message for over length limit
+
+    Examples:
+      | Text field        |
+      | host_name         |
+
+  Scenario:  [PCP_004_02_08]
+  	Redirect to profile page when user click cancel button in DDNS page
+
+  	When the user click "Cancel" link
+
+  	Then the user will redirect to dashboard page
+
+
+

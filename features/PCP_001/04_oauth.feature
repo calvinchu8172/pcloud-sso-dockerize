@@ -21,9 +21,31 @@ Feature: [PCP_001_04] oauth
 	  And the user should see oauth feature "Terms of Use" message
 
 	Scenario:  [PCP_001_04_03]
-	  Login and redirect to dashborad/search devices page.
+	  Login and redirect to dashborad/search devices page
 
 	  And the user grant permission
 
 	  Then the user should login
-	  And redirect to dashboard/search devices page.
+	  And redirect to dashboard/search devices page
+
+	Scenario: [PCP_001_04_04]
+	  Redirect to login page when user disagree omniauth agreement
+
+	  When the user disagree omniauth agreement
+
+	  Then the user will redirect to login page
+
+	Scenario: [PCP_001_04_05]
+		Show error message when omniauth user reset password
+
+		When the omniauth user want to reset password
+
+		Then the user should see oauth feature "not found" message
+
+	Scenario: [PCP_001_04_06]
+		Omniauth user can not change password
+
+		When the omniauth user want to change password
+
+		Then the omniauth user should not see change password button in profile
+
