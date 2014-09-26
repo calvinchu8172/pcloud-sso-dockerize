@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
     new_locale = new_locale.to_s
     if self.language != new_locale
       self.language = new_locale
-      self.save
+      # self.save
     end
   end
 
