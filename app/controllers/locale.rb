@@ -1,19 +1,16 @@
 module Locale
-
-  # i18n setting
   def set_locale
 
-    # Setting locale variable
-    locale = if params[:locale]
-               # Setup cookie and change locale when user changed locale
-               params[:locale] if I18n.available_locales.include?(params[:locale])
-               cookies[:locale] = params[:locale]
-             elsif cookies[:locale]
-               # Setup locale when cookie exist
-               cookies[:locale] if I18n.available_locales.include?(cookies[:locale])
-             elsif user_signed_in?
-               # Return db setting if registered user haven't change before
-               current_user.language if I18n.available_locales.include?(current_user.language)
+    # note: cookie(change before) > user.lang(registered) > browser > default
+    locale = if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym)
+             # Return cookie if user change locale
+                params[:locale].to_sym
+                cookies[:locale] = params[:locale]
+             elsif cookies[:locale] && I18n.available_locales.include?(cookies[:locale].to_sym)
+                cookies[:locale]
+             # Return db setting if registered user haven't change before
+             elsif user_signed_in? && I18n.available_locales.include?(current_user.language.to_sym)
+               current_user.language
              elsif request.env['HTTP_ACCEPT_LANGUAGE']
                check_browser_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
              else
@@ -33,7 +30,6 @@ module Locale
                         :"ไทย" => 'th',
                         :"Türkçe" => 'tr'}
   end
-  # i18n setting - end
 
 
   # Split browser locales array and find first support language
