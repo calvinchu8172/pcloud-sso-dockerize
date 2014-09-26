@@ -2,6 +2,11 @@
 
 <div class="zyxel_content" style="max-width: 530px;">
   <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+    <%# Hidden current user language %>
+    <%=  f.hidden_field :language, :value => I18n.locale.to_s %>
+    <%# Hidden current user language - end %>
+
     <fieldset>
       <table class="zyxel_table_style user_info">
 
@@ -24,7 +29,7 @@
             <%= f.label :password, I18n.t("user.labels.password"), class: "th_label" %>
           </th>
           <td>
-            <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field" %>
+            <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
           </td>
         </tr>
         <%# Password -end %>
@@ -35,7 +40,7 @@
             <%= f.label :password_confirmation, I18n.t("user.labels.password_confirmation"), class: "th_label" %>
           </th>
           <td>
-            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
           </td>
         </tr>
 
@@ -101,21 +106,10 @@
             <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
           </th>
           <td>
-            <%= f.text_field :mobile_number, class: "input_style1" %>
+            <%= f.text_field :mobile_number, class: "input_style1", maxlength: 40 %>
           </td>
         </tr>
         <%# Phone number - end %>
-
-        <%# Language %>
-        <tr>
-          <th>
-            <%= f.label :language, I18n.t("user.labels.language") %>
-          </th>
-          <td class="user_info_select">
-            <%= f.select :language, @locale_options, {}, {class: "select_style"} %>
-          </td>
-        </tr>
-        <%# Language - end %>
 
         <%# Country %>
         <tr>
@@ -165,7 +159,7 @@
     <%# e-Mail DM - end %>
 
     <%# Submit and cancel button %>
-    <div class="zyxel_btn_area">
+    <div class="zyxel_btn_area i18n_fix">
       <a href="<%= new_session_path(resource_name) %>" class="zyxel_btn_back"><%= I18n.t("labels.cancel") %></a>
       <%= f.submit I18n.t("labels.sign_up"), class: "zyxel_btn_submit" %>
     </div>

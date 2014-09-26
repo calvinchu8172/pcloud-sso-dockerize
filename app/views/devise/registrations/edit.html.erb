@@ -12,7 +12,7 @@
       <%= render partial: "devise/registrations/edit_format/password", locals: {f: f} %>
     <% end %>
     <%# Submit and cancel button %>
-    <div class="zyxel_btn_area">
+    <div class="zyxel_btn_area i18n_fix">
       <%= link_to I18n.t("labels.cancel"), "/personal/profile", class: "zyxel_btn_back" %>
       <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
     </div>
