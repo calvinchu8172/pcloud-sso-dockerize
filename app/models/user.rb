@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
     self.email = auth["info"]["email"]
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"]
-    self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"]
+    self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
   end
 
   private
