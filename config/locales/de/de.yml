@@ -31,7 +31,7 @@ de:
         result:
           success: 'Erfolgreich'
           failure: 'Fehlerhaft'
-          no_update: 'No Update'
+          no_update: 'kein Update'
     pairing: 'Verbinden'
     unpairing: 'Trennen'
     manually: 'Manuelles hinzufügen'

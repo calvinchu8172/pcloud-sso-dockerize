@@ -11,7 +11,7 @@ th:
       password_confirmation: 'รหัสผ่าน'
       new_password: 'รหัสผ่านใหม่'
       new_password_confirmation: 'ยืนยันรหัสผ่านใหม่'
-      current_password: "Current Password"
+      current_password: "รหัสผ่านปัจจุบัน"
       gender: 'เพศ'
       male: 'ชาย'
       female: 'หญิง'

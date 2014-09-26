@@ -79,17 +79,6 @@
     </tr>
     <%# Phone number - end %>
 
-    <%# Language %>
-    <tr>
-      <th>
-        <%= f.label :language, I18n.t("user.labels.language") %>
-      </th>
-      <td class="user_info_select">
-        <%= f.select :language, @locale_options, {}, {class: "select_style"} %>
-      </td>
-    </tr>
-    <%# Language - end %>
-
     <%# Country %>
     <tr>
       <th>
