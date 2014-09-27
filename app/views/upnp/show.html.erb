@@ -80,6 +80,9 @@
   <div class="pairing-panel" ng-switch on="panel">
     <div ng-switch-when="loading">
       <div class="waiting"><%= image_tag 'loading.gif', size: "54x55" %></div>
+      <div class="zyxel_btn_area">
+        <%= link_to(I18n.t("labels.cancel"), "/upnp/cancel/#{@upnp.id}", class: "zyxel_btn_back zyxel_enabled") %>
+      </div>
     </div>
     <div ng-switch-when="retry" class="zyxel_btn_area">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
@@ -136,8 +139,8 @@
     $scope.loadConfig = function(){
 
       $timeout(function() {
-          $scope.loadTimes++;
-          $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
+        $scope.loadTimes++;
+        $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
           if('form' == response.status){
             $scope.pathIp = response.path_ip;
@@ -208,7 +211,7 @@
     };
 
     $scope.disableBtn = function(){
-      var allButton = document.getElementsByTagName("a");
+      var allButton = document.querySelectorAll("a:not(.zyxel_enabled)");
       for(var i=0; i<allButton.length; i++){
         var $thisBtn = allButton[i];
         var $thisUrl = $thisBtn.getAttribute('href');

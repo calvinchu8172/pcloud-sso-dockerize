@@ -67,6 +67,19 @@ class UpnpController < ApplicationController
     render :json => result
   end
 
+  def cancel
+    session_id = params[:id]
+    @upnp = UpnpSession.find(session_id)
+    session = @upnp.session.all
+    unless session.empty?
+      session['status'] = "cancel"
+      @upnp.session.update(session)
+      #push_to_queue("upnp_cancel")
+    end
+
+    redirect_to :authenticated_root
+  end
+
   private
 
   def decide_which_path_ip upnp_session
