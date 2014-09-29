@@ -734,27 +734,19 @@ body {
   border-top-style: solid;
   border-top-color: $zyxel_color3;
   padding-top: 14px;
-  overflow: hidden;
-}
-.login_footer a {
-  width: 50%;
-  float: left;
-  border-right-width: 1px;
-  border-right-style: solid;
-  border-right-color: $zyxel_color3;
-  /* [disabled]text-align:center; */
-  display:inline-block;
-  padding: 3px 15px;
-  text-decoration: none;
 }
 .login_footer a span{
+  display: inline-block;
+  width: 175px;
+  margin: -25px 0px 0px;
+  padding: 0 0 0 35px;
   font-size: 14px;
   color: $zyxel_color2;
   background-repeat: no-repeat;
   background-position: 7px center;
-  padding-left: 35px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow : ellipsis;
   ransition: color .3s;
   -webkit-transition: color .3s; /* Chrome & safari */
   -moz-transition: color .3s; /* firefox */
@@ -763,11 +755,39 @@ body {
 .login_footer a span:hover {
   color: $zyxel_color4;
 }
-.login_footer_forgot {
-  background-image: image-url("forgot_password.png");
+.sign_up_wrap, .forgot_password_wrap{
+  display: inline-block;
+  position: relative;
+  padding:3px 15px;
+  width: 50%;
+  > a:hover + .hover_pop{
+    visibility: visible;
+  }
 }
-.login_footer_account {
-  background-image: image-url("get_account.png");
+.forgot_password_wrap{
+  float: left;
+  border-right: 1px solid $zyxel_color3;
+  .login_footer_forgot {
+    background-image: image-url("forgot_password.png");
+  }
+}
+.sign_up_wrap{
+  .login_footer_account {
+    background-image: image-url("get_account.png");
+  }
+}
+.hover_pop{
+  visibility: hidden;
+  position: absolute;
+  text-align: center;
+  font-size: 15px;
+  color: $zyxel_color4 !important;
+  background:white;
+  border:1px solid $zyxel_color3 !important;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px 10px !important;
 }
 .input_style1  {
   border: 1px solid $zyxel_color3;
