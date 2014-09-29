@@ -100,13 +100,12 @@
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area">
       <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
-      <%= link_to(I18n.t("labels.confirm"), "/upnp/cancel/#{@upnp.id}", class: "zyxel_btn_ok") %>
+      <%= link_to(I18n.t("labels.confirm"), "/upnp/cancel/#{@upnp.id}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
   </div>
   <%# Bottom content include loading image and retry button - end %>
 </div>
 
-<!-- %= javascript_tag do % -->
 <script type="text/javascript">
   var upnp_app = angular.module('upnp_app', ['timer']);
   upnp_app.config([
@@ -120,7 +119,6 @@
   upnp_app.controller('UpnpCtrl', function ($scope, $http, $timeout) {
 
     $scope.session;
-    // $scope.service_list = [{"service_name":"null","status":false,"enabled":false,"description":"null"}];
     $scope.indexPath = '/upnp/';
     $scope.checkPath = '/upnp/check/';
     $scope.step = "updating";

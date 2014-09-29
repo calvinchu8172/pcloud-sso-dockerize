@@ -42,7 +42,7 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
   };
 
   $scope.disableBtn = function(){
-    var allButton = document.getElementsByTagName("a");
+    var allButton = document.querySelectorAll("a:not(.zyxel_enabled)");
     for(var i=0; i<allButton.length; i++){
       var $thisBtn = allButton[i];
       var $thisUrl = $thisBtn.getAttribute('href');
@@ -54,13 +54,11 @@ ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
   };
 
   $scope.enableBtn = function(){
-    var allButton = document.getElementsByTagName("a");
+    var allButton = document.querySelectorAll("a[data-href]:not(.zyxel_enabled)");
     for(var i=0; i<allButton.length; i++){
       var $thisBtn = allButton[i];
       var $dataUrl = $thisBtn.getAttribute('data-href');
-      if ($dataUrl){
-        $thisBtn.setAttribute('href', $dataUrl);
-      };
+      $thisBtn.setAttribute('href', $dataUrl);
     };
   };
 

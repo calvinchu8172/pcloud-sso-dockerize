@@ -77,7 +77,7 @@ zh-TW:
         connecting: '連線中...'
         not_found: '偵測不到您的裝置'
         failure: '您的配對已逾時，請重新操作以進行配對'
-        canceled: '您已取消配對'
+        canceled: '您的配對流程已取消'
         success: '已完成與此裝置的配對，請點擊"確定"按鈕以繼續設定裝置的DDNS與UPnP'
       ddns:
         instruction: '請使用：'
