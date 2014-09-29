@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  post '/d/1/:action' => "device", :constraints DomainConstraint.new(Settings.environments.api_domain)
+  post '/d/1/:action' => "device", :constraints => DomainConstraint.new(Settings.environments.api_domain)
 
   constraints DomainConstraint.new(Settings.environments.portal_domain) do
     devise_scope :user do
