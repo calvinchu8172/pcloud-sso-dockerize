@@ -92,16 +92,14 @@ class DeviceController < ApplicationController
     if(@device.device_session.nil?)
       # connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
       @account = {:name => generate_new_username, :password => generate_new_passoword}
-      apply_new_account
-      logger.info('create new xmpp account:' + @account[:name]);
+      logger.info('create new xmpp account:' + @account[:name])
     else
       # connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
       @account = {:name => @device.device_session.xmpp_account, :password => generate_new_passoword}
-      logger.info('change password for account:' + @account[:name]);
-      apply_new_password
+      logger.info('change password for account:' + @account[:name])
     end
 
-    # apply_for_xmpp_account
+    apply_for_xmpp_account
   end
 
   def connect_to_xmpp (username, password)
@@ -116,6 +114,12 @@ class DeviceController < ApplicationController
 
   def api_permit
     params.permit(:mac_address, :serial_number, :model_name, :firmware_version);
+  end
+
+  def apply_for_xmpp_account
+    xmpp_user = XmppUser.find_or_initialize_by(username: @account[:name])
+    xmpp_user.password = @account[:password]
+    xmpp_user.save
   end
 
   def apply_new_account
