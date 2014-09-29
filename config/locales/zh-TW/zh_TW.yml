@@ -70,6 +70,7 @@ zh-TW:
         success: '已取消與此裝置之配對'
       pairing:
         instruction: '請問您是否要與此裝置進行配對動作？'
+        cancel_instruction: '您確定要取消目前的配對流程？'
         start:
           instruction: '配對開始， '
           instruction_2: '請於時間內點擊裝置上的配對功能鍵'
@@ -96,3 +97,4 @@ zh-TW:
         sync: '正在同步UPnP設定...'
         success: 'UPnP設定完成'
         not_found: '偵測不到您的裝置'
+        cancel_instruction: '您確定要取消目前的UPnP設定流程？'
