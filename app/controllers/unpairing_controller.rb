@@ -3,7 +3,7 @@ class UnpairingController < ApplicationController
   before_action :check_device_paired, :only => [:index, :destroy]
 
   def index
-    @device = Pairing.enabled.find(params[:id]).device
+    @device = Pairing.owner.find(params[:id]).device
   end
 
   def success
@@ -11,9 +11,8 @@ class UnpairingController < ApplicationController
   end
 
   def destroy
-    pairing = Pairing.find(params[:id])
-    pairing.enabled = 0
-    pairing.save
+    pairing = Pairing.owner.destroy(params[:id])
+
     Job::UnpairMessage.new.push_device_id(pairing.device_id.to_s)
     redirect_to "/unpairing/success/" + pairing.device_id.to_s
   end
@@ -32,7 +31,7 @@ class UnpairingController < ApplicationController
     end
 
     def user_paired_with?(pairing_id)
-      Pairing.enabled.exists?({:id => pairing_id, :user_id => current_user.id})
+      Pairing.owner.exists?({:id => pairing_id, :user_id => current_user.id})
     end
 
     def error_action

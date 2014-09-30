@@ -29,7 +29,7 @@ Then(/^the user should login$/) do
   click_button I18n.t("labels.confirm")
 end
 
-Then(/^redirect to dashboard\/search devices page\.$/) do
+Then(/^redirect to dashboard\/search devices page$/) do
   expect(page.current_path).to eq("/discoverer/index")
 end
 

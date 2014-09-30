@@ -59,7 +59,15 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def push_to_queue_cancel(title, tag)
+      data = {job: "cancel", title: title, tag: tag}
+
+      sqs = AWS::SQS.new
+      queue = sqs.queues.create(Settings.environments.sqs.name)
+      queue.send_message(data.to_json)
+    end
+
     def paired?(device_id, user_id)
-      Pairing.enabled.exists?({:device_id => device_id, :user_id => user_id})
+      Pairing.owner.exists?({:device_id => device_id, :user_id => user_id})
     end
 end

@@ -89,5 +89,5 @@ def check_resetpwd_email(user_email)
 end
 
 def filled_in_email(email)
-  fill_in I18n.t("user.labels.email"), with: email
+  fill_in "user[email]", with: email
 end

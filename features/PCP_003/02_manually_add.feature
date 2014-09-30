@@ -33,3 +33,25 @@ Feature: [PCP_003_02] Manually Add
 	  When the user click "Submit" button
 
 	  Then the user will redirect to pairing check page
+
+  Scenario Outline:  [PCP_003_02_04]
+    Test each field length
+
+    When the user filled the device information over length limit
+      | Text field        | length limit           |
+      | mac_address       | 17                     |
+      | serial_number     | 100                    |
+
+    Then the user should see error message for over length limit on manually add page
+
+    Examples:
+     | Text field        |
+     | mac_address       |
+     | serial_number     |
+
+  Scenario:  [PCP_003_02_05]
+    Redirect to search devices page when user click cancel button in manually add page
+
+    When the user click "Cancel" link
+
+    Then redirect to dashboard/search devices page

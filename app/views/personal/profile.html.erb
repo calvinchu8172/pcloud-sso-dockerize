@@ -63,7 +63,7 @@
       <% end %>
     </table>
     <div class="zyxel_edm">
-      <%= check_box_tag "edm_accept", value = current_user.edm_accept, !current_user.edm_accept.zero?, disabled: true %>
+      <%= check_box_tag "edm_accept", value = current_user.edm_accept, current_user.edm_accept, disabled: true %>
       <label><span></span><%= I18n.t("user.labels.edm") %></label>
     </div>
 
