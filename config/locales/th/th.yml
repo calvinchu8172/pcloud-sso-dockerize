@@ -70,6 +70,7 @@ th:
         success: 'เลิกจับคู่อุปกรณ์สำเร็จแล้ว'
       pairing:
         instruction: ' คุณแน่ใจหรือไม่ว่าคุณต้องการการจับคู่กับอุปกรณ์นี้'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'การจับคู่เริ่มต้น '
           instruction_2: ' กรุณาคลิกที่ปุ่มจับคู่ของอุปกรณ์'
@@ -96,3 +97,4 @@ th:
         sync: ' การตั้งค่า UPnP กำลังซิงค์...'
         success: 'UPnP ตั้งค่าสำเร็จแล้ว'
         not_found: 'ไม่พบอุปกรณ์'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

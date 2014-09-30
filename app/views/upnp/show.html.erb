@@ -73,6 +73,9 @@
     <div class="waiting" ng-switch-when="failure">
       <span class="zyxel_span4"><%= I18n.t("warnings.settings.upnp.not_found") %></span>
     </div>
+    <div class="waiting" ng-switch-when="confirm_cancel">
+      <span class="zyxel_span4"><%= I18n.t("warnings.settings.upnp.cancel_instruction") %></span>
+    </div>
   </div>
   <%# Pairing information - end %>
 
@@ -80,6 +83,9 @@
   <div class="pairing-panel" ng-switch on="panel">
     <div ng-switch-when="loading">
       <div class="waiting"><%= image_tag 'loading.gif', size: "54x55" %></div>
+      <div class="zyxel_btn_area" ng-if="!submited">
+        <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+      </div>
     </div>
     <div ng-switch-when="retry" class="zyxel_btn_area">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
@@ -92,11 +98,14 @@
     <div ng-switch-when="confirm" class="zyxel_btn_area">
       <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok") %>
     </div>
+    <div ng-switch-when="confirm_cancel" class="zyxel_btn_area">
+      <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
+      <%= link_to(I18n.t("labels.confirm"), "/upnp/cancel/#{@upnp.id}", class: "zyxel_btn_ok zyxel_enabled") %>
+    </div>
   </div>
   <%# Bottom content include loading image and retry button - end %>
 </div>
 
-<!-- %= javascript_tag do % -->
 <script type="text/javascript">
   var upnp_app = angular.module('upnp_app', ['timer']);
   upnp_app.config([
@@ -110,7 +119,6 @@
   upnp_app.controller('UpnpCtrl', function ($scope, $http, $timeout) {
 
     $scope.session;
-    // $scope.service_list = [{"service_name":"null","status":false,"enabled":false,"description":"null"}];
     $scope.indexPath = '/upnp/';
     $scope.checkPath = '/upnp/check/';
     $scope.step = "updating";
@@ -122,6 +130,7 @@
     $scope.interval = 3500;
     $scope.pathIp;
     $scope.wording;
+    $scope.get_list = false;
     $scope.submited = false;
     $scope.service_url = "";
 
@@ -136,12 +145,15 @@
     $scope.loadConfig = function(){
 
       $timeout(function() {
-          $scope.loadTimes++;
-          $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
+        $scope.loadTimes++;
+        $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
           if('form' == response.status){
             $scope.pathIp = response.path_ip;
-            $scope.formPanel(response);
+            $scope.get_list = response;
+            if($scope.step != "confirm_cancel") {
+              $scope.formPanel(response);
+            }
             return;
           }
 
@@ -160,7 +172,7 @@
     };
 
     $scope.submit = function(){
-
+      $scope.submited = true;
       $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
         if(response.result){
           $scope.checkSubmit();
@@ -174,12 +186,27 @@
     $scope.retry = function(){
       $scope.init();
     };
+
+    $scope.cancel = function() {
+      $scope.step = "confirm_cancel";
+      $scope.panel = "confirm_cancel";
+    };
+
+    $scope.continue = function() {
+      if($scope.get_list.status == "form") {
+        $scope.formPanel($scope.get_list);
+      } else {
+        $scope.step = "updating";
+        $scope.panel = "loading";
+      }
+      $scope.get_list = false;
+    }
+
     $scope.bind_url = function(service,path, port){
       $scope.service_url = path.replace(/(\/\/+).*(:).*/, '$1' + $scope.pathIp + '$2' + port);
       return $scope.service_url;
     };
     $scope.checkSubmit = function(){
-
       $timeout(function() {
         $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
 
@@ -188,7 +215,6 @@
             $scope.successPanel();
             return;
           }else if('form' == response.status){
-            $scope.submited = true;
             $scope.formPanel(response);
             return;
           }
@@ -208,7 +234,7 @@
     };
 
     $scope.disableBtn = function(){
-      var allButton = document.getElementsByTagName("a");
+      var allButton = document.querySelectorAll("a:not(.zyxel_enabled)");
       for(var i=0; i<allButton.length; i++){
         var $thisBtn = allButton[i];
         var $thisUrl = $thisBtn.getAttribute('href');
@@ -239,16 +265,14 @@
     }
 
     $scope.enableBtn = function(){
-      var allButton = document.getElementsByTagName("a");
+      var allButton = document.querySelectorAll("a[data-href]:not(.zyxel_enabled)");
       for(var i=0; i<allButton.length; i++){
         var $thisBtn = allButton[i];
         var $dataUrl = $thisBtn.getAttribute('data-href');
-        if ($dataUrl){
-          $thisBtn.setAttribute('href', $dataUrl);
-        };
+        $thisBtn.setAttribute('href', $dataUrl);
       };
     };
 
   });
-  </script>
-  <!-- % end % -->
+</script>
+<!-- % end % -->

@@ -70,6 +70,7 @@ tr:
         success: 'Cihazın eşleştirmesi başarıyla kaldırıldı.'
       pairing:
         instruction: 'Bu cihazla eşleştirmek istediğinize emin misiniz?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Eşleştirme başlat, '
           instruction_2: 'lütfen cihazın eşleştirilmiş düğmesine tıklayın'
@@ -96,3 +97,4 @@ tr:
         sync: 'UPnP  ayarları eşitleniyor...'
         success: 'UPnP ayarları başarıyla eşitlendi.'
         not_found: 'Cihaz bulunamadı'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

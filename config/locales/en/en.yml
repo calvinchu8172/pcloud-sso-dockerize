@@ -70,6 +70,7 @@ en:
         success: 'Device was successfully unpaired.'
       pairing:
         instruction: 'Are you sure you want to pair with this device?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Pairing start, '
           instruction_2: 'please click on paired button of device within'
@@ -96,3 +97,4 @@ en:
         sync: 'Synchronizing UPnP settings...'
         success: 'UPnP settings have been successfully.'
         not_found: 'Device is not found'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

@@ -26,6 +26,19 @@ class PairingController < ApplicationController
     render :json => result
   end
 
+  def cancel
+    session_id = params[:id]
+    pairing = Device.find(session_id).pairing_session
+    unless pairing.all.empty?
+      pairing.bulk_set 'status' => "cancel"
+      pairing.clear
+      push_to_queue_cancel("pairing", session_id)
+      flash[:notice] = I18n.t("warnings.settings.pairing.canceled")
+    end
+
+    redirect_to controller: "discoverer", action: "index"
+  end
+
   private
 
   def check_timeout
@@ -41,7 +54,7 @@ class PairingController < ApplicationController
   end
 
   def connect_to_device
-    
+
     job_params = {:user_id => current_user.id,
                   :status => :start,
                   :start_expire_at => (Time.now() + 1.minutes).to_i}
@@ -49,12 +62,12 @@ class PairingController < ApplicationController
     @device.pairing_session.bulk_set(job_params)
     @device.pairing_session.expire(12.minutes.to_i)
 
-    @session = job_params 
+    @session = job_params
     AWS::SQS.new.queues.create(Settings.environments.sqs.name).send_message('{"job", "pairing", "device_id":"' + @device.id.to_s + '"}')
     @device.pairing_session.bulk_set job_params
     logger.info("connect to device session:" + @session.inspect)
   end
-  
+
   def init_session
     if @session.empty? || !Device.handling_status.include?(@session['status'])
       logger.debug('init session:' + @session.inspect);
