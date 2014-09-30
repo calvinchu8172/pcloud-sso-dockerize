@@ -57,23 +57,6 @@ class User < ActiveRecord::Base
 
   end
 
-  def change_locale!(new_locale)
-    new_locale = new_locale.to_s
-    if self.language != new_locale
-      self.language = new_locale
-      # self.save
-    end
-  end
-
-  def change_locale!(new_locale)
-    new_locale = new_locale.to_s
-    if self.language != new_locale
-      self.language = new_locale
-      self.save
-    end
-  end
-
-
   private
     def add_default_display_name
       if self.display_name.blank?

@@ -17,7 +17,6 @@ module Locale
     locale = I18n.default_locale unless locale
 
     if locale
-      current_user.change_locale!(locale.to_s) if user_signed_in?
       cookies[:locale] = locale.to_s
       I18n.locale = locale
     end

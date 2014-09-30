@@ -260,4 +260,9 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = CustomFailure
   end
+
+  # Update user language when user sign in
+  Warden::Manager.after_authentication do |user,auth,opts|
+    user.update_attribute(:language, I18n.locale)
+  end
 end
