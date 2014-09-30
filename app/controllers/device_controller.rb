@@ -98,14 +98,16 @@ class DeviceController < ApplicationController
     account[:name] = @device.session.fetch :xmpp_account || generate_new_username
 
     if(@device.device_session.nil?)
-      apply_new_account account
-      logger.info('create new xmpp account:' + account[:name]);
+      # connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
+      @account = {:name => generate_new_username, :password => generate_new_passoword}
+      logger.info('create new xmpp account:' + @account[:name])
     else
-      apply_new_password account
-      logger.info('change password for account:' + account[:name]);
+      # connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
+      @account = {:name => @device.device_session.xmpp_account, :password => generate_new_passoword}
+      logger.info('change password for account:' + @account[:name])
     end
 
-    account
+    apply_for_xmpp_account
   end
 
   def connect_to_xmpp (username, password)
@@ -122,7 +124,17 @@ class DeviceController < ApplicationController
     params.permit(:mac_address, :serial_number, :model_name, :firmware_version);
   end
 
+<<<<<<< HEAD
   def apply_new_account account
+=======
+  def apply_for_xmpp_account
+    xmpp_user = XmppUser.find_or_initialize_by(username: @account[:name])
+    xmpp_user.password = @account[:password]
+    xmpp_user.save
+  end
+
+  def apply_new_account
+>>>>>>> feature/opswork
 
     iq = Jabber::Iq.new(:set)
     iq.id= "a" + generate_new_passoword

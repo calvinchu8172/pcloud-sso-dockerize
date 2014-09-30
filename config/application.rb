@@ -13,7 +13,8 @@ include Log4r
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-APP_CONFIG = YAML.load_file('config/oauth_env_variable.yml')[Rails.env] rescue {}
+# APP_CONFIG = YAML.load_file('config/oauth_env_variable.yml')[Rails.env] rescue {}
+# APP_CONFIG = Settings.oauth
 module Pcloud
   class Application < Rails::Application
 

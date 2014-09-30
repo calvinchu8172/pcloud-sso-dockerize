@@ -17,10 +17,9 @@ xmpp:
     - bot08@localhost
   nodes:
     - 172.31.25.84
-    - 172.31.25.84
-    - 172.31.25.84
-    - 172.31.25.84
 environments:
+  api_domain: 'api_alpha.pcloud.ecoworkinc.com'
+  portal_domain: 'pcloud.dev'
   paperclip:
     default:
       storage: :s3
@@ -40,6 +39,7 @@ environments:
       secret_access_key: 'CzT3ufnkS85CfbPEF/3Z5n2B7TWmTS8Bbw+9VX1Q'
       region: 'us-west-2'
   ddns: pcloud.ecoworkinc.com
+  cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   filter_list:
     - api
     - www
@@ -53,21 +53,11 @@ environments:
     - support
     - service
     - services
-
-  log4r_config:
-    loggers:
-      - name          : mycloud
-        level         : DEBUG
-        trace         : 'true'
-        outputters    :
-        - datefile
-
-    outputters:
-    - type: DateFileOutputter
-      name: datefile
-      dirname: "log"
-      filename: "mycloud.log"
-      formatter:
-        date_pattern: '%H:%M:%S'
-        pattern     : '%d %l: %m'
-        type        : PatternFormatter
+oauth:
+  facebook_app_id: 678292992243317
+  facebook_secret: 386ec08a3d700466bac2c66641c71e4b
+  google_app_id: 14580324123-25ourkvv3ppvh4c1uph5gacjj6lq7q51.apps.googleusercontent.com
+  google_secret: XXG2i7MwFpRvOn6hd4gg9nWv
+recaptcha:
+  config.public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
+  config.private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
