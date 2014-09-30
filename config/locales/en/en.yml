@@ -2,7 +2,7 @@ en:
   labels:
     language: "Language"
     forgot_password: 'Forgot My Password'
-    resend_confirmation: 'Resend Confirmation'
+    resend_confirmation: 'Resend'
     sign_in: 'Sign in'
     sign_out: 'Log Out'
     sign_up: 'Sign Up'
