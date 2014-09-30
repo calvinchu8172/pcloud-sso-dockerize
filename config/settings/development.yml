@@ -1,5 +1,5 @@
 magic_number: 890980
-version: V.B.20140919_01
+version: V.B.20140919_02
 xmpp:
   server: localhost
   device_rescource_id: device
@@ -18,6 +18,8 @@ xmpp:
   nodes:
     - 172.31.25.84
 environments:
+  api_domain: 'api_alpha.pcloud.ecoworkinc.com'
+  portal_domain: 'pcloud.dev'
   paperclip:
     default:
       storage: :s3
@@ -37,6 +39,7 @@ environments:
       secret_access_key: 'CzT3ufnkS85CfbPEF/3Z5n2B7TWmTS8Bbw+9VX1Q'
       region: 'us-west-2'
   ddns: pcloud.ecoworkinc.com
+  cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   filter_list:
     - api
     - www
