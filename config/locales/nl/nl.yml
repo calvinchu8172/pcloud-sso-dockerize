@@ -70,6 +70,7 @@ nl:
         success: 'Apparaat was succesvol ontkoppeld.'
       pairing:
         instruction: 'Bent u zeker dat u wilt koppelen met dit apparaat?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Koppelen is gestart'
           instruction_2: 'klikt u op de knop van het gekoppelde apparaat binnen'
@@ -96,3 +97,4 @@ nl:
         sync: 'Synchroniseren UPnP instellingen...'
         success: 'UPnP-instellingen zijn succesvol geweest.'
         not_found: 'Apparaat wordt niet gevonden'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

@@ -8,7 +8,7 @@
     <table class="zyxel_table_style3">
 
       <%# check paired devices %>
-      <% if @paired %>
+      <% unless @pairing.empty? %>
 
         <%# show all paired devices %>
         <% @pairing.each do |pairing| %>

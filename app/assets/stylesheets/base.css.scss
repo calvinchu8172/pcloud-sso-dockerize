@@ -387,10 +387,22 @@ body {
   text-align: center;
   margin: 45px 0;
 }
+// For multi buttons in i18n issue
+.zyxel_btn_area.i18n_fix{
+  display: table;
+  margin: 30px auto;
+  width:315px;
+  border-spacing: 6px; // For self button's margin value
+  .zyxel_btn_ok, .zyxel_resend_btn, .zyxel_btn_back, .zyxel_btn_submit{
+    display: table-cell;
+    padding: 11px 0 13px 0;
+    width:45%;
+    min-width: 140px;
+    vertical-align: middle;
+  }
+}
 .zyxel_btn_back {
   background-color: #a3a3a3;
-  width: 45%;
-  max-width: 140px;
   color: $zyxel_white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -398,13 +410,10 @@ body {
   border: none;
   outline: none;
   font-size: 15px;
-  display: inline-block;
-  padding: 11px 0 13px 0;
   transition: background-color .3s;
   -webkit-transition: background-color .3s; /* Chrome & safari */
   -moz-transition: background-color .3s; /* firefox */
   -o-transition: background-color .3s;
-  margin: 0 3px;
 }
 .zyxel_btn_back:hover {
   text-decoration:none;
@@ -413,9 +422,6 @@ body {
 }
 .zyxel_btn_submit {
   background-color: $zyxel_color4;
-  width: 45%;
-  max-width: 140px;
-  height: 45px;
   color: $zyxel_white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -427,17 +433,11 @@ body {
   -webkit-transition: background-color .3s; /* Chrome & safari */
   -moz-transition: background-color .3s; /* firefox */
   -o-transition: background-color .3s;
-  margin: 0 3px;
 }
 .zyxel_btn_submit:hover {
   text-decoration:none;
   color:$zyxel_white;
   background-color:$zyxel_color1;
-}
-// changed
-.zyxel_resend_btn {
-  display: inline-block;
-  vertical-align: bottom;
 }
 
 .zyxel_btn_submit_gray {
@@ -464,9 +464,12 @@ body {
   background-color:#909090;
 }
 .zyxel_btn_ok {
-  background-color: $zyxel_color4;
-  width: 45%;
+  display: inline-block;
+  margin: 0 3px;
+  padding: 11px 0 13px 0;
+  width:45%;
   max-width: 140px;
+  vertical-align: middle;
   color: $zyxel_white;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -474,13 +477,11 @@ body {
   border: none;
   outline: none;
   font-size: 15px;
-  display: inline-block;
-  padding: 11px 0 13px 0;
+  background-color: $zyxel_color4;
   transition: background-color .3s;
   -webkit-transition: background-color .3s; /* Chrome & safari */
   -moz-transition: background-color .3s; /* firefox */
   -o-transition: background-color .3s;
-  margin: 0 3px;
 }
 .zyxel_btn_ok:hover {
   text-decoration:none;
@@ -733,27 +734,19 @@ body {
   border-top-style: solid;
   border-top-color: $zyxel_color3;
   padding-top: 14px;
-  overflow: hidden;
-}
-.login_footer a {
-  width: 50%;
-  float: left;
-  border-right-width: 1px;
-  border-right-style: solid;
-  border-right-color: $zyxel_color3;
-  /* [disabled]text-align:center; */
-  display:inline-block;
-  padding: 3px 15px;
-  text-decoration: none;
 }
 .login_footer a span{
+  display: inline-block;
+  width: 175px;
+  margin: -25px 0px 0px;
+  padding: 0 0 0 35px;
   font-size: 14px;
   color: $zyxel_color2;
   background-repeat: no-repeat;
   background-position: 7px center;
-  padding-left: 35px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow : ellipsis;
   ransition: color .3s;
   -webkit-transition: color .3s; /* Chrome & safari */
   -moz-transition: color .3s; /* firefox */
@@ -762,11 +755,39 @@ body {
 .login_footer a span:hover {
   color: $zyxel_color4;
 }
-.login_footer_forgot {
-  background-image: image-url("forgot_password.png");
+.sign_up_wrap, .forgot_password_wrap{
+  display: inline-block;
+  position: relative;
+  padding:3px 15px;
+  width: 50%;
+  > a:hover + .hover_pop{
+    visibility: visible;
+  }
 }
-.login_footer_account {
-  background-image: image-url("get_account.png");
+.forgot_password_wrap{
+  float: left;
+  border-right: 1px solid $zyxel_color3;
+  .login_footer_forgot {
+    background-image: image-url("forgot_password.png");
+  }
+}
+.sign_up_wrap{
+  .login_footer_account {
+    background-image: image-url("get_account.png");
+  }
+}
+.hover_pop{
+  visibility: hidden;
+  position: absolute;
+  text-align: center;
+  font-size: 15px;
+  color: $zyxel_color4 !important;
+  background:white;
+  border:1px solid $zyxel_color3 !important;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px 10px !important;
 }
 .input_style1  {
   border: 1px solid $zyxel_color3;

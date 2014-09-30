@@ -20,7 +20,7 @@ When(/^the device was not connection$/) do
 	pairing_session_behavior(@pairing_session, "offline")
 end
 
-When(/^the user didn't click on the copy button of device within (\d+) minutes$/) do |arg1|
+When(/^the user did not click on the copy button of device within (\d+) minutes$/) do |arg1|
   pairing_session_behavior(@pairing_session, "failure")
 end
 

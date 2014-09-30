@@ -8,17 +8,17 @@ Feature: [PCP_001_01] Sign Up
 
     Given the visitor agreed the terms of use
     And the visitor filled the captcha correctly
-    And the visitor filled the invalid "Email" <Email>
+    And the visitor filled the invalid "E-mail" <E-mail>
     And the visitor filled the user information:
       | Password                | 12345678    |
       | Confirm Password        | 12345678    |
 
     When the visitor click "Sign Up" button
 
-    Then the visitor should see an error message for "Email"
+    Then the visitor should see an error message for "email"
 
     Examples:
-      | Email                 |
+      | E-mail                |
       |                       |
       | personal              |
       | personal@             |
@@ -31,7 +31,7 @@ Feature: [PCP_001_01] Sign Up
     And the visitor agreed the terms of use
     And the visitor filled the captcha correctly
     And the visitor filled the user information:
-      | Email                   | personal@example.com |
+      | E-mail                  | personal@example.com |
       | Password                | 12345678             |
       | Confirm Password        | 12345678             |
 
@@ -47,7 +47,7 @@ Feature: [PCP_001_01] Sign Up
     And the visitor filled the invalid "Password" <Password>
     And the visitor filled the invalid "Confirm Password" <Password>
     And the visitor filled the user information:
-      | Email | personal@example.com  |
+      | E-mail | personal@example.com  |
 
     When the visitor click "Sign Up" button
 
@@ -65,7 +65,7 @@ Feature: [PCP_001_01] Sign Up
     Given the visitor agreed the terms of use
     And the visitor filled the captcha correctly
     And the visitor filled the user information:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | password               |
 
@@ -79,7 +79,7 @@ Feature: [PCP_001_01] Sign Up
     Given the visitor agreed the terms of use
     And the visitor filled the captcha incorrectly
     And the visitor filled the user information:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -92,7 +92,7 @@ Feature: [PCP_001_01] Sign Up
 
     Given the visitor filled the captcha correctly
     And the visitor filled the user information:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -105,7 +105,7 @@ Feature: [PCP_001_01] Sign Up
 
     Given the visitor agreed the terms of use
     And the visitor filled all the required fields:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -119,7 +119,7 @@ Feature: [PCP_001_01] Sign Up
     In registration successfully page, should have resend confirm email link and confirm button
 
     When the visitor success sign up an account:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -130,7 +130,7 @@ Feature: [PCP_001_01] Sign Up
     Auto login after confirmed and redirect to confirmed page
 
     When the visitor success sign up an account:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -145,3 +145,37 @@ Feature: [PCP_001_01] Sign Up
     When user click the confirm button
 
     Then user will auto login and redirect to dashboard
+
+
+  Scenario: [PCP_001_01_10]
+    Redirect to login page when user click cancel button in sign up page
+
+    When user click the cancel button
+
+    Then the page will redirect to login page
+
+  Scenario Outline: [PCP_001_01_11]
+    Test each field length
+
+    When the user filled the user information over length limit
+      | Text field        | length limit           |
+      | E-mail            | 255                    |
+      | Password          | 14                     |
+      | Display as        | 255                    |
+      | First Name        | 255                    |
+      | Middle Name       | 255                    |
+      | Last Name         | 255                    |
+      | Mobile Number     | 40                     |
+
+    Then the user should see error message for over length limit
+
+    Examples:
+      | Text field        |
+      | E-mail            |
+      | Password          |
+      | Display as        |
+      | First Name        |
+      | Middle Name       |
+      | Last Name         |
+      | Mobile Number     |
+

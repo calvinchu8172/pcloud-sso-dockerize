@@ -14,7 +14,7 @@ end
 
 When(/^the device was offline$/) do
   set_upnp_status(@upnp_session, "failure")
-  sleep 500
+  sleep 700
 end
 
 When(/^the device was online the device will response service list$/) do
@@ -37,11 +37,12 @@ When(/^the device was online the device will response service list$/) do
                     "port":"80",
                     "path":"http://wanip:port"}]'
   set_upnp_status(@upnp_session, "form", service_list)
+  wait_server_response
 end
 
 When(/^the services was success updated$/) do
-  set_upnp_status(@upnp_session, "updated")
   wait_server_response
+  set_upnp_status(@upnp_session, "updated")
 end
 
 Then(/^the user should see "(.*?)" message on UPnP setup page$/) do |msg|

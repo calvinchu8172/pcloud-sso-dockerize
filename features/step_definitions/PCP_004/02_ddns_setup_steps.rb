@@ -22,11 +22,13 @@ Given(/^the user filled the exist Hostname$/) do
 end
 
 When(/^the server update DDNS setting failed$/) do
+	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
 	set_ddns_session(@ddns_session, "failure")
 end
 
 When(/^the server update DDNS setting successfully$/) do
+	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
 	set_ddns_session(@ddns_session,"success")
 end

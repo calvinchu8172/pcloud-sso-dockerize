@@ -35,7 +35,7 @@ Feature: [PCP_001_02] Reset Password
     And the user click "Submit" button
     Then the user should receive an reset password email
 
-  Scenario: [PCP_001_02_05] 
+  Scenario: [PCP_001_02_05]
     Show error messages when password and confirm password was different
 
     When the user finish reset password with "personal@example.com"
@@ -52,3 +52,15 @@ Feature: [PCP_001_02] Reset Password
     And the user fill in password New:"password1", Confirm:"password1" and submit
     Then the user will redirect to reset password success page
 
+  Scenario Outline: [PCP_001_02_08]
+    Test each field length
+
+    When the user filled the user information over length limit
+      | Text field        | length limit           |
+      | E-mail            | 255                    |
+
+    Then the user should see error message for over length limit
+
+    Examples:
+      | Text field        |
+      | E-mail            |

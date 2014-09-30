@@ -3,17 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
+
+  include Locale
   before_filter :set_locale
+
   before_filter :setup_log_context
   after_action :store_location
 
   protected
-
-    # def log4r_context
-    #   ctx = Log4r::MDC.get_context.collect {|k, v| k.to_s + "=" + v.to_s }.join(" ")
-    #   ctx.gsub!('%', '%%') # escape out embedded %'s so pattern formatter doesn't get confused
-    #   return ctx
-    # end
 
     def setup_log_context
       Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
@@ -39,40 +36,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    # i18n setting
-    def set_locale
-
-      # Check current locale
-      locale = if params[:locale]
-                 params[:locale].to_sym if I18n.available_locales.include?(params[:locale].to_sym)
-               # Return cookie if user change languag before
-               elsif cookies[:locale]
-                 cookies[:locale].to_sym if I18n.available_locales.include?(cookies[:locale].to_sym)
-               # Return browser languages if user have't cookie before
-               elsif request.env['HTTP_ACCEPT_LANGUAGE']
-                get_browser_locale(request.env['HTTP_ACCEPT_LANGUAGE'])
-               end
-
-      # Set default locale if system can't support current language
-      locale = I18n.available_locales.first unless locale
-
-      # Set to system
-      if locale
-        current_user.change_locale!(locale.to_s) if user_signed_in?
-        cookies[:locale] = locale.to_s
-        I18n.locale = locale
-      end
-
-      # language select option
-      @locale_options = { :English => 'en',
-                          :Deutsch => 'de',
-                          :Nederlands => 'nl',
-                          :"正體中文" => "zh-TW",
-                          :"ไทย" => 'th',
-                          :"Türkçe" => 'tr'}
-    end
-    # i18n setting - end
-
     # Redirect back to current page after sign in
     def store_location
       return unless request.get?
@@ -96,8 +59,16 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def push_to_queue_cancel(title, tag)
+      data = {job: "cancel", title: title, tag: tag}
+
+      sqs = AWS::SQS.new
+      queue = sqs.queues.create(Settings.environments.sqs.name)
+      queue.send_message(data.to_json)
+    end
+
     def paired?(device_id, user_id)
-      Pairing.enabled.exists?({:device_id => device_id, :user_id => user_id})
+      Pairing.owner.exists?({:device_id => device_id, :user_id => user_id})
     end
 
     # Split browser locales array and find first support language

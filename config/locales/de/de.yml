@@ -70,6 +70,7 @@ de:
         success: 'Gerät erfolgreich getrennt.'
       pairing:
         instruction: 'Sind Sie sicher das Sie dieses Gerät verbinden möchten?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Verbinden gestartet, '
           instruction_2: 'bitte klicken Sie auf den Verbinden Button im Gerät innerhalb von'
@@ -96,3 +97,4 @@ de:
         sync: 'UPnP Einstellungen synchronisieren...'
         success: 'UPnP Einstellungen wurden erfolgreich synchronisiert.'
         not_found: 'Gerät nicht gefunden'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'
