@@ -124,76 +124,10 @@ class DeviceController < ApplicationController
     params.permit(:mac_address, :serial_number, :model_name, :firmware_version);
   end
 
-<<<<<<< HEAD
-  def apply_new_account account
-=======
   def apply_for_xmpp_account
     xmpp_user = XmppUser.find_or_initialize_by(username: @account[:name])
     xmpp_user.password = @account[:password]
     xmpp_user.save
-  end
-
-  def apply_new_account
->>>>>>> feature/opswork
-
-    iq = Jabber::Iq.new(:set)
-    iq.id= "a" + generate_new_passoword
-    iq.to = Settings.xmpp.server
-    iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
-
-    command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#add-user')
-
-    x = Jabber::Dataforms::XData.new(:submit)
-    command.add(x)
-
-    form_type_field = Jabber::Dataforms::XDataField.new("FORM_TYPE", :hidden)
-    form_type_field.value = 'http://jabber.org/protocol/admin'
-    x.add(form_type_field)
-
-    account_field = Jabber::Dataforms::XDataField.new("accountjid", "jid-single")
-    account_field.value = account[:name] + '@' + Settings.xmpp.server
-    x.add(account_field)
-
-    passowrd_field = Jabber::Dataforms::XDataField.new("password", "text-private")
-    passowrd_field.value = account[:password]
-    x.add(passowrd_field)
-
-    passowrd_verify_field = Jabber::Dataforms::XDataField.new("password-verify", "text-private")
-    passowrd_verify_field.value = account[:password]
-    x.add(passowrd_verify_field)
-
-    iq.add(command)
-    logger.debug('apply_new_account:' + iq.to_s);
-    post_to_xmpp_server iq.to_s
-  end
-
-  def apply_new_password
-
-    iq = Jabber::Iq.new(:set)
-    iq.id= "a" + generate_new_passoword
-    iq.to = Settings.xmpp.server
-    iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
-
-    command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#change-user-password')
-
-    x = Jabber::Dataforms::XData.new(:submit)
-    command.add(x)
-
-    form_type_field = Jabber::Dataforms::XDataField.new("FORM_TYPE", :hidden)
-    form_type_field.value = 'http://jabber.org/protocol/admin'
-    x.add(form_type_field)
-
-    account_field = Jabber::Dataforms::XDataField.new("accountjid", "jid-single")
-    account_field.value = account[:name] + '@' + Settings.xmpp.server
-    x.add(account_field)
-
-    passowrd_field = Jabber::Dataforms::XDataField.new("password", "text-private")
-    passowrd_field.value = account[:password]
-    x.add(passowrd_field)
-
-    iq.add(command)
-    logger.debug('apply_new_password:' + iq.to_s);
-    post_to_xmpp_server iq.to_s
   end
 
   def post_to_xmpp_server(content)
