@@ -7,35 +7,35 @@ Feature: [PCP_004_04] Unpairing
 	Scenario:  [PCP_004_04_01]
 	  Show warning message and device information
 
-	  Then the user should see "Are you sure" message on unpairing page
+	  Then the user should see confirm message on unpairing confirm page
 
 	Scenario:  [PCP_004_04_02]
-	  Show unpairing message
+    Redirect to My Devices page when user have other devices after unpairing
 
 	  When the user click "Confirm" link
 
-	  Then the user should see "successfully unpaired" message on unpairing page
+    Then the user will redirect to success page
+	  And the user should see success message
+    And the record of pairing should be removed
+
+    When the user have other devices
+    And the user click "Confirm" link
+
+    Then the user will redirect to My Devices page
 
 	Scenario:  [PCP_004_04_03]
-		Redirect to dashboard page when user click cancel button on unpairing page
+    Redirect to search devices page when user have not other devices after unpairing
 
-		When the user click "Cancel" link
+    Given the user successfully unpair device
 
-		Then the user will redirect to dashboard page
+    When the user have not other devices
+    And the user click "Confirm" link
 
-	Scenario:  [PCP_004_04_04]
-		Redirect to search devices page when user unpairing the device is existed
+    Then the user will redirect to Search Device page
 
-		When the device is unpaired and the device is existed
+  Scenario:  [PCP_004_04_04]
+    Redirect to My Devices page when user click cancel button on unpairing page
 
-		Then the user will redirect to search devices page
-		And the user should see the device in search devices page
+    When the user click "Cancel" link
 
-  Scenario:  [PCP_004_04_05]
-  	Redirect to search devices page when user unpairing the device is not existed
-
-  	When the device is unpaired and the device is not existed
-
-  	Then the user will redirect search devices page
-  	And the user should not see the device in search devices page
-
+    Then the user will redirect to My Devices page
