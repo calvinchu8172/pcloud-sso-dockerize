@@ -39,5 +39,5 @@ Rails.application.configure do
   config.paperclip_defaults = Settings.environments.paperclip.default
 
   # Access to rack session
-  config.middleware.use RackSessionAccess::Middleware
+  # config.middleware.use RackSessionAccess::Middleware
 end
