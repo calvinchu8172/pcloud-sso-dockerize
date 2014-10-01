@@ -6,6 +6,7 @@ end
 
 Given(/^the page will waiting for connection with device$/) do
   @upnp_session = get_upnp_session
+  puts @upnp_session
 end
 
 Given(/^the user changed UPnP setting$/) do
@@ -18,24 +19,24 @@ When(/^the device was offline$/) do
 end
 
 When(/^the device was online the device will response service list$/) do
-  service_list = '[{"service_name":"FTP",
-                    "status":true,
-                    "enabled":true,
-                    "description":"FTP configuration",
-                    "port":"22",
-                    "path":"ftp://wanip:port"},
-                   {"service_name":"DDNS",
-                    "status":true,
-                    "enabled":false,
-                    "description":"DDNS configuration",
-                    "port":"",
-                    "path":""},
-                   {"service_name":"HTTP",
-                    "status":true,
-                    "enabled":false,
-                    "description":"HTTP configuration",
-                    "port":"80",
-                    "path":"http://wanip:port"}]'
+  service_list = ('[{"service_name":"FTP",
+                     "status":true,
+                     "enabled":true,
+                     "description":"FTP configuration",
+                     "port":"22",
+                     "path":"ftp://wanip:port"},
+                    {"service_name":"DDNS",
+                     "status":true,
+                     "enabled":false,
+                     "description":"DDNS configuration",
+                     "port":"",
+                     "path":""},
+                    {"service_name":"HTTP",
+                     "status":true,
+                     "enabled":false,
+                     "description":"HTTP configuration",
+                     "port":"80",
+                     "path":"http://wanip:port"}]').gsub("\n", "")
   set_upnp_status(@upnp_session, "form", service_list)
   wait_server_response
 end
@@ -45,8 +46,32 @@ When(/^the services was success updated$/) do
   set_upnp_status(@upnp_session, "updated")
 end
 
+When(/^the user want to click link without cancel$/) do
+  find("h1.header_h1_rwd > a").click
+  find("a.member").click
+  find("a.sign_out").click
+  find("a.btn_tab_color1").click
+  find("a.btn_tab_color2").click
+end
+
+Then(/^it should not do anything$/) do
+  expect(page).to have_content I18n.t("warnings.settings.upnp.sync")
+end
+
 Then(/^the user should see "(.*?)" message on UPnP setup page$/) do |msg|
   expect(page).to have_content(msg)
+end
+
+Then(/^the user will see the confirm message about cancel$/) do
+  expect(page).to have_content I18n.t("warnings.settings.upnp.cancel_instruction")
+end
+
+Then(/^the user will redirect to My Devices page after cancel$/) do
+  expect(page.current_path).to eq authenticated_root_path
+end
+
+Then(/^the user will go back to setup flow$/) do
+  expect(page).to have_content I18n.t("warnings.settings.upnp.sync")
 end
 
 Then(/^the user should see service list$/) do
@@ -58,13 +83,15 @@ Then(/^the user should see service list$/) do
 end
 
 def get_upnp_session
-  upnp_session = UpnpSession.where("device_id = ? and user_id = ?", @pairing.device_id, @user.id).last
+  redis = Redis.new
+  @session_index = redis.GET("upnp:session:index")
+  UpnpSession.find(@session_index).session.all
 end
 
 def set_upnp_status(upnp_session, status, service_list = "")
-  upnp_session.status = status
-  upnp_session.service_list = service_list
-  upnp_session.save
+  upnp_session['status'] = status
+  upnp_session['service_list'] = service_list
+  UpnpSession.find(@session_index).session.update(upnp_session)
   wait_server_response
   upnp_session
 end
