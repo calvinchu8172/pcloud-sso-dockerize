@@ -61,3 +61,6 @@ oauth:
 recaptcha:
   config.public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
   config.private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
+redis:
+  host: '127.0.0.1'
+  port: 6379

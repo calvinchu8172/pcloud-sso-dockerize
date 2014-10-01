@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20140905063942) do
-=======
 ActiveRecord::Schema.define(version: 20140917094430) do
->>>>>>> 9dbc512b08d591ee781b198c5487ca15f614965a
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
