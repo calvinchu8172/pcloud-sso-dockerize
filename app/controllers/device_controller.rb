@@ -130,13 +130,6 @@ class DeviceController < ApplicationController
     xmpp_user.save
   end
 
-  def post_to_xmpp_server(content)
-    url = 'http://'  + Settings.xmpp.nodes[0] + ':5280/rest/'
-    logger.info('post to: ' + url)
-    result = RestClient.post(url, content)
-    logger.debug('post to xmpp server result:' + result.to_s);
-  end
-
   # 用Mac Address 和 序號的英數產生
   def generate_new_username
     'd' + @device.mac_address.gsub(':', '-') + '-' + @device.serial_number.gsub(/([^\w])/, '-')
