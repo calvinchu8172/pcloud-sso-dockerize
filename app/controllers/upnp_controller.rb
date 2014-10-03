@@ -74,7 +74,7 @@ class UpnpController < ApplicationController
     unless session.empty?
       session['status'] = "cancel"
       @upnp.session.update(session)
-      push_to_queue_cancel("upnp", @upnp.id)
+      push_to_queue_cancel("get_upnp_service", @upnp.id)
     end
 
     redirect_to :authenticated_root
