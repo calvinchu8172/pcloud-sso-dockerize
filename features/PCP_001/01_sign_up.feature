@@ -57,7 +57,6 @@ Feature: [PCP_001_01] Sign Up
       | Password            |
       |                     |
       | pass                |
-      | password1234567890  |
 
   Scenario: [PCP_001_01_04]
     Show error messages when password and confirm password was different
@@ -124,7 +123,7 @@ Feature: [PCP_001_01] Sign Up
       | Confirm Password  | 12345678               |
 
     Then the page will redirect to success page
-    And the new user should see "Resend Confirmation" and "Confirm" button
+    And the new user should see "Resend" and "Confirm" button
 
   Scenario: [PCP_001_01_09]
     Auto login after confirmed and redirect to confirmed page
@@ -146,36 +145,10 @@ Feature: [PCP_001_01] Sign Up
 
     Then user will auto login and redirect to dashboard
 
-
   Scenario: [PCP_001_01_10]
     Redirect to login page when user click cancel button in sign up page
 
-    When user click the cancel button
+    When the user click "Cancel" link
 
     Then the page will redirect to login page
-
-  Scenario Outline: [PCP_001_01_11]
-    Test each field length
-
-    When the user filled the user information over length limit
-      | Text field        | length limit           |
-      | E-mail            | 255                    |
-      | Password          | 14                     |
-      | Display as        | 255                    |
-      | First Name        | 255                    |
-      | Middle Name       | 255                    |
-      | Last Name         | 255                    |
-      | Mobile Number     | 40                     |
-
-    Then the user should see error message for over length limit
-
-    Examples:
-      | Text field        |
-      | E-mail            |
-      | Password          |
-      | Display as        |
-      | First Name        |
-      | Middle Name       |
-      | Last Name         |
-      | Mobile Number     |
 
