@@ -19,7 +19,7 @@
     <div class="bottom-content" ng-switch on="panel">
         <div class="countdown" ng-switch-when="loading">
           <%= image_tag 'loading.gif' %>
-          <div class="zyxel_btn_area">
+          <div class="zyxel_btn_area i18n_fix">
             <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
           </div>
         </div>

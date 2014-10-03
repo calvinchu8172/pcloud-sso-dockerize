@@ -83,7 +83,7 @@
   <div class="pairing-panel" ng-switch on="panel">
     <div ng-switch-when="loading">
       <div class="waiting"><%= image_tag 'loading.gif', size: "54x55" %></div>
-      <div class="zyxel_btn_area" ng-if="!submited">
+      <div class="zyxel_btn_area i18n_fix" ng-if="!submited">
         <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
       </div>
     </div>
@@ -98,7 +98,7 @@
     <div ng-switch-when="confirm" class="zyxel_btn_area">
       <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok") %>
     </div>
-    <div ng-switch-when="confirm_cancel" class="zyxel_btn_area">
+    <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
       <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
       <%= link_to(I18n.t("labels.confirm"), "/upnp/cancel/#{@upnp.id}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
