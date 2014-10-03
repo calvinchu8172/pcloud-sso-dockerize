@@ -47,7 +47,7 @@ class Job
   end
 
   def get_queue
-  	@queue = AWS::SQS.new.queues.create(Settings.environments.sqs.name) if @queue.nil?
+  	@queue = AWS::SQS.new.queues.named(Settings.environments.sqs.name) if @queue.nil?
   	return @queue
   end
 
