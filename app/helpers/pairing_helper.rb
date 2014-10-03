@@ -25,8 +25,8 @@ module PairingHelper
 
     if !device_registered?(device_id)
       render :json => {:id => device_id, :status => 'not registered device'}
-    elsif paired?(device_id)
-      render :json => {:id => device_id, :status => 'device is paired'}
+    # elsif paired?(device_id)
+    #   render :json => {:id => device_id, :status => 'device is paired'}
     end
 
     @device = Device.find(device_id)
