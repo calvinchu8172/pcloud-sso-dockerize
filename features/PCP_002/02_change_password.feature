@@ -19,28 +19,9 @@ Feature: [PCP_002_02] Change Password
     And the user click submit for change password
     Then the user will get success message from change password
 
-  Scenario Outline: [PCP_002_02_03]
-    Test each field length
+   Scenario: [PCP_002_02_04]
+    Redirect to profile page when user click cancel button in change password page
 
-    When the user filled the user information over length limit
-      | Text field        | length limit           |
-      | E-mail            | 255                    |
-      | Password          | 14                     |
-      | Display as        | 255                    |
-      | First Name        | 255                    |
-      | Middle Name       | 255                    |
-      | Last Name         | 255                    |
-      | Mobile Number     | 40                     |
+    When the user click "Cancel" link
 
-    Then the user should see error message for over length limit
-
-    Examples:
-      | Text field        |
-      | E-mail            |
-      | Password          |
-      | Display as        |
-      | First Name        |
-      | Middle Name       |
-      | Last Name         |
-      | Mobile Number     |
-
+    Then the page will redirect to profile page
