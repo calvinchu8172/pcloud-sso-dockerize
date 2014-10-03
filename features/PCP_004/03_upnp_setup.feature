@@ -69,4 +69,4 @@ Feature: [PCP_004_03] UPnP Setup
 
 		When the user want to click link without cancel
 
-		Then it should not do anything
+		Then it should not do anything on UPnP setup page

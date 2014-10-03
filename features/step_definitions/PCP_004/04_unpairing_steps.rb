@@ -34,10 +34,6 @@ Then(/^the user will redirect to success page$/) do
   expect(page.current_path).to eq "/unpairing/success/#{@pairing.device_id}"
 end
 
-Then(/^the user will redirect to My Devices page$/) do
-  expect(page.current_path).to eq "/personal/index"
-end
-
 Then(/^the user will redirect to Search Device page$/) do
   expect(page.current_path).to eq "/discoverer/index"
 end

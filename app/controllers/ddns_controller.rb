@@ -20,7 +20,7 @@ class DdnsController < ApplicationController
     @device = Device.find @ddns_session['device_id']
     # If this device is first paired, the confirm link should goto upnp setting page
     if session[:first_pairing]
-      @link_path = upnp_path(@ddns.session.find('device_id'))
+      @link_path = upnp_path(@device)
       session[:first_pairing] = false
     else
       @link_path = "/personal/index"
@@ -41,15 +41,14 @@ class DdnsController < ApplicationController
     # Need compare domain id when domain name have multiple
     ddns = Ddns.find_by_hostname(hostname)
     filter_list = Settings.environments.filter_list
-
     # If hostname was exits, it will redirct to setting page and display error message
     if ddns && !paired?(ddns.device_id)
       flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
-      redirect_to action: 'setting', id: @params[:id]
+      redirect_to action: 'setting', id: params[:id]
       return
     elsif filter_list.include?(hostname)
       flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
-      redirect_to action: 'setting', id: @params[:id]
+      redirect_to action: 'setting', id: params[:id]
       return
     end
 

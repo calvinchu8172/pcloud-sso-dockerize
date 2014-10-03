@@ -6,7 +6,6 @@ end
 
 Given(/^the page will waiting for connection with device$/) do
   @upnp_session = get_upnp_session
-  puts @upnp_session
 end
 
 Given(/^the user changed UPnP setting$/) do
@@ -46,15 +45,7 @@ When(/^the services was success updated$/) do
   set_upnp_status(@upnp_session, "updated")
 end
 
-When(/^the user want to click link without cancel$/) do
-  find("h1.header_h1_rwd > a").click
-  find("a.member").click
-  find("a.sign_out").click
-  find("a.btn_tab_color1").click
-  find("a.btn_tab_color2").click
-end
-
-Then(/^it should not do anything$/) do
+Then(/^it should not do anything on UPnP setup page$/) do
   expect(page).to have_content I18n.t("warnings.settings.upnp.sync")
 end
 

@@ -58,6 +58,18 @@ Given(/^the user have a paired device$/) do
   @pairing = TestingHelper.create_pairing(@user.id)
 end
 
+When(/^the user want to click link without cancel$/) do
+  find("h1.header_h1_rwd > a").click
+  find("a.member").click
+  find("a.sign_out").click
+  find("a.btn_tab_color1").click
+  find("a.btn_tab_color2").click
+end
+
+Then(/^the user will redirect to My Devices page$/) do
+  expect(page.current_path).to eq "/personal/index"
+end
+
 def wait_server_response
   sleep 5
 end
