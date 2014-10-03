@@ -8,6 +8,10 @@ Given(/^the user visits login page$/) do
   visit unauthenticated_root_path
 end
 
+Given(/^the user change language (.*?)$/) do |locale|
+  click_link locale
+end
+
 # -------------------------------------------------------------------
 # ----------------- Filled in Login information ---------------------
 # -------------------------------------------------------------------
@@ -45,6 +49,19 @@ end
 
 Then(/^the user should see the information when login successfully$/) do
   expect(page).to have_content(I18n.t("devise.sessions.signed_in"))
+end
+
+Then(/^the user should see sign-in word in correct language$/) do
+  puts find('div.signupForm > header').text
+end
+
+Then(/^the user language information will be changed after user login to system$/) do
+  steps %{
+    Given the user filled the correct information
+    And the account was confirmed
+  }
+  find('.zyxel_btn_login_submit').click
+  puts User.find(@user).language
 end
 
 def filled_in_login_info(password)
