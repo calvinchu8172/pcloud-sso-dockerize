@@ -127,6 +127,10 @@ Then(/^the page will redirect to confirmed page$/) do
   expect(page.body).to have_link(I18n.t("labels.confirm"), href: "/")
 end
 
+Then(/^the page will redirect to login page$/) do
+  expect(page.current_path).to eq(new_user_session_path)
+end
+
 When(/^user click the confirm button$/) do
   click_link I18n.t("labels.confirm")
 end
