@@ -27,13 +27,10 @@ Feature: [PCP_001_01] Sign Up
   Scenario: [PCP_001_01_02]
     Show error messages when email existed
 
-    Given the email of "personal@example.com" has been existed
+    Given the email has been existed
     And the visitor agreed the terms of use
     And the visitor filled the captcha correctly
-    And the visitor filled the user information:
-      | E-mail                  | personal@example.com |
-      | Password                | 12345678             |
-      | Confirm Password        | 12345678             |
+    And the visitor filled the user information
 
     When the visitor click "Sign Up" button
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917094430) do
+ActiveRecord::Schema.define(version: 20141004130100) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
@@ -26,36 +26,6 @@ ActiveRecord::Schema.define(version: 20140917094430) do
   add_index "ddns", ["device_id"], name: "index_domains_on_domain_name_unique", unique: true, using: :btree
   add_index "ddns", ["domain_id"], name: "ddns_domain_id_fk", using: :btree
   add_index "ddns", ["hostname", "domain_id"], name: "index_ddns_on_hostname_and_domain_id", unique: true, using: :btree
-
-  create_table "ddns_retry_sessions", force: true do |t|
-    t.integer  "device_id",                 null: false
-    t.string   "full_domain", default: "0", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ddns_retry_sessions", ["device_id"], name: "index_ddns_retry_sessions_on_device_id", using: :btree
-
-  create_table "ddns_sessions", force: true do |t|
-    t.integer  "device_id"
-    t.string   "full_domain", limit: 100,             null: false
-    t.integer  "status",                  default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ddns_sessions", ["device_id"], name: "index_ddns_sessions_on_device_id", using: :btree
-
-  create_table "device_sessions", force: true do |t|
-    t.integer  "device_id"
-    t.string   "ip",           limit: 64
-    t.string   "xmpp_account", limit: 64
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "password",     limit: 60
-  end
-
-  add_index "device_sessions", ["device_id"], name: "index_device_sessions_on_device_id", using: :btree
 
   create_table "devices", force: true do |t|
     t.string   "serial_number",    limit: 100, null: false
@@ -88,18 +58,6 @@ ActiveRecord::Schema.define(version: 20140917094430) do
   add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true, using: :btree
   add_index "identities", ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true, using: :btree
 
-  create_table "pairing_sessions", force: true do |t|
-    t.integer  "user_id",                null: false
-    t.integer  "device_id",              null: false
-    t.integer  "status",     default: 0, null: false
-    t.datetime "expire_at",              null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "pairing_sessions", ["device_id"], name: "index_pairing_sessions_on_device_id", using: :btree
-  add_index "pairing_sessions", ["user_id"], name: "index_pairing_sessions_on_user_id", using: :btree
-
   create_table "pairings", force: true do |t|
     t.integer  "user_id",              null: false
     t.integer  "device_id",            null: false
@@ -127,27 +85,6 @@ ActiveRecord::Schema.define(version: 20140917094430) do
   end
 
   add_index "products", ["model_name"], name: "index_products_on_model_name", unique: true, using: :btree
-
-  create_table "unpairing_sessions", force: true do |t|
-    t.integer  "device_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "unpairing_sessions", ["device_id"], name: "index_unpairing_sessions_on_device_id", using: :btree
-
-  create_table "upnp_sessions", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "device_id"
-    t.integer  "status",                  default: 0, null: false
-    t.text     "service_list"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "lan_ip",       limit: 20
-  end
-
-  add_index "upnp_sessions", ["device_id"], name: "index_upnp_sessions_on_device_id", using: :btree
-  add_index "upnp_sessions", ["user_id"], name: "index_upnp_sessions_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                             default: "",   null: false

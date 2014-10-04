@@ -8,7 +8,7 @@ end
 
 Given(/^the user was a member$/) do
   @user = TestingHelper.create_and_confirm
-  # @identity = FactoryGirl.create(:identity, user_id: @user.id, provider: "facebook", uid: "1234")
+  @identity = FactoryGirl.create(:identity, user_id: @user.id, provider: "facebook", uid: "1234")
   set_omniauth(@user.email)
 end
 
@@ -33,18 +33,25 @@ When(/^the user grant permission$/) do
   # do nothing
 end
 
+When(/^the user visits profile page$/) do
+  find("a.member").click
+end
+
+Then(/^the omniauth user should not see change password link$/) do
+  expect(page).to have_no_link I18n.t("labels.change_password")
+end
+
 Then(/^the user will redirect to Terms of Use page$/) do
   expect(page.current_path).to eq("/oauth/new")
 end
 
 Then(/^the user should login$/) do
-  find("label.check_icon").click
-  find("input#user_agreement").set(true)
-  click_button "Confirm"
+  expect(page).to have_link I18n.t("labels.sign_out")
 end
 
 Then(/^redirect to My Devices\/Search Devices page$/) do
   expect(page.current_path).to eq("/discoverer/index")
+  expect(page).to have_content("Successfully authenticated from Facebook account.")
 end
 
 def set_omniauth(email = "personal@example.com", opts = {})

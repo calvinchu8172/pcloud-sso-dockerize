@@ -19,7 +19,7 @@ Feature: [PCP_002_02] Change Password
     And the user click submit for change password
     Then the user will get success message from change password
 
-   Scenario: [PCP_002_02_04]
+   Scenario: [PCP_002_02_03]
     Redirect to profile page when user click cancel button in change password page
 
     When the user click "Cancel" link

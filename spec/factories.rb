@@ -8,7 +8,7 @@ FactoryGirl.define do
   end
   factory :device do
     sequence(:serial_number)  { |n| "1234567890#{n}"}
-    sequence(:mac_address)    { |n| "#{n}".rjust(8, "0")}
+    sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
     firmware_version          "V4.70(AALS.0)_GPL_20140820"
     product_id                "1"
   end
