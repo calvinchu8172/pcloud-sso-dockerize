@@ -25,7 +25,7 @@
         </div>
         <div class="countdown" ng-switch-when="waiting">
             <%= image_tag @device.product.pairing.url %>
-            <div class="zyxel_btn_area">
+            <div class="zyxel_btn_area i18n_fix">
               <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
             </div>
         </div>
@@ -33,11 +33,11 @@
           <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
           <button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button>
         </div>
-        <div  ng-switch-when="done" class="zyxel_btn_area">
+        <div ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
           <%= link_to(I18n.t("labels.confirm"), "/ddns/setting/" + @device.id.to_s, class: "zyxel_btn_ok") %>
         </div>
-        <div ng-switch-when="confirm_cancel" class="zyxel_btn_area">
+        <div ng-switch-when="confirm_cancel" class="zyxel_btn_area i18n_fix">
           <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
           <%= link_to(I18n.t("labels.confirm"), "/pairing/cancel/#{@device.id.to_s}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
