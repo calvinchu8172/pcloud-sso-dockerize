@@ -36,12 +36,11 @@ module TestingHelper
     device_session
   end
   def self.create_pairing(user_id)
-    device_session = create_device_session
-    pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device_session.device_id)
+    device = create_device
+    pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device.id)
     pairing.save
     pairing
   end
-
 end
 
 # Click submit button
@@ -57,6 +56,18 @@ end
 Given(/^the user have a paired device$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
+end
+
+When(/^the user want to click link without cancel$/) do
+  find("h1.header_h1_rwd > a").click
+  find("a.member").click
+  find("a.sign_out").click
+  find("a.btn_tab_color1").click
+  find("a.btn_tab_color2").click
+end
+
+Then(/^the user will redirect to My Devices page$/) do
+  expect(page.current_path).to eq "/personal/index"
 end
 
 def wait_server_response

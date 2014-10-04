@@ -2,7 +2,7 @@
 
 <div class="zyxel_content">
   <div class="agree_note_box">
-    <% if session[:locale]  == 'zh-TW' %>
+    <% if I18n.locale.to_s  == "zh-TW" %>
       <%= render "hint/terms/zh_TW" %>
     <% else %>
       <%= render "hint/terms/en" %>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="zyxel_btn_area i18n_fix">
-      <%= link_to I18n.t("labels.cancel"), "/", class: "zyxel_btn_back" %>
+      <%= link_to I18n.t("labels.cancel"), new_session_path(@user), class: "zyxel_btn_back" %>
       <%= f.submit I18n.t("labels.confirm"), class: "zyxel_btn_submit" %>
     </div>
   <% end %>
