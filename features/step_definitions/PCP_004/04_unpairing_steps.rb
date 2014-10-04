@@ -16,10 +16,6 @@ When(/^the user have not other devices$/) do
   # do nothing
 end
 
-When(/^the user have other devices$/) do
-  @other_paired = TestingHelper.create_pairing(@user.id)
-end
-
 Then(/^the user should see confirm message on unpairing confirm page$/) do
   expect(page).to have_content I18n.t("warnings.settings.unpairing.instruction")
   expect(page).to have_link I18n.t("labels.confirm")
