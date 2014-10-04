@@ -3,7 +3,7 @@ class Job
   attr_reader :session
 
   def initialize
-  	
+
   end
 
   # Push message to queue
@@ -42,17 +42,17 @@ class Job
   	  class_name = self.class.name
   	  @job_name = class_name.split('::')[1].downcase
   	  @job_name['message'] = ''
-    end 
+    end
     return @job_name
   end
 
   def get_queue
-  	@queue = AWS::SQS.new.queues.create(Settings.environments.sqs.name) if @queue.nil?
+  	@queue = AWS::SQS.new.queues.named(Settings.environments.sqs.name) if @queue.nil?
   	return @queue
   end
 
   def get_session_model
-    class_name = get_job_name.capitalize + 'Session'
+    class_name = get_job_name + '::session'
     @session_model = class_name.constantize if @session_model.nil?
     return @session_model
   end

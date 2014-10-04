@@ -16,22 +16,21 @@ xmpp:
     - bot07@localhost
     - bot08@localhost
   nodes:
-    - 172.31.25.84
-    - 172.31.25.84
-    - 172.31.25.84
-    - 172.31.25.84
+    - ec2-54-85-72-129.compute-1.amazonaws.com
+    - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
+  api_domain: 'pcloud.dev'
+  portal_domain: 'pcloud.dev'
   paperclip:
     default:
       storage: :s3
       s3_credentials:
-        bucket: 'mycloud-beta'
+        bucket: 's3-pcloud-test'
         access_key_id: 'AKIAJRREKZSZGSF3DPWQ'
         secret_access_key: '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'
     attachment:
       default:
-        url: ':mycloud-beta.s3.amazonaws.com'
-        s3_host_name: 's3-external-1.amazonaws.com'
+        s3_host_name: 's3-us-west-2.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
     name: 'personal_cloud_queue_test'
@@ -40,6 +39,7 @@ environments:
       secret_access_key: 'CzT3ufnkS85CfbPEF/3Z5n2B7TWmTS8Bbw+9VX1Q'
       region: 'us-west-2'
   ddns: pcloud.ecoworkinc.com
+  cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   filter_list:
     - api
     - www
@@ -53,27 +53,15 @@ environments:
     - support
     - service
     - services
-  OmniAuth:
-    facebook:
-      facebook_app_id: 'faefaesfase'
-      facebook_secret: 'faefasefasefase'
-    google_oauth2:
-      google_app_id: 'faefasef'
-      google_secret: 'fasefaesf'
-  log4r_config:
-    loggers:
-      - name          : mycloud
-        level         : DEBUG
-        trace         : 'true'
-        outputters    :
-        - datefile
-
-    outputters:
-    - type: DateFileOutputter
-      name: datefile
-      dirname: "log"
-      filename: "mycloud.log"
-      formatter:
-        date_pattern: '%H:%M:%S'
-        pattern     : '%d %l: %m'
-        type        : PatternFormatter
+oauth:
+  facebook_app_id: 678292992243317
+  facebook_secret: 386ec08a3d700466bac2c66641c71e4b
+  google_app_id: 14580324123-25ourkvv3ppvh4c1uph5gacjj6lq7q51.apps.googleusercontent.com
+  google_secret: XXG2i7MwFpRvOn6hd4gg9nWv
+recaptcha:
+  config:
+    public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
+    private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
+redis:
+  host: '194.168.33.10'
+  port: 6379

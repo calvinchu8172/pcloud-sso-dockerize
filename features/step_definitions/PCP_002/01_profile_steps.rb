@@ -38,3 +38,7 @@ Then(/^display successfully information on profile page$/) do
   expect(page.current_path).to eq("/personal/profile")
   expect(page.body).to have_content(I18n.t("devise.registrations.updated"))
 end
+
+Then(/^the page will redirect to profile page$/) do
+  expect(page.current_path).to eq('/personal/profile')
+end

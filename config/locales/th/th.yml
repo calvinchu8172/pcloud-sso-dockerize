@@ -60,6 +60,7 @@ th:
     not_config: 'DDNS ยังไม่ถูกกำหนดค่า'
     no_pairing_device: 'ไม่มีอุปกรณ์ที่จับคู่'
     invalid: 'ไม่ถูกต้อง'
+    invalid_device: 'Invalid device'
     applied_success: 'การสมัครบัญชีของคุณสำเร็จแล้ว'
     confirmation_success: ' อย่าลังเลที่จะเพลิดเพลินไปกับบริการของ ZyXEL Cloud Services'
     forgot_password: 'รหัสผ่านของคุณได้รับการรีเซ็ตแล้ว'
@@ -70,11 +71,14 @@ th:
         success: 'เลิกจับคู่อุปกรณ์สำเร็จแล้ว'
       pairing:
         instruction: ' คุณแน่ใจหรือไม่ว่าคุณต้องการการจับคู่กับอุปกรณ์นี้'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'การจับคู่เริ่มต้น '
           instruction_2: ' กรุณาคลิกที่ปุ่มจับคู่ของอุปกรณ์'
         connecting: 'กำลังเชื่อมต่อ...'
         not_found: 'ไม่พบอุปกรณ์'
+        pair_already: 'Device is paired already'
+        in_pairing: 'Device is pairing'
         failure: 'หมดเวลาจับคู่ กรุณาลองใหม่'
         canceled: 'การจับคู่ถูกยกเลิก'
         success: 'จับคู่สำเร็จแล้ว กรุณาคลิกที่ปุ่ม "บืนยัน" เพื่อตั้งค่า DDNS และ UPnP'
@@ -96,3 +100,4 @@ th:
         sync: ' การตั้งค่า UPnP กำลังซิงค์...'
         success: 'UPnP ตั้งค่าสำเร็จแล้ว'
         not_found: 'ไม่พบอุปกรณ์'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

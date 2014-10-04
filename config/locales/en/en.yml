@@ -2,7 +2,7 @@ en:
   labels:
     language: "Language"
     forgot_password: 'Forgot My Password'
-    resend_confirmation: 'Resend Confirmation'
+    resend_confirmation: 'Resend'
     sign_in: 'Sign in'
     sign_out: 'Log Out'
     sign_up: 'Sign Up'
@@ -60,6 +60,7 @@ en:
     not_config: 'DDNS is not Configured'
     no_pairing_device: 'No device have been paired.'
     invalid: 'is invalid'
+    invalid_device: 'Invalid device'
     applied_success: 'You have applied your account successfully.'
     confirmation_success: 'Feel free to enjoy the ZyXEL Cloud Services.'
     forgot_password: 'Your password has been reset.'
@@ -70,11 +71,14 @@ en:
         success: 'Device was successfully unpaired.'
       pairing:
         instruction: 'Are you sure you want to pair with this device?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Pairing start, '
           instruction_2: 'please click on paired button of device within'
         connecting: 'Connecting...'
         not_found: 'Device is not found'
+        pair_already: 'Device is paired already'
+        in_pairing: 'Device is pairing'
         failure: 'Pairing timeout. Please try again.'
         canceled: 'Pairing has been canceled'
         success: 'Successfully paired. Please click "Confirm" button to setup DDNS and UPnP.'
@@ -96,3 +100,4 @@ en:
         sync: 'Synchronizing UPnP settings...'
         success: 'UPnP settings have been successfully.'
         not_found: 'Device is not found'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

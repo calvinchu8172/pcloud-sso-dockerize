@@ -29,13 +29,13 @@ Feature: [PCP_001_02] Reset Password
 
     When the user finish reset password with "personal@example.com"
 
-    And the user click "Resend Confirmation" link
+    And the user click "Resend" link
     Then the user will redirect to reset password page
     Given the user filled correct email with "personal@example.com"
     And the user click "Submit" button
     Then the user should receive an reset password email
 
-  Scenario: [PCP_001_02_05] 
+  Scenario: [PCP_001_02_05]
     Show error messages when password and confirm password was different
 
     When the user finish reset password with "personal@example.com"
@@ -51,4 +51,10 @@ Feature: [PCP_001_02] Reset Password
     And the user click reset password email link
     And the user fill in password New:"password1", Confirm:"password1" and submit
     Then the user will redirect to reset password success page
+
+  Scenario: [PCP_001_02_07]
+    Redirect to login page when user click cancel button in reset password page
+
+    When the user click "Cancel" link
+    Then the page will redirect to login page
 

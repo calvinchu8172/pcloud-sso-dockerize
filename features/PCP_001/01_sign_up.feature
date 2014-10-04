@@ -8,17 +8,17 @@ Feature: [PCP_001_01] Sign Up
 
     Given the visitor agreed the terms of use
     And the visitor filled the captcha correctly
-    And the visitor filled the invalid "Email" <Email>
+    And the visitor filled the invalid "E-mail" <E-mail>
     And the visitor filled the user information:
       | Password                | 12345678    |
       | Confirm Password        | 12345678    |
 
     When the visitor click "Sign Up" button
 
-    Then the visitor should see an error message for "Email"
+    Then the visitor should see an error message for "email"
 
     Examples:
-      | Email                 |
+      | E-mail                |
       |                       |
       | personal              |
       | personal@             |
@@ -31,7 +31,7 @@ Feature: [PCP_001_01] Sign Up
     And the visitor agreed the terms of use
     And the visitor filled the captcha correctly
     And the visitor filled the user information:
-      | Email                   | personal@example.com |
+      | E-mail                  | personal@example.com |
       | Password                | 12345678             |
       | Confirm Password        | 12345678             |
 
@@ -47,7 +47,7 @@ Feature: [PCP_001_01] Sign Up
     And the visitor filled the invalid "Password" <Password>
     And the visitor filled the invalid "Confirm Password" <Password>
     And the visitor filled the user information:
-      | Email | personal@example.com  |
+      | E-mail | personal@example.com  |
 
     When the visitor click "Sign Up" button
 
@@ -57,7 +57,6 @@ Feature: [PCP_001_01] Sign Up
       | Password            |
       |                     |
       | pass                |
-      | password1234567890  |
 
   Scenario: [PCP_001_01_04]
     Show error messages when password and confirm password was different
@@ -65,7 +64,7 @@ Feature: [PCP_001_01] Sign Up
     Given the visitor agreed the terms of use
     And the visitor filled the captcha correctly
     And the visitor filled the user information:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | password               |
 
@@ -79,7 +78,7 @@ Feature: [PCP_001_01] Sign Up
     Given the visitor agreed the terms of use
     And the visitor filled the captcha incorrectly
     And the visitor filled the user information:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -92,7 +91,7 @@ Feature: [PCP_001_01] Sign Up
 
     Given the visitor filled the captcha correctly
     And the visitor filled the user information:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -105,7 +104,7 @@ Feature: [PCP_001_01] Sign Up
 
     Given the visitor agreed the terms of use
     And the visitor filled all the required fields:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -119,18 +118,18 @@ Feature: [PCP_001_01] Sign Up
     In registration successfully page, should have resend confirm email link and confirm button
 
     When the visitor success sign up an account:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
     Then the page will redirect to success page
-    And the new user should see "Resend Confirmation" and "Confirm" button
+    And the new user should see "Resend" and "Confirm" button
 
   Scenario: [PCP_001_01_09]
     Auto login after confirmed and redirect to confirmed page
 
     When the visitor success sign up an account:
-      | Email             | personal@example.com   |
+      | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
 
@@ -145,3 +144,11 @@ Feature: [PCP_001_01] Sign Up
     When user click the confirm button
 
     Then user will auto login and redirect to dashboard
+
+  Scenario: [PCP_001_01_10]
+    Redirect to login page when user click cancel button in sign up page
+
+    When the user click "Cancel" link
+
+    Then the page will redirect to login page
+

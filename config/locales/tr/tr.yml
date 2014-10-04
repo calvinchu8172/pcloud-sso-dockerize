@@ -60,6 +60,7 @@ tr:
     not_config: 'DDNS yapılandırılmadı'
     no_pairing_device: 'Hiçbir cihaz eşleştirilmedi.'
     invalid: 'geçersiz'
+    invalid_device: 'Invalid device'
     applied_success: 'Hesabınızı başarıyla uyguladınız.'
     confirmation_success: 'ZyXEL Cloud Hizmetlerinin keyfini istediğiniz gibi çıkarın.'
     forgot_password: 'Şifreniz sıfırlandı.'
@@ -70,11 +71,14 @@ tr:
         success: 'Cihazın eşleştirmesi başarıyla kaldırıldı.'
       pairing:
         instruction: 'Bu cihazla eşleştirmek istediğinize emin misiniz?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Eşleştirme başlat, '
           instruction_2: 'lütfen cihazın eşleştirilmiş düğmesine tıklayın'
         connecting: 'Bağlanıyor...'
         not_found: 'Cihaz bulunamadı'
+        pair_already: 'Device is paired already'
+        in_pairing: 'Device is pairing'
         failure: 'Eşleştirme zaman aşımı. Lütfen tekrar deneyin.'
         canceled: 'Eşleştirme iptal edildi'
         success: 'Başarıyla eşleştirildi. Lütfen DDNS ve UPnP ayarlamak için "Onayla" düğmesine tıklayın.'
@@ -96,3 +100,4 @@ tr:
         sync: 'UPnP  ayarları eşitleniyor...'
         success: 'UPnP ayarları başarıyla eşitlendi.'
         not_found: 'Cihaz bulunamadı'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

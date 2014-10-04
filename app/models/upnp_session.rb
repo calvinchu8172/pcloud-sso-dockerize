@@ -1,8 +1,23 @@
-class UpnpSession < ActiveRecord::Base
+class UpnpSession
+  include Redis::Objects
 
-  enum status: {start: 0, form: 1, submit: 2, failure: 3, updated: 4}
+  attr_accessor :id
+  self.redis_prefix=('upnp')
 
-  belongs_to :user
-  belongs_to :device
+  SESSION_INDEX = 'upnp:session:index'
 
+  counter :index, :key => SESSION_INDEX
+  hash_key :session, :expiration => 6.hours
+
+  def self.create
+  	session = self.new
+  	session.id = session.index.increment
+  	session
+  end
+
+  def self.find id
+  	session = self.new
+  	session.id = id
+  	session
+  end
 end

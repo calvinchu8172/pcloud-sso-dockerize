@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    email                     "personal@example.com"
+    sequence(:email)          {|n| "personal#{n}@example.com"}
     password                  "12345678"
     password_confirmation     "12345678"
     edm_accept                "0"
@@ -8,24 +8,14 @@ FactoryGirl.define do
   end
   factory :device do
     sequence(:serial_number)  { |n| "1234567890#{n}"}
-    sequence(:mac_address)    { |n| "00:00:00:00:00:0#{n}"}
-    model_name                "NSA325"
+    sequence(:mac_address)    { |n| "#{n}".rjust(8, "0")}
     firmware_version          "V4.70(AALS.0)_GPL_20140820"
-  end
-  factory :device_session do
-    association :device_id,   factory: :device_id
-    xmpp_account              "personal@example.com"
-    password                  "12345678"
-    ip                        "127.0.0.1"
-  end
-  factory :ddns_session do
-    association :status,      factory: :status
-    association :device_id,   factory: :device_id
-    association :full_domain, factory: :full_domain
+    product_id                "1"
   end
   factory :pairing do
     association :user_id,     factory: :user_id
     association :device_id,   factory: :device_id
+    ownership                 "0"
   end
   factory :ddns do
     ip_address                "127.0.0.1"
