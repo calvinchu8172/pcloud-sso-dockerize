@@ -28,7 +28,7 @@ Feature: [PCP_004_03] UPnP Setup
 
 	Scenario: [PCP_004_03_04]
 	  Show success information when update successfully
-	  And the page will ` for connection with device
+	  And the page will waiting for connection with device
 
 	  When the device was online the device will response service list
 
@@ -45,7 +45,7 @@ Feature: [PCP_004_03] UPnP Setup
 
 		When the user click "Cancel" button
 
-		Then the user will see the confirm message about cancel
+		Then the user will see the confirm message about cancel UPnP setup
 
 		When the user click "Confirm" link
 
@@ -57,7 +57,7 @@ Feature: [PCP_004_03] UPnP Setup
 
 		When the user click "Cancel" button
 
-		Then the user will see the confirm message about cancel
+		Then the user will see the confirm message about cancel UPnP setup
 
 		When the user click "Cancel" button
 
