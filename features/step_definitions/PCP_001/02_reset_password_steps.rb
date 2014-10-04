@@ -4,15 +4,15 @@ Given(/^a user forgot the password$/) do
 end
 
 # Sign-up a account
-Given(/^the user filled correct email with "(.*?)"$/) do |email|
-  @email = email
+Given(/^the user filled correct email$/) do
+  @email = @user.email
   filled_in_email(@email)
   TestingHelper.setup_test_email
 end
 
 # Finish reset password
-When(/^the user finish reset password with "(.*?)"$/) do |email|
-  @email = email
+When(/^the user finish reset password$/) do
+  @email = @user.email
   filled_in_email(@email)
   TestingHelper.setup_test_email
   click_button I18n.t("labels.submit")

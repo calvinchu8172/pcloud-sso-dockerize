@@ -8,12 +8,14 @@ Feature: [PCP_003_01] Search Devices
 	  Show "Device is not found" message when device was not connection
 
 	  When the device didn't connection
+
 	  Then the user should not see devices list
 
 	Scenario:  [PCP_003_01_02]
 	  Show connected devices list
 
 	  When the device connect
+
 	  Then the user should see devices list
 
 	Scenario: [PCP_003_01_03]

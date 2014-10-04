@@ -50,6 +50,8 @@ module Pcloud
     # for bower install path
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
+    config.encoding = "utf-8"
+
     # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
 
     # override ActionView::Base.field_error_proc

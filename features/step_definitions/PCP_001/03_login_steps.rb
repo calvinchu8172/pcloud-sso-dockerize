@@ -51,7 +51,7 @@ Then(/^the user should see the information when login successfully$/) do
   expect(page).to have_content(I18n.t("devise.sessions.signed_in"))
 end
 
-Then(/^the user should see sign-in word in correct language$/) do
+Then(/^the user should see Sign In word in correct language$/) do
   puts find('div.signupForm > header').text
 end
 

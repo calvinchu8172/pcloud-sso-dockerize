@@ -31,23 +31,10 @@ Feature: [PCP_001_04] oauth
 	  And redirect to My Devices/Search Devices page
 
 	Scenario: [PCP_001_04_04]
-	  Redirect to login page when user disagree omniauth agreement
-
-	  When the user disagree omniauth agreement
-
-	  Then the user will redirect to login page
-
-	Scenario: [PCP_001_04_05]
-		Show error message when omniauth user reset password
-
-		When the omniauth user want to reset password
-
-		Then the user should see oauth feature "not found" message
-
-	Scenario: [PCP_001_04_06]
 		Omniauth user can not change password
+		And the user was a member
 
-		When the omniauth user want to change password
+		When the user click sign in with Facebook link
+		And the user visits profile page
 
-		Then the omniauth user should not see change password button in profile
-
+		Then the omniauth user should not see change password link

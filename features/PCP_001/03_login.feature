@@ -33,11 +33,11 @@ Feature: [PCP_001_03] Login
 
     Then the user should see the information when login successfully
 
-  Scenario Outline: [PCP_001_03_05]
+  Scenario Outline: [PCP_001_03_04]
     Show valid language when user change language
 
     Given the user change language <Language>
-    Then the user should see sign-in word in correct language
+    Then the user should see Sign In word in correct language
     And the user language information will be changed after user login to system
 
     Examples:
@@ -48,5 +48,3 @@ Feature: [PCP_001_03] Login
       | 正體中文        |
       | ไทย            |
       | Türkçe         |
-
-

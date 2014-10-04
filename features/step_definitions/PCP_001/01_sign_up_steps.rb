@@ -37,8 +37,14 @@ Given(/^the visitor filled all the required fields:$/) do |table|
   TestingHelper.setup_test_email
 end
 
-Given(/^the email of "(.*?)" has been existed$/) do |email|
-  FactoryGirl.create(:user)
+Given(/^the email has been existed$/) do
+  @user = FactoryGirl.create(:user)
+end
+
+Given(/^the visitor filled the user information$/) do
+  fill_in "E-mail", with: @user.email
+  fill_in "Password", with: "12345678"
+  fill_in "Confirm Password", with: "12345678"
 end
 
 # Click submit button with value
