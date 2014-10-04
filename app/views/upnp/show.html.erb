@@ -95,7 +95,7 @@
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
       <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
     </div>
-    <div ng-switch-when="confirm" class="zyxel_btn_area">
+    <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok") %>
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
