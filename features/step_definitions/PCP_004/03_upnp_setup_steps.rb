@@ -53,7 +53,7 @@ Then(/^the user should see "(.*?)" message on UPnP setup page$/) do |msg|
   expect(page).to have_content(msg)
 end
 
-Then(/^the user will see the confirm message about cancel UPnP setup$/) do
+Then(/^the user will see the confirm message about cancel$/) do
   expect(page).to have_content I18n.t("warnings.settings.upnp.cancel_instruction")
 end
 

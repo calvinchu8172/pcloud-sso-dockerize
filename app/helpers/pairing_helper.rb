@@ -4,10 +4,12 @@ module PairingHelper
     device_id = params[:id]
 
     if !device_registered?(device_id)
-      flash[:alert] = "device not found"
+      # Device is not found
+      flash[:alert] = I18n.t("warnings.settings.pairing.not_found")
       redirect_to controller: "discoverer", action: "index"
     elsif paired?(device_id)
-      flash[:alert] = "device is paired already"
+      # device is paired already
+      flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to controller: "discoverer", action: "index"
     end
 
@@ -15,7 +17,8 @@ module PairingHelper
     @session = @device.pairing_session.all
 
     if handling?(@device.id, current_user.id)
-      flash[:alert] = "device is pairing"
+      # Device is pairing
+      flash[:alert] = I18n.t("warnings.settings.pairing.in_pairing")
       redirect_to controller: "discoverer", action: "index"
     end
   end

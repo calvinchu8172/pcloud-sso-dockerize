@@ -22,13 +22,18 @@ module TestingHelper
   def self.create_device
     device = FactoryGirl.create(:device)
     device.save
-    device.update_ip_list "127.0.0.1"
     device
   end
   def self.create_and_signin
     user = create_and_confirm
     signin_user(user)
     user
+  end
+  def self.create_device_session
+    device = create_device
+    device_session = FactoryGirl.create(:device_session, device_id: device.id)
+    device_session.save
+    device_session
   end
   def self.create_pairing(user_id)
     device = create_device
@@ -46,10 +51,6 @@ end
 # Click link
 When(/^the user click "(.*?)" link$/) do |link|
   click_link link
-end
-
-When(/^the user have other devices$/) do
-  @other_paired = TestingHelper.create_pairing(@user.id)
 end
 
 Given(/^the user have a paired device$/) do

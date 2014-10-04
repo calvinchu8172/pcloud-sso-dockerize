@@ -45,7 +45,7 @@ Feature: [PCP_004_03] UPnP Setup
 
 		When the user click "Cancel" button
 
-		Then the user will see the confirm message about cancel UPnP setup
+		Then the user will see the confirm message about cancel
 
 		When the user click "Confirm" link
 
@@ -57,7 +57,7 @@ Feature: [PCP_004_03] UPnP Setup
 
 		When the user click "Cancel" button
 
-		Then the user will see the confirm message about cancel UPnP setup
+		Then the user will see the confirm message about cancel
 
 		When the user click "Cancel" button
 

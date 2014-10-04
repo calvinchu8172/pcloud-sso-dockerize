@@ -2,7 +2,7 @@
 
 <div class="zyxel_content">
   <div class="agree_note_box">
-    <% if cookies[:locale]  == "zh-TW" %>
+    <% if I18n.locale.to_s  == "zh-TW" %>
       <%= render "hint/terms/zh_TW" %>
     <% else %>
       <%= render "hint/terms/en" %>

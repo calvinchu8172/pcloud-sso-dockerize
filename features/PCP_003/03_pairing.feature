@@ -55,64 +55,23 @@ Feature: [PCP_003_03] Pairing
 
 	Scenario:  [PCP_003_03_06]
 		Disable any button in pairing process, except the cancel button
-  	When the device was connection and pairing process is waiting
-		And the user want to click link without cancel
 
-    Then it should not do anything on Pairing page
+		When the device was connection and pairing process is waiting
+
+		Then the user did not click on the copy button of device, except the cancel button
 
 
   Scenario:  [PCP_003_03_07]
-		Redirect to Search Devices page when user completely cancel the Pairing setup flow
+  	Redirect to search Devices page when user click cancel when status of pairing process is waiting
 
   	When the device was connection and pairing process is waiting
-		And the user click "Cancel" button
+		And the user click "Cancel" link
 
-		Then the user will see the confirm message about cancel Pairing flow
+		Then redirect to search devices page
 
-		When the user click "Confirm" link
+	Scenario:  [PCP_003_03_08]
+		The user can pairing multi devices
 
-		Then the user will redirect to Search Devices page
+		When the user have multi devices and want to pairing continued
 
-	Scenario: [PCP_003_03_08]
-		The Pairing setup should continue when user click cancel but the user want to go back to setup flow
-
-		When the device was connection and pairing process is waiting
-		And the user click "Cancel" button
-
-		Then the user will see the confirm message about cancel Pairing flow
-
-		When the user click "Cancel" button
-
-		Then the user will go back to Pairing setup flow
-
-	Scenario:  [PCP_003_03_09]
-		Show device when user unpairing the paired device
-		And the user completely pairing a device
-
-		When the user unpairing this device
-		And the user visits Search Devices page
-
-		Then the user should find the device after unpairing
-
-	Scenario:  [PCP_003_03_10]
-		One device only one user can visists the pairing flow
-	  But another user2 in progress paired for the same device
-
-	  When the user click "Confirm" button to start pairing
-
-	  Then the user will redirect to Search Devices page
-	  And the user will see the error message about device is pairing
-
-	Scenario:  [PCP_003_03_11]
-		The user can continuously pairing multiple devices
-		And the user completely pairing a device
-
-		When the user have other device
-		And the user visits Search Devices page
-
-		Then the user should see another devices
-
-		When the user click "Pairing" link to start pairing
-		And complete the pairing process
-
-		Then the user should see "Successfully paired." message on pairing page
+		Then the user should see "Successfully paired." message of each device pairing page
