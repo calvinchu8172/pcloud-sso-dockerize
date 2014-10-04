@@ -74,7 +74,7 @@ class UpnpController < ApplicationController
     unless session.empty?
       session['status'] = "cancel"
       @upnp.session.update(session)
-      push_to_queue_cancel("upnp", @upnp.id)
+      push_to_queue_cancel("get_upnp_service", @upnp.id)
     end
 
     redirect_to :authenticated_root
@@ -94,7 +94,7 @@ class UpnpController < ApplicationController
   def push_to_queue(job)
     data = {:job => job, :session_id => @upnp.id}
     sqs = AWS::SQS.new
-    queue = sqs.queues.create(Settings.environments.sqs.name)
+    queue = sqs.queues.named(Settings.environments.sqs.name)
     queue.send_message(data.to_json)
   end
 

@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
       data = {job: "cancel", title: title, tag: tag}
 
       sqs = AWS::SQS.new
-      queue = sqs.queues.create(Settings.environments.sqs.name)
+      queue = sqs.queues.named(Settings.environments.sqs.name)
       queue.send_message(data.to_json)
     end
 

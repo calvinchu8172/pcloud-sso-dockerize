@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   post '/d/1/:action' => "device", :constraints => { :host => Settings.environments.api_domain }
 
-  # constraints :host => Settings.environments.portal_domain do
+  constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
       # setting root path to personal index page, if user signed in
       authenticated :user do
@@ -41,5 +41,5 @@ Rails.application.routes.draw do
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
 
-  # end
+  end
 end

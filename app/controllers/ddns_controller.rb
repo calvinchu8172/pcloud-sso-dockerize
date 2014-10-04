@@ -70,8 +70,8 @@ class DdnsController < ApplicationController
       # job = Job::DdnsMessage.new
       session = {device_id: params[:id], host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
       ddns = DdnsSession.create
-      job = {:session_id => ddns.id}
-      if ddns.session.bulk_set(session) && AWS::SQS.new.queues.create(Settings.environments.sqs.name).send_message(job.to_json)
+      job = {:job => 'ddns', :session_id => ddns.id}
+      if ddns.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
         redirect_to action: 'success', id: ddns.id
         return
       end

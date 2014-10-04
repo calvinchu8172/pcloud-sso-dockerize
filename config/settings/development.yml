@@ -16,21 +16,21 @@ xmpp:
     - bot07@localhost
     - bot08@localhost
   nodes:
-    - 172.31.25.84
+    - ec2-54-85-72-129.compute-1.amazonaws.com
+    - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
-  api_domain: 'api_alpha.pcloud.ecoworkinc.com'
+  api_domain: 'pcloud.dev'
   portal_domain: 'pcloud.dev'
   paperclip:
     default:
       storage: :s3
       s3_credentials:
-        bucket: 'mycloud-beta'
+        bucket: 's3-pcloud-test'
         access_key_id: 'AKIAJRREKZSZGSF3DPWQ'
         secret_access_key: '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'
     attachment:
       default:
-        url: ':mycloud-beta.s3.amazonaws.com'
-        s3_host_name: 's3-external-1.amazonaws.com'
+        s3_host_name: 's3-us-west-2.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
     name: 'personal_cloud_queue_test'
@@ -59,5 +59,9 @@ oauth:
   google_app_id: 14580324123-25ourkvv3ppvh4c1uph5gacjj6lq7q51.apps.googleusercontent.com
   google_secret: XXG2i7MwFpRvOn6hd4gg9nWv
 recaptcha:
-  config.public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
-  config.private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
+  config:
+    public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
+    private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
+redis:
+  host: '194.168.33.10'
+  port: 6379
