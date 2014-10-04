@@ -46,12 +46,12 @@ class User < ActiveRecord::Base
   end
 
   def fetch_details(auth)
-    self.first_name = auth["info"]["first_name"]
-    self.last_name = auth["info"]["last_name"]
-    self.display_name = auth["info"]["name"]
+    self.first_name = auth["info"]["first_name"] if auth["info"]["first_name"]
+    self.last_name = auth["info"]["last_name"] if auth["info"]["last_name"]
+    self.display_name = auth["info"]["name"] if auth["info"]["name"]
     self.email = auth["info"]["email"]
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
-    self.language = auth["extra"]["raw_info"]["locale"]
+    self.language = auth["extra"]["raw_info"]["locale"] if auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
 
   end

@@ -1,5 +1,7 @@
 # Visit search page with a user
 Given(/^a user visits search devices page$/) do
+  redis = Redis.new
+  redis.flushdb
   @user = TestingHelper.create_and_signin
 end
 
@@ -10,14 +12,13 @@ end
 
 # Set a user have a device
 When(/^the device connect$/) do
-	@user
   device = TestingHelper.create_device
   visit '/discoverer/index'
 end
 
 When(/^another user paired the devics$/) do
   steps %{
-   When the device connect
+    When the device connect
   }
   another_user = FactoryGirl.create(:user, email: 'other@example.com')
   another_user.save

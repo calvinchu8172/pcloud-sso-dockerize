@@ -107,7 +107,7 @@ Then(/^the user should see another devices$/) do
 end
 
 Then(/^the user will see the error message about device is pairing$/) do
-  expect(page).to have_content("device is pairing")
+  expect(page).to have_content I18n.t("warnings.settings.pairing.in_pairing")
 end
 
 Then(/^the user should find the device after unpairing$/) do

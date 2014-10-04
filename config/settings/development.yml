@@ -1,5 +1,5 @@
 magic_number: 890980
-version: V.B.20140926_03
+version: V.B.20141004_02
 xmpp:
   server: localhost
   device_rescource_id: device

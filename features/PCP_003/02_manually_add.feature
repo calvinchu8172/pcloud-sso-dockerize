@@ -39,4 +39,4 @@ Feature: [PCP_003_02] Manually Add
 
     When the user click "Cancel" link
 
-    Then redirect to dashboard/search devices page
+    Then redirect to Search Devices page
