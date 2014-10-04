@@ -2,7 +2,7 @@
 Given(/^a user visits manually add page$/) do
   @user = TestingHelper.create_and_signin
   @device = TestingHelper.create_device
-  visit '/discoverer/add/'
+  visit '/discoverer/add'
 end
 
 # -------------------------------------------------------------------
@@ -39,5 +39,9 @@ Then(/^the user should see error message on manually add page$/) do
 end
 
 Then(/^the user will redirect to pairing check page$/) do
-	expect(page.current_path).to include('/discoverer/check')
+	expect(page.current_path).to eq("/discoverer/check/#{@device.id}.format")
+end
+
+Then(/^redirect to Search Devices page$/) do
+  expect(page.current_path).to eq('/discoverer/index')
 end
