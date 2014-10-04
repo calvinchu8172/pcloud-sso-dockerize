@@ -56,7 +56,9 @@ class DiscovererController < ApplicationController
     available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
 
     Device.where('id in (?)', available_ip_list).each do |device|
-      available_device_list << device unless device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
+      unless device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
+        available_device_list << device if device.pairing.empty?
+      end
     end
     logger.debug('result of searching available device list:' + available_device_list.inspect)
     available_device_list
