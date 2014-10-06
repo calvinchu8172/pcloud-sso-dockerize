@@ -59,10 +59,10 @@
               <%= I18n.t("labels.settings.upnp.result.no_update") %>
             </span>
             <span ng-if="service.status != service.enabled">
-              <span ng-if="isFieldEmpty(service.error_code.length)" class="green">
+              <span ng-if="isFieldEmpty(service.error_code)" class="green">
                 <%= I18n.t("labels.settings.upnp.result.success") %>
               </span>
-              <span ng-if="!isFieldEmpty(service.error_code.length)" class="red">
+              <span ng-if="!isFieldEmpty(service.error_code)" class="red">
                 <%= I18n.t("labels.settings.upnp.result.failure") %>
               </span>
             </span>
@@ -260,7 +260,7 @@
     }
 
     $scope.isFieldEmpty = function(name){
-      (typeof(name) == 'undefined' || name == null || name.length == 0)
+      return (typeof(name) == 'undefined' || name == null || name.length == 0)
     }
 
     $scope.enableBtn = function(){
