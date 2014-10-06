@@ -101,10 +101,6 @@ class DeviceController < ApplicationController
 
   def xmpp_checkin
 
-    xmpp_host = Settings.xmpp.server
-    admin_username = Settings.xmpp.admin.account
-    admin_password = Settings.xmpp.admin.password
-
     @account = Hash.new
     @account[:password] = generate_new_passoword
     @account[:name] = @device.session.fetch :xmpp_account || generate_new_username
