@@ -24,7 +24,7 @@ class PersonalController < ApplicationController
       if device.ddns
         info_hash[:class_name] = "blue"
         # remove ddns domain name last dot
-        info_hash[:title] = device.ddns.hostname + device.ddns.domain.domain_name.chomp('.')
+        info_hash[:title] = device.ddns.hostname + "." + Settings.environments.ddns.chomp('.')
         info_hash[:ip] = device.ddns.get_ip_addr
         info_hash[:date] = device.ddns.updated_at.strftime("%Y/%m/%d")
       else
