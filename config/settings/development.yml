@@ -2,7 +2,7 @@ magic_number: 890980
 version: V.B.20141004_02
 xmpp:
   server: localhost
-  device_rescource_id: device
+  device_resource_id: device
   admin:
     account   : bot01
     password  : 1234

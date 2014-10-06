@@ -29,7 +29,7 @@ class DeviceController < ApplicationController
 
     xmpp_checkin
 
-  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
+  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_resource_id,
                      :xmpp_password => @account[:password],
                      :xmpp_bots => Settings.xmpp.bots,
                      :xmpp_ip_addresses => Settings.xmpp.nodes}
