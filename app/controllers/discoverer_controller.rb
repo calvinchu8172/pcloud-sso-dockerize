@@ -5,12 +5,12 @@ class DiscovererController < ApplicationController
 
   def index
 
-    @device_session_list = search_available_device.where(:ip => request.remote_ip)
     raw_result = Array.new
-    @device_session_list.each do |session|
-      next if(session.device.product.blank?)
-      logger.info "discovered device id:" + session.device.id.to_s + ", product name:" + session.device.product.name
-      raw_result.push({:device_id => session.device.id, :product_name => session.device.product.name, :img_url => session.device.product.asset.url(:thumb)})
+    search_available_device.each do |device|
+      logger.debug('get device product:' + device.product.to_json)
+      next if(device.product.blank?)
+      logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
+      raw_result.push({:device_id => device.id, :product_name => device.product.name, :img_url => device.product.asset.url(:thumb)})
     end
 
     @result = raw_result.to_json
@@ -49,11 +49,19 @@ class DiscovererController < ApplicationController
     logger.info "checking device id:" + @device.id.to_s
   end
 
-  private
 
   def search_available_device
-    # PairingSession.handling().select(:device_id)
-    DeviceSession.where("device_id not in (?) AND device_id not in (?)" , PairingSession.handling.where.not(:user_id => current_user.id).select(:device_id), Pairing.enabled.select(:device_id))
+
+    available_device_list = []
+    available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
+
+    Device.where('id in (?)', available_ip_list).each do |device|
+      unless device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
+        available_device_list << device if device.pairing.empty?
+      end
+    end
+    logger.debug('result of searching available device list:' + available_device_list.inspect)
+    available_device_list
   end
 
   def mac_address_valid?(mac_address)

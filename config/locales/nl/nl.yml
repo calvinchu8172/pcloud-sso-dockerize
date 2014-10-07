@@ -1,6 +1,6 @@
 nl:
   labels:
-    language: "Nederlands"
+    language: "Taal"
     forgot_password: 'Wachtwoord vergeten'
     resend_confirmation: 'Verzend opnieuw'
     sign_in: 'Log in'
@@ -31,7 +31,7 @@ nl:
         result:
           success: 'Success'
           failure: 'Mislukt'
-          no_update: 'No Update'
+          no_update: 'geen update'
     pairing: 'Koppelen'
     unpairing: 'Ontkoppelen'
     manually: 'handmatig toevoegen'
@@ -60,6 +60,7 @@ nl:
     not_config: 'DDNS is niet ingesteld'
     no_pairing_device: 'Er is geen apparaat gekoppeld'
     invalid: 'is ongeldig'
+    invalid_device: 'Invalid device'
     applied_success: 'U hebt uw account met succes toegepast.'
     confirmation_success: 'Geniet van de ZyXEL Cloud Service.'
     forgot_password: 'Uw wachtwoord is gereset.'
@@ -70,11 +71,14 @@ nl:
         success: 'Apparaat was succesvol ontkoppeld.'
       pairing:
         instruction: 'Bent u zeker dat u wilt koppelen met dit apparaat?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Koppelen is gestart'
           instruction_2: 'klikt u op de knop van het gekoppelde apparaat binnen'
         connecting: 'Verbinden...'
         not_found: 'Apparaat kan niet gevonden worden'
+        pair_already: 'Device is paired already'
+        in_pairing: 'Device is pairing'
         failure: 'Koppel timeout. Probeer het opnieuw.'
         canceled: 'Koppelen is geannuleerd'
         success: 'Het koppelen is gelukt. Klik op de "Bevestig" knop om de setup DDNS en UPnP te starten.'
@@ -96,3 +100,4 @@ nl:
         sync: 'Synchroniseren UPnP instellingen...'
         success: 'UPnP-instellingen zijn succesvol geweest.'
         not_found: 'Apparaat wordt niet gevonden'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

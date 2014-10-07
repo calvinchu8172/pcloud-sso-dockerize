@@ -1,6 +1,6 @@
 de:
   labels:
-    language: "Deutsch"
+    language: "Sprache"
     forgot_password: 'Passwort vergessen'
     resend_confirmation: 'Bestätigung erneut senden'
     sign_in: 'Anmelden'
@@ -31,7 +31,7 @@ de:
         result:
           success: 'Erfolgreich'
           failure: 'Fehlerhaft'
-          no_update: 'No Update'
+          no_update: 'kein Update'
     pairing: 'Verbinden'
     unpairing: 'Trennen'
     manually: 'Manuelles hinzufügen'
@@ -60,6 +60,7 @@ de:
     not_config: 'DDNS ist nicht konfiguriert'
     no_pairing_device: 'Kein Gerät wurde verbunden'
     invalid: 'ist ungültig'
+    invalid_device: 'Invalid device'
     applied_success: 'Sie haben Ihren Account erfolgreich bestätigt.'
     confirmation_success: 'Fühlen Sie sich frei den ZyXEL Cloud Dienst zu nutzen.'
     forgot_password: 'Ihr Passwort wurde zurückgesetzt.'
@@ -70,11 +71,14 @@ de:
         success: 'Gerät erfolgreich getrennt.'
       pairing:
         instruction: 'Sind Sie sicher das Sie dieses Gerät verbinden möchten?'
+        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
         start:
           instruction: 'Verbinden gestartet, '
           instruction_2: 'bitte klicken Sie auf den Verbinden Button im Gerät innerhalb von'
         connecting: 'Verbinden...'
         not_found: 'Gerät wurde nicht gefunden'
+        pair_already: 'Device is paired already'
+        in_pairing: 'Device is pairing'
         failure: 'Verbindungs Timeout. Bitte erneut versuchen.'
         canceled: 'Verbinden wurde abgebrochen'
         success: 'Erfolgreich verbunden. Bitte klicken Sie den "Bestätigen" Button um die DDNS und UPnP Einrichtung abzuschließen.'
@@ -96,3 +100,4 @@ de:
         sync: 'UPnP Einstellungen synchronisieren...'
         success: 'UPnP Einstellungen wurden erfolgreich synchronisiert.'
         not_found: 'Gerät nicht gefunden'
+        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'

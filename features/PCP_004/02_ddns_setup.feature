@@ -14,11 +14,10 @@ Feature: [PCP_004_02] DDNS Setup
 	  Then the user should see error message for Hostname
 
 	  Examples:
-      | Hostname              																										|
-      | hi						        																										|
-      | this-is-a-test-hostname-and-we-need-make-this-hostname-over-63-characters |
-      | hi@                   																										|
-      | 0A0  																																			|
+      | Hostname |
+      | hi			 |
+      | hi@      |
+      | 0A0  		 |
 
 	Scenario:  [PCP_004_02_02]
 	  Show error message when hostname exists
@@ -66,3 +65,23 @@ Feature: [PCP_004_02] DDNS Setup
 	  When the user click "Confirm" link
 
 	  Then the user will redirect to UPnP setup page
+
+
+  Scenario: [PCP_004_02_07]
+    Redirect to My Devices page when user click cancel button in DDNS setup page
+
+    When the user click "Cancel" link
+
+    Then the user will redirect to My Devices page
+
+  Scenario:  [PCP_004_02_08]
+    Disable any button when process of DDNS setting is waiting, except the cancel button
+    And the user filled the valid Hostname
+
+    When the user click "Submit" button
+    And the user want to click link without cancel
+
+    Then it should not do anything on DDNS setup page
+
+
+

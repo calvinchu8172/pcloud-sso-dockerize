@@ -5,6 +5,7 @@ gem 'rails', '4.1.0'
 gem 'sqlite3'
 
 gem 'mysql2', '0.3.16'
+gem 'redis-objects'
 
 gem 'select2-rails'
 # Use SCSS for stylesheets
@@ -15,7 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-
+gem 'immigrant'
 # Use jquery as the JavaScript library
 # gem 'jquery-rails'
 gem 'angularjs-rails'
@@ -67,12 +68,13 @@ gem 'aws-sdk'
 gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
+gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 
-group :development, :test, :staging do
+group :development, :test do
   gem 'faker'
   gem 'capybara'
+  gem "capybara-webkit"
   gem 'cucumber-rails', :require => false
-  gem 'selenium-webdriver'
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'

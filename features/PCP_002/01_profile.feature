@@ -28,3 +28,12 @@ Feature: [PCP_002_01] Profile
 
     Then the user's profile has been updated
     And display successfully information on profile page
+
+   Scenario: [PCP_002_01_04]
+    Redirect to profile page when user click cancel button in profile page
+
+    Given the user visits "Edit Profile" page
+
+    When the user click "Cancel" link
+
+    Then the page will redirect to profile page

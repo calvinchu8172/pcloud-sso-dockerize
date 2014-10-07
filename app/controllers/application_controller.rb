@@ -3,17 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
+
+  include Locale
   before_filter :set_locale
+
   before_filter :setup_log_context
   after_action :store_location
 
   protected
-
-    # def log4r_context
-    #   ctx = Log4r::MDC.get_context.collect {|k, v| k.to_s + "=" + v.to_s }.join(" ")
-    #   ctx.gsub!('%', '%%') # escape out embedded %'s so pattern formatter doesn't get confused
-    #   return ctx
-    # end
 
     def setup_log_context
       Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
@@ -39,38 +36,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    # i18n setting
-    def set_locale
-      if user_signed_in?
-        # Return param to session
-        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym )
-          session[:locale] = params[:locale]
-        # Prevent session rewrite to default in other page
-        elsif session[:locale]
-          session[:locale]
-        # If user haven't session before, rewrite to DB setting
-        else
-          session[:locale] = I18n.available_locales.include?( current_user.language.to_sym ) ? current_user.language.to_sym : false
-        end
-      else
-        # Return param to session
-        if params[:locale] && I18n.available_locales.include?( params[:locale].to_sym )
-          session[:locale] = params[:locale]
-        end
-      end
-
-      I18n.locale = session[:locale] || I18n.default_locale
-
-      # language select option
-      @locale_options = { :English => 'en',
-                          :Deutsch => 'de',
-                          :Nederlands => 'nl',
-                          :"正體中文" => "zh-TW",
-                          :"ไทย" => 'th',
-                          :"Türkçe" => 'tr'}
-    end
-    # i18n setting - end
-
     # Redirect back to current page after sign in
     def store_location
       return unless request.get?
@@ -89,12 +54,36 @@ class ApplicationController < ActionController::Base
     def device_paired_with?
       device_id = params[:id]
       unless(paired?(device_id, current_user.id))
-        flash[:alert] = "invalid device"
-        redirect_to :root
+        flash[:alert] = I18n.t('warnings.invalid_device')
+        redirect_to :authenticated_root
       end
     end
 
+    def push_to_queue_cancel(title, tag)
+      data = {job: "cancel", title: title, tag: tag}
+
+      sqs = AWS::SQS.new
+      queue = sqs.queues.named(Settings.environments.sqs.name)
+      queue.send_message(data.to_json)
+    end
+
     def paired?(device_id, user_id)
-      Pairing.enabled.exists?({:device_id => device_id, :user_id => user_id})
+      Pairing.owner.exists?({:device_id => device_id, :user_id => user_id})
+    end
+
+    # Split browser locales array and find first support language
+    def get_browser_locale(browser_langs)
+      accept_locales = []
+      browser_langs.split(',').each do |l|
+       l = l.split(';').first
+       i = l.split('-')
+       if 2 == i.size
+         accept_locales << i[0].to_sym
+         i[1].upcase!
+       end
+       l = i.join('-').to_sym
+       accept_locales << l.to_sym
+      end
+      (accept_locales.select { |l| I18n.available_locales.include?(l) }).first
     end
 end

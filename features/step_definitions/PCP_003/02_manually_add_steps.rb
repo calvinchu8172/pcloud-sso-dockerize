@@ -1,8 +1,8 @@
 # Visit manually add with a user, register a device
 Given(/^a user visits manually add page$/) do
   @user = TestingHelper.create_and_signin
-  @device_session = TestingHelper.create_device_session
-  visit '/discoverer/add/'
+  @device = TestingHelper.create_device
+  visit '/discoverer/add'
 end
 
 # -------------------------------------------------------------------
@@ -14,8 +14,8 @@ Given(/^the user filled the invalid "(.*?)" (.*?)$/) do |item, value|
 end
 
 Given(/^the user filled the exists device information$/) do
-  fill_in I18n.t("labels.mac_address"), with: @device_session.device.mac_address
-  fill_in I18n.t("labels.serial_number"), with: @device_session.device.serial_number
+  fill_in I18n.t("labels.mac_address"), with: @device.mac_address
+  fill_in I18n.t("labels.serial_number"), with: @device.serial_number
 end
 
 Given(/^the user filled the not exists device information$/) do
@@ -39,5 +39,9 @@ Then(/^the user should see error message on manually add page$/) do
 end
 
 Then(/^the user will redirect to pairing check page$/) do
-	expect(page.current_path).to include('/discoverer/check')
+	expect(page.current_path).to eq("/discoverer/check/#{@device.id}.format")
+end
+
+Then(/^redirect to Search Devices page$/) do
+  expect(page.current_path).to eq('/discoverer/index')
 end

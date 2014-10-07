@@ -13,7 +13,8 @@ include Log4r
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-APP_CONFIG = YAML.load_file('config/oauth_env_variable.yml')[Rails.env] rescue {}
+# APP_CONFIG = YAML.load_file('config/oauth_env_variable.yml')[Rails.env] rescue {}
+# APP_CONFIG = Settings.oauth
 module Pcloud
   class Application < Rails::Application
 
@@ -48,6 +49,8 @@ module Pcloud
 
     # for bower install path
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
+    config.encoding = "utf-8"
 
     # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
 

@@ -8,7 +8,7 @@
     <table class="zyxel_table_style3">
 
       <%# check paired devices %>
-      <% if @paired %>
+      <% unless @pairing.empty? %>
 
         <%# show all paired devices %>
         <% @pairing.each do |pairing| %>
@@ -21,9 +21,9 @@
               <%# get setting information %>
                 <% info_hash = get_info(pairing) %>
                 <tr style="position:relative">
-                  <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title] %></td>
+                  <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title].chomp('.') %></td>
                   <% if info_hash[:title].length > 50 %>
-                  <td class="hide_domain_name"><span><%= info_hash[:title] %></span></td>
+                  <td class="hide_domain_name"><span><%= info_hash[:title].chomp('.') %></span></td>
                   <% end %>
                 </tr>
                 <tr>

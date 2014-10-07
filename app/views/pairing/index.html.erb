@@ -1,4 +1,4 @@
-<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="sessionId=<%= @session.id.to_s %>;deviceId=<%= @device.id.to_s %>;session=<%= @session.to_json(:except => [ :id, :created_at, :expire_at ], :methods => :expire_in) %>;waitingForCheckConnect();">
+<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="deviceId=<%= @device.id.to_s %>;session=<%= @session.to_json() %>;timeout=<%= Device.pairing_session_timeout %>;waitingForCheckConnect();">
 
   <div class="zyxel_content">
     <%= render "discoverer/shared/device_info" %>
@@ -6,11 +6,12 @@
     <%# Pairing information content %>
     <span class="zyxel_span2" ng-switch on="step">
       <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.pairing.connecting") %></span>
-      <span ng-switch-when="waiting"><%= I18n.t("warnings.settings.pairing.start.instruction") %> <%= I18n.t("warnings.settings.pairing.start.instruction_2") %><timer id="countdown-timer" countdown="session.expire_in" max-time-unit="'minute'" autostart="false" interval="1000" class="countdown_number" >{{mminutes}} : {{sseconds}} </timer></span>
+      <span ng-switch-when="waiting"><%= I18n.t("warnings.settings.pairing.start.instruction") %> <%= I18n.t("warnings.settings.pairing.start.instruction_2") %><br><timer id="countdown-timer" countdown="expireIn" max-time-unit="'minute'" autostart="false" interval="1000" class="countdown_number" >{{mminutes}} : {{sseconds}} </timer></span>
       <span ng-switch-when="disconnection"><%= I18n.t("warnings.settings.pairing.not_found") %></span>
       <span ng-switch-when="failure"><%= I18n.t("warnings.settings.pairing.failure") %></span>
       <span ng-switch-when="canceled"><%= I18n.t("warnings.settings.pairing.canceled") %></span>
       <span ng-switch-when="done"><%= I18n.t("warnings.settings.pairing.success") %></span>
+      <span ng-switch-when="confirm_cancel"><%= I18n.t("warnings.settings.pairing.cancel_instruction") %></span>
     </span>
     <%# end - Pairing information content %>
 
@@ -18,20 +19,214 @@
     <div class="bottom-content" ng-switch on="panel">
         <div class="countdown" ng-switch-when="loading">
           <%= image_tag 'loading.gif' %>
+          <div class="zyxel_btn_area i18n_fix">
+            <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+          </div>
         </div>
         <div class="countdown" ng-switch-when="waiting">
             <%= image_tag @device.product.pairing.url %>
+            <div class="zyxel_btn_area i18n_fix">
+              <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+            </div>
         </div>
-        <div  ng-switch-when="retry" class="zyxel_btn_area">
+        <div  ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
           <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
           <button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button>
         </div>
-        <div  ng-switch-when="done" class="zyxel_btn_area">
+        <div ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
           <%= link_to(I18n.t("labels.confirm"), "/ddns/setting/" + @device.id.to_s, class: "zyxel_btn_ok") %>
+        </div>
+        <div ng-switch-when="confirm_cancel" class="zyxel_btn_area i18n_fix">
+          <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
+          <%= link_to(I18n.t("labels.confirm"), "/pairing/cancel/#{@device.id.to_s}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
     </div>
     <%# end - Pairing bottom content %>
   </div>
 </div>
 
+
+<script type="text/javascript">
+  var pairing_app = angular.module('pairing_app', ['timer']);
+  pairing_app.controller('PairingCtrl', function ($scope, $timeout, $http) {
+
+    $scope.step = 'connecting';
+    $scope.panel = 'loading';
+    $scope.interval = 3000;
+    $scope.formateSuffix = ".json";
+    $scope.checkConnectionUrl = '/pairing/check_connection/';
+
+    $scope.checkConnection = function(){
+      $scope.disableBtn();
+      $timeout(function(){
+
+        var url = $scope.checkConnectionUrl  + $scope.deviceId;
+        $http.get(url).success(function(response) {
+
+          $scope.session = response;
+          switch(response.status){
+            case 'offline':
+              $scope.disconnectionStep();
+              break;
+            case 'waiting':
+              if($scope.step == 'connecting'){
+
+                var expireIn = parseInt($scope.session.expire_in);
+                console.log('time difference:' + ($scope.timeout - expireIn));
+                if (($scope.timeout - expireIn) <= 5){
+                  expireIn = $scope.timeout;
+                }
+
+                $scope.expireIn = expireIn;
+                $scope.step = "waiting";
+                $scope.panel = "waiting";
+
+                $timeout(startTimer, 500);
+                $scope.disableBtn();
+              }
+              $scope.checkConnection();
+              break;
+            case 'timeout':
+              /***
+                there is time difference between server and client,
+                so just go by browser's timer
+              ***/
+              break;
+            case 'cancel':
+              $scope.canceledStep();
+              break;
+            case 'failure':
+              $scope.canceledStep();
+              break;
+            case 'done':
+              $scope.completedStep();
+              break;
+            case 'start':
+              $scope.checkConnection();
+              break;
+          }
+        });}, $scope.interval);
+    };
+
+    $scope.reconnect = function(){
+      $scope.connectingStep();
+      $http.get("/pairing/reconnect/" + $scope.deviceId).success(function(response) {
+        $scope.sessionId = response.id;
+        $scope.session = response;
+        $scope.waitingForCheckConnect();
+      });
+    };
+
+    $scope.cancel = function() {
+      $scope.step = "confirm_cancel";
+      $scope.panel = "confirm_cancel";
+    }
+
+    $scope.continue = function() {
+      if($scope.session.status == 'start') {
+        $scope.connectingStep();
+        $scope.waitingForCheckConnect();
+        return;
+      } else if($scope.session.status == 'waiting') {
+        $scope.step = "waiting";
+        $scope.panel = "waiting";
+        $scope.reconnect();
+        return;
+      }
+      $scope.checkConnection();
+    }
+
+    $scope.$on('timer-stopped', function (event, args) {
+      if($scope.session.status == 'waiting' || $scope.session.status == 'timeout'){
+        $scope.failureStep();
+      }
+    });
+
+    $scope.waitingForCheckConnect = function(){
+
+      if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
+        $scope.failureStep();
+        return;
+      } else if($scope.step == 'confirm_cancel') {
+        return;
+      }
+
+      $scope.connectingStep();
+      $scope.checkConnection();
+    };
+
+    var startTimer = function(){
+
+      // $scope.$broadcast('timer-set-countdown-seconds', expireIn);
+      $scope.$broadcast('timer-start');
+    };
+
+    $scope.checkWaiting = function(){
+      $http.get($scope.checkConnectionUrl + $scope.sessionId + $scope.formateSuffix).success(function(response) {
+        switch(response.status){
+          case 'done':
+            $scope.$broadcast('timer-stop');
+            $scope.completedStep();
+            break;
+          case 'failure':
+            $scope.canceledStep();
+            break;
+         }
+      });
+    };
+
+    $scope.connectingStep = function(){
+      $scope.step = 'connecting';
+      $scope.panel = 'loading';
+      $scope.disableBtn();
+    };
+
+    $scope.failureStep = function(){
+      $scope.step = 'failure';
+      $scope.panel = 'retry';
+    };
+
+    $scope.disconnectionStep = function(){
+      $scope.step = 'disconnection';
+      $scope.panel = 'retry';
+      $scope.enableBtn();
+    };
+
+    $scope.canceledStep = function(){
+      $scope.step = 'canceled';
+      $scope.panel = 'retry';
+      $scope.enableBtn();
+    };
+
+    $scope.completedStep = function(){
+      $scope.step = 'done';
+      $scope.panel = 'done';
+      $scope.enableBtn();
+    };
+
+    $scope.disableBtn = function(){
+      var allButton = document.querySelectorAll("a:not(.zyxel_enabled)");
+      for(var i=0; i<allButton.length; i++){
+        var $thisBtn = allButton[i];
+        var $thisUrl = $thisBtn.getAttribute('href');
+        if ($thisUrl != "#"){
+          $thisBtn.setAttribute('data-href', $thisUrl);
+          $thisBtn.setAttribute('href', '#');
+        };
+      };
+    };
+
+    $scope.enableBtn = function(){
+      var allButton = document.querySelectorAll("a[data-href]:not(.zyxel_enabled)");
+      for(var i=0; i<allButton.length; i++){
+        var $thisBtn = allButton[i];
+        var $dataUrl = $thisBtn.getAttribute('data-href');
+        if ($dataUrl){
+          $thisBtn.setAttribute('href', $dataUrl);
+        };
+      };
+    };
+
+  });
+</script>

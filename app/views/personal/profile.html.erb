@@ -55,10 +55,6 @@
           <td colspan="3"><%= current_user.mobile_number %></td>
         </tr>
       <% end %>
-      <tr>
-        <th><%= I18n.t("user.labels.language") %></th>
-        <td colspan="3"><%= @language %></td>
-      </tr>
       <% if !current_user.country.blank? %>
         <tr>
           <th><%= I18n.t("user.labels.country") %></th>
@@ -67,11 +63,11 @@
       <% end %>
     </table>
     <div class="zyxel_edm">
-      <%= check_box_tag "edm_accept", value = current_user.edm_accept, !current_user.edm_accept.zero?, disabled: true %>
+      <%= check_box_tag "edm_accept", value = current_user.edm_accept, current_user.edm_accept, disabled: true %>
       <label><span></span><%= I18n.t("user.labels.edm") %></label>
     </div>
 
-    <div class="zyxel_btn_area">
+    <div class="zyxel_btn_area i18n_fix">
       <% if !session[:oauth] %>
         <%= link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "zyxel_btn_ok" %>
       <% end %>

@@ -16,22 +16,35 @@ class DeviceController < ApplicationController
   skip_before_filter :verify_authenticity_token
   skip_before_filter :authenticate_user!
   before_filter :validate_signature, :only => :register
+  before_filter :verify_device, :only => :register
 
   # POST /d/1/register
   def register
 
-    @device = Device.checkin(api_permit)
-    xmpp_checkin
-    ddns_checkin
+    # @device = Device.checkin(api_permit)
+    device_checkin
     device_session_checkin
-    reset 
+    ddns_checkin
+    reset
 
-  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
+    xmpp_checkin
+
+  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_resource_id,
                      :xmpp_password => @account[:password],
-                     :xmpp_bots => Settings.xmpp.bots}
+                     :xmpp_bots => Settings.xmpp.bots,
+                     :xmpp_ip_addresses => Settings.xmpp.nodes}
   end
 
   private
+
+  def device_checkin
+
+    unless api_permit[:firmware_version] == @device.firmware_version
+      logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + @device.firmware_version)
+      @device.update_attribute(:firmware_version, args[:firmware_version])
+    end
+
+  end
 
   def reset
     unless reset_requestment?
@@ -41,23 +54,26 @@ class DeviceController < ApplicationController
 
     device_id = @device.id.to_s
 
-    logger.debug("reset reset:" + params[:reset] + ", device id" + device_id)
+    logger.info("reset reset:" + params[:reset] + ", device id" + device_id)
     pairing = Pairing.find_by_device_id(device_id)
     return if pairing.nil?
 
     Job::UnpairMessage.new.push_device_id(device_id)
-    pairing.disable
+    pairing.destroy
   end
 
   def device_session_checkin
-    ip = request.remote_ip
-    if(@device.device_session.nil?)
-      session = @device.build_device_session(:ip => ip, :xmpp_account => @account[:name], :password => @account[:password])
-      session.save
-      logger.info('create device session: ' + session.to_json(:except => :password))
-    else
-      session = @device.device_session.update_attributes(:ip => ip, :password => @account[:password])
-      logger.info('update device session new password and ip: ' + ip)
+
+    @device_session = @device.session.all
+    xmpp_account = generate_new_username
+
+    @device.update_ip_list request.remote_ip if request.remote_ip != @device_session[:ip]
+
+    if request.remote_ip != @device_session[:ip] || xmpp_account != @device_session[:xmpp_account]
+      @device_session[:ip] = request.remote_ip
+      @device_session[:xmpp_account] = xmpp_account
+      @device.session.update @device_session
+      logger.info('create or update device session: ' + @device_session.inspect + ', raw data:' + @device_session.inspect)
     end
   end
 
@@ -73,35 +89,34 @@ class DeviceController < ApplicationController
   # * 該device 還未做過DDNS 註冊
   def ddns_checkin
 
-    return if !@device.device_session.nil? && @device.device_session.ip == request.remote_ip
+    return if @device_session[:ip] == request.remote_ip
     return if reset_requestment?
 
     ddns = Ddns.find_by_device_id(@device.id)
     return if ddns.nil?
-    
+
     logger.debug('update ddns id:' + ddns.id.to_s)
-    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.full_domain})
+    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.hostname + ddns.domain.domain_name})
   end
 
   def xmpp_checkin
 
-    xmpp_host = Settings.xmpp.server
-    admin_username = Settings.xmpp.admin.account
-    admin_password = Settings.xmpp.admin.password
+    @account = Hash.new
+    @account[:password] = generate_new_passoword
+    @account[:name] = @device.session.fetch :xmpp_account || generate_new_username
 
-    if(@device.device_session.nil?)
-      # connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
-      @account = {:name => generate_new_username, :password => generate_new_passoword}
-      apply_new_account
-      logger.info('create new xmpp account:' + @account[:name]);
-    else
-      # connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
-      @account = {:name => @device.device_session.xmpp_account, :password => generate_new_passoword}
-      logger.info('change password for account:' + @account[:name]);
-      apply_new_password
-    end
+    # if(@device.device_session.nil?)
+    #   # connect_to_xmpp(admin_username + "@" + xmpp_host, admin_password.to_s)
+    #   @account = {:name => generate_new_username, :password => generate_new_passoword}
+    #   logger.info('create new xmpp account:' + @account[:name])
+    # else
+    #   # connect_to_xmpp(@device.device_session.xmpp_account + "@" + xmpp_host, @device.device_session.password)
+    #   @account = {:name => @device.device_session.xmpp_account, :password => generate_new_passoword}
+    #   logger.info('change password for account:' + @account[:name])
+    # end
 
-    # apply_for_xmpp_account
+    logger.info('apply xmpp account:' + @account[:name])
+    apply_for_xmpp_account
   end
 
   def connect_to_xmpp (username, password)
@@ -118,87 +133,45 @@ class DeviceController < ApplicationController
     params.permit(:mac_address, :serial_number, :model_name, :firmware_version);
   end
 
-  def apply_new_account
+  def apply_for_xmpp_account
 
-    iq = Jabber::Iq.new(:set)
-    iq.id= "a" + generate_new_passoword
-    iq.to = Settings.xmpp.server
-    iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
-    
-    command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#add-user')
+    xmpp_user = XmppUser.find_or_initialize_by(username: @account[:name])
+    xmpp_user.password = @account[:password]
+    xmpp_user.save
 
-    x = Jabber::Dataforms::XData.new(:submit)
-    command.add(x)
-
-    form_type_field = Jabber::Dataforms::XDataField.new("FORM_TYPE", :hidden)
-    form_type_field.value = 'http://jabber.org/protocol/admin'
-    x.add(form_type_field)
-
-    account_field = Jabber::Dataforms::XDataField.new("accountjid", "jid-single")
-    account_field.value = @account[:name] + '@' + Settings.xmpp.server
-    x.add(account_field)
-
-    passowrd_field = Jabber::Dataforms::XDataField.new("password", "text-private")
-    passowrd_field.value = @account[:password]
-    x.add(passowrd_field)
-
-    passowrd_verify_field = Jabber::Dataforms::XDataField.new("password-verify", "text-private")
-    passowrd_verify_field.value = @account[:password]
-    x.add(passowrd_verify_field)
-
-    iq.add(command)
-    logger.debug('apply_new_account:' + iq.to_s);
-    post_to_xmpp_server iq.to_s
+    xmpp_user.session = @device.id
   end
 
-  def apply_new_password
-
-    iq = Jabber::Iq.new(:set)
-    iq.id= "a" + generate_new_passoword
-    iq.to = Settings.xmpp.server
-    iq.from = Settings.xmpp.admin.account + '@' + Settings.xmpp.server
-
-    command = Jabber::Command::IqCommand.new('http://jabber.org/protocol/admin#change-user-password')
-
-    x = Jabber::Dataforms::XData.new(:submit)
-    command.add(x)
-
-    form_type_field = Jabber::Dataforms::XDataField.new("FORM_TYPE", :hidden)
-    form_type_field.value = 'http://jabber.org/protocol/admin'
-    x.add(form_type_field)
-
-    account_field = Jabber::Dataforms::XDataField.new("accountjid", "jid-single")
-    account_field.value = @account[:name] + '@' + Settings.xmpp.server
-    x.add(account_field)
-
-    passowrd_field = Jabber::Dataforms::XDataField.new("password", "text-private")
-    passowrd_field.value = @account[:password]
-    x.add(passowrd_field)
-
-    iq.add(command)
-    logger.debug('apply_new_password:' + iq.to_s);
-    post_to_xmpp_server iq.to_s
-  end
-
-  def post_to_xmpp_server(content)
-    url = 'http://'  + Settings.xmpp.server + ':5280/rest/'
-    logger.info('post to: ' + url)
-    result = RestClient.post(url, content)
-    logger.debug('post to xmpp server result:' + result.to_s);
-  end
-
-  def change_xmpp_password
-    iq = Jabber::Iq.new(:set)
-  end
-
-  # 產生用IP跟MAC 後兩碼的英文字母作為帳號
+  # 用Mac Address 和 序號的英數產生
   def generate_new_username
-    'd' + request.remote_ip.gsub('.', '') + "-" + @device.mac_address[-2, 2]
+    'd' + @device.mac_address.gsub(':', '-') + '-' + @device.serial_number.gsub(/([^\w])/, '-')
   end
 
   def generate_new_passoword
     origin = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
     (0...10).map { origin[rand(origin.length)] }.join
+  end
+
+  def verify_device
+
+    args = api_permit
+    result = Device.where( args.slice(:mac_address, :serial_number))
+
+    if result.empty?
+
+      product = Product.where(args.slice(:model_name))
+      logger.debug('product search result:' + product.inspect);
+      unless product.empty?
+        @device = Device.create(args.slice(:mac_address, :serial_number, :firmware_version).merge(product_id: product.first.id))
+        logger.info('create new device id:' + @device.id.to_s)
+        return 
+      end
+
+      logger.info('result: invalid parameter');
+      render :json => {:result => 'invalid parameter'}, :status => 400
+    else
+      @device = result.first
+    end
   end
 
   def validate_signature

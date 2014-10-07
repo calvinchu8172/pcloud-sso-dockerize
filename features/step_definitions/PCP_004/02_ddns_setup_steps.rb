@@ -22,11 +22,13 @@ Given(/^the user filled the exist Hostname$/) do
 end
 
 When(/^the server update DDNS setting failed$/) do
+	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
 	set_ddns_session(@ddns_session, "failure")
 end
 
 When(/^the server update DDNS setting successfully$/) do
+	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
 	set_ddns_session(@ddns_session,"success")
 end
@@ -51,24 +53,29 @@ Then(/^the user should see success message on DDNS setup page$/) do
 end
 
 Then(/^the user will redirect to UPnP setup page$/) do
-	expect(page.current_path).to include('/upnp')
+	expect(page.current_path).to eq("/upnp/#{@ddns_session['device_id']}")
 end
 
+Then(/^it should not do anything on DDNS setup page$/) do
+	expect(page).to	have_content I18n.t("warnings.settings.ddns.sync")
+end
 # -------------------------------------------------------------------
 # ----------------------------   code   -----------------------------
 # -------------------------------------------------------------------
 
 def submit_hostname(hostname)
-	fill_in 'hostName', with: hostname
+	fill_in 'host_name', with: hostname
 end
 
 def get_ddns_session(device_id)
-	ddns_session = DdnsSession.find_by_device_id(device_id)
+	redis = Redis.new
+	@index = redis.GET "ddns:session:index"
+	DdnsSession.find(@index).session.all
 end
 
 def set_ddns_session(ddns_session, status)
-	ddns_session.status = status
-	ddns_session.save
+	ddns_session['status'] = status
+	DdnsSession.find(@index).session.update(ddns_session)
 	wait_server_response
 	ddns_session
 end

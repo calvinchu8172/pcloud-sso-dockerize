@@ -2,10 +2,9 @@ class PersonalController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pairing = Pairing.enabled.where(user_id: current_user.id, enabled: 1)
-    if !@pairing.empty?
-      @paired = true
-    else
+
+    @pairing = Pairing.owner.where(user_id: current_user.id)
+    if @pairing.empty?
       @paired = false
       flash[:alert] = I18n.t("warnings.no_pairing_device") if current_user.sign_in_count > 1
       redirect_to "/discoverer/index"
@@ -18,19 +17,20 @@ class PersonalController < ApplicationController
 
   protected
     def get_info(pairing)
+      device = pairing.device
       info_hash = Hash.new
-      info_hash[:model_name] = pairing.device.model_name
-      info_hash[:firmware_version] = pairing.device.firmware_version
-      if pairing.device.ddns
+      info_hash[:model_name] = device.product.model_name
+      info_hash[:firmware_version] = device.firmware_version
+      if device.ddns
         info_hash[:class_name] = "blue"
         # remove ddns domain name last dot
-        info_hash[:title] = pairing.device.ddns.full_domain.chomp('.')
-        info_hash[:ip] = pairing.device.ddns.ip_address
-        info_hash[:date] = pairing.device.ddns.updated_at.strftime("%Y/%m/%d")
+        info_hash[:title] = device.ddns.hostname + "." + Settings.environments.ddns.chomp('.')
+        info_hash[:ip] = device.ddns.get_ip_addr
+        info_hash[:date] = device.ddns.updated_at.strftime("%Y/%m/%d")
       else
         info_hash[:class_name] = "gray"
         info_hash[:title] = I18n.t("warnings.not_config")
-        info_hash[:ip] = pairing.device.device_session.ip
+        info_hash[:ip] = device.session.hget :ip
       end
       info_hash
     end

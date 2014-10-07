@@ -11,7 +11,7 @@ tr:
       password_confirmation: 'Şifreyi Onayla'
       new_password: 'Yeni Şifre'
       new_password_confirmation: 'Yeni Şifreyi Onayla'
-      current_password: "Current Password"
+      current_password: "Mevcut Şifre"
       gender: 'Yeni Şifreyi Onayla'
       male: 'Erkek'
       female: 'Kadın'
