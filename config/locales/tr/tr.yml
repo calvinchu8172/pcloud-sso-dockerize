@@ -39,7 +39,7 @@ tr:
     back_to_home: 'Giriş'
     change_password: 'Şifre Değiştir'
     edit_profile: 'Profili Düzenle'
-    mac_address: 'Mac Adresi'
+    mac_address: 'MAC Adresi'
     serial_number: 'Seri Numara'
   titles:
     change_password: 'Şifre Değiştir'

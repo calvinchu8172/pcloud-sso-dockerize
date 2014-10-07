@@ -39,7 +39,7 @@ th:
     back_to_home: 'หน้าหลัก'
     change_password: 'เปลี่ยนรหัสผ่าน'
     edit_profile: 'แก้ไขโปรไฟล์'
-    mac_address: 'Mac Address'
+    mac_address: 'MAC Address'
     serial_number: ' หมายเลขซีเรียล'
   titles:
     change_password: 'เปลี่ยนรหัสผ่าน'

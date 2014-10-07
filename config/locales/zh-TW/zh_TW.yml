@@ -39,7 +39,7 @@ zh-TW:
     back_to_home: '回主畫面'
     change_password: '密碼修改'
     edit_profile: '資訊修改'
-    mac_address: 'Mac Address'
+    mac_address: 'MAC Address'
     serial_number: 'Serial Number'
   titles:
     change_password: '變更密碼'
