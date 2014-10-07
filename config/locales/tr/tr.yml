@@ -101,3 +101,12 @@ tr:
         success: 'UPnP ayarları başarıyla eşitlendi.'
         not_found: 'Cihaz bulunamadı'
         cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'
+        error_code:
+            num_799: 'Device gateway cannot be found'
+            num_798: 'Failed to get device IP address'
+            num_797: 'Failed to enable UPnP service'
+            num_796: 'Failed to disable UPnP service'
+            num_795: 'Failed to update UPnP port mapping'
+            num_794: 'Failed to list all port mapping'
+            num_793: 'Failed to update UPnP port mapping in DB'
+            num_792: 'Cihaz bulunamadı'

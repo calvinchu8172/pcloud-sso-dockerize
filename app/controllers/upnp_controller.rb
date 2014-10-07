@@ -26,11 +26,13 @@ class UpnpController < ApplicationController
     upnp_session = UpnpSession.find(session_id).session.all
     render :json => {:result => 'timeout'} if upnp_session.empty?
 
+    error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     path_ip = decide_which_path_ip upnp_session
 
     result = {:status => upnp_session['status'],
               :device_id => upnp_session['device_id'],
+              :error_message => error_message,
               :service_list => service_list,
               :path_ip => path_ip,
               :id => session_id
@@ -54,6 +56,7 @@ class UpnpController < ApplicationController
     session_id = params[:id]
     upnp = UpnpSession.find(session_id)
     upnp_session = upnp.session.all
+
     path_ip = decide_which_path_ip upnp_session
 
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
@@ -105,5 +108,13 @@ class UpnpController < ApplicationController
   def get_device_info
     @device = Device.find(params[:id])
     @device_ip = @device.session.hget(:ip)
+  end
+
+  def get_error_msg error_code
+    if UpnpSession.handling_error_code?(error_code)
+      I18n.t("warnings.settings.upnp.error_code.num_" + error_code)
+    else
+      I18n.t("warnings.settings.upnp.not_found")
+    end
   end
 end
