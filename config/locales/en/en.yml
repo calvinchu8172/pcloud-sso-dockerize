@@ -39,7 +39,7 @@ en:
     back_to_home: 'Home'
     change_password: 'Change Password'
     edit_profile: 'Edit Profile'
-    mac_address: 'Mac Address'
+    mac_address: 'MAC Address'
     serial_number: 'Serial Number'
   titles:
     change_password: 'Change Password'

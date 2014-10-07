@@ -39,7 +39,7 @@ nl:
     back_to_home: 'Home'
     change_password: 'Verander wachtwoord'
     edit_profile: 'Wijzig profiel'
-    mac_address: 'Mac Address'
+    mac_address: 'MAC Address'
     serial_number: 'Serienummer'
   titles:
     change_password: 'Wijzig wachtwoord'
