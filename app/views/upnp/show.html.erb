@@ -158,6 +158,7 @@
             return;
           }else if('failure' == response.status){
             $scope.get_failure(response);
+            return;
           }
 
           if($scope.loadTimes < $scope.timesLimit){
