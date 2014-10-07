@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004130100) do
+ActiveRecord::Schema.define(version: 20141006105431) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false

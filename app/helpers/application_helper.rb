@@ -7,4 +7,10 @@ module ApplicationHelper
       base_flow = page_flow.split(",")
     end
   end
+
+  def page_title
+    if Rails.env == "staging"
+      "-beta"
+    end
+  end
 end

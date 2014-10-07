@@ -29,7 +29,7 @@ class DeviceController < ApplicationController
 
     xmpp_checkin
 
-  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_rescource_id,
+  	render :json => {:xmpp_account => @account[:name] + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_resource_id,
                      :xmpp_password => @account[:password],
                      :xmpp_bots => Settings.xmpp.bots,
                      :xmpp_ip_addresses => Settings.xmpp.nodes}
@@ -100,10 +100,6 @@ class DeviceController < ApplicationController
   end
 
   def xmpp_checkin
-
-    xmpp_host = Settings.xmpp.server
-    admin_username = Settings.xmpp.admin.account
-    admin_password = Settings.xmpp.admin.password
 
     @account = Hash.new
     @account[:password] = generate_new_passoword
