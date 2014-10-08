@@ -39,7 +39,7 @@ zh-TW:
     back_to_home: '回主畫面'
     change_password: '密碼修改'
     edit_profile: '資訊修改'
-    mac_address: 'Mac Address'
+    mac_address: 'MAC Address'
     serial_number: 'Serial Number'
   titles:
     change_password: '變更密碼'
@@ -101,3 +101,12 @@ zh-TW:
         success: 'UPnP設定完成'
         not_found: '偵測不到您的裝置'
         cancel_instruction: '您確定要取消目前的UPnP設定流程？'
+        error_code:
+            num_799: '未發現路由器閘道位置'
+            num_798: '設備網路位置取得失敗'
+            num_797: '開啟 UPnP 服務失敗'
+            num_796: '關閉 UPnP 服務失敗'
+            num_795: '更新 UPnP 連接埠對應清單失敗'
+            num_794: '載入 UPnP 連接埠對應清單失敗'
+            num_793: '更新 UPnP 連接埠對應清單至資料庫失敗'
+            num_792: '偵測不到您的裝置'

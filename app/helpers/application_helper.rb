@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def page_title
-    if Rails.env == "staging"
+    if Settings.environments.portal_domain.match("-beta.")
       "-beta"
     end
   end

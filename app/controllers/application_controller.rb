@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
       return unless request.get?
       if(!request.path.match("/users") &&
          !request.path.match("/hint") &&
+         !request.path.match("/oauth") &&
          !request.xhr? && # don't store ajax calls
          (request.accept && !request.accept.match(/json/))) # don't store json calls
         session[:previous_url] = request.fullpath
