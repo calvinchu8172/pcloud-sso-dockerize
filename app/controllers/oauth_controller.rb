@@ -6,8 +6,7 @@ class OauthController < ApplicationController
 
   def confirm
     agreement = params[:user][:agreement]
-
-    if agreement
+    if agreement == 1
       # Check provider and user
       identity = User.sign_up_omniauth(session["devise.omniauth_data"], current_user, agreement)
       # Sign In and redirect to root path
@@ -15,7 +14,8 @@ class OauthController < ApplicationController
       redirect_to authenticated_root_path
     else
       # Redirect to Sign in page, when user un-agreement the terms
-      redirect_to new_user_session_path
+      flash[:notice] = I18n.t('activerecord.errors.messages.accepted')
+      redirect_to '/oauth/new'
     end
   end
 end
