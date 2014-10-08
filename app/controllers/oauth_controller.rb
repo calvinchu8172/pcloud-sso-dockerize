@@ -6,7 +6,7 @@ class OauthController < ApplicationController
 
   def confirm
     agreement = params[:user][:agreement]
-    if agreement == 1
+    if agreement == "1"
       # Check provider and user
       identity = User.sign_up_omniauth(session["devise.omniauth_data"], current_user, agreement)
       # Sign In and redirect to root path
