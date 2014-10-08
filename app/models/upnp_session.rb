@@ -20,4 +20,9 @@ class UpnpSession
   	session.id = id
   	session
   end
+
+  def self.handling_error_code? code_number
+    error_code_list = ['799', '798', '797', '796', '795', '794', '793', '792']
+    error_code_list.include?(code_number)
+  end
 end
