@@ -57,8 +57,7 @@ class Device < ActiveRecord::Base
   end
 
   def pairing_session_expire_in
-    return pairing_session.get('start_expire_at').to_f - Time.now().to_f if pairing_session.get('status') == 'start'
-    return pairing_session.get('waiting_expire_at').to_f - Time.now().to_f if pairing_session.get('status') == 'waiting'
+    pairing_session.get('expire_at').to_f - Time.now().to_f if self.class.handling_status.include?(pairing_session.get('status'))
   end
 
   def self.pairing_session_timeout

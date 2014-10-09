@@ -14,7 +14,7 @@ module PairingHelper
     end
 
     @device = Device.find device_id
-    @session = @device.pairing_session.all
+    @pairing_session = @device.pairing_session.all
 
     if handling?(@device.id, current_user.id)
       # Device is pairing
@@ -33,7 +33,7 @@ module PairingHelper
     end
 
     @device = Device.find(device_id)
-    @session = @device.pairing_session.all
+    @pairing_session = @device.pairing_session.all
 
     if handling?(@device.id, current_user.id)
       render :json => {:id => device_id, :status => 'device is pairing'}
@@ -45,7 +45,7 @@ module PairingHelper
   end
 
   def handling?(device_id, user_id)
-    !@session.empty? && @session['user_id'] != current_user.id.to_s
+    !@pairing_session.empty? && @pairing_session['user_id'] != current_user.id.to_s
   end
 
   def paired?(device_id)
