@@ -61,6 +61,19 @@ When(/^the visitor success sign up an account:$/) do |table|
   click_button I18n.t("labels.sign_up")
 end
 
+Then(/^the user is logout$/) do
+  logout(:user)
+end
+
+Then(/^the page should redirect to my device page after user login$/) do
+  visit new_user_session_path
+  fill_in "user[email]", with: "personal@example.com"
+  fill_in "user[password]", with: "12345678"
+  find('.zyxel_btn_login_submit').click
+  expect(page.current_path).to eq("/discoverer/index")
+end
+
+
 # -------------------------------------------------------------------
 # ---------------------- Check error message ------------------------
 # -------------------------------------------------------------------
