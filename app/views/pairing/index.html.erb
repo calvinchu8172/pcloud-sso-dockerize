@@ -73,7 +73,7 @@
               if($scope.step == 'connecting'){
 
                 var expireIn = parseInt($scope.session.expire_in);
-                console.log('time difference:' + ($scope.timeout - expireIn));
+                
                 if (($scope.timeout - expireIn) <= 5){
                   expireIn = $scope.timeout;
                 }
@@ -139,7 +139,7 @@
 
     $scope.$on('timer-stopped', function (event, args) {
       if($scope.session.status == 'waiting' || $scope.session.status == 'timeout'){
-        $scope.failureStep();
+        $timeout(function(){$scope.failureStep();}, 500);
       }
     });
 
