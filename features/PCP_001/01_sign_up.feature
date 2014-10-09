@@ -142,6 +142,10 @@ Feature: [PCP_001_01] Sign Up
 
     Then user will auto login and redirect to dashboard
 
+    But the user is logout
+
+    Then the page should redirect to my device page after user login
+
   Scenario: [PCP_001_01_10]
     Redirect to login page when user click cancel button in sign up page
 
