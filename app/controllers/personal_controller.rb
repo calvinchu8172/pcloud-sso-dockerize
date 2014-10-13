@@ -6,7 +6,7 @@ class PersonalController < ApplicationController
     @pairing = Pairing.owner.where(user_id: current_user.id)
     if @pairing.empty?
       @paired = false
-      flash[:alert] = I18n.t("warnings.no_pairing_device")
+      flash[:alert] = flash[:notice] ? flash[:notice] : I18n.t("warnings.no_pairing_device")
       redirect_to "/discoverer/index"
     end
   end
