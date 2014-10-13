@@ -70,10 +70,11 @@ class PairingController < ApplicationController
     @device.pairing_session.expire(waiting_expire_at + 0.2.minutes.to_i)
 
     @pairing_session = job_params
-    @pairing_session[:expire_in] = Device::WAITING_TIME.to_i
-
+    
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{"job":"pairing", "device_id":"' + @device.id.to_s + '"}')
     @device.pairing_session.bulk_set job_params
+
+    @pairing_session[:expire_in] = Device::WAITING_TIME.to_i
 
     logger.info("connect to device session:" + @pairing_session.inspect)
   end
