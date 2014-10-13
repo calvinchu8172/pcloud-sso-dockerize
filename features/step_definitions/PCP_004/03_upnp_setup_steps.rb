@@ -14,7 +14,6 @@ end
 
 When(/^the device was offline$/) do
   set_upnp_status(@upnp_session, "failure")
-  sleep 700
 end
 
 When(/^the device was online the device will response service list$/) do
