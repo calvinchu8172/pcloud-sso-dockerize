@@ -4,20 +4,15 @@ class PairingController < ApplicationController
   before_action :check_device_available, :only => [:index]
   before_action :check_pairing_session, :only => [:check_connection, :reconnect]
 
-  
-
   # GET /pairing/index/:id
+  # pairing session init via check_device_available in pairing helper
   def index
     init_session
   end
 
-  # GET /pairing/reconnect/:id
-  def reconnect
-    init_session
-    render :json => {:status => @pairing_session['status']}
-  end
-
   # GET /pairing/check_connection/:id
+  # for the polling from front end
+  # it will check out session is still avaliable
   def check_connection
 
     check_timeout
@@ -28,6 +23,8 @@ class PairingController < ApplicationController
     render :json => result
   end
 
+  # GET /pairing/cancel/:id
+  # break the pairing process
   def cancel
     session_id = params[:id]
     pairing = Device.find(session_id).pairing_session

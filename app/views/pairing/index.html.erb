@@ -118,12 +118,7 @@
     };
 
     $scope.reconnect = function(){
-      $scope.connectingStep();
-      $http.get("/pairing/reconnect/" + $scope.deviceId).success(function(response) {
-        $scope.sessionId = response.id;
-        $scope.session = response;
-        $scope.waitingForCheckConnect();
-      });
+      location.reload();
     };
 
     $scope.cancel = function() {
