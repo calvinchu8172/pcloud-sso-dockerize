@@ -149,23 +149,29 @@
         $scope.loadTimes++;
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
-          if('form' == response.status){
-            $scope.pathIp = response.path_ip;
-            $scope.get_list = response;
-            if($scope.step != "confirm_cancel") {
-              $scope.formPanel(response);
-            }
-            return;
-          }else if('failure' == response.status){
-            $scope.get_failure(response);
-            return;
+          switch($scope.session.status){
+            case 'form':
+              $scope.pathIp = response.path_ip;
+              $scope.get_list = response;
+              if($scope.step != "confirm_cancel") {
+                $scope.formPanel(response);
+              }
+              return;
+            case 'failure':
+              $scope.get_failure(response);
+              return;
+            case 'timeout':
+
+              return;
           }
 
           if($scope.loadTimes < $scope.timesLimit){
+
             $scope.loadConfig();
-          }else{
-            $scope.get_failure(response);
+            return;
           }
+
+          $scope.get_failure(response);
         });
       }, $scope.interval);
 
