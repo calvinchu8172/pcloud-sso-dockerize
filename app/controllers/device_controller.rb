@@ -89,7 +89,8 @@ class DeviceController < ApplicationController
   # * 該device 還未做過DDNS 註冊
   def ddns_checkin
 
-    return if @device_session[:ip] == request.remote_ip
+    device_session = device.session.all
+    return if device_session[:ip] == request.remote_ip
     return if reset_requestment?
 
     ddns = Ddns.find_by_device_id(@device.id)
