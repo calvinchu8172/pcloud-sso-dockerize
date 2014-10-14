@@ -995,6 +995,9 @@ body {
   width:100%;/* modify0815 */
   text-align:center;/* modify0815 */
 }
+
+.zyxel_table_style5 .upnp.service_list_name{text-decoration: underline;}
+
 .zyxel_table_style5 th {
   color: $zyxel_color2;
   border-bottom: 2px solid $zyxel_color6;
