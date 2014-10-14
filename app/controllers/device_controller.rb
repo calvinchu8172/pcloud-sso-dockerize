@@ -23,8 +23,8 @@ class DeviceController < ApplicationController
 
     # @device = Device.checkin(api_permit)
     device_checkin
-    device_session_checkin
     ddns_checkin
+    device_session_checkin
     reset
 
     xmpp_checkin
@@ -40,8 +40,8 @@ class DeviceController < ApplicationController
   def device_checkin
 
     unless api_permit[:firmware_version] == @device.firmware_version
-      logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + @device.firmware_version)
-      @device.update_attribute(:firmware_version, args[:firmware_version])
+      logger.info('update device from fireware version' + api_permit[:firmware_version] + ' from ' + @device.firmware_version)
+      @device.update_attribute(:firmware_version, api_permit[:firmware_version])
     end
 
   end
@@ -67,12 +67,12 @@ class DeviceController < ApplicationController
     @device_session = @device.session.all
     xmpp_account = generate_new_username
 
-    @device.update_ip_list request.remote_ip if request.remote_ip != @device_session[:ip]
+    @device.update_ip_list request.remote_ip if request.remote_ip != @device_session['ip']
 
-    if request.remote_ip != @device_session[:ip] || xmpp_account != @device_session[:xmpp_account]
-      @device_session[:ip] = request.remote_ip
-      @device_session[:xmpp_account] = xmpp_account
-      @device.session.update @device_session
+    if request.remote_ip != @device_session['ip'] || xmpp_account != @device_session['xmpp_account']
+      @device_session['ip'] = request.remote_ip
+      @device_session['xmpp_account'] = xmpp_account
+      @device.session.bulk_set @device_session
       logger.info('create or update device session: ' + @device_session.inspect + ', raw data:' + @device_session.inspect)
     end
   end
@@ -89,14 +89,20 @@ class DeviceController < ApplicationController
   # * 該device 還未做過DDNS 註冊
   def ddns_checkin
 
-    return if @device_session[:ip] == request.remote_ip
+    device_session = @device.session.all
+    return if device_session['ip'] == request.remote_ip
     return if reset_requestment?
 
     ddns = Ddns.find_by_device_id(@device.id)
     return if ddns.nil?
 
     logger.debug('update ddns id:' + ddns.id.to_s)
-    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.hostname + ddns.domain.domain_name})
+
+    session = {device_id: @device.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
+    ddns_session = DdnsSession.create
+    job = {:job => 'ddns', :session_id => ddns_session.id}
+    ddns_session.session.bulk_set(session)
+    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
   end
 
   def xmpp_checkin
@@ -130,7 +136,7 @@ class DeviceController < ApplicationController
   end
 
   def api_permit
-    params.permit(:mac_address, :serial_number, :model_name, :firmware_version);
+    params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :algo);
   end
 
   def apply_for_xmpp_account

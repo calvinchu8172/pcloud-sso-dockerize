@@ -10,7 +10,7 @@ FactoryGirl.define do
     sequence(:serial_number)  { |n| "1234567890#{n}"}
     sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
     firmware_version          "V4.70(AALS.0)_GPL_20140820"
-    product_id                "1"
+    association :product_id,  factory: :product_id
   end
   factory :pairing do
     association :user_id,     factory: :user_id

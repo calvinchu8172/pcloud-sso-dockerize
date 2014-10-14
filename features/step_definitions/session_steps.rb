@@ -20,7 +20,8 @@ module TestingHelper
     user
   end
   def self.create_device
-    device = FactoryGirl.create(:device)
+    product_id = Product.first.id
+    device = FactoryGirl.create(:device, product_id: product_id)
     device.save
     device.update_ip_list "127.0.0.1"
     device

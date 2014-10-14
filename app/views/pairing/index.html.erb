@@ -1,4 +1,4 @@
-<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="deviceId=<%= @device.id.to_s %>;session=<%= @session.to_json() %>;timeout=<%= Device.pairing_session_timeout %>;waitingForCheckConnect();">
+<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="deviceId=<%= @device.id.to_s %>;session=<%= @pairing_session.to_json() %>;init();">
 
   <div class="zyxel_content">
     <%= render "discoverer/shared/device_info" %>
@@ -57,65 +57,68 @@
     $scope.formateSuffix = ".json";
     $scope.checkConnectionUrl = '/pairing/check_connection/';
 
+    $scope.init = function(){
+
+      if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
+        $scope.failureStep();
+        return;
+      } else if($scope.step == 'confirm_cancel') {
+        return;
+      }
+
+      if($scope.session.status == 'waiting' || $scope.session.status == 'start'){
+        $scope.expireIn = parseInt($scope.session.expire_in);
+        $scope.waitingStep();
+        $timeout(startTimer, 500);
+      }
+      $scope.checkConnection();
+    };
+
     $scope.checkConnection = function(){
       $scope.disableBtn();
-      $timeout(function(){
+      
+      switch($scope.session.status){
 
-        var url = $scope.checkConnectionUrl  + $scope.deviceId;
-        $http.get(url).success(function(response) {
+        case 'offline':
+          $scope.disconnectionStep();
+          break;
+        case 'start':
+        case 'waiting':
 
-          $scope.session = response;
-          switch(response.status){
-            case 'offline':
-              $scope.disconnectionStep();
-              break;
-            case 'waiting':
-              if($scope.step == 'connecting'){
-
-                var expireIn = parseInt($scope.session.expire_in);
-                console.log('time difference:' + ($scope.timeout - expireIn));
-                if (($scope.timeout - expireIn) <= 5){
-                  expireIn = $scope.timeout;
-                }
-
-                $scope.expireIn = expireIn;
-                $scope.step = "waiting";
-                $scope.panel = "waiting";
-
-                $timeout(startTimer, 500);
-                $scope.disableBtn();
-              }
-              $scope.checkConnection();
-              break;
-            case 'timeout':
-              /***
-                there is time difference between server and client,
-                so just go by browser's timer
+          $scope.disableBtn();
+          $scope.poll();
+          break;
+        case 'timeout':
+            /***
+              there is time difference between server and client,
+              so just go by browser's timer
               ***/
-              break;
-            case 'cancel':
-              $scope.canceledStep();
-              break;
-            case 'failure':
-              $scope.canceledStep();
-              break;
-            case 'done':
-              $scope.completedStep();
-              break;
-            case 'start':
-              $scope.checkConnection();
-              break;
-          }
-        });}, $scope.interval);
+          break;
+        case 'cancel':
+          $scope.canceledStep();
+          break;
+        case 'failure':
+          $scope.canceledStep();
+          break;
+        case 'done':
+          $scope.completedStep();
+          break;
+      }
+    };
+
+    $scope.poll = function(){
+
+      var url = $scope.checkConnectionUrl  + $scope.deviceId;
+      $timeout(function(){
+        $http.get(url).success(function(response) {
+          $scope.session = response;
+          $scope.checkConnection();
+        });
+      }, $scope.interval);
     };
 
     $scope.reconnect = function(){
-      $scope.connectingStep();
-      $http.get("/pairing/reconnect/" + $scope.deviceId).success(function(response) {
-        $scope.sessionId = response.id;
-        $scope.session = response;
-        $scope.waitingForCheckConnect();
-      });
+      location.reload();
     };
 
     $scope.cancel = function() {
@@ -139,26 +142,13 @@
 
     $scope.$on('timer-stopped', function (event, args) {
       if($scope.session.status == 'waiting' || $scope.session.status == 'timeout'){
-        $scope.failureStep();
+        $timeout(function(){$scope.failureStep();}, 500);
       }
     });
 
-    $scope.waitingForCheckConnect = function(){
-
-      if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
-        $scope.failureStep();
-        return;
-      } else if($scope.step == 'confirm_cancel') {
-        return;
-      }
-
-      $scope.connectingStep();
-      $scope.checkConnection();
-    };
+ 
 
     var startTimer = function(){
-
-      // $scope.$broadcast('timer-set-countdown-seconds', expireIn);
       $scope.$broadcast('timer-start');
     };
 
@@ -176,6 +166,10 @@
       });
     };
 
+    $scope.waitingStep = function(){
+      $scope.step = "waiting";
+      $scope.panel = "waiting";
+    }
     $scope.connectingStep = function(){
       $scope.step = 'connecting';
       $scope.panel = 'loading';

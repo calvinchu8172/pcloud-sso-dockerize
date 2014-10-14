@@ -44,7 +44,7 @@
           </td>
           <td data-title="'Name'">
             <%# add service link %>
-            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank">
+            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
               {{service.service_name}}
             </a>
             <span ng-if="isFieldEmpty(service.path)">
@@ -149,23 +149,28 @@
         $scope.loadTimes++;
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
-          if('form' == response.status){
-            $scope.pathIp = response.path_ip;
-            $scope.get_list = response;
-            if($scope.step != "confirm_cancel") {
-              $scope.formPanel(response);
-            }
-            return;
-          }else if('failure' == response.status){
-            $scope.get_failure(response);
-            return;
+          switch(response.status){
+            case 'form':
+              $scope.pathIp = response.path_ip;
+              $scope.get_list = response;
+              if($scope.step != "confirm_cancel") {
+                $scope.formPanel(response);
+              }
+              return;
+            case 'failure':
+            case 'timeout':
+              console.log('fail step content');
+              $scope.get_failure(response);
+              return;
           }
 
           if($scope.loadTimes < $scope.timesLimit){
+
             $scope.loadConfig();
-          }else{
-            $scope.get_failure(response);
+            return;
           }
+
+          $scope.get_failure(response);
         });
       }, $scope.interval);
 
@@ -173,6 +178,7 @@
     };
 
     $scope.get_failure = function(response) {
+      console.log('fail step message:' + response.error_message);
       $scope.error_msg = response.error_message;
       $scope.loadTimes = 0;
       $scope.step = "failure";
@@ -220,12 +226,16 @@
         $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
 
           $scope.checkTimes++;
-          if('updated' == response.status){
-            $scope.successPanel();
-            return;
-          }else if('form' == response.status){
-            $scope.formPanel(response);
-            return;
+          switch(response.status){
+            case 'updated':
+              $scope.successPanel();
+              return;
+            case 'form':
+              $scope.formPanel(response);
+              return;
+            case 'timeout':
+              $scope.get_failure(response);
+              return;
           }
 
           if($scope.checkTimes < $scope.timesLimit){
