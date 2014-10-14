@@ -1,5 +1,5 @@
 development:
-  version: 'V.B.20141009_01'
+  version: 'V.B.20141014_01'
   suffix: '-dev'
 test:
   version: 'V.B.20141009_01'
