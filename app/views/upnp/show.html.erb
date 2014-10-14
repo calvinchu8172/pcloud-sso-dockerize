@@ -149,7 +149,7 @@
         $scope.loadTimes++;
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
-          switch($scope.session.status){
+          switch(response.status){
             case 'form':
               $scope.pathIp = response.path_ip;
               $scope.get_list = response;
@@ -159,6 +159,7 @@
               return;
             case 'failure':
             case 'timeout':
+              console.log('fail step content');
               $scope.get_failure(response);
               return;
           }
@@ -177,6 +178,7 @@
     };
 
     $scope.get_failure = function(response) {
+      console.log('fail step message:' + response.error_message);
       $scope.error_msg = response.error_message;
       $scope.loadTimes = 0;
       $scope.step = "failure";
@@ -224,7 +226,7 @@
         $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
 
           $scope.checkTimes++;
-          switch($scope.session.status){
+          switch(response.status){
             case 'updated':
               $scope.successPanel();
               return;
