@@ -50,10 +50,9 @@ class Device < ActiveRecord::Base
       old_ip_list.delete(self.id)
     end
 
-    unless Pairing.exists?(:device_id => self.id)
-      new_ip_list = Redis::HashKey.new( IP_ADDRESSES_KEY + new_ip)
-      new_ip_list.store(self.id, 1)
-    end
+    new_ip_list = Redis::HashKey.new( IP_ADDRESSES_KEY + new_ip)
+    new_ip_list.store(self.id, 1)
+    
   end
 
   def pairing_session_expire_in
