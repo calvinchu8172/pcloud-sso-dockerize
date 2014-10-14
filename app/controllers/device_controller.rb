@@ -23,8 +23,8 @@ class DeviceController < ApplicationController
 
     # @device = Device.checkin(api_permit)
     device_checkin
-    device_session_checkin
     ddns_checkin
+    device_session_checkin
     reset
 
     xmpp_checkin
