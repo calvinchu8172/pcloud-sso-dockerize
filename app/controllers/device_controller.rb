@@ -97,7 +97,12 @@ class DeviceController < ApplicationController
     return if ddns.nil?
 
     logger.debug('update ddns id:' + ddns.id.to_s)
-    job = Job::DdnsMessage.new.push({device_id: @device.id, full_domain: ddns.hostname + ddns.domain.domain_name})
+
+    session = {device_id: params[:id], host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
+    ddns = DdnsSession.create
+    job = {:job => 'ddns', :session_id => ddns.id}
+    ddns.session.bulk_set(session)
+    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
   end
 
   def xmpp_checkin
