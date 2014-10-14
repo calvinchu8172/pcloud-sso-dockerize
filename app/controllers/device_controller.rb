@@ -101,7 +101,7 @@ class DeviceController < ApplicationController
     session = {device_id: @device.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
     ddns_session = DdnsSession.create
     job = {:job => 'ddns', :session_id => ddns_session.id}
-    ddns_session.bulk_set(session)
+    ddns_session.session.bulk_set(session)
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
   end
 
