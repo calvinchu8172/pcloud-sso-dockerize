@@ -40,8 +40,8 @@ class DeviceController < ApplicationController
   def device_checkin
 
     unless api_permit[:firmware_version] == @device.firmware_version
-      logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + @device.firmware_version)
-      @device.update_attribute(:firmware_version, args[:firmware_version])
+      logger.info('update device from fireware version' + api_permit[:firmware_version] + ' from ' + @device.firmware_version)
+      @device.update_attribute(:firmware_version, api_permit[:firmware_version])
     end
 
   end
