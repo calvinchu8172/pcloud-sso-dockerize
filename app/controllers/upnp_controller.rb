@@ -57,12 +57,14 @@ class UpnpController < ApplicationController
     upnp = UpnpSession.find(session_id)
     upnp_session = upnp.session.all
 
+    error_message = get_error_msg(upnp_session['error_code'])
     path_ip = decide_which_path_ip upnp_session
 
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
 
     result = {:status => upnp_session['status'],
               :device_id => upnp_session['device_id'],
+              :error_message => error_message,
               :service_list => service_list,
               :path_ip => path_ip,
               :id => session_id
