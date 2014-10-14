@@ -158,10 +158,8 @@
               }
               return;
             case 'failure':
-              $scope.get_failure(response);
-              return;
             case 'timeout':
-
+              $scope.get_failure(response);
               return;
           }
 
@@ -226,12 +224,16 @@
         $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
 
           $scope.checkTimes++;
-          if('updated' == response.status){
-            $scope.successPanel();
-            return;
-          }else if('form' == response.status){
-            $scope.formPanel(response);
-            return;
+          switch($scope.session.status){
+            case 'updated':
+              $scope.successPanel();
+              return;
+            case 'form':
+              $scope.formPanel(response);
+              return;
+            case 'timeout':
+              $scope.get_failure(response);
+              return;
           }
 
           if($scope.checkTimes < $scope.timesLimit){
