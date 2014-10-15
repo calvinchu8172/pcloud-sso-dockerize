@@ -86,6 +86,10 @@ When(/^the visitor success sign up an account:$/) do |table|
   captcha_evaluates_to true
   TestingHelper.setup_test_email
   click_button I18n.t("labels.sign_up")
+
+  # Check user info store in DB is correctly
+  user_info = table.rows_hash
+  expect(user_info["E-mail"]).to eq(User.find_by_email(user_info["E-mail"]).email)
 end
 
 When(/^the user try to sign in$/) do
