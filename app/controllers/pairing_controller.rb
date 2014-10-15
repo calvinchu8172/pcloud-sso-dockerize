@@ -67,7 +67,7 @@ class PairingController < ApplicationController
 
     logger.info("connect to device params:" + job_params.to_s)
     @device.pairing_session.bulk_set(job_params)
-    @device.pairing_session.expire(waiting_expire_at + 0.2.minutes.to_i)
+    @device.pairing_session.expire((Device::WAITING_TIME + 0.2.minutes).to_i)
 
     @pairing_session = job_params
     
