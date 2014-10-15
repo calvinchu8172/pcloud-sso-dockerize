@@ -19,19 +19,19 @@ Feature: REST API testing
 		Check device update process when "firmware_version" was be changed
 
 		When the device already registration
-		But the device firmware_version was be changed to "2.0"
+		But the device "firmware_version" was be changed to "2.0"
 		Then the HTTP will return 200
 
 	Scenario: [REST-03]
 		Check device update process when "serial_number" was be changed
 
 		When the device already registration
-		But the device serial_number was be changed to "654321A"
+		But the device "serial_number" was be changed to "654321A"
 		Then the HTTP will return 200
 
 	Scenario: [REST-04]
 		Check device update process when "mac_address" was be changed
 
 		When the device already registration
-		But the device mac_address was be changed to "000000000000"
+		But the device "mac_address" was be changed to "000000000000"
 		Then the HTTP will return 200
