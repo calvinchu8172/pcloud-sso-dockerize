@@ -13,7 +13,7 @@
       <tr class="device" ng-repeat="device in devices">
         <td class="td_left"><img ng-src="{{device.img_url}}"></td>
         <th>{{device.product_name}}</th>
-        <td class="td_right"><a href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a></td>
+        <td class="td_right pairing_btn_fix"><a href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a></td>
       </tr>
     </table>
     <%# Device list - end %>
