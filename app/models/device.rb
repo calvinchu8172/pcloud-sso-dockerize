@@ -42,7 +42,11 @@ class Device < ActiveRecord::Base
   def self.ip_addresses_key_prefix
     IP_ADDRESSES_KEY
   end
-
+  
+  def paired?
+    !self.pairing.empty?
+  end  
+  
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -58,5 +62,6 @@ class Device < ActiveRecord::Base
   def pairing_session_expire_in
     pairing_session.get('expire_at').to_f - Time.now().to_f if self.class.handling_status.include?(pairing_session.get('status'))
   end
+
 
 end
