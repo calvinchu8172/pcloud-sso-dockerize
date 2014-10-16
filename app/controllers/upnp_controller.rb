@@ -89,7 +89,7 @@ class UpnpController < ApplicationController
 
   def decide_which_path_ip upnp_session
     device = Device.find upnp_session['device_id']
-    request.remote_ip == device.session.hget('ip') ? upnp_session['lan_ip'] : request.remote_ip
+    request.remote_ip == device.session.hget('ip') ? upnp_session['lan_ip'] : device.session.hget('ip')
   end
 
   def service_list_to_json
