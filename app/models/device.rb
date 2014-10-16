@@ -63,8 +63,12 @@ class Device < ActiveRecord::Base
 
     if @presence.nil?
       session = self.session.all
-      @presence = Redis::Set.new "s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}"
+      @presence = XmppPresence.new "s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}"
     end
     @presence.exists?
+  end
+
+  def presence_key
+    "s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}"
   end
 end
