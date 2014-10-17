@@ -45,7 +45,7 @@ module PairingHelper
   end
 
   def handling?(device_id, user_id)
-    !@pairing_session.empty? && @pairing_session['user_id'] != current_user.id.to_s
+    !@pairing_session.empty? && @pairing_session['user_id'] != current_user.id.to_s && Device.handling_status.include?(@pairing_session['status'])
   end
 
   def paired?(device_id)
