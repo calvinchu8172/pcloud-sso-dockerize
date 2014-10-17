@@ -67,7 +67,7 @@ class Device < ActiveRecord::Base
 
     if @presence.nil?
       session = self.session.all
-      @presence = XmppPresence.new "s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}"
+      @presence = XmppPresence.new("s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase)
     end
     @presence.exists?
   end
