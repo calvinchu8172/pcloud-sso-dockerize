@@ -15,10 +15,6 @@ Feature: [PCP_003_03] Pairing
 
 	  When the user click "Confirm" button to start pairing
 
-		Then the user should see "Connecting" message on pairing page
-
-		When the device was connection
-
 		Then the user should see the pairing information
 
 	Scenario:  [PCP_003_03_03]
@@ -35,9 +31,6 @@ Feature: [PCP_003_03] Pairing
 
 	  When the user click "Confirm" button to start pairing
 
-	  Then the user should see "Connecting" message on pairing page
-
-		When the device was connection
 		But the user did not click on the copy button of device within 10 minutes
 
 	  Then the user should see "Pairing has been canceled" message on pairing page
