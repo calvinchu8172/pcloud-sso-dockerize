@@ -15,6 +15,7 @@ class DeviceController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
   skip_before_filter :authenticate_user!
+  before_filter :validate_device_info, only: :register
   before_filter :validate_signature, :only => :register
   before_filter :verify_device, :only => :register
 
@@ -170,7 +171,7 @@ class DeviceController < ApplicationController
       unless product.empty?
         @device = Device.create(args.slice(:mac_address, :serial_number, :firmware_version).merge(product_id: product.first.id))
         logger.info('create new device id:' + @device.id.to_s)
-        return 
+        return
       end
 
       logger.info('result: invalid parameter');
@@ -200,5 +201,17 @@ class DeviceController < ApplicationController
       # , :signature => signature_inside
 	    render :json => {:error => "Failure"}, :status => 400
 	  end
+  end
+
+  def validate_device_info
+    mac_address_regex = /^[0-9a-f]{12}$/
+
+    mac_address = params[:mac_address].downcase || ''
+    serial_number = params[:serial_number] || ''
+
+    if mac_address_regex.match(mac_address) == nil || serial_number == ''
+      logger.info('result: invalid Mac Address or Serial Number');
+      render :json => {:result => 'invalid parameter'}, :status => 400
+    end
   end
 end
