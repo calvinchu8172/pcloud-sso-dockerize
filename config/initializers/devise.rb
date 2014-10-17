@@ -233,7 +233,7 @@ Devise.setup do |config|
 
   config.omniauth :facebook, Settings.oauth.facebook_app_id, Settings.oauth.facebook_secret
   config.omniauth :google_oauth2, Settings.oauth.google_app_id, Settings.oauth.google_secret
-  
+
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #

@@ -21,16 +21,15 @@ class PersonalController < ApplicationController
       info_hash = Hash.new
       info_hash[:model_name] = device.product.model_name
       info_hash[:firmware_version] = device.firmware_version
+      info_hash[:ip] = device.session.hget :ip || device.ddns.get_ip_addr
       if device.ddns
         info_hash[:class_name] = "blue"
         # remove ddns domain name last dot
         info_hash[:title] = device.ddns.hostname + "." + Settings.environments.ddns.chomp('.')
-        info_hash[:ip] = device.ddns.get_ip_addr
         info_hash[:date] = device.ddns.updated_at.strftime("%Y/%m/%d")
       else
         info_hash[:class_name] = "gray"
         info_hash[:title] = I18n.t("warnings.not_config")
-        info_hash[:ip] = device.session.hget :ip
       end
       info_hash
     end

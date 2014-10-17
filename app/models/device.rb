@@ -36,13 +36,17 @@ class Device < ActiveRecord::Base
         instance.update_attribute(:firmware_version, args[:firmware_version])
       end
     end
-  	return instance
+    return instance
   end
 
   def self.ip_addresses_key_prefix
     IP_ADDRESSES_KEY
   end
-
+  
+  def paired?
+    !self.pairing.empty?
+  end  
+  
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -57,6 +61,15 @@ class Device < ActiveRecord::Base
 
   def pairing_session_expire_in
     pairing_session.get('expire_at').to_f - Time.now().to_f if self.class.handling_status.include?(pairing_session.get('status'))
+  end
+
+  def presence?
+
+    if @presence.nil?
+      session = self.session.all
+      @presence = XmppPresence.new("s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase)
+    end
+    @presence.exists?
   end
 
 end

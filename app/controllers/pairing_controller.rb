@@ -30,7 +30,6 @@ class PairingController < ApplicationController
     pairing = Device.find(session_id).pairing_session
     unless pairing.all.empty?
       pairing.bulk_set 'status' => "cancel"
-      pairing.clear
       push_to_queue_cancel("pairing", session_id)
       flash[:notice] = I18n.t("warnings.settings.pairing.canceled")
     end
@@ -67,10 +66,10 @@ class PairingController < ApplicationController
 
     logger.info("connect to device params:" + job_params.to_s)
     @device.pairing_session.bulk_set(job_params)
-    @device.pairing_session.expire(waiting_expire_at + 0.2.minutes.to_i)
+    @device.pairing_session.expire((Device::WAITING_TIME + 0.2.minutes).to_i)
 
     @pairing_session = job_params
-    
+
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{"job":"pairing", "device_id":"' + @device.id.to_s + '"}')
     @device.pairing_session.bulk_set job_params
 

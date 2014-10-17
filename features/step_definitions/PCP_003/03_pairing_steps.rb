@@ -64,10 +64,6 @@ When(/^the user click "(.*?)" button to start pairing$/) do |link|
   @pairing_session = get_pairing_session(@device)
 end
 
-When(/^the device was connection$/) do
-  pairing_session_behavior(@pairing_session, "waiting", @device)
-end
-
 When(/^the device was not connection$/) do
   pairing_session_behavior(@pairing_session, "offline", @device)
 end
@@ -84,8 +80,9 @@ end
 When(/^the device was connection and pairing process is waiting$/) do
   steps %{
     When the user click "Confirm" button to start pairing
-    Then the user should see "Connecting" message on pairing page
+    Then the user should see the pairing information
   }
+  pairing_session_behavior(@pairing_session, "waiting", @device)
 end
 
 When(/^the user click "(.*?)" button when finished pairing$/) do |link|
@@ -141,7 +138,8 @@ Then(/^the user will go back to Pairing setup flow$/) do
 end
 
 Then(/^it should not do anything on Pairing page$/) do
-  expect(page).to have_content I18n.t("warnings.settings.pairing.connecting")
+  expect(page).to have_content I18n.t("warnings.settings.pairing.start.instruction")
+  expect(page).to have_content I18n.t("warnings.settings.pairing.start.instruction_2")
 end
 
 def get_pairing_session(device)

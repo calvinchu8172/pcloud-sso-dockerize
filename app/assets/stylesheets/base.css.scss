@@ -882,6 +882,16 @@ body {
   padding-bottom: 12px;
   border-bottom: 1px solid $zyxel_color6;
 }
+
+// Fix for chrome issue
+.pairing_btn_fix.td_right{
+  width:auto !important;
+  .zyxel_btn_style1{
+    float: right;
+    margin: 0 6px 0 0;
+  }
+}
+
 .zyxel_table_style2 .td_right {
   width: 90px;
 }

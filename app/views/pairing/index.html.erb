@@ -89,10 +89,9 @@
           $scope.poll();
           break;
         case 'timeout':
-            /***
-              there is time difference between server and client,
-              so just go by browser's timer
-              ***/
+          // $timeout(function(){$scope.failureStep();}, 500);
+          $scope.$broadcast('timer-stop');
+          $scope.expireIn = 0;
           break;
         case 'cancel':
           $scope.canceledStep();
@@ -145,8 +144,6 @@
         $timeout(function(){$scope.failureStep();}, 500);
       }
     });
-
- 
 
     var startTimer = function(){
       $scope.$broadcast('timer-start');
