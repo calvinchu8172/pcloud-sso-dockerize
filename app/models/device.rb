@@ -42,7 +42,11 @@ class Device < ActiveRecord::Base
   def self.ip_addresses_key_prefix
     IP_ADDRESSES_KEY
   end
-
+  
+  def paired?
+    !self.pairing.empty?
+  end  
+  
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -68,7 +72,4 @@ class Device < ActiveRecord::Base
     @presence.exists?
   end
 
-  def presence_key
-    "s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}"
-  end
 end

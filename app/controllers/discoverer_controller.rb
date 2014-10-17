@@ -39,6 +39,9 @@ class DiscovererController < ApplicationController
     elsif device.empty?
       flash[:alert] = I18n.t("errors.messages.not_found")
       redirect_to action: 'add'
+    elsif device.first.paired?
+      flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
+      redirect_to action: 'add'
     else
       redirect_to action: 'check', id: device.first.id
     end
