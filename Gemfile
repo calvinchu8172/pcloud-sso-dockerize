@@ -69,8 +69,8 @@ gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
-gem 'devise-async'
-gem 'sidekiq'
+# gem 'devise-async'
+# gem 'sidekiq'
 group :development, :test do
   gem 'faker'
   gem 'capybara'
