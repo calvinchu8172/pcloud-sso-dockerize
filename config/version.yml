@@ -8,5 +8,5 @@ staging:
   version: 'V.B.20141017_01'
   suffix: '-alpha'
 production:
-  version: 'V.B.20141014_01'
+  version: 'V.B.20141017_01'
   suffix: '-release'
