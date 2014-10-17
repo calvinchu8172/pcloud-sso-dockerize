@@ -60,7 +60,7 @@ class DiscovererController < ApplicationController
 
     Device.where('id in (?)', available_ip_list).each do |device|
 
-      pairing? = device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
+      pairing = device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
       paired = !device.pairing.empty?
       presence = device.presence?
 
