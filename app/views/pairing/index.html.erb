@@ -76,7 +76,7 @@
 
     $scope.checkConnection = function(){
       $scope.disableBtn();
-      
+
       switch($scope.session.status){
 
         case 'offline':
@@ -126,13 +126,7 @@
     }
 
     $scope.continue = function() {
-      if($scope.session.status == 'start') {
-        $scope.connectingStep();
-        $scope.waitingForCheckConnect();
-        return;
-      } else if($scope.session.status == 'waiting') {
-        $scope.step = "waiting";
-        $scope.panel = "waiting";
+      if($scope.session.status == 'start' || $scope.session.status == 'waiting') {
         $scope.reconnect();
         return;
       }
