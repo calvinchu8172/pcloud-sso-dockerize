@@ -61,9 +61,9 @@ class DiscovererController < ApplicationController
 
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
       paired = !device.pairing.empty?
-      # presence = device.presence?
+      presence = device.presence?
 
-      available_device_list << device if !pairing && !paired # && presence
+      available_device_list << device if !pairing && !paired && presence
     end
     
     logger.debug('result of searching available device list:' + available_device_list.inspect)
