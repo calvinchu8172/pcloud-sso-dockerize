@@ -61,7 +61,7 @@ gem 'devise-i18n'
 gem 'rails-i18n'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'i18n_country_select'
-gem 'encryptor'
+gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'

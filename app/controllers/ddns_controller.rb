@@ -4,7 +4,6 @@ class DdnsController < ApplicationController
   before_action :validate_host_name, :only => [:check]
 
   def setting
-    @device = Device.find(params[:id])
     @hostname = ""
     if @device.ddns
       @hostname = @device.ddns.hostname
@@ -82,9 +81,9 @@ class DdnsController < ApplicationController
 
     # Redirct to my device page when device is not paired for current user
     def device_available
-      device = Device.find_by_id(params[:id])
-      if device
-        if !paired?(device.id)
+      @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+      if @device
+        if !paired?(@device.id)
           error_action
         end
       else

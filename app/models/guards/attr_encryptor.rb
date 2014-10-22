@@ -6,15 +6,16 @@ module Guards
     end
 
     def encrypted_id
-      # Encryptor.encrypt('123', :key => '123')
-      # "hello"
-      # self.id
-      Encryptor.encrypt(id.to_s, :key => Rails.application.secrets.secret_key_base)
+      [Encryptor.encrypt(id.to_s, :key => Rails.application.secrets.secret_key_base)].pack('m')
     end
 
     module ClassMethods
       def find_by_encrypted_id encrypt_id
-        find(Encryptor.decrypt(encrypt_id, :key => Rails.application.secrets.secret_key_base))
+        begin
+          return find(Encryptor.decrypt(encrypt_id.unpack('m').first, :key => Rails.application.secrets.secret_key_base).to_i)
+        rescue
+          return nil
+        end
       end
     end
   end

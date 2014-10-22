@@ -46,6 +46,8 @@ GEM
       tzinfo (~> 1.1)
     angularjs-rails (1.2.18)
     arel (5.0.1.20140414130214)
+    attr_encrypted (1.3.3)
+      encryptor (>= 1.3.0)
     aws-sdk (1.43.3)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -316,6 +318,7 @@ PLATFORMS
 
 DEPENDENCIES
   angularjs-rails
+  attr_encrypted
   aws-sdk
   bootstrap-sass
   capybara
@@ -325,7 +328,6 @@ DEPENDENCIES
   database_cleaner
   devise (= 3.1.0)
   devise-i18n
-  encryptor
   factory_girl_rails
   faker
   i18n_country_select

@@ -9,6 +9,8 @@ class PersonalController < ApplicationController
       flash[:alert] = flash[:notice] ? flash[:notice] : I18n.t("warnings.no_pairing_device")
       redirect_to "/discoverer/index"
     end
+
+    @device_id = URI.encode(@pairing.first.device.encrypted_id)
   end
 
   def profile
