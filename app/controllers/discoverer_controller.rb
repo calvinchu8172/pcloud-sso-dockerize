@@ -10,10 +10,10 @@ class DiscovererController < ApplicationController
       logger.debug('get device product:' + device.product.to_json)
       next if(device.product.blank?)
       logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
-      raw_result.push({:device_id => device.id, :product_name => device.product.name, :img_url => device.product.asset.url(:thumb)})
+      raw_result.push({:device_id => URI.encode(device.encrypted_id), :product_name => device.product.name, :img_url => device.product.asset.url(:thumb)})
     end
 
-    @result = raw_result.to_json
+    @result = raw_result
     respond_to do |format|
       format.html # index.html.erb
       format.json {
@@ -43,12 +43,11 @@ class DiscovererController < ApplicationController
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to action: 'add'
     else
-      redirect_to action: 'check', id: device.first.id
+      redirect_to action: 'check', id: URI.encode(device.first.encrypted_id)
     end
   end
 
   def check
-    @device = Device.find(params[:id])
     logger.info "checking device id:" + @device.id.to_s
   end
 
@@ -62,9 +61,9 @@ class DiscovererController < ApplicationController
 
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
       paired = !device.pairing.empty?
-      presence = device.presence?
+      # presence = device.presence?
 
-      available_device_list << device if !pairing && !paired && presence
+      available_device_list << device if !pairing && !paired # && presence
     end
     
     logger.debug('result of searching available device list:' + available_device_list.inspect)

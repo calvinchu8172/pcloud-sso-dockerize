@@ -1,6 +1,7 @@
 class Device < ActiveRecord::Base
   include Redis::Objects
-
+  include Guards::AttrEncryptor
+  
   belongs_to :product
   has_one :device_session
   has_one :ddns
@@ -9,6 +10,8 @@ class Device < ActiveRecord::Base
 
   hash_key :session
   hash_key :pairing_session
+
+  # attr_encrypted :id, :key => Rails.application.secrets.secret_key_base
 
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
   WAITING_TIME = 10.minutes

@@ -108,7 +108,7 @@ class UpnpController < ApplicationController
   end
 
   def get_device_info
-    @device = Device.find(params[:id])
+    @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
     @device_ip = @device.session.hget(:ip)
   end
 

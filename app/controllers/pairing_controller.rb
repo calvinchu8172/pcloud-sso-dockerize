@@ -26,11 +26,11 @@ class PairingController < ApplicationController
   # GET /pairing/cancel/:id
   # break the pairing process
   def cancel
-    session_id = params[:id]
-    pairing = Device.find(session_id).pairing_session
+    device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    pairing = device.pairing_session
     unless pairing.all.empty?
       pairing.bulk_set 'status' => "cancel"
-      push_to_queue_cancel("pairing", session_id)
+      push_to_queue_cancel("pairing", device.id)
       flash[:notice] = I18n.t("warnings.settings.pairing.canceled")
     end
 
