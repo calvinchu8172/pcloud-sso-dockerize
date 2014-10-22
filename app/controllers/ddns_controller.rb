@@ -51,7 +51,8 @@ class DdnsController < ApplicationController
       return
     end
 
-    save_ddns_setting(ddns)
+    device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    save_ddns_setting(device)
   end
 
   # Send ajax
@@ -65,9 +66,9 @@ class DdnsController < ApplicationController
   private
 
     # If full domain was not exits, it will insert data to database and redirct to success page
-    def save_ddns_setting ddns
+    def save_ddns_setting device
       # job = Job::DdnsMessage.new
-      session = {device_id: ddns.device_id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
+      session = {device_id: device.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
       ddns_session = DdnsSession.create
       job = {:job => 'ddns', :session_id => ddns_session.id}
       if ddns_session.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
@@ -76,7 +77,7 @@ class DdnsController < ApplicationController
       end
 
       flash[:error] = I18n.t("warnings.invalid")
-      redirect_to action: 'setting', id: @params[:id]
+      redirect_to action: 'setting', id: URI.encode(device.encrypted_id)
     end
 
     # Redirct to my device page when device is not paired for current user
