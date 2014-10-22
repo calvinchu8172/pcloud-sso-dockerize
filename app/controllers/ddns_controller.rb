@@ -51,7 +51,7 @@ class DdnsController < ApplicationController
       return
     end
 
-    save_ddns_setting(hostname)
+    save_ddns_setting(ddns)
   end
 
   # Send ajax
@@ -65,13 +65,13 @@ class DdnsController < ApplicationController
   private
 
     # If full domain was not exits, it will insert data to database and redirct to success page
-    def save_ddns_setting hostname
+    def save_ddns_setting ddns
       # job = Job::DdnsMessage.new
-      session = {device_id: params[:id], host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
-      ddns = DdnsSession.create
-      job = {:job => 'ddns', :session_id => ddns.id}
-      if ddns.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
-        redirect_to action: 'success', id: ddns.id
+      session = {device_id: ddns.device_id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
+      ddns_session = DdnsSession.create
+      job = {:job => 'ddns', :session_id => ddns_session.id}
+      if ddns_session.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+        redirect_to action: 'success', id: ddns_session.id
         return
       end
 
