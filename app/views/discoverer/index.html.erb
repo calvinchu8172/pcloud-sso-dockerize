@@ -11,6 +11,12 @@
     <%# Devices list %>
     <table class="zyxel_table_style2 devices_list">
       <tr class="device" ng-repeat="device in devices">
+        <th class="search_list_hover">
+          <span>Model Name: {{device.model_name}}</span>
+          <span>Serial Number: {{device.serial_number}}</span>
+          <span>Mac Address: {{device.mac_address}}</span>
+          <span>Firmware Version: {{device.firmware_version}}</span>
+        </th>
         <td class="td_left"><img ng-src="{{device.img_url}}"></td>
         <th>{{device.product_name}}</th>
         <td class="td_right pairing_btn_fix"><a href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a></td>
@@ -32,7 +38,7 @@
   // get devices data on search device page
   var discoverer_app = angular.module('discoverer_app', []);
   discoverer_app.controller('DeviceListCtrl', function ($scope, $http) {
-    
+
     $scope.doClick = function() {
 
       $http.get("/discoverer/index.json").success(function(response) {
