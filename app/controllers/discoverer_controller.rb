@@ -43,7 +43,7 @@ class DiscovererController < ApplicationController
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to action: 'add'
     else
-      redirect_to action: 'check', id: devices.first.escaped_encrypted_id)
+      redirect_to action: 'check', id: devices.first.escaped_encrypted_id
     end
   end
 
