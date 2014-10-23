@@ -10,7 +10,13 @@ class DiscovererController < ApplicationController
       logger.debug('get device product:' + device.product.to_json)
       next if(device.product.blank?)
       logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
-      raw_result.push({:device_id => device.escaped_encrypted_id, :product_name => device.product.name, :img_url => device.product.asset.url(:thumb)})
+      raw_result.push({:device_id => device.escaped_encrypted_id,
+        :product_name => device.product.name,
+        :model_name => device.product.model_name,
+        :serial_number => device.serial_number,
+        :mac_address => device.mac_address.scan(/.{2}/).join(":"),
+        :firmware_version => device.firmware_version,
+        :img_url => device.product.asset.url(:thumb)})
     end
 
     @result = raw_result

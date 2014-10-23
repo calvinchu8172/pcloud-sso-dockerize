@@ -869,38 +869,50 @@ body {
 .zyxel_table_style2{
   /* [disabled]margin:0 auto; */
   width: 100%;
-}
-.zyxel_table_style2 th {
-  padding: 0 5px 0 10px;
-  border-bottom: 1px solid $zyxel_color6;
-  color: $zyxel_color2;
-  font-size: 17px;
-  font-weight: normal;
-}
-.zyxel_table_style2 td{
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid $zyxel_color6;
-}
 
-// Fix for chrome issue
-.pairing_btn_fix.td_right{
-  width:auto !important;
+  // pairing button & fix chrome issue
   .zyxel_btn_style1{
     float: right;
     margin: 0 6px 0 0;
   }
+  th{
+    padding: 0 5px 0 10px;
+    border-bottom: 1px solid $zyxel_color6;
+    color: $zyxel_color2;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  td{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid $zyxel_color6;
+  }
+  .td_right {
+    width: 90px;
+  }
+  .td_left {
+    padding-left: 10px;
+  }
+  tr td:first-child {
+    text-align:center;
+  }
+  .search_list_hover{
+    @extend .hover_pop;
+    max-width: 220px;
+    margin: -80px auto;
+    text-align: left;
+    color: $zyxel_color2 !important;
+    font-size: 0.9em;
+  }
+  .search_list_hover span{
+    display: block;
+  }
+  tr.device:hover .search_list_hover {
+    visibility: visible;
+  };
 }
 
-.zyxel_table_style2 .td_right {
-  width: 90px;
-}
-.zyxel_table_style2 .td_left {
-  padding-left: 10px;
-}
-.zyxel_table_style2 tr td:first-child {
-  text-align:center;
-}
+
 .agree_note_box {
   border-style: solid;
   border-width: 1px;
