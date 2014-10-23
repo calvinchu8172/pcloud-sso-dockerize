@@ -51,7 +51,7 @@ class DdnsController < ApplicationController
       return
     end
 
-    device = Device.find_by_encrypted_id(params[:id])
+    device = Device.find_by_encrypted_id(URI.decode(params[:id]))
     save_ddns_setting(device, hostname)
   end
 
