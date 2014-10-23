@@ -5,9 +5,15 @@ class PairingController < ApplicationController
   before_action :check_pairing_session, :only => [:check_connection, :reconnect]
 
   # GET /pairing/index/:id
-  # pairing session init via check_device_available in pairing helper
+  # Cancel pairing process if the device is pairing with same user
   def index
-    init_session
+    logger.debug('init session:' + @pairing_session.inspect)
+    connect_to_device
+  end
+
+  # GET /pairing/process/:id
+  def process
+    @pairing_session[:expire_in] = @device.pairing_session_expire_in
   end
 
   # GET /pairing/check_connection/:id
@@ -78,12 +84,4 @@ class PairingController < ApplicationController
     logger.info("connect to device session:" + @pairing_session.inspect)
   end
 
-  def init_session
-    if @pairing_session.empty? || !Device.handling_status.include?(@pairing_session['status'])
-      logger.debug('init session:' + @pairing_session.inspect);
-      connect_to_device
-    else
-      @pairing_session[:expire_in] = @device.pairing_session_expire_in
-    end
-  end
 end

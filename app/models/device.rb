@@ -47,7 +47,7 @@ class Device < ActiveRecord::Base
   end
   
   def paired?
-    !self.pairing.empty?
+    !self.pairing.owner.empty?
   end  
   
   def update_ip_list new_ip
