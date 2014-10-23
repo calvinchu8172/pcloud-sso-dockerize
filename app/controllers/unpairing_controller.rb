@@ -6,19 +6,19 @@ class UnpairingController < ApplicationController
   end
 
   def success
-    @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    @device = Device.find_by_encrypted_id(params[:id])
   end
 
   def destroy
 
     Job::UnpairMessage.new.push_device_id(@device.id.to_s)
-    redirect_to "/unpairing/success/" + URI.decode(@device.encrypted_id)
+    redirect_to "/unpairing/success/" + @device.encrypted_id
   end
 
   private
 
     def check_device_paired
-      @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+      @device = Device.find_by_encrypted_id(params[:id])
 
       return error_action if @device.nil?
 
