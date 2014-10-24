@@ -8,7 +8,7 @@ class PairingController < ApplicationController
   # Cancel pairing process if the device is pairing with same user
   def index
     logger.debug('init session:' + @pairing_session.inspect)
-    connect_to_device if @pairing_session.empty? || !Device.handling_status.include?(@pairing_session['status'])
+    connect_to_device 
     redirect_to action: "waiting", id: @device.encrypted_id
   end
 
