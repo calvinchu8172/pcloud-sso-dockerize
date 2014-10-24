@@ -14,7 +14,7 @@ class Device < ActiveRecord::Base
   # attr_encrypted :id, :key => Rails.application.secrets.secret_key_base
 
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
-  WAITING_TIME = 10.minutes
+  
 
   before_save { mac_address.downcase! }
 
@@ -62,8 +62,13 @@ class Device < ActiveRecord::Base
     
   end
 
+  #it will be ignored if time difference in 5 seconds
   def pairing_session_expire_in
-    pairing_session.get('expire_at').to_f - Time.now().to_f if self.class.handling_status.include?(pairing_session.get('status'))
+
+    waiting_second = Pairing::WAITING_PERIOD.to_i
+    time_difference = pairing_session.get('expire_at').to_f - Time.now().to_f if self.class.handling_status.include?(pairing_session.get('status'))
+    time_difference = waiting_second if time_difference > (waiting_second - 5)
+    return time_difference
   end
 
   def presence?

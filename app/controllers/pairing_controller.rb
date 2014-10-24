@@ -1,18 +1,19 @@
 class PairingController < ApplicationController
   include PairingHelper
   before_action :authenticate_user!
-  before_action :check_device_available, :only => [:index]
+  before_action :check_device_available, :only => [:index, :waiting]
   before_action :check_pairing_session, :only => [:check_connection, :reconnect]
 
   # GET /pairing/index/:id
   # Cancel pairing process if the device is pairing with same user
   def index
     logger.debug('init session:' + @pairing_session.inspect)
-    connect_to_device
+    connect_to_device if @pairing_session.empty? || !Device.handling_status.include?(@pairing_session['status'])
+    redirect_to action: "waiting", id: @device.encrypted_id
   end
 
-  # GET /pairing/process/:id
-  def process
+  # GET /pairing/waiting/:id
+  def waiting
     @pairing_session[:expire_in] = @device.pairing_session_expire_in
   end
 
@@ -50,7 +51,7 @@ class PairingController < ApplicationController
 
     expire_in = @device.pairing_session_expire_in.to_i
 
-    if(@pairing_session['status'] == 'start' && (Device::WAITING_TIME.to_i - expire_in) >= 60)
+    if(@pairing_session['status'] == 'start' && (Pairing::WAITING_PERIOD.to_i - expire_in) >= START_PERIOD.to_i)
       @device.pairing_session.store('status', :offline)
       @pairing_session['status'] = :offline
       return
@@ -65,21 +66,21 @@ class PairingController < ApplicationController
 
   def connect_to_device
 
-    waiting_expire_at = (Time.now() + Device::WAITING_TIME).to_i
+    waiting_expire_at = (Time.now() + Pairing::WAITING_PERIOD).to_i
     job_params = {:user_id => current_user.id,
                   :status => :start,
                   :expire_at => waiting_expire_at}
 
     logger.info("connect to device params:" + job_params.to_s)
     @device.pairing_session.bulk_set(job_params)
-    @device.pairing_session.expire((Device::WAITING_TIME + 0.2.minutes).to_i)
+    @device.pairing_session.expire((Pairing::WAITING_PERIOD + 0.2.minutes).to_i)
 
     @pairing_session = job_params
 
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{"job":"pairing", "device_id":"' + @device.id.to_s + '"}')
     @device.pairing_session.bulk_set job_params
 
-    @pairing_session[:expire_in] = Device::WAITING_TIME.to_i
+    @pairing_session[:expire_in] = Pairing::WAITING_PERIOD.to_i
 
     logger.info("connect to device session:" + @pairing_session.inspect)
   end

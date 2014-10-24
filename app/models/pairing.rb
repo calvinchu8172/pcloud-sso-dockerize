@@ -5,4 +5,8 @@ class Pairing < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :device
+
+  START_PERIOD = 10.seconds
+  WAITING_PERIOD = 10.minutes
+
 end
