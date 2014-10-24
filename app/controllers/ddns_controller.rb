@@ -77,12 +77,12 @@ class DdnsController < ApplicationController
       end
 
       flash[:error] = I18n.t("warnings.invalid")
-      redirect_to action: 'setting', id: URI.encode(device.encrypted_id)
+      redirect_to action: 'setting', id: device.escaped_encrypted_id
     end
 
     # Redirct to my device page when device is not paired for current user
     def device_available
-      @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+      @device = Device.find_by_encrypted_id(params[:id])
       if @device
         if !paired?(@device.id)
           error_action

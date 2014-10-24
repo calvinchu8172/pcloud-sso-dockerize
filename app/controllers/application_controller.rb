@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
     end
 
     def device_paired_with?
-      @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+      @device = Device.find_by_encrypted_id(params[:id])
       unless(@device.pairing.owner.first.user_id == current_user.id)
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root

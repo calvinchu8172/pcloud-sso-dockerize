@@ -2,7 +2,7 @@ module PairingHelper
 
   def check_device_available
 
-    @device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    @device = Device.find_by_encrypted_id(params[:id])
     if @device.nil?
       # Device is not found
       logger.debug('device is nil');
