@@ -14,7 +14,11 @@ class PairingController < ApplicationController
 
   # GET /pairing/waiting/:id
   def waiting
-    @pairing_session[:expire_in] = @device.pairing_session_expire_in
+
+    return redirect_to action: "index", id: @device.encrypted_id if @pairing_session.empty?
+
+    @pairing_session['expire_in'] = @device.pairing_session_expire_in
+    logger.debug('pairing_session:' + @pairing_session.inspect);
   end
 
   # GET /pairing/check_connection/:id
@@ -51,7 +55,7 @@ class PairingController < ApplicationController
 
     expire_in = @device.pairing_session_expire_in.to_i
 
-    if(@pairing_session['status'] == 'start' && (Pairing::WAITING_PERIOD.to_i - expire_in) >= START_PERIOD.to_i)
+    if(@pairing_session['status'] == 'start' && (Pairing::WAITING_PERIOD.to_i - expire_in) >= Pairing::START_PERIOD.to_i)
       @device.pairing_session.store('status', :offline)
       @pairing_session['status'] = :offline
       return

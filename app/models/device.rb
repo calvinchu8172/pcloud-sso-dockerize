@@ -66,8 +66,12 @@ class Device < ActiveRecord::Base
   def pairing_session_expire_in
 
     waiting_second = Pairing::WAITING_PERIOD.to_i
-    time_difference = pairing_session.get('expire_at').to_f - Time.now().to_f if self.class.handling_status.include?(pairing_session.get('status'))
-    time_difference = waiting_second if time_difference > (waiting_second - 5)
+    logger.debug('waiting_second:' + waiting_second.to_s);
+    return 0 if !self.class.handling_status.include?(pairing_session.get('status'))
+    
+    time_difference = self.pairing_session.get('expire_at').to_i - Time.now().to_i
+    time_difference = waiting_second if (waiting_second - time_difference) <= 5
+    logger.debug('waiting_second:' + waiting_second.to_s + ', time_difference:' + time_difference.to_s)
     return time_difference
   end
 
