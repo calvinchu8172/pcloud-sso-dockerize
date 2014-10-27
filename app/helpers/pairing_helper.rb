@@ -9,7 +9,7 @@ module PairingHelper
       flash[:alert] = I18n.t("warnings.settings.pairing.not_found")
       redirect_to controller: "discoverer", action: "index"
       return
-    elsif !@device.pairing.owner.empty?
+    elsif @device.paired?
       # device is paired already
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to controller: "discoverer", action: "index"
