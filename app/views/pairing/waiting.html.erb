@@ -79,8 +79,8 @@
     };
 
     $scope.checkConnection = function(){
+      
       $scope.disableBtn();
-      console.log("expire_at:" + $scope.session.expire_at + ", id:" + $scope.identicalSession);
       switch($scope.session.status){
 
         case 'offline':
