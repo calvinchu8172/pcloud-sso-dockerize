@@ -31,7 +31,8 @@
         </div>
         <div  ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
           <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
-          <button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button>
+          <!-- button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button -->
+          <%= link_to(I18n.t("labels.retry"), "/pairing/index/#{URI.encode(@device.encrypted_id)}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
         <div ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
@@ -56,9 +57,10 @@
     $scope.interval = 3000;
     $scope.formateSuffix = ".json";
     $scope.checkConnectionUrl = '/pairing/check_connection/';
+    $scope.identicalSession = 0;
 
     $scope.init = function(){
-
+      
       if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
         $scope.failureStep();
         return;
@@ -71,12 +73,14 @@
         $scope.waitingStep();
         $timeout(startTimer, 500);
       }
+      
+      $scope.identicalSession = $scope.session.expire_at;
       $scope.checkConnection();
     };
 
     $scope.checkConnection = function(){
       $scope.disableBtn();
-
+      console.log("expire_at:" + $scope.session.expire_at + ", id:" + $scope.identicalSession);
       switch($scope.session.status){
 
         case 'offline':
@@ -84,6 +88,11 @@
           break;
         case 'start':
         case 'waiting':
+
+          if($scope.identicalSession != $scope.session.expire_at){
+            $scope.canceledStep();
+            break;
+          }
 
           $scope.disableBtn();
           $scope.poll();
@@ -108,6 +117,7 @@
     $scope.poll = function(){
 
       var url = $scope.checkConnectionUrl  + $scope.deviceId;
+      
       $timeout(function(){
         $http.get(url).success(function(response) {
           $scope.session = response;

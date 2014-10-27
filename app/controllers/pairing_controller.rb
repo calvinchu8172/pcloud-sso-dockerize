@@ -29,7 +29,7 @@ class PairingController < ApplicationController
     check_timeout
     logger.debug('now:' + Time.now().to_f.to_s + ', pairing_session_expire_in:' + @device.pairing_session_expire_in.to_s)
 
-    result = {:status => @pairing_session['status']}
+    result = {:status => @pairing_session['status'], :expire_at => @pairing_session['expire_at']}
     result[:expire_in] = @device.pairing_session_expire_in if @pairing_session.empty? || !Device.handling_status.include?(@pairing_session['status'])
     render :json => result
   end
