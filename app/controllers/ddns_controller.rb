@@ -14,7 +14,7 @@ class DdnsController < ApplicationController
   def success
 
     @ddns = DdnsSession.find_by_encrypted_id(params[:id])
-    return error_action if @ddns.empty
+    return error_action if @ddns.empty?
 
     raw_ddns_session = @ddns.session.all
     raw_ddns_session['id'] = @ddns.id
@@ -32,7 +32,7 @@ class DdnsController < ApplicationController
     @ddns_session[:encrypted_id] = @ddns.escaped_encrypted_id
     @ddns_session[:encrypted_device_id] = @device.escaped_encrypted_id
     @ddns_session[:status] = raw_ddns_session['status']
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @ddns_session }
