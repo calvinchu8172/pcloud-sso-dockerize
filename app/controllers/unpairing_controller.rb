@@ -12,7 +12,7 @@ class UnpairingController < ApplicationController
   def destroy
 
     Job::UnpairMessage.new.push_device_id(@device.id.to_s)
-    redirect_to "/unpairing/success/" + @device.encrypted_id
+    redirect_to "/unpairing/success/" + @device.escaped_encrypted_id
   end
 
   private

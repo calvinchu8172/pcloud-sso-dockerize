@@ -9,13 +9,13 @@ class PairingController < ApplicationController
   def index
     logger.debug('init session:' + @pairing_session.inspect)
     connect_to_device 
-    redirect_to action: "waiting", id: @device.encrypted_id
+    redirect_to action: "waiting", id: @device.escaped_encrypted_id
   end
 
   # GET /pairing/waiting/:id
   def waiting
 
-    return redirect_to action: "index", id: @device.encrypted_id if @pairing_session.empty?
+    return redirect_to action: "index", id: @device.escaped_encrypted_id if @pairing_session.empty?
 
     @pairing_session['expire_in'] = @device.pairing_session_expire_in
     logger.debug('pairing_session:' + @pairing_session.inspect);
