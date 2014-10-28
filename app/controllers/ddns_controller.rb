@@ -4,7 +4,6 @@ class DdnsController < ApplicationController
   before_action :validate_host_name, :only => [:check]
 
   def setting
-    @device = Device.find(params[:id])
     @hostname = ""
     if @device.ddns
       @hostname = @device.ddns.hostname
@@ -13,17 +12,31 @@ class DdnsController < ApplicationController
   end
 
   def success
-    @ddns = DdnsSession.find(params[:id])
-    @ddns_session = @ddns.session.all
-    @ddns_session['id'] = @ddns.id
-    @ddns_session['full_domain']= @ddns_session['host_name'] + "." + Settings.environments.ddns
-    @device = Device.find @ddns_session['device_id']
+
+    @ddns = DdnsSession.find_by_encrypted_id(URI.decode(params[:id]))
+    error_action and return if @ddns.nil?
+
+    raw_ddns_session = @ddns.session.all
+    raw_ddns_session['id'] = @ddns.id
+    
+    @device = Device.find raw_ddns_session['device_id']
     # If this device is first paired, the confirm link should goto upnp setting page
     if session[:first_pairing]
-      @link_path = upnp_path(@device)
+      @link_path = upnp_path(@device.escaped_encrypted_id)
       session[:first_pairing] = false
     else
       @link_path = "/personal/index"
+    end
+
+    @full_domain = raw_ddns_session['host_name'] + "." + Settings.environments.ddns
+
+    @ddns_session = { :encrypted_id => @ddns.escaped_encrypted_id,
+                      :encrypted_device_id => @device.escaped_encrypted_id,
+                      :status => raw_ddns_session['status']}
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @ddns_session }
     end
   end
 
@@ -52,39 +65,40 @@ class DdnsController < ApplicationController
       return
     end
 
-    save_ddns_setting(hostname)
+    device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    save_ddns_setting(device, hostname)
   end
 
-  # Send ajax
-  def status
-    ddns = DdnsSession.find(params[:id])
-    result = ddns.session.all
-    result[:id] = ddns.id
-    render :json => result
-  end
+  # # Send ajax
+  # def status
+  #   ddns = DdnsSession.find(params[:id])
+  #   result = ddns.session.all
+  #   result[:id] = ddns.id
+  #   render :json => result
+  # end
 
   private
 
     # If full domain was not exits, it will insert data to database and redirct to success page
-    def save_ddns_setting hostname
+    def save_ddns_setting(device, hostname)
       # job = Job::DdnsMessage.new
-      session = {device_id: params[:id], host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
-      ddns = DdnsSession.create
-      job = {:job => 'ddns', :session_id => ddns.id}
-      if ddns.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
-        redirect_to action: 'success', id: ddns.id
+      session = {device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
+      ddns_session = DdnsSession.create
+      job = {:job => 'ddns', :session_id => ddns_session.id}
+      if ddns_session.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+        redirect_to action: 'success', id: ddns_session.escaped_encrypted_id
         return
       end
 
       flash[:error] = I18n.t("warnings.invalid")
-      redirect_to action: 'setting', id: @params[:id]
+      redirect_to action: 'setting', id: device.escaped_encrypted_id
     end
 
     # Redirct to my device page when device is not paired for current user
     def device_available
-      device = Device.find_by_id(params[:id])
-      if device
-        if !paired?(device.id)
+      @device = Device.find_by_encrypted_id(params[:id])
+      if @device
+        if !paired?(@device.id)
           error_action
         end
       else

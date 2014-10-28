@@ -10,10 +10,16 @@ class DiscovererController < ApplicationController
       logger.debug('get device product:' + device.product.to_json)
       next if(device.product.blank?)
       logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
-      raw_result.push({:device_id => device.id, :product_name => device.product.name, :img_url => device.product.asset.url(:thumb)})
+      raw_result.push({:device_id => device.escaped_encrypted_id,
+        :product_name => device.product.name,
+        :model_name => device.product.model_name,
+        :serial_number => device.serial_number,
+        :mac_address => device.mac_address.scan(/.{2}/).join(":"),
+        :firmware_version => device.firmware_version,
+        :img_url => device.product.asset.url(:thumb)})
     end
 
-    @result = raw_result.to_json
+    @result = raw_result
     respond_to do |format|
       format.html # index.html.erb
       format.json {
@@ -30,25 +36,24 @@ class DiscovererController < ApplicationController
 
     valid = mac_address_valid?(params[:device][:mac_address])
     params[:device][:mac_address].gsub!(/:/, '')
-    device = Device.where(params['device']);
+    devices = Device.where(params['device']);
     logger.info "searched device:" + params['device'].inspect
 
     if !valid
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'add'
-    elsif device.empty?
+    elsif devices.empty?
       flash[:alert] = I18n.t("errors.messages.not_found")
       redirect_to action: 'add'
-    elsif device.first.paired?
+    elsif devices.first.paired?
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to action: 'add'
     else
-      redirect_to action: 'check', id: device.first.id
+      redirect_to action: 'check', id: devices.first.escaped_encrypted_id
     end
   end
 
   def check
-    @device = Device.find(params[:id])
     logger.info "checking device id:" + @device.id.to_s
   end
 
@@ -60,7 +65,8 @@ class DiscovererController < ApplicationController
 
     Device.where('id in (?)', available_ip_list).each do |device|
 
-      pairing = device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
+      pairing_session = device.pairing_session.all
+      pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
       paired = !device.pairing.empty?
       presence = device.presence?
 

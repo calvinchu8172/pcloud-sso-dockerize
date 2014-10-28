@@ -1,4 +1,4 @@
-<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="deviceId=<%= @device.id.to_s %>;session=<%= @pairing_session.to_json() %>;init();">
+<div class="discoverer" ng-app="pairing_app"  ng-controller="PairingCtrl" ng-init="deviceId='<%= @device.escaped_encrypted_id %>';session=<%= @pairing_session.to_json() %>;init();">
 
   <div class="zyxel_content">
     <%= render "discoverer/shared/device_info" %>
@@ -31,15 +31,16 @@
         </div>
         <div  ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
           <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
-          <button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button>
+          <!-- button class="zyxel_btn_submit" ng-click="reconnect()"><%= I18n.t("labels.retry") %></button -->
+          <%= link_to(I18n.t("labels.retry"), "/pairing/index/#{@device.escaped_encrypted_id}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
         <div ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
-          <%= link_to(I18n.t("labels.confirm"), "/ddns/setting/" + @device.id.to_s, class: "zyxel_btn_ok") %>
+          <%= link_to(I18n.t("labels.confirm"), "/ddns/setting/" + @device.escaped_encrypted_id, class: "zyxel_btn_ok") %>
         </div>
         <div ng-switch-when="confirm_cancel" class="zyxel_btn_area i18n_fix">
           <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
-          <%= link_to(I18n.t("labels.confirm"), "/pairing/cancel/#{@device.id.to_s}", class: "zyxel_btn_ok zyxel_enabled") %>
+          <%= link_to(I18n.t("labels.confirm"), "/pairing/cancel/#{@device.escaped_encrypted_id}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
     </div>
     <%# end - Pairing bottom content %>
@@ -56,9 +57,10 @@
     $scope.interval = 3000;
     $scope.formateSuffix = ".json";
     $scope.checkConnectionUrl = '/pairing/check_connection/';
+    $scope.identicalSession = 0;
 
     $scope.init = function(){
-
+      
       if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
         $scope.failureStep();
         return;
@@ -71,12 +73,14 @@
         $scope.waitingStep();
         $timeout(startTimer, 500);
       }
+      
+      $scope.identicalSession = $scope.session.expire_at;
       $scope.checkConnection();
     };
 
     $scope.checkConnection = function(){
-      $scope.disableBtn();
       
+      $scope.disableBtn();
       switch($scope.session.status){
 
         case 'offline':
@@ -84,6 +88,11 @@
           break;
         case 'start':
         case 'waiting':
+
+          if($scope.identicalSession != $scope.session.expire_at){
+            $scope.canceledStep();
+            break;
+          }
 
           $scope.disableBtn();
           $scope.poll();
@@ -108,6 +117,7 @@
     $scope.poll = function(){
 
       var url = $scope.checkConnectionUrl  + $scope.deviceId;
+      
       $timeout(function(){
         $http.get(url).success(function(response) {
           $scope.session = response;
@@ -126,13 +136,7 @@
     }
 
     $scope.continue = function() {
-      if($scope.session.status == 'start') {
-        $scope.connectingStep();
-        $scope.waitingForCheckConnect();
-        return;
-      } else if($scope.session.status == 'waiting') {
-        $scope.step = "waiting";
-        $scope.panel = "waiting";
+      if($scope.session.status == 'start' || $scope.session.status == 'waiting') {
         $scope.reconnect();
         return;
       }

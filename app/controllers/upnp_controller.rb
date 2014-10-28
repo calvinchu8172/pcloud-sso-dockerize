@@ -28,6 +28,7 @@ class UpnpController < ApplicationController
 
     error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
+    service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
     path_ip = decide_which_path_ip upnp_session
 
     result = {:status => upnp_session['status'],
@@ -61,6 +62,7 @@ class UpnpController < ApplicationController
     path_ip = decide_which_path_ip upnp_session
 
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
+    service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
 
     result = {:status => upnp_session['status'],
               :device_id => upnp_session['device_id'],
@@ -87,9 +89,22 @@ class UpnpController < ApplicationController
 
   private
 
+  def same_subnet? device_ip
+    request.remote_ip == device_ip
+  end
+
+  def decide_which_port(upnp_session, service_list)
+    device = Device.find upnp_session['device_id']
+    port = same_subnet?(device.session.hget('ip')) ? "lan_port" : "wan_port"
+    service_list.each do |service|
+      service['port'] = service[port]
+    end
+    service_list
+  end
+
   def decide_which_path_ip upnp_session
     device = Device.find upnp_session['device_id']
-    request.remote_ip == device.session.hget('ip') ? upnp_session['lan_ip'] : device.session.hget('ip')
+    same_subnet?(device.session.hget('ip')) ? upnp_session['lan_ip'] : device.session.hget('ip')
   end
 
   def service_list_to_json
@@ -108,7 +123,6 @@ class UpnpController < ApplicationController
   end
 
   def get_device_info
-    @device = Device.find(params[:id])
     @device_ip = @device.session.hget(:ip)
   end
 
