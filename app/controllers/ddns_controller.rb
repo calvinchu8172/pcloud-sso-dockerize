@@ -12,17 +12,30 @@ class DdnsController < ApplicationController
   end
 
   def success
-    @ddns = DdnsSession.find(params[:id])
-    @ddns_session = @ddns.session.all
-    @ddns_session['id'] = @ddns.id
-    @ddns_session['full_domain']= @ddns_session['host_name'] + "." + Settings.environments.ddns
-    @device = Device.find @ddns_session['device_id']
+
+    @ddns = DdnsSession.find_by_encrypted_id(params[:id])
+    return error_action if @ddns.nil?
+
+    raw_ddns_session = @ddns.session.all
+    raw_ddns_session['id'] = @ddns.id
+    
+    @device = Device.find raw_ddns_session['device_id']
     # If this device is first paired, the confirm link should goto upnp setting page
     if session[:first_pairing]
-      @link_path = upnp_path(@device)
+      @link_path = upnp_path(@device.escaped_encrypted_id)
       session[:first_pairing] = false
     else
       @link_path = "/personal/index"
+    end
+
+    @full_domain = raw_ddns_session['host_name'] + "." + Settings.environments.ddns
+    @ddns_session[:encrypted_id] = @ddns.escaped_encrypted_id
+    @ddns_session[:encrypted_device_id] = @device.escaped_encrypted_id
+    @ddns_session[:status] = raw_ddns_session['status']
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @ddns_session }
     end
   end
 
@@ -72,7 +85,7 @@ class DdnsController < ApplicationController
       ddns_session = DdnsSession.create
       job = {:job => 'ddns', :session_id => ddns_session.id}
       if ddns_session.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
-        redirect_to action: 'success', id: ddns_session.id
+        redirect_to action: 'success', id: ddns_session.escaped_encrypted_id
         return
       end
 
