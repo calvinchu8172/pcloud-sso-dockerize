@@ -14,7 +14,7 @@ class DdnsController < ApplicationController
   def success
 
     @ddns = DdnsSession.find_by_encrypted_id(params[:id])
-    return error_action if @ddns.empty?
+    return error_action if @ddns.nil?
 
     raw_ddns_session = @ddns.session.all
     raw_ddns_session['id'] = @ddns.id
