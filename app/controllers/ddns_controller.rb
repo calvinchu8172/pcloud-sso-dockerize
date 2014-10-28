@@ -13,8 +13,8 @@ class DdnsController < ApplicationController
 
   def success
 
-    @ddns = DdnsSession.find_by_encrypted_id(params[:id])
-    return error_action if @ddns.nil?
+    @ddns = DdnsSession.find_by_encrypted_id(URI.decode(params[:id]))
+    error_action and return if @ddns.nil?
 
     raw_ddns_session = @ddns.session.all
     raw_ddns_session['id'] = @ddns.id
@@ -29,9 +29,10 @@ class DdnsController < ApplicationController
     end
 
     @full_domain = raw_ddns_session['host_name'] + "." + Settings.environments.ddns
-    @ddns_session[:encrypted_id] = @ddns.escaped_encrypted_id
-    @ddns_session[:encrypted_device_id] = @device.escaped_encrypted_id
-    @ddns_session[:status] = raw_ddns_session['status']
+
+    @ddns_session = { :encrypted_id => @ddns.escaped_encrypted_id,
+                      :encrypted_device_id => @device.escaped_encrypted_id,
+                      :status => raw_ddns_session['status']}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -68,13 +69,13 @@ class DdnsController < ApplicationController
     save_ddns_setting(device, hostname)
   end
 
-  # Send ajax
-  def status
-    ddns = DdnsSession.find(params[:id])
-    result = ddns.session.all
-    result[:id] = ddns.id
-    render :json => result
-  end
+  # # Send ajax
+  # def status
+  #   ddns = DdnsSession.find(params[:id])
+  #   result = ddns.session.all
+  #   result[:id] = ddns.id
+  #   render :json => result
+  # end
 
   private
 
