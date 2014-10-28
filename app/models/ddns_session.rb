@@ -1,5 +1,7 @@
 class DdnsSession
   include Redis::Objects
+  include Guards::AttrEncryptor
+
   attr_accessor :id
 
   self.redis_prefix=('ddns')
