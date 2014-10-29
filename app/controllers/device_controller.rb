@@ -1,4 +1,3 @@
-
 # 為負責和 device 溝通的 Restful API  
 # 主要功能為註冊或者更新device 上的相關資料  
 # 存取方式的範例 POST mac_address=099789665708&serial_number=A123456&model_name=NSA320S&firmware_version=1.0&algo=1.1&signature=sinature_hash_all_of_parameters_and_magic_number  
