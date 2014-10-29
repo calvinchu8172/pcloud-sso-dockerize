@@ -3,7 +3,7 @@ Değerli müşterimiz,
 mycloud.zyxel.com portalında yeni bir hesap oluşturdunuz.
 Giriş bilgileriniz şu şekildedir:
 Hesabınızı aktif edebilmeniz için lütfen aşağıdaki URL’ye tıklayınız.
-URL: <%= user_confirmation_url(:confirmation_token => @resource.confirmation_token) %>
+URL: <%= confirmation_url(@resource, confirmation_token: @token) %>
 
 **Otomatik olarak oluşturulmuş bir e-postadır, lütfen cevaplamayınız**
 
