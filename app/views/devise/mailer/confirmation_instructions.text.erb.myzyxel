@@ -1,0 +1,18 @@
+Dear Customer,
+
+You have registered a new account at myZyXEL.com.
+Here is your login information:
+To activate your account, please click the following URL.
+URL: <%= confirmation_url(@resource, confirmation_token: @token) %>
+
+If you are a ZyXEL reseller and wish to gain reseller account privileges
+1. Activate the account first (as indicated above)
+2. Contact your local ZyXEL sales representative
+http://www.zyxel.com/promotions/promotion_20130916_299398.shtml
+
+**This is an automatically generated email, please do not reply**
+
+Best Regards,
+myZyXEL.com Administrator
+ZyXEL Communications Corp.
+info@myzyxel.com
