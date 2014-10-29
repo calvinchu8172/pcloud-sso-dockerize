@@ -1,3 +1,16 @@
+# 負責device 跟 user 之間配對流程  
+# 配對流程的狀態如下
+# * start: 配對流程的起始狀態，並會發送 start message 給device，每次開始配對流程開始Bot 都會將之前的配對流程取消
+# * waiting: 等待使用者點選device 上確認按鈕的，在收到device的start message的response 開始
+# * done: 配對完成，在waiting的狀態下收到
+# * offline: 當start message 沒有接收到成功的response，則視為該device 沒有在線上
+# * timeout: 在waiting的狀態下，使用者在時間內未對配對流程確認，則判斷為timout  
+# * cancel: 在配對過程中，隨時可以取消對該裝置的配對程序
+# * failure: 在配對過程中，收到device 失敗的回復
+# 
+# 在配對過程中refresh browser 可接續配對過程  
+# 如果同一個user 點對該裝置再進行一次配對  
+# 則前一次配對中的流程會被取消  
 class PairingController < ApplicationController
   include PairingHelper
   before_action :authenticate_user!
@@ -5,7 +18,7 @@ class PairingController < ApplicationController
   before_action :check_pairing_session, :only => [:check_connection, :reconnect]
 
   # GET /pairing/index/:id
-  # Cancel pairing process if the device is pairing with same user
+  # Cancel pairing process if the device is pairing with same user from bot
   def index
     logger.debug('init session:' + @pairing_session.inspect)
     connect_to_device 
@@ -35,7 +48,7 @@ class PairingController < ApplicationController
   end
 
   # GET /pairing/cancel/:id
-  # break the pairing process
+  # cancel the pairing process
   def cancel
     device = Device.find_by_encrypted_id(params[:id])
     pairing = device.pairing_session
@@ -50,6 +63,7 @@ class PairingController < ApplicationController
 
   private
 
+  # 判斷該session 是否已失效
   def check_timeout
     logger.debug('@pairing_session status:' + @pairing_session['status'])
 
@@ -68,6 +82,7 @@ class PairingController < ApplicationController
 
   end
 
+  # 初始化一個session 並將start 訊息透過queue 打給bot，再由bot 與device溝通
   def connect_to_device
 
     waiting_expire_at = (Time.now() + Pairing::WAITING_PERIOD).to_i
