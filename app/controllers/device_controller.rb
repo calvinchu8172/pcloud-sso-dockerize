@@ -67,6 +67,7 @@ class DeviceController < ApplicationController
     pairing.destroy
   end
 
+  # 儲存或更新 device 使用的 IP 或 XMPP account
   def device_session_checkin
 
     @device_session = @device.session.all
