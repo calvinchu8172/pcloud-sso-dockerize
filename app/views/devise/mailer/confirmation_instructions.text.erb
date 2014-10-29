@@ -1,5 +1,12 @@
-<%= I18n.t("devise.mailer.confirmation_instructions.instruction").html_safe %>
+Dear Customer,
 
-<%= confirmation_url(@resource, confirmation_token: @token) %>
+You have registered a new account at mycloud.zyxel.com
+Here is your login information:
+To activate your account, please click the following URL.
+URL: <%= confirmation_url(@resource, confirmation_token: @token) %>
 
-<%= I18n.t("devise.mailer.confirmation_instructions.instruction_2").html_safe %>
+**This is an automatically generated email, please do not reply**
+
+Best Regards,
+myZyXELcloud Administrator
+ZyXEL Communications Corp.
