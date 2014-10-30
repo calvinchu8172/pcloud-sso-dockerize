@@ -76,14 +76,6 @@ class DdnsController < ApplicationController
     save_ddns_setting(device, hostname)
   end
 
-  # # Send ajax
-  # def status
-  #   ddns = DdnsSession.find(params[:id])
-  #   result = ddns.session.all
-  #   result[:id] = ddns.id
-  #   render :json => result
-  # end
-
   private
 
     # If full domain was not exits, it will insert data to database and redirct to success page
