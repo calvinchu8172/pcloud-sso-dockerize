@@ -1,3 +1,7 @@
+# 協助User尋找可被配對的Device
+# 共有兩種方式尋找可配對裝置  
+# 1. 透過Public IP 搜尋  
+# 2. 輸入mac address 與 serial number 搜尋
 class DiscovererController < ApplicationController
   include PairingHelper
   before_action :authenticate_user!
@@ -57,7 +61,10 @@ class DiscovererController < ApplicationController
     logger.info "checking device id:" + @device.id.to_s
   end
 
-
+  #搜尋條件如下
+  # 1. 同樣的public IP
+  # 2. 裝置非本人配對中
+  # 3. 裝置尚未被配對
   def search_available_device
 
     available_device_list = []
