@@ -1,3 +1,9 @@
+# ddns 設定
+# 設定流程的狀態如下  
+# * start: 初始化Session，透過queue 請求bot 設定DDNS
+# * waiting: 等待Bot 對 ddns server 設定的過程 
+# * success: ddns 設定成功
+# * failure: ddns 設定失敗
 class DdnsController < ApplicationController
   before_action :authenticate_user!
   before_action :device_available, :only => [:setting]
@@ -46,6 +52,7 @@ class DdnsController < ApplicationController
     redirect_to action: 'setting', id: params[:id]
   end
 
+  # POST /ddns/check
   # Check full domain name
   def check
 
