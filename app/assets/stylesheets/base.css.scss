@@ -1282,10 +1282,10 @@ body {
 div.help{
   max-width: 580px;
   .btn_wrap{
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     #expand, #collapse{
-      margin: 0 5px 5px;
       color: #FFF;
+      padding: 10px 20px;
       background: $zyxel_color4;
       transition: background-color 0.3s ease 0s;
       -webkit-transition: background-color 0.3s ease 0s; /* Chrome & safari */
@@ -1310,19 +1310,46 @@ div.help{
       }
     }
   }
-  ul li{list-style-type: none;};
-  li{
-    border-bottom: 1px solid $zyxel_white;
+  ul {
+    li{
+      list-style-type: none;
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $zyxel_white;
+      }
+      &:first-of-type h2 {
+        -webkit-border-radius: 3px 3px 0 0;
+        -moz-border-radius: 3px 3px 0 0;
+        border-radius: 3px 3px 0 0;
+      }
+      &:last-of-type {
+        h2:not(.active), h2.active + article {
+          -webkit-border-radius: 0 0 3px 3px;
+          -moz-border-radius: 0 0 3px 3px;
+          border-radius: 0 0 3px 3px;
+        }
+      }
+    }
   }
+
   #tabs{
     padding:0;
     h2{
       margin: 0;
-      padding:5px 10px;
+      padding: 10px 10px;
       font-size:15px; // Ref by sign-in btn
       cursor: pointer;
       background: $zyxel_color4;
       color: white;
+      transition: background-color 0.3s ease 0s;
+      -webkit-transition: background-color 0.3s ease 0s; /* Chrome & safari */
+      -moz-transition: background-color 0.3s ease 0s; /* firefox */
+      -o-transition: background-color 0.3s ease 0s;
+      &:hover {
+        background-color: $zyxel_color1;
+        & + article {
+          border-color: $zyxel_color1;
+        }
+      }
     }
     article {
       display: none;
@@ -1330,6 +1357,10 @@ div.help{
       overflow: hidden;
       color: $zyxel_color2;
       border: 1px solid $zyxel_color4;
+      transition: border-color 0.3s ease 0s;
+      -webkit-transition: border-color 0.3s ease 0s; /* Chrome & safari */
+      -moz-transition: border-color 0.3s ease 0s; /* firefox */
+      -o-transition: border-color 0.3s ease 0s;
     }
     h2.active + article {
       display: block;
@@ -1365,7 +1396,7 @@ div.footer{
       font-size: 14px;
     }
     a:link, a:visited {
-      color: #34D9C3;
+      color: $zyxel_color4;
     }
     a:hover, a:active {
       color: #F0DF4A;
