@@ -37,7 +37,7 @@ class UpnpController < ApplicationController
 
     session_id = params[:id]
     upnp_session = UpnpSession.find(session_id).session.all
-    render :json => {:result => 'timeout'} if upnp_session.empty?
+    render :json => {:result => 'timeout'} and return if upnp_session.empty?
 
     error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
