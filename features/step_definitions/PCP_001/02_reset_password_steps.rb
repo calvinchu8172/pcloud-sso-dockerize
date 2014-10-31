@@ -84,7 +84,7 @@ def check_resetpwd_email(user_email)
   @email = ActionMailer::Base.deliveries.first
   expect(@email.from.first).to eq(ActionMailer::Base.default[:from])
   expect(@email.to.first).to eq(user_email)
-  expect(@email.body).to have_content(I18n.t("devise.mailer.reset_password_instructions.instruction"))
+  expect(@email.body).to have_content("You have requested to reset your myZyXELcloud password.")
   expect(@email.body).to match(/\/users\/password/)
 end
 
