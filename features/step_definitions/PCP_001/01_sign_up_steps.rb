@@ -208,6 +208,6 @@ def check_email_content(user_email)
   @email = ActionMailer::Base.deliveries.first
   expect(@email.from.first).to eq(ActionMailer::Base.default[:from])
   expect(@email.to.first).to eq(user_email)
-  expect(@email.body).to have_content(I18n.t("devise.mailer.confirmation_instructions.instruction"))
+  expect(@email.body).to have_content("You have registered a new account at mycloud.zyxel.com")
   expect(@email.body).to match(/\/users\/confirmation/)
 end

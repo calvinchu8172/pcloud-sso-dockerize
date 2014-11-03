@@ -1,7 +1,7 @@
 # ddns 設定
-# 設定流程的狀態如下  
+# 設定流程的狀態如下
 # * start: 初始化Session，透過queue 請求bot 設定DDNS
-# * waiting: 等待Bot 對 ddns server 設定的過程 
+# * waiting: 等待Bot 對 ddns server 設定的過程
 # * success: ddns 設定成功
 # * failure: ddns 設定失敗
 class DdnsController < ApplicationController
@@ -24,7 +24,7 @@ class DdnsController < ApplicationController
 
     raw_ddns_session = @ddns.session.all
     raw_ddns_session['id'] = @ddns.id
-    
+
     @device = Device.find raw_ddns_session['device_id']
     # If this device is first paired, the confirm link should goto upnp setting page
     if session[:first_pairing]
@@ -49,7 +49,7 @@ class DdnsController < ApplicationController
   # Set error message and redirect to setting page
   def failure
     flash[:error] = I18n.t("warnings.settings.ddns.failure")
-    redirect_to action: 'setting', id: params[:id]
+    redirect_to action: 'setting', id: CGI::escape(params[:id])
   end
 
   # POST /ddns/check
