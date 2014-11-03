@@ -6,7 +6,7 @@ require 'rails/all'
 require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
-require 'log4r/outputter/fileoutputter'
+require 'log4r/fluent_outputter'
 require "action_mailer/railtie"
 include Log4r
 

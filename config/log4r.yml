@@ -5,6 +5,7 @@ log4r_config:
       level         : DEBUG
       trace         : 'true'
       outputters    : 
+      - log_server
       - app_log
     - name          : database
       level         : DEBUG
@@ -14,6 +15,10 @@ log4r_config:
 
   # define all outputters (incl. formatters)
   outputters:
+  - type: FluentOutputter
+    name: log_server
+    tag: myapp
+    host: '10.106.30.227'
   - type: DateFileOutputter
     name: app_log
     dirname: "log"
