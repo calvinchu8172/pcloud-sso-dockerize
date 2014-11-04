@@ -61,6 +61,7 @@ gem 'devise-i18n'
 gem 'rails-i18n'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'i18n_country_select'
+gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
@@ -69,7 +70,8 @@ gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
-
+# gem 'devise-async'
+# gem 'sidekiq'
 group :development, :test do
   gem 'faker'
   gem 'capybara'

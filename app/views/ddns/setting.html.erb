@@ -9,7 +9,7 @@
 
     <%= form_tag "/ddns/check", :name => 'ddnsForm' do %>
 
-      <%= hidden_field_tag :id, params[:id] %>
+      <%= hidden_field_tag :id, @device.escaped_encrypted_id %>
 
       <div class="zyxel_host_name">
         <%= text_field_tag "host_name", @hostname, id: "ddns-host-name", maxlength: 63 %>

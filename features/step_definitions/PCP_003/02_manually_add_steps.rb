@@ -39,7 +39,7 @@ Then(/^the user should see error message on manually add page$/) do
 end
 
 Then(/^the user will redirect to pairing check page$/) do
-	expect(page.current_path).to eq("/discoverer/check/#{@device.id}.format")
+	expect(page.current_path).to eq("/discoverer/check/#{@device.escaped_encrypted_id}.format")
 end
 
 Then(/^redirect to Search Devices page$/) do

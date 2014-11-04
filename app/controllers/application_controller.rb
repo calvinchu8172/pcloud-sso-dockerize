@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
       if(!request.path.match("/users") &&
          !request.path.match("/hint") &&
          !request.path.match("/oauth") &&
+         !request.path.match("/help") &&
          !request.xhr? && # don't store ajax calls
          (request.accept && !request.accept.match(/json/))) # don't store json calls
         session[:previous_url] = request.fullpath
@@ -53,8 +54,8 @@ class ApplicationController < ActionController::Base
     end
 
     def device_paired_with?
-      device_id = params[:id]
-      unless(paired?(device_id, current_user.id))
+      @device = Device.find_by_encrypted_id(params[:id])
+      unless(@device.pairing.owner.first.user_id == current_user.id)
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root
       end
@@ -66,10 +67,6 @@ class ApplicationController < ActionController::Base
       sqs = AWS::SQS.new
       queue = sqs.queues.named(Settings.environments.sqs.name)
       queue.send_message(data.to_json)
-    end
-
-    def paired?(device_id, user_id)
-      Pairing.owner.exists?({:device_id => device_id, :user_id => user_id})
     end
 
     # Split browser locales array and find first support language

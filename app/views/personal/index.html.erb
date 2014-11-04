@@ -44,12 +44,9 @@
           </tr>
           <tr>
             <td colspan="3" class="text-right table_btn_area">
-              <%# change the data format to string %>
-              <% device_id = pairing.device_id.to_s %>
-
-              <%= link_to I18n.t("labels.settings.ddns.instruction") , "/ddns/setting/" + device_id, class: "zyxel_btn_style1 margin_right5" %>
-              <%= link_to I18n.t("labels.settings.upnp.instruction") , upnp_path(device_id), class: "zyxel_btn_style1 margin_right5" %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.id.to_s, class: "zyxel_btn_style2" %>
+              <%= link_to I18n.t("labels.settings.ddns.instruction") , "/ddns/setting/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to I18n.t("labels.settings.upnp.instruction") , upnp_path(pairing.device.escaped_encrypted_id), class: "zyxel_btn_style1 margin_right5" %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
             </td>
           </tr>
         <% end %>

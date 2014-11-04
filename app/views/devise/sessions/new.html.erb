@@ -89,5 +89,10 @@
 </div>
 
 <div class="footer">
-  <span>Copyright © 2014 Zyxel Communications Corp. All rights reserved  <%= "#{Version['version']}#{Version['suffix']}" %></span>
+    <span class="support">
+      <%= link_to 'Help', '/help', target: "_blank" %>|
+      <%= link_to 'Support', 'http://www.zyxel.com/form/Support_Feedback.shtml', target: "_blank" %>
+    </span><br>
+  <span>Copyright © 2014 Zyxel Communications Corp. All rights reserved  <%= "#{Version['version']}#{Version['suffix']}" %></span><br>
+  <span>Recommended browsers: Internet Exploreer 10 and above, Firefox 33 and above, Chrome 38 and above, Safari 8 and above</span>
 </div>
