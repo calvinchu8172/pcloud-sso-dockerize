@@ -47,7 +47,7 @@ class PasswordsController < Devise::PasswordsController
       user = User.find_by_email(user_email)
       if !user.nil?
         user.identity.each do |auth|
-          oauth = true if user.created_at <= auth.created_at
+          oauth = true if user.confirmation_token.nil?
         end
       end
       oauth

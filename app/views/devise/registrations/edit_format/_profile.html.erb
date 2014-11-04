@@ -71,10 +71,10 @@
     <%# Phone number %>
     <tr>
       <th>
-        <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
+        <%= f.label :mobile_number, I18n.t("user.labels.phone_number"), class: "th_label"  %>
       </th>
       <td>
-        <%= f.text_field :mobile_number, class: "input_style1", maxlength: 40 %>
+        <%= f.text_field :mobile_number, class: "input_style1 td_field", maxlength: 40 %>
       </td>
     </tr>
     <%# Phone number - end %>
