@@ -13,6 +13,7 @@ en:
     retry: 'Retry'
     submit: 'Submit'
     confirm: 'Confirm'
+    or: 'or'
     settings:
       ddns:
         instruction: 'DDNS Setup'

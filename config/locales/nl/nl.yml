@@ -13,6 +13,7 @@ nl:
     retry: 'Opnieuw'
     submit: 'Verstuur'
     confirm: 'Bevestig'
+    or: 'of'
     settings:
       ddns:
         instruction: 'DDNS Setup'
