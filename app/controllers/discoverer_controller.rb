@@ -15,6 +15,7 @@ class DiscovererController < ApplicationController
       next if(device.product.blank?)
       logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
       raw_result.push({:device_id => device.escaped_encrypted_id,
+        :paired => device.paired?,
         :product_name => device.product.name,
         :model_name => device.product.model_name,
         :serial_number => device.serial_number,
@@ -64,7 +65,6 @@ class DiscovererController < ApplicationController
   #搜尋條件如下
   # 1. 同樣的public IP
   # 2. 裝置非本人配對中
-  # 3. 裝置尚未被配對
   def search_available_device
 
     available_device_list = []
@@ -74,10 +74,9 @@ class DiscovererController < ApplicationController
 
       pairing_session = device.pairing_session.all
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
-      paired = !device.pairing.empty?
       presence = device.presence?
 
-      available_device_list << device if !pairing && !paired && presence
+      available_device_list << device if !pairing && presence
     end
     
     logger.debug('result of searching available device list:' + available_device_list.inspect)
