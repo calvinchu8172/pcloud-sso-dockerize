@@ -13,6 +13,7 @@ tr:
     retry: 'Tekrar Dene'
     submit: 'Gönder'
     confirm: 'Onayla'
+    or: 'veya'
     settings:
       ddns:
         instruction: 'DDNS Ayarı'

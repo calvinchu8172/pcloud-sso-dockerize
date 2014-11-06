@@ -13,6 +13,7 @@ zh-TW:
     retry: '重試'
     submit: '提交'
     confirm: '確認'
+    or: '或'
     settings:
       ddns:
         instruction: 'DDNS設定'

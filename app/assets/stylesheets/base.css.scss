@@ -717,27 +717,40 @@ body {
 .signup_cont {
   padding: 8% 7% 7% 7%;
 }
-.divider {
-  width: 100%;
-  text-align: center;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: $zyxel_color3;
-  margin: 14px auto 23px auto;
-  position: relative;
-}
-.divider div{
-  position: absolute;
-  top: -0.7em;
-  width: 100%;
-}
-.divider span{
-  width: auto;
-  /* [disabled]margin: 0 auto -6px; */
-  font-size: 1em;
-  padding: 0 1.2em;
-  color: $zyxel_color2;
-  text-shadow: none;
+.divider2 {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  .or{
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex:1;
+    -ms-flex:1;
+    flex: 1;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+    color: $zyxel_color2
+  }
+  div:not(.or) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex:2;
+    -webkit-flex:1;
+    -ms-flex:1;
+    width: 100%;
+    border-bottom: 1px solid $zyxel_color3;
+    margin-bottom: 10px;
+  }
+
 }
 .login_footer {
   border-top-width: 1px;

@@ -13,6 +13,7 @@ th:
     retry: 'ยกเลิก'
     submit: 'ส่ง'
     confirm: 'ยืนยัน'
+    or: 'หรือ'
     settings:
       ddns:
         instruction: 'DDNS ตั้งค่า'
