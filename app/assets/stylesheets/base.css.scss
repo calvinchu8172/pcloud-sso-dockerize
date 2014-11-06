@@ -902,7 +902,7 @@ body {
     border-bottom: 1px solid $zyxel_color6;
   }
   .td_right {
-    width: 90px;
+    width: 190px;
   }
   .td_left {
     padding-left: 10px;
@@ -1410,4 +1410,18 @@ div.footer{
     color:$zyxel_color2;
     font-size:12px ;
   }
+}
+
+.zyxel_btn_disabled {
+  @extend .zyxel_btn_style2;
+  cursor: not-allowed;
+  color: #C3C3C3;
+  border-color: #C3C3C3;
+}
+
+.zyxel_btn_disabled:hover {
+  @extend .zyxel_btn_style2:hover;
+  text-decoration:none;
+  background-color: transparent;
+  color: #C3C3C3;
 }
