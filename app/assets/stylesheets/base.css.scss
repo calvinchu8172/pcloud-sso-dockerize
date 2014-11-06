@@ -723,34 +723,25 @@ body {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  .or{
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex:1;
-    -ms-flex:1;
-    flex: 1;
-    -ms-flex-pack: center;
-    justify-content: center;
+  div {
+    display: block;
+    text-align: center;
     width: 100%;
-    color: $zyxel_color2
+    font-size: 15px;
+    &.or{
+      -webkit-flex:1;
+      -ms-flex:1;
+      flex: 1;
+      color: $zyxel_color2
+    }
+    &:not(.or) {
+      -webkit-flex:4;
+      -ms-flex:4;
+      flex:4;
+      border-bottom: 1px solid $zyxel_color3;
+      margin-bottom: 10px;
+    }
   }
-  div:not(.or) {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex:2;
-    -webkit-flex:1;
-    -ms-flex:1;
-    width: 100%;
-    border-bottom: 1px solid $zyxel_color3;
-    margin-bottom: 10px;
-  }
-
 }
 .login_footer {
   border-top-width: 1px;
