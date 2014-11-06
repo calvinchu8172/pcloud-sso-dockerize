@@ -27,12 +27,8 @@
         <%# oAuth sign in - end %>
 
         <%# Divider %>
-        <!--
-        <div class="divider">
-          <div><span>or</span></div>
-        </div>
-        -->
-        <div class="divider2"><div></div><div class="or"><%= I18n.t("labels.or") %></div><div></div></div>
+        <div class="divider"><div></div><div class="or"><%= I18n.t("labels.or") %></div><div></div></div>
+        <%# Divider - end %>
 
         <%# Form for Sign in %>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
