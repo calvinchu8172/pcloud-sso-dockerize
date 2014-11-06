@@ -13,6 +13,7 @@ de:
     retry: 'Wiederholen'
     submit: 'Abschicken'
     confirm: 'Bestätigen'
+    or: 'oder'
     settings:
       ddns:
         instruction: 'DDNS Einrichtung'
