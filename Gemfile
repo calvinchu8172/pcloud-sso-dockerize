@@ -70,12 +70,13 @@ gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
-gem 'log4r-fluent'
+gem 'fluent-logger'
 
 # gem 'devise-async'
 # gem 'sidekiq'
 group :development, :test do
   gem 'faker'
+  gem 'hipchat'
   gem 'capybara'
   gem "capybara-webkit"
   gem 'cucumber-rails', :require => false

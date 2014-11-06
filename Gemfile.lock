@@ -123,6 +123,11 @@ GEM
       tilt
     hashie (2.1.2)
     hike (1.2.3)
+    hipchat (1.4.0)
+      httparty
+    httparty (0.13.2)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     i18n-country-translations (1.0.4)
       i18n (~> 0.5)
@@ -149,9 +154,6 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.9.2)
     log4r (1.1.10)
-    log4r-fluent (0.0.3)
-      fluent-logger
-      log4r
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -338,11 +340,12 @@ DEPENDENCIES
   devise-i18n
   factory_girl_rails
   faker
+  fluent-logger
+  hipchat
   i18n_country_select
   immigrant
   jbuilder (~> 2.0)
   log4r
-  log4r-fluent
   mysql2 (= 0.3.16)
   netrc!
   omniauth

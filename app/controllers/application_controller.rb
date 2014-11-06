@@ -13,13 +13,10 @@ class ApplicationController < ActionController::Base
   protected
 
     def setup_log_context
-      Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
-
-      context = { pid: Process.pid, ip: request.remote_ip}
-      context["user_id"] = current_user.id  if current_user
-
-      content = context.map{|k,v| "#{k}=#{v}"}.join(' ')
-      Log4r::MDC.put("context", content)
+      Log4r::MDC.put(:pid, Process.pid)
+      Log4r::MDC.put(:ip, request.remote_ip)
+      Log4r::MDC.put(:user_id, current_user.id) if current_user
+      Log4r::MDC.put(:host, Socket.gethostname)
     end
 
     def configure_devise_permitted_parameters

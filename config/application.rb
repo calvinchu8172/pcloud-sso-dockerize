@@ -6,7 +6,8 @@ require 'rails/all'
 require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
-require 'log4r/fluent_outputter'
+# require config.root + '/lib/log4r/fluent_post_outputter'
+require File.expand_path('../../lib/log4r/fluent_post_outputter', __FILE__)
 require "action_mailer/railtie"
 include Log4r
 
@@ -45,7 +46,8 @@ module Pcloud
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr]
-    config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths << Rails.root.join('lib')
 
     # for bower install path
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
@@ -64,6 +66,7 @@ module Pcloud
     YamlConfigurator.decode_yaml( log4r_config['log4r_config'] )
     # YamlConfigurator.decode_yaml(Settings.environments.log4r_config)
     config.logger = Log4r::Logger["application"]
+    # config.logger = Log4r::FluentPostOutputter.new('test', {})
     ActiveRecord::Base.logger = Log4r::Logger["database"]
 
     # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
