@@ -34,6 +34,7 @@ tr:
           failure: 'Başarısız'
           no_update: 'hayır güncelleme'
     pairing: 'Eşleştiriliyor'
+    paired: 'Paried'
     unpairing: 'Eşleştirme kaldırılıyor'
     manually: 'Elle Ekle'
     profile: 'Profil'

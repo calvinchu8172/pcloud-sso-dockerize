@@ -21,7 +21,7 @@
         <th>{{device.product_name}}</th>
         <td class="td_right pairing_btn_fix">
           <a ng-if="!device.paired" href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a>
-          <span ng-if="device.paired" class="zyxel_btn_disabled pull-right disabled" >paired</span>
+          <span ng-if="device.paired" class="zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.paired") %></span>
         </td>
       </tr>
     </table>

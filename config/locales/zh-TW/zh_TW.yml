@@ -34,6 +34,7 @@ zh-TW:
           failure: '失敗'
           no_update: '未更新'
     pairing: '裝置配對'
+    paired: '裝置已配對'
     unpairing: '取消配對'
     manually: '手動加入裝置'
     profile: '使用者資訊'
