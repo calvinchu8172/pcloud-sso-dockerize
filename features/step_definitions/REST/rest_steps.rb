@@ -22,6 +22,7 @@ end
 
 When(/^the device send reset request to REST API$/) do
   steps %{ When the device already registration }
+  create_rest_pairing(@device)
   @device["reset"] = 1
   steps %{ When the device send information to REST API }
 end
@@ -96,5 +97,16 @@ def check_rest_result_valid(device, result)
   device_session = Device.find(device_id).session.all
   expect(name).to eq(device_session["xmpp_account"])
   # expect(request.remote_ip).to eq(device_session["ip"])
+end
 
+
+def create_rest_pairing(device)
+  name = 'd' + device["mac_address"].gsub(':', '-') + '-' + device["serial_number"].gsub(/([^\w])/, '-')
+
+  redis = Redis.new
+  pairing = Pairing.new
+  pairing.device_id = redis.GET("xmpp:#{name}:session")
+  pairing.user = TestingHelper.create_and_signin
+  pairing.ownership = 0
+  pairing.save
 end
