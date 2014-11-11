@@ -890,40 +890,50 @@ body {
     margin: 0 6px 0 0;
   }
   th{
-    padding: 0 5px 0 10px;
+    padding: 10px 0 15px 10px;
     border-bottom: 1px solid $zyxel_color6;
     color: $zyxel_color2;
     font-size: 17px;
     font-weight: normal;
   }
   td{
-    padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid $zyxel_color6;
   }
-  .td_right {
-    width: 190px;
-  }
+  // .td_right {
+  //   width: 190px;
+  // }
   .td_left {
     padding-left: 10px;
   }
   tr td:first-child {
     text-align:center;
   }
-  .search_list_hover{
-    @extend .hover_pop;
-    min-width: 220px;
-    margin: -80px auto;
-    text-align: left;
-    color: $zyxel_color2 !important;
-    font-size: 0.9em;
-  }
-  .search_list_hover span{
+  .device_info span{
+    font-size: 14px;
     display: block;
+    margin: 3px 0;
+    overflow: hidden;
+    width:430px;  // Ref model img between device_info padding
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &.model_name{
+      font-size: 17px;
+      color: $zyxel_color4;
+    }
+    &.device_info_hover{
+      @extend .hover_pop;
+      margin: -55px auto;
+      text-align: left;
+      // Reset to default
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+    &:hover .device_info_hover{
+      visibility: visible;
+    }
   }
-  tr.device:hover .search_list_hover {
-    visibility: visible;
-  };
 }
 
 
