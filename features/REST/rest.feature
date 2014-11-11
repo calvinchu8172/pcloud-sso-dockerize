@@ -1,59 +1,53 @@
 Feature: REST API testing
 
   Background:
-	  Given the device with information
-	    | mac_address      | 099789665701                                             |
-	    | serial_number    | A123456                                                  |
-	    | model_name       | NSA325                                                   |
-	    | firmware_version | 1.0                                                      |
-	    | algo             | 1                                                        |
-	    | signature        | 206920dac685455b4d0615555d1bfe0788c3e659a4e432c2ef7e1659 |
+    Given the device with information
+      | mac_address      | 099789665701                                             |
+      | serial_number    | A123456                                                  |
+      | model_name       | NSA325                                                   |
+      | firmware_version | 1.0                                                      |
+      | algo             | 1                                                        |
+      | signature        | 206920dac685455b4d0615555d1bfe0788c3e659a4e432c2ef7e1659 |
 
-	Scenario: [REST-01]
-		Check standard device registration process
+  Scenario: [REST-01]
+    Check standard device registration process
 
-	  When the device POST to "/d/1/register"
-	  Then the HTTP should return 200
-	  And the record in databases as expected
+    When the device send information to REST API
+    Then the API should return success respond
+    And the record in databases as expected
 
-	Scenario: [REST-02]
-		Check device update process when "firmware_version" was be changed
+  Scenario: [REST-02]
+    Check reset process
 
-		When the device already registration
-		But the device "firmware_version" was be changed to "2.0"
-		Then the HTTP should return 200
-		And the record in databases as expected
+    When the device already registration
+    And the device send reset request to REST API
+    Then the API should return success respond
+    And the databases should have not pairing record
 
-	Scenario: [REST-03]
-		Check device update process when "serial_number" was be changed
+  Scenario Outline: [REST-03]
+    Check device update process when valid format
 
-		When the device already registration
-		But the device "serial_number" was be changed to "654321A"
-		Then the HTTP should return 200
-		And the record in databases as expected
+    When the device "<information>" was be changed to "<value>"
+    And the device send information to REST API
+    Then the API should return success respond
+    And the record in databases as expected
 
-	Scenario: [REST-04]
-		Check device update process when "mac_address" was be changed
+    Examples: Valid format
+      | information        | value               |
+      | firmware_version   | 2.0                 |
+      | mac_address        | 000000000000        |
+      | serial_number      | 654321A             |
 
-		When the device already registration
-		But the device "mac_address" was be changed to "000000000000"
-		Then the HTTP should return 200
-		And the record in databases as expected
+  Scenario Outline: [REST-04]
+    Check device update process when invalid format
 
-	Scenario: [REST-05]
-		Check device update process when "signature" is not correct
+    When the device "<information>" was be changed to "<value>"
+    And the device send information to REST API
+    Then the API should return "<http_status>" and "<json_message>" with failure responds
+    And the database does not have record
 
-		When the device signature was be changed to "000000000000"
-		Then the HTTP should not return 200 and get json error code "Failure"
-
-	Scenario: [REST-06]
-		Check device update process when "mac_address" is not correct
-
-		When the device "mac_address" was be changed to "@@@@@@@@@@"
-		Then the HTTP should not return 200 and get json result code "invalid parameter"
-
-	Scenario: [REST-07]
-		Check device update process when "serial_number" is null
-
-		When the device "serial_number" was be changed to ""
-		Then the HTTP should not return 200 and get json result code "invalid parameter"
+    Examples: Invalid mac_address format
+      | information        | value               | http_status | json_message       |
+      | mac_address        | @@@@@@@@@@          | 400         | invalid parameter  |
+      | mac_address        | 6D-81-45-4B-1A-B8   | 400         | invalid parameter  |
+      | mac_address        | A6:3A:B9:05:3E:B3   | 400         | invalid parameter  |
