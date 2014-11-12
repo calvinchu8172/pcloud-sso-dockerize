@@ -21,17 +21,14 @@ When(/^the device already registration$/) do
 end
 
 When(/^the device send reset request to REST API$/) do
-  steps %{ When the device already registration }
   create_rest_pairing(@device)
   @device["reset"] = 1
   steps %{ When the device send information to REST API }
 end
 
 When(/^the device "(.*?)" was be changed to "(.*?)"$/) do |key, value|
-  steps %{ When the device already registration }
   @device["#{key}"] = value
   reset_signature(@device)
-  steps %{ When the device send information to REST API }
 end
 
 When(/^the device signature was be changed to "(.*?)"$/) do |value|
