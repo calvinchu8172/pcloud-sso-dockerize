@@ -24,9 +24,19 @@ Feature: REST API testing
     Then the API should return success respond
     And the databases should have not pairing record
 
-  Scenario Outline: [REST-03]
+  Scenario: [REST-03]
+    Check device update process when IP changed
+
+    When the device already registration
+    When the device IP was be changed
+    And the device send information to REST API
+    Then the API should return success respond
+    And the record in databases as expected
+
+  Scenario Outline: [REST-04]
     Check device update process when valid format
 
+    When the device already registration
     When the device "<information>" was be changed to "<value>"
     And the device send information to REST API
     Then the API should return success respond
@@ -38,9 +48,10 @@ Feature: REST API testing
       | mac_address        | 000000000000        |
       | serial_number      | 654321A             |
 
-  Scenario Outline: [REST-04]
+  Scenario Outline: [REST-05]
     Check device update process when invalid format
 
+    When the device already registration
     When the device "<information>" was be changed to "<value>"
     And the device send information to REST API
     Then the API should return "<http_status>" and "<json_message>" with failure responds

@@ -38,6 +38,10 @@ When(/^the device signature was be changed to "(.*?)"$/) do |value|
   @device["signature"] = value
 end
 
+When(/^the device IP was be changed$/) do
+  ENV['RAILS_TEST_IP_ADDRESS'] = '1.2.3.4'
+end
+
 
 # -------------------------------------------------------------------
 # ---------------------------   output   ----------------------------
@@ -77,26 +81,37 @@ def reset_signature(device)
   @device
 end
 
+# -------------------------------------------------------------------
+# --------------------------   function   ---------------------------
+# -------------------------------------------------------------------
+
 def check_rest_result_valid(device, result)
   name = 'd' + device["mac_address"].gsub(':', '-') + '-' + device["serial_number"].gsub(/([^\w])/, '-')
   xmpp_username = name + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_resource_id
 
   # Check json result
-  expect(xmpp_username).to eq(result["xmpp_account"])
-  expect(Settings.xmpp.bots).to eq(result["xmpp_bots"])
-  expect(Settings.xmpp.nodes).to eq(result["xmpp_ip_addresses"])
+  expect(result["xmpp_account"]).to eq(xmpp_username)
+  expect(result["xmpp_bots"]).to eq(Settings.xmpp.bots)
+  expect(result["xmpp_ip_addresses"]).to eq(Settings.xmpp.nodes)
 
   # Check xmpp db record
   db_user = XmppUser.find_by(username: name)
-  expect(name).to eq(db_user.username)
+  expect(db_user.username).to eq(name)
   expect(db_user.password).not_to be_empty
 
   # Check redis record
   redis = Redis.new
   device_id = redis.GET("xmpp:#{name}:session")
   device_session = Device.find(device_id).session.all
-  expect(name).to eq(device_session["xmpp_account"])
+  expect(device_session["xmpp_account"]).to eq(name)
   # expect(request.remote_ip).to eq(device_session["ip"])
+
+  if ENV['RAILS_TEST_IP_ADDRESS'].nil?
+    expect(device_session["ip"]).to eq('127.0.0.1')
+  else
+    expect(device_session["ip"]).to eq(ENV['RAILS_TEST_IP_ADDRESS'])
+  end
+
 end
 
 
