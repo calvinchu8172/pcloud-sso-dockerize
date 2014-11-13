@@ -82,6 +82,8 @@ class Device < ActiveRecord::Base
       @presence = XmppPresence.new("s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase)
     end
     @presence.exists?
+  rescue TimeoutError => error
+    logger.fatal('device presence error:' + backtrace.join("\n"))
+    false
   end
-
 end
