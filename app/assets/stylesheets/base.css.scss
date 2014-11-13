@@ -900,28 +900,32 @@ body {
     padding-bottom: 12px;
     border-bottom: 1px solid $zyxel_color6;
   }
-  // .td_right {
-  //   width: 190px;
-  // }
   .td_left {
     padding-left: 10px;
   }
   tr td:first-child {
     text-align:center;
   }
-  .device_info span{
-    font-size: 14px;
-    display: block;
-    margin: 3px 0;
-    overflow: hidden;
-    width:430px;  // Ref model img between device_info padding
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    &.model_name{
-      font-size: 17px;
-      color: $zyxel_color4;
+  .device_info {
+    span{
+      font-size: 14px;
+      display: block;
+      margin: 3px 0;
+      overflow: hidden;
+      width:430px;  // Ref model img between device_info padding
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &.model_name{
+        font-size: 17px;
+        color: $zyxel_color4;
+      }
     }
-    &.device_info_hover{
+    > span {
+      &:hover .device_info_hover{
+        visibility: visible;
+      }
+    }
+    .device_info_hover{
       @extend .hover_pop;
       margin: -55px auto;
       text-align: left;
@@ -929,9 +933,6 @@ body {
       word-break: break-all;
       word-wrap: break-word;
       white-space: normal;
-    }
-    &:hover .device_info_hover{
-      visibility: visible;
     }
   }
 }
@@ -1425,13 +1426,14 @@ div.footer{
 .zyxel_btn_disabled {
   @extend .zyxel_btn_style2;
   cursor: not-allowed;
-  color: #C3C3C3;
-  border-color: #C3C3C3;
+  color: $zyxel_white;
+  background: #0E8B81;
+  border-color: #0E8B81;
 }
 
 .zyxel_btn_disabled:hover {
   @extend .zyxel_btn_style2:hover;
   text-decoration:none;
-  background-color: transparent;
-  color: #C3C3C3;
+  background: #0E8B81;
+  color: $zyxel_white;
 }
