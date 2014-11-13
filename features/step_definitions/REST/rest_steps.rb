@@ -70,6 +70,10 @@ Then(/^the API should return "(.*?)" and "(.*?)" with failure responds$/) do |ht
   expect(@result["result"]).to eq(json)
 end
 
+# -------------------------------------------------------------------
+# --------------------------   function   ---------------------------
+# -------------------------------------------------------------------
+
 def reset_signature(device)
   magic_number = Settings.magic_number
   data = device["mac_address"] + device["serial_number"].to_s + device["model_name"] + device["firmware_version"] + magic_number.to_s
@@ -77,10 +81,6 @@ def reset_signature(device)
   @device["signature"] = sha224.hexdigest(data)
   @device
 end
-
-# -------------------------------------------------------------------
-# --------------------------   function   ---------------------------
-# -------------------------------------------------------------------
 
 def check_rest_result_valid(device, result)
   name = 'd' + device["mac_address"].gsub(':', '-') + '-' + device["serial_number"].gsub(/([^\w])/, '-')

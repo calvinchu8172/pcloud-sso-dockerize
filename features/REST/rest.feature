@@ -7,7 +7,7 @@ Feature: REST API testing
       | model_name       | NSA325                                                   |
       | firmware_version | 1.0                                                      |
       | algo             | 1                                                        |
-      | signature        | 206920dac685455b4d0615555d1bfe0788c3e659a4e432c2ef7e1659 |
+      | signature        | 7f499995301e4ca93d110c6906d732f74fb8f523daf9de219707be30 |
 
   Scenario: [REST-01]
     Check standard device registration process
