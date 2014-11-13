@@ -718,26 +718,30 @@ body {
   padding: 8% 7% 7% 7%;
 }
 .divider {
-  width: 100%;
-  text-align: center;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: $zyxel_color3;
-  margin: 14px auto 23px auto;
-  position: relative;
-}
-.divider div{
-  position: absolute;
-  top: -0.7em;
-  width: 100%;
-}
-.divider span{
-  width: auto;
-  /* [disabled]margin: 0 auto -6px; */
-  font-size: 1em;
-  padding: 0 1.2em;
-  color: $zyxel_color2;
-  text-shadow: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  div {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 15px;
+    &.or{
+      -webkit-flex:1;
+      -ms-flex:1;
+      flex: 1;
+      color: $zyxel_color2
+    }
+    &:not(.or) {
+      -webkit-flex:4;
+      -ms-flex:4;
+      flex:4;
+      border-bottom: 1px solid $zyxel_color3;
+      margin-bottom: 10px;
+    }
+  }
 }
 .login_footer {
   border-top-width: 1px;
@@ -886,19 +890,15 @@ body {
     margin: 0 6px 0 0;
   }
   th{
-    padding: 0 5px 0 10px;
+    padding: 10px 0 15px 10px;
     border-bottom: 1px solid $zyxel_color6;
     color: $zyxel_color2;
     font-size: 17px;
     font-weight: normal;
   }
   td{
-    padding-top: 12px;
     padding-bottom: 12px;
     border-bottom: 1px solid $zyxel_color6;
-  }
-  .td_right {
-    width: 90px;
   }
   .td_left {
     padding-left: 10px;
@@ -906,20 +906,35 @@ body {
   tr td:first-child {
     text-align:center;
   }
-  .search_list_hover{
-    @extend .hover_pop;
-    min-width: 220px;
-    margin: -80px auto;
-    text-align: left;
-    color: $zyxel_color2 !important;
-    font-size: 0.9em;
+  .device_info {
+    span{
+      font-size: 14px;
+      display: block;
+      margin: 3px 0;
+      overflow: hidden;
+      width:430px;  // Ref model img between device_info padding
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &.model_name{
+        font-size: 17px;
+        color: $zyxel_color4;
+      }
+    }
+    > span {
+      &:hover .device_info_hover{
+        visibility: visible;
+      }
+    }
+    .device_info_hover{
+      @extend .hover_pop;
+      margin: -55px auto;
+      text-align: left;
+      // Reset to default
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: normal;
+    }
   }
-  .search_list_hover span{
-    display: block;
-  }
-  tr.device:hover .search_list_hover {
-    visibility: visible;
-  };
 }
 
 
@@ -1406,4 +1421,19 @@ div.footer{
     color:$zyxel_color2;
     font-size:12px ;
   }
+}
+
+.zyxel_btn_disabled {
+  @extend .zyxel_btn_style2;
+  cursor: not-allowed;
+  color: $zyxel_white;
+  background: #0E8B81;
+  border-color: #0E8B81;
+}
+
+.zyxel_btn_disabled:hover {
+  @extend .zyxel_btn_style2:hover;
+  text-decoration:none;
+  background: #0E8B81;
+  color: $zyxel_white;
 }

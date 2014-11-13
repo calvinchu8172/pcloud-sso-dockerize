@@ -25,10 +25,6 @@ class UpnpController < ApplicationController
 
     push_to_queue "upnp_query"
     @session[:id] = @upnp.id
-    respond_to do |format|
-      format.json { render :json => {:id => upnp.id, :user_id => current_user.id, :device_id => current_user.id} }
-      format.html
-    end
   end
 
   # GET /upnp/:session_id/edit/

@@ -27,9 +27,8 @@
         <%# oAuth sign in - end %>
 
         <%# Divider %>
-        <div class="divider">
-          <div><span>or</span></div>
-        </div>
+        <div class="divider"><div></div><div class="or"><%= I18n.t("labels.or") %></div><div></div></div>
+        <%# Divider - end %>
 
         <%# Form for Sign in %>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -93,7 +92,8 @@
       <%= link_to 'Help', '/help', target: "_blank" %>|
       <%= link_to 'Support', 'http://www.zyxel.com/form/Support_Feedback.shtml', target: "_blank" %>
     </span><br>
+
   <span>Recommended browsers: Internet Exploreer 10 and above, Firefox 33 and above, Chrome 38 and above, Safari 8 and above</span><br>
-  <span>Copyright © 2014 ZyXEL Communications Corp. All rights reserved  <%= "#{Version['version']}#{Version['suffix']}" %> Recommended screen resolution: 1280 by 1024</span><br>
+  <span>Copyright © 2014 ZyXEL Communications Corp. All rights reserved <%= "#{Version['version']}#{Version['suffix']}" %> Recommended screen resolution: 1280 by 1024</span><br>
 
 </div>

@@ -13,6 +13,7 @@ zh-TW:
     retry: '重試'
     submit: '提交'
     confirm: '確認'
+    or: '或'
     settings:
       ddns:
         instruction: 'DDNS設定'
@@ -33,6 +34,7 @@ zh-TW:
           failure: '失敗'
           no_update: '未更新'
     pairing: '裝置配對'
+    paired: '裝置已配對'
     unpairing: '取消配對'
     manually: '手動加入裝置'
     profile: '使用者資訊'
@@ -91,7 +93,7 @@ zh-TW:
         instruction_6: '連字號(-)'
         sync: '正在同步DDNS設定...'
         success: '已完成DDNS的設定'
-        failure: '設定失敗，請稍後再試'
+        failure: '伺服器忙碌，請稍候再試'
         not_found: '偵測不到您的裝置'
         too_short: '您的 Hostname 長度不可少於3個字元'
         too_long: '您的 Hostname 長度不可超過63個字元'

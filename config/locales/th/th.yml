@@ -13,6 +13,7 @@ th:
     retry: 'ยกเลิก'
     submit: 'ส่ง'
     confirm: 'ยืนยัน'
+    or: 'หรือ'
     settings:
       ddns:
         instruction: 'DDNS ตั้งค่า'
@@ -33,6 +34,7 @@ th:
           failure: 'ล้มเหลว'
           no_update: 'ไม่มีการปรับปรุง'
     pairing: 'จับคู่'
+    paired: 'Paried'
     unpairing: 'เลิกจับคู่'
     manually: 'เพิ่มด้วยตนเอง'
     profile: 'โปรไฟล์'
@@ -91,7 +93,7 @@ th:
         instruction_6: 'อัยประกาศ(-)'
         sync: 'การตั้งค่า DDNS กำลังซิงค์...'
         success: 'DDNS ตั้งค่าสำเร็จแล้ว'
-        failure: 'อัปเดตล้มเหลว กรุณาลองใหม่ภายหลัง'
+        failure: 'Server busy. Please try again later.'
         not_found: 'ไม่พบอุปกรณ์'
         too_short: 'ชื่อโฮสต์ของคุณต้องมีความยาวอย่างน้อย 3 ตัวอักษร กรุณาลองตัวอื่นๆ ใหม่'
         too_long: 'ชื่อโฮสต์ของคุณต้องไม่ยาวเกินกว่า 63 ตัวอักษร กรุณาลองตัวอื่นๆ ใหม่'

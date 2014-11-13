@@ -13,6 +13,7 @@ nl:
     retry: 'Opnieuw'
     submit: 'Verstuur'
     confirm: 'Bevestig'
+    or: 'of'
     settings:
       ddns:
         instruction: 'DDNS Setup'
@@ -33,6 +34,7 @@ nl:
           failure: 'Mislukt'
           no_update: 'geen update'
     pairing: 'Koppelen'
+    paired: 'Paried'
     unpairing: 'Ontkoppelen'
     manually: 'handmatig toevoegen'
     profile: 'Profiel'
@@ -91,7 +93,7 @@ nl:
         instruction_6: 'Streepje(-)'
         sync: 'Synchroniseren DDNS-instellingen...'
         success: 'DDNS-instellingen zijn succesvol opgeslagen.'
-        failure: 'Update mislukt. Probeer het later opnieuw.'
+        failure: 'Server busy. Please try again later.'
         not_found: 'Apparaat wordt niet gevonden'
         too_short: 'Uw hostnaam moet minimaal 3 tekens lang zijn. Probeer een andere naam.'
         too_long: 'Uw hostnaam moet korter zijn dan 63 tekens lang zijn. Probeer een andere naam.'

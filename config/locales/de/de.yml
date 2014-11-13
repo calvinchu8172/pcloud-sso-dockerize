@@ -13,6 +13,7 @@ de:
     retry: 'Wiederholen'
     submit: 'Abschicken'
     confirm: 'Bestätigen'
+    or: 'oder'
     settings:
       ddns:
         instruction: 'DDNS Einrichtung'
@@ -33,6 +34,7 @@ de:
           failure: 'Fehlerhaft'
           no_update: 'kein Update'
     pairing: 'Verbinden'
+    paired: 'Paried'
     unpairing: 'Trennen'
     manually: 'Manuelles hinzufügen'
     profile: 'Profil'
@@ -91,7 +93,7 @@ de:
         instruction_6: 'Trennzeichen(-)'
         sync: 'DDNS Einstellungen synchronisieren...'
         success: 'DDNS Einstellungen wurden erfolgreich synchronisiert.'
-        failure: 'Update fehlgeschlagen. Bitte versuchen Sie es später erneut.'
+        failure: 'Server busy. Please try again later.'
         not_found: 'Gerät nicht gefunden'
         too_short: 'Ihr Host Name muss mindestens 3 Zeichen lang sein. Bitte nutzen Sie einen anderen.'
         too_long: 'Ihr Host Name darf maximal 63 Zeichen lang sein. Bitte nutzen Sie einen anderen.'

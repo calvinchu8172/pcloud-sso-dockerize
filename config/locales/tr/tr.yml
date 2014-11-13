@@ -13,6 +13,7 @@ tr:
     retry: 'Tekrar Dene'
     submit: 'Gönder'
     confirm: 'Onayla'
+    or: 'veya'
     settings:
       ddns:
         instruction: 'DDNS Ayarı'
@@ -33,6 +34,7 @@ tr:
           failure: 'Başarısız'
           no_update: 'hayır güncelleme'
     pairing: 'Eşleştiriliyor'
+    paired: 'Paried'
     unpairing: 'Eşleştirme kaldırılıyor'
     manually: 'Elle Ekle'
     profile: 'Profil'
@@ -91,7 +93,7 @@ tr:
         instruction_6: 'Tire(-)'
         sync: 'DDNS ayarları eşitleniyor...'
         success: 'DDNS ayarları başarıyla eşitlendi.'
-        failure: 'Güncelleme başarısız. Lütfen daha sonra tekrar deneyin.'
+        failure: 'Server busy. Please try again later.'
         not_found: 'Cihaz bulunamadı'
         too_short: 'Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka bir tane deneyin.'
         too_long: 'Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane deneyin.'
