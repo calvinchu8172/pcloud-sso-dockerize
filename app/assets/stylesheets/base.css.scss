@@ -888,6 +888,7 @@ body {
   .zyxel_btn_style1{
     float: right;
     margin: 0 6px 0 0;
+    width:100%; // For i18n fix
   }
   th{
     padding: 10px 0 15px 10px;
@@ -912,7 +913,7 @@ body {
       display: block;
       margin: 3px 0;
       overflow: hidden;
-      width:430px;  // Ref model img between device_info padding
+      width:400px;  // Ref model img between device_info padding
       text-overflow: ellipsis;
       white-space: nowrap;
       &.model_name{
@@ -1425,6 +1426,7 @@ div.footer{
 
 .zyxel_btn_disabled {
   @extend .zyxel_btn_style2;
+  width:100%; // For i18n fix
   cursor: not-allowed;
   color: $zyxel_white;
   background: #0E8B81;
