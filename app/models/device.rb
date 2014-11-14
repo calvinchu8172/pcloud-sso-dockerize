@@ -83,7 +83,7 @@ class Device < ActiveRecord::Base
     end
     @presence.exists?
   rescue TimeoutError => error
-    logger.error('device presence error:' + backtrace.join("\n"))
+    logger.error('device presence error:' + error.backtrace.join("\n"))
     false
   end
 end
