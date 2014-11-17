@@ -24,7 +24,7 @@ Feature: REST API testing
     And the databases should have not pairing record
 
   Scenario: [REST-03]
-    Check device update process when IP changed
+    Check correct update process when IP changed
 
     When the device already registration
     When the device IP was be changed
@@ -32,8 +32,17 @@ Feature: REST API testing
     Then the API should return success respond
     And the record in databases as expected
 
-  Scenario Outline: [REST-04]
-    Check device update process when valid format
+  Scenario: [REST-04]
+    Check incorrect update process when signature invalid
+
+    When the device already registration
+    When the device signature was be changed to "abcde"
+    And the device send information to REST API
+    Then the API should return "400" and "Failure" with error responds
+    And the database does not have record
+
+  Scenario Outline: [REST-05]
+    Check correct update process when valid format
 
     When the device already registration
     When the device "<information>" was be changed to "<value>"
@@ -47,8 +56,8 @@ Feature: REST API testing
       | mac_address        | 000000000000        |
       | serial_number      | 654321A             |
 
-  Scenario Outline: [REST-05]
-    Check device update process when invalid format
+  Scenario Outline: [REST-06]
+    Check incorrect update process when invalid format
 
     When the device already registration
     When the device "<information>" was be changed to "<value>"

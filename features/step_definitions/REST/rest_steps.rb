@@ -71,6 +71,12 @@ Then(/^the API should return "(.*?)" and "(.*?)" with failure responds$/) do |ht
   expect(@result["result"]).to eq(json)
 end
 
+Then(/^the API should return "(.*?)" and "(.*?)" with error responds$/) do |http, json|
+  @result = JSON.parse(last_response.body)
+  expect(last_response.status).to eq(http.to_i)
+  expect(@result["error"]).to eq(json)
+end
+
 # -------------------------------------------------------------------
 # --------------------------   function   ---------------------------
 # -------------------------------------------------------------------
