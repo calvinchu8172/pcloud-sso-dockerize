@@ -7,21 +7,24 @@
     <button class="zyxel_btn_main icon_research" ng-click="doClick()"><%= I18n.t("labels.research") %></button>
   </div>
 
-  <div class="zyxel_content">
+  <div class="zyxel_content" style="max-width:660px">
     <%# Devices list %>
     <table class="zyxel_table_style2 devices_list">
       <tr class="device" ng-repeat="device in devices">
-        <th class="search_list_hover">
-          <span>Model Name: {{device.model_name}}</span>
-          <span>Serial Number: {{device.serial_number}}</span>
-          <span>Mac Address: {{device.mac_address}}</span>
-          <span>Firmware Version: {{device.firmware_version}}</span>
-        </th>
         <td class="td_left"><img ng-src="{{device.img_url}}"></td>
-        <th>{{device.product_name}}</th>
+        <th class="device_info">
+          <span class="model_name">{{device.model_name}}</span>
+          <span>Serial Number: {{device.serial_number}}
+            <span ng-if="device.serial_number.length >= 40" class="device_info_hover">{{device.serial_number}}</span>
+          </span>
+          <span>Mac Address: {{device.mac_address}}</span>
+          <span>Firmware Version: {{device.firmware_version}}
+            <span ng-if="device.firmware_version.length >35"  class="device_info_hover"> {{device.firmware_version}}</span>
+          </span>
+        </th>
         <td class="td_right pairing_btn_fix">
-          <a ng-if="!device.paired" href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a>
-          <span ng-if="device.paired" class="zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.paired") %></span>
+          <a ng-if="!device.paired" class="zyxel_btn_style1" href="/discoverer/check/{{device.device_id}}"  ><%= I18n.t("labels.pairing") %></a>
+          <span ng-if="device.paired" class="zyxel_btn_style1 zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.paired") %></span>
         </td>
       </tr>
     </table>
