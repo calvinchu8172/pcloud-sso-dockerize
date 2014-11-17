@@ -74,7 +74,12 @@ class Device < ActiveRecord::Base
     logger.debug('waiting_second:' + waiting_second.to_s + ', time_difference:' + time_difference.to_s)
     return time_difference
   end
-
+   
+  # 用來判斷該device 是否有連上線
+  # 主要是透過連線到xmpp 的redis session server
+  # 依照該規則產生的key 是否存在來判斷是否在線上
+  # 如果跟redis session server 連線發生timeout，則判斷為沒在線上
+  # @return [Boolean]
   def presence?
 
     if @presence.nil?
