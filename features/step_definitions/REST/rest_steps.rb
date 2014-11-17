@@ -4,6 +4,7 @@
 
 Given(/^the device with information$/) do |table|
   @device = table.rows_hash
+  reset_signature(@device)
 end
 
 # When(/^the device POST to "(.*?)"$/) do |path|
