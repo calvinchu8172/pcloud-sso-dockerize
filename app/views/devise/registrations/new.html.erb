@@ -30,6 +30,12 @@
           </th>
           <td>
             <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
+<!--             <div id="password_meter" class="entropizer-track">
+              <div class="entropizer-bar"></div>
+              <div class="entropizer-text"></div>
+            </div> -->
+            <div class="password_suggestion"><%= I18n.t("user.labels.password_suggestion")%></div>
+            <div id="password_meter"></div>
           </td>
         </tr>
         <%# Password -end %>

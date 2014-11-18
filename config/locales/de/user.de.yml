@@ -8,6 +8,7 @@ de:
       middle_name: 'Mittelname'
       last_name: 'Nachname'
       password: 'Passwort'
+      password_suggestion: '8 to 16 characters'
       password_confirmation: 'Passwort bestätigen'
       new_password: 'Neues Passwort'
       new_password_confirmation: 'Neues Passwort bestätigen'
