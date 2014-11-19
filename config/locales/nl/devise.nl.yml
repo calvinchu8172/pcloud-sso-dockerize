@@ -8,6 +8,7 @@ nl:
       send_paranoid_instructions: "Als uw e-mailadres bestaat in onze database ontvangt u een e-mail met instructies over hoe u uw account te bevestigen in een paar minuten."
     failure:
       already_authenticated: "U bent al aangemeld."
+      already_oauth_account: "Already registered via Facebook or Google+"
       inactive: "Uw account is nog niet geactiveerd."
       invalid: "Ongeldig e-mailadres of wachtwoord."
       locked: "Uw account is geblokkeerd."

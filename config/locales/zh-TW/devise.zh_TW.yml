@@ -8,6 +8,7 @@ zh-TW:
       send_paranoid_instructions: "如果我們有您的信箱，您將會收到一封驗證您的帳號的電子郵件。"
     failure:
       already_authenticated: "您已經登入。"
+      already_oauth_account: "帳號已被Facebook或Google+ 註冊過"
       inactive: "您的帳號尚未被啟用。"
       invalid: "信箱或密碼是無效的。"
       locked: "您的帳號已被鎖定。"
