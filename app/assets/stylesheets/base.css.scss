@@ -852,8 +852,14 @@ body {
     height: 40px;
   }
   .password_suggestion{
-    text-align: left;
-    padding: 0 2px;
+    // Ref .zyxel_note p:not(.please)
+    &:before {
+      content: "\2713";
+      padding-right: 2px;
+    }
+    font-size: 0.8em;
+    line-height: 1.5em;
+    margin-left: 5px;
   }
   .entropizer-track {
       background-color: #e8e8e8;

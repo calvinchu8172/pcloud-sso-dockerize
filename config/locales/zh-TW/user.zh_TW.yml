@@ -8,7 +8,7 @@ zh-TW:
       middle_name: '中間名'
       last_name: '姓'
       password: '密碼'
-      password_suggestion: '請輸入 8-16 字元的密碼長度'
+      password_suggestion: '請輸入 8-14 字元的密碼長度'
       password_confirmation: '密碼確認'
       new_password: '新密碼'
       new_password_confirmation: '新密碼確認'
