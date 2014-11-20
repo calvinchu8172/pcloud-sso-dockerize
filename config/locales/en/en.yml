@@ -93,7 +93,7 @@ en:
         instruction_6: 'Hyphen(-)'
         sync: 'Synchronizing DDNS settings...'
         success: 'DDNS settings have been successfully.'
-        failure: 'Server busy. Please try again later.'
+        failure: 'Server is busy, please try it again later'
         not_found: 'Device is not found'
         too_short: 'Your host name must be at least 3 characters long. Please try another.'
         too_long: 'Your host name must be shorter than 63 characters long. Please try another.'

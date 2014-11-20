@@ -93,7 +93,7 @@ de:
         instruction_6: 'Trennzeichen(-)'
         sync: 'DDNS Einstellungen synchronisieren...'
         success: 'DDNS Einstellungen wurden erfolgreich synchronisiert.'
-        failure: 'Server busy. Please try again later.'
+        failure: 'Server is busy, please try it again later'
         not_found: 'Gerät nicht gefunden'
         too_short: 'Ihr Host Name muss mindestens 3 Zeichen lang sein. Bitte nutzen Sie einen anderen.'
         too_long: 'Ihr Host Name darf maximal 63 Zeichen lang sein. Bitte nutzen Sie einen anderen.'
