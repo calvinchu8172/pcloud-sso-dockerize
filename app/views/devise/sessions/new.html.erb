@@ -8,7 +8,7 @@
       <div class="signup_cont">
 
         <%# Warning information %>
-        <% if flash[:alert] && !flash[:alert].index("password") %>
+        <% if flash[:alert] && flash[:alert] != I18n.t("devise.failure.not_found_in_database") %>
           <% message = flash[:alert] %>
         <% elsif flash[:notice] %>
           <% message = flash[:notice] %>
@@ -39,7 +39,7 @@
             <%= f.password_field :password, autocomplete: "off", placeholder: I18n.t("user.labels.password"), class: "input_style1" %>
 
             <%# error message %>
-            <% if flash[:alert] && flash[:alert].index("password") %>
+            <% if flash[:alert] && flash[:alert] == I18n.t("devise.failure.not_found_in_database") %>
               <div class="zyxel_arlert_area">
                 <span class="error_message"><%= flash[:alert] %></span>
               </div>

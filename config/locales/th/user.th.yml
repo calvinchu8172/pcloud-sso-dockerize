@@ -8,6 +8,7 @@ th:
       middle_name: 'ชื่อกลาง'
       last_name: 'นามสกุล'
       password: 'รหัสผ่าน'
+      password_suggestion: '8-14 characters password length'
       password_confirmation: 'รหัสผ่าน'
       new_password: 'รหัสผ่านใหม่'
       new_password_confirmation: 'ยืนยันรหัสผ่านใหม่'

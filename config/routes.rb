@@ -21,16 +21,21 @@ Rails.application.routes.draw do
     get 'hint/reset'
     get 'hint/sent'
     get 'hint/agreement'
-    
+
     post 'ddns/check'
     post 'discoverer/search'
 
     get 'registrations/success'
-    
-    devise_for :users, :controllers => { :registrations => "registrations", :confirmations => 'confirmations', :passwords => 'passwords',:omniauth_callbacks => "users/omniauth_callbacks"}
+
+    devise_for :users, :controllers => {
+      :registrations => "registrations",
+      :confirmations => 'confirmations',
+      :sessions => "sessions",
+      :passwords => 'passwords',
+      :omniauth_callbacks => "users/omniauth_callbacks"}
 
     get 'device/register'
-    
+
     unless Rails.env.production?
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     end

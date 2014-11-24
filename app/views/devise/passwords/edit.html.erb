@@ -14,6 +14,8 @@
           <th><span>* </span><%= f.label :password, I18n.t("user.labels.new_password"), class: "th_label" %></th>
           <td colspan="3">
             <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
+            <div class="password_suggestion"><%= I18n.t("user.labels.password_suggestion")%></div>
+            <div id="password_meter"></div>
           </td>
         </tr>
 

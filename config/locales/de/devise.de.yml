@@ -8,6 +8,7 @@ de:
       send_paranoid_instructions: "Wenn Ihre E-Mail Adresse in unserer Datenbank existiert, erhalten Sie in einigen Minuten eine E-Mail mit weiteren Anweisungen dazu, wie Sie Ihren Account bestätigen können."
     failure:
       already_authenticated: "Sie sind bereits angemeldet."
+      already_oauth_account: "Already registered via Facebook or Google+"
       inactive: "Ihr Account wurde noch nicht aktiviert."
       invalid: "Falsche E-Mail Adresse oder Passwort."
       locked: "Ihr Account ist gesperrt."

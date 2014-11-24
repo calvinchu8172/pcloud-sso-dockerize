@@ -93,7 +93,7 @@ nl:
         instruction_6: 'Streepje(-)'
         sync: 'Synchroniseren DDNS-instellingen...'
         success: 'DDNS-instellingen zijn succesvol opgeslagen.'
-        failure: 'Server busy. Please try again later.'
+        failure: 'Server is busy, please try it again later'
         not_found: 'Apparaat wordt niet gevonden'
         too_short: 'Uw hostnaam moet minimaal 3 tekens lang zijn. Probeer een andere naam.'
         too_long: 'Uw hostnaam moet korter zijn dan 63 tekens lang zijn. Probeer een andere naam.'
