@@ -73,7 +73,7 @@ de:
         success: 'Gerät erfolgreich getrennt.'
       pairing:
         instruction: 'Sind Sie sicher das Sie dieses Gerät verbinden möchten?'
-        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
+        cancel_instruction: 'Sind Sie sicher, dass Sie den Verbindungsversuch abbrechen möchten?'
         start:
           instruction: 'Verbinden gestartet, '
           instruction_2: 'bitte klicken Sie auf den Verbinden Button im Gerät innerhalb von'
