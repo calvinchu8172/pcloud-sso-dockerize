@@ -842,16 +842,35 @@ body {
 .zyxel_table_style {
   width: 100%;
   margin-bottom: 20px;
+  th{
+    text-align: right;
+    color: $zyxel_color2;
+    font-weight: normal;
+    padding-right: 12px;
+    width: 25%;
+    vertical-align: middle;
+    height: 40px;
+  }
+  .password_suggestion{
+    // Ref .zyxel_note p:not(.please)
+    &:before {
+      content: "\2713";
+      padding-right: 2px;
+    }
+    font-size: 0.8em;
+    line-height: 1.5em;
+    margin-left: 5px;
+  }
+  .entropizer-track {
+      background-color: #e8e8e8;
+      border-radius: 2px;
+      height: 4px;
+  }
+  .entropizer-bar {
+      height: 4px;
+  }
 }
-.zyxel_table_style th{
-  text-align: right;
-  color: $zyxel_color2;
-  font-weight: normal;
-  padding-right: 12px;
-  width: 25%;
-  vertical-align: middle;
-  height: 40px;
-}
+
 .zyxel_table_style1 th {
   width: 30%;
   border-bottom-width: 1px;
