@@ -60,7 +60,7 @@
     $scope.identicalSession = 0;
 
     $scope.init = function(){
-      
+
       if($scope.session.status == 'waiting' && $scope.session.expire_in <= 0){
         $scope.failureStep();
         return;
@@ -73,13 +73,13 @@
         $scope.waitingStep();
         $timeout(startTimer, 500);
       }
-      
+
       $scope.identicalSession = $scope.session.expire_at;
       $scope.checkConnection();
     };
 
     $scope.checkConnection = function(){
-      
+
       $scope.disableBtn();
       switch($scope.session.status){
 
@@ -101,6 +101,7 @@
           // $timeout(function(){$scope.failureStep();}, 500);
           $scope.$broadcast('timer-stop');
           $scope.expireIn = 0;
+          $scope.enableBtn();
           break;
         case 'cancel':
           $scope.canceledStep();
@@ -117,7 +118,7 @@
     $scope.poll = function(){
 
       var url = $scope.checkConnectionUrl  + $scope.deviceId;
-      
+
       $timeout(function(){
         $http.get(url).success(function(response) {
           $scope.session = response;
@@ -180,6 +181,7 @@
     $scope.failureStep = function(){
       $scope.step = 'failure';
       $scope.panel = 'retry';
+      $scope.enableBtn();
     };
 
     $scope.disconnectionStep = function(){
