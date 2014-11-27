@@ -69,15 +69,7 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', '<%= Settings.environments.ga_tracker %>', 'auto');
-
-    <% if params[:controller] == 'personal' && params[:action] != 'profile' %>
-      ga('send', 'pageview',{ 'page': '/personal/index' });
-    <% elsif !user_signed_in? && current_page?(controller: 'sessions', action: 'new') %>
-      ga('send', 'pageview',{ 'page': '/users/sign_in' });
-    <% else %>
-      ga('send', 'pageview');
-    <% end %>
-
+    ga('send', 'pageview',{ 'page': '<%= get_ga_path %>' });
   </script>
   <%# GA code - end %>
 

@@ -13,4 +13,11 @@ module ApplicationHelper
       "-beta"
     end
   end
+
+  def get_ga_path
+    if request.path == "/"
+      ga_path = user_signed_in? ? '/personal/index' : '/users/sign_in'
+    end
+    ga_path || request.original_fullpath
+  end
 end
