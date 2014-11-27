@@ -17,6 +17,7 @@ xmpp:
 environments:
   api_domain: 'pcloud.dev'
   portal_domain: 'pcloud.dev'
+  ga_tracker: 'UA-57135359-1'
   paperclip:
     default:
       storage: :s3
