@@ -58,6 +58,7 @@ th:
       already_confirmed: "ได้รับการยืนยันแล้ว กรุณาลองลงชื่อเข้าใช้งานอีก"
       confirmation_period_expired: "ต้องมีการยืนยันภายใน %{period}, กรุณาขอใหม่"
       expired: "หมดอายุแล้ว กรุณาขอใหม่"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
       not_found: "ไม่พบ"
       not_locked: "ไม่ถูกล็อค"
       not_saved:

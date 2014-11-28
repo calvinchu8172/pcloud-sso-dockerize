@@ -58,6 +58,7 @@ tr:
       already_confirmed: "zaten onaylandı, lütfen oturum açmayı deneyin"
       confirmation_period_expired: "%{period} içinde onaylanması gerekli, lütfen yeni bir tane isteyin"
       expired: "süresi bitti, lütfen yeni bir tane isteyin"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
       not_found: "bulunamadı"
       not_locked: "kilitlenmedi"
       not_saved:

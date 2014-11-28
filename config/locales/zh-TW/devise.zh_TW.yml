@@ -58,6 +58,7 @@ zh-TW:
       already_confirmed: "已經驗證，請直接登入。"
       confirmation_period_expired: "必須在 %{period} 內驗證，請重新申請。"
       expired: "已經過期，請重新申請。"
+      oauth_password: "請您使用社群帳號(Facebook或Google+)更改密碼"
       not_found: "找不到。"
       not_locked: "並未被鎖定。"
       not_saved:

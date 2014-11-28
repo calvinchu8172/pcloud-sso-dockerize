@@ -58,6 +58,7 @@ de:
       already_confirmed: "wurde bereits bestätigt, bitte versuchen Sie es erneut."
       confirmation_period_expired: "muss innerhalb von %{period}, bestätigt werden. Bitte fordern Sie einen neuen an"
       expired: "ist ausgelaufen, bitte fordern Sie einen neuen an"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
       not_found: "nicht gefunden"
       not_locked: "wurde nicht gesperrt"
       not_saved:
