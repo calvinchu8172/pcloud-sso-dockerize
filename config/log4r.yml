@@ -1,37 +1,62 @@
-log4r_config:
-  # define all loggers:
-  loggers:
-    - name          : application
-      level         : DEBUG
-      trace         : 'true'
-      outputters    : 
-      - log_server
+default_app_logger: &app_logger
+  name          : application
+  level         : DEBUG
+  trace         : 'true'
+  outputters    : 
+    - log_server
 
-    - name          : database
-      level         : DEBUG
-      trace         : 'true'
-      outputters    : 
-      - db_log
+default_db_logger: &db_logger
+  name          : database
+  level         : DEBUG
+  trace         : 'true'
+  outputters    : 
+    - db_log
 
-  # define all outputters (incl. formatters)
-  outputters:
-  - type: FluentPostOutputter
-    name: log_server
-    tag: myapp
-    host: '10.106.30.227'
-  - type: DateFileOutputter
-    name: app_log
-    dirname: "log"
-    filename: "app.log"
-    formatter:
-      date_pattern: '%H:%M:%S'
-      pattern     : '%d %X{context} %l: %m'
-      type        : PatternFormatter
-  - type: DateFileOutputter
-    name: db_log
-    dirname: "log"
-    filename: "db.log"
-    formatter:
-      date_pattern: '%H:%M:%S'
-      pattern     : '%d %l: %m'
-      type        : PatternFormatter
+default_fluent_post_outputter: &fluent_post_outputter
+  type: FluentPostOutputter
+  name: log_server
+  tag: personal_cloud.default
+  host: '10.107.10.174'
+
+default_date_file_outputter: &date_file_outputter
+  type: DateFileOutputter
+  name: db_log
+  dirname: "log"
+  filename: "db.log"
+  formatter:
+    date_pattern: '%H:%M:%S:%L'
+    pattern     : '%d %l: %m'
+    type        : PatternFormatter
+
+production:
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+      level         : INFO
+    - <<: *db_logger
+      level         : INFO
+    outputters:
+    - <<: *fluent_post_outputter
+      tag: personal_cloud.production
+    - <<: *date_file_outputter
+
+beta:
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+    - <<: *db_logger
+    outputters:
+    - <<: *fluent_post_outputter
+      tag: personal_cloud.beta
+    - <<: *date_file_outputter
+
+alpha:
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+    - <<: *db_logger
+    outputters:
+    - <<: *fluent_post_outputter
+      tag: personal_cloud.alpha
+    - <<: *date_file_outputter
+
