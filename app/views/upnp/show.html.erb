@@ -220,7 +220,7 @@
           $scope.checkTimes++;
           switch(response.status){
             case 'updated':
-              $scope.successPanel();
+              $scope.successPanel(response);
               return;
             case 'form':
               $scope.formPanel(response);
@@ -262,11 +262,12 @@
       $scope.session = response;
       $scope.service_list = response.service_list;
     }
-    $scope.successPanel = function(){
+    $scope.successPanel = function(response){
       $scope.step = "form";
       $scope.panel = 'confirm';
       $scope.enableBtn();
       $scope.result = "true";
+      $scope.service_list = response.service_list;
       $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
     }
 
