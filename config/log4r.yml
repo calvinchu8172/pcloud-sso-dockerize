@@ -3,14 +3,16 @@ default_app_logger: &app_logger
   level         : DEBUG
   trace         : 'true'
   outputters    : 
-    - log_server
+    - app_log_server
+    - app_rolling_file
 
 default_db_logger: &db_logger
   name          : database
   level         : DEBUG
   trace         : 'true'
-  outputters    : 
-    - db_log
+  outputters    :
+    - db_log_server
+    - db_rolling_file
 
 default_fluent_post_outputter: &fluent_post_outputter
   type: FluentPostOutputter
@@ -18,9 +20,11 @@ default_fluent_post_outputter: &fluent_post_outputter
   tag: personal_cloud.default
   host: '10.107.10.174'
 
-default_date_file_outputter: &date_file_outputter
-  type: DateFileOutputter
-  name: db_log
+default_date_file_outputter: &rolling_file_outputter
+  type: RollingFileOutputter
+  name: rolling_file
+  maxsize: 5120000000
+  max_backups: 1
   dirname: "log"
   filename: "db.log"
   formatter:
@@ -28,17 +32,35 @@ default_date_file_outputter: &date_file_outputter
     pattern     : '%d %l: %m'
     type        : PatternFormatter
 
+# default_date_file_outputter: &date_file_outputter
+#   type: DateFileOutputter
+#   name: db_log
+#   dirname: "log"
+#   filename: "db.log"
+#   formatter:
+#     date_pattern: '%H:%M:%S:%L'
+#     pattern     : '%d %l: %m'
+#     type        : PatternFormatter
+
+# config for each enviornment
 production:
   log4r_config:
     loggers:
     - <<: *app_logger
-      level         : INFO
     - <<: *db_logger
-      level         : INFO
     outputters:
     - <<: *fluent_post_outputter
-      tag: production.personal_cloud
-    - <<: *date_file_outputter
+      name: app_log_server
+      tag: personal_cloud.app.production
+    - <<: *fluent_post_outputter
+      name: db_log_server
+      tag: personal_cloud.db.production
+    - <<: *rolling_file_outputter
+      name: app_rolling_file
+      filename: "log/app.log"
+    - <<: *rolling_file_outputter
+      name: db_rolling_file
+      filename: "log/db.log"
 
 beta:
   log4r_config:
@@ -47,8 +69,17 @@ beta:
     - <<: *db_logger
     outputters:
     - <<: *fluent_post_outputter
-      tag: beta.personal_cloud
-    - <<: *date_file_outputter
+      name: app_log_server
+      tag: personal_cloud.app.beta
+    - <<: *fluent_post_outputter
+      name: db_log_server
+      tag: personal_cloud.db.beta
+    - <<: *rolling_file_outputter
+      name: app_rolling_file
+      filename: "log/app.log"
+    - <<: *rolling_file_outputter
+      name: db_rolling_file
+      filename: "log/db.log"
 
 alpha:
   log4r_config:
@@ -57,6 +88,15 @@ alpha:
     - <<: *db_logger
     outputters:
     - <<: *fluent_post_outputter
-      tag: alpha.personal_cloud
-    - <<: *date_file_outputter
+      name: app_log_server
+      tag: personal_cloud.app.alpha
+    - <<: *fluent_post_outputter
+      name: db_log_server
+      tag: personal_cloud.db.alpha
+    - <<: *rolling_file_outputter
+      name: app_rolling_file
+      filename: "log/app.log"
+    - <<: *rolling_file_outputter
+      name: db_rolling_file
+      filename: "log/db.log"
 
