@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
       Log4r::MDC.put(:ip, request.remote_ip)
       Log4r::MDC.put(:user_id, current_user.id) if current_user
       Log4r::MDC.put(:host, Socket.gethostname)
+      Log4r::MDC.put(:environment, Settings.environments.name)
     end
 
     def configure_devise_permitted_parameters
