@@ -38,7 +38,7 @@
               </div>
             </div>
           </td>
-          <td data-title="'status'" ng-switch on="service.status" class="column2">
+          <td data-title="'status'" ng-switch on="statusResult(service.status, service.update_result)" class="column2">
             <span ng-switch-when="true" class="">OK</span>
             <span ng-switch-when="false" class="">---</span>
           </td>
@@ -55,16 +55,10 @@
             {{service.description}}
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
-            <span ng-if="service.status == service.enabled">
-              <%= I18n.t("labels.settings.upnp.result.no_update") %>
-            </span>
-            <span ng-if="service.status != service.enabled">
-              <span ng-if="isFieldEmpty(service.error_code)" class="green">
-                <%= I18n.t("labels.settings.upnp.result.success") %>
-              </span>
-              <span ng-if="!isFieldEmpty(service.error_code)" class="red">
-                <%= I18n.t("labels.settings.upnp.result.failure") %>
-              </span>
+            <span ng-switch on="service.update_result">
+              <span ng-switch-when="no_update"><%= I18n.t("labels.settings.upnp.result.no_update") %></span>
+              <span ng-switch-when="success" class="green"><%= I18n.t("labels.settings.upnp.result.success") %></span>
+              <span ng-switch-when="failure" class="red"><%= I18n.t("labels.settings.upnp.result.failure") %></span>
             </span>
           </td>
         </tr>
@@ -226,7 +220,7 @@
           $scope.checkTimes++;
           switch(response.status){
             case 'updated':
-              $scope.successPanel();
+              $scope.successPanel(response);
               return;
             case 'form':
               $scope.formPanel(response);
@@ -268,11 +262,12 @@
       $scope.session = response;
       $scope.service_list = response.service_list;
     }
-    $scope.successPanel = function(){
+    $scope.successPanel = function(response){
       $scope.step = "form";
       $scope.panel = 'confirm';
       $scope.enableBtn();
       $scope.result = "true";
+      $scope.service_list = response.service_list;
       $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
     }
 
@@ -288,6 +283,14 @@
         $thisBtn.setAttribute('href', $dataUrl);
       };
     };
+
+    $scope.statusResult = function(state, update_result){
+      if(update_result == "success"){
+        return !state;
+      }else{
+        return state;
+      }
+    }
 
   });
 </script>

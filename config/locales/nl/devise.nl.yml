@@ -58,6 +58,7 @@ nl:
       already_confirmed: "werd al bevestigd, probeert u zich opnieuw aan te melden"
       confirmation_period_expired: "dient te worden bevestigd binnen %{period}, doe alstublieft een nieuwe aanvraag."
       expired: "has expired, please request a new one"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
       not_found: "Niet gevonden"
       not_locked: "was niet geblokkeerd"
       not_saved:
