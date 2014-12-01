@@ -23,8 +23,8 @@ default_fluent_post_outputter: &fluent_post_outputter
 default_date_file_outputter: &rolling_file_outputter
   type: RollingFileOutputter
   name: rolling_file
-  maxsize: 5120000000
-  max_backups: 1
+  maxsize: 512000000
+  max_backups: 2
   dirname: "log"
   filename: "db.log"
   formatter:
