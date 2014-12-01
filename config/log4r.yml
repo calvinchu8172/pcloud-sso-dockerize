@@ -37,7 +37,7 @@ production:
       level         : INFO
     outputters:
     - <<: *fluent_post_outputter
-      tag: personal_cloud.production
+      tag: production.personal_cloud
     - <<: *date_file_outputter
 
 beta:
@@ -47,7 +47,7 @@ beta:
     - <<: *db_logger
     outputters:
     - <<: *fluent_post_outputter
-      tag: personal_cloud.beta
+      tag: beta.personal_cloud
     - <<: *date_file_outputter
 
 alpha:
@@ -57,6 +57,6 @@ alpha:
     - <<: *db_logger
     outputters:
     - <<: *fluent_post_outputter
-      tag: personal_cloud.alpha
+      tag: alpha.personal_cloud
     - <<: *date_file_outputter
 
