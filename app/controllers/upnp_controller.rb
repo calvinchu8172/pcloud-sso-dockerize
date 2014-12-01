@@ -1,15 +1,16 @@
-# 同步並更新 UPnP 相關設定  
-# UPnP 設定流程的狀態如下  
+# 同步並更新 UPnP 相關設定
+# UPnP 設定流程的狀態如下
 # * start: 向Device 要求目前的UPnP 目前設定
 # * form: Device 回傳目前的設定，讓使用者填寫
 # * submit: 從Portal 這傳送使用者異動結果給Device
 # * updated: 更新成功
 # * failure: device 回傳失敗訊息
 # * cancel: 過程中，隨時可以取消對該裝置的配對程序
-# * timeout: 在同步過程中，device在時間內未對配對流程確認，則判斷為timout  
+# * timeout: 在同步過程中，device在時間內未對配對流程確認，則判斷為timout
 class UpnpController < ApplicationController
   before_action :authenticate_user!
   before_action :device_paired_with?, :only => :show
+  before_action :deleted_extra_key, :only => :update
   before_action :service_list_to_json, :only => :update
 
   # GET /upnp/show/:device_encrypted_id
@@ -28,7 +29,7 @@ class UpnpController < ApplicationController
   end
 
   # GET /upnp/:session_id/edit/
-  # 
+  #
   def edit
 
     session_id = params[:id]
@@ -73,8 +74,9 @@ class UpnpController < ApplicationController
     error_message = get_error_msg(upnp_session['error_code'])
     path_ip = decide_which_path_ip upnp_session
 
-    service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
+    service_list = ((upnp_session['status'] == 'form' || upnp_session['status'] == 'updated') && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
+    service_list = update_result(service_list) unless service_list.empty?
 
     result = {:status => upnp_session['status'],
               :device_id => upnp_session['device_id'],
@@ -130,6 +132,32 @@ class UpnpController < ApplicationController
     sqs = AWS::SQS.new
     queue = sqs.queues.named(Settings.environments.sqs.name)
     queue.send_message(data.to_json)
+  end
+
+  def deleted_extra_key
+    extra_keys = ["port", "update_result"]
+    params[:service_list].each do |service|
+      extra_keys.each do |key|
+        service.delete(key) if service.has_key?(key)
+      end
+    end
+  end
+
+  # check the updated result and added the result to each
+  def update_result service_list
+    service_list.each do |service|
+      result = "no_update"
+
+      if service['error_code'] && service['enabled'] != service['status']
+        if service['error_code'].length == 0
+          result = "success"
+        else
+          result = "failure"
+        end
+      end
+      service['update_result'] = result
+    end
+    service_list
   end
 
   def update_permit
