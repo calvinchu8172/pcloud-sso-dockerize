@@ -74,7 +74,7 @@ class UpnpController < ApplicationController
     error_message = get_error_msg(upnp_session['error_code'])
     path_ip = decide_which_path_ip upnp_session
 
-    service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
+    service_list = ((upnp_session['status'] == 'form' || upnp_session['status'] == 'updated') && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
     service_list = update_result(service_list) unless service_list.empty?
 
@@ -148,7 +148,7 @@ class UpnpController < ApplicationController
     service_list.each do |service|
       result = "no_update"
 
-      if defined?(service['error_code']) && service['enabled'] != service['status']
+      if service['error_code'] && service['enabled'] != service['status']
         if service['error_code'].length == 0
           result = "success"
         else
