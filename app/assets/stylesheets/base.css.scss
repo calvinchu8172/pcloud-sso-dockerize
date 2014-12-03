@@ -1424,7 +1424,7 @@ div.help{
 }
 
 div.footer{
-  margin: 80px 0 0 30px;
+  margin: 80px auto;
   text-align: center;
   .support {
     a {
@@ -1432,12 +1432,20 @@ div.footer{
       @include transition-duration(0.3s);
       text-decoration: none;
       font-size: 14px;
+      width: 65px;
+      display: inline-block;
+      padding: 0 15px;
     }
     a:link, a:visited {
       color: $zyxel_color4;
     }
     a:hover, a:active {
       color: #F0DF4A;
+    }
+    .diver{
+      display: inline-block;
+      width:5px;
+      color:$zyxel_color2;
     }
   }
   span{
