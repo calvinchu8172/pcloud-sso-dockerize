@@ -14,9 +14,9 @@
         <td class="td_left"><img ng-src="{{device.img_url}}"></td>
         <th class="device_info">
           <span class="model_name">{{device.model_name}}</span>
-          <span>Mac Address: {{device.mac_address}}</span>
-          <span>Firmware Version: {{device.firmware_version}}
-            <span ng-if="device.firmware_version.length >35"  class="device_info_hover"> {{device.firmware_version}}</span>
+          <span><%= I18n.t("labels.mac_address") %>  {{device.mac_address}}</span>
+          <span><%= I18n.t("labels.settings.ddns.firmware_version") %>  {{device.firmware_version}}
+            <span ng-if="device.firmware_version.length >35"  class="device_info_hover">{{device.firmware_version}}</span>
           </span>
         </th>
         <td class="td_right pairing_btn_fix">
