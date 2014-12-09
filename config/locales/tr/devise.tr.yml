@@ -31,6 +31,7 @@ tr:
     omniauth_callbacks:
       failure: "\"%{reason}\" nedeniyle %{kind} kimlik doğrulamanız yapılamadı."
       success: "%{kind} hesabından başarıyla kimlik doğrulandı."
+      fb_primary_mail: "(Primary e-mail on Facebook)"
     passwords:
       no_token: "Şifre sıfırlama e-postasından gelmeden bu sayfaya erişemezsiniz. Bir şifre sıfırlama e-postasından geliyorsanız, lütfen sağlanan tam URL'yi kullandığınızdan emin olun."
       send_instructions: "Birkaç dakika içinde şifrenizin nasıl sıfırlanacağı konusunda talimatları içeren bir e-posta alacaksınız."
