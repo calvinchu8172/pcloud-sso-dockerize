@@ -13,7 +13,7 @@
         <th><%= I18n.t("user.labels.email") %></th>
         <td colspan="3">
           <%= current_user.email %>
-          <% if session[:oauth] = 'facebook' %>
+          <% if session[:oauth] == 'facebook' %>
             <span class="fb_primary_mail"><%= I18n.t("devise.omniauth_callbacks.fb_primary_mail")%></span>
           <%end%>
         </td>
