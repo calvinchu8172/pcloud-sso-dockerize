@@ -668,7 +668,6 @@ body {
   background-position: left center;
   color: #eb132b;
   font-size: 15px;
-  line-height: 12px;
   padding: 5px 0 5px 27px;
   font-weight: normal;
 }
@@ -846,9 +845,9 @@ body {
     text-align: right;
     color: $zyxel_color2;
     font-weight: normal;
-    padding-right: 12px;
+    padding: 15px;
     width: 25%;
-    vertical-align: middle;
+    vertical-align: top;
     height: 40px;
   }
   .password_suggestion{
