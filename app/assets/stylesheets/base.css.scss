@@ -845,10 +845,14 @@ body {
     text-align: right;
     color: $zyxel_color2;
     font-weight: normal;
-    padding: 15px;
+    padding: 12px 12px 0 0;
     width: 25%;
     vertical-align: top;
     height: 40px;
+    label{
+      display: inline;
+      margin: auto;
+    }
   }
   .password_suggestion{
     // Ref .zyxel_note p:not(.please)
