@@ -6,8 +6,7 @@ require 'rails/all'
 require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
-# require 'service_logger'
-# require config.root + '/lib/log4r/fluent_post_outputter'
+
 require File.expand_path('../../lib/log4r/outputter/fluent_post_outputter', __FILE__)
 require "action_mailer/railtie"
 include Log4r
@@ -67,9 +66,9 @@ module Pcloud
     # assign log4r's logger as rails' logger.
     log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
     YamlConfigurator.decode_yaml( log4r_config[Settings.environments.name]['log4r_config'] )
-    # YamlConfigurator.decode_yaml(Settings.environments.log4r_config)
+    
     config.logger = Log4r::Logger["application"]
-    # config.logger = Log4r::FluentPostOutputter.new('test', {})
+    
     ActiveRecord::Base.logger = Log4r::Logger["database"]
 
     # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
