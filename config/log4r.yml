@@ -55,6 +55,7 @@ production:
     loggers:
     - <<: *app_logger
     - <<: *db_logger
+    - <<: *service_logger
     outputters:
     - <<: *fluent_post_outputter
       name: app_log_server
@@ -74,6 +75,7 @@ beta:
     loggers:
     - <<: *app_logger
     - <<: *db_logger
+    - <<: *service_logger
     outputters:
     - <<: *fluent_post_outputter
       name: app_log_server
