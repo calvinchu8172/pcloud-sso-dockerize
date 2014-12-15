@@ -85,10 +85,3 @@ RailsAdmin.config do |config|
     # history_show
   end
 end
-
-Fluent::Logger.setup do |config|
-
-  config.tag = 'personal_cloud.alpha'
-  config.host = '194.168.33.10'
-  config.port = '24224'
-end
