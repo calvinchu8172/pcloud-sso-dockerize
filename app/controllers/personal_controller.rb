@@ -21,6 +21,7 @@ class PersonalController < ApplicationController
       info_hash = Hash.new
       info_hash[:model_name] = device.product.model_name
       info_hash[:firmware_version] = device.firmware_version
+      info_hash[:mac_address] = device.mac_address.scan(/.{2}/).join(":")
       info_hash[:ip] = device.session.hget :ip || device.ddns.get_ip_addr
       if device.ddns
         info_hash[:class_name] = "blue"
