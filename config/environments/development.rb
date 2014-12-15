@@ -1,3 +1,5 @@
+require 'service_logger'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -82,4 +84,11 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+end
+
+Fluent::Logger.setup do |config|
+
+  config.tag = 'personal_cloud.alpha'
+  config.host = '194.168.33.10'
+  config.port = '24224'
 end

@@ -4,6 +4,8 @@ class PersonalController < ApplicationController
   def index
 
     @pairing = Pairing.owner.where(user_id: current_user.id)
+    service_logger.note({paired_device: @pairing})
+
     if @pairing.empty?
       @paired = false
       flash[:alert] = flash[:notice] ? flash[:notice] : I18n.t("warnings.no_pairing_device")

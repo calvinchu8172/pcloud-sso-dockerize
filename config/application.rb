@@ -6,8 +6,9 @@ require 'rails/all'
 require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
+# require 'service_logger'
 # require config.root + '/lib/log4r/fluent_post_outputter'
-require File.expand_path('../../lib/log4r/fluent_post_outputter', __FILE__)
+require File.expand_path('../../lib/log4r/outputter/fluent_post_outputter', __FILE__)
 require "action_mailer/railtie"
 include Log4r
 
@@ -53,6 +54,8 @@ module Pcloud
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
     config.encoding = "utf-8"
+
+    config.exceptions_app = self.routes
 
     # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
 
