@@ -4,6 +4,8 @@ class PersonalController < ApplicationController
   def index
 
     @pairing = Pairing.owner.where(user_id: current_user.id)
+    service_logger.note({paired_device: @pairing})
+
     if @pairing.empty?
       @paired = false
       flash[:alert] = flash[:notice] ? flash[:notice] : I18n.t("warnings.no_pairing_device")
@@ -21,6 +23,7 @@ class PersonalController < ApplicationController
       info_hash = Hash.new
       info_hash[:model_name] = device.product.model_name
       info_hash[:firmware_version] = device.firmware_version
+      info_hash[:mac_address] = device.mac_address.scan(/.{2}/).join(":")
       info_hash[:ip] = device.session.hget :ip || device.ddns.get_ip_addr
       if device.ddns
         info_hash[:class_name] = "blue"

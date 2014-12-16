@@ -2,23 +2,48 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  # rescue_from ActionController::RoutingError, with: :routing_error
+
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
   include Locale
   before_filter :set_locale
 
+  after_action :clear_log_context
   before_filter :setup_log_context
   after_action :store_location
+  after_action :store_location
+
+  #called by last route matching unmatched routes.  Raises RoutingError which will be rescued from in the same way as other exceptions.
+  def raise_not_found!
+    setup_log_context
+
+    logger.warn 'routing error paht:' + request.path + ', id:' + request.session_options[:id].to_s
+    render :file => 'public/404.html', :status => :not_found, :layout => false
+  end
+
+  def service_logger
+    Fluent::Logger.service_logger
+  end
 
   protected
 
     def setup_log_context
-      Log4r::MDC.put(:pid, Process.pid)
-      Log4r::MDC.put(:ip, request.remote_ip)
-      Log4r::MDC.put(:user_id, current_user.id) if current_user
-      Log4r::MDC.put(:host, Socket.gethostname)
-      Log4r::MDC.put(:environment, Settings.environments.name)
+      Log4r::MDC.put("pid", Process.pid)
+      Log4r::MDC.put("ip", request.remote_ip)
+      Log4r::MDC.put("user_id", current_user.id) if current_user
+      Log4r::MDC.put("host", Socket.gethostname)
+      Log4r::MDC.put("environment", Settings.environments.name)
     end
+
+    def clear_log_context
+      Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
+    end
+
+    # def routing_error
+    #   setup_log_context
+    #   render :file => 'public/404.html', :status => :not_found, :layout => false
+    # end
 
     def configure_devise_permitted_parameters
       registration_params = [:first_name, :middle_name, :last_name, :display_name, :email, :password, :password_confirmation, :gender, :mobile_number, :birthday, :language, :edm_accept, :agreement, :country]
@@ -66,4 +91,5 @@ class ApplicationController < ActionController::Base
       queue = sqs.queues.named(Settings.environments.sqs.name)
       queue.send_message(data.to_json)
     end
+
 end

@@ -24,6 +24,8 @@ class DeviceController < ApplicationController
   # 4. 如request中帶有 reset=1的參數，則重設該台Device
   def register
 
+    service_logger.note({parameters: api_permit})
+
     device_checkin
     ddns_checkin
     device_session_checkin
@@ -44,6 +46,8 @@ class DeviceController < ApplicationController
 
     unless api_permit[:firmware_version] == @device.firmware_version
       logger.info('update device from fireware version' + api_permit[:firmware_version] + ' from ' + @device.firmware_version)
+
+      service_logger.note({'update fireware from' => @device.firmware_version, 'update fireware to' => api_permit[:firmware_version]})
       @device.update_attribute(:firmware_version, api_permit[:firmware_version])
     end
 
@@ -58,10 +62,10 @@ class DeviceController < ApplicationController
 
     device_id = @device.id.to_s
 
-    logger.info("reset reset:" + params[:reset] + ", device id" + device_id)
     pairing = Pairing.find_by_device_id(device_id)
     return if pairing.nil?
 
+    service_logger.note({'reset' => 'true', device_id: device_id})
     Job::UnpairMessage.new.push_device_id(device_id)
     pairing.destroy
   end
@@ -102,6 +106,7 @@ class DeviceController < ApplicationController
     return if ddns.nil?
 
     logger.debug('update ddns id:' + ddns.id.to_s)
+    service_logger.note({'update ddns ip from' => device_session['ip'], 'update fireware to' => request.remote_ip})
 
     session = {device_id: @device.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
     ddns_session = DdnsSession.create

@@ -6,6 +6,13 @@ default_app_logger: &app_logger
     - app_log_server
     - app_rolling_file
 
+default_service_logger: &service_logger
+  name          : service
+  level         : DEBUG
+  trace         : 'true'
+  outputters    :
+    - app_rolling_file
+
 default_db_logger: &db_logger
   name          : database
   level         : DEBUG
@@ -20,7 +27,7 @@ default_fluent_post_outputter: &fluent_post_outputter
   tag: personal_cloud.default
   host: '10.107.10.174'
 
-default_date_file_outputter: &rolling_file_outputter
+default_rolling_file_outputter: &rolling_file_outputter
   type: RollingFileOutputter
   name: rolling_file
   maxsize: 512000000
@@ -29,18 +36,18 @@ default_date_file_outputter: &rolling_file_outputter
   filename: "db.log"
   formatter:
     date_pattern: '%H:%M:%S:%L'
-    pattern     : '%d %l: %m'
+    pattern     : '%d, ip:%X{ip} ,process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment} %l: %m'
     type        : PatternFormatter
 
-# default_date_file_outputter: &date_file_outputter
-#   type: DateFileOutputter
-#   name: db_log
-#   dirname: "log"
-#   filename: "db.log"
-#   formatter:
-#     date_pattern: '%H:%M:%S:%L'
-#     pattern     : '%d %l: %m'
-#     type        : PatternFormatter
+default_date_file_outputter: &date_file_outputter
+  type: DateFileOutputter
+  name: app_log
+  dirname: "log"
+  filename: "app.log"
+  formatter:
+    date_pattern: '%H:%M:%S'
+    pattern     : '%d, ip:%X{ip} ,process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment} %l: %m'
+    type        : PatternFormatter
 
 # config for each enviornment
 production:
@@ -48,6 +55,7 @@ production:
     loggers:
     - <<: *app_logger
     - <<: *db_logger
+    - <<: *service_logger
     outputters:
     - <<: *fluent_post_outputter
       name: app_log_server
@@ -67,6 +75,7 @@ beta:
     loggers:
     - <<: *app_logger
     - <<: *db_logger
+    - <<: *service_logger
     outputters:
     - <<: *fluent_post_outputter
       name: app_log_server
@@ -86,11 +95,14 @@ alpha:
     loggers:
     - <<: *app_logger
     - <<: *db_logger
+    - <<: *service_logger
     outputters:
     - <<: *fluent_post_outputter
+      type: Outputter
       name: app_log_server
       tag: personal_cloud.app.alpha
     - <<: *fluent_post_outputter
+      type: Outputter
       name: db_log_server
       tag: personal_cloud.db.alpha
     - <<: *rolling_file_outputter

@@ -15,6 +15,8 @@ class DdnsController < ApplicationController
       @hostname = @device.ddns.hostname
     end
     @domain_name = Settings.environments.ddns
+
+    service_logger.note({'setting_ddns' => {'hostname' => @hostname, 'domain_name' => @domain_name}})
   end
 
   def success
@@ -40,6 +42,7 @@ class DdnsController < ApplicationController
                       :encrypted_device_id => @device.escaped_encrypted_id,
                       :status => raw_ddns_session['status']}
 
+    service_logger.note({'success_ddns' => @ddns_session})
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @ddns_session }
@@ -117,20 +120,21 @@ class DdnsController < ApplicationController
 
     # Validation for hostname
     def validate_host_name
-      valid = false
+      invalid = false
 
       if params[:host_name].length < 3
-        valid = true
+        invalid = true
         error_message = I18n.t("warnings.settings.ddns.too_short")
       elsif params[:host_name].length > 63
-        valid = true
+        invalid = true
         error_message = I18n.t("warnings.settings.ddns.too_long")
       elsif /^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:host_name]).nil?
-        valid = true
+        invalid = true
         error_message = I18n.t("warnings.invalid")
       end
 
-      if valid
+      if invalid
+        service_logger.note({'invalid_ddns' => {:error_message => error_message}})
         flash[:error] = error_message
         redirect_to action: 'setting', id: params[:id]
       end

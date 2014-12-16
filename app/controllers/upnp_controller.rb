@@ -26,6 +26,8 @@ class UpnpController < ApplicationController
 
     push_to_queue "upnp_query"
     @session[:id] = @upnp.id
+
+    service_logger.note({start_upnp: @session})
   end
 
   # GET /upnp/:session_id/edit/
@@ -48,7 +50,8 @@ class UpnpController < ApplicationController
               :path_ip => path_ip,
               :id => session_id
              }
-    logger.debug('edit result:' + result.inspect)
+
+    service_logger.note({edit_upnp: result})
     render :json => result
   end
 
@@ -59,6 +62,7 @@ class UpnpController < ApplicationController
 
     push_to_queue "upnp_submit" if result
 
+    service_logger.note({edit_upnp: settings})
     render :json => {:result => result}.to_json
   end
 
@@ -85,6 +89,8 @@ class UpnpController < ApplicationController
               :path_ip => path_ip,
               :id => session_id
              }
+
+    service_logger.note({failure_upnp: result}) if upnp_session['status'] == 'failure' || upnp_session['status'] == 'timeout'
     render :json => result
   end
 
@@ -100,6 +106,7 @@ class UpnpController < ApplicationController
       push_to_queue_cancel("get_upnp_service", @upnp.id)
     end
 
+    service_logger.note({cancel_upnp: session})
     redirect_to :authenticated_root
   end
 

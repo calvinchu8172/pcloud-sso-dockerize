@@ -11,7 +11,12 @@
     <table class="zyxel_table_style zyxel_table_style1 user_info">
       <tr>
         <th><%= I18n.t("user.labels.email") %></th>
-        <td colspan="3"><%= current_user.email %></td>
+        <td colspan="3">
+          <%= current_user.email %>
+          <% if session[:oauth] == 'facebook' %>
+            <span class="fb_primary_mail"><%= I18n.t("devise.omniauth_callbacks.fb_primary_mail")%></span>
+          <%end%>
+        </td>
       </tr>
       <% if !current_user.display_name.blank? %>
         <tr>

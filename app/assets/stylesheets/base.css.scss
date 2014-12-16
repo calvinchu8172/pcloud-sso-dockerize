@@ -66,6 +66,10 @@ body {
 .zyxel_content{
   max-width: 480px;
   margin: 0 auto;
+  .checkbox_label, .zyxel_edm{
+    color:$zyxel_color2;
+    font-size:13px;
+  }
 }
 .nav_zyxel {
   float: right;
@@ -326,6 +330,7 @@ body {
 .checkbox_area {
   margin-top:0px;
   margin-bottom:5px;
+  font-size:13px;
 }
 .checkbox_area a {
   color: #666666;
@@ -668,7 +673,6 @@ body {
   background-position: left center;
   color: #eb132b;
   font-size: 15px;
-  line-height: 12px;
   padding: 5px 0 5px 27px;
   font-weight: normal;
 }
@@ -846,10 +850,13 @@ body {
     text-align: right;
     color: $zyxel_color2;
     font-weight: normal;
-    padding-right: 12px;
+    padding: 12px 12px 0 0;
     width: 25%;
-    vertical-align: middle;
+    vertical-align: top;
     height: 40px;
+    label{
+      display: inline;
+    }
   }
   .password_suggestion{
     // Ref .zyxel_note p:not(.please)
@@ -868,6 +875,11 @@ body {
   }
   .entropizer-bar {
       height: 4px;
+  }
+  .fb_primary_mail{
+    position: absolute;
+    margin: 0 15px;
+    color: #34d9c3;
   }
 }
 

@@ -4,11 +4,13 @@ class UnpairingController < ApplicationController
 
   #GET /unpairing/index/:device_encrypted_id
   def index
+    service_logger.note({index_unpairing: params})
   end
 
   #GET /unpairing/success/:device_encrypted_id
   def success
     @device = Device.find_by_encrypted_id(params[:id])
+    service_logger.note({success_unpairing: params})
   end
 
   #GET /unpairing/destroy/:device_encrypted_id
