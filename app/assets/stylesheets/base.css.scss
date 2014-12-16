@@ -66,6 +66,10 @@ body {
 .zyxel_content{
   max-width: 480px;
   margin: 0 auto;
+  .checkbox_label, .zyxel_edm{
+    color:$zyxel_color2;
+    font-size:13px;
+  }
 }
 .nav_zyxel {
   float: right;
