@@ -7,6 +7,7 @@ require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
 
+require_relative '../lib/log4r/outputter/fluent_post_outputter'
 require "action_mailer/railtie"
 include Log4r
 
