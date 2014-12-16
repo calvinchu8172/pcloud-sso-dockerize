@@ -1,4 +1,5 @@
 require 'fluent-logger'
+require_relative '../lib/log4r/outputter/fluent_post_outputter'
 
 module Fluent
   module Logger
