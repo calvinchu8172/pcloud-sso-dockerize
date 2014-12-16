@@ -2,7 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-require 'service_logger'
+require_relative '../lib/service_logger'
 
 #log4r requirements
 require 'log4r'
