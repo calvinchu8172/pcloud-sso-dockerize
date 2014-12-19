@@ -31,7 +31,7 @@ nl:
     omniauth_callbacks:
       failure: "Kon u niet verifiëren van% {kind} omdat \"% {reason}\"."
       success: "Succesvol geauthenticeerd van %{kind} account."
-      fb_primary_mail: "(Primary e-mail on Facebook)"
+      fb_primary_mail: "(Primaire e-mail op Facebook)"
     passwords:
       no_token: "U heeft geen toegang tot deze pagina zonder dat u afkomstig bent van een wachtwoord reset e-mail. Als u via een wachtwoord reset e-mail komt , controleer dan of u de volledige URL gebruikt."
       send_instructions: "U ontvangt een e-mail met instructies over hoe u uw wachtwoord opnieuw in te stellen in een paar minuten."

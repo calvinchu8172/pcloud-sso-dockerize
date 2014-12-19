@@ -31,7 +31,7 @@ de:
     omniauth_callbacks:
       failure: "Sie konnten nicht authentifiziert werden von %{kind} wegen \"%{reason}\"."
       success: "Erfolgreiche Authentifizierung von %{kind} Account."
-      fb_primary_mail: "(Primary e-mail on Facebook)"
+      fb_primary_mail: "(Erste E-Mail Adresse in Facebook)"
     passwords:
       no_token: "Sie können diese Seite nicht aufrufen, wenn Sie von keiner Passwort Zurücksetzen E-Mail kommen. Sollten Sie von dieser kommen, stellen Sie sicher, dass Sie die vollständige URL kopiert oder geklickt haben."
       send_instructions: "Sie erhalten in einigen Minuten eine E-Mail wie Sie Ihr Passwort zurücksetzen können."

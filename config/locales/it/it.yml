@@ -1,0 +1,114 @@
+it:
+  labels:
+    language: "Lingua"
+    forgot_password: 'Ho dimenticato la Password'
+    resend_confirmation: 'Nuovo invio'
+    sign_in: 'Accedi'
+    sign_out: 'Logout'
+    sign_up: 'Sottoscrizione di un abbonamento'
+    my_devices: 'I miei dispositivi'
+    search_devices: 'Cerca dispositivi'
+    research: 'Ricerca'
+    cancel: 'Annulla'
+    retry: 'Riprova'
+    submit: 'Invia'
+    confirm: 'Conferma'
+    or: 'o'
+    settings:
+      ddns:
+        instruction: 'Configurazione DDNS'
+        host_name: 'Nome host'
+        wan_ip: 'IP WAN'
+        model: 'Modello'
+        last_update: 'Ultimo aggiornamento'
+        firmware_version: 'Ver. firmware'
+      upnp:
+        instruction: 'Configurazione UPnP'
+        table_head1: 'Abilitato'
+        table_head2: 'Stato'
+        table_head3: 'Nome servizio'
+        table_head4: 'Descrizione'
+        table_head5: 'Aggiorna risultato'
+        result:
+          success: 'Esito positivo'
+          failure: 'Errore'
+          no_update: 'Nessun aggiornamento'
+    pairing: 'Abbinamento in corso'
+    paired: 'Associato'
+    unpairing: 'Disabbinamento in corso'
+    manually: 'Aggiungi manualmente'
+    profile: 'Profilo'
+    back_to_home: 'Home'
+    change_password: 'Modifica password'
+    edit_profile: 'Modifica profilo'
+    mac_address: 'Indirizzo MAC'
+    serial_number: 'Numero di serie'
+  titles:
+    change_password: 'Modifica password'
+    forgot_password: 'Reimposta password'
+    resend_confirmation: 'Invia nuovamente la email di conferma'
+    sign_in: 'Accedi'
+    sign_up: 'Sottoscrizione di un abbonamento'
+    my_devices: 'Elenco dei dispositivi'
+    search_devices: 'Risultati di ricerca'
+    settings:
+      ddns: "Il DDNS non è stato configurato"
+      upnp: "Nessun dispositivo è stato abbinato."
+    pairing: 'Abbinamento in corso'
+    unpairing: 'Disabbinamento in corso'
+    terms: "Condizioni d'uso"
+    manually: 'Aggiungi manualmente dispositivo'
+  warnings:
+    not_config: 'DDNS is not Configured'
+    no_pairing_device: 'No device have been paired.'
+    invalid: "non è valido"
+    invalid_device: "Dispositivo non valido"
+    applied_success: 'Hai applicato il tuo account con successo.'
+    confirmation_success: 'Sentiti libero di godere dei servizi ZyXEL Cloud.'
+    forgot_password: 'La tua password è stata reimpostata.'
+    sent_email: 'Il messaggio e-mail è stato inviato.'
+    settings:
+      unpairing:
+        instruction: 'Sicuro di voler disabbinare questo dispositivo?'
+        success: 'Il dispositivo è stato disabbinato con successo.'
+      pairing:
+        instruction: 'Sicuro di voler abbinare questo dispositivo?'
+        cancel_instruction: 'Sei sicuro di voler annullare il flusso di abbinamento?'
+        start:
+          instruction: 'Avvio abbinamento, '
+          instruction_2: 'cliccare il pulsante di abbinamento del dispositivo entro'
+        connecting: 'Connessione in corso...'
+        not_found: 'Dispositivo non trovato'
+        pair_already: 'Il dispositivo è già abbinato'
+        in_pairing: "L'abbinamento del dispositivo è in corso"
+        failure: 'Timeout abbinamento. Riprovare.'
+        canceled: "L'abbinamento è stato annullato."
+        success: 'Abbinamento eseguito con successo. Cliccare il pulsante "Conferma" per impostare DDNS e UPnP.'
+      ddns:
+        instruction: 'Si prega di usare:'
+        instruction_2: 'da 3 a 63 caratteri'
+        instruction_3: 'Il primo carattere deve essere una lettera'
+        instruction_4: 'Numeri(0-9)'
+        instruction_5: 'Lettere minuscole(a-z)'
+        instruction_6: 'Trattino (-)'
+        sync: 'Sincronizzazione della configurazione DDNS i corso...'
+        success: 'Le impostazioni DDNS sono state aggiornate con successo.'
+        failure: 'Il server è occupato, riprovare in un secondo momento'
+        not_found: 'Dispositivo non trovato'
+        too_short: 'Il nome host deve contenere almeno 3 caratteri. Provare un altro.'
+        too_long: 'Il nome host deve contenere meno di 63 caratteri. Provare un altro.'
+        exist: 'esiste. Provare un altro.'
+      upnp:
+        sync: 'Sincronizzazione della configurazione UPnP in corso...'
+        success: 'Le impostazioni UPnP sono state aggiornate con successo.'
+        not_found: 'Dispositivo non trovato'
+        cancel_instruction: 'Sei sicuro di voler annullare il flusso di configurazione UPnP?'
+        error_code:
+            num_799: 'Impossibile trovare il gateway del dispositivo'
+            num_798: "Impossibile ottenere l'indirizzo IP del dispositivo"
+            num_797: 'Impossibile attivare il servizio UPnP'
+            num_796: 'Impossibile disattivare il servizio UPnP'
+            num_795: 'Impossibile aggiornare la mappatura porte UPnP'
+            num_794: 'Impossibile elencare tutta la mappatura porte'
+            num_793: 'Impossibile aggiornare la mappatura porte UPnP in DB'
+            num_792: 'Dispositivo non trovato'
