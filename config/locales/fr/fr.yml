@@ -14,6 +14,8 @@ fr:
     submit: 'Envoyer'
     confirm: 'Confirmer'
     or: 'ou'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: 'Installation DDNS'
@@ -83,7 +85,7 @@ fr:
         in_pairing: "L'appareil est en cours d'association"
         failure: "Délai d'association. Réessayez."
         canceled: "L'association a été annulée"
-        success: "Association réussie. Veuillez cliquer sur le bouton "Confirmer" pour installer DDNS et UPnP."
+        success: 'Association réussie. Veuillez cliquer sur le bouton "Confirmer" pour installer DDNS et UPnP.'
       ddns:
         instruction: 'Veuillez utiliser :'
         instruction_2: '3 à 63 caractères'

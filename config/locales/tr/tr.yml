@@ -14,6 +14,8 @@ tr:
     submit: 'Gönder'
     confirm: 'Onayla'
     or: 'veya'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: 'DDNS Ayarı'

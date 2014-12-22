@@ -1,18 +1,11 @@
 <% provide(:flow, 'Help') %>
 <div class="zyxel_content help">
     <div class="btn_wrap">
-      <button id="expand" href="#" >Expand All</button>
-      <button id="collapse" href="#" >Collapse All</button>
+      <button id="expand" href="#" ><%= I18n.t("labels.expand_all")%></button>
+      <button id="collapse" href="#" ><%= I18n.t("labels.collapse_all")%></button>
     </div>
     <ul id="tabs">
-      <%= render partial: "help/introduction/introduction" %>
-      <%= render partial: "help/sign_in/sign_in" %>
-      <%= render partial: "help/register/register" %>
-      <%= render partial: "help/forget_password/forget_password" %>
-      <%= render partial: "help/profile/profile" %>
-      <%= render partial: "help/pairing/pairing" %>
-      <%= render partial: "help/ddns/ddns" %>
-      <%= render partial: "help/upnp/upnp" %>
+      <%= render partial: "help/locale/help" %>
     </ul>
 
 </div>

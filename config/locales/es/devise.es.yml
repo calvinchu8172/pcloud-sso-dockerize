@@ -1,6 +1,6 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-en:
+es:
   devise:
     confirmations:
       confirmed: "Su cuenta ha sido confirmada con éxito."

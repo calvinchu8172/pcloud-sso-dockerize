@@ -14,6 +14,8 @@ pl:
     submit: 'Prześlij'
     confirm: 'Potwierdź'
     or: 'lub'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: 'Konfiguracja DDNS'

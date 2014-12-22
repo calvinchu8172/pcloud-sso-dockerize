@@ -1,4 +1,4 @@
-en:
+es:
   labels:
     language: "Idioma"
     forgot_password: 'He olvidado mi contraseña'
@@ -14,6 +14,8 @@ en:
     submit: 'Enviar'
     confirm: 'Confirmar'
     or: 'o'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: 'Configuración DDNS'
