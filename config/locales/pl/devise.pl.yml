@@ -1,0 +1,67 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+pl:
+  devise:
+    confirmations:
+      confirmed: "Konto zostało prawidłowo potwierdzone."
+      send_instructions: "Za chwilę otrzymasz wiadomość e-mail z instrukcjami jak potwierdzić rejestrację konta."
+      send_paranoid_instructions: "Jeżeli Twój e-mail istnieje w naszej bazie danych, za chwilę otrzymasz wiadomość e-mail z instrukcjami jak potwierdzić rejestrację konta."
+    failure:
+      already_authenticated: "Użytkownik jest już zalogowany."
+      already_oauth_account: "Already registered via Facebook or Google+"
+      inactive: "Konto nie zostało jeszcze aktywowane."
+      invalid: "Niewłaściwy e-mail lub hasło."
+      locked: "Konto zostało zablokowane."
+      last_attempt: "Do blokady konta pozostała tylko jedna próba."
+      not_found_in_database: "Niewłaściwy e-mail lub hasło."
+      timeout: "Sesja wygasła. Zaloguj się ponownie, aby kontynuować."
+      unauthenticated: "Kontynuacja wymaga zalogowania lub rejestracji."
+      unconfirmed: "Kontynuacja wymaga potwierdzenia konta."
+    mailer:
+      confirmation_instructions:
+        subject: "Potwierdzenie konta - ZyXEL Cloud"
+        instruction: "Dziękujemy za rejestrację na ZyXEL Cloud, kliknij poniższe łącze, aby potwierdzić rejestrację konta"
+        instruction_2: "Kliknij łącze w ciągu 3 dni od otrzymania wiadomości e-mail."
+      reset_password_instructions:
+        subject: "ZyXEL Cloud - żądanie zmiany hasła"
+        instruction: "Otrzymaliśmy prośbę o zmianę hasła do Twojego konta ZyXEL Cloud. Kliknij poniższe łącze, aby rozpocząć procedurę zmiany hasła"
+        instruction_2: "Jeżeli jest to błąd, prosimy zignorować tę wiadomość."
+      unlock_instructions:
+        subject: "Instrukcje odblokowania"
+    omniauth_callbacks:
+      failure: "Nie można przeprowadzić uwierzytelnienia za pomocą %{kind} z uwagi na \"%{reason}\"."
+      success: "Uwierzytelnienie za pomocą konta %{kind} zakończone powodzeniem."
+      fb_primary_mail: "(Podstawowy e-mail konta Facebook)"
+    passwords:
+      no_token: "Dostęp do tej strony jest niemożliwy bez kliknięcia łącza resetującego hasło w wiadomości e-mail. Jeżeli strona została otwarta z łącza resetującego hasło w wiadomości e-mail, upewnij się, że wprowadzony URL jest pełny."
+      send_instructions: "Za chwilę otrzymasz wiadomość e-mail z instrukcjami jak zresetować hasło."
+      send_paranoid_instructions: "Jeżeli Twój e-mail istnieje w naszej bazie danych, za chwilę otrzymasz wiadomość e-mail z łączem do odzyskiwania hasła."
+      updated: "Zmiana hasła przebiegła prawidłowo. Użytkownik został zalogowany."
+      updated_not_active: "Zmiana hasła przebiegła prawidłowo."
+    registrations:
+      destroyed: "Do zobaczenia! Konto zostało prawidłowo zlikwidowane. Mamy nadzieję, że jeszcze do nas wrócisz."
+      signed_up: "Witaj! Rejestracja przebiegła prawidłowo."
+      signed_up_but_inactive: "Rejestracja przebiegła prawidłowo. Jednakże logowanie nie było możliwe, ponieważ konto nie zostało aktywowane."
+      signed_up_but_locked: "Rejestracja przebiegła prawidłowo. Jednakże nie możesz się zalogować, ponieważ konto jest zablokowane."
+      signed_up_but_unconfirmed: "Wiadomość z łączem potwierdzającym została wysłana na Twój adres e-mail. Kliknij łącze, aby aktywować konto."
+      update_needs_confirmation: "Aktualizacja konta przebiegła prawidłowo, ale wymagana jest weryfikacja adresu e-mail. Sprawdź skrzynkę e-mail i kliknij łącze potwierdzające, aby zakończyć procedurę potwierdzenia adresu e-mail."
+      updated: "Aktualizacja konta przebiegła prawidłowo."
+      captcha: "Wystąpił błąd z kodem potwierdzającym poniżej. Ponownie wprowadź kod."
+    sessions:
+      signed_in: "Zalogowano prawidłowo."
+      signed_out: "Wylogowano prawidłowo."
+    unlocks:
+      send_instructions: "Za chwilę otrzymasz wiadomość e-mail z instrukcjami jak odblokować konto."
+      send_paranoid_instructions: "Jeżeli Twoje konto istnieje w systemie, za chwilę otrzymasz wiadomość e-mail z instrukcjami jak odblokować konto."
+      unlocked: "Odblokowanie konta przebiegło prawidłowo. Zaloguj się, aby kontynuować."
+  errors:
+    messages:
+      already_confirmed: "zostało potwierdzone, spróbuj się zalogować"
+      confirmation_period_expired: "wymaga potwierdzenia w ciągu %{period}, poproś o nowy"
+      expired: "wygasł, poproś o nowy"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
+      not_found: "nie znaleziono"
+      not_locked: "nie zostało zablokowane"
+      not_saved:
+        one: "1 błąd uniemożliwił zapisanie %{resource} 1 błąd uniemożliwił zapisanie użytkownika"
+        other: "%{count} błędy uniemożliwiły zapisanie %{resource} 3 błędy uniemożliwiły zapisanie użytkownika"
