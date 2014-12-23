@@ -1,9 +1,9 @@
 class Device < ActiveRecord::Base
   include Redis::Objects
   include Guards::AttrEncryptor
-  
+
   belongs_to :product
-  has_one :device_session
+  # has_one :device_session
   has_one :ddns
 
   has_many :pairing
@@ -14,7 +14,7 @@ class Device < ActiveRecord::Base
   # attr_encrypted :id, :key => Rails.application.secrets.secret_key_base
 
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
-  
+
 
   before_save { mac_address.downcase! }
 
@@ -45,11 +45,11 @@ class Device < ActiveRecord::Base
   def self.ip_addresses_key_prefix
     IP_ADDRESSES_KEY
   end
-  
+
   def paired?
     !self.pairing.owner.empty?
-  end  
-  
+  end
+
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -59,7 +59,7 @@ class Device < ActiveRecord::Base
 
     new_ip_list = Redis::HashKey.new( IP_ADDRESSES_KEY + new_ip)
     new_ip_list.store(self.id, 1)
-    
+
   end
 
   #it will be ignored if time difference in 5 seconds
@@ -68,13 +68,13 @@ class Device < ActiveRecord::Base
     waiting_second = Pairing::WAITING_PERIOD.to_i
     logger.debug('waiting_second:' + waiting_second.to_s);
     return 0 if !self.class.handling_status.include?(pairing_session.get('status'))
-    
+
     time_difference = self.pairing_session.get('expire_at').to_i - Time.now().to_i
     time_difference = waiting_second if (waiting_second - time_difference) <= 5
     logger.debug('waiting_second:' + waiting_second.to_s + ', time_difference:' + time_difference.to_s)
     return time_difference
   end
-   
+
   # 用來判斷該device 是否有連上線
   # 主要是透過連線到xmpp 的redis session server
   # 依照該規則產生的key 是否存在來判斷是否在線上
