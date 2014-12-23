@@ -36,7 +36,7 @@ de:
           failure: 'Fehlerhaft'
           no_update: 'kein Update'
     pairing: 'Verbinden'
-    paired: 'Paried'
+    paired: 'Verbunden'
     unpairing: 'Trennen'
     manually: 'Manuelles hinzufügen'
     profile: 'Profil'
