@@ -63,12 +63,17 @@ body {
 .header h1 {
   float: left;
 }
+
 .zyxel_content{
   max-width: 480px;
   margin: 0 auto;
   .checkbox_label, .zyxel_edm{
     color:$zyxel_color2;
     font-size:13px;
+  }
+  // Fix checkbox width issue in DE locale
+  &.oauth_agreement {
+    max-width:500px
   }
 }
 .nav_zyxel {
