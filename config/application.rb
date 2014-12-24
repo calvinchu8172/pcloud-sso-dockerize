@@ -47,7 +47,7 @@ module Pcloud
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr]
+    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr, :cz, :ru, :pl, :it, :hu, :fr, :es]
     # config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths << Rails.root.join('lib')
 
@@ -68,9 +68,9 @@ module Pcloud
     # assign log4r's logger as rails' logger.
     log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
     YamlConfigurator.decode_yaml( log4r_config[Settings.environments.name]['log4r_config'] )
-    
+
     config.logger = Log4r::Logger["application"]
-    
+
     ActiveRecord::Base.logger = Log4r::Logger["database"]
 
     # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
