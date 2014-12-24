@@ -23,6 +23,8 @@ class DiscovererController < ApplicationController
         :img_url => device.product.asset.url(:thumb)})
     end
 
+    service_logger.note({available_to_pair: raw_result})
+
     @result = raw_result
     respond_to do |format|
       format.html # index.html.erb
@@ -40,6 +42,9 @@ class DiscovererController < ApplicationController
 
     valid = mac_address_valid?(params[:device][:mac_address])
     params[:device][:mac_address].gsub!(/:/, '')
+
+    service_logger.note({searching_device: params[:device]})
+
     devices = Device.where(params['device']);
     logger.info "searched device:" + params['device'].inspect
 
@@ -68,6 +73,8 @@ class DiscovererController < ApplicationController
 
     available_device_list = []
     available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
+
+    service_logger.note({device_in_lan: available_ip_list})
 
     Device.where('id in (?)', available_ip_list).each do |device|
 
