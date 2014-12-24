@@ -8,7 +8,7 @@ tr:
       send_paranoid_instructions: "E-posta adresiniz veritabanımızda mevcutsa, birkaç dakika içinde hesabınızın nasıl onaylanacağı konusunda talimatları içeren bir e-posta alacaksınız."
     failure:
       already_authenticated: "Zaten oturum açtınız."
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "Facebook veya Google+ aracılığıyla zaten kayıt yapılmış"
       inactive: "Hesabınız henüz etkinleştirilmedi."
       invalid: "eçersiz e-posta ya da şifre."
       locked: "Hesabınız kilitli."

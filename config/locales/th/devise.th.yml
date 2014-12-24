@@ -8,7 +8,7 @@ th:
       send_paranoid_instructions: "ถ้าที่อยู่อีเมลของคุณเป็นอีเมลที่มีอยู่ในฐานข้อมูลของเรา คุณจะได้รับอีเมลที่มีคำแนะนำเกี่ยวกับวิธีการยืนยันบัญชีของคุณภายในเวลาไม่กี่นาที "
     failure:
       already_authenticated: "คุณได้ลงชื่อเข้าใช้งานแล้ว"
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "ลงทะเบียนผ่าน Facebook หรือ Google+ แล้ว"
       inactive: "คุณได้ลงชื่อเข้าใช้งานแล้ว"
       invalid: "อีเมลหรือรหัสผ่านไม่ถูกต้อง"
       locked: "บัญชีของคุณถูกล็อค"

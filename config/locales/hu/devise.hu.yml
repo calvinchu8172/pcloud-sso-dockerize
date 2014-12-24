@@ -8,7 +8,7 @@ hu:
       send_paranoid_instructions: "Ha e-mail címe szerepel adatbázisunkban, néhány perc múlva e-mailben megkapja az útmutatót, mely segítségével hitelesítheti fiókját."
     failure:
       already_authenticated: "Már bejelentkezett."
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "Már regisztrált Facebook vagy Google+ fiókjával"
       inactive: "A fiók még nincs aktiválva."
       invalid: "Érvénytelen e-mail vagy jelszó."
       locked: "Fiókja zárolva van."

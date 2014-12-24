@@ -8,7 +8,7 @@ it:
       send_paranoid_instructions: "Se il tuo indirizzo è presente nel nostro database, fra pochi minuti, riceverai una e-mail con le istruzioni per confermare il tuo account."
     failure:
       already_authenticated: "Hai già effettuato l'accesso."
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "Già registrato tramite Facebook o Google+"
       inactive: "Il tuo account non è ancora stato attivato."
       invalid: "E-mail o password non valida."
       locked: "Il tuo account è bloccato."

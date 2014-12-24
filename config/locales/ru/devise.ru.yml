@@ -8,7 +8,7 @@ ru:
       send_paranoid_instructions: "Wenn Ihre E-Mail Adresse in unserer Datenbank existiert, erhalten Sie in einigen Minuten eine E-Mail mit weiteren Anweisungen dazu, wie Sie Ihren Account bestätigen können.	Als uw e-mailadres bestaat in onze database ontvangt u een e-mail met instructies over hoe u uw account te bevestigen in een paar minuten.	ถ้าที่อยู่อีเมลของคุณเป็นอีเมลที่มีอยู่ในฐานข้อมูลของเรา คุณจะได้รับอีเมลที่มีคำแนะนำเกี่ยวกับวิธีการยืนยันบัญชีของคุณภายในเวลาไม่กี่นาที	E-posta adresiniz veritabanımızda mevcutsa, birkaç dakika içinde hesabınızın nasıl onaylanacağı konusunda talimatları içeren bir e-posta alacaksınız.	Если ваш адрес эл.почты существует в нашей базе данных, через несколько минут вы получите электронное сообщение с указаниями о том, как подтвердить вашу учетную запись."
     failure:
       already_authenticated: "Вы вошли в систему."
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "Уже зарегистрировано через Facebook или Google+"
       inactive: "Ваша учетная запись еще не активирована."
       invalid: "Неверный адрес эл.почты или пароль."
       locked: "Ваша учетная запись заблокирована."

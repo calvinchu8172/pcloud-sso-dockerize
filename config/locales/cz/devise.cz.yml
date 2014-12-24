@@ -8,7 +8,7 @@ cz:
       send_paranoid_instructions: "Pokud se vaše e-mailová adresa v naší databázi již vyskytuje, obdržíte do několika minut e-mail s pokyny o tom, jak váš účet potvrdit."
     failure:
       already_authenticated: "Jste již přihlášeni."
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "Registrace již proběhla prostřednictvím služby Facebook nebo Google+"
       inactive: "Váš účet ještě není aktivován."
       invalid: "Neplatný e-mail nebo heslo."
       locked: "Váš účet je uzamčený."
