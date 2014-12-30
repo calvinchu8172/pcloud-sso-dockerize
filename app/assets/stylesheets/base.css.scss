@@ -75,6 +75,17 @@ body {
   &.oauth_agreement {
     max-width:500px
   }
+
+  .checkbox_i18n_wrap{
+    position: absolute;
+
+    + .zyxel_btn_area.i18n_fix{
+      // Fix submit length in sign-up page
+      word-wrap: break-word;
+      margin: 60px auto;
+    }
+  }
+
 }
 .nav_zyxel {
   float: right;
