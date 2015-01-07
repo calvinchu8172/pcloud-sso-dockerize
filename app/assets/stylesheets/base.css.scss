@@ -796,6 +796,9 @@ body {
   width: 50%;
   > a:hover + .hover_pop{
     visibility: visible;
+    // Fix absolute
+    top: 100%;
+    left: 0;
   }
 }
 .forgot_password_wrap{
