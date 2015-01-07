@@ -1370,13 +1370,13 @@ div.help{
         opacity: 0.5;
         cursor: default;
         &:hover{
-          background-color: $zyxel_color4;
+          background-color: $zyxel_color7;
         }
       }
       &:hover{
         text-decoration:none;
         color:$zyxel_white;
-        background-color:$zyxel_color1;
+        background-color:$zyxel_color7;
       }
     }
   }
@@ -1415,7 +1415,7 @@ div.help{
       -moz-transition: background-color 0.3s ease 0s; /* firefox */
       -o-transition: background-color 0.3s ease 0s;
       &:hover {
-        background-color: $zyxel_color1;
+        background-color: $zyxel_color7;
         & + article {
           border-color: $zyxel_color1;
         }
