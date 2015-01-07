@@ -5,9 +5,10 @@ $zyxel_star: #ff4338;
 $zyxel_color1: #F0E049; // orange
 $zyxel_color2: #999999; // gray
 $zyxel_color3: #d8d8d8; // light gray
-$zyxel_color4: #34d9c3; // blue
+$zyxel_color4: #0075c9; // blue
 $zyxel_color5: #838383; // dark gray
 $zyxel_color6: #b8ebe3; // light gray
+$zyxel_color7: #0066A6; // dark blue, mainly for button hover
 
 html, body {
   min-height: 100%;
@@ -108,14 +109,14 @@ body {
   -moz-transform: rotate(90deg);
   -o-transform: rotate(90deg);
 }
-.nav_zyxel .dropdown{
-  border: 1px solid $zyxel_color3;
+.nav_zyxel .dropdown {
+  border: 1px solid $zyxel_color4;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin-right: 10px;
 }
-.nav .dropdown>a{
+.nav .dropdown > a {
   background-color: $zyxel_white;
   transition: background .3s;
   -webkit-transition: background .3s; /* Chrome & safari */
@@ -134,7 +135,7 @@ body {
   left: inherit;
 }
 .nav_zyxel li a{
-  color: $zyxel_color2;
+  color: $zyxel_color4;
   font-weight: normal;
 }
 .nav_zyxel .dropdown-menu li a{
@@ -169,19 +170,20 @@ body {
   background-color: transparent;
   background-position: center bottom;
 }
-.nav>li>a.sign_out{
-  border: 1px solid $zyxel_color3;
+.nav > li > a.sign_out {
+  color: $zyxel_color4;
+  border: 1px solid $zyxel_color4;
   transition: background .3s;
   -webkit-transition: background .2s, color .2s; /* Chrome & safari */
   -moz-transition: background .2s, color .2s; /* firefox */
   -o-transition: background .2s, color .2s;
+  &:hover, &:focus {
+    text-decoration: none;
+    background-color: $zyxel_color4;
+    color: $zyxel_white;
+  }
 }
-.nav > li > a.sign_out:hover,
-.nav > li > a.sign_out:focus {
-  text-decoration: none;
-  background-color: $zyxel_color4;
-  color: $zyxel_white;
-}
+
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   color: $zyxel_white;
@@ -227,8 +229,8 @@ body {
 .btn_tab_color1.active,
 .open > .dropdown-toggle.btn_tab_color1 {
   color: $zyxel_white;
-  background-color: $zyxel_color1;
-  border-color: $zyxel_color1;
+  background-color: $zyxel_color7;
+  border-color: $zyxel_color7;
 }
 .btn_tab_color1:active,
 .btn_tab_color1.active,
@@ -247,9 +249,9 @@ body {
 .btn_tab_color2:active,
 .btn_tab_color2.active,
 .open > .dropdown-toggle.btn_tab_color2 {
-  color: $zyxel_color1;
+  color: $zyxel_color7;
   background-color: #fcfcfc;
-  border-color: $zyxel_color1;
+  border-color: $zyxel_color7;
 }
 .btn_tab_color2:active,
 .btn_tab_color2.active,
@@ -434,7 +436,7 @@ body {
 }
 .zyxel_btn_back {
   background-color: #a3a3a3;
-  color: $zyxel_white;
+  color: #565656;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -445,12 +447,13 @@ body {
   -webkit-transition: background-color .3s; /* Chrome & safari */
   -moz-transition: background-color .3s; /* firefox */
   -o-transition: background-color .3s;
+  &:hover {
+    text-decoration:none;
+    color: #565656;
+    background-color:#909090;
+  }
 }
-.zyxel_btn_back:hover {
-  text-decoration:none;
-  color:$zyxel_color1;
-  background-color:#909090;
-}
+
 .zyxel_btn_submit {
   background-color: $zyxel_color4;
   color: $zyxel_white;
@@ -464,11 +467,11 @@ body {
   -webkit-transition: background-color .3s; /* Chrome & safari */
   -moz-transition: background-color .3s; /* firefox */
   -o-transition: background-color .3s;
-}
-.zyxel_btn_submit:hover {
-  text-decoration:none;
-  color:$zyxel_white;
-  background-color:$zyxel_color1;
+  &:hover {
+    text-decoration:none;
+    color:$zyxel_white;
+    background-color:$zyxel_color7;
+  }
 }
 
 .zyxel_btn_submit_gray {
@@ -476,7 +479,7 @@ body {
   width: 45%;
   max-width:140px;
   height: 45px;
-  color: #FFF;
+  color: #565656;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -488,12 +491,13 @@ body {
   -moz-transition: background-color .3s; /* firefox */
   -o-transition: background-color .3s;
   margin: 0 3px;
+  &:hover {
+    text-decoration:none;
+    color: #565656;
+    background-color:#909090;
+  }
 }
-.zyxel_btn_submit_gray:hover {
-  text-decoration:none;
-  color: $zyxel_color1;
-  background-color:#909090;
-}
+
 .zyxel_btn_ok {
   display: inline-block;
   margin: 0 3px;
@@ -517,7 +521,7 @@ body {
 .zyxel_btn_ok:hover {
   text-decoration:none;
   color:$zyxel_white;
-  background-color:$zyxel_color1;
+  background-color:$zyxel_color7;
 }
 .zyxel_btn_main {
   background-color: $zyxel_color4;
@@ -542,7 +546,7 @@ body {
 }
 .zyxel_btn_main:hover {
   text-decoration:none;
-  background-color:$zyxel_color1;
+  background-color:$zyxel_color7;
   color: #FFF;
 }
 .icon_home {
@@ -593,11 +597,11 @@ body {
   border-style: solid;
   border-width: 1px;
   text-align: center;
-}
-.zyxel_btn_style2:hover {
-  text-decoration:none;
-  background-color:#a3a3a3;
-  color: $zyxel_color1;
+  &:hover {
+    text-decoration:none;
+    background-color:#a3a3a3;
+    color: $zyxel_white;
+  }
 }
 
 .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{
@@ -606,7 +610,7 @@ body {
   vertical-align: middle;
 }
 .zyxel_table_style3 .table_btn_area{
-  border-bottom: 1px solid $zyxel_color6;
+  border-bottom: 1px solid $zyxel_color4;
   padding:10px 0 30px 0;
 }
 .zyxel_btn_sns {
@@ -629,12 +633,12 @@ body {
   background-position: 10px center;
   margin:0 8px 9px 0;
   letter-spacing: 0.5px;
-}
-.zyxel_btn_sns:hover {
-  font-weight: bold;
-  text-decoration:none;
-  color:$zyxel_white;
-  background-color:$zyxel_color1;
+  &:hover {
+    font-weight: bold;
+    text-decoration:none;
+    color:$zyxel_white;
+    background-color:$zyxel_color7;
+  }
 }
 .zyxel_btn_login_submit {
   background-color: $zyxel_color4;
@@ -657,7 +661,7 @@ body {
   font-weight: bold;
   text-decoration:none;
   color:$zyxel_white;
-  background-color:$zyxel_color1;
+  background-color:$zyxel_color7;
 }
 .zyxel_btn_submit.disabled, .zyxel_btn_login_submit.disabled {
   background-color: #F0F0F0;
@@ -942,14 +946,14 @@ body {
   }
   th{
     padding: 10px 0 15px 10px;
-    border-bottom: 1px solid $zyxel_color6;
+    border-bottom: 1px solid $zyxel_color4;
     color: $zyxel_color2;
     font-size: 17px;
     font-weight: normal;
   }
   td{
     padding-bottom: 12px;
-    border-bottom: 1px solid $zyxel_color6;
+    border-bottom: 1px solid $zyxel_color4;
   }
   .td_left {
     padding-left: 10px;
@@ -1098,14 +1102,14 @@ body {
 
 .zyxel_table_style5 th {
   color: $zyxel_color2;
-  border-bottom: 2px solid $zyxel_color6;
+  border-bottom: 2px solid $zyxel_color4;
   text-align: center;
   padding: 0 5px 15px 5px;
   font-weight: normal;
 }
 
 .zyxel_table_style5 tr:nth-child(even){
-  background-color: #ECFFFC;
+  background-color: #ebf4fb;
 }
 .zyxel_table_style5 td{
   padding-right: 10px;
@@ -1223,7 +1227,7 @@ input[type="checkbox"].th_label {
 }
 .countdown_number {
   font-size: 43px;
-  color: #e4da3f;
+  color: $zyxel_color4;
   text-align: center;
   margin-bottom: 35px;
   margin-left: 10px;
@@ -1471,7 +1475,7 @@ div.footer{
       color: $zyxel_color4;
     }
     a:hover, a:active {
-      color: #F0DF4A;
+      color: $zyxel_color7;
     }
     .diver{
       display: inline-block;
@@ -1490,13 +1494,13 @@ div.footer{
   width:100%; // For i18n fix
   cursor: not-allowed;
   color: $zyxel_white;
-  background: #0E8B81;
-  border-color: #0E8B81;
+  background: #175b94;
+  border-color: #175b94;
+  &:hover {
+    @extend .zyxel_btn_style2:hover;
+    text-decoration:none;
+    background: #175b94;
+    color: $zyxel_white;
+  }
 }
 
-.zyxel_btn_disabled:hover {
-  @extend .zyxel_btn_style2:hover;
-  text-decoration:none;
-  background: #0E8B81;
-  color: $zyxel_white;
-}
