@@ -1,6 +1,6 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-cz:
+cs:
   devise:
     confirmations:
       confirmed: "Váš účet byl úspěšně potvrzen."
