@@ -17,7 +17,6 @@ module Fluent
   	class ServiceLogger
 
       def initialize()
-      	super( nil, hash)
       end
 
       def note(content)
