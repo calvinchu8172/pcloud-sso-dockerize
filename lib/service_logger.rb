@@ -1,5 +1,3 @@
-require 'fluent-logger'
-
 module Fluent
   module Logger
 
@@ -9,7 +7,6 @@ module Fluent
 
       yield self
 
-      log4r = Log4r::Logger[@@logger_name]
       @@service_logger = ServiceLogger.new() 
     end
 
@@ -25,7 +22,6 @@ module Fluent
 
       def note(content)
       	
-      	param = Log4r::MDC.get_context().merge(content)
       end
   	end
   end
