@@ -1416,9 +1416,6 @@ div.help{
       -o-transition: background-color 0.3s ease 0s;
       &:hover {
         background-color: $zyxel_color7;
-        & + article {
-          border-color: $zyxel_color1;
-        }
       }
     }
     article {
