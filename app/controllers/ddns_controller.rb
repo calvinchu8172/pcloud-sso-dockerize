@@ -5,6 +5,8 @@
 # * success: ddns 設定成功
 # * failure: ddns 設定失敗
 class DdnsController < ApplicationController
+  include ApplicationHelper
+
   before_action :authenticate_user!
   before_action :device_available, :only => [:show]
   before_action :validate_host_name, :only => [:check]
