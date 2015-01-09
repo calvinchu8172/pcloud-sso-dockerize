@@ -100,7 +100,7 @@ class DdnsController < ApplicationController
     def device_available
       @device = Device.find_by_encrypted_id(params[:id])
       if @device
-        if !paired?(@device.id)
+        if !paired?(@device.id) || !@device.find_module_list.include?(Ddns::MODULE_NAME)
           error_action
         end
       else
