@@ -30,7 +30,7 @@ class DdnsController < ApplicationController
     @device = Device.find raw_ddns_session['device_id']
     # If this device is first paired, the confirm link should goto upnp setting page
     if session[:first_pairing]
-      @link_path = tutorial_path @device, Ddns::MODULE_NAME
+      @link_path = tutorial_path(@device, Ddns::MODULE_NAME)
       session[:first_pairing] = false
     else
       @link_path = "/personal/index"
