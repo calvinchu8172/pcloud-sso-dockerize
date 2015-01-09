@@ -69,7 +69,7 @@ class Device < ActiveRecord::Base
   # step order by default module list  
   def find_next_tutorial current_step = nil
 
-    module_list = self.module_list.members
+    module_list = self.find_module_list
 
     DEFAULT_MODULE_LIST.each do |step|
       return step[:name] if module_list.include? step[:name]
@@ -86,6 +86,11 @@ class Device < ActiveRecord::Base
 
     result.blank? ? 'finished' : result.first[:name]
   end  
+
+  def find_module_list
+    list = self.module_list.members
+    list.blank? ? DEFAULT_MODULE_LIST : list
+  end
 
   #it will be ignored if time difference in 5 seconds
   def pairing_session_expire_in
