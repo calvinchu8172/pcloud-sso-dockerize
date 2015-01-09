@@ -41,6 +41,7 @@ class UpnpController < ApplicationController
     error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
+    service_list = switch_service_description(service_list) unless service_list.empty?
     path_ip = decide_which_path_ip upnp_session
 
     result = {:status => upnp_session['status'],
@@ -80,6 +81,7 @@ class UpnpController < ApplicationController
 
     service_list = ((upnp_session['status'] == 'form' || upnp_session['status'] == 'updated') && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
+    service_list = switch_service_description(service_list) unless service_list.empty?
     service_list = update_result(service_list) unless service_list.empty?
 
     result = {:status => upnp_session['status'],
@@ -148,6 +150,18 @@ class UpnpController < ApplicationController
         service.delete(key) if service.has_key?(key)
       end
     end
+  end
+
+  # Return i18n service description
+  def switch_service_description(service_list)
+    i18n_keys = ["http", "streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget_pkg", "transmission_pkg",
+      "owncloud_pkg", "afp", "gallery", "wordpress", "php_mysql_phpmyadmin"]
+
+    service_list.each do |service|
+      service_name_key = service["service_name"].downcase.chomp(" ").gsub("-", "_").gsub("(", "_").gsub(")", "").gsub(" ", "_") unless service["service_name"].empty?
+      service["description"] = I18n.t("upnp_description.#{service_name_key}")   if i18n_keys.include?(service_name_key)
+    end
+    service_list
   end
 
   # check the updated result and added the result to each
