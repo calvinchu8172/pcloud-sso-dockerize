@@ -5,6 +5,7 @@
 
   <%# paired device list %>
   <div class="zyxel_content" style="max-width:660px">
+
     <table class="zyxel_table_style3">
 
       <%# check paired devices %>
@@ -47,8 +48,8 @@
           </tr>
           <tr>
             <td colspan="3" class="text-right table_btn_area">
-              <%= link_to I18n.t("labels.settings.ddns.instruction") , "/ddns/setting/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style1 margin_right5" %>
-              <%= link_to I18n.t("labels.settings.upnp.instruction") , upnp_path(pairing.device.escaped_encrypted_id), class: "zyxel_btn_style1 margin_right5" %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
               <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
             </td>
           </tr>

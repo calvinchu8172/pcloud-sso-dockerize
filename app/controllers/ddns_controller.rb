@@ -6,10 +6,10 @@
 # * failure: ddns 設定失敗
 class DdnsController < ApplicationController
   before_action :authenticate_user!
-  before_action :device_available, :only => [:setting]
+  before_action :device_available, :only => [:show]
   before_action :validate_host_name, :only => [:check]
 
-  def setting
+  def show
     @hostname = ""
     if @device.ddns
       @hostname = @device.ddns.hostname
@@ -30,7 +30,7 @@ class DdnsController < ApplicationController
     @device = Device.find raw_ddns_session['device_id']
     # If this device is first paired, the confirm link should goto upnp setting page
     if session[:first_pairing]
-      @link_path = upnp_path(@device.escaped_encrypted_id)
+      @link_path = tutorial_path @device, Ddns::MODULE_NAME
       session[:first_pairing] = false
     else
       @link_path = "/personal/index"
@@ -52,7 +52,7 @@ class DdnsController < ApplicationController
   # Set error message and redirect to setting page
   def failure
     flash[:error] = I18n.t("warnings.settings.ddns.failure")
-    redirect_to action: 'setting', id: CGI::escape(params[:id])
+    redirect_to action: 'show', id: CGI::escape(params[:id])
   end
 
   # POST /ddns/check
@@ -67,11 +67,11 @@ class DdnsController < ApplicationController
     # If hostname was exits, it will redirct to setting page and display error message
     if ddns && !paired?(ddns.device_id)
       flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
-      redirect_to action: 'setting', id: params[:id]
+      redirect_to action: 'show', id: params[:id]
       return
     elsif filter_list.include?(hostname)
       flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
-      redirect_to action: 'setting', id: params[:id]
+      redirect_to action: 'show', id: params[:id]
       return
     end
 
@@ -93,7 +93,7 @@ class DdnsController < ApplicationController
       end
 
       flash[:error] = I18n.t("warnings.invalid")
-      redirect_to action: 'setting', id: device.escaped_encrypted_id
+      redirect_to action: 'show', id: device.escaped_encrypted_id
     end
 
     # Redirct to my device page when device is not paired for current user
@@ -136,7 +136,7 @@ class DdnsController < ApplicationController
       if invalid
         service_logger.note({'invalid_ddns' => {:error_message => error_message}})
         flash[:error] = error_message
-        redirect_to action: 'setting', id: params[:id]
+        redirect_to action: 'show', id: params[:id]
       end
     end
 end
