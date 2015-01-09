@@ -63,6 +63,7 @@ body {
 .header h1 {
   float: left;
 }
+
 .zyxel_content{
   max-width: 480px;
   margin: 0 auto;
@@ -70,6 +71,21 @@ body {
     color:$zyxel_color2;
     font-size:13px;
   }
+  // Fix checkbox width issue in DE locale
+  &.oauth_agreement {
+    max-width:500px
+  }
+
+  .checkbox_i18n_wrap{
+    position: absolute;
+
+    + .zyxel_btn_area.i18n_fix{
+      // Fix submit length in sign-up page
+      word-wrap: break-word;
+      margin: 60px auto;
+    }
+  }
+
 }
 .nav_zyxel {
   float: right;
@@ -780,6 +796,9 @@ body {
   width: 50%;
   > a:hover + .hover_pop{
     visibility: visible;
+    // Fix absolute
+    top: 100%;
+    left: 0;
   }
 }
 .forgot_password_wrap{

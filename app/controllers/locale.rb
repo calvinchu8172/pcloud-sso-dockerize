@@ -27,7 +27,14 @@ module Locale
                         :Nederlands => 'nl',
                         :"正體中文" => "zh-TW",
                         :"ไทย" => 'th',
-                        :"Türkçe" => 'tr'}
+                        :"Türkçe" => 'tr',
+                        :"Čeština" => 'cs',
+                        :"Rusia" => 'ru',
+                        :"Poland" => 'pl',
+                        :"Italia" => 'it',
+                        :"Hungary" => 'hu',
+                        :"France" => 'fr',
+                        :"Spain" => 'es'}
   end
 
 

@@ -14,6 +14,8 @@ en:
     submit: 'Submit'
     confirm: 'Confirm'
     or: 'or'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: 'DDNS Setup'
@@ -34,7 +36,7 @@ en:
           failure: 'Failure'
           no_update: 'No Update'
     pairing: 'Pairing'
-    paired: 'Paried'
+    paired: 'Paired'
     unpairing: 'Unpairing'
     manually: 'Manually Add'
     profile: 'Profile'
