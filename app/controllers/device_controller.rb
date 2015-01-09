@@ -28,6 +28,7 @@ class DeviceController < ApplicationController
 
     device_checkin
     ddns_checkin
+    install_module
     device_session_checkin
     reset
 
@@ -86,6 +87,30 @@ class DeviceController < ApplicationController
     end
   end
 
+  # 記錄下該Device 所需要的modules
+  def install_module 
+
+    modules = parse_module_list(api_permit[:module]) || Device::DEFAULT_MODULE_LIST
+    modules = modules.kind_of?(Array) ? modules : Device::DEFAULT_MODULE_LIST
+
+    @device.module_list.clear
+    @device.module_version.clear
+    module_version = {}
+    modules.each do |item|
+     @device.module_list << item[:name].downcase unless item[:name].blank?
+     module_version[item[:name].downcase] = item[:ver] unless item[:ver].blank?
+    end
+
+    @device.module_version.bulk_set(module_version)
+  end
+
+  def parse_module_list module_list
+    begin
+      modules = JSON.parse(module_list, symbolize_names: true)
+    rescue
+    end
+  end
+
   def reset_requestment?
     !params[:reset].nil? && params[:reset] == 1.to_s
   end
@@ -129,7 +154,7 @@ class DeviceController < ApplicationController
 
   # 目前只允許下列六項的參數使用
   def api_permit
-    params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :algo);
+    params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :module, :algo);
   end
 
   # 此為直接連線至MongooseIM 的Db 直接存取修改帳XMPP的號密碼

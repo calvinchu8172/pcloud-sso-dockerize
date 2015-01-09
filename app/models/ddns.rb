@@ -3,6 +3,8 @@ class Ddns < ActiveRecord::Base
   belongs_to :domain
   before_save :save_ip_addr
 
+  MODULE_NAME = 'ddns'
+
   # revert ip address
   def get_ip_addr
     IPAddr.new(self.ip_address.to_i(16), Socket::AF_INET).to_s
