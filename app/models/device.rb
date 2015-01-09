@@ -89,7 +89,7 @@ class Device < ActiveRecord::Base
 
   def find_module_list
     list = self.module_list.members
-    list.blank? ? DEFAULT_MODULE_LIST : list
+    list.blank? ? DEFAULT_MODULE_LIST.each.map { |m| m[:name] } : list
   end
 
   #it will be ignored if time difference in 5 seconds
