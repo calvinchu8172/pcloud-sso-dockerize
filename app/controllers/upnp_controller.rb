@@ -41,7 +41,7 @@ class UpnpController < ApplicationController
     error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
-    service_list = switch_i18n_description(service_list) unless service_list.empty?
+    service_list = decide_which_description(service_list) unless service_list.empty?
     path_ip = decide_which_path_ip upnp_session
 
     result = {:status => upnp_session['status'],
@@ -81,7 +81,7 @@ class UpnpController < ApplicationController
 
     service_list = ((upnp_session['status'] == 'form' || upnp_session['status'] == 'updated') && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
-    service_list = switch_i18n_description(service_list) unless service_list.empty?
+    service_list = decide_which_description(service_list) unless service_list.empty?
     service_list = update_result(service_list) unless service_list.empty?
 
     result = {:status => upnp_session['status'],
@@ -132,6 +132,20 @@ class UpnpController < ApplicationController
     same_subnet?(device.session.hget('ip')) ? upnp_session['lan_ip'] : device.session.hget('ip')
   end
 
+  # Return i18n service description
+  def decide_which_description(service_list)
+    desc_key_list = ["http", "media_streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget_pkg", "transmission_pkg",
+      "owncloud_pkg", "afp", "gallery", "wordpress", "php_mysql_phpmyadmin"]
+
+    service_list.each do |service|
+      unless service["service_name"].empty?
+        desc_key = service["service_name"].downcase.chomp(" ").gsub("-", "_").gsub("(", "_").gsub(")", "").gsub(" ", "_")
+        service["description"] = I18n.t("upnp_description.#{desc_key}")   if desc_key_list.include?(desc_key)
+      end
+    end
+    service_list
+  end
+
   def service_list_to_json
     params[:service_list] = params[:service_list].to_json
   end
@@ -150,20 +164,6 @@ class UpnpController < ApplicationController
         service.delete(key) if service.has_key?(key)
       end
     end
-  end
-
-  # Return i18n service description
-  def switch_i18n_description(service_list)
-    i18n_keys = ["http", "streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget_pkg", "transmission_pkg",
-      "owncloud_pkg", "afp", "gallery", "wordpress", "php_mysql_phpmyadmin"]
-
-    service_list.each do |service|
-      unless service["service_name"].empty?
-        service_name_key = service["service_name"].downcase.chomp(" ").gsub("-", "_").gsub("(", "_").gsub(")", "").gsub(" ", "_")
-        service["description"] = I18n.t("upnp_description.#{service_name_key}")   if i18n_keys.include?(service_name_key)
-      end
-    end
-    service_list
   end
 
   # check the updated result and added the result to each
