@@ -87,8 +87,9 @@ class Device < ActiveRecord::Base
     result.blank? ? 'finished' : result.first[:name]
   end  
 
+  # ignore paring module at this step
   def find_module_list
-    list = self.module_list.members
+    list = self.module_list.members.reject { |m| m == 'pairing'}
     list.blank? ? DEFAULT_MODULE_LIST.each.map { |m| m[:name] } : list
   end
 
