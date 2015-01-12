@@ -1,7 +1,7 @@
 tr:
   upnp_description:
     http: "Web Sunucu"
-    streaming: 'Medya Oynatıcı'
+    media_streaming: 'Medya Oynatıcı'
     ftp: "FTP Sunucu"
     telnet: "Telnet Sunucu"
     cifs: "Windows Dosya Sunucusu"

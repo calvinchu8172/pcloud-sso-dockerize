@@ -1,7 +1,7 @@
 nl:
   upnp_description:
     http: "Web- Server"
-    streaming: 'Media Streaming'
+    media_streaming: 'Media Streaming'
     ftp: "FTP- Server"
     telnet: "Telnet - Server"
     cifs: "Windows File - Server"
