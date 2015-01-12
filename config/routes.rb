@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   # get "/404", :to => 'application#raise_not_found!'
   post '/d/1/:action' => "device", :constraints => { :host => Settings.environments.api_domain }
+  post '/d/2/:action' => "device", :constraints => { :host => Settings.environments.api_domain }
 
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
@@ -25,6 +26,7 @@ Rails.application.routes.draw do
     get 'hint/sent'
     get 'hint/agreement'
 
+    resources :ddns
     post 'ddns/check'
     post 'discoverer/search'
 
@@ -48,7 +50,6 @@ Rails.application.routes.draw do
     get 'upnp/check/:id' , to: 'upnp#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
-
   end
 
   get "*path", to: "application#raise_not_found!", via: :all

@@ -12,6 +12,7 @@ class UpnpController < ApplicationController
   before_action :device_paired_with?, :only => :show
   before_action :deleted_extra_key, :only => :update
   before_action :service_list_to_json, :only => :update
+  before_action :is_device_support?, :only => :show
 
   # GET /upnp/show/:device_encrypted_id
   # 初始化UPnP Session 並向Device 同步UPnP 設定資訊
@@ -189,6 +190,13 @@ class UpnpController < ApplicationController
 
   def get_device_info
     @device_ip = @device.session.hget(:ip)
+  end
+
+  def is_device_support?
+    unless @device.find_module_list.include?(Upnp::MODULE_NAME)
+      flash[:alert] = I18n.t('warnings.invalid_device')
+      redirect_to :authenticated_root 
+    end
   end
 
   def get_error_msg error_code
