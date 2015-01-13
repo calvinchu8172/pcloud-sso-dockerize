@@ -1,15 +1,20 @@
 de:
   upnp_description:
     http: "Web- Server"
-    media_streaming: 'Media Streaming'
+    streaming: 'Media Streaming'
     ftp: "FTP- Server"
     telnet: "Telnet - Server"
     cifs: "Windows File - Server"
     mediaserver: "Media- Server"
-    nzbget_pkg: "Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername: nzbget Passwort: 1234"
-    transmission_pkg: "Dieses Paket ist ein anderer P2P Client, welcher auch Magnet Links unterstützt."
-    owncloud_pkg: 'Damit können Sie Ihre private Cloud erstellen und verwalten. Verwenden Sie admin/1234 als Standardbenutzername und Passwort, um sich anzumelden.'
+    nzbget: "Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername: nzbget Passwort: 1234"
+    transmission: "Dieses Paket ist ein anderer P2P Client, welcher auch Magnet Links unterstützt."
+    owncloud_http: 'Damit können Sie Ihre private Cloud erstellen und verwalten. Verwenden Sie admin/1234 als Standardbenutzername und Passwort, um sich anzumelden.'
+    owncloud_https: 'Damit können Sie Ihre private Cloud erstellen und verwalten. Verwenden Sie admin/1234 als Standardbenutzername und Passwort, um sich anzumelden.'
     afp: "Apple Filing Protocol"
-    gallery: "Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
-    wordpress: "Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
-    php_mysql_phpmyadmin: "Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen 'root' und als Kennwort '1234' ein."
+    gallery_http: "Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
+    gallery_https: "Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
+    wordpress_http: "Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
+    wordpress_https: "Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
+    php_mysql_phpmyadmin_http: "Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen 'root' und als Kennwort '1234' ein."
+    php_mysql_phpmyadmin_https: "Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen 'root' und als Kennwort '1234' ein."
+    myzyxelcloud_agent: "vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und sicheren Zugriff auf Ihrem ZyXEL NAS"

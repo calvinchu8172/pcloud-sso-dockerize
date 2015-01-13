@@ -135,8 +135,9 @@ class UpnpController < ApplicationController
 
   # Return i18n service description
   def decide_which_description(service_list)
-    desc_key_list = ["http", "media_streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget_pkg", "transmission_pkg",
-      "owncloud_pkg", "afp", "gallery", "wordpress", "php_mysql_phpmyadmin"]
+    desc_key_list = ["http", "streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget", "transmission",
+      "owncloud_http", "owncloud_https", "afp", "gallery_http", "gallery_https", "wordpress_http", "wordpress_https",
+       "php_mysql_phpmyadmin_http", "php_mysql_phpmyadmin_https"]
 
     service_list.each do |service|
       unless service["service_name"].empty?
