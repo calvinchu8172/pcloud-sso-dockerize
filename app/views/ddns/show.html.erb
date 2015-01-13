@@ -12,7 +12,7 @@
       <%= hidden_field_tag :id, @device.escaped_encrypted_id %>
 
       <div class="zyxel_host_name">
-        <%= text_field_tag "host_name", @hostname, id: "ddns-host-name", maxlength: 63 %>
+        <%= text_field_tag "host_name", @hostname, id: "ddns-host-name", class: "input_style1", maxlength: 63 %>
         <label id="domain-name" class="zyxel_span1">.<%= @domain_name.chomp('.') %></label>
       </div>
 
