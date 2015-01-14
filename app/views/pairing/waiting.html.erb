@@ -36,7 +36,7 @@
         </div>
         <div ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
-          <%= link_to(I18n.t("labels.confirm"), "/ddns/setting/" + @device.escaped_encrypted_id, class: "zyxel_btn_ok") %>
+          <%= link_to(I18n.t("labels.confirm"), tutorial_path(@device), class: "zyxel_btn_ok") %>
         </div>
         <div ng-switch-when="confirm_cancel" class="zyxel_btn_area i18n_fix">
           <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>

@@ -36,7 +36,7 @@ nl:
           failure: 'Mislukt'
           no_update: 'geen update'
     pairing: 'Koppelen'
-    paired: 'Paried'
+    paired: 'Paired'
     unpairing: 'Ontkoppelen'
     manually: 'handmatig toevoegen'
     profile: 'Profiel'

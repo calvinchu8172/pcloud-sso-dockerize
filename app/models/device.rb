@@ -10,10 +10,14 @@ class Device < ActiveRecord::Base
 
   hash_key :session
   hash_key :pairing_session
-
+  set :module_list
+  hash_key :module_version
   # attr_encrypted :id, :key => Rails.application.secrets.secret_key_base
 
+  DEFAULT_MODULE_LIST = [{name: 'ddns', ver: '1'}, {name: 'upnp', ver: '1'}]
+
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
+  # MODULE_LIST_KEY = 'device:module_version:'
   
 
   before_save { mac_address.downcase! }
@@ -59,7 +63,34 @@ class Device < ActiveRecord::Base
 
     new_ip_list = Redis::HashKey.new( IP_ADDRESSES_KEY + new_ip)
     new_ip_list.store(self.id, 1)
+  end
+
+  # looking for the next setting after device pairing  
+  # step order by default module list  
+  def find_next_tutorial current_step = nil
+
+    module_list = self.find_module_list
+
+    DEFAULT_MODULE_LIST.each do |step|
+      return step[:name] if module_list.include? step[:name]
+    end if current_step.blank?
     
+    return 'finished' unless module_list.include?(current_step)
+
+    current_index = DEFAULT_MODULE_LIST.find_index { |item| item[:name] == current_step }
+
+    result = DEFAULT_MODULE_LIST.from(current_index + 1).each.map do |next_step|
+      next unless module_list.include? next_step[:name]
+      next_step unless next_step.blank?
+    end.compact
+
+    result.blank? ? 'finished' : result.first[:name]
+  end  
+
+  # ignore paring module at this step
+  def find_module_list
+    list = self.module_list.members.reject { |m| m == 'pairing'}
+    list.blank? ? DEFAULT_MODULE_LIST.each.map { |m| m[:name] } : list
   end
 
   #it will be ignored if time difference in 5 seconds
