@@ -50,7 +50,7 @@ gem 'rails_config'
 gem 'unicorn'
 # portal
 gem 'bootstrap-sass'
-gem "twitter-bootstrap-rails"
+gem 'compass-rails'
 gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-google-oauth2'
