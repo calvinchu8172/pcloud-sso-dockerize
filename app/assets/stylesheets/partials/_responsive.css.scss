@@ -1,0 +1,24 @@
+// -------------------------------------
+//   Partials: responsive
+// -------------------------------------
+
+@media all and (min-width: 501px) and  (max-width: 767px) {/* modify0815 */
+  .zyxel_table_style4 td.blue{ width:380px; }/* modify0815 */
+}
+@media all and (max-width: 500px){
+  .zyxel_btn_sns{ width: 100%; }
+  .zyxel_table_style1 th{ padding-left:10px; width:35%; }
+  .zyxel_table_style th{ width:30%; }
+  .select_width100{ width:75%; margin-left:0; }
+  .select_style{ margin:7px 6px 7px 0; }
+  .header .header_h1_rwd{ float:none; }
+  .nav_zyxel_rwd{ float:none; display:inline-block; margin-top:10px; }
+  .header{ height:120px; text-align:center; }
+  .zyxel_host_name input{ width:100%; }/* modify */
+  .zyxel_table_style3 .zyxel_btn_style1, .zyxel_table_style3 .zyxel_btn_style2{ display: block; margin:10px 0; }
+  .zyxel_table_style4 td.blue{ width:265px; }/* modify0815 */
+  .zyxel_table_style3 th{ display:none; }/* modify0815 */
+}
+@media all and (min-width: 768px){
+  .zyxel_table_style5 td.column3{ width:50%; }
+}

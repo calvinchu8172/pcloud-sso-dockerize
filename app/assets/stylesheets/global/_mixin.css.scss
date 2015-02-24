@@ -1,0 +1,9 @@
+// -------------------------------------
+//   Mixin
+// -------------------------------------
+
+@mixin transition($width:"", $time:"", $action:"") {
+  @include transition-property($width);
+  @include transition-duration($time);
+  @include transition-timing-function($action);
+}

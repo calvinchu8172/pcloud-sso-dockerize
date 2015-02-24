@@ -1,0 +1,25 @@
+// -------------------------------------
+//   Page: ddns
+//
+//   # Path: /ddns
+// -------------------------------------
+
+.zyxel_note {
+  color: #B2B2B2;
+  .please {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  p {
+    display: inline;
+  }
+  p:not(.please) {
+    &:before {
+      content: "\2713";
+      padding-right: 2px;
+    }
+    font-size: 0.8em;
+    line-height: 1.5em;
+    margin-left: 5px;
+  }
+}
