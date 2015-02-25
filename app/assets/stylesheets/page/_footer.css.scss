@@ -1,0 +1,33 @@
+// -------------------------------------
+//   Page: footer
+// -------------------------------------
+
+div.footer{
+  margin: 80px auto;
+  text-align: center;
+  .support {
+    a {
+      @include transition(all, .3s);
+      text-decoration: none;
+      font-size: 14px;
+      width: 65px;
+      display: inline-block;
+      padding: 0 15px;
+      &:link, &:visited {
+        color: $zyxel_color4
+      }
+      &:hover, &:active {
+        color: #F0DF4A;
+      }
+    }
+    .diver{
+      display: inline-block;
+      width:5px;
+      color:$zyxel_color2;
+    }
+  }
+  span{
+    color:$zyxel_color2;
+    font-size:12px ;
+  }
+}
