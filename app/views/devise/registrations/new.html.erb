@@ -1,6 +1,6 @@
 <% provide(:flow, I18n.t("titles.sign_up")) %>
 
-<div class="zyxel_content" style="max-width: 530px;">
+<div class="zyxel_content sign_up" style="max-width: 530px;">
   <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
 
     <%# Hidden current user language %>
@@ -30,6 +30,8 @@
           </th>
           <td>
             <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
+            <div class="password_suggestion"><%= I18n.t("user.labels.password_suggestion")%></div>
+            <div id="password_meter"></div>
           </td>
         </tr>
         <%# Password -end %>
@@ -103,10 +105,10 @@
         <%# Phone number %>
         <tr>
           <th>
-            <%= f.label :mobile_number, I18n.t("user.labels.phone_number") %>
+            <%= f.label :mobile_number, I18n.t("user.labels.phone_number"), class: "th_label" %>
           </th>
           <td>
-            <%= f.text_field :mobile_number, class: "input_style1", maxlength: 40 %>
+            <%= f.text_field :mobile_number, class: "input_style1 td_field", maxlength: 40 %>
           </td>
         </tr>
         <%# Phone number - end %>
@@ -141,22 +143,26 @@
       </table>
     </fieldset>
 
-    <%# Terms accept %>
-    <div class="checkbox_area">
-      <label class="checkbox_label" for="user_agreement"><%= I18n.t("user.labels.terms.instruction") %> </label>
-      <a href="#"  onClick="window.open('<%= hint_agreement_path %>','_blank')" ><%= I18n.t("user.labels.terms.instruction_2") %></a>
-      <strong> *</strong>
-      <%= f.check_box :agreement, class: "th_label" %>
-      <label class="check_icon" for="user_agreement"><span></span></label>
-    </div>
-    <%# Terms accept - end %>
 
-    <%# e-Mail DM %>
-    <div class="checkbox_area">
-      <%= f.check_box :edm_accept %>
-      <label class="checkbox_label" for="user_edm_accept"><span></span><%= I18n.t("user.labels.edm") %></label>
+    <div class="checkbox_i18n_wrap">
+      <%# Terms accept %>
+      <div class="checkbox_area">
+        <label class="checkbox_label" for="user_agreement"><%= I18n.t("user.labels.terms.instruction") %> </label>
+        <a href="#"  onClick="window.open('<%= hint_agreement_path %>','_blank')" ><%= I18n.t("user.labels.terms.instruction_2") %></a>
+        <strong> *</strong>
+        <%= f.check_box :agreement, class: "th_label" %>
+        <label class="check_icon" for="user_agreement"><span></span></label>
+      </div>
+      <%# Terms accept - end %>
+
+      <%# e-Mail DM %>
+      <div class="checkbox_area">
+        <%= f.check_box :edm_accept %>
+        <label class="checkbox_label" for="user_edm_accept"><span></span><%= I18n.t("user.labels.edm") %></label>
+      </div>
+      <%# e-Mail DM - end %>
     </div>
-    <%# e-Mail DM - end %>
+
 
     <%# Submit and cancel button %>
     <div class="zyxel_btn_area i18n_fix">

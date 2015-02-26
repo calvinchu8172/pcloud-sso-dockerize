@@ -2,8 +2,10 @@
   "name": "personal-cloud-portal",
   "dependencies": {
     "angular-timer": "*",
-    "ng-table": "*",
+    "ng-table": "0.3.2",
     "jquery": "*",
-    "jqlite": "*"
+    "jqlite": "*",
+    "jquery-entropizer": "~0.1.0",
+    "entropizer": "~0.1.3"
   }
 }

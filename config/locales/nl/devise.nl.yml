@@ -8,6 +8,7 @@ nl:
       send_paranoid_instructions: "Als uw e-mailadres bestaat in onze database ontvangt u een e-mail met instructies over hoe u uw account te bevestigen in een paar minuten."
     failure:
       already_authenticated: "U bent al aangemeld."
+      already_oauth_account: "Already registered via Facebook or Google+"
       inactive: "Uw account is nog niet geactiveerd."
       invalid: "Ongeldig e-mailadres of wachtwoord."
       locked: "Uw account is geblokkeerd."
@@ -30,6 +31,7 @@ nl:
     omniauth_callbacks:
       failure: "Kon u niet verifiëren van% {kind} omdat \"% {reason}\"."
       success: "Succesvol geauthenticeerd van %{kind} account."
+      fb_primary_mail: "(Primaire e-mail op Facebook)"
     passwords:
       no_token: "U heeft geen toegang tot deze pagina zonder dat u afkomstig bent van een wachtwoord reset e-mail. Als u via een wachtwoord reset e-mail komt , controleer dan of u de volledige URL gebruikt."
       send_instructions: "U ontvangt een e-mail met instructies over hoe u uw wachtwoord opnieuw in te stellen in een paar minuten."
@@ -57,6 +59,7 @@ nl:
       already_confirmed: "werd al bevestigd, probeert u zich opnieuw aan te melden"
       confirmation_period_expired: "dient te worden bevestigd binnen %{period}, doe alstublieft een nieuwe aanvraag."
       expired: "has expired, please request a new one"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
       not_found: "Niet gevonden"
       not_locked: "was niet geblokkeerd"
       not_saved:

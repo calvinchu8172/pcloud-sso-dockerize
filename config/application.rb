@@ -2,11 +2,14 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+require_relative '../lib/service_logger'
+
 #log4r requirements
 require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
-require 'log4r/outputter/fileoutputter'
+
+require_relative '../lib/log4r/outputter/fluent_post_outputter'
 require "action_mailer/railtie"
 include Log4r
 
@@ -44,13 +47,16 @@ module Pcloud
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr]
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr, :cs, :ru, :pl, :it, :hu, :fr, :es]
+    # config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths << Rails.root.join('lib')
 
     # for bower install path
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
     config.encoding = "utf-8"
+
+    config.exceptions_app = self.routes
 
     # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
 
@@ -61,9 +67,10 @@ module Pcloud
 
     # assign log4r's logger as rails' logger.
     log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
-    YamlConfigurator.decode_yaml( log4r_config['log4r_config'] )
-    # YamlConfigurator.decode_yaml(Settings.environments.log4r_config)
+    YamlConfigurator.decode_yaml( log4r_config[Settings.environments.name]['log4r_config'] )
+
     config.logger = Log4r::Logger["application"]
+
     ActiveRecord::Base.logger = Log4r::Logger["database"]
 
     # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]

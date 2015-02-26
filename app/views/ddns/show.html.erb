@@ -1,0 +1,44 @@
+<% provide(:flow, @device.product.model_name + "," + I18n.t("titles.settings.ddns")) %>
+<% provide(:tab, 'my_devices') %>
+
+<div class="ddns">
+
+  <%# Content %>
+  <div class="zyxel_content" style="max-width: 530px;">
+    <h2 class="zyxel_h2"><%= I18n.t("labels.settings.ddns.host_name") %></h2>
+
+    <%= form_tag "/ddns/check", :name => 'ddnsForm' do %>
+
+      <%= hidden_field_tag :id, @device.escaped_encrypted_id %>
+
+      <div class="zyxel_host_name">
+        <%= text_field_tag "host_name", @hostname, id: "ddns-host-name", maxlength: 63 %>
+        <label id="domain-name" class="zyxel_span1">.<%= @domain_name.chomp('.') %></label>
+      </div>
+
+      <%# Error message for host name %>
+      <% if flash[:error] %>
+        <div class="zyxel_arlert_area">
+          <span class="error_message" ><%= flash[:error] %></span>
+        </div>
+      <% end %>
+      <%# Error message for host name - end %>
+
+      <%# Information for host name format %>
+      <div class="zyxel_note">
+        <p class="please"><%= I18n.t("warnings.settings.ddns.instruction") %></p>
+        <p><%= I18n.t("warnings.settings.ddns.instruction_2") %></p>
+        <p><%= I18n.t("warnings.settings.ddns.instruction_3") %></p>
+        <p><%= I18n.t("warnings.settings.ddns.instruction_4") %></p>
+        <p><%= I18n.t("warnings.settings.ddns.instruction_5") %></p>
+        <p><%= I18n.t("warnings.settings.ddns.instruction_6") %></p>
+      </div>
+
+      <div class="zyxel_btn_area i18n_fix">
+        <%= link_to I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back" %>
+        <%= submit_tag I18n.t("labels.submit"), id: "submit-btn", class: "zyxel_btn_submit" %>
+      </div>
+    <% end %>
+  </div>
+  <%# Content - end %>
+</div>

@@ -19,3 +19,5 @@
 //= require_tree .
 //= require twitter/bootstrap
 //= require select2
+//= require entropizer
+//= require jquery-entropizer/dist/js/jquery-entropizer.min

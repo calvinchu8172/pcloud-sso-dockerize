@@ -1,6 +1,7 @@
 class Device < ActiveRecord::Base
   include Redis::Objects
-
+  include Guards::AttrEncryptor
+  
   belongs_to :product
   has_one :device_session
   has_one :ddns
@@ -9,9 +10,15 @@ class Device < ActiveRecord::Base
 
   hash_key :session
   hash_key :pairing_session
+  set :module_list
+  hash_key :module_version
+  # attr_encrypted :id, :key => Rails.application.secrets.secret_key_base
+
+  DEFAULT_MODULE_LIST = [{name: 'ddns', ver: '1'}, {name: 'upnp', ver: '1'}]
 
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
-  PAIRING_SESSION_TIMEOUT = 600
+  # MODULE_LIST_KEY = 'device:module_version:'
+  
 
   before_save { mac_address.downcase! }
 
@@ -36,13 +43,17 @@ class Device < ActiveRecord::Base
         instance.update_attribute(:firmware_version, args[:firmware_version])
       end
     end
-  	return instance
+    return instance
   end
 
   def self.ip_addresses_key_prefix
     IP_ADDRESSES_KEY
   end
-
+  
+  def paired?
+    !self.pairing.owner.empty?
+  end  
+  
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -50,18 +61,65 @@ class Device < ActiveRecord::Base
       old_ip_list.delete(self.id)
     end
 
-    unless Pairing.exists?(:device_id => self.id)
-      new_ip_list = Redis::HashKey.new( IP_ADDRESSES_KEY + new_ip)
-      new_ip_list.store(self.id, 1)
-    end
+    new_ip_list = Redis::HashKey.new( IP_ADDRESSES_KEY + new_ip)
+    new_ip_list.store(self.id, 1)
   end
 
+  # looking for the next setting after device pairing  
+  # step order by default module list  
+  def find_next_tutorial current_step = nil
+
+    module_list = self.find_module_list
+
+    DEFAULT_MODULE_LIST.each do |step|
+      return step[:name] if module_list.include? step[:name]
+    end if current_step.blank?
+    
+    return 'finished' unless module_list.include?(current_step)
+
+    current_index = DEFAULT_MODULE_LIST.find_index { |item| item[:name] == current_step }
+
+    result = DEFAULT_MODULE_LIST.from(current_index + 1).each.map do |next_step|
+      next unless module_list.include? next_step[:name]
+      next_step unless next_step.blank?
+    end.compact
+
+    result.blank? ? 'finished' : result.first[:name]
+  end  
+
+  # ignore paring module at this step
+  def find_module_list
+    list = self.module_list.members.reject { |m| m == 'pairing'}
+    list.blank? ? DEFAULT_MODULE_LIST.each.map { |m| m[:name] } : list
+  end
+
+  #it will be ignored if time difference in 5 seconds
   def pairing_session_expire_in
-    return pairing_session.get('start_expire_at').to_f - Time.now().to_f if pairing_session.get('status') == 'start'
-    return pairing_session.get('waiting_expire_at').to_f - Time.now().to_f if pairing_session.get('status') == 'waiting'
-  end
 
-  def self.pairing_session_timeout
-    PAIRING_SESSION_TIMEOUT
+    waiting_second = Pairing::WAITING_PERIOD.to_i
+    logger.debug('waiting_second:' + waiting_second.to_s);
+    return 0 if !self.class.handling_status.include?(pairing_session.get('status'))
+    
+    time_difference = self.pairing_session.get('expire_at').to_i - Time.now().to_i
+    time_difference = waiting_second if (waiting_second - time_difference) <= 5
+    logger.debug('waiting_second:' + waiting_second.to_s + ', time_difference:' + time_difference.to_s)
+    return time_difference
+  end
+   
+  # 用來判斷該device 是否有連上線
+  # 主要是透過連線到xmpp 的redis session server
+  # 依照該規則產生的key 是否存在來判斷是否在線上
+  # 如果跟redis session server 連線發生timeout，則判斷為沒在線上
+  # @return [Boolean]
+  def presence?
+
+    if @presence.nil?
+      session = self.session.all
+      @presence = XmppPresence.new("s3:#{session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase)
+    end
+    @presence.exists?
+  rescue TimeoutError => error
+    logger.error('device presence error:' + error.backtrace.join("\n"))
+    false
   end
 end

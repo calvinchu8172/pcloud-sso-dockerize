@@ -1,32 +1,125 @@
-log4r_config:
-  # define all loggers:
-  loggers:
-    - name          : application
-      level         : DEBUG
-      trace         : 'true'
-      outputters    : 
-      - app_log
-    - name          : database
-      level         : DEBUG
-      trace         : 'true'
-      outputters    : 
-      - db_log
+#default logger
+default_app_logger: &app_logger
+  name          : application
+  level         : DEBUG
+  trace         : 'true'
+  outputters    : 
+    - app_file
 
-  # define all outputters (incl. formatters)
+default_service_logger: &service_logger
+  name          : service
+  level         : DEBUG
+  trace         : 'true'
+  outputters    :
+    - app_file
+
+default_db_logger: &db_logger
+  name          : database
+  level         : DEBUG
+  trace         : 'true'
+  outputters    :
+    - db_file
+
+#default outputter
+default_fluent_post_outputter: &fluent_post_outputter
+  type: FluentPostOutputter
+  name: log_server
+  tag: personal_cloud.default
+  host: '10.107.10.174'
+
+default_rolling_file_outputter: &rolling_file_outputter
+  type: RollingFileOutputter
+  name: rolling_file
+  maxsize: 512000000
+  max_backups: 2
+  dirname: "log"
+  filename: "db.log"
+  formatter:
+    date_pattern: '%H:%M:%S:%L'
+    pattern     : '%d, ip:%X{ip} ,process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment} %l: %m'
+    type        : PatternFormatter
+
+default_file_outputter: &file_outputter
+  type: FileOutputter
+  name: file
+  dirname: "log"
+  filename: "app.log"
+  formatter:
+    date_pattern: '%Y/%m/%d %H:%M:%S:%L'
+    pattern     : '%d -- ip:%X{ip}, process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment}, [%l]: %m'
+    type        : PatternFormatter
+
+default_date_file_outputter: &date_file_outputter
+  type: DateFileOutputter
+  name: app_log
+  dirname: "log"
+  filename: "app.log"
+  formatter:
+    date_pattern: '%H:%M:%S'
+    pattern     : '%d, ip:%X{ip} ,process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment} %l: %m'
+    type        : PatternFormatter
+
+# config
+log4r_config:
+  loggers:
+  - <<: *app_logger
+  - <<: *db_logger
+  - <<: *service_logger
   outputters:
-  - type: DateFileOutputter
-    name: app_log
-    dirname: "log"
-    filename: "app.log"
-    formatter:
-      date_pattern: '%H:%M:%S'
-      pattern     : '%d %X{context} %l: %m'
-      type        : PatternFormatter
-  - type: DateFileOutputter
-    name: db_log
-    dirname: "log"
-    filename: "db.log"
-    formatter:
-      date_pattern: '%H:%M:%S'
-      pattern     : '%d %l: %m'
-      type        : PatternFormatter
+  - <<: *file_outputter
+    name: app_file
+    filename: "log/app.log"
+  - <<: *file_outputter
+    name: db_file
+    filename: "log/db.log"
+
+# config for each enviornment
+production:
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+    - <<: *db_logger
+    - <<: *service_logger
+    outputters:
+    - <<: *file_outputter
+      name: app_file
+      level: INFO
+      filename: "log/app.log"
+    - <<: *file_outputter
+      name: db_file
+      level: INFO
+      filename: "log/db.log"
+
+beta:
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+    - <<: *db_logger
+    - <<: *service_logger
+    outputters:
+    - <<: *file_outputter
+      name: app_file
+      level: INFO
+      filename: "log/app.log"
+    - <<: *file_outputter
+      name: db_file
+      level: INFO
+      filename: "log/db.log"
+
+alpha:
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+    - <<: *db_logger
+    - <<: *service_logger
+    outputters:
+    - <<: *file_outputter
+      name: app_file
+      level: DEBUG
+      filename: "log/app.log"
+    - <<: *file_outputter
+      name: db_file
+      level: DEBUG
+      filename: "log/db.log"
+
+

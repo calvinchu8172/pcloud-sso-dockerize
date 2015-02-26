@@ -1,3 +1,7 @@
+# 協助User尋找可被配對的Device
+# 共有兩種方式尋找可配對裝置
+# 1. 透過Public IP 搜尋
+# 2. 輸入mac address 與 serial number 搜尋
 class DiscovererController < ApplicationController
   include PairingHelper
   before_action :authenticate_user!
@@ -10,10 +14,18 @@ class DiscovererController < ApplicationController
       logger.debug('get device product:' + device.product.to_json)
       next if(device.product.blank?)
       logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
-      raw_result.push({:device_id => device.id, :product_name => device.product.name, :img_url => device.product.asset.url(:thumb)})
+      raw_result.push({:device_id => device.escaped_encrypted_id,
+        :paired => device.paired?,
+        :product_name => device.product.name,
+        :model_name => device.product.model_name,
+        :mac_address => device.mac_address.scan(/.{2}/).join(":"),
+        :firmware_version => device.firmware_version,
+        :img_url => device.product.asset.url(:thumb)})
     end
 
-    @result = raw_result.to_json
+    service_logger.note({available_to_pair: raw_result})
+
+    @result = raw_result
     respond_to do |format|
       format.html # index.html.erb
       format.json {
@@ -30,36 +42,49 @@ class DiscovererController < ApplicationController
 
     valid = mac_address_valid?(params[:device][:mac_address])
     params[:device][:mac_address].gsub!(/:/, '')
-    device = Device.where(params['device']);
+
+    service_logger.note({searching_device: params[:device]})
+
+    devices = Device.where(params['device']);
     logger.info "searched device:" + params['device'].inspect
 
     if !valid
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'add'
-    elsif device.empty?
+    elsif devices.empty?
       flash[:alert] = I18n.t("errors.messages.not_found")
       redirect_to action: 'add'
+    elsif devices.first.paired?
+      flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
+      redirect_to action: 'add'
     else
-      redirect_to action: 'check', id: device.first.id
+      redirect_to action: 'check', id: devices.first.escaped_encrypted_id
     end
   end
 
   def check
-    @device = Device.find(params[:id])
     logger.info "checking device id:" + @device.id.to_s
   end
 
-
+  #搜尋條件如下
+  # 1. 同樣的public IP
+  # 2. 裝置非本人配對中
   def search_available_device
 
     available_device_list = []
     available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
 
+    service_logger.note({device_in_lan: available_ip_list})
+
     Device.where('id in (?)', available_ip_list).each do |device|
-      unless device.pairing_session.size != 0 && Device.handling_status.include?(device.pairing_session.get(:status))
-        available_device_list << device if device.pairing.empty?
-      end
+
+      pairing_session = device.pairing_session.all
+      pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
+      presence = device.presence?
+
+      available_device_list << device if !pairing && presence
     end
+
     logger.debug('result of searching available device list:' + available_device_list.inspect)
     available_device_list
   end

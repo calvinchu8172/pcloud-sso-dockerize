@@ -38,13 +38,13 @@
               </div>
             </div>
           </td>
-          <td data-title="'status'" ng-switch on="service.status" class="column2">
+          <td data-title="'status'" ng-switch on="statusResult(service.status, service.update_result)" class="column2">
             <span ng-switch-when="true" class="">OK</span>
             <span ng-switch-when="false" class="">---</span>
           </td>
           <td data-title="'Name'">
             <%# add service link %>
-            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank">
+            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
               {{service.service_name}}
             </a>
             <span ng-if="isFieldEmpty(service.path)">
@@ -55,16 +55,10 @@
             {{service.description}}
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
-            <span ng-if="service.status == service.enabled">
-              <%= I18n.t("labels.settings.upnp.result.no_update") %>
-            </span>
-            <span ng-if="service.status != service.enabled">
-              <span ng-if="isFieldEmpty(service.error_code)" class="green">
-                <%= I18n.t("labels.settings.upnp.result.success") %>
-              </span>
-              <span ng-if="!isFieldEmpty(service.error_code)" class="red">
-                <%= I18n.t("labels.settings.upnp.result.failure") %>
-              </span>
+            <span ng-switch on="service.update_result">
+              <span ng-switch-when="no_update"><%= I18n.t("labels.settings.upnp.result.no_update") %></span>
+              <span ng-switch-when="success" class="green"><%= I18n.t("labels.settings.upnp.result.success") %></span>
+              <span ng-switch-when="failure" class="red"><%= I18n.t("labels.settings.upnp.result.failure") %></span>
             </span>
           </td>
         </tr>
@@ -96,7 +90,7 @@
       <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
     </div>
     <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
-      <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok") %>
+      <%= link_to(I18n.t("labels.confirm"), tutorial_path(@device, Upnp::MODULE_NAME), class: "zyxel_btn_ok") %>
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
       <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
@@ -149,23 +143,27 @@
         $scope.loadTimes++;
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
 
-          if('form' == response.status){
-            $scope.pathIp = response.path_ip;
-            $scope.get_list = response;
-            if($scope.step != "confirm_cancel") {
-              $scope.formPanel(response);
-            }
-            return;
-          }else if('failure' == response.status){
-            $scope.get_failure(response);
-            return;
+          switch(response.status){
+            case 'form':
+              $scope.pathIp = response.path_ip;
+              $scope.get_list = response;
+              if($scope.step != "confirm_cancel") {
+                $scope.formPanel(response);
+              }
+              return;
+            case 'failure':
+            case 'timeout':
+              $scope.get_failure(response);
+              return;
           }
 
           if($scope.loadTimes < $scope.timesLimit){
+
             $scope.loadConfig();
-          }else{
-            $scope.get_failure(response);
+            return;
           }
+
+          $scope.get_failure(response);
         });
       }, $scope.interval);
 
@@ -212,7 +210,7 @@
     }
 
     $scope.bind_url = function(service, path, port){
-      $scope.service_url = path.replace(/(\/\/+).*(:).*/, '$1' + $scope.pathIp + '$2' + port);
+      $scope.service_url = path.replace(/(\/\/+)[^:]*(:)[^\/]*(\/?.*)/, '$1' + $scope.pathIp + '$2' + port + '$3');
       return $scope.service_url;
     };
     $scope.checkSubmit = function(){
@@ -220,12 +218,16 @@
         $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
 
           $scope.checkTimes++;
-          if('updated' == response.status){
-            $scope.successPanel();
-            return;
-          }else if('form' == response.status){
-            $scope.formPanel(response);
-            return;
+          switch(response.status){
+            case 'updated':
+              $scope.successPanel(response);
+              return;
+            case 'form':
+              $scope.formPanel(response);
+              return;
+            case 'timeout':
+              $scope.get_failure(response);
+              return;
           }
 
           if($scope.checkTimes < $scope.timesLimit){
@@ -260,11 +262,12 @@
       $scope.session = response;
       $scope.service_list = response.service_list;
     }
-    $scope.successPanel = function(){
+    $scope.successPanel = function(response){
       $scope.step = "form";
       $scope.panel = 'confirm';
       $scope.enableBtn();
       $scope.result = "true";
+      $scope.service_list = response.service_list;
       $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
     }
 
@@ -280,6 +283,14 @@
         $thisBtn.setAttribute('href', $dataUrl);
       };
     };
+
+    $scope.statusResult = function(state, update_result){
+      if(update_result == "success"){
+        return !state;
+      }else{
+        return state;
+      }
+    }
 
   });
 </script>

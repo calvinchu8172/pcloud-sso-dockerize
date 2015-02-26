@@ -20,9 +20,13 @@ module TestingHelper
     user
   end
   def self.create_device
-    device = FactoryGirl.create(:device)
+    product_id = Product.first.id
+    device = FactoryGirl.create(:device, product_id: product_id)
     device.save
-    device.update_ip_list "127.0.0.1"
+    ip = "127.0.0.1"
+    device.update_ip_list ip
+    device.session['ip'] = ip
+    device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
     device
   end
   def self.create_and_signin

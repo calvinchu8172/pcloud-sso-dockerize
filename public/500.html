@@ -1,66 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <title>500 - Internal Server Error</title>
   <style>
-  body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
-
-  div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    body {
+      margin: 0px;
+      padding: 0px;
+      font-family: 'Open Sans', sans-serif, "微軟正黑體";
+    }
+    .box {
+      width: 600px;
+      height: 320px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -160px;
+      margin-left: -300px;
+      /*background-color: #CCCCCC;*/
+    }
+    .box .title {
+      border-bottom: 2px solid #34D9C3;
+      padding: 20px 0px 20px 0px;
+      text-align: center;
+      font-size: 40px;
+      color: #34D9C3;
+    }
+    .box .message {
+      padding-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #999999;
+    }
+    .box .message a {
+      -webkit-transition-property: color;
+      -moz-transition-property: color;
+      -o-transition-property: color;
+      transition-property: color;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      color: #34D9C3;
+    }
+    .box .message a:hover, .box .message a:active {
+      color: #F0DF4A;
+    }
   </style>
 </head>
-
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <div>
-      <h1>We're sorry, but something went wrong.</h1>
+  <div class="box">
+    <div class="title">error 500</div>
+    <div class="message">
+      <p>Internal server error, we are trying to fix it as soon as possible!</p>
+      <p>You can contact with us: <a href="http://www.zyxel.com/form/Support_Feedback.shtml">Technical Support</a>.</p>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
   </div>
 </body>
 </html>

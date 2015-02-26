@@ -13,6 +13,9 @@ en:
     retry: 'Retry'
     submit: 'Submit'
     confirm: 'Confirm'
+    or: 'or'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: 'DDNS Setup'
@@ -33,6 +36,7 @@ en:
           failure: 'Failure'
           no_update: 'No Update'
     pairing: 'Pairing'
+    paired: 'Paired'
     unpairing: 'Unpairing'
     manually: 'Manually Add'
     profile: 'Profile'
@@ -91,7 +95,7 @@ en:
         instruction_6: 'Hyphen(-)'
         sync: 'Synchronizing DDNS settings...'
         success: 'DDNS settings have been successfully.'
-        failure: 'Update failed. Please try again later.'
+        failure: 'Server is busy, please try it again later'
         not_found: 'Device is not found'
         too_short: 'Your host name must be at least 3 characters long. Please try another.'
         too_long: 'Your host name must be shorter than 63 characters long. Please try another.'

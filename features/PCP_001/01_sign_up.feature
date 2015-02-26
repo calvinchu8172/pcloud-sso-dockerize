@@ -149,3 +149,13 @@ Feature: [PCP_001_01] Sign Up
 
     Then the page will redirect to login page
 
+
+  Scenario: [PCP_001_01_11]
+    Login successfully after log out
+
+    Given the visitor success sign up and login
+    And the user click sign out button
+
+    When the user try to sign in
+
+    Then user will login and redirect to dashboard

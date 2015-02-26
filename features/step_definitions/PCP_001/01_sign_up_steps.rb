@@ -47,6 +47,33 @@ Given(/^the visitor filled the user information$/) do
   fill_in "Confirm Password", with: "12345678"
 end
 
+
+Given(/^the visitor success sign up and login$/) do
+  steps %{
+    When the visitor success sign up an account:
+      | E-mail            | personal@example.com   |
+      | Password          | 12345678               |
+      | Confirm Password  | 12345678               |
+
+    Then the page will redirect to success page
+    And one new user created by personal@example.com
+    And the new user should receive an email confirmation
+
+    When the new user confirmed account within email
+
+    Then the page will redirect to confirmed page
+
+    When user click the confirm button
+
+    Then user will auto login and redirect to dashboard
+  }
+end
+
+
+Given(/^the user click sign out button$/) do
+  logout(:user)
+end
+
 # Click submit button with value
 When(/^the visitor click "(.*?)" button$/) do |button|
   click_button button
@@ -59,6 +86,13 @@ When(/^the visitor success sign up an account:$/) do |table|
   captcha_evaluates_to true
   TestingHelper.setup_test_email
   click_button I18n.t("labels.sign_up")
+end
+
+When(/^the user try to sign in$/) do
+  visit new_user_session_path
+  fill_in "user[email]", with: "personal@example.com"
+  fill_in "user[password]", with: "12345678"
+  find('.zyxel_btn_login_submit').click
 end
 
 # -------------------------------------------------------------------
@@ -145,6 +179,10 @@ Then(/^user will auto login and redirect to dashboard$/) do
   expect(page.current_path).to eq("/discoverer/index")
 end
 
+Then(/^user will login and redirect to dashboard$/) do
+  expect(page.current_path).to eq("/discoverer/index")
+end
+
 # Analog method of captcha
 def captcha_evaluates_to(result)
   eval <<-CODE
@@ -170,6 +208,6 @@ def check_email_content(user_email)
   @email = ActionMailer::Base.deliveries.first
   expect(@email.from.first).to eq(ActionMailer::Base.default[:from])
   expect(@email.to.first).to eq(user_email)
-  expect(@email.body).to have_content(I18n.t("devise.mailer.confirmation_instructions.instruction"))
+  expect(@email.body).to have_content("You have registered a new account at mycloud.zyxel.com")
   expect(@email.body).to match(/\/users\/confirmation/)
 end

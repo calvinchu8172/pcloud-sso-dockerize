@@ -63,9 +63,29 @@ body {
 .header h1 {
   float: left;
 }
+
 .zyxel_content{
   max-width: 480px;
   margin: 0 auto;
+  .checkbox_label, .zyxel_edm{
+    color:$zyxel_color2;
+    font-size:13px;
+  }
+  // Fix checkbox width issue in DE locale
+  &.oauth_agreement {
+    max-width:500px
+  }
+
+  .checkbox_i18n_wrap{
+    position: absolute;
+
+    + .zyxel_btn_area.i18n_fix{
+      // Fix submit length in sign-up page
+      word-wrap: break-word;
+      margin: 60px auto;
+    }
+  }
+
 }
 .nav_zyxel {
   float: right;
@@ -184,7 +204,17 @@ body {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-
+/* Fix for chrome resize issue */
+.nav .dropdown>a,
+.zyxel_btn_login_submit,
+.btn-group,
+.table_btn_area,
+.zyxel_btn_main,
+.zyxel_btn_area,
+.zyxel_btn_style1,
+.zyxel_btn_style2{
+  overflow: hidden;
+}
 /*btn1*/
 .btn_tab_color1 {
   color: $zyxel_white;
@@ -316,6 +346,7 @@ body {
 .checkbox_area {
   margin-top:0px;
   margin-bottom:5px;
+  font-size:13px;
 }
 .checkbox_area a {
   color: #666666;
@@ -658,7 +689,6 @@ body {
   background-position: left center;
   color: #eb132b;
   font-size: 15px;
-  line-height: 12px;
   padding: 5px 0 5px 27px;
   font-weight: normal;
 }
@@ -708,26 +738,30 @@ body {
   padding: 8% 7% 7% 7%;
 }
 .divider {
-  width: 100%;
-  text-align: center;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: $zyxel_color3;
-  margin: 14px auto 23px auto;
-  position: relative;
-}
-.divider div{
-  position: absolute;
-  top: -0.7em;
-  width: 100%;
-}
-.divider span{
-  width: auto;
-  /* [disabled]margin: 0 auto -6px; */
-  font-size: 1em;
-  padding: 0 1.2em;
-  color: $zyxel_color2;
-  text-shadow: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  div {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-size: 15px;
+    &.or{
+      -webkit-flex:1;
+      -ms-flex:1;
+      flex: 1;
+      color: $zyxel_color2
+    }
+    &:not(.or) {
+      -webkit-flex:4;
+      -ms-flex:4;
+      flex:4;
+      border-bottom: 1px solid $zyxel_color3;
+      margin-bottom: 10px;
+    }
+  }
 }
 .login_footer {
   border-top-width: 1px;
@@ -762,6 +796,9 @@ body {
   width: 50%;
   > a:hover + .hover_pop{
     visibility: visible;
+    // Fix absolute
+    top: 100%;
+    left: 0;
   }
 }
 .forgot_password_wrap{
@@ -828,16 +865,43 @@ body {
 .zyxel_table_style {
   width: 100%;
   margin-bottom: 20px;
+  th{
+    text-align: right;
+    color: $zyxel_color2;
+    font-weight: normal;
+    padding: 12px 12px 0 0;
+    width: 25%;
+    vertical-align: top;
+    height: 40px;
+    label{
+      display: inline;
+    }
+  }
+  .password_suggestion{
+    // Ref .zyxel_note p:not(.please)
+    &:before {
+      content: "\2713";
+      padding-right: 2px;
+    }
+    font-size: 0.8em;
+    line-height: 1.5em;
+    margin-left: 5px;
+  }
+  .entropizer-track {
+      background-color: #e8e8e8;
+      border-radius: 2px;
+      height: 4px;
+  }
+  .entropizer-bar {
+      height: 4px;
+  }
+  .fb_primary_mail{
+    position: absolute;
+    margin: 0 15px;
+    color: #34d9c3;
+  }
 }
-.zyxel_table_style th{
-  text-align: right;
-  color: $zyxel_color2;
-  font-weight: normal;
-  padding-right: 12px;
-  width: 25%;
-  vertical-align: middle;
-  height: 40px;
-}
+
 .zyxel_table_style1 th {
   width: 30%;
   border-bottom-width: 1px;
@@ -869,28 +933,62 @@ body {
 .zyxel_table_style2{
   /* [disabled]margin:0 auto; */
   width: 100%;
+
+  // pairing button & fix chrome issue
+  .zyxel_btn_style1{
+    float: right;
+    margin: 0 6px 0 0;
+    width:100%; // For i18n fix
+  }
+  th{
+    padding: 10px 0 15px 10px;
+    border-bottom: 1px solid $zyxel_color6;
+    color: $zyxel_color2;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  td{
+    padding-bottom: 12px;
+    border-bottom: 1px solid $zyxel_color6;
+  }
+  .td_left {
+    padding-left: 10px;
+  }
+  tr td:first-child {
+    text-align:center;
+  }
+  .device_info {
+    span{
+      font-size: 14px;
+      display: block;
+      margin: 3px 0;
+      overflow: hidden;
+      width:400px;  // Ref model img between device_info padding
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &.model_name{
+        font-size: 17px;
+        color: $zyxel_color4;
+      }
+    }
+    > span {
+      &:hover .device_info_hover{
+        visibility: visible;
+      }
+    }
+    .device_info_hover{
+      @extend .hover_pop;
+      margin: -55px auto;
+      text-align: left;
+      // Reset to default
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+  }
 }
-.zyxel_table_style2 th {
-  padding: 0 5px 0 10px;
-  border-bottom: 1px solid $zyxel_color6;
-  color: $zyxel_color2;
-  font-size: 17px;
-  font-weight: normal;
-}
-.zyxel_table_style2 td{
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid $zyxel_color6;
-}
-.zyxel_table_style2 .td_right {
-  width: 90px;
-}
-.zyxel_table_style2 .td_left {
-  padding-left: 10px;
-}
-.zyxel_table_style2 tr td:first-child {
-  text-align:center;
-}
+
+
 .agree_note_box {
   border-style: solid;
   border-width: 1px;
@@ -995,6 +1093,9 @@ body {
   width:100%;/* modify0815 */
   text-align:center;/* modify0815 */
 }
+
+.zyxel_table_style5 .upnp.service_list_name{text-decoration: underline;}
+
 .zyxel_table_style5 th {
   color: $zyxel_color2;
   border-bottom: 2px solid $zyxel_color6;
@@ -1244,11 +1345,158 @@ body {
   }
 }
 
+div.help{
+  max-width: 580px;
+  .btn_wrap{
+    margin: 0 0 20px;
+    #expand, #collapse{
+      color: #FFF;
+      padding: 10px 20px;
+      background: $zyxel_color4;
+      transition: background-color 0.3s ease 0s;
+      -webkit-transition: background-color 0.3s ease 0s; /* Chrome & safari */
+      -moz-transition: background-color 0.3s ease 0s; /* firefox */
+      -o-transition: background-color 0.3s ease 0s;
+      border: none;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      font-size: 0.9em;
+      &.disable{
+        opacity: 0.5;
+        cursor: default;
+        &:hover{
+          background-color: $zyxel_color4;
+        }
+      }
+      &:hover{
+        text-decoration:none;
+        color:$zyxel_white;
+        background-color:$zyxel_color1;
+      }
+    }
+  }
+  ul {
+    li{
+      list-style-type: none;
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $zyxel_white;
+      }
+      &:first-of-type h2 {
+        -webkit-border-radius: 3px 3px 0 0;
+        -moz-border-radius: 3px 3px 0 0;
+        border-radius: 3px 3px 0 0;
+      }
+      &:last-of-type {
+        h2:not(.active), h2.active + article {
+          -webkit-border-radius: 0 0 3px 3px;
+          -moz-border-radius: 0 0 3px 3px;
+          border-radius: 0 0 3px 3px;
+        }
+      }
+    }
+  }
+
+  #tabs{
+    padding:0;
+    h2{
+      margin: 0;
+      padding: 10px 10px;
+      font-size:15px; // Ref by sign-in btn
+      cursor: pointer;
+      background: $zyxel_color4;
+      color: white;
+      transition: background-color 0.3s ease 0s;
+      -webkit-transition: background-color 0.3s ease 0s; /* Chrome & safari */
+      -moz-transition: background-color 0.3s ease 0s; /* firefox */
+      -o-transition: background-color 0.3s ease 0s;
+      &:hover {
+        background-color: $zyxel_color1;
+        & + article {
+          border-color: $zyxel_color1;
+        }
+      }
+    }
+    article {
+      display: none;
+      padding: 5px 10px;
+      overflow: hidden;
+      color: $zyxel_color2;
+      border: 1px solid $zyxel_color4;
+      transition: border-color 0.3s ease 0s;
+      -webkit-transition: border-color 0.3s ease 0s; /* Chrome & safari */
+      -moz-transition: border-color 0.3s ease 0s; /* firefox */
+      -o-transition: border-color 0.3s ease 0s;
+    }
+    h2.active + article {
+      display: block;
+    }
+    img{
+      display: block;
+      margin: 0px auto;
+    }
+    br{
+      display: block;
+      margin:5px 0;
+    }
+    .member_icon{
+      display: inline-block;
+      padding: 0 25px;
+      background-image: image-url("member.png");
+      background-repeat: no-repeat;
+      background-position: center top;
+      width: 35px;
+      height: 34px;
+    }
+  }
+  img{
+    width:100%;
+  }
+}
+
 div.footer{
-  margin: -15px 0px 0px 30px;
+  margin: 80px auto;
   text-align: center;
+  .support {
+    a {
+      @include transition-property(color);
+      @include transition-duration(0.3s);
+      text-decoration: none;
+      font-size: 14px;
+      width: 65px;
+      display: inline-block;
+      padding: 0 15px;
+    }
+    a:link, a:visited {
+      color: $zyxel_color4;
+    }
+    a:hover, a:active {
+      color: #F0DF4A;
+    }
+    .diver{
+      display: inline-block;
+      width:5px;
+      color:$zyxel_color2;
+    }
+  }
   span{
     color:$zyxel_color2;
     font-size:12px ;
   }
+}
+
+.zyxel_btn_disabled {
+  @extend .zyxel_btn_style2;
+  width:100%; // For i18n fix
+  cursor: not-allowed;
+  color: $zyxel_white;
+  background: #0E8B81;
+  border-color: #0E8B81;
+}
+
+.zyxel_btn_disabled:hover {
+  @extend .zyxel_btn_style2:hover;
+  text-decoration:none;
+  background: #0E8B81;
+  color: $zyxel_white;
 }

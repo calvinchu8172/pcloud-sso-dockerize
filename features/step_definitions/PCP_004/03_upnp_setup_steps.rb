@@ -1,7 +1,7 @@
 Given(/^a user visit UPnP setup page$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
-  visit upnp_path(@pairing.device_id)
+  visit upnp_path(@pairing.device.escaped_encrypted_id)
 end
 
 Given(/^the page will waiting for connection with device$/) do
@@ -14,7 +14,6 @@ end
 
 When(/^the device was offline$/) do
   set_upnp_status(@upnp_session, "failure")
-  sleep 700
 end
 
 When(/^the device was online the device will response service list$/) do
@@ -22,20 +21,23 @@ When(/^the device was online the device will response service list$/) do
                      "status":true,
                      "enabled":true,
                      "description":"FTP configuration",
-                     "port":"22",
-                     "path":"ftp://wanip:port"},
+                     "wan_port":"22",
+                     "lan_port":"22",
+                     "path":"ftp://ip:port"},
                     {"service_name":"DDNS",
                      "status":true,
                      "enabled":false,
                      "description":"DDNS configuration",
-                     "port":"",
+                     "wan_port":"",
+                     "lan_port":"",
                      "path":""},
                     {"service_name":"HTTP",
                      "status":true,
                      "enabled":false,
                      "description":"HTTP configuration",
-                     "port":"80",
-                     "path":"http://wanip:port"}]').gsub("\n", "")
+                     "wan_port":"8000",
+                     "lan_port":"80",
+                     "path":"http://ip:port"}]').gsub("\n", "")
   set_upnp_status(@upnp_session, "form", service_list)
   wait_server_response
 end
