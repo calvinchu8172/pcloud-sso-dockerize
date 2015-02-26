@@ -46,7 +46,7 @@ default_file_outputter: &file_outputter
   filename: "app.log"
   formatter:
     date_pattern: '%Y/%m/%d %H:%M:%S:%L'
-    pattern     : '%d -- ip:%X{ip}, process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment}, [%l]: %m'
+    pattern     : '%d -- ip:%X{ip}, process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment}, level:%l, message:%m'
     type        : PatternFormatter
 
 default_date_file_outputter: &date_file_outputter
