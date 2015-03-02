@@ -82,6 +82,18 @@
     color:$zyxel_white;
     background-color: $zyxel_color7
   }
+  &.zyxel_btn_disabled {
+    width:100%; // For i18n fix
+    cursor: not-allowed;
+    color: #A3A3A3;
+    background: $zyxel_white;
+    border-color: #A3A3A3;
+    &:hover {
+      text-decoration:none;
+      color: #A3A3A3;
+      background: $zyxel_white;
+    }
+  }
 }
 .zyxel_btn_area {
   text-align: center;
