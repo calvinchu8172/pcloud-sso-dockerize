@@ -1,0 +1,20 @@
+zh-TW:
+  upnp_description:
+    http: "網頁作業系統"
+    streaming: '多媒體串流'
+    ftp: "FTP伺服器"
+    telnet: "TELNET伺服器"
+    cifs: "網路文件共享系統"
+    mediaserver: "多媒體伺服器"
+    nzbget: "這個套件能夠從 Usenet 下載 .nzb 檔案。帳號:nzbget 密碼:1234"
+    transmission: "這個套件是另一個支援 torrent 和 magnet 的 P2P 下載工具。"
+    owncloud_http: '允許你建立與管理個人雲,請使用帳號:admin/密碼:1234 登入'
+    owncloud_https: '允許你建立與管理個人雲,請使用帳號:admin/密碼:1234 登入'
+    afp: "蘋果文件協議"
+    gallery_http: "這個以網頁為主的套件可以讓您管理 NAS 的照片。請利用 NAS 的管理者帳號登入。管理者可以建立其他使用者的帳號。"
+    gallery_https: "這個以網頁為主的套件可以讓您管理 NAS 的照片。請利用 NAS 的管理者帳號登入。管理者可以建立其他使用者的帳號。"
+    wordpress_http: "這個套件可讓您建立及管理一個部落格。 請用 NAS 管理帳號登入。管理者可以建立其他使用者的帳號。"
+    wordpress_https: "這個套件可讓您建立及管理一個部落格。 請用 NAS 管理帳號登入。管理者可以建立其他使用者的帳號。"
+    php_mysql_phpmyadmin_http: "這個套件可透過網頁來管理MySQL。輸入使用者名稱 'root' 與密碼 '1234' 來登入。"
+    php_mysql_phpmyadmin_https: "這個套件可透過網頁來管理MySQL。輸入使用者名稱 'root' 與密碼 '1234' 來登入。"
+    myzyxelcloud_agent: "myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台"
