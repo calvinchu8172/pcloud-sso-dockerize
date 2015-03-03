@@ -17,7 +17,7 @@
 //= require angular-timer/dist/angular-timer.min
 //= require ng-table/ng-table.min
 //= require_tree .
-//= require twitter/bootstrap
+//= require bootstrap/dropdown
 //= require select2
 //= require entropizer
 //= require jquery-entropizer/dist/js/jquery-entropizer.min
