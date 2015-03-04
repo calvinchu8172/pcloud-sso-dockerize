@@ -15,7 +15,9 @@ module TestingHelper
   end
   def self.create_and_confirm
     user = FactoryGirl.create(:user)
-    user.confirm!
+    user.confirmed_at = Time.now.utc
+    user.confirmation_token = Devise.friendly_token
+    user.confirmation_sent_at = Time.now.utc
     user.save
     user
   end
