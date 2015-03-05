@@ -1,11 +1,11 @@
-<% provide(:flow, @device.product.model_name + "," + I18n.t("titles.unpairing")) %>
+<% provide(:flow, @device.product.model_class_name + "," + I18n.t("titles.unpairing")) %>
 
 <div class="unpairing">
   <div class="zyxel_content">
     <%# display the unpairing device %>
     <div class="zyxel_device">
       <%= image_tag @device.product.asset.url(:medium), class: "zyxel_device_image" %>
-      <h2 class="zyxel_h2_icon1"><%= @device.product.model_name %></h2>
+      <h2 class="zyxel_h2_icon1"><%= @device.product.model_class_name %></h2>
     </div>
     <%# display the unpairing device - end %>
 
