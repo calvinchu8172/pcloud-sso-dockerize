@@ -12,12 +12,12 @@
 //
 // require jquery
 // require jquery_ujs
-//= require jquery/dist/jquery.min
+//= require jquery.min
 //= require angular
-//= require angular-timer/dist/angular-timer.min
-//= require ng-table/ng-table.min
+//= require angular-timer
+//= require ng-table
 //= require_tree .
 //= require bootstrap/dropdown
 //= require select2
 //= require entropizer
-//= require jquery-entropizer/dist/js/jquery-entropizer.min
+//= require jquery-entropizer
