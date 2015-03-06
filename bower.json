@@ -7,5 +7,6 @@
     "jqlite": "*",
     "jquery-entropizer": "~0.1.0",
     "entropizer": "~0.1.3"
-  }
+  },
+  "resolutions":{ "angular": "1.3.14"}
 }
