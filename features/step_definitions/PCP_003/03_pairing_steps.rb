@@ -55,7 +55,7 @@ When(/^the user unpairing this device$/) do
   expect(page).to have_link I18n.t("labels.confirm")
   expect(page).to have_link I18n.t("labels.cancel")
   click_link "Confirm"
-  expect(page.current_path).to eq "/unpairing/success/#{URI.decode(@device.escaped_encrypted_id).chomp}"
+  expect(page.current_path).to eq "/unpairing/success/#{@device.escaped_encrypted_id.chomp}"
   # Need add the key to mock the device was online
   redis = Redis.new
   redis.HSET "s3:#{@device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
