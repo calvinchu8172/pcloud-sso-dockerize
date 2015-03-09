@@ -16,8 +16,8 @@ xmpp:
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
   name: 'alpha'
-  api_domain: 'pcloud.dev'
-  portal_domain: 'pcloud.dev'
+  api_domain: 'localhost'
+  portal_domain: 'localhost'
   ga_tracker: 'UA-57135359-1'
   paperclip:
     default:
