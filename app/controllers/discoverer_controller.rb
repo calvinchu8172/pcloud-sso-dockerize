@@ -17,7 +17,7 @@ class DiscovererController < ApplicationController
       raw_result.push({:device_id => device.escaped_encrypted_id,
         :paired => device.paired?,
         :product_name => device.product.name,
-        :model_name => device.product.model_name,
+        :model_class_name => device.product.model_class_name,
         :mac_address => device.mac_address.scan(/.{2}/).join(":"),
         :firmware_version => device.firmware_version,
         :img_url => device.product.asset.url(:thumb)})

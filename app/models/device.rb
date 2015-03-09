@@ -1,7 +1,7 @@
 class Device < ActiveRecord::Base
   include Redis::Objects
   include Guards::AttrEncryptor
-  
+
   belongs_to :product
   has_one :device_session
   has_one :ddns
@@ -18,7 +18,7 @@ class Device < ActiveRecord::Base
 
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
   # MODULE_LIST_KEY = 'device:module_version:'
-  
+
 
   before_save { mac_address.downcase! }
 
@@ -31,7 +31,7 @@ class Device < ActiveRecord::Base
     result = self.where( args.permit(:mac_address, :serial_number))
     if result.empty?
 
-      product = Product.where(args.permit(:model_name))
+      product = Product.where(args.permit(:model_class_name))
       unless product.first.nil?
         instance = self.create(args.permit(:mac_address, :serial_number, :firmware_version), product_id: product.first.id)
         logger.info('create new device id:' + instance.id.to_s)
@@ -49,11 +49,11 @@ class Device < ActiveRecord::Base
   def self.ip_addresses_key_prefix
     IP_ADDRESSES_KEY
   end
-  
+
   def paired?
     !self.pairing.owner.empty?
-  end  
-  
+  end
+
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -65,8 +65,8 @@ class Device < ActiveRecord::Base
     new_ip_list.store(self.id, 1)
   end
 
-  # looking for the next setting after device pairing  
-  # step order by default module list  
+  # looking for the next setting after device pairing
+  # step order by default module list
   def find_next_tutorial current_step = nil
 
     module_list = self.find_module_list
@@ -74,7 +74,7 @@ class Device < ActiveRecord::Base
     DEFAULT_MODULE_LIST.each do |step|
       return step[:name] if module_list.include? step[:name]
     end if current_step.blank?
-    
+
     return 'finished' unless module_list.include?(current_step)
 
     current_index = DEFAULT_MODULE_LIST.find_index { |item| item[:name] == current_step }
@@ -85,7 +85,7 @@ class Device < ActiveRecord::Base
     end.compact
 
     result.blank? ? 'finished' : result.first[:name]
-  end  
+  end
 
   # ignore paring module at this step
   def find_module_list
@@ -99,13 +99,13 @@ class Device < ActiveRecord::Base
     waiting_second = Pairing::WAITING_PERIOD.to_i
     logger.debug('waiting_second:' + waiting_second.to_s);
     return 0 if !self.class.handling_status.include?(pairing_session.get('status'))
-    
+
     time_difference = self.pairing_session.get('expire_at').to_i - Time.now().to_i
     time_difference = waiting_second if (waiting_second - time_difference) <= 5
     logger.debug('waiting_second:' + waiting_second.to_s + ', time_difference:' + time_difference.to_s)
     return time_difference
   end
-   
+
   # 用來判斷該device 是否有連上線
   # 主要是透過連線到xmpp 的redis session server
   # 依照該規則產生的key 是否存在來判斷是否在線上
