@@ -7,7 +7,7 @@ default: &default
   username: root
   collation: utf8_general_ci
 
-xmpp_default:
+xmpp_default: &xmpp_default
   <<: *default
   database: mogooseim
 
