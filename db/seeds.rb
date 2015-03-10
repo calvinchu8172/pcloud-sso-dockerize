@@ -10,8 +10,8 @@
 @localip = '127.0.0.1'
 
 12.times do |num|
-  
-  device_params = {:mac_address => Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2), :serial_number => Faker::Address.building_number, :model_name => 'model name', :firmware_version => 'v' + Faker::Address.zip_code}
+
+  device_params = {:mac_address => Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2), :serial_number => Faker::Address.building_number, :model_class_name => 'model name', :firmware_version => 'v' + Faker::Address.zip_code}
   @device = Device.create(device_params)
 
   ip = @localip
@@ -19,6 +19,6 @@
   	ip = Faker::Number.digit + '.' + Faker::Number.digit + '.' + Faker::Number.digit + '.' + Faker::Number.digit
   end
   session_params = {:ip => ip, :xmpp_account => Faker::Internet.user_name, :password => Faker::Internet.password(8)}
-  
+
   @device.create_device_session(session_params)
 end

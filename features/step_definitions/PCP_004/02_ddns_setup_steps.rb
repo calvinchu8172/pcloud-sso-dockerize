@@ -1,6 +1,6 @@
 Given(/^the user visits DDNS setup page$/) do
 	page.set_rack_session(first_pairing: true)
-	visit "/ddns/setting/#{@pairing.device.escaped_encrypted_id}"
+	visit "/ddns/#{@pairing.device.escaped_encrypted_id}"
 end
 
 Given(/^the device was first setting DDNS after paired$/) do
