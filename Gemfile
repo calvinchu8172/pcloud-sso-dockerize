@@ -26,7 +26,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-ng-table', '0.3.2'
   # gem "rails-assets-jquery"
   gem "rails-assets-jqlite"
-  # gem 'rails-assets-jquery-entropizer', '0.1.0'
+  gem 'rails-assets-jquery-entropizer', '0.1.0'
   gem 'rails-assets-entropizer', '0.1.3'
 end
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
