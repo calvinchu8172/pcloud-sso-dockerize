@@ -9,13 +9,15 @@
   <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
 
     <%# Display member link when user signed in %>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !current_page?('/help') %>
       <li>
         <%= link_to "", "/personal/profile", class: "member" %>
       </li>
     <% end %>
 
-    <% if current_page?(url_for(controller: 'sessions', action: 'new')) || current_page?('/users/sign_in')%>
+    <% if current_page?(controller: 'sessions', action: 'create') ||
+          current_page?(controller: 'sessions', action: 'new')
+    %>
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <%= I18n.t('labels.language') %>
@@ -29,7 +31,7 @@
     <% end %>
 
     <%# Display sign out link when user signed in %>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !current_page?('/help') %>
       <li>
         <%= link_to I18n.t("labels.sign_out") , destroy_user_session_path, method: :delete, class: "sign_out" %>
       </li>

@@ -2,25 +2,47 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  # rescue_from ActionController::RoutingError, with: :routing_error
+
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
   include Locale
   before_filter :set_locale
 
+  after_action :clear_log_context
   before_filter :setup_log_context
   after_action :store_location
+
+  #called by last route matching unmatched routes.  Raises RoutingError which will be rescued from in the same way as other exceptions.
+  def raise_not_found!
+    setup_log_context
+
+    logger.warn 'routing error paht:' + request.path + ', id:' + request.session_options[:id].to_s
+    render :file => 'public/404.html', :status => :not_found, :layout => false
+  end
+
+  def service_logger
+    Fluent::Logger.service_logger
+  end
 
   protected
 
     def setup_log_context
-      Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
-
-      context = { pid: Process.pid, ip: request.remote_ip}
-      context["user_id"] = current_user.id  if current_user
-
-      content = context.map{|k,v| "#{k}=#{v}"}.join(' ')
-      Log4r::MDC.put("context", content)
+      Log4r::MDC.put("pid", Process.pid)
+      Log4r::MDC.put("ip", request.remote_ip)
+      Log4r::MDC.put("user_id", current_user.id) if current_user
+      Log4r::MDC.put("host", Socket.gethostname)
+      Log4r::MDC.put("environment", Settings.environments.name)
     end
+
+    def clear_log_context
+      Log4r::MDC.get_context.keys.each {|k| Log4r::MDC.remove(k) }
+    end
+
+    # def routing_error
+    #   setup_log_context
+    #   render :file => 'public/404.html', :status => :not_found, :layout => false
+    # end
 
     def configure_devise_permitted_parameters
       registration_params = [:first_name, :middle_name, :last_name, :display_name, :email, :password, :password_confirmation, :gender, :mobile_number, :birthday, :language, :edm_accept, :agreement, :country]
@@ -41,6 +63,8 @@ class ApplicationController < ActionController::Base
       return unless request.get?
       if(!request.path.match("/users") &&
          !request.path.match("/hint") &&
+         !request.path.match("/oauth") &&
+         !request.path.match("/help") &&
          !request.xhr? && # don't store ajax calls
          (request.accept && !request.accept.match(/json/))) # don't store json calls
         session[:previous_url] = request.fullpath
@@ -52,8 +76,8 @@ class ApplicationController < ActionController::Base
     end
 
     def device_paired_with?
-      device_id = params[:id]
-      unless(paired?(device_id, current_user.id))
+      @device = Device.find_by_encrypted_id(params[:id])
+      unless(@device.pairing.owner.first.user_id == current_user.id)
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root
       end
@@ -67,23 +91,4 @@ class ApplicationController < ActionController::Base
       queue.send_message(data.to_json)
     end
 
-    def paired?(device_id, user_id)
-      Pairing.owner.exists?({:device_id => device_id, :user_id => user_id})
-    end
-
-    # Split browser locales array and find first support language
-    def get_browser_locale(browser_langs)
-      accept_locales = []
-      browser_langs.split(',').each do |l|
-       l = l.split(';').first
-       i = l.split('-')
-       if 2 == i.size
-         accept_locales << i[0].to_sym
-         i[1].upcase!
-       end
-       l = i.join('-').to_sym
-       accept_locales << l.to_sym
-      end
-      (accept_locales.select { |l| I18n.available_locales.include?(l) }).first
-    end
 end

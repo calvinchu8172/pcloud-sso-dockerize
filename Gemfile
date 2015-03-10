@@ -18,8 +18,17 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 gem 'immigrant'
 # Use jquery as the JavaScript library
-# gem 'jquery-rails'
+gem 'jquery-rails'
 gem 'angularjs-rails'
+source 'https://rails-assets.org' do
+  # gem 'rails-assets-angular'
+  gem 'rails-assets-angular-timer'
+  gem 'rails-assets-ng-table', '0.3.2'
+  # gem "rails-assets-jquery"
+  gem "rails-assets-jqlite"
+  gem 'rails-assets-jquery-entropizer', '0.1.0'
+  gem 'rails-assets-entropizer', '0.1.3'
+end
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -50,7 +59,7 @@ gem 'rails_config'
 gem 'unicorn'
 # portal
 gem 'bootstrap-sass'
-gem "twitter-bootstrap-rails"
+gem 'compass-rails'
 gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-google-oauth2'
@@ -61,6 +70,7 @@ gem 'devise-i18n'
 gem 'rails-i18n'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'i18n_country_select'
+gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
@@ -69,9 +79,13 @@ gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
+gem 'fluent-logger'
 
+# gem 'devise-async'
+# gem 'sidekiq'
 group :development, :test do
   gem 'faker'
+  gem 'hipchat'
   gem 'capybara'
   gem "capybara-webkit"
   gem 'cucumber-rails', :require => false

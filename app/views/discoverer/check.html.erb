@@ -6,7 +6,7 @@
       <span class="zyxel_span2"><%= I18n.t("warnings.settings.pairing.instruction") %></span>
       <div class="zyxel_btn_area i18n_fix">
         <%= link_to(I18n.t("labels.cancel"), "/discoverer/index", class: "zyxel_btn_back") %>
-        <%= link_to(I18n.t("labels.confirm"), "/pairing/index/" + @device.id.to_s, class: "zyxel_btn_submit zyxel_resend_btn") %>
+        <%= link_to(I18n.t("labels.confirm"), "/pairing/index/" + @device.escaped_encrypted_id, class: "zyxel_btn_submit zyxel_resend_btn") %>
       </div>
     </div>
   </div>

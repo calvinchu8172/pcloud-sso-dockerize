@@ -8,6 +8,7 @@ de:
       send_paranoid_instructions: "Wenn Ihre E-Mail Adresse in unserer Datenbank existiert, erhalten Sie in einigen Minuten eine E-Mail mit weiteren Anweisungen dazu, wie Sie Ihren Account bestätigen können."
     failure:
       already_authenticated: "Sie sind bereits angemeldet."
+      already_oauth_account: "Already registered via Facebook or Google+"
       inactive: "Ihr Account wurde noch nicht aktiviert."
       invalid: "Falsche E-Mail Adresse oder Passwort."
       locked: "Ihr Account ist gesperrt."
@@ -30,6 +31,7 @@ de:
     omniauth_callbacks:
       failure: "Sie konnten nicht authentifiziert werden von %{kind} wegen \"%{reason}\"."
       success: "Erfolgreiche Authentifizierung von %{kind} Account."
+      fb_primary_mail: "(Erste E-Mail Adresse in Facebook)"
     passwords:
       no_token: "Sie können diese Seite nicht aufrufen, wenn Sie von keiner Passwort Zurücksetzen E-Mail kommen. Sollten Sie von dieser kommen, stellen Sie sicher, dass Sie die vollständige URL kopiert oder geklickt haben."
       send_instructions: "Sie erhalten in einigen Minuten eine E-Mail wie Sie Ihr Passwort zurücksetzen können."
@@ -57,6 +59,7 @@ de:
       already_confirmed: "wurde bereits bestätigt, bitte versuchen Sie es erneut."
       confirmation_period_expired: "muss innerhalb von %{period}, bestätigt werden. Bitte fordern Sie einen neuen an"
       expired: "ist ausgelaufen, bitte fordern Sie einen neuen an"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
       not_found: "nicht gefunden"
       not_locked: "wurde nicht gesperrt"
       not_saved:

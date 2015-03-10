@@ -1,0 +1,34 @@
+// -------------------------------------
+//   Colors
+// -------------------------------------
+
+$zyxel_white: #ffffff;
+$zyxel_star: #ff4338;
+$zyxel_color1: #F0E049; // yellow, mainly for input focus
+$zyxel_color2: #999999; // gray
+$zyxel_color3: #d8d8d8; // light gray
+$zyxel_color4: #0075c9; // blue
+$zyxel_color5: #838383; // dark gray
+$zyxel_color6: #b8ebe3; // light gray
+$zyxel_color7: #0066A6; // dark blue, mainly for button hover
+
+
+$btn_bg: $zyxel_white;
+$btn_color: $zyxel_color4;
+$btn_border: $zyxel_color4;
+
+$btn_active_bg: $zyxel_color4;
+$btn_active_color: $zyxel_white;
+$btn_active_border: $zyxel_color4;
+
+$tab_bg: $zyxel_white;
+$tab_color: $zyxel_color4;
+$tab_border: $zyxel_color4;
+
+$tab_active_bg: $zyxel_color4;
+$tab_active_color: $zyxel_white;
+$tab_active_border: $zyxel_color4;
+
+$tab_active_hv_bg: $zyxel_color7;
+$tab_active_hv_color: $zyxel_white;
+$tab_active_hv_border: $zyxel_color7;

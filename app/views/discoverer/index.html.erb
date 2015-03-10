@@ -1,19 +1,28 @@
 <% provide(:tab, 'search') %>
 
-<div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl">
+<div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl" ng-init="devices=<%= @result.to_json %>;">
   <div class="zyxel_bread">
     <span><%= I18n.t("titles.search_devices") %></span>
     <%# Top content - result text and re-find button %>
     <button class="zyxel_btn_main icon_research" ng-click="doClick()"><%= I18n.t("labels.research") %></button>
   </div>
 
-  <div class="zyxel_content">
+  <div class="zyxel_content" style="max-width:660px">
     <%# Devices list %>
     <table class="zyxel_table_style2 devices_list">
       <tr class="device" ng-repeat="device in devices">
         <td class="td_left"><img ng-src="{{device.img_url}}"></td>
-        <th>{{device.product_name}}</th>
-        <td class="td_right"><a href="/discoverer/check/{{device.device_id}}" class="zyxel_btn_style1" ><%= I18n.t("labels.pairing") %></a></td>
+        <th class="device_info">
+          <span class="model_name">{{device.model_class_name}}</span>
+          <span><%= I18n.t("labels.mac_address") %>  {{device.mac_address}}</span>
+          <span><%= I18n.t("labels.settings.ddns.firmware_version") %>  {{device.firmware_version}}
+            <span ng-if="device.firmware_version.length >35"  class="device_info_hover">{{device.firmware_version}}</span>
+          </span>
+        </th>
+        <td class="td_right pairing_btn_fix">
+          <a ng-if="!device.paired" class="zyxel_btn_style1" href="/discoverer/check/{{device.device_id}}"  ><%= I18n.t("labels.pairing") %></a>
+          <span ng-if="device.paired" class="zyxel_btn_style1 zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.paired") %></span>
+        </td>
       </tr>
     </table>
     <%# Device list - end %>
@@ -24,7 +33,7 @@
     </div>
 
     <%# save json data in this node %>
-    <%= tag("div", data: @result, id: "device-data") %>
+
   </div>
 </div>
 
@@ -32,10 +41,9 @@
   // get devices data on search device page
   var discoverer_app = angular.module('discoverer_app', []);
   discoverer_app.controller('DeviceListCtrl', function ($scope, $http) {
-    $scope.devices = JSON.parse(document.getElementById("device-data").getAttribute("data"));
+
     $scope.doClick = function() {
 
-      $scope.devices = [];
       $http.get("/discoverer/index.json").success(function(response) {
         $scope.devices = response;
       });

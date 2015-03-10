@@ -1,14 +1,15 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    identity = User.from_omniauth(request.env["omniauth.auth"])
+    oauth_data = filter_data(request.env["omniauth.auth"])
+    identity = User.from_omniauth(oauth_data)
 
     session[:oauth] = identity.provider
     if !identity.user.blank?
       sign_in_and_redirect identity.user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => User::SOCIALS[params[:action].to_sym]) if is_navigational_format?
     else
-      session["devise.omniauth_data"] = request.env["omniauth.auth"]
+      session["devise.omniauth_data"] = oauth_data
       redirect_to '/oauth/new'
     end
   end
@@ -16,4 +17,32 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   User::SOCIALS.each do |k, _|
     alias_method k, :all
   end
+
+  private
+
+    def filter_data(auth)
+      # which key was your want to keep
+      key_list = ["provider",
+                  "uid",
+                  "credentials",
+                  "token",
+                  "expires_at",
+                  "expires",
+                  "first_name",
+                  "last_name",
+                  "name",
+                  "email",
+                  "middle_name",
+                  "locale",
+                  "gender"]
+
+      auth.each_pair do |key, value|
+        if value.is_a?(Hash)
+          filter_data(value)
+        else
+          auth.delete(key) if !key_list.include?(key)
+        end
+      end
+      auth
+    end
 end

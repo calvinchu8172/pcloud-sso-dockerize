@@ -1,14 +1,14 @@
-<% provide(:flow, @device.product.model_name + "," + I18n.t("titles.settings.ddns")) %>
+<% provide(:flow, @device.product.model_class_name + "," + I18n.t("titles.settings.ddns")) %>
 <% provide(:tab, 'my_devices') %>
 
-<div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.slice('id', 'device_id').to_json %>; checkStatus();">
+<div class="ddns" ng-app="ddns_app" ng-controller="DdnsCtrl" ng-init="session=<%= @ddns_session.to_json %>; checkStatus();">
 
   <div ng-switch on="step" class="zyxel_content" style="max-width: 550px">
     <%# display success information when bot change the session status %>
     <div ng-switch-when="success">
       <h2 class="zyxel_h2_icon"><%= I18n.t("warnings.settings.ddns.success") %></h2>
 
-      <span class="zyxel_span2"><%= @ddns_session['full_domain'].chomp('.') %></span>
+      <span class="zyxel_span2"><%= @full_domain.chomp('.') %></span>
       <div class="zyxel_btn_area">
         <%= link_to I18n.t("labels.confirm"), @link_path, class: "zyxel_btn_ok" %>
       </div>
@@ -29,7 +29,7 @@
   ddns_app.controller('DdnsCtrl', function($scope, $http, $timeout, $window) {
     $scope.session;
     $scope.failurePath = "/ddns/failure/";
-    $scope.statusPath = "/ddns/status/";
+    $scope.statusPath = "/ddns/success/";
     $scope.step = "loading";
     $scope.loadTimes = 0;
     $scope.timesLimit = 16;
@@ -42,10 +42,8 @@
       $timeout(function() {
         $scope.loadTimes++;
 
-        console.log('id:' + $scope.session.id);
-
         // get ajax
-        $http.get($scope.statusPath + $scope.session.id + $scope.formateSuffix, { cache: false}).success(function(response) {
+        $http.get($scope.statusPath + $scope.session.encrypted_id + $scope.formateSuffix, { cache: false}).success(function(response) {
 
           // display success information when status was changed to success
           if(response.status == "success") {
@@ -56,7 +54,7 @@
 
           // redirect to setting page and set error message when timeout or failure
           } else if(response.status == "failure" || $scope.loadTimes >= $scope.timesLimit) {
-            $window.location.href = $scope.failurePath + response.device_id;
+            $window.location.href = $scope.failurePath + response.encrypted_device_id;
           } else {
             $scope.checkStatus();
           }

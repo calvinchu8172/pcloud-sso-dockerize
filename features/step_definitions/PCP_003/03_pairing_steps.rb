@@ -5,7 +5,7 @@ Given(/^a user choose a device$/) do
 end
 
 Given(/^the user will redirect to pairing page$/) do
-  visit "/discoverer/check/#{@device.id}"
+  visit "/discoverer/check/#{@device.escaped_encrypted_id}"
 end
 
 Given(/^the user completely pairing a device$/) do
@@ -21,7 +21,7 @@ Given(/^another user2 in progress paired for the same device$/) do
   # switch to new bowser user2
   Capybara.session_name = "User2"
   @user2 = TestingHelper.create_and_signin
-  visit "/discoverer/check/#{@device.id}"
+  visit "/discoverer/check/#{@device.escaped_encrypted_id}"
   click_link "Confirm"
   # switch to user1
   Capybara.session_name = "User1"
@@ -33,6 +33,9 @@ end
 
 When(/^the user have other device$/) do
   @device2 = TestingHelper.create_device
+  # Need add the key to mock the device was online
+  redis = Redis.new
+  redis.HSET "s3:#{@device2.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
 end
 
 When(/^complete the pairing process$/) do
@@ -45,14 +48,17 @@ end
 
 When(/^the user unpairing this device$/) do
   visit "/personal/index"
-  expect(page).to have_link "Unpairing", href: "/unpairing/index/#{@pairing.id}"
+  expect(page).to have_link I18n.t("labels.unpairing"), href: "/unpairing/index/#{@device.escaped_encrypted_id}"
 
-  click_link("Unpairing", :href => "/unpairing/index/#{@pairing.id}")
+  click_link(I18n.t("labels.unpairing"), :href => "/unpairing/index/#{@device.escaped_encrypted_id}")
   expect(page).to have_content I18n.t("warnings.settings.unpairing.instruction")
   expect(page).to have_link I18n.t("labels.confirm")
   expect(page).to have_link I18n.t("labels.cancel")
   click_link "Confirm"
-  expect(page.current_path).to eq "/unpairing/success/#{@device.id}"
+  expect(page.current_path).to eq "/unpairing/success/#{URI.decode(@device.escaped_encrypted_id).chomp}"
+  # Need add the key to mock the device was online
+  redis = Redis.new
+  redis.HSET "s3:#{@device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
 end
 
 When(/^the user visits Search Devices page$/) do
@@ -62,10 +68,6 @@ end
 When(/^the user click "(.*?)" button to start pairing$/) do |link|
   click_link link
   @pairing_session = get_pairing_session(@device)
-end
-
-When(/^the device was connection$/) do
-  pairing_session_behavior(@pairing_session, "waiting", @device)
 end
 
 When(/^the device was not connection$/) do
@@ -84,8 +86,9 @@ end
 When(/^the device was connection and pairing process is waiting$/) do
   steps %{
     When the user click "Confirm" button to start pairing
-    Then the user should see "Connecting" message on pairing page
+    Then the user should see the pairing information
   }
+  pairing_session_behavior(@pairing_session, "waiting", @device)
 end
 
 When(/^the user click "(.*?)" button when finished pairing$/) do |link|
@@ -95,7 +98,7 @@ When(/^the user click "(.*?)" button when finished pairing$/) do |link|
 end
 
 When(/^the user click "(.*?)" link to start pairing$/) do |link|
-  click_link "Pairing", href: "/discoverer/check/#{@device2.id}"
+  click_link "Pairing", href: "/discoverer/check/#{@device2.escaped_encrypted_id}"
 end
 
 # -------------------------------------------------------------------
@@ -103,7 +106,7 @@ end
 # -------------------------------------------------------------------
 
 Then(/^the user should see another devices$/) do
-  expect(page).to have_link "Pairing", href: "/discoverer/check/#{@device2.id}"
+  expect(page).to have_link "Pairing", href: "/discoverer/check/#{@device2.escaped_encrypted_id}"
 end
 
 Then(/^the user will see the error message about device is pairing$/) do
@@ -111,7 +114,7 @@ Then(/^the user will see the error message about device is pairing$/) do
 end
 
 Then(/^the user should find the device after unpairing$/) do
-  expect(page).to have_link "Pairing", href: "/discoverer/check/#{@device.id}"
+  expect(page).to have_link I18n.t("labels.pairing"), href: "/discoverer/check/#{@device.escaped_encrypted_id}"
 end
 
 Then(/^the user will redirect to Search Devices page$/) do
@@ -131,7 +134,7 @@ Then(/^the user should see the pairing information$/) do
 end
 
 Then(/^the user will redirect to DDNS setup page$/) do
-  expect(page.current_path).to eq("/ddns/setting/#{@device.id}")
+  expect(page.current_path).to eq("/ddns/#{URI.decode(@device.escaped_encrypted_id).chomp}")
 end
 
 Then(/^the user will go back to Pairing setup flow$/) do
@@ -141,7 +144,8 @@ Then(/^the user will go back to Pairing setup flow$/) do
 end
 
 Then(/^it should not do anything on Pairing page$/) do
-  expect(page).to have_content I18n.t("warnings.settings.pairing.connecting")
+  expect(page).to have_content I18n.t("warnings.settings.pairing.start.instruction")
+  expect(page).to have_content I18n.t("warnings.settings.pairing.start.instruction_2")
 end
 
 def get_pairing_session(device)

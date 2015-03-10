@@ -1,6 +1,7 @@
 <% provide(:flow, I18n.t("titles.terms")) %>
+<% provide(:disable_alert, "hidden") %>
 
-<div class="zyxel_content">
+<div class="zyxel_content oauth_agreement">
   <div class="agree_note_box">
     <% if I18n.locale.to_s  == "zh-TW" %>
       <%= render "hint/terms/zh_TW" %>
@@ -20,6 +21,13 @@
       <%= f.check_box :agreement, class: "th_label" %>
       <label class="check_icon" for="user_agreement"><span></span></label>
     </div>
+    <% if flash[:notice] %>
+      <div class="alert_info">
+        <div class="zyxel_arlert_area">
+          <span class="error_message"><%= flash[:notice] %></span>
+        </div>
+      </div>
+    <% end %>
 
     <div class="zyxel_btn_area i18n_fix">
       <%= link_to I18n.t("labels.cancel"), new_session_path(@user), class: "zyxel_btn_back" %>

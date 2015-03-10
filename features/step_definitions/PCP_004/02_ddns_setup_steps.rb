@@ -1,6 +1,6 @@
 Given(/^the user visits DDNS setup page$/) do
 	page.set_rack_session(first_pairing: true)
-	visit "/ddns/setting/#{@pairing.device_id}"
+	visit "/ddns/#{@pairing.device.escaped_encrypted_id}"
 end
 
 Given(/^the device was first setting DDNS after paired$/) do
@@ -53,7 +53,7 @@ Then(/^the user should see success message on DDNS setup page$/) do
 end
 
 Then(/^the user will redirect to UPnP setup page$/) do
-	expect(page.current_path).to eq("/upnp/#{@ddns_session['device_id']}")
+	expect(page.current_path).to eq("/upnp/#{URI.decode(@pairing.device.escaped_encrypted_id).chomp}")
 end
 
 Then(/^it should not do anything on DDNS setup page$/) do

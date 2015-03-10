@@ -1,7 +1,7 @@
 # Visit search page with a user
 Given(/^a user visits search devices page$/) do
-  redis = Redis.new
-  redis.flushdb
+  @redis = Redis.new
+  @redis.flushdb
   @user = TestingHelper.create_and_signin
 end
 
@@ -13,6 +13,7 @@ end
 # Set a user have a device
 When(/^the device connect$/) do
   device = TestingHelper.create_device
+  @redis.HSET "s3:#{device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
   visit '/discoverer/index'
 end
 

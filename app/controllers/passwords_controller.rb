@@ -5,7 +5,7 @@ class PasswordsController < Devise::PasswordsController
     if omniauth_accout?(params[:user][:email])
       self.resource = User.find_by_email(params[:user][:email])
       yield resource if block_given?
-      resource.errors.add(:email, :not_found)
+      resource.errors.add(:email, :oauth_password)
       render "new"
     else
       super
@@ -46,9 +46,7 @@ class PasswordsController < Devise::PasswordsController
       oauth = false
       user = User.find_by_email(user_email)
       if !user.nil?
-        user.identity.each do |auth|
-          oauth = true if user.created_at <= auth.created_at
-        end
+        oauth = true if user.confirmation_token.nil?
       end
       oauth
     end

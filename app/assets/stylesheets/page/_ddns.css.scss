@@ -1,0 +1,45 @@
+// -------------------------------------
+//   Page: ddns
+//
+//   # Path: /ddns
+// -------------------------------------
+
+.zyxel_note {
+  color: #B2B2B2;
+  .please {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  p {
+    display: inline;
+  }
+  p:not(.please) {
+    &:before {
+      content: "\2713";
+      padding-right: 2px;
+    }
+    font-size: 0.8em;
+    line-height: 1.5em;
+    margin-left: 5px;
+  }
+}
+.zyxel_host_name {
+  margin-bottom: 10px;
+  input {
+    border: 1px solid $zyxel_color5;
+    height: 33px;
+    width: 40%;
+    outline: none;
+    background-color: transparent;
+    font-size: 20px;
+    color: #7c7c7c;
+    margin-bottom: 10px;
+    padding: 0 13px;
+    -webkit-appearance: none  ;
+    -moz-appearance: none;
+    @include border-radius(5px);
+  }
+  label {
+    font-weight: normal;
+  }
+}

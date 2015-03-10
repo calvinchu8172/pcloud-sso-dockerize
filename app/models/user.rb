@@ -3,8 +3,10 @@ class User < ActiveRecord::Base
   before_create :add_default_display_name
   has_many :identity
 
-  validates_length_of :email, :first_name, :middle_name, :last_name, :mobile_number, maximum:255
-  validates_length_of :mobile_number, maximum: 40
+  VALIDATE_MOBILE_REGEX = /\A[0-9#\+\(\)-]*\z/
+
+  validates_length_of :email, :first_name, :middle_name, :last_name, maximum:255
+  validates :mobile_number, length:{maximum: 40}, format: { with: VALIDATE_MOBILE_REGEX }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -53,7 +55,6 @@ class User < ActiveRecord::Base
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"] if auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
-
   end
 
   private
