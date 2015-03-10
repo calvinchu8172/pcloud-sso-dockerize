@@ -18,13 +18,13 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 gem 'immigrant'
 # Use jquery as the JavaScript library
-# gem 'jquery-rails'
+gem 'jquery-rails'
 gem 'angularjs-rails'
 source 'https://rails-assets.org' do
   # gem 'rails-assets-angular'
   gem 'rails-assets-angular-timer'
   gem 'rails-assets-ng-table', '0.3.2'
-  gem "rails-assets-jquery"
+  # gem "rails-assets-jquery"
   gem "rails-assets-jqlite"
   gem 'rails-assets-jquery-entropizer', '0.1.0'
   gem 'rails-assets-entropizer', '0.1.3'
