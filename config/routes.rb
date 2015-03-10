@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   # get '*unmatched_route', :to => 'application#raise_not_found!'
 
   # get "/404", :to => 'application#raise_not_found!'
-  post '/d/1/:action' => "device", :constraints => { :host => Settings.environments.api_domain }
-  post '/d/2/:action' => "device", :constraints => { :host => Settings.environments.api_domain }
 
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
@@ -52,6 +50,14 @@ Rails.application.routes.draw do
     post 'oauth/confirm'
   end
 
+  constraints :host => Settings.environments.api_domain  do
+
+    post '/d/1/:action' => "device"
+    post '/d/2/:action' => "device"
+
+    root "application#raise_not_found!", via: :all
+  end
+  
   get "*path", to: "application#raise_not_found!", via: :all
 
 end
