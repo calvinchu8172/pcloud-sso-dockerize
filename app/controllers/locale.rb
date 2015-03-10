@@ -29,12 +29,12 @@ module Locale
                         :"ไทย" => 'th',
                         :"Türkçe" => 'tr',
                         :"Čeština" => 'cs',
-                        :"Rusia" => 'ru',
-                        :"Poland" => 'pl',
-                        :"Italia" => 'it',
-                        :"Hungary" => 'hu',
-                        :"France" => 'fr',
-                        :"Spain" => 'es'}
+                        :"русский" => 'ru',
+                        :"Polska" => 'pl',
+                        :"Italiano" => 'it',
+                        :"Magyar" => 'hu',
+                        :"Français" => 'fr',
+                        :"Español" => 'es'}
   end
 
 
