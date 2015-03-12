@@ -230,9 +230,8 @@ class DeviceController < ApplicationController
   def validate_device_info
     mac_address_regex = /^[0-9a-f]{12}$/
 
-    mac_address = params[:mac_address] || ''
+    mac_address = (params[:mac_address] || '').downcase
     serial_number = params[:serial_number] || ''
-    mac_address.downcase!
 
     if mac_address_regex.match(mac_address) == nil || serial_number == ''
       logger.info('result: invalid Mac Address or Serial Number');
