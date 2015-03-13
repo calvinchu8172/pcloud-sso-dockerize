@@ -15,6 +15,7 @@ xmpp:
     - ec2-54-85-72-129.compute-1.amazonaws.com
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
+  name: 'alpha'
   api_domain: 'pcloud.dev'
   portal_domain: 'pcloud.dev'
   paperclip:
