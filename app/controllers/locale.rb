@@ -24,7 +24,7 @@ module Locale
     # language select option
     @locale_options = { :English => 'en',
                         :Deutsch => 'de',
-                        :Nederlands => 'nl',
+                        :Dutch => 'nl',
                         :"正體中文" => "zh-TW",
                         :"ไทย" => 'th',
                         :"Türkçe" => 'tr',
