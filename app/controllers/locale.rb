@@ -30,7 +30,7 @@ module Locale
                         :"Türkçe" => 'tr',
                         :"Čeština" => 'cs',
                         :"русский" => 'ru',
-                        :"Polska" => 'pl',
+                        :"Polski" => 'pl',
                         :"Italiano" => 'it',
                         :"Magyar" => 'hu',
                         :"Français" => 'fr',
