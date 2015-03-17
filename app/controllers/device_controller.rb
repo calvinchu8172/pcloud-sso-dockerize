@@ -15,7 +15,6 @@ class DeviceController < ApplicationController
   before_filter :adjust_params, only: :register
   before_filter :validate_device_info, only: :register
   before_filter :validate_signature, :only => :register
-  before_filter :verify_device, :only => :register
 
   # POST /d/1/register
   # 主要為五個步驟
@@ -27,7 +26,7 @@ class DeviceController < ApplicationController
 
     service_logger.note({parameters: api_permit})
 
-    device_checkin
+    @device = Device.checkin api_permit
     ddns_checkin
     install_module
     device_session_checkin
@@ -42,18 +41,6 @@ class DeviceController < ApplicationController
   end
 
   private
-
-  # 如果軔體版本有異動則記錄至資料庫
-  def device_checkin
-
-    unless api_permit[:firmware_version] == @device.firmware_version
-      logger.info('update device from fireware version' + api_permit[:firmware_version] + ' from ' + @device.firmware_version)
-
-      service_logger.note({'update fireware from' => @device.firmware_version, 'update fireware to' => api_permit[:firmware_version]})
-      @device.update_attribute(:firmware_version, api_permit[:firmware_version])
-    end
-
-  end
 
   # 如參數帶有reset=1的參數，並且該裝置已配對，則重設該台Device
   def reset
@@ -177,30 +164,6 @@ class DeviceController < ApplicationController
   def generate_new_passoword
     origin = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
     (0...10).map { origin[rand(origin.length)] }.join
-  end
-
-  # 使用mac address 和 serial number 辨識Device
-  # 並確定model name 有支援此服務
-  def verify_device
-
-    args = api_permit
-    result = Device.where( args.slice(:mac_address, :serial_number))
-
-    if result.empty?
-
-      product = Product.where(args.slice(:model_class_name))
-      logger.debug('product search result:' + product.inspect);
-      unless product.empty?
-        @device = Device.create(args.slice(:mac_address, :serial_number, :firmware_version).merge(product_id: product.first.id))
-        logger.info('create new device id:' + @device.id.to_s)
-        return
-      end
-
-      logger.info('result: invalid parameter');
-      render :json => {:result => 'invalid parameter'}, :status => 400
-    else
-      @device = result.first
-    end
   end
 
   # 使用各個加上magic number的方式驗證 signature 是否正確
