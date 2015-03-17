@@ -32,17 +32,20 @@ class Device < ActiveRecord::Base
     if result.empty?
 
       product = Product.where(args.permit(:model_class_name))
-      unless product.first.nil?
-        instance = self.create(args.permit(:mac_address, :serial_number, :firmware_version), product_id: product.first.id)
-        logger.info('create new device id:' + instance.id.to_s)
-      end
-    else
-      instance = result.first
-      unless args[:firmware_version] == instance.firmware_version
-        logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + instance.firmware_version)
-        instance.update_attribute(:firmware_version, args[:firmware_version])
-      end
+
+      return nil if product.empty?
+
+      instance = self.create(args.permit(:mac_address, :serial_number, :firmware_version), product_id: product.first.id)
+      logger.info('create new device id:' + instance.id.to_s)
+      return instance     
     end
+
+    instance = result.first
+    unless args[:firmware_version] == instance.firmware_version
+      logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + instance.firmware_version)
+      instance.update_attribute(:firmware_version, args[:firmware_version])
+    end
+    
     return instance
   end
 
