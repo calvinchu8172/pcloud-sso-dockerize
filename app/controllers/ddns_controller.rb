@@ -38,7 +38,7 @@ class DdnsController < ApplicationController
       @link_path = "/personal/index"
     end
 
-    @full_domain = raw_ddns_session['host_name'] + "." + Settings.environments.ddns
+    @full_domain = raw_ddns_session['host_name'] + "." + Settings.environments.ddns.chomp('.')
 
     @ddns_session = { :encrypted_id => @ddns.escaped_encrypted_id,
                       :encrypted_device_id => @device.escaped_encrypted_id,
@@ -68,11 +68,11 @@ class DdnsController < ApplicationController
     filter_list = Settings.environments.filter_list
     # If hostname was exits, it will redirct to setting page and display error message
     if ddns && !paired?(ddns.device_id)
-      flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
+      flash[:error] = @full_domain.chomp('.') + " " + I18n.t("warnings.settings.ddns.exist")
       redirect_to action: 'show', id: params[:id]
       return
     elsif filter_list.include?(hostname)
-      flash[:error] = @full_domain + " " + I18n.t("warnings.settings.ddns.exist")
+      flash[:error] = @full_domain.chomp('.') + " " + I18n.t("warnings.settings.ddns.exist")
       redirect_to action: 'show', id: params[:id]
       return
     end
