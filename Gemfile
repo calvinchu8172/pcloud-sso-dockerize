@@ -98,4 +98,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rack_session_access'
+  gem 'yard'
+  gem 'yard-cucumber'
 end
