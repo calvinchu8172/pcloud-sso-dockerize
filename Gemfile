@@ -81,6 +81,11 @@ gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
 
+group :test do
+  gem 'action_mailer_cache_delivery'
+  gem 'email_spec'
+end
+
 # gem 'devise-async'
 # gem 'sidekiq'
 group :development, :test do
