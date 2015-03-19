@@ -13,16 +13,12 @@ When(/^the device send information to REST API$/) do
   post path, @device
 end
 
-When(/^the device already registration$/) do
-  steps %{
-    When the device send information to REST API
-    Then the API should return success respond
-    And the record in databases as expected
-  }
+Given(/^the device already registration$/) do 
+  @registered_device = Device.checkin(@device.symbolize_keys)
 end
 
 When(/^the device send reset request to REST API$/) do
-  create_rest_pairing(@device)
+  create_rest_pairing(@registered_device)
   @device["reset"] = 1
   steps %{ When the device send information to REST API }
 end
@@ -120,12 +116,12 @@ end
 
 
 def create_rest_pairing(device)
-  name = 'd' + device["mac_address"].gsub(':', '-') + '-' + device["serial_number"].gsub(/([^\w])/, '-')
 
   redis = Redis.new
   pairing = Pairing.new
-  pairing.device_id = redis.GET("xmpp:#{name}:session")
+  pairing.device = device
   pairing.user = TestingHelper.create_and_signin
   pairing.ownership = 0
+  puts 'pairing:' + pairing.attributes.to_s
   pairing.save
 end
