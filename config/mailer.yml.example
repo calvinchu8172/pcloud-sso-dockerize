@@ -12,14 +12,7 @@ development:
     host: "pcloud.dev"
 
 test:
-  delivery_method: :smtp
-  smtp_settings:
-    address: "localhost"
-    port: 1025
-  default:
-    from: "do-not-reply@pcloud.ecoworkinc.com"
-  default_url_options:
-    host: "pcloud.ecoworkinc.com"
+  delivery_method: :cache
 
 production:
   delivery_method: :smtp
