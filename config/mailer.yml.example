@@ -13,6 +13,16 @@ development:
 
 test:
   delivery_method: :cache
+  smtp_settings:
+    address: ""
+    user_name: ""
+    password: ""
+    authentication: ""
+    enable_starttls_auto: Yes
+  default:
+    from: "do-not-reply@pcloud.ecoworkinc.com"
+  default_url_options:
+    host: "pcloud.dev"
 
 production:
   delivery_method: :smtp
