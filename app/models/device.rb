@@ -27,15 +27,15 @@ class Device < ActiveRecord::Base
   end
 
   def self.checkin args
-
-    result = self.where( args.permit(:mac_address, :serial_number))
+    
+    result = self.where( args.slice(:mac_address, :serial_number))
     if result.empty?
 
-      product = Product.where(args.permit(:model_class_name))
+      product = Product.where(args.slice(:model_class_name))
 
       return nil if product.empty?
 
-      instance = self.create(args.permit(:mac_address, :serial_number, :firmware_version), product_id: product.first.id)
+      instance = self.create(args.slice(:mac_address, :serial_number, :firmware_version).merge({product_id: product.first.id}))
       logger.info('create new device id:' + instance.id.to_s)
       return instance     
     end
