@@ -80,6 +80,7 @@ gem 'rails_admin', group: [:test, :development, :staging]
 gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
+gem 'json', '1.8.2'
 
 group :test do
   gem 'action_mailer_cache_delivery'

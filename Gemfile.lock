@@ -162,7 +162,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
-    json (1.8.1)
+    json (1.8.2)
     jwt (1.0.0)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
@@ -381,6 +381,7 @@ DEPENDENCIES
   immigrant
   jbuilder (~> 2.0)
   jquery-rails
+  json (= 1.8.2)
   log4r
   mysql2 (= 0.3.16)
   netrc!
