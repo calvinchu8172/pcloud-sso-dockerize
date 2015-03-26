@@ -1,0 +1,73 @@
+// -------------------------------------
+//   Page: discoverer
+//
+//   # Path: /discoverer/index
+// -------------------------------------
+
+.discoverer {
+  .zyxel_table_style2 {
+    .td_left {
+      width: 120px;
+    }
+  }
+  .zyxel_resend_btn {
+    padding-top: 10px;
+  }
+}
+.zyxel_table_style2{
+  /* [disabled]margin:0 auto; */
+  width: 100%;
+
+  // pairing button & fix chrome issue
+  .zyxel_btn_style1{
+    float: right;
+    margin: 0 6px 0 0;
+    width:100%; // For i18n fix
+  }
+  th{
+    padding: 10px 0 15px 10px;
+    border-bottom: 1px solid $zyxel_color4;
+    color: $zyxel_color2;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  td{
+    padding-bottom: 12px;
+    border-bottom: 1px solid $zyxel_color4;
+  }
+  .td_left {
+    padding-left: 10px;
+  }
+  tr td:first-child {
+    text-align:center;
+  }
+  .device_info {
+    span{
+      font-size: 14px;
+      display: block;
+      margin: 3px 0;
+      overflow: hidden;
+      width:400px;  // Ref model img between device_info padding
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &.model_name{
+        font-size: 17px;
+        color: $zyxel_color4;
+      }
+    }
+    > span {
+      &:hover .device_info_hover{
+        visibility: visible;
+      }
+    }
+    .device_info_hover{
+      @extend .hover_pop;
+      margin: -55px auto;
+      text-align: left;
+      // Reset to default
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+  }
+}

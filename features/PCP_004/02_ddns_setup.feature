@@ -67,7 +67,7 @@ Feature: [PCP_004_02] DDNS Setup
 	  Then the user will redirect to UPnP setup page
 
 
-  Scenario: [PCP_004_02_07]
+  Scenario:  [PCP_004_02_07]
     Redirect to My Devices page when user click cancel button in DDNS setup page
 
     When the user click "Cancel" link
@@ -83,5 +83,16 @@ Feature: [PCP_004_02] DDNS Setup
 
     Then it should not do anything on DDNS setup page
 
+  Scenario:  [PCP_004_02_09]
+    Show error message when hostname was used in user's devices
 
+
+    When the device already registered hostname <already>
+
+    When the user have other devices
+    And the user visits another device DDNS setup page
+    And the user filled the invalid Hostname <already>
+    And the user click "Submit" button
+
+    Then the user should see error message for Hostname
 

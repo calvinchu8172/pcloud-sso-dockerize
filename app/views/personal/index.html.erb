@@ -5,6 +5,7 @@
 
   <%# paired device list %>
   <div class="zyxel_content" style="max-width:660px">
+
     <table class="zyxel_table_style3">
 
       <%# check paired devices %>
@@ -27,19 +28,19 @@
                   <% end %>
                 </tr>
                 <tr>
-                  <td><span><%= I18n.t("labels.settings.ddns.wan_ip") %></span><%= info_hash[:ip] %></td>
+                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.wan_ip") %></span><%= info_hash[:ip] %></td>
                 </tr>
                 <tr>
-                  <td><span><%= I18n.t("labels.settings.ddns.model") %></span><%= info_hash[:model_name] %></td>
+                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.model") %></span><%= info_hash[:model_class_name] %></td>
                 </tr>
                 <tr>
-                  <td><span><%= I18n.t("labels.settings.ddns.last_update") %></span><%= info_hash[:date] %></td>
+                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.last_update") %></span><%= info_hash[:date] %></td>
                 </tr>
                 <tr>
-                  <td><span><%= I18n.t("labels.mac_address") %></span><%= info_hash[:mac_address]%></td>
+                  <td><span class="device_info"><%= I18n.t("labels.mac_address") %></span><%= info_hash[:mac_address]%></td>
                 </tr>
                 <tr>
-                  <td><span><%= I18n.t("labels.settings.ddns.firmware_version") %></span><%= info_hash[:firmware_version] %></td>
+                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.firmware_version") %></span><%= info_hash[:firmware_version] %></td>
                 </tr>
               </table>
             </td>
@@ -47,8 +48,8 @@
           </tr>
           <tr>
             <td colspan="3" class="text-right table_btn_area">
-              <%= link_to I18n.t("labels.settings.ddns.instruction") , "/ddns/setting/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style1 margin_right5" %>
-              <%= link_to I18n.t("labels.settings.upnp.instruction") , upnp_path(pairing.device.escaped_encrypted_id), class: "zyxel_btn_style1 margin_right5" %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
               <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
             </td>
           </tr>

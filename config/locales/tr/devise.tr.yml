@@ -8,7 +8,7 @@ tr:
       send_paranoid_instructions: "E-posta adresiniz veritabanımızda mevcutsa, birkaç dakika içinde hesabınızın nasıl onaylanacağı konusunda talimatları içeren bir e-posta alacaksınız."
     failure:
       already_authenticated: "Zaten oturum açtınız."
-      already_oauth_account: "Already registered via Facebook or Google+"
+      already_oauth_account: "Facebook veya Google+ aracılığıyla zaten kayıt yapılmış"
       inactive: "Hesabınız henüz etkinleştirilmedi."
       invalid: "eçersiz e-posta ya da şifre."
       locked: "Hesabınız kilitli."
@@ -31,7 +31,7 @@ tr:
     omniauth_callbacks:
       failure: "\"%{reason}\" nedeniyle %{kind} kimlik doğrulamanız yapılamadı."
       success: "%{kind} hesabından başarıyla kimlik doğrulandı."
-      fb_primary_mail: "(Primary e-mail on Facebook)"
+      fb_primary_mail: "(Facebook'ta birincil e-posta)"
     passwords:
       no_token: "Şifre sıfırlama e-postasından gelmeden bu sayfaya erişemezsiniz. Bir şifre sıfırlama e-postasından geliyorsanız, lütfen sağlanan tam URL'yi kullandığınızdan emin olun."
       send_instructions: "Birkaç dakika içinde şifrenizin nasıl sıfırlanacağı konusunda talimatları içeren bir e-posta alacaksınız."

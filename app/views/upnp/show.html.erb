@@ -1,4 +1,4 @@
-<% provide(:flow, @device.product.model_name + "," + I18n.t("titles.settings.upnp")) %>
+<% provide(:flow, @device.product.model_class_name + "," + I18n.t("titles.settings.upnp")) %>
 <% provide(:tab, 'my_devices') %>
 
 <div class="upnp zyxel_content" style="max-width:570px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json() %>;loadConfig();">
@@ -90,7 +90,7 @@
       <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
     </div>
     <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
-      <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok") %>
+      <%= link_to(I18n.t("labels.confirm"), tutorial_path(@device, Upnp::MODULE_NAME), class: "zyxel_btn_ok") %>
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
       <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>

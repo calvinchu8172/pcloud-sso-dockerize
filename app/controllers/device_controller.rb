@@ -1,6 +1,6 @@
-# 為負責和 device 溝通的 Restful API  
-# 主要功能為註冊或者更新device 上的相關資料  
-# 存取方式的範例 POST mac_address=099789665708&serial_number=A123456&model_name=NSA320S&firmware_version=1.0&algo=1.1&signature=sinature_hash_all_of_parameters_and_magic_number  
+# 為負責和 device 溝通的 Restful API
+# 主要功能為註冊或者更新device 上的相關資料
+# 存取方式的範例 POST mac_address=099789665708&serial_number=A123456&model_name=NSA320S&firmware_version=1.0&algo=1.1&signature=sinature_hash_all_of_parameters_and_magic_number
 # 參數說明如下:
 # 1. mac_address
 # 2. serial_number 該台device的序號，和 mac_address 共同組成唯一的識別方式
@@ -12,6 +12,7 @@ class DeviceController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
   skip_before_filter :authenticate_user!
+  before_filter :adjust_params, only: :register
   before_filter :validate_device_info, only: :register
   before_filter :validate_signature, :only => :register
   before_filter :verify_device, :only => :register
@@ -28,6 +29,7 @@ class DeviceController < ApplicationController
 
     device_checkin
     ddns_checkin
+    install_module
     device_session_checkin
     reset
 
@@ -86,6 +88,30 @@ class DeviceController < ApplicationController
     end
   end
 
+  # 記錄下該Device 所需要的modules
+  def install_module
+
+    modules = parse_module_list(api_permit[:module]) || Device::DEFAULT_MODULE_LIST
+    modules = modules.kind_of?(Array) ? modules : Device::DEFAULT_MODULE_LIST
+
+    @device.module_list.clear
+    @device.module_version.clear
+    module_version = {}
+    modules.each do |item|
+     @device.module_list << item[:name].downcase unless item[:name].blank?
+     module_version[item[:name].downcase] = item[:ver] unless item[:ver].blank?
+    end
+
+    @device.module_version.bulk_set(module_version)
+  end
+
+  def parse_module_list module_list
+    begin
+      modules = JSON.parse(module_list, symbolize_names: true)
+    rescue
+    end
+  end
+
   def reset_requestment?
     !params[:reset].nil? && params[:reset] == 1.to_s
   end
@@ -129,7 +155,7 @@ class DeviceController < ApplicationController
 
   # 目前只允許下列六項的參數使用
   def api_permit
-    params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :algo);
+    params.permit(:mac_address, :serial_number, :model_class_name, :firmware_version, :signature, :module, :algo);
   end
 
   # 此為直接連線至MongooseIM 的Db 直接存取修改帳XMPP的號密碼
@@ -146,7 +172,7 @@ class DeviceController < ApplicationController
   def generate_new_username
     'd' + @device.mac_address.gsub(':', '-') + '-' + @device.serial_number.gsub(/([^\w])/, '-')
   end
-  
+
   #用英數產生密碼，大小寫有別
   def generate_new_passoword
     origin = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
@@ -162,7 +188,7 @@ class DeviceController < ApplicationController
 
     if result.empty?
 
-      product = Product.where(args.slice(:model_name))
+      product = Product.where(args.slice(:model_class_name))
       logger.debug('product search result:' + product.inspect);
       unless product.empty?
         @device = Device.create(args.slice(:mac_address, :serial_number, :firmware_version).merge(product_id: product.first.id))
@@ -179,16 +205,15 @@ class DeviceController < ApplicationController
 
   # 使用各個加上magic number的方式驗證 signature 是否正確
   def validate_signature
-
   	magic_number = Settings.magic_number
   	mac_address = params[:mac_address] || ''
   	serial_number = params[:serial_number] || ''
-  	model_name = params[:model_name] || ''
+  	model_class_name = params[:model_class_name] || ''
   	firmware_version = params[:firmware_version] || ''
   	signature = params[:signature] || ''
   	algo = params[:algo]
 
-  	data = mac_address + serial_number.to_s + model_name + firmware_version + magic_number.to_s
+  	data = mac_address + serial_number.to_s + model_class_name + firmware_version + magic_number.to_s
     sha224 = OpenSSL::Digest::SHA224.new
     signature_inside = sha224.hexdigest(data)
 
@@ -205,12 +230,18 @@ class DeviceController < ApplicationController
   def validate_device_info
     mac_address_regex = /^[0-9a-f]{12}$/
 
-    mac_address = params[:mac_address].downcase || ''
+    mac_address = (params[:mac_address] || '').downcase
     serial_number = params[:serial_number] || ''
 
     if mac_address_regex.match(mac_address) == nil || serial_number == ''
       logger.info('result: invalid Mac Address or Serial Number');
       render :json => {:result => 'invalid parameter'}, :status => 400
     end
+  end
+
+  # 由於 model_name 為 Rails activeModel 中的 method
+  # 所以必需於此做轉換，將 model_name 轉為 model_class_name
+  def adjust_params
+    params[:model_class_name] = params.delete(:model_name)
   end
 end

@@ -134,7 +134,7 @@ Then(/^the user should see the pairing information$/) do
 end
 
 Then(/^the user will redirect to DDNS setup page$/) do
-  expect(page.current_path).to eq("/ddns/setting/#{URI.decode(@device.escaped_encrypted_id).chomp}")
+  expect(page.current_path).to eq("/ddns/#{URI.decode(@device.escaped_encrypted_id).chomp}")
 end
 
 Then(/^the user will go back to Pairing setup flow$/) do

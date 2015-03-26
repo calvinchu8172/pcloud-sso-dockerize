@@ -1,26 +1,26 @@
+#default logger
 default_app_logger: &app_logger
   name          : application
   level         : DEBUG
   trace         : 'true'
   outputters    : 
-    - app_log_server
-    - app_rolling_file
+    - app_file
 
 default_service_logger: &service_logger
   name          : service
   level         : DEBUG
   trace         : 'true'
   outputters    :
-    - app_rolling_file
+    - app_file
 
 default_db_logger: &db_logger
   name          : database
   level         : DEBUG
   trace         : 'true'
   outputters    :
-    - db_log_server
-    - db_rolling_file
+    - db_file
 
+#default outputter
 default_fluent_post_outputter: &fluent_post_outputter
   type: FluentPostOutputter
   name: log_server
@@ -39,6 +39,16 @@ default_rolling_file_outputter: &rolling_file_outputter
     pattern     : '%d, ip:%X{ip} ,process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment} %l: %m'
     type        : PatternFormatter
 
+default_file_outputter: &file_outputter
+  type: FileOutputter
+  name: file
+  dirname: "log"
+  filename: "app.log"
+  formatter:
+    date_pattern: '%Y/%m/%d %H:%M:%S:%L'
+    pattern     : '%d -- ip:%X{ip}, process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment}, level:%l, message:%m'
+    type        : PatternFormatter
+
 default_date_file_outputter: &date_file_outputter
   type: DateFileOutputter
   name: app_log
@@ -49,6 +59,20 @@ default_date_file_outputter: &date_file_outputter
     pattern     : '%d, ip:%X{ip} ,process:%X{pid}, user_id:%X{user_id}, host:%X{host}, env:%X{environment} %l: %m'
     type        : PatternFormatter
 
+# config
+log4r_config:
+  loggers:
+  - <<: *app_logger
+  - <<: *db_logger
+  - <<: *service_logger
+  outputters:
+  - <<: *file_outputter
+    name: app_file
+    filename: "log/app.log"
+  - <<: *file_outputter
+    name: db_file
+    filename: "log/db.log"
+
 # config for each enviornment
 production:
   log4r_config:
@@ -57,17 +81,13 @@ production:
     - <<: *db_logger
     - <<: *service_logger
     outputters:
-    - <<: *fluent_post_outputter
-      name: app_log_server
-      tag: personal_cloud.app.production
-    - <<: *fluent_post_outputter
-      name: db_log_server
-      tag: personal_cloud.db.production
-    - <<: *rolling_file_outputter
-      name: app_rolling_file
+    - <<: *file_outputter
+      name: app_file
+      level: INFO
       filename: "log/app.log"
-    - <<: *rolling_file_outputter
-      name: db_rolling_file
+    - <<: *file_outputter
+      name: db_file
+      level: INFO
       filename: "log/db.log"
 
 beta:
@@ -77,17 +97,13 @@ beta:
     - <<: *db_logger
     - <<: *service_logger
     outputters:
-    - <<: *fluent_post_outputter
-      name: app_log_server
-      tag: personal_cloud.app.beta
-    - <<: *fluent_post_outputter
-      name: db_log_server
-      tag: personal_cloud.db.beta
-    - <<: *rolling_file_outputter
-      name: app_rolling_file
+    - <<: *file_outputter
+      name: app_file
+      level: INFO
       filename: "log/app.log"
-    - <<: *rolling_file_outputter
-      name: db_rolling_file
+    - <<: *file_outputter
+      name: db_file
+      level: INFO
       filename: "log/db.log"
 
 alpha:
@@ -97,18 +113,13 @@ alpha:
     - <<: *db_logger
     - <<: *service_logger
     outputters:
-    - <<: *fluent_post_outputter
-      type: Outputter
-      name: app_log_server
-      tag: personal_cloud.app.alpha
-    - <<: *fluent_post_outputter
-      type: Outputter
-      name: db_log_server
-      tag: personal_cloud.db.alpha
-    - <<: *rolling_file_outputter
-      name: app_rolling_file
+    - <<: *file_outputter
+      name: app_file
+      level: DEBUG
       filename: "log/app.log"
-    - <<: *rolling_file_outputter
-      name: db_rolling_file
+    - <<: *file_outputter
+      name: db_file
+      level: DEBUG
       filename: "log/db.log"
+
 

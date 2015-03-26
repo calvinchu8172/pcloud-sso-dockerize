@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006105431) do
+ActiveRecord::Schema.define(version: 20150305030400) do
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20141006105431) do
 
   create_table "products", force: true do |t|
     t.string   "name",                             null: false
-    t.string   "model_name",           limit: 120, null: false
+    t.string   "model_class_name",     limit: 120, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "asset_file_name"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20141006105431) do
     t.datetime "pairing_updated_at"
   end
 
-  add_index "products", ["model_name"], name: "index_products_on_model_name", unique: true, using: :btree
+  add_index "products", ["model_class_name"], name: "index_products_on_model_class_name", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                             default: "",   null: false

@@ -1,6 +1,6 @@
 Given(/^the user visits DDNS setup page$/) do
 	page.set_rack_session(first_pairing: true)
-	visit "/ddns/setting/#{@pairing.device.escaped_encrypted_id}"
+	visit "/ddns/#{@pairing.device.escaped_encrypted_id}"
 end
 
 Given(/^the device was first setting DDNS after paired$/) do
@@ -31,6 +31,14 @@ When(/^the server update DDNS setting successfully$/) do
 	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
 	set_ddns_session(@ddns_session,"success")
+end
+
+When(/^the device already registered hostname (.*?)$/) do |value|
+	submit_hostname(value)
+end
+
+When(/^the user visits another device DDNS setup page$/) do
+	visit "/ddns/#{@other_paired.device.escaped_encrypted_id}"
 end
 
 # -------------------------------------------------------------------

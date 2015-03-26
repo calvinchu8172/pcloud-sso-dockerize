@@ -29,7 +29,10 @@ Given(/^the user filled the correct information$/) do
 end
 
 Given(/^the account was confirmed$/) do
-  @user.confirm!
+  @user.confirmed_at = Time.now.utc
+  @user.confirmation_token = Devise.friendly_token
+  @user.confirmation_sent_at = Time.now.utc
+  @user.save
 end
 
 # -------------------------------------------------------------------

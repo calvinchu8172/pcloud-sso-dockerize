@@ -1,0 +1,67 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+hu:
+  devise:
+    confirmations:
+      confirmed: "Fiókja sikeresen hitelesítésre került."
+      send_instructions: "Néhány perc múlva e-mailben megkapja az útmutatót, mely segítségével hitelesítheti fiókját."
+      send_paranoid_instructions: "Ha e-mail címe szerepel adatbázisunkban, néhány perc múlva e-mailben megkapja az útmutatót, mely segítségével hitelesítheti fiókját."
+    failure:
+      already_authenticated: "Már bejelentkezett."
+      already_oauth_account: "Már regisztrált Facebook vagy Google+ fiókjával"
+      inactive: "A fiók még nincs aktiválva."
+      invalid: "Érvénytelen e-mail vagy jelszó."
+      locked: "Fiókja zárolva van."
+      last_attempt: "Még egy próbálkozása van, mielőtt fiókját zároljuk."
+      not_found_in_database: "Érvénytelen e-mail vagy jelszó."
+      timeout: "A munkamenet lejárt. A folytatáshoz jelentkezzen be újra."
+      unauthenticated: "A folytatáshoz be kell jelentkeznie vagy regisztrálnia kell."
+      unconfirmed: "A folytatáshoz hitelesítenie kell fiókját."
+    mailer:
+      confirmation_instructions:
+        subject: "ZyXEL Cloud - Fiókhitelesítés"
+        instruction: "Köszönjük, hogy regisztrált a ZyXEL Cloud-on, fiókja hitelesítéséhez kattintson a lenti hivatkozásra."
+        instruction_2: "Az e-mail kézhezvételét követő 3 napon belül kattintson a hivatkozásra."
+      reset_password_instructions:
+        subject: "ZyXEL Cloud - Jelszócsere kérelem"
+        instruction: "Kérte ZyXEL Cloud fiókjához tartozó jelszavának cseréjét. Kattintson a lenti hivatkozásra a jelszócsere megkezdéséhez.:"
+        instruction_2: "Ha nem Ön kérte ezt, kérjük, hagyja figyelmen kívül az e-mailt."
+      unlock_instructions:
+        subject: "Feloldási útmutató"
+    omniauth_callbacks:
+      failure: "Nem sikerült Önt hitelesíteni innen: %{kind}, mert \"%{reason}\"."
+      success: "Sikeres hitelesítés %{kind} fiókkal."
+      fb_primary_mail: "(Elsődleges e-mail Facebook-on)"
+    passwords:
+      no_token: "Nem férhet az oldalhoz, csak a jelszó-visszaállító e-mailen keresztül. Ha nem egy jelszó-visszaállító e-mailből jutott el ide, ellenőrizze, hogy a teljes URL címet használta-e."
+      send_instructions: "Néhány perc múlva e-mailben megkapja az útmutatót, mely segítségével visszaállíthatja jelszavát."
+      send_paranoid_instructions: "Ha e-mail címe szerepel adatbázisunkban, néhány perc múlva e-mail címére megkapja a jelszó visszaállításához szükséges hivatkozást."
+      updated: "Jelszava sikeresen módosítva. Bejelentkezett."
+      updated_not_active: "Jelszava sikeresen módosítva."
+    registrations:
+      destroyed: "Viszont látásra! Fiókja sikeresen törlésre került. Reméljük, hamarosan újra látjuk!"
+      signed_up: "Üdvözöljük! Sikeresen regisztrált."
+      signed_up_but_inactive: "Sikeresen regisztrált. Azonban még nem tud bejelentkezni, mert fiókja nincsen aktiválva."
+      signed_up_but_locked: "Sikeresen regisztrált. Azonban még nem tud bejelentkezni, mert fiókja zárolva van."
+      signed_up_but_unconfirmed: "A hitelesítő hivatkozást elküldtük e-mail címére. A hivatkozást követve aktiválja fiókját."
+      update_needs_confirmation: "Sikeresen frissítette fiókadatait, de ellenőriznünk kell új e-mail címét. Ellenőrizze e-mail fiókját, megkapta-e a hitelesítő hivatkozást, mellyel befejezheti új e-mail címének megerősítését."
+      updated: "Sikeresen frissítette fiókadatait."
+      captcha: "Hiba történt a lenti captcha kóddal. Adja meg újra a kódot."
+    sessions:
+      signed_in: "Sikeres bejelentkezés."
+      signed_out: "Sikeres kijelentkezés."
+    unlocks:
+      send_instructions: "Néhány perc múlva e-mailben megkapja az útmutatót, mely segítségével feloldhatja fiókját."
+      send_paranoid_instructions: "Ha fiókja létezik, néhány perc múlva e-mailben megkapja az útmutatót, mely segítségével feloldhatja azt."
+      unlocked: "Sikeresen feloldotta a fiókját. A folytatáshoz jelentkezzen be."
+  errors:
+    messages:
+      already_confirmed: "már hitelesítve, próbáljon bejelentkezni"
+      confirmation_period_expired: "hitelesítésének %{period} időn belül meg kell történnie, kérjen újat"
+      expired: "lejárt, kérjen újat"
+      oauth_password: "please use your existing social network account (Facebook or Google+) to change your existing password."
+      not_found: "nem található"
+      not_locked: "nincs zárolva"
+      not_saved:
+        one: "1 hiba miatt %{resource} nem menthető, 1 hiba megakadályozza a felhasználó mentését"
+        other: "%{count} hiba miatt %{resource} nem menthető, 3 hiba megakadályozza a felhasználó mentését"

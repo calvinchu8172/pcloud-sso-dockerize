@@ -1,0 +1,48 @@
+// -------------------------------------
+//   Page: personal
+//
+//   # Path: /personal/index
+// -------------------------------------
+
+.zyxel_table_style3{
+  width: 100%;
+  margin-bottom: 70px;
+  th {
+    padding-left: 10px;
+    text-align: center;
+    width: 120px;
+  }
+  td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: $zyxel_color2;
+    padding-left: 10px;
+  }
+}
+.zyxel_table_style4 {
+  margin-top: 15px;
+  td {
+    border-bottom: none;
+    color: $zyxel_color2;
+    padding: 3px 0;
+    &.gray {
+      color: #616161;
+      font-size: 16px;
+    }
+    &.blue {
+      color: $zyxel_color4;
+      font-size: 16px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      overflow: hidden;
+      display: inline-block;
+      max-width:450px;
+    }
+
+    .device_info {
+      padding-right: 10px;
+      color: $zyxel_color2;
+    }
+  }
+}
