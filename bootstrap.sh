@@ -12,7 +12,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 sudo apt-get install -y mysql-server
 
 # pcloud custom
-sudo apt-get install -y imagemagick libmagickwand-dev qt4-qmake libqtwebkit-dev nodejs 
+sudo apt-get install -y imagemagick libmagickwand-dev qt4-qmake libqtwebkit-dev nodejs redis-server 
 
 su - vagrant -c  'cd /home/vagrant'
 su - vagrant -c  'curl -sSL https://rvm.io/mpapis.asc | gpg --import -'
