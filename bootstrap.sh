@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 sudo locale-gen zh_TW.UTF-8
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.cp
+sudo sed -i 's/archive.ubuntu.com/tw.archive.ubuntu.com/g' /etc/apt/sources.list
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get install -y git git-flow
-sudo apt-get install -y mysql-common mysql-client libmysqlclient-dev 
+sudo apt-get install -y mysql-common mysql-client libmysqlclient-dev
 
 # Add for mysql server
 sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password 12345678'
@@ -12,7 +14,7 @@ sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again p
 sudo apt-get install -y mysql-server
 
 # pcloud custom
-sudo apt-get install -y imagemagick libmagickwand-dev qt4-qmake libqtwebkit-dev nodejs redis-server 
+sudo apt-get install -y imagemagick libmagickwand-dev qt4-qmake libqtwebkit-dev nodejs redis-server
 
 su - vagrant -c  'cd /home/vagrant'
 su - vagrant -c  'curl -sSL https://rvm.io/mpapis.asc | gpg --import -'
