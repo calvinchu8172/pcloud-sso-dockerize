@@ -15,8 +15,10 @@ xmpp:
     - ec2-54-85-72-129.compute-1.amazonaws.com
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
-  api_domain: 'pcloud.dev'
-  portal_domain: 'pcloud.dev'
+  name: 'alpha'
+  api_domain: 'localhost'
+  portal_domain: 'localhost'
+  ga_tracker: 'UA-57135359-1'
   paperclip:
     default:
       storage: :s3
@@ -59,5 +61,6 @@ recaptcha:
     public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
     private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
 redis:
-  host: '194.168.33.10'
+  web_host: '127.0.0.1'
+  xmpp_host: '127.0.0.1'
   port: 6379

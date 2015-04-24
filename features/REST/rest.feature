@@ -26,7 +26,7 @@ Feature: REST API testing
   Scenario Outline: [REST-02]
     Check incorrect update process when invalid format
 
-    When the device already registration
+    Given the device already registration
     And the device "<information>" was be changed to "<value>"
     And the device send information to REST API
     Then the API should return "<http_status>" and "<json_message>" with failure responds
@@ -50,7 +50,7 @@ Feature: REST API testing
   Scenario: [REST-04]
     Check reset process
 
-    When the device already registration
+    Given the device already registration
     And the device send reset request to REST API
     Then the API should return success respond
     And the databases should have not pairing record
@@ -58,7 +58,7 @@ Feature: REST API testing
   Scenario: [REST-05]
     Check correct update process when IP changed
 
-    When the device already registration
+    Given the device already registration
     And the device IP was be changed
     And the device send information to REST API
     Then the API should return success respond
@@ -67,7 +67,7 @@ Feature: REST API testing
   Scenario: [REST-06]
     Check incorrect update process when signature invalid
 
-    When the device already registration
+    Given the device already registration
     And the device signature was be changed to "abcde"
     And the device send information to REST API
     Then the API should return "400" and "Failure" with error responds

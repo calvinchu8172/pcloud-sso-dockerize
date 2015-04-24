@@ -6,19 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
-@localip = '127.0.0.1'
-
-12.times do |num|
-
-  device_params = {:mac_address => Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2) + ':' + Faker::Number.number(2), :serial_number => Faker::Address.building_number, :model_class_name => 'model name', :firmware_version => 'v' + Faker::Address.zip_code}
-  @device = Device.create(device_params)
-
-  ip = @localip
-  if(num > 3)
-  	ip = Faker::Number.digit + '.' + Faker::Number.digit + '.' + Faker::Number.digit + '.' + Faker::Number.digit
-  end
-  session_params = {:ip => ip, :xmpp_account => Faker::Internet.user_name, :password => Faker::Internet.password(8)}
-
-  @device.create_device_session(session_params)
-end
+Product.create(id: 26, name: "NSA310S", model_class_name: "NSA310S", asset_file_name: "device_icon_gray_1bay.png", asset_content_type: "image/png", asset_file_size: 2497, asset_updated_at:  "2014-10-04 12:28:07", pairing_file_name: "animate_1bay.gif", pairing_content_type: "image/gif", pairing_file_size: 9711, pairing_updated_at: "2014-10-04 12:28:08")
+Product.create(id: 27, name: "NSA320S", model_class_name: "NSA320S", asset_file_name: "device_icon_gray_2bay.png", asset_content_type: "image/png", asset_file_size: 2412, asset_updated_at:  "2014-10-04 12:28:37", pairing_file_name: "animate_2bay.gif", pairing_content_type: "image/gif", pairing_file_size: 10116, pairing_updated_at: "2014-10-04 12:28:37")
+Product.create(id: 28, name: "NSA325", model_class_name: "NSA325", asset_file_name: "device_icon_gray_2bay.png", asset_content_type: "image/png", asset_file_size: 2412, asset_updated_at:  "2014-10-04 12:29:05", pairing_file_name: "animate_nsa325.gif", pairing_content_type: "image/gif", pairing_file_size: 12266, pairing_updated_at: "2014-10-04 12:29:06")
+Product.create(id: 29, name: "NSA325 v2", model_class_name: "NSA325 v2", asset_file_name: "device_icon_gray_2bay.png", asset_content_type: "image/png", asset_file_size: 2412, asset_updated_at:  "2014-10-04 12:29:41", pairing_file_name: "animate_2bay.gif", pairing_content_type: "image/gif", pairing_file_size: 10116, pairing_updated_at: "2014-10-04 12:29:41")
+Product.create(id: 30, name: "NAS540", model_class_name: "NAS540", asset_file_name: "device_icon_gray_4bay.png", asset_content_type: "image/png", asset_file_size: 2631, asset_updated_at:  "2014-10-04 12:29:59", pairing_file_name: "animate_4bay.gif", pairing_content_type: "image/gif", pairing_file_size: 9495, pairing_updated_at: "2014-10-04 12:29:59")
+Domain.create(domain_name: Settings.environments.ddns)
