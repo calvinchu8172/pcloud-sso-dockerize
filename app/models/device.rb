@@ -122,4 +122,13 @@ class Device < ActiveRecord::Base
     logger.error('device presence error:' + error.backtrace.join("\n"))
     false
   end
+
+  def serial_number_verified?(serial_number)
+    self.serial_number == serial_number
+  end
+
+  def paring_with_constant_serial_number?
+    ['NSA325', 'NSA325 v2'].include?(self.product.model_class_name)
+  end  
+
 end
