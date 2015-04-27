@@ -130,12 +130,9 @@ class Device < ActiveRecord::Base
   def self.search(mac_address, serial_number)
     devices = Device.where(mac_address: mac_address)
     return if devices.empty?
-    device = nil
-    devices.each do |d|
-         device = d if d.serial_number == serial_number
+    devices.each do |device|
+      return device if device.dont_verify_serial_number?
+      return device if device.serial_number == serial_number
     end
-    return device unless device.blank?
-    return device if device.dont_verify_serial_number? 
   end
-
 end
