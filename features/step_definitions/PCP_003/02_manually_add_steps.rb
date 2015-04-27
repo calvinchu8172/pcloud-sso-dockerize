@@ -2,7 +2,7 @@
 Given(/^a user visits manually add page$/) do
   @user = TestingHelper.create_and_signin
   @device = TestingHelper.create_device
-  @old_model_device = TestingHelper.create_device(28)
+  @device_nas325 = TestingHelper.create_device(28)
   visit '/discoverer/add'
 end
 
@@ -24,9 +24,9 @@ Given(/^the user filled the not exists device information$/) do
   fill_in I18n.t("labels.serial_number"), with: 'not_invalid'
 end
 
-Given(/^the user filled the device information of NSA325 or NSA325 v2$/) do
-  fill_in I18n.t("labels.mac_address"), with: @old_model_device.mac_address
-  fill_in I18n.t("labels.serial_number"), with: @old_model_device.serial_number
+Given(/^the user filled the device information of NSA325$/) do
+  fill_in I18n.t("labels.mac_address"), with: @device_nas325.mac_address
+  fill_in I18n.t("labels.serial_number"), with: @device_nas325.serial_number
 end
 
 # -------------------------------------------------------------------
@@ -48,8 +48,8 @@ Then(/^the user will redirect to pairing check page$/) do
 	expect(page.current_path).to eq("/discoverer/check/#{@device.escaped_encrypted_id}.format")
 end
 
-Then(/^the user will redirect to pairing check page of NSA325 or NSA325 v2$/) do
-  expect(page.current_path).to eq("/discoverer/check/#{@old_model_device.escaped_encrypted_id}.format")
+Then(/^the user will redirect to pairing check page of NSA325$/) do
+  expect(page.current_path).to eq("/discoverer/check/#{@device_nas325.escaped_encrypted_id}.format")
 end
 
 Then(/^redirect to Search Devices page$/) do
