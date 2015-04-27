@@ -40,37 +40,25 @@ class DiscovererController < ApplicationController
 
   def search
 
-    valid = mac_address_valid?(params[:device][:mac_address])
-    params[:device][:mac_address].gsub!(/:/, '')
-
-    service_logger.note({searching_device: params[:device]})
-
-    devices = Device.where(mac_address: params[:device][:mac_address]);
-    logger.info "searched device:" + params[:device][:mac_address].inspect
-    
-    if !valid
+    unless mac_address_valid?(params[:device][:mac_address])
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'add'
-      
-    elsif devices.empty?
-      logger.debug "devices is empty..."
-      flash[:alert] = I18n.t("errors.messages.not_found")
-      redirect_to action: 'add'
-
-    elsif !devices.first.paring_with_constant_serial_number?
-      logger.debug "device is not paring with constant serial number..."
-      devices.first.serial_number_verified?(params[:device][:serial_number])
-      flash[:alert] = I18n.t("errors.messages.not_found")
-      redirect_to action: 'add'
-
-    elsif devices.first.paired?
-      flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
-      redirect_to action: 'add'
- 
-    else
-      redirect_to action: 'check', id: devices.first.escaped_encrypted_id
+      return 
     end
 
+    params[:device][:mac_address].gsub!(/:/, '')
+    service_logger.note({searching_device: params[:device]})
+    device = Device.search(params[:device][:mac_address], params[:device][:serial_number])
+    logger.info "searched device:" + params[:device][:mac_address].inspect
+    if device.blank?
+      flash[:alert] = I18n.t("errors.messages.not_found")
+      redirect_to action: 'add'
+    elsif device.paired?
+      flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
+      redirect_to action: 'add'
+    else
+      redirect_to action: 'check', id: device.escaped_encrypted_id
+    end
   end
 
 

@@ -123,12 +123,16 @@ class Device < ActiveRecord::Base
     false
   end
 
-  def serial_number_verified?(serial_number)
-    self.serial_number == serial_number
-  end
-
-  def paring_with_constant_serial_number?
+  def dont_verify_serial_number?
     ['NSA325', 'NSA325 v2'].include?(self.product.model_class_name)
   end  
 
+  def self.search(mac_address, serial_number)
+    devices = Device.where(mac_address: mac_address)
+    return if devices.empty?
+    devices.each do |device|
+      return device if device.dont_verify_serial_number?
+      return device if device.serial_number == serial_number
+    end
+  end
 end
