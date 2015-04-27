@@ -47,10 +47,7 @@ class DiscovererController < ApplicationController
     end
 
     params[:device][:mac_address].gsub!(/:/, '')
-
     service_logger.note({searching_device: params[:device]})
-
-    #devices = Device.where(mac_address: params[:device][:mac_address]);
     device = Device.search(params[:device][:mac_address], params[:device][:serial_number])
     logger.info "searched device:" + params[:device][:mac_address].inspect
     if device.blank?

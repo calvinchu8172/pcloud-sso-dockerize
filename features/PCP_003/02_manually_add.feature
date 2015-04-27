@@ -28,15 +28,23 @@ Feature: [PCP_003_02] Manually Add
 
 	Scenario:  [PCP_003_02_03]
 	  Redirect to pairing page when device connecting
-		And the user filled the exists device information
+	  And the user filled the exists device information
 
 	  When the user click "Submit" button
 
 	  Then the user will redirect to pairing check page
 
-  Scenario:  [PCP_003_02_05]
-    Redirect to search devices page when user click cancel button in manually add page
+	Scenario:  [PCP_003_02_04]
+	  Redirect to pairing page when device of NSA325 or NSA325 v2 connecting 
+	  And the user filled the device information of NSA325 or NSA325 v2
 
-    When the user click "Cancel" link
+	  When the user click "Submit" button
 
-    Then redirect to Search Devices page
+	  Then the user will redirect to pairing check page of NSA325 or NSA325 v2
+
+  	Scenario:  [PCP_003_02_05]
+      Redirect to search devices page when user click cancel button in manually add page
+
+      When the user click "Cancel" link
+
+      Then redirect to Search Devices page
