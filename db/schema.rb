@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150305030400) do
 
   add_index "devices", ["mac_address", "serial_number"], name: "index_devices_on_mac_address_and_serial_number", unique: true, using: :btree
   add_index "devices", ["product_id"], name: "devices_product_id_fk", using: :btree
+  add_index "devices", ["mac_address"], name: "index_devices_on_mac_address", using: :btree
 
   create_table "domains", force: true do |t|
     t.string   "domain_name", limit: 192, null: false
