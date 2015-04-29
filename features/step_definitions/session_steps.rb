@@ -21,8 +21,8 @@ module TestingHelper
     user.save
     user
   end
-  def self.create_device
-    product_id = Product.first.id
+  def self.create_device(product_id = nil)
+    product_id ||= Product.first.id
     device = FactoryGirl.create(:device, product_id: product_id)
     device.save
     ip = "127.0.0.1"

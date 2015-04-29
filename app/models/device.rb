@@ -27,22 +27,25 @@ class Device < ActiveRecord::Base
   end
 
   def self.checkin args
-
-    result = self.where( args.permit(:mac_address, :serial_number))
+    
+    result = self.where( args.slice(:mac_address, :serial_number))
     if result.empty?
 
-      product = Product.where(args.permit(:model_class_name))
-      unless product.first.nil?
-        instance = self.create(args.permit(:mac_address, :serial_number, :firmware_version), product_id: product.first.id)
-        logger.info('create new device id:' + instance.id.to_s)
-      end
-    else
-      instance = result.first
-      unless args[:firmware_version] == instance.firmware_version
-        logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + instance.firmware_version)
-        instance.update_attribute(:firmware_version, args[:firmware_version])
-      end
+      product = Product.where(args.slice(:model_class_name))
+
+      return nil if product.empty?
+
+      instance = self.create(args.slice(:mac_address, :serial_number, :firmware_version).merge({product_id: product.first.id}))
+      logger.info('create new device id:' + instance.id.to_s)
+      return instance     
     end
+
+    instance = result.first
+    unless args[:firmware_version] == instance.firmware_version
+      logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + instance.firmware_version)
+      instance.update_attribute(:firmware_version, args[:firmware_version])
+    end
+    
     return instance
   end
 
@@ -121,5 +124,18 @@ class Device < ActiveRecord::Base
   rescue TimeoutError => error
     logger.error('device presence error:' + error.backtrace.join("\n"))
     false
+  end
+
+  def dont_verify_serial_number?
+    ['NSA325', 'NSA325 v2'].include?(self.product.model_class_name)
+  end  
+
+  def self.search(mac_address, serial_number)
+    devices = Device.where(mac_address: mac_address)
+    return if devices.empty?
+    devices.each do |device|
+      return device if device.dont_verify_serial_number?
+      return device if device.serial_number == serial_number
+    end
   end
 end
