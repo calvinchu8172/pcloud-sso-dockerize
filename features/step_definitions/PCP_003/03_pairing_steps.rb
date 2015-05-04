@@ -55,7 +55,11 @@ When(/^the user unpairing this device$/) do
   expect(page).to have_link I18n.t("labels.confirm")
   expect(page).to have_link I18n.t("labels.cancel")
   click_link "Confirm"
-  expect(page.current_path).to eq "/unpairing/success/#{URI.decode(@device.escaped_encrypted_id).chomp}"
+
+  current_url = URI.decode(page.current_path).chomp
+  expect_url = URI.decode("/unpairing/success/" + @device.escaped_encrypted_id).chomp
+  expect(current_url).to eq(expect_url)
+
   # Need add the key to mock the device was online
   redis = Redis.new
   redis.HSET "s3:#{@device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
@@ -134,7 +138,9 @@ Then(/^the user should see the pairing information$/) do
 end
 
 Then(/^the user will redirect to DDNS setup page$/) do
-  expect(page.current_path).to eq("/ddns/#{URI.decode(@device.escaped_encrypted_id).chomp}")
+  current_url = URI.decode(page.current_path).chomp
+  expect_url = URI.decode("/ddns/" + @device.escaped_encrypted_id).chomp
+  expect(current_url).to eq(expect_url)
 end
 
 Then(/^the user will go back to Pairing setup flow$/) do
