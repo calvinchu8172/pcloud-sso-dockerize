@@ -61,7 +61,6 @@ class DiscovererController < ApplicationController
     end
   end
 
-
   def check
     logger.info "checking device id:" + @device.id.to_s
   end

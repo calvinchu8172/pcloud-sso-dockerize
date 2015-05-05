@@ -29,6 +29,11 @@ Given(/^the user filled the device information of NSA325$/) do
   fill_in I18n.t("labels.serial_number"), with: @device_nas325.serial_number
 end
 
+Given(/^the user filled the not exists device information with valid mac_address and invalid serial_number$/) do
+  fill_in I18n.t("labels.mac_address"), with: @device.mac_address
+  fill_in I18n.t("labels.serial_number"), with: 'not_invalid'
+end
+
 # -------------------------------------------------------------------
 # ---------------------------   output   ----------------------------
 # -------------------------------------------------------------------
@@ -45,7 +50,7 @@ Then(/^the user should see error message on manually add page$/) do
 end
 
 Then(/^the user will redirect to pairing check page$/) do
-	expect(page.current_path).to eq("/discoverer/check/#{@device.escaped_encrypted_id}.format")
+expect(page.current_path).to eq("/discoverer/check/#{@device.escaped_encrypted_id}.format")
 end
 
 Then(/^the user will redirect to pairing check page of NSA325$/) do

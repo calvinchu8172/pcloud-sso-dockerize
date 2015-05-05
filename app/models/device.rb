@@ -137,5 +137,6 @@ class Device < ActiveRecord::Base
       return device if device.dont_verify_serial_number?
       return device if device.serial_number == serial_number
     end
+    return 
   end
 end
