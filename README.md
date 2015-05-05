@@ -41,3 +41,5 @@ xmpp user schema 如下
       `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (`username`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

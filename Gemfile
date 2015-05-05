@@ -22,7 +22,7 @@ gem 'jquery-rails'
 gem 'angularjs-rails'
 source 'https://rails-assets.org' do
   # gem 'rails-assets-angular'
-  gem 'rails-assets-angular-timer'
+  gem 'rails-assets-angular-timer', '1.2.1'
   gem 'rails-assets-ng-table', '0.3.2'
   # gem "rails-assets-jquery"
   gem "rails-assets-jqlite"
@@ -80,6 +80,12 @@ gem 'rails_admin', group: [:test, :development, :staging]
 gem 'rest_client'
 gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
+gem 'json', '1.8.2'
+
+group :test do
+  gem 'action_mailer_cache_delivery'
+  gem 'email_spec'
+end
 
 # gem 'devise-async'
 # gem 'sidekiq'
@@ -93,4 +99,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rack_session_access'
+  gem 'yard'
+  gem 'yard-cucumber'
 end

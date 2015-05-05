@@ -33,6 +33,14 @@ When(/^the server update DDNS setting successfully$/) do
 	set_ddns_session(@ddns_session,"success")
 end
 
+When(/^the device already registered hostname (.*?)$/) do |value|
+	submit_hostname(value)
+end
+
+When(/^the user visits another device DDNS setup page$/) do
+	visit "/ddns/#{@other_paired.device.escaped_encrypted_id}"
+end
+
 # -------------------------------------------------------------------
 # ---------------------------   output   ----------------------------
 # -------------------------------------------------------------------
@@ -53,7 +61,9 @@ Then(/^the user should see success message on DDNS setup page$/) do
 end
 
 Then(/^the user will redirect to UPnP setup page$/) do
-	expect(page.current_path).to eq("/upnp/#{URI.decode(@pairing.device.escaped_encrypted_id).chomp}")
+  current_url = URI.decode(page.current_path).chomp
+  expect_url = URI.decode("/upnp/" + @pairing.device.escaped_encrypted_id).chomp
+  expect(current_url).to eq(expect_url)
 end
 
 Then(/^it should not do anything on DDNS setup page$/) do

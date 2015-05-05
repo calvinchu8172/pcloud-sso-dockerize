@@ -20,6 +20,10 @@ public/testing
 
 config/settings.local.yml
 config/settings/*.local.yml
+config/settings/development.yml
+config/settings/production.yml
+config/settings/test.yml
+
 config/environments/*.local.yml
 config/*.yml
 
