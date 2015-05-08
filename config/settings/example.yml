@@ -31,11 +31,11 @@ environments:
         s3_host_name: 's3-us-west-2.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
   sqs:
-    name: 'personal_cloud_queue_test'
+    name: 'PCloud-Alpha-Bot-Jobs-Test'
     attributes:
-      access_key_id: 'AKIAIOKGDAZ2CJ7QW3HQ'
-      secret_access_key: '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'
-      region: 'us-west-2'
+      access_key_id: 'AKIAIULMFADPJ7NNOGIQ'
+      secret_access_key: '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'
+      region: 'us-east-1'
   ddns: pcloud.ecoworkinc.com
   cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   filter_list:
