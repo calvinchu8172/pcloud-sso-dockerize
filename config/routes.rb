@@ -54,7 +54,11 @@ Rails.application.routes.draw do
 
     post '/d/1/:action' => "device"
     post '/d/2/:action' => "device"
-
+    get '/resource/1/:action' => "invitations"
+    post '/resource/1/:action' => "invitations"
+    delete '/resource/1/:action' => "invitations"
+    
+    
     root "application#raise_not_found!", via: :all
   end
   

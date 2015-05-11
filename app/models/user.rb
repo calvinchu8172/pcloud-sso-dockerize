@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   enum gender: {male: true, female: false}
   before_create :add_default_display_name
   has_many :identity
+  has_many :pairings
+  has_many :devices, :through => :pairings
+  has_many :invitations, :through => :devices
 
   VALIDATE_MOBILE_REGEX = /\A[0-9#\+\(\)-]*\z/
 
