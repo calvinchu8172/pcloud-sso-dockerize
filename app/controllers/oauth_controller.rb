@@ -18,4 +18,21 @@ class OauthController < ApplicationController
       redirect_to '/oauth/new'
     end
   end
+
+  def checkin
+    provider = params["oauth_provider"]
+    user_id = params["user_id"]
+    access_token = params["access_token"]
+
+    db_oauth_user = Identity.find_by(uid: user_id, provider: provider)
+
+    if db_oauth_user.nil?
+      render :json => { :error_code => 001,  :description => 'unregistered'}, :status => 400
+    elsif db_oauth_user.user.confirmation_token.nil?
+      render :json => { :error_code => 002,  :description => 'not binding yet'}, :status => 400
+    else
+      render :json => {"result" => "user_id: #{user_id}, access_token: #{access_token}"}
+    end
+  end
+
 end

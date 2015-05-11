@@ -56,8 +56,14 @@ Rails.application.routes.draw do
     post '/d/2/:action' => "device"
 
     root "application#raise_not_found!", via: :all
+
+    # scope :path => '/user/1/', :module => "api" do
+    scope :path => '/user/1/' do
+       resource :token, controller: :token
+       get 'checkin/:oauth_provider', to: 'oauth#checkin'
+    end
+
   end
-  
   get "*path", to: "application#raise_not_found!", via: :all
 
 end
