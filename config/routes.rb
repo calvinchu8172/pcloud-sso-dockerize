@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     scope :path => '/user/1/' do
        resource :token, controller: :token
        get 'checkin/:oauth_provider', to: 'oauth#checkin'
+       post 'register/:oauth_provider', to: 'oauth#register'
     end
 
   end
