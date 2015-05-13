@@ -23,8 +23,8 @@ class OauthController < ApplicationController
 
   # GET /user/1/checkin/:oauth_provider
   def checkin
-    provider = params[:oauth_provider]
-    user_id  = params[:user_id]
+    provider = params[:oauth_provider] || ''
+    user_id  = params[:user_id] || ''
 
     @user = Identity.find_by(uid: user_id, provider: provider)
 
@@ -40,10 +40,10 @@ class OauthController < ApplicationController
 
   # POST /user/1/register/:oauth_provider
   def register
-    provider     = params[:oauth_provider]
-    user_id      = params[:user_id]
-    access_token = params[:access_token]
-    password     = params[:password]
+    provider     = params[:oauth_provider] || ''
+    user_id      = params[:user_id] || ''
+    access_token = params[:access_token] || ''
+    password     = params[:password]|| ''
 
     @user = Identity.find_by(uid: user_id, provider: provider)
 
@@ -80,17 +80,15 @@ class OauthController < ApplicationController
   end
 
   def signup_fb_user(user_id, access_token, password)
-
     data = FbGraph2::User.new(user_id).authenticate(access_token).fetch.raw_attributes
-
     identity = Identity.where(provider: 'facebook', uid: data["id"] ).first_or_initialize
 
     if identity.user.blank?
       user = User.new
       user.skip_confirmation!
-      user.email = data.email
+      user.email = data['email']
       user.password = password
-      # user.fetch_details(data)
+      user.fetch_details_from_fbgraph(data)
       user.edm_accept = "0"
       user.agreement = "1"
       user.save!
