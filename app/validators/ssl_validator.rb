@@ -1,4 +1,4 @@
-class CertificateValidator < ActiveModel::Validator
+class SslValidator < ActiveModel::Validator
   def validate(record)
 
   	key = ""
