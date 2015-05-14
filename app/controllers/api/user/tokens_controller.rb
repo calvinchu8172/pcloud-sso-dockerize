@@ -1,7 +1,5 @@
 # refer to http://fancypixel.github.io/blog/2015/01/28/react-plus-flux-backed-by-rails-api/
-class Api::User::TokenController < ApplicationController
-  skip_before_filter :verify_authenticity_token
-  skip_before_filter :authenticate_user!
+class Api::User::TokenController < Api::Base
   
   def create
     

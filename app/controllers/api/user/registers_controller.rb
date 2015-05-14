@@ -1,4 +1,6 @@
-class Api::User::RegisterController < ApplicationController
+class Api::User::RegistersController < Api::Base  
   def create
   end
+
+  
 end
