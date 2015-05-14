@@ -1,10 +1,5 @@
-class Api::User < User
-  include Guards::AttrEncryptor
-  include Redis::Objects
-
+class Api::User::Token < Api::User
   attr_accessor :account_token, :authentication_token
-
-  hash_key :app_info
 
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month

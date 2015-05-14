@@ -2,20 +2,19 @@ class Api::User::RegistersController < Api::Base
 
   def create
 
-    @register = Api::User::Register.new valid_params.except(:id)
-    @register.email = valid_params[:id]
-    @register.agreement = "1"
+    @user = Api::User::Register.new valid_params.except(:id)
+    @user.email = valid_params[:id]
+    @user.agreement = "1"
 
     logger.debug "certificate_validator record:" + valid_params.inspect
-    unless @register.valid?
+    unless @user.valid?
       {"001" => "email",
        "002" => "password",
        "003" => "certificaate",
-       "004" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @register.errors[field].first} unless @register.errors[field].empty?}
+       "004" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
     end
 
-    @user.app_info.bulk_set(token_params.slice(:app_key, :os)) if !token_params[:app_key].blank? and !token_params[:os].blank? and ['1', '2'].include?(token_params[:os])
-  	render :json => {result: "success"}
+  	render "api/user/tokens/create.json.jbuilder"
   end
 
   private 
