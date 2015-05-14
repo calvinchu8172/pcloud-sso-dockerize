@@ -1,5 +1,7 @@
 class Api::User::RegistersController < Api::Base  
   def create
+
+  	render :json => {}
   end
 
   private 
