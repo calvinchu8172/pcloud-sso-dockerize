@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
 
-
   def self.sign_up_omniauth(auth, current_user, agreement)
     identity = Identity.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize
 
@@ -41,6 +40,26 @@ class User < ActiveRecord::Base
         user.agreement = agreement
         user.save!
       end
+      identity.user = user
+      identity.save!
+    end
+    identity
+  end
+
+  def self.sign_up_fbuser(user_id, access_token, password)
+    data = FbGraph2::User.new(user_id).authenticate(access_token).fetch.raw_attributes
+    identity = Identity.where(provider: 'facebook', uid: data["id"] ).first_or_initialize
+
+    if identity.user.blank?
+      user = User.new
+      user.skip_confirmation!
+      user.email = data['email']
+      user.password = password
+      user.fetch_details_from_fbgraph(data)
+      user.edm_accept = "0"
+      user.agreement = "1"
+      user.save!
+
       identity.user = user
       identity.save!
     end

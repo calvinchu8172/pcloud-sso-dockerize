@@ -60,8 +60,8 @@ Rails.application.routes.draw do
     # scope :path => '/user/1/', :module => "api" do
     scope :path => '/user/1/' do
        resource :token, controller: :token
-       get 'checkin/:oauth_provider', to: 'oauth#checkin'
-       post 'register/:oauth_provider', to: 'oauth#register'
+       get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin'
+       post 'register/:oauth_provider', to: 'oauth#mobile_register'
     end
 
   end

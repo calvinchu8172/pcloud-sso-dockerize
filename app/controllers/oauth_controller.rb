@@ -1,6 +1,7 @@
 class OauthController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token, :only => :register
+  skip_before_filter :verify_authenticity_token, :only => :mobile_register
+  before_action :adjust_provider, only: [:mobile_checkin, :mobile_register]
 
   def new
     @user = User.new
@@ -22,11 +23,10 @@ class OauthController < ApplicationController
   end
 
   # GET /user/1/checkin/:oauth_provider
-  def checkin
-    provider = params[:oauth_provider] || ''
-    user_id  = params[:user_id] || ''
+  def mobile_checkin
+    user_id  = params[:user_id]
 
-    @user = Identity.find_by(uid: user_id, provider: provider)
+    @user = Identity.find_by(uid: user_id, provider: @provider)
 
     if @user.nil?
       render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400
@@ -37,28 +37,24 @@ class OauthController < ApplicationController
     end
   end
 
-
   # POST /user/1/register/:oauth_provider
-  def register
-    provider     = params[:oauth_provider] || ''
-    user_id      = params[:user_id] || ''
-    access_token = params[:access_token] || ''
-    password     = params[:password]|| ''
+  def mobile_register
+    user_id      = params[:user_id]
+    access_token = params[:access_token]
+    password     = params[:password]
 
-    @user = Identity.find_by(uid: user_id, provider: provider)
+    @user = Identity.find_by(uid: user_id, provider: @provider)
 
     if !password.length.between?(8, 14)
       render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400
     elsif !@user.nil?
       render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
     else
-      identity = signup_fb_user(user_id, access_token, password)
+      identity = User.sign_up_fbuser(user_id, access_token, password)
       sign_in identity.user
       redirect_to authenticated_root_path
     end
-
   end
-
 
   private
 
@@ -79,24 +75,13 @@ class OauthController < ApplicationController
     end
   end
 
-  def signup_fb_user(user_id, access_token, password)
-    data = FbGraph2::User.new(user_id).authenticate(access_token).fetch.raw_attributes
-    identity = Identity.where(provider: 'facebook', uid: data["id"] ).first_or_initialize
-
-    if identity.user.blank?
-      user = User.new
-      user.skip_confirmation!
-      user.email = data['email']
-      user.password = password
-      user.fetch_details_from_fbgraph(data)
-      user.edm_accept = "0"
-      user.agreement = "1"
-      user.save!
-
-      identity.user = user
-      identity.save!
+  def adjust_provider
+    if !['google', 'facebook'].include?(params[:oauth_provider])
+      render :file => 'public/404.html', :status => :not_found, :layout => false
+    else
+      params[:oauth_provider] = 'google_oauth2' if params[:oauth_provider] == 'google'
+      @provider = params[:oauth_provider]
     end
-    identity
   end
 
 end
