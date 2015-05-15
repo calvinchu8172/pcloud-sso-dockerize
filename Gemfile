@@ -64,9 +64,6 @@ gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
-# api
-gem 'fb_graph2'
-
 #  Devise 3.1 no longer signs the user automatically in after confirmation
 gem 'devise', '3.1.0'
 gem 'devise-i18n'
@@ -81,7 +78,7 @@ gem 'aws-sdk'
 gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest_client'
-gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
+# gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
 
