@@ -39,18 +39,19 @@ class OauthController < ApplicationController
 
   # POST /user/1/register/:oauth_provider
   def mobile_register
+
     user_id      = params[:user_id]
     access_token = params[:access_token]
     password     = params[:password]
 
     @user = Identity.find_by(uid: user_id, provider: @provider)
 
-    if !password.length.between?(8, 14)
+    if password.nil? || !password.length.between?(8, 14)
       render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400
     elsif !@user.nil?
       render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
     else
-      identity = User.sign_up_fbuser(user_id, access_token, password)
+      identity = User.sign_up_oauth_user(user_id, @provider, access_token, password)
       sign_in identity.user
       redirect_to authenticated_root_path
     end
@@ -75,12 +76,15 @@ class OauthController < ApplicationController
     end
   end
 
+  # adjust provider, follow ominiauth rule rewrite google params.
   def adjust_provider
     if !['google', 'facebook'].include?(params[:oauth_provider])
       render :file => 'public/404.html', :status => :not_found, :layout => false
     else
-      params[:oauth_provider] = 'google_oauth2' if params[:oauth_provider] == 'google'
-      @provider = params[:oauth_provider]
+      if params[:oauth_provider] == 'google'
+        @provider = 'google_oauth2'
+      end
+      @provider = @provider || params[:oauth_provider]
     end
   end
 
