@@ -64,6 +64,9 @@ gem "omniauth"
 gem "omniauth-facebook"
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
+# api
+gem 'fb_graph2'
+
 #  Devise 3.1 no longer signs the user automatically in after confirmation
 gem 'devise', '3.1.0'
 gem 'devise-i18n'
