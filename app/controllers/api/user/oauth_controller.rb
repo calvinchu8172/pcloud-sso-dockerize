@@ -31,7 +31,7 @@ class Api::User::OauthController < Api::Base
       render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
     else
       data = get_oauth_data(@provider, access_token)
-      identity = User.sign_up_oauth_user(user_id, provider, password, data)
+      identity = User.sign_up_oauth_user(user_id, @provider, password, data)
       sign_in identity.user
       redirect_to authenticated_root_path
     end
@@ -39,14 +39,13 @@ class Api::User::OauthController < Api::Base
   end
 
   private
-  # adjust provider, follow ominiauth rule rewrite google params.
   def adjust_provider
     if !['google', 'facebook'].include?(params[:oauth_provider])
       render :file => 'public/404.html', :status => :not_found, :layout => false
     else
-      if params[:oauth_provider] == 'google'
-        @provider = 'google_oauth2'
-      end
+      # Rewrite params for follow ominiauth rule.
+      @provider = 'google_oauth2' if params[:oauth_provider] == 'google'
+
       @provider = @provider || params[:oauth_provider]
     end
   end

@@ -58,7 +58,6 @@ class User < ActiveRecord::Base
       user.edm_accept = "0"
       user.agreement = "1"
       user.save!
-      user.confirm!
 
       identity.user = user
       identity.save!
