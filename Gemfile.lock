@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/geemus/netrc.git
-  revision: f51ff9ff6a07b9c2c91d0348a5ce81330fb7454c
-  branch: master
-  specs:
-    netrc (0.7.7)
-
-GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: 73fd316733325c8de2f16e5f3655b4938dfb156e
   specs:
@@ -184,6 +177,7 @@ GEM
     multipart-post (2.0.0)
     mysql2 (0.3.16)
     nested_form (0.3.2)
+    netrc (0.7.9)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     oauth (0.4.7)
@@ -277,7 +271,7 @@ GEM
     redis-objects (1.0.0)
       redis (>= 3.0.2)
     remotipart (1.2.1)
-    rest_client (1.7.3)
+    rest_client (1.8.3)
       netrc (~> 0.7.7)
     rmagick (2.13.2)
     rspec-collection_matchers (0.0.4)
@@ -380,7 +374,6 @@ DEPENDENCIES
   json (= 1.8.2)
   log4r
   mysql2 (= 0.3.16)
-  netrc!
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
