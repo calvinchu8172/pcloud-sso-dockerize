@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
       resource :token, controller: :token, format: 'json'
       resource :register, format: 'json'
+      resource :password, format: 'json'
     end
     
     root "application#raise_not_found!", via: :all
