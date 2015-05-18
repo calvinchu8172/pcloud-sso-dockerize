@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
 
-
   def self.sign_up_omniauth(auth, current_user, agreement)
     identity = Identity.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize
 
@@ -47,6 +46,28 @@ class User < ActiveRecord::Base
     identity
   end
 
+  def self.sign_up_oauth_user(user_id, provider, access_token, password)
+    data = get_google_info(access_token) if provider == 'google_oauth2'
+    data = FbGraph2::User.new(user_id).authenticate(access_token).fetch.raw_attributes if provider == 'facebook'
+
+    identity = Identity.where(provider: provider, uid: user_id ).first_or_initialize
+
+    if identity.user.blank?
+      user = User.new
+      user.email = data['email']
+      user.password = password
+      user.fetch_details_from_oauth(data)
+      user.edm_accept = "0"
+      user.agreement = "1"
+      user.save!
+      user.confirm!
+
+      identity.user = user
+      identity.save!
+    end
+    identity
+  end
+
   def fetch_details(auth)
     self.first_name = auth["info"]["first_name"] if auth["info"]["first_name"]
     self.last_name = auth["info"]["last_name"] if auth["info"]["last_name"]
@@ -55,6 +76,21 @@ class User < ActiveRecord::Base
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"] if auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
+  end
+
+  def fetch_details_from_oauth(auth)
+    self.first_name   = auth["first_name"]  if auth["first_name"]
+    self.last_name    = auth["last_name"]   if auth["last_name"]
+    self.display_name = auth["name"]        if auth["name"]
+    self.middle_name  = auth["middle_name"] if auth["middle_name"]
+    self.language     = auth["locale"]      if auth["locale"]
+    self.gender       = auth["gender"]      if auth["gender"] && auth["gender"] != "other"
+  end
+
+  def self.get_google_info(access_token)
+    data = RestClient.get('https://www.googleapis.com/oauth2/v1/userinfo', :params => {:access_token => access_token})
+    data = JSON.parse data
+    data
   end
 
   private
@@ -67,4 +103,5 @@ class User < ActiveRecord::Base
         self.display_name = display_name
       end
     end
+
 end
