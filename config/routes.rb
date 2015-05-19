@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     get 'upnp/check/:id' , to: 'upnp#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
+
   end
 
   constraints :host => Settings.environments.api_domain  do
@@ -57,7 +58,6 @@ Rails.application.routes.draw do
     get '/resource/1/:action' => "invitations"
     post '/resource/1/:action' => "invitations"
     delete '/resource/1/:action' => "invitations"
-    
     
     root "application#raise_not_found!", via: :all
   end

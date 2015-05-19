@@ -70,11 +70,6 @@ ActiveRecord::Schema.define(version: 20150512035509) do
   add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true, using: :btree
   add_index "identities", ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true, using: :btree
 
-  create_table "invitation_sessions", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "invitations", force: true do |t|
     t.string   "key",                                null: false
     t.string   "share_point",                        null: false

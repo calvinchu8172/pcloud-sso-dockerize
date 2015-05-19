@@ -1,95 +1,107 @@
 class InvitationsController < ApplicationController
-
+	include InvitationHelper
 	skip_before_filter :verify_authenticity_token
-	# before_filter :validate_authentication_token,  :unless => :delete_permission?
-	before_filter :validate_cloud_id
-	before_filter :validate_device_account, :if => :delete_permission?
+	before_filter :store_location
+	before_filter :authenticate_user!, :only => [:accept]
+	
+	# before_filter :validate_authentication_token,  :unless => :delete_permission? # called by device
+	before_filter :validate_cloud_id, :only => [:invitation, :permission]
 
-	def invitation
-		service_logger.note({parameters: params})
+	before_filter :validate_device_account, :if => :delete_permission?
+	before_filter :validate_invitation_key, :if => :post_permission?
+
+	before_filter :check_invitation_available, :only => [:accept]
+	before_filter :check_accepted_session, :only => [:check_connection]
+	
+	def accept
+		@invitation.accepted_by(@user.id) if @accepted_user.blank?
+		connect_to_device
+	end
+
+	def invitation # API: get invitation key list
+		service_logger.note({ parameters: params })
+		cloud_id = params[:cloud_id] || ''
 		if request.get?
+			last_updated_at = params[:last_updated_at].to_i
+			user = User.find_by(email: cloud_id)
+			render_error_response "012" and return if user.blank?
 			result = Array.new
-			user = User.find_by(email: params[:cloud_id])
-			unless user.blank?
-				user.invitations.each do |invitation| 
-					device = invitation.device
-					invitation.accepted_users.each do |accepted_user|
-						next unless accepted_user.inbox?(params[:last_updated_at])
-						result.push({invitation_key: invitation.key,
-							device_id: device.id,
-							share_point: invitation.share_point,
-							permission: invitation.permission_name,
-							accepted_user: accepted_user.user_email,
-							accepted_time: accepted_user.accepted_time})
-					end
-				end 
-			end
-			result.sort_by! {|inbox_data| -inbox_data[:accepted_time].to_i}
+			user.invitations.each do |invitation| 
+				device = invitation.device
+				invitation.accepted_users.each do |accepted_user|
+					next unless accepted_user.inbox?(last_updated_at)
+					result.push({ invitation_key: invitation.key,
+						device_id: device.id,
+						share_point: invitation.share_point,
+						permission: invitation.permission_name,
+						accepted_user: accepted_user.user_email,
+						accepted_time: accepted_user.accepted_time })
+				end
+			end 
+			result.sort_by! { |data| -Time.parse(data[:accepted_time]).to_i }
 			render :json => result, status: 200
 		elsif request.post?
 		end
 	end
 
-
 	def permission
-		service_logger.note({parameters: params}) 
-		# XmppUser.find_by(username: params[:device_account]).session = 1
-		if request.post? # API: accepted invitation
-			user = User.find_by(email: params[:cloud_id])
-			# not decreasing the expire_count when the session queried from redis is not nil
-			# API params: 1. cloud_id, 2. invitation_key, 3. authentication_token
-			# query from redis, params: 1. invitation_id, 2. user_email
-			user = User.find_by(email: params[:cloud_id])
-			unless user.blank?
-				invitation_session = InvitationSession.create
-				data = {user_id: user.id}
-				# invitation_session.session.bulk_set(data)
-			end
-			render :json => {}, status: 200
-		elsif request.delete? # API: delete user binding with device, params: 1. device_account, 2. cloud_id
-			user = User.find_by(email: params[:cloud_id])
-			unless user.blank?
-				accepted_users = AcceptedUser.where(user_id: user.id)
-				accepted_users.each do |accepted_user|
-					xmppp_user = XmppUser.find_by(username: params[:device_account])
-					next if xmppp_user.blank?
-					if accepted_user.invitation.device.id == xmpp_user.session.to_i
-						accepted_user.destroy
-					end
+		service_logger.note({ parameters: params }) 
+		cloud_id = params[:cloud_id] || ''
+		invitation_key = params[:invitation_key] || ''
+		device_account = params[:device_account] || ''
+
+		if request.delete? # API: delete user binding with device
+			user = User.find_by(email: cloud_id)
+			render_error_response "012" and return if user.blank?
+
+			accepted_users = AcceptedUser.where(user_id: user.id)
+			render_success_response if accepted_users.blank?
+
+			accepted_users.each do |accepted_user|
+				xmppp_user = XmppUser.find_by(username: device_account)
+				next if xmppp_user.blank?
+				if accepted_user.invitation.device.id == xmpp_user.session.to_i
+					accepted_user.destroy
 				end
-				render :json => { "result" => "success" }, status: 200
 			end
-			# { "result": "success" }, status: 200
-			# { "error_code": "004", "invalid device." }, status: 400
-			# { "error_code": "012", "invalid cloud id." }, status: 400
-			# { "error_code": "013", "invalid certificate." }, status: 400
-			# { "error_code": "014", "invalid signature." }, status: 400
+			render_success_response
 		end
 	end
 
-	def validate_device_account
-		if params[:device_account].blank?
-			render :json => { error_code: "004", description: "invalid device." }, status: 400
-		end
-	end
+	# saving accepted session 
+	def connect_to_device
+	    waiting_expire_at = (Time.now() + AcceptedUser::WAITING_PERIOD).to_i
+	    job_params = { 
+	      device_id: @invitation.device.id, 
+	      share_point: @invitation.share_point, 
+	      permission: @invitation.permission_name, 
+	      expire_at: waiting_expire_at,
+	      status: :start 
+	    }
+	    @accepted_user.session.bulk_set(job_params)   
 
-	def validate_authentication_token
-		logger.debug("verify_authentication_token: #{params[:authentication_token]}")
-		if params[:authentication_token].blank?
-			render :json => { error_code: "012", description: "invalid token." }, status: 400
-		end
-	end
+	    @accepted_session = @accepted_user.session.all
+		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
 
-	def validate_cloud_id
-		logger.debug("verify_cloud_id: #{params[:cloud_id]}")
-		if params[:cloud_id].blank?	
-			render :json => { error_code: "012", description: "invalid cloud id." }, status: 400 
-		end
+		# AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(
+      	#	'{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
+		
+		logger.info("connect to device session:" + @accepted_session.inspect)
 	end
+	
+	def check_connection
+		check_timeout
+		result = { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
+		render :json => result
+  	end
 
-	def delete_permission?
-		logger.debug("action_name = #{action_name}, method = #{request.method}")
-		action_name == 'permission' && request.delete?
+	def check_timeout
+	    expire_in = @accepted_user.session_expire_in.to_i
+	    logger.debug("expire_in: #{expire_in}")
+	    if(@accepted_session['status'] == 'start' && expire_in <= 0)
+	      @accepted_user.session.store('status', :timeout)
+	      @accepted_session['status'] = :timeout
+	    end
 	end
 
 end

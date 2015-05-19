@@ -1,0 +1,106 @@
+<div ng-app="invitation_app"  ng-controller="InvitationCtrl" 
+	ng-init="invitation='<%= @invitation.to_json %>'; invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; init();">
+	<%= @accepted_session.to_json %>
+	<div class="bottom-content" ng-switch on="panel">
+	    <span class="zyxel_span2" ng-switch on="step">
+	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.pairing.connecting") %>
+			<timer id="countdown-timer" countdown="expireIn" max-time-unit="'second'" autostart="true" interval="1000" class="countdown_number" > {{sseconds}} </timer>
+	      </span>
+	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.pairing.failure") %></span>
+	      <span ng-switch-when="done"><%= I18n.t("warnings.settings.pairing.success") %></span>
+	    </span>
+
+        <div class="countdown" ng-switch-when="loading">
+          <%= image_tag 'loading.gif' %>
+        </div>
+        <div class="zyxel_btn_area i18n_fix" ng-switch-when="retry">
+          <%= link_to(I18n.t("labels.retry"), "/invitations/accept/#{@invitation_key}", class: "zyxel_btn_ok zyxel_enabled") %>
+        </div>
+        <div class="zyxel_btn_area" ng-switch-when="done">
+          <%= link_to(I18n.t("labels.confirm"), "/discoverer/index", class: "zyxel_btn_ok") %>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	var invitation_app = angular.module('invitation_app', ['timer']);
+	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
+
+		$scope.step = 'connecting';
+    	$scope.panel = 'loading';
+		$scope.checkConnectionUrl = '/invitations/check_connection/';
+		$scope.interval = 3000
+
+	    $scope.init = function(){
+	    	if($scope.invitation == 'null'){
+	    		$scope.failureStep();
+	    	}
+
+	    	if($scope.session.status == 'start'){
+	      		$scope.expireIn = parseInt($scope.session.expire_in);
+		        $scope.connectingStep();
+		        $timeout(startTimer, 500);
+	      	}
+
+	      	$scope.checkConnection();
+	    };
+
+	    var startTimer = function(){
+	      	$scope.$broadcast('timer-start');
+	    };
+
+	    $scope.$on('timer-stopped', function (event, args) {
+	      	if($scope.session.status == 'start' || $scope.session.status == 'failure'){
+	        	$timeout(function(){
+	        		$scope.failureStep();
+	        	}, 500);
+	     	}
+	    });
+
+	    $scope.checkConnection = function(){
+		    switch($scope.session.status){
+		        case 'start':
+		        	$scope.poll();
+		        	break;
+		        case 'timeout':
+		          	$scope.$broadcast('timer-stop');
+		          	$scope.expireIn = 0;
+		          	break;
+		        case 'failure':
+		          	$scope.canceledStep();
+		          	break;
+		        case 'done':
+		          	$scope.completedStep();
+		          	break;
+		    }
+	    };
+ 
+	    $scope.poll = function(){
+		    var url = $scope.checkConnectionUrl + $scope.invitationKey;
+		    $timeout(function(){
+			    $http.get(url).success(function(response) {
+			        $scope.session = response;
+			        $scope.checkConnection();
+			    }).error(function(response){
+			        $scope.failureStep();
+			    });
+		    }, $scope.interval);
+	    };
+
+	    $scope.failureStep = function(){
+	      $scope.step = 'failure';
+	      $scope.panel = 'retry';
+	    };
+
+	    $scope.connectingStep = function(){
+	      $scope.step = 'connecting';
+	      $scope.panel = 'loading';
+	    };
+
+	    $scope.completedStep = function(){
+	      $scope.step = 'done';
+	      $scope.panel = 'done';
+	    };
+
+	});
+</script>
