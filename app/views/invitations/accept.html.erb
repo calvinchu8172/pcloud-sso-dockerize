@@ -1,6 +1,7 @@
 <div ng-app="invitation_app"  ng-controller="InvitationCtrl" 
-	ng-init="invitation='<%= @invitation.to_json %>'; invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; init();">
+	ng-init="invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; validation=<%= @validation.to_json %>;init();">
 	<div class="bottom-content" ng-switch on="panel">
+
 	    <span class="zyxel_span2" ng-switch on="step">
 	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.pairing.connecting") %></span>
 	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.pairing.failure") %></span>
@@ -29,15 +30,15 @@
 		$scope.interval = 3000
 
 	    $scope.init = function(){
-	    	if($scope.invitation == 'null'){
+	    	console.log("init...")
+	    	if($scope.validation.success){
+		    	if($scope.session.status == 'start'){
+			        $scope.connectingStep();
+			        $scope.checkConnection();
+		      	}	    		
+	    	}else{
 	    		$scope.failureStep();
 	    	}
-
-	    	if($scope.session.status == 'start'){
-		        $scope.connectingStep();
-	      	}
-
-	      	$scope.checkConnection();
 	    };
 
 	    $scope.checkConnection = function(){
@@ -46,11 +47,10 @@
 		        	$scope.poll();
 		        	break;
 		        case 'timeout':
-		          	$scope.$broadcast('timer-stop');
-		          	$scope.expireIn = 0;
+		          	$scope.failureStep();
 		          	break;
 		        case 'failure':
-		          	$scope.canceledStep();
+		          	$scope.failureStep();
 		          	break;
 		        case 'done':
 		          	$scope.completedStep();

@@ -4,9 +4,9 @@ module InvitationHelper
 		cloud_id = current_user[:email] || ''
 		@invitation_key = params[:id]
 
+		@validation = { :success => false }
 		@invitation = Invitation.find_by(key: @invitation_key)
 	    if @invitation.nil?
-	      logger.debug('invitation is nil');
 	      flash[:alert] = I18n.t("warnings.settings.invitation.not_found")
 	      render :template => 'invitations/accept'
 	      return
@@ -26,6 +26,7 @@ module InvitationHelper
 				return 
 			end
 		end
+		@validation = { :success => true }
   	end
 
 	def check_accepted_session

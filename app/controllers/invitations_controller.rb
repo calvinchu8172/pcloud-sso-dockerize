@@ -1,6 +1,5 @@
 class InvitationsController < ApplicationController
 	include InvitationHelper
-
 	skip_before_filter :verify_authenticity_token
 	before_filter :store_location
 	before_filter :authenticate_user!, :only => [:accept]
@@ -22,7 +21,6 @@ class InvitationsController < ApplicationController
 		if request.get?
 			last_updated_at = params[:last_updated_at].to_i
 			result = Array.new
-			
 			user = User.find_by_encrypted_id(params[:cloud_id])
 			render_error_response "012" if user.blank?
 			user.invitations.each do |invitation| 
@@ -50,9 +48,9 @@ class InvitationsController < ApplicationController
 		if request.delete? # API: delete user binding with device
 			user = User.find_by_encrypted_id(params[:cloud_id])
 			render_error_response "012" if user.blank?
+
 			accepted_users = AcceptedUser.where(user_id: user.id)
 			render_success_response if accepted_users.blank?
-
 			accepted_users.each do |accepted_user|
 				xmpp_user = XmppUser.find_by(username: device_account)
 				next if xmpp_user.blank?
@@ -73,18 +71,20 @@ class InvitationsController < ApplicationController
 	      expire_at: waiting_expire_at,
 	      status: :start 
 	    }
+	    @accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
 	    @accepted_user.session.bulk_set(job_params)   
 	    @accepted_session = @accepted_user.session.all
 		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
 
-		# AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(
-      	#	'{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
+		# AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
 		
 		logger.info("connect to device session:" + @accepted_session.inspect)
 	end
 	
 	def check_connection
 		check_timeout
+		# set the status of accepted user to 1:success
+		AcceptedUser.update(@accepted_user.id, :status => 1) if @accepted_session['status'] == 'done'
 		result = { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
 		render :json => result
   	end

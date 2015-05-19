@@ -9,7 +9,7 @@ class AcceptedUser < ActiveRecord::Base
 
  	self.redis_prefix = 'invitation'
 
- 	WAITING_PERIOD = 42.seconds
+ 	WAITING_PERIOD = 300.seconds
 
  	def redis_id
  		"#{self.invitation.id}:#{self.user.email}"
