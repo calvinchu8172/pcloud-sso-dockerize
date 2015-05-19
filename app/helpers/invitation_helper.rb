@@ -11,16 +11,15 @@ module InvitationHelper
 	      render :template => 'invitations/accept'
 	      return
 	    end
+	    if @invitation.expire_count <= 0
+			flash[:alert] = I18n.t("warnings.settings.invitation.counting_expired")
+			render :template => '/invitations/accept'
+			return 
+		end 
 	    
 		@user = User.find_by(email: cloud_id) 
 		@accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
-
 		unless @accepted_user.blank?
-			if @invitation.expire_count <= 0
-				flash[:alert] = I18n.t("warnings.settings.invitation.counting_expired")
-				render :template => '/invitations/accept'
-				return 
-			end 
 			if @accepted_user.status == 1
 				flash[:alert] = I18n.t("warnings.settings.invitation.accepted")
 				render :template => '/invitations/accept'

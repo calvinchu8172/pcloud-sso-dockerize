@@ -1,15 +1,14 @@
 class InvitationsController < ApplicationController
 	include InvitationHelper
+
 	skip_before_filter :verify_authenticity_token
 	before_filter :store_location
 	before_filter :authenticate_user!, :only => [:accept]
 	
 	# before_filter :validate_authentication_token,  :unless => :delete_permission? # called by device
-	before_filter :validate_cloud_id, :only => [:invitation, :permission]
-
 	before_filter :validate_device_account, :if => :delete_permission?
-	before_filter :validate_invitation_key, :if => :post_permission?
 
+	# for invitation accepting flow
 	before_filter :check_invitation_available, :only => [:accept]
 	before_filter :check_accepted_session, :only => [:check_connection]
 	
@@ -20,12 +19,12 @@ class InvitationsController < ApplicationController
 
 	def invitation # API: get invitation key list
 		service_logger.note({ parameters: params })
-		cloud_id = params[:cloud_id] || ''
 		if request.get?
 			last_updated_at = params[:last_updated_at].to_i
-			user = User.find_by(email: cloud_id)
-			render_error_response "012" and return if user.blank?
 			result = Array.new
+			
+			user = User.find_by_encrypted_id(params[:cloud_id])
+			render_error_response "012" if user.blank?
 			user.invitations.each do |invitation| 
 				device = invitation.device
 				invitation.accepted_users.each do |accepted_user|
@@ -46,20 +45,17 @@ class InvitationsController < ApplicationController
 
 	def permission
 		service_logger.note({ parameters: params }) 
-		cloud_id = params[:cloud_id] || ''
 		invitation_key = params[:invitation_key] || ''
 		device_account = params[:device_account] || ''
-
 		if request.delete? # API: delete user binding with device
-			user = User.find_by(email: cloud_id)
-			render_error_response "012" and return if user.blank?
-
+			user = User.find_by_encrypted_id(params[:cloud_id])
+			render_error_response "012" if user.blank?
 			accepted_users = AcceptedUser.where(user_id: user.id)
 			render_success_response if accepted_users.blank?
 
 			accepted_users.each do |accepted_user|
-				xmppp_user = XmppUser.find_by(username: device_account)
-				next if xmppp_user.blank?
+				xmpp_user = XmppUser.find_by(username: device_account)
+				next if xmpp_user.blank?
 				if accepted_user.invitation.device.id == xmpp_user.session.to_i
 					accepted_user.destroy
 				end
@@ -68,7 +64,6 @@ class InvitationsController < ApplicationController
 		end
 	end
 
-	# saving accepted session 
 	def connect_to_device
 	    waiting_expire_at = (Time.now() + AcceptedUser::WAITING_PERIOD).to_i
 	    job_params = { 
@@ -79,7 +74,6 @@ class InvitationsController < ApplicationController
 	      status: :start 
 	    }
 	    @accepted_user.session.bulk_set(job_params)   
-
 	    @accepted_session = @accepted_user.session.all
 		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
 
