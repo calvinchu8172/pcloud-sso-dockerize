@@ -1,13 +1,15 @@
 class InvitationsController < ApplicationController
 	include InvitationHelper
 	skip_before_filter :verify_authenticity_token
-	before_filter :store_location
-	before_filter :authenticate_user!, :only => [:accept]
 	
 	# before_filter :validate_authentication_token,  :unless => :delete_permission? # called by device
 	before_filter :validate_device_account, :if => :delete_permission?
 
+
+
 	# for invitation accepting flow
+	before_filter :store_location, :only => [:accept]
+	before_filter :authenticate_user!, :only => [:accept]
 	before_filter :check_invitation_available, :only => [:accept]
 	before_filter :check_accepted_session, :only => [:check_connection]
 	
@@ -22,7 +24,8 @@ class InvitationsController < ApplicationController
 			last_updated_at = params[:last_updated_at].to_i
 			result = Array.new
 			user = User.find_by_encrypted_id(params[:cloud_id])
-			render_error_response "012" if user.blank?
+			logger.debug("user.to_json: #{user.to_json}")
+			render_error_response "012" and return if user.blank?
 			user.invitations.each do |invitation| 
 				device = invitation.device
 				invitation.accepted_users.each do |accepted_user|
@@ -47,10 +50,10 @@ class InvitationsController < ApplicationController
 		device_account = params[:device_account] || ''
 		if request.delete? # API: delete user binding with device
 			user = User.find_by_encrypted_id(params[:cloud_id])
-			render_error_response "012" if user.blank?
+			render_error_response "012" and return if user.blank?
 
 			accepted_users = AcceptedUser.where(user_id: user.id)
-			render_success_response if accepted_users.blank?
+			render_success_response and return if accepted_users.blank?
 			accepted_users.each do |accepted_user|
 				xmpp_user = XmppUser.find_by(username: device_account)
 				next if xmpp_user.blank?
@@ -73,9 +76,10 @@ class InvitationsController < ApplicationController
 	    }
 	    @accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
 	    @accepted_user.session.bulk_set(job_params)   
+	    @accepted_user.session.expire((AcceptedUser::WAITING_PERIOD + 0.2.minutes).to_i)
+
 	    @accepted_session = @accepted_user.session.all
 		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
-
 		# AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
 		
 		logger.info("connect to device session:" + @accepted_session.inspect)
@@ -84,7 +88,7 @@ class InvitationsController < ApplicationController
 	def check_connection
 		check_timeout
 		# set the status of accepted user to 1:success
-		AcceptedUser.update(@accepted_user.id, :status => 1) if @accepted_session['status'] == 'done'
+		AcceptedUser.update(@accepted_user.id, :status => 1) if @accepted_session['status'] == 'done' 
 		result = { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
 		render :json => result
   	end
