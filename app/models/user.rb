@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :pairings
   has_many :devices, :through => :pairings
   has_many :invitations, :through => :devices
+  has_many :accepted_users
+
 
   VALIDATE_MOBILE_REGEX = /\A[0-9#\+\(\)-]*\z/
 
