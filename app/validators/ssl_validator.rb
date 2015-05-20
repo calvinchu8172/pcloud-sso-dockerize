@@ -29,7 +29,7 @@ class SslValidator < ActiveModel::Validator
 
     def public_key(serail)
 
-      key_string ||= Settings.environments.public_key[serail]
+      key_string = Api::Certificate.public_key_list[serail] || Settings.environments.public_key[serail]
       @public_key = OpenSSL::PKey::RSA.new(key_string)
     end
 end
