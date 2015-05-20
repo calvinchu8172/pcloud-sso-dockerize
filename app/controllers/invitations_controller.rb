@@ -8,13 +8,11 @@ class InvitationsController < ApplicationController
 	skip_before_filter :verify_authenticity_token
 	before_filter :validate_invitation_params, :only => [:invitation]
 	before_filter :validate_permission_params, :only => [:permission]
+	before_filter :validate_create_params, :only => :create
 	before_filter :store_location, :only => [:accept]
 	before_filter :authenticate_user!, :only => [:accept]
 	before_filter :check_invitation_available, :only => [:accept]
 	before_filter :check_accepted_session, :only => [:check_connection]
-	
-	#for invitation key generate
-	before_filter :validate_create_params, :only => :create
 
 	def create
 		result = Array.new

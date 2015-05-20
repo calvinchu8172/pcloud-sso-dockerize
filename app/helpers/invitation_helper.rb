@@ -47,8 +47,8 @@ module InvitationHelper
 		if action_name == 'permission' && request.delete?
 			render_error_response "004" and return if params[:device_account].blank?
 			render_error_response "012" and return if params[:cloud_id].blank?
-			render_error_response "013" and return if params[:certificate].blank?
-			render_error_response "014" and return if params[:signature].blank?
+			render_error_response "013" and return if params[:certificate].blank? || !verify_certificate(params[:certificate])
+			render_error_response "014" and return if params[:signature].blank? || !validate_signature(params[:signature], "#{params[:device_account]}#{params[:cloud_id]}")
 		end
 	end
 
@@ -61,4 +61,24 @@ module InvitationHelper
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end
+
+	def validate_signature(signature, key)
+	    sha224 = OpenSSL::Digest::SHA224.new
+	    public_key.verify(sha224, signature, key)
+	end
+
+    def verify_certificate certificate
+      	begin
+        	certificate = OpenSSL::X509::Certificate.new(CGI::unescape(certificate))
+        	return certificate.verify(public_key)
+      	rescue
+        	return false
+      	end
+    end  
+
+    def public_key
+      	return @public_key unless @public_key.blank?
+      	key_string = ENV['PUBLIC_KEY'] || Settings.environments.public_key
+      	@public_key = OpenSSL::PKey::RSA.new(key_string)
+    end
 end
