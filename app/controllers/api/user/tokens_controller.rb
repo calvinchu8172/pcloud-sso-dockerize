@@ -3,7 +3,7 @@ class Api::User::TokenController < Api::Base
   
   def create
     
-    unless @user = Api::User.authenticate(token_params)
+    unless @user = Api::User::Token.authenticate(token_params)
       return  render json: {code: '001', description: 'Invalid email or password.'}
     end
 
