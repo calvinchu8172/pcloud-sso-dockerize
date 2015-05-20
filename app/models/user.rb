@@ -47,24 +47,6 @@ class User < ActiveRecord::Base
     identity
   end
 
-  def self.sign_up_oauth_user(user_id, provider, password, data)
-    identity = Identity.where(provider: provider, uid: user_id ).first_or_initialize
-
-    if identity.user.blank?
-      user = User.new
-      user.email = data['email']
-      user.password = password
-      user.fetch_details_from_oauth(data)
-      user.edm_accept = "0"
-      user.agreement = "1"
-      user.save!
-
-      identity.user = user
-      identity.save!
-    end
-    identity
-  end
-
   def fetch_details(auth)
     self.first_name = auth["info"]["first_name"] if auth["info"]["first_name"]
     self.last_name = auth["info"]["last_name"] if auth["info"]["last_name"]
