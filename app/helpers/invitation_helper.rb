@@ -1,71 +1,55 @@
 module InvitationHelper
 	
 	def check_invitation_available
-		cloud_id = current_user[:email] || ''
-		@invitation_key = params[:id]
-
 		@validation = { :success => false }
-		@invitation = Invitation.find_by(key: @invitation_key)
+		cloud_id = current_user[:email] || ''
+		@invitation_key = params[:id] || ''
+		@invitation = Invitation.find_by(key: @invitation_key) unless @invitation_key.blank?
 	    if @invitation.nil?
-	      flash[:alert] = I18n.t("warnings.settings.invitation.not_found")
-	      render :template => 'invitations/accept'
+	      flash.now[:alert] = I18n.t("warnings.settings.invitation.invalid_key")
+	      render :template => '/invitations/accept'
 	      return
 	    end
 	    if @invitation.expire_count <= 0
-			flash[:alert] = I18n.t("warnings.settings.invitation.counting_expired")
+			flash.now[:alert] = I18n.t("warnings.settings.invitation.counting_expired")
 			render :template => '/invitations/accept'
 			return 
 		end 
-	    
 		@user = User.find_by(email: cloud_id) 
 		@accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
 		unless @accepted_user.blank?
 			if @accepted_user.status == 1
-				flash[:alert] = I18n.t("warnings.settings.invitation.accepted")
+				flash.now[:alert] = I18n.t("warnings.settings.invitation.accepted")
 				render :template => '/invitations/accept'
 				return 
 			end
 		end
-		@validation = { :success => true }
+		@validation[:success] = true
   	end
 
 	def check_accepted_session
-		invitation_key = params[:id]
-		invitation = Invitation.find_by(key: invitation_key)
-		if invitation.nil?
-	      render_error_response "021"
-	    end
+		invitation_key = params[:id] || ''
+		invitation = Invitation.find_by(key: invitation_key) unless invitation_key.blank?
+	    render :json => { :key => invitation_key, :status => 'invalid invitation key' } and return if invitation.nil?
 
 		@accepted_user = AcceptedUser.find_by(user_id: current_user.id, invitation_id: invitation.id)
 		@accepted_session = @accepted_user.session.all
   	end
 
-  	def validate_device_account
-		render_error_response "004" if params[:device_account].blank?
+	def validate_invitation_params
+		if action_name == 'invitation' && request.get?
+			render_error_response "012" and return if params[:cloud_id].blank?
+			# render_error_response "012" and return if params[:authentication_token].blank?
+		end
 	end
 
-	def validate_authentication_token
-		render_error_response "012" if params[:authentication_token].blank?
-	end
-
-	def validate_cloud_id
-		render_error_response "012" if params[:cloud_id].blank?
-	end
-
-	def validate_invitation_key
-		render_error_response "021" if params[:invitation_key].blank?
-	end
-
-	def post_permission?
-		action_name == 'permission' && request.post?
-	end
-
-	def delete_permission?
-		action_name == 'permission' && request.delete?
-	end
-
-	def render_success_response
-		render :json => { "result" => "success" }, status: 200
+	def validate_permission_params
+		if action_name == 'permission' && request.delete?
+			render_error_response "004" and return if params[:device_account].blank?
+			render_error_response "012" and return if params[:cloud_id].blank?
+			render_error_response "013" and return if params[:certificate].blank?
+			render_error_response "014" and return if params[:signature].blank?
+		end
 	end
 
 	def render_error_response error_code
@@ -73,9 +57,7 @@ module InvitationHelper
 			"004" => "invalid device.",
 			"012" => "invalid cloud id or token.",
 			"013" => "invalid certificate.",
-			"014" => "invalid signature.",
-			"021" => "invalid invitation key.",
-			"022" => "invitation expired."
+			"014" => "invalid signature."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end

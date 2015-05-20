@@ -1,13 +1,13 @@
+# 被分享者接受邀請的流程如下
+# * start: 接受邀請流程的起始狀態，並會發送 start message 給device
+# * success: 接受邀請成功
+# * failure: 在start之後，若bot與device的溝通狀況出現問題，則判斷為failure
+# * timeout: 在start之後，使用者在一定的時間後仍無法成功接受邀請，則判斷為timout
 class InvitationsController < ApplicationController
 	include InvitationHelper
 	skip_before_filter :verify_authenticity_token
-	
-	# before_filter :validate_authentication_token,  :unless => :delete_permission? # called by device
-	before_filter :validate_device_account, :if => :delete_permission?
-
-
-
-	# for invitation accepting flow
+	before_filter :validate_invitation_params, :only => [:invitation]
+	before_filter :validate_permission_params, :only => [:permission]
 	before_filter :store_location, :only => [:accept]
 	before_filter :authenticate_user!, :only => [:accept]
 	before_filter :check_invitation_available, :only => [:accept]
@@ -18,14 +18,13 @@ class InvitationsController < ApplicationController
 		connect_to_device
 	end
 
-	def invitation # API: get invitation key list
-		service_logger.note({ parameters: params })
-		if request.get?
-			last_updated_at = params[:last_updated_at].to_i
+	def invitation
+		if request.get? # API: get invitation key list
+			last_updated_at = params[:last_updated_at] ? 0 : params[:last_updated_at].to_i
 			result = Array.new
 			user = User.find_by_encrypted_id(params[:cloud_id])
-			logger.debug("user.to_json: #{user.to_json}")
 			render_error_response "012" and return if user.blank?
+
 			user.invitations.each do |invitation| 
 				device = invitation.device
 				invitation.accepted_users.each do |accepted_user|
@@ -34,7 +33,7 @@ class InvitationsController < ApplicationController
 						device_id: device.id,
 						share_point: invitation.share_point,
 						permission: invitation.permission_name,
-						accepted_user: accepted_user.user_email,
+						accepted_user: accepted_user.user.email,
 						accepted_time: accepted_user.accepted_time })
 				end
 			end 
@@ -45,23 +44,18 @@ class InvitationsController < ApplicationController
 	end
 
 	def permission
-		service_logger.note({ parameters: params }) 
-		invitation_key = params[:invitation_key] || ''
-		device_account = params[:device_account] || ''
 		if request.delete? # API: delete user binding with device
 			user = User.find_by_encrypted_id(params[:cloud_id])
 			render_error_response "012" and return if user.blank?
-
 			accepted_users = AcceptedUser.where(user_id: user.id)
-			render_success_response and return if accepted_users.blank?
 			accepted_users.each do |accepted_user|
-				xmpp_user = XmppUser.find_by(username: device_account)
+				xmpp_user = XmppUser.find_by(username: params[:device_account])
 				next if xmpp_user.blank?
 				if accepted_user.invitation.device.id == xmpp_user.session.to_i
 					accepted_user.destroy
 				end
 			end
-			render_success_response
+			render :json => { "result" => "success" }, status: 200
 		end
 	end
 
@@ -78,19 +72,15 @@ class InvitationsController < ApplicationController
 	    @accepted_user.session.bulk_set(job_params)   
 	    @accepted_user.session.expire((AcceptedUser::WAITING_PERIOD + 0.2.minutes).to_i)
 
-	    @accepted_session = @accepted_user.session.all
+	    @accepted_session = job_params
 		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
 		# AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
-		
-		logger.info("connect to device session:" + @accepted_session.inspect)
 	end
 	
 	def check_connection
 		check_timeout
-		# set the status of accepted user to 1:success
 		AcceptedUser.update(@accepted_user.id, :status => 1) if @accepted_session['status'] == 'done' 
-		result = { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
-		render :json => result
+		render :json => { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
   	end
 
 	def check_timeout

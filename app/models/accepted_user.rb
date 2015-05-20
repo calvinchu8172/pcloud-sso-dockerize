@@ -4,12 +4,9 @@ class AcceptedUser < ActiveRecord::Base
  	belongs_to :user
 
  	hash_key :session
-
  	redis_id_field :redis_id
-
  	self.redis_prefix = 'invitation'
-
- 	WAITING_PERIOD = 300.seconds
+ 	WAITING_PERIOD = 30.seconds
 
  	def redis_id
  		"#{self.invitation.id}:#{self.user.email}"
@@ -24,16 +21,8 @@ class AcceptedUser < ActiveRecord::Base
 		self.updated_at.strftime("%Y-%m-%d %H:%M:%S")	
 	end
 
-	def user_email
-		self.user.email
-	end
-
-	def accepted_successfully?
-		self.status == 1
-	end
-
 	def inbox? last_updated_at
-		self.accepted_successfully? && self.updated_at.to_i > last_updated_at.to_i
+		self.status == 1 && self.updated_at.to_i > last_updated_at.to_i
 	end
 
 	def self.handling_status

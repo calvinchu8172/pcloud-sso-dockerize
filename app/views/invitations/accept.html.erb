@@ -1,11 +1,12 @@
 <div ng-app="invitation_app"  ng-controller="InvitationCtrl" 
-	ng-init="invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; validation=<%= @validation.to_json %>;init();">
+	ng-init="invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; validation=<%= @validation.to_json %>; init();">
 	<div class="bottom-content" ng-switch on="panel">
 
 	    <span class="zyxel_span2" ng-switch on="step">
-	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.pairing.connecting") %></span>
-	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.pairing.failure") %></span>
-	      <span ng-switch-when="done"><%= I18n.t("warnings.settings.pairing.success") %></span>
+	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.invitation.connecting") %></span>
+	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>
+	      <span ng-switch-when="timeout"><%= I18n.t("warnings.settings.invitation.timeout") %></span>
+	      <span ng-switch-when="done"><%= I18n.t("warnings.settings.invitation.success") %></span>
 	    </span>
 
         <div class="countdown" ng-switch-when="loading">
@@ -21,7 +22,7 @@
 </div>
 
 <script type="text/javascript">
-	var invitation_app = angular.module('invitation_app', ['timer']);
+	var invitation_app = angular.module('invitation_app', []);
 	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
 
 		$scope.step = 'connecting';
@@ -30,15 +31,14 @@
 		$scope.interval = 3000
 
 	    $scope.init = function(){
-	    	console.log("init...")
-	    	if($scope.validation.success){
-		    	if($scope.session.status == 'start'){
-			        $scope.connectingStep();
-			        $scope.checkConnection();
-		      	}	    		
-	    	}else{
+	    	if($scope.validation.success == false){
 	    		$scope.failureStep();
+	    		return;
 	    	}
+		    if($scope.session.status == 'start'){
+			    $scope.connectingStep();
+			    $scope.checkConnection();
+		    }	    		
 	    };
 
 	    $scope.checkConnection = function(){
@@ -47,7 +47,8 @@
 		        	$scope.poll();
 		        	break;
 		        case 'timeout':
-		          	$scope.failureStep();
+		        	console.log("timeout....")
+		          	$scope.timeoutStep();
 		          	break;
 		        case 'failure':
 		          	$scope.failureStep();
@@ -70,14 +71,17 @@
 		    }, $scope.interval);
 	    };
 
-	    $scope.failureStep = function(){
-	      $scope.step = 'failure';
-	      $scope.panel = 'retry';
-	    };
-
 	    $scope.connectingStep = function(){
 	      $scope.step = 'connecting';
 	      $scope.panel = 'loading';
+	    };
+	    $scope.timeoutStep = function(){
+	      $scope.step = 'timeout'
+	      $scope.panel = 'retry'
+	    };
+	    $scope.failureStep = function(){
+	      $scope.step = 'failure';
+	      $scope.panel = 'retry';
 	    };
 
 	    $scope.completedStep = function(){

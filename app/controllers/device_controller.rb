@@ -40,39 +40,6 @@ class DeviceController < ApplicationController
                      :xmpp_ip_addresses => Settings.xmpp.nodes}
   end
 
-  # GET /d/1/device_list
-  # def device_list 
-  #   service_logger.note({parameters: api_permit})    
-
-  #   user = User.find(api_permit[:cloud_id])
-  #   return if user.blank?
-  #   result = Hash.new 
-  #   user.pairing.each do |paring|
-  #     device = paring.device
-  #     xmpp_account = device.session.fetch :xmpp_account + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_resource_id
-  #     result[device.id] = { "xmpp_account" => xmpp_account,  
-  #                                  "mac_address" => device.mac_address, 
-  #                                  "host_name" => device.ddns.hostname,
-  #                                  "wan_ip" => device.ddns.ip_address,
-  #                                  "firmware_ver" => device.firmware_version,
-  #                                  "last_update_time" => device.updated_at,
-  #                                  "is_owner" => true}
-  #   end
-  #   #status 0:failed, 1: success
-  #   AcceptedUser.where(user_id: user.id, status: 1).each do |accepted_user|
-  #     device = accepted_user.invitation.device
-  #     xmpp_account = device.session.fetch :xmpp_account + '@' + Settings.xmpp.server + "/" + Settings.xmpp.device_resource_id
-  #     result[device.id] = { "xmpp_account" => xmpp_account,  
-  #                                  "mac_address" => device.mac_address, 
-  #                                  "host_name" => device.ddns.hostname,
-  #                                  "wan_ip" => device.ddns.ip_address,
-  #                                  "firmware_ver" => device.firmware_version,
-  #                                  "last_update_time" => device.updated_at,
-  #                                  "is_owner" => false}
-  #   end
-  #   render :json => result.to_json
-  # end
-
   private
 
   # 如參數帶有reset=1的參數，並且該裝置已配對，則重設該台Device
