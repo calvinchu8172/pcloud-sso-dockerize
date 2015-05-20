@@ -25,6 +25,6 @@ class Api::User::RegistersController < Api::Base
 
   private 
     def valid_params
-      params.permit(:id, :password, :certificate, :signature, :app_key, :os)
+      params.permit(:id, :password, :certificate_serial, :signature, :app_key, :os)
     end
 end
