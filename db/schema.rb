@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511074926) do
+ActiveRecord::Schema.define(version: 20150512035509) do
 
   create_table "accepted_users", force: true do |t|
     t.integer  "invitation_id",           null: false

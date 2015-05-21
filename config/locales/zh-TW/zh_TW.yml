@@ -86,6 +86,14 @@ zh-TW:
         failure: '您的配對已逾時，請重新操作以進行配對'
         canceled: '您的配對流程已取消'
         success: '已完成與此裝置的配對，請點擊”確定”按鈕以繼續設定裝置'
+      invitation:
+          invalid_key: '非合法的邀請碼'
+          counting_expired: '此邀請已超過可接受的上限次數'
+          accepted: '已接受過相同的邀請'
+          connecting: '連線中...'
+          success: '您已完成接受邀請'
+          timeout: '連線已逾時，請重新操作'
+          failure: '接受邀請失敗'
       ddns:
         instruction: '請使用：'
         instruction_2: '3至63個字元'

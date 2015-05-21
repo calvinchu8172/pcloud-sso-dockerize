@@ -54,6 +54,7 @@ Rails.application.routes.draw do
     get 'upnp/check/:id' , to: 'upnp#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
+
   end
 
   constraints :host => Settings.environments.api_domain  do
@@ -68,6 +69,11 @@ Rails.application.routes.draw do
       get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
       post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
     end
+
+    get '/resource/1/device_list' => "personal#device_list"
+    get '/resource/1/:action' => "invitations"
+    post '/resource/1/' => "invitations#create"
+    delete '/resource/1/:action' => "invitations"
 
     root "application#raise_not_found!", via: :all
   end
