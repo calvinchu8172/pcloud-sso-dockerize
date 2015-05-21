@@ -76,6 +76,8 @@ class InvitationsController < ApplicationController
 			user = User.find_by_encrypted_id(params[:cloud_id])
 			render_error_response "012" and return if user.blank?
 			accepted_users = AcceptedUser.where(user_id: user.id)
+			permission = Api::Invitation::Permission.where(user_id: user.id).first
+			permission.destroy
 			accepted_users.each do |accepted_user|
 				xmpp_user = XmppUser.find_by(username: params[:device_account])
 				next if xmpp_user.blank?

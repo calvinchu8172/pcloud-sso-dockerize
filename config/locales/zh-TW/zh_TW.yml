@@ -91,7 +91,7 @@ zh-TW:
           counting_expired: '此邀請已超過可接受的上限次數'
           accepted: '已接受過相同的邀請'
           connecting: '連線中...'
-          success: '已完成接受邀請'
+          success: '您已完成接受邀請'
           timeout: '連線已逾時，請重新操作'
           failure: '接受邀請失敗'
       ddns:
