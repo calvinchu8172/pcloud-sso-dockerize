@@ -10,7 +10,7 @@ class Api::User::OauthController < Api::Base
 
     @identity = Identity.find_by(uid: user_id, provider: @provider)
 
-    if @data.nil?
+    if data.nil?
       render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
     elsif @identity.nil?
       render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400
@@ -23,9 +23,10 @@ class Api::User::OauthController < Api::Base
 
   # POST /user/1/register/:oauth_provider
   def mobile_register
-    user_id  = register_params[:user_id]
-    password = register_params[:password]
-    access_token = register_params[:access_token]
+    certificate = register_params[:certificate]
+    user_id            = register_params[:user_id]
+    password           = register_params[:password]
+    access_token       = register_params[:access_token]
 
     @identity = Identity.find_by(uid: user_id, provider: @provider)
 
@@ -35,35 +36,48 @@ class Api::User::OauthController < Api::Base
       render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
     else
       data = get_oauth_data(@provider, user_id, access_token)
-      render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if @data.nil?
-      identity = Api::User::Oauth.sign_up_oauth_user(user_id, @provider, register_params, data)
-      sign_in identity.user
-      redirect_to authenticated_root_path
+      if data.nil?
+        render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
+      else
+        @user = Api::User::Register.new register_params.except(:access_token, :user_id)
+        @user.email = data['email']
+        @user.agreement = "1"
+
+        logger.debug "certificate_validator record:" + register_params.inspect
+
+        unless @user.save
+          {"004" => "certificaate",
+           "004" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+        end
+
+        sign_in(:user, @user, store: false, bypass: false)
+      end
     end
 
   end
 
+
   def get_oauth_data(provider, user_id, access_token)
     begin
-      data = RestClient.get('https://www.googleapis.com/oauth2/v2/userinfo', :params => {:access_token => access_token}) if provider == 'google_oauth2'
+      data = RestClient.get('https://www.googleapis.com/oauth2/v1/userinfo', :params => {:access_token => access_token}) if provider == 'google_oauth2'
       data = RestClient.get('https://graph.facebook.com/v2.3/me', :params => {:access_token => access_token}) if provider == 'facebook'
       data = JSON.parse data
-    rescue => e
+      data
+    rescue Exception => e
       logger.debug "Invalid oauth token"
       logger.debug e.response
     end
-
-    data if user_id == data["id"]
+    data if user_id = data["id"]
   end
 
   private
 
   def register_params
-    params.permit(:user_id, :access_token, :password, :certificate, :signature)
+    params.permit(:access_token, :user_id, :password, :certificate, :signature)
   end
 
   def checkin_params
-    params.permit(:user_id, :access_token)
+    params.permit(:access_token, :user_id)
   end
 
   def adjust_provider
