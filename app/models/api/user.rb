@@ -9,15 +9,6 @@ class Api::User < User
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month
 
-  def self.authenticate(payload = {})
-
-    user = self.find_for_database_authentication(email: payload[:email])
-    return unless user
-    return unless user.valid_password?(payload[:password])
-
-    user
-  end
-
   def authentication_token_key
     "user:#{id}:account_token"
   end
@@ -58,16 +49,7 @@ class Api::User < User
     info
   end
 
-  def self.verify_authentication_token token
-
-  end
-
-  def self.revoke_authentication_token key
-    redis_token = Redis::Value.new(authentication_token_key + ':' + key)
-    redis_token.delete
-  end
-
-  private
+  protected
     def generate_xmpp_account
       url_safe_encode64(email)
     end
