@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     post '/d/1/:action' => "device"
     post '/d/2/:action' => "device"
 
-    scope :path => '/user/1/', :module => "api/user" do
+    scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
       resource :token, controller: :token, format: 'json'
       resource :register, format: 'json'
