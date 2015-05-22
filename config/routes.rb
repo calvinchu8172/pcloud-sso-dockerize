@@ -70,10 +70,14 @@ Rails.application.routes.draw do
       post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
     end
 
-    get '/resource/1/device_list' => "personal#device_list"
-    get '/resource/1/:action' => "invitations"
-    post '/resource/1/' => "invitations#create"
-    delete '/resource/1/:action' => "invitations"
+    scope :path => '/resource/1/', :module => "api/resource" do
+      delete 'permission', to: 'permissions#delete', format:'json'
+
+      get 'invitation', to: 'invitations#index', format: 'json'
+      post 'invitation', to: 'invitations#create', format: 'json'
+
+      get 'device_list' => "personal#device_list", format: 'json'
+    end
 
     root "application#raise_not_found!", via: :all
   end

@@ -36,30 +36,4 @@ module InvitationHelper
 		@accepted_session = @accepted_user.session.all
   	end
 
-	def validate_invitation_params
-		if action_name == 'invitation' && request.get?
-			render_error_response "012" and return if params[:cloud_id].blank?
-			# render_error_response "012" and return if params[:authentication_token].blank?
-		end
-	end
-
-	def validate_permission_params
-		if action_name == 'permission' && request.delete?
-			render_error_response "004" and return if params[:device_account].blank?
-			render_error_response "012" and return if params[:cloud_id].blank?
-			# render_error_response "013" and return if params[:certificate].blank? || !verify_certificate(params[:certificate])
-			# render_error_response "014" and return if params[:signature].blank? || !validate_signature(params[:signature], "#{params[:device_account]}#{params[:cloud_id]}")
-		end
-	end
-
-	def render_error_response error_code
-		error_descriptions = {
-			"004" => "invalid device.",
-			"012" => "invalid cloud id or token.",
-			"013" => "invalid certificate.",
-			"014" => "invalid signature."
-		}
-		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
-	end
-
 end
