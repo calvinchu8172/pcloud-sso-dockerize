@@ -9,12 +9,8 @@ class Api::User::Token < Api::User
     user
   end
 
-  def self.verify_authentication_token token
-
-  end
-
-  def self.revoke_authentication_token key
-    redis_token = Redis::Value.new(authentication_token_key + ':' + key)
+  def revoke_authentication_token key
+    redis_token = Redis::Value.new(authentication_token_key(id.to_s, key))
     redis_token.delete
   end
 
