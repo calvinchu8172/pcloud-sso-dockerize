@@ -15,22 +15,6 @@ xmpp:
     - ec2-54-85-72-129.compute-1.amazonaws.com
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
-  public_key:
-    example_serial: |
-                -----BEGIN PUBLIC KEY-----
-                MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA3QNj4mwsBv49Zh7pDi1P
-                Dr0/HH9koD0J2rgLtUcr6vfoHiVrITSjPUMg0dK7ipRCajBbVJ+9Yq9kfs7ocBJj
-                inhWqSrnzNUznswqPTSw2aj0Xxau8f60GFmx74qDGPQeVkWWumXCZYdahUJOKADv
-                2rvbcqsggd2pJE6hACuC7xco9W4Arvf+nNazrZjWwRy2y5hSjPe6IN8Y2gmufwRW
-                8J9nzU1T72oxjMYbPMN38t2TAMTUIAZ08soRPdSj4Aj2hp/1cn4W7FECyJ3s+DGf
-                lHS96YqAPHsifnqi/KsqIZ3c5xxCMsfuG7RFz8LNmf/GDxhotwktC965qgNxbr8x
-                TNMreraAfKabnjLaVkpNIVqlICjbZFTvPnwG1pJmnlluO0BkYp6t+f7d3/InQPyA
-                kkiYoWmrj2yXwVTajWyRGSaD5T6rA/XIctZojrjDhjFoj9cnLBFScJLKTmqPOIOZ
-                KSL4uiKvrfqaYTO3ss8ggKvLceBSRx1dpmA3VwlvO4j5LEuL1S4dlXgyDGm8X/GS
-                UcQ5kaPmqc6fCvbHuII+cnu+Kjbq18MSo4kjibnl2sfCCG7G2KsXsP5CDFHNWPr7
-                JaOXLp7oumqvxSRklTwgl8etJBaKV7hV7tc8yEzmjxgbgqnC+H+wfpdQvgd1ZK3e
-                sHwEn3OD7zEps14uS7Uc17MCAwEAAQ==
-                -----END PUBLIC KEY-----
   name: 'alpha'
   api_domain: 'localhost'
   portal_domain: 'localhost'
