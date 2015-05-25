@@ -4,7 +4,7 @@ class Api::Base < ApplicationController
 
   def authenticate_user_by_token
   	user = Api::User.find(authentication_params[:id])
-  	# user.
+  	
   end
 
 
