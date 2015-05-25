@@ -7,21 +7,26 @@ class Api::User::OauthController < Api::Base
     access_token = checkin_params[:access_token]
 
     data = get_oauth_data(@provider, user_id, access_token)
+    return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
 
-    @user = User.find_by(email: data['email'])
-    @identity = Identity.find_by(uid: data['id'], provider: @provider)
+    user = User.find_by(email: data['email'])
 
-    if data.nil?
-      render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
-    elsif @identity.nil?
-      if @user.nil?
-        render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400
-      else
-        render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400
-      end
-    else
-      render :json => { :result => 'registered', :account => @identity.user.email }, :status => 200
+    return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if user.nil?
+
+    # 避免來自其他provider的portal user
+    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if is_portal_user?(user)
+
+    identity = Identity.find_by(uid: data['id'], provider: @provider)
+
+    if identity.nil?
+      identity = Identity.new
+      identity.provider = @provider
+      identity.user_id = user.id
+      identity.uid = data['id']
+      identity.save
     end
+
+    return render :json => { :result => 'registered', :account => identity.user.email }, :status => 200
 
   end
 
@@ -32,40 +37,56 @@ class Api::User::OauthController < Api::Base
     password           = register_params[:password]
     access_token       = register_params[:access_token]
 
+    return render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400 if password.nil? || !password.length.between?(8, 14)
+
     data = get_oauth_data(@provider, user_id, access_token)
+    return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
 
-    @user = User.find_by(email: data['email'])
-    @identity = Identity.find_by(uid: data['id'], provider: @provider)
+    identity = Identity.find_by(uid: data['id'], provider: @provider)
+    user = User.find_by(email: data['email'])
 
-    if password.nil? || !password.length.between?(8, 14)
-      render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400
-    elsif data.nil?
-      render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
-    elsif !@identity.nil?
-      render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
-    else
-      if @user.nil?
-        @user = Api::User::Register.new register_params.except(:access_token, :user_id)
-        @user.email = data['email']
-        @user.agreement = "1"
-        @user.skip_confirmation!
-        @user.save
-      end
+    if user.nil?
+      user = Api::User::Register.new register_params.except(:access_token, :user_id)
+      user.email = data['email']
+      user.agreement = "1"
+      user.confirmation_token = Devise.friendly_token
+      user.confirmed_at = Time.now.utc
 
-      @identity = Api::User::Identity.new register_params.except(:access_token, :user_id, :password)
-      @identity.user_id = @user.id
-      @identity.provider = @provider
-      @identity.uid = data['id']
-      @identity.save
-
-      unless @identity.save
+      unless user.save
         {"004" => "certificaate",
          "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
       end
-
-      sign_in(:user, @user, store: false, bypass: false)
-      redirect_to authenticated_root_path
     end
+
+    return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present? && !is_portal_user?(user)
+
+    if is_portal_user?(user)
+      logger.debug 'portal user'
+      user = Api::User::Register.find(user)
+      user.confirmation_token = Devise.friendly_token
+      user.confirmed_at = Time.now.utc
+
+      unless user.update(register_params.except(:access_token, :user_id))
+        {"004" => "certificaate",
+         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+       end
+    end
+
+    if identity.nil?
+      identity = Api::User::Identity.new register_params.except(:access_token, :user_id, :password)
+      identity.provider = @provider
+      identity.user_id = user.id
+      identity.uid = data['id']
+
+      unless identity.save
+        {"004" => "certificaate",
+         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+      end
+    end
+
+    sign_in(:user, user, store: false, bypass: false)
+    redirect_to authenticated_root_path
+
   end
 
   def get_oauth_data(provider, user_id, access_token)
@@ -77,8 +98,12 @@ class Api::User::OauthController < Api::Base
     rescue Exception => e
       logger.debug "Invalid oauth token"
       logger.debug e.response
+      data = nil
     end
-    data if user_id = data["id"]
+  end
+
+  def is_portal_user?(user)
+    user.confirmation_token.nil?
   end
 
   private
