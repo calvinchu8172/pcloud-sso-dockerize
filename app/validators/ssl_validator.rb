@@ -12,24 +12,15 @@ class SslValidator < ActiveModel::Validator
   private
 
     def validate_signature(signature, key, serail)
+
+      return signature == "1"
+
       sha224 = OpenSSL::Digest::SHA224.new
-      public_key(serail).verify(sha224, signature, key)
-
-      signature == "1"
-    end
-
-    def verify_certificate(certificate)
       begin
-        certificate = OpenSSL::X509::Certificate.new(CGI::unescape(certificate))
-        return certificate.verify(public_key)
+        return Api::Certificate.find_public_by_serial(serail).verify(sha224, signature, key)
       rescue
         return false
-      end
-    end  
-
-    def public_key(serail)
-
-      key_string = Api::Certificate.public_key_list[serail] || Settings.environments.public_key[serail]
-      @public_key = OpenSSL::PKey::RSA.new(key_string)
+      end    
     end
+    
 end
