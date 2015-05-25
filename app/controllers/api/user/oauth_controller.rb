@@ -8,54 +8,65 @@ class Api::User::OauthController < Api::Base
 
     data = get_oauth_data(@provider, user_id, access_token)
 
-    @identity = Identity.find_by(uid: user_id, provider: @provider)
+    @user = User.find_by(email: data['email'])
+    @identity = Identity.find_by(uid: data['id'], provider: @provider)
 
     if data.nil?
       render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
     elsif @identity.nil?
-      render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400
-    elsif @identity.user.confirmation_token.nil?
-      render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400
+      if @user.nil?
+        render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400
+      else
+        render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400
+      end
     else
       render :json => { :result => 'registered', :account => @identity.user.email }, :status => 200
     end
+
   end
 
   # POST /user/1/register/:oauth_provider
   def mobile_register
-    certificate = register_params[:certificate]
+    certificate        = register_params[:certificate]
     user_id            = register_params[:user_id]
     password           = register_params[:password]
     access_token       = register_params[:access_token]
 
-    @identity = Identity.find_by(uid: user_id, provider: @provider)
+    data = get_oauth_data(@provider, user_id, access_token)
+
+    @user = User.find_by(email: data['email'])
+    @identity = Identity.find_by(uid: data['id'], provider: @provider)
 
     if password.nil? || !password.length.between?(8, 14)
       render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400
+    elsif data.nil?
+      render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
     elsif !@identity.nil?
       render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
     else
-      data = get_oauth_data(@provider, user_id, access_token)
-      if data.nil?
-        render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
-      else
+      if @user.nil?
         @user = Api::User::Register.new register_params.except(:access_token, :user_id)
         @user.email = data['email']
         @user.agreement = "1"
-
-        logger.debug "certificate_validator record:" + register_params.inspect
-
-        unless @user.save
-          {"004" => "certificaate",
-           "004" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
-        end
-
-        sign_in(:user, @user, store: false, bypass: false)
+        @user.skip_confirmation!
+        @user.save
       end
+
+      @identity = Api::User::Identity.new register_params.except(:access_token, :user_id, :password)
+      @identity.user_id = @user.id
+      @identity.provider = @provider
+      @identity.uid = data['id']
+      @identity.save
+
+      unless @identity.save
+        {"004" => "certificaate",
+         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+      end
+
+      sign_in(:user, @user, store: false, bypass: false)
+      redirect_to authenticated_root_path
     end
-
   end
-
 
   def get_oauth_data(provider, user_id, access_token)
     begin
@@ -89,6 +100,4 @@ class Api::User::OauthController < Api::Base
       @provider ||=  params[:oauth_provider]
     end
   end
-
-
 end
