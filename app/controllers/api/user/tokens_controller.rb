@@ -1,6 +1,7 @@
 # refer to http://fancypixel.github.io/blog/2015/01/28/react-plus-flux-backed-by-rails-api/
 class Api::User::TokensController < Api::Base
-  
+  before_filter :authenticate_user_by_token, only: :show
+
   def create
     
     @user = Api::User::Token.authenticate(token_params)
@@ -13,7 +14,7 @@ class Api::User::TokensController < Api::Base
   end
 
   def show
-
+    render json: {result: 'valid', timeout: 3600} if current_token_user
   end
 
   def update
