@@ -3,7 +3,8 @@ class Api::User::TokensController < Api::Base
   
   def create
     
-    unless @user = Api::User::Token.authenticate(token_params)
+    @user = Api::User::Token.authenticate(token_params)
+    unless @user.errors.empty?
       return  render json: @user.errors[:authenticate].first
     end
     
