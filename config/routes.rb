@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
     scope :path => '/user/1/', :module => "api/user" do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
-      resource :tokens, format: 'json'
+      resource :token, format: 'json'
       resource :register, format: 'json'
     end
     
