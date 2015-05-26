@@ -2,6 +2,7 @@ class Api::User::Email < Api::User
   attr_accessor :new_email
   
   def update_email
+    # to-do: dirty hack here, sorry I don't have to much time to override devise validation
     return false if new_email_not_modified? or new_email_not_uniqueness?
     self.update_without_password(email: new_email)
   end
