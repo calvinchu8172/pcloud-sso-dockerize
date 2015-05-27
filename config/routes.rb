@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
       resource :token, format: 'json'
       resource :register, format: 'json'
+      put :xmpp, format: 'json'
     end
     
     root "application#raise_not_found!", via: :all
