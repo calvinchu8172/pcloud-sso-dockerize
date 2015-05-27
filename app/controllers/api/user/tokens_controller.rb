@@ -14,7 +14,7 @@ class Api::User::TokensController < Api::Base
   end
 
   def show
-    render json: {result: 'valid', timeout: 3600} if current_token_user
+    render json: {result: 'valid', timeout: current_token_user.authentication_token_ttl} if current_token_user
   end
 
   def update
