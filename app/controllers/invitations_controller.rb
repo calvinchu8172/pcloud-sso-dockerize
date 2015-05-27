@@ -30,8 +30,8 @@ class InvitationsController < ApplicationController
 	    @accepted_user.session.expire((AcceptedUser::WAITING_PERIOD + 0.2.minutes).to_i)
 
 	    @accepted_session = job_params
-		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
-		# AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
+			@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
+			AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
 	end
 
 	def check_connection
