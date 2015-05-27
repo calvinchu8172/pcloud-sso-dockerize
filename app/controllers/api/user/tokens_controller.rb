@@ -1,6 +1,6 @@
 # refer to http://fancypixel.github.io/blog/2015/01/28/react-plus-flux-backed-by-rails-api/
 class Api::User::TokensController < Api::Base
-  before_filter :authenticate_user_by_token, only: :show
+  before_filter :authenticate_user_by_token!, only: :show
 
   def create
     
