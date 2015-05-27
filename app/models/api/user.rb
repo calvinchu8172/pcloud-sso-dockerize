@@ -50,7 +50,14 @@ class Api::User < User
 
   def verify_authentication_token(token)
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, token))
-    DateTime.strptime(redis_token.value) > DateTime.now unless redis_token.nil?
+    return false if redis_token.nil?
+
+    if DateTime.strptime(redis_token.value) > DateTime.now 
+      redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
+      return true
+    else
+      return false
+    end
   end
 
   protected
