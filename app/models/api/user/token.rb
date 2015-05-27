@@ -1,12 +1,20 @@
 class Api::User::Token < Api::User
   attr_accessor :certificate_serial, :signature
-  validates_with SslValidator, signature_key: [:id, :password, :certificate_serial], on: :create
+  validates_with SslValidator, signature_key: [:id, :password, :certificate_serial]
   
   def self.authenticate(payload = {})
 
     user = self.find_for_database_authentication(email: payload[:email])
     unless user and user.valid_password?(payload[:password])
       user.errors.add(:authenticate, {code: '001', description: 'Invalid email or password.'})
+      return user
+    end
+
+    user.signature = payload[:signature]
+    user.certificate_serial = payload[:certificate_serial]
+    user.valid?
+    unless user.errors["signature"].blank?
+      user.errors.add(:authenticate, {error_code: "101", description: "invalid signature"}) 
       return user
     end
     

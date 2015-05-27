@@ -27,6 +27,6 @@ class Api::User::TokensController < Api::Base
   private 
 
     def token_params
-      params.permit(:email, :password, :app_key, :os)
+      params.permit(:email, :password, :certificate_serial, :signature, :app_key, :os)
     end
 end
