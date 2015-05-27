@@ -1,6 +1,6 @@
 <% provide(:tab, 'search') %>
 
-<div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl" ng-init="devices=<%= @result.to_json %>;">
+<div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl" ng-init="devices=<%= @result.to_json %>; indicated_list=[]">
   <div class="zyxel_bread">
     <span><%= I18n.t("titles.search_devices") %></span>
     <%# Top content - result text and re-find button %>
@@ -22,6 +22,8 @@
         <td class="td_right pairing_btn_fix">
           <a ng-if="!device.paired" class="zyxel_btn_style1" href="/discoverer/check/{{device.device_id}}"  ><%= I18n.t("labels.pairing") %></a>
           <span ng-if="device.paired" class="zyxel_btn_style1 zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.paired") %></span>
+          <a ng-if="!device.paired" ng-show="!device.indicated" class="zyxel_btn_style1" href="#" ng-click="doIndicate($index);"><%= I18n.t("labels.find_me") %></a>
+          <span ng-if="!device.paired" ng-show="device.indicated" class="zyxel_btn_style1 zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.find_me") %></span>
         </td>
       </tr>
     </table>
@@ -40,14 +42,22 @@
 <script type="text/javascript">
   // get devices data on search device page
   var discoverer_app = angular.module('discoverer_app', []);
-  discoverer_app.controller('DeviceListCtrl', function ($scope, $http) {
+  discoverer_app.controller('DeviceListCtrl', function ($scope, $timeout, $http) {
 
     $scope.doClick = function() {
-
       $http.get("/discoverer/index.json").success(function(response) {
         $scope.devices = response;
       });
     }
+
+    $scope.doIndicate = function($index){
+      var indicated_device = $scope.devices[$index]
+      indicated_device.indicated = true
+      $http.get("/discoverer/indicate/" + indicated_device.device_id + ".json").success(function(response) {});
+      var timer = $timeout(function(){ indicated_device.indicated = false; }, 30000);
+      $scope.$on("$destroy", function(event){ $timeout.cancel(timer); });
+    }
   });
-  // get devices data - end
+
+
 </script>

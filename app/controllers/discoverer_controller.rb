@@ -43,7 +43,7 @@ class DiscovererController < ApplicationController
     unless mac_address_valid?(params[:device][:mac_address])
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'add'
-      return 
+      return
     end
 
     params[:device][:mac_address].gsub!(/:/, '')
@@ -87,6 +87,21 @@ class DiscovererController < ApplicationController
     logger.debug('result of searching available device list:' + available_device_list.inspect)
     available_device_list
   end
+
+  def indicate
+    device_id = params[:id]
+    puts "device_id: #{device_id}"
+    indicator_session = DeviceIndicatorSession.create
+    device = Device.find_by_encrypted_id device_id
+    session = { device_id: device.id }
+    indicator_session.session.bulk_set(session)
+
+    job = {:job => 'led_indicator', :session_id => indicator_session.id}
+    # AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+
+    render :json => { "result" => "success" }, status: 200
+  end
+
 
   def mac_address_valid?(mac_address)
     # Sample: 20:13:10:00:00:A0  |  2013100000A0
