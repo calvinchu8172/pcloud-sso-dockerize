@@ -1,4 +1,6 @@
 class Api::User::Token < Api::User
+  attr_accessor :certificate_serial, :signature
+  validates_with SslValidator, signature_key: [:id, :password, :certificate_serial], on: :create
   
   def self.authenticate(payload = {})
 
