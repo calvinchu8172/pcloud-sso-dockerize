@@ -1,12 +1,6 @@
 
 Rails.application.routes.draw do
 
-  namespace :api do
-  namespace :user do
-    get 'register/create'
-    end
-  end
-
   # get '*unmatched_route', :to => 'application#raise_not_found!'
 
   # get "/404", :to => 'application#raise_not_found!'
@@ -65,6 +59,7 @@ Rails.application.routes.draw do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
       resource :token, format: 'json'
       resource :register, format: 'json'
+      resource :xmpp_account, format: 'json'
     end
     
     root "application#raise_not_found!", via: :all
