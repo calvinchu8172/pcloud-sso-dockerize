@@ -1,4 +1,5 @@
-<div ng-app="invitation_app"  ng-controller="InvitationCtrl" 
+<% provide(:disable_alert, "hidden") %>
+<div ng-app="invitation_app"  ng-controller="InvitationCtrl"
 	ng-init="invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; validation=<%= @validation.to_json %>; init();">
 	<div class="bottom-content" ng-switch on="panel">
 
@@ -38,7 +39,7 @@
 		    if($scope.session.status == 'start'){
 			    $scope.connectingStep();
 			    $scope.checkConnection();
-		    }	    		
+		    }
 	    };
 
 	    $scope.checkConnection = function(){
@@ -58,7 +59,7 @@
 		          	break;
 		    }
 	    };
- 
+
 	    $scope.poll = function(){
 		    var url = $scope.checkConnectionUrl + $scope.invitationKey;
 		    $timeout(function(){
