@@ -16,37 +16,37 @@ class InvitationsController < ApplicationController
 	end
 
 	def connect_to_device
-	    waiting_expire_at = (Time.now() + AcceptedUser::WAITING_PERIOD).to_i
-	    job_params = {
-	    	cloud_id: @user.encrypted_id,
-	      device_id: @invitation.device.id,
-	      share_point: @invitation.share_point,
-	      permission: @invitation.permission_name,
-	      expire_at: waiting_expire_at,
-	      status: :start
-	    }
-	    @accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
-	    @accepted_user.session.bulk_set(job_params)
-	    @accepted_user.session.expire((AcceptedUser::WAITING_PERIOD + 0.2.minutes).to_i)
+	  waiting_expire_at = (Time.now() + AcceptedUser::WAITING_PERIOD).to_i
+	  job_params = {
+	  	cloud_id: @user.encrypted_id,
+	    device_id: @invitation.device.id,
+	    share_point: @invitation.share_point,
+	    permission: @invitation.permission_name,
+	    expire_at: waiting_expire_at,
+	    status: :start
+	  }
+	  @accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
+	  @accepted_user.session.bulk_set(job_params)
+    @accepted_user.session.expire((AcceptedUser::WAITING_PERIOD + 0.2.minutes).to_i)
 
-	    @accepted_session = job_params
-			@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
-			AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
+    @accepted_session = job_params
+		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
+		AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "invitation_id":"' + @invitation.id.to_s + '", "user_email":"' + @user.email + '" }')
 	end
 
 	def check_connection
 		check_timeout
 		AcceptedUser.update(@accepted_user.id, :status => 1) if @accepted_session['status'] == 'done'
 		render :json => { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
-  	end
+  end
 
 	def check_timeout
-	    expire_in = @accepted_user.session_expire_in.to_i
-	    logger.debug("expire_in: #{expire_in}")
-	    if(@accepted_session['status'] == 'start' && expire_in <= 0)
-	      @accepted_user.session.store('status', :timeout)
-	      @accepted_session['status'] = :timeout
-	    end
+	  expire_in = @accepted_user.session_expire_in.to_i
+	  logger.debug("expire_in: #{expire_in}")
+	  if(@accepted_session['status'] == 'start' && expire_in <= 0)
+	    @accepted_user.session.store('status', :timeout)
+	    @accepted_session['status'] = :timeout
+	  end
 	end
 
 end

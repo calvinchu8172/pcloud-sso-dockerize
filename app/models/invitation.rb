@@ -7,7 +7,7 @@ class Invitation < ActiveRecord::Base
  	READ_WRITE = 2
 
  	PERMISSIONS = {
- 		READ_ONLY => "R", 
+ 		READ_ONLY => "R",
  		READ_WRITE => "RW"
  	}
 
@@ -22,9 +22,9 @@ class Invitation < ActiveRecord::Base
   # decreasing the expire_count of invitation
   # creating accepted_user data
   def accepted_by user_id
-  	self.expire_count -= 1 
+  	self.expire_count -= 1
   	self.save
-    
+
     accepted_user = AcceptedUser.create(invitation_id: self.id, user_id: user_id, status: 0)
     accepted_user.save
   end
