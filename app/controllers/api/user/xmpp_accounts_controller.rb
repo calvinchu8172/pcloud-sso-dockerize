@@ -1,5 +1,5 @@
 class Api::User::XmppAccountsController < Api::Base
-  before_filter :authenticate_user_by_token, only: :update
+  before_filter :authenticate_user_by_token!, only: :update
   def update
 
     account = Api::User::XmppAccount.new(current_token_user.attributes.merge(update_params))
