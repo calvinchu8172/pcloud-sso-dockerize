@@ -32,7 +32,7 @@ class Api::User::OauthController < Api::Base
 
   # POST /user/1/register/:oauth_provider
   def mobile_register
-    certificate        = register_params[:certificate]
+    certificate_serial        = register_params[:certificate_serial]
     user_id            = register_params[:user_id]
     password           = register_params[:password]
     access_token       = register_params[:access_token]
@@ -53,8 +53,8 @@ class Api::User::OauthController < Api::Base
       user.confirmed_at = Time.now.utc
 
       unless user.save
-        {"004" => "certificaate",
-         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+        {"004" => "certificate_serial",
+         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: user.errors[field].first} unless user.errors[field].empty?}
       end
     end
 
@@ -67,8 +67,8 @@ class Api::User::OauthController < Api::Base
       user.confirmed_at = Time.now.utc
 
       unless user.update(register_params.except(:access_token, :user_id))
-        {"004" => "certificaate",
-         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+        {"004" => "certificate_serial",
+         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: user.errors[field].first} unless user.errors[field].empty?}
        end
     end
 
@@ -79,8 +79,8 @@ class Api::User::OauthController < Api::Base
       identity.uid = data['id']
 
       unless identity.save
-        {"004" => "certificaate",
-         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: @user.errors[field].first} unless @user.errors[field].empty?}
+        {"004" => "certificate_serial",
+         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: identity.errors[field].first} unless identity.errors[field].empty?}
       end
     end
 
@@ -109,7 +109,7 @@ class Api::User::OauthController < Api::Base
   private
 
   def register_params
-    params.permit(:access_token, :user_id, :password, :certificate, :signature)
+    params.permit(:access_token, :user_id, :password, :certificate_serial, :signature)
   end
 
   def checkin_params
