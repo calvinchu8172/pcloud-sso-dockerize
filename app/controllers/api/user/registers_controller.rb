@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-class Api::User::RegistersController < Api::Base  
-  
-  
-=======
 class Api::User::RegistersController < Api::Base
 
->>>>>>> feature/register
   def create
     
     @user = Api::User::Register.new valid_params.except(:id)
