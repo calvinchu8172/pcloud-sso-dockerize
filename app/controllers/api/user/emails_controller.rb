@@ -1,4 +1,6 @@
-class Api::User::EmailsController < Api::Base  
+class Api::User::EmailsController < Api::Base 
+  before_filter :authenticate_user_by_token!
+   
   def update
 
     user = Api::User::Email.find_by_encoded_id(valid_params[:cloud_id])
