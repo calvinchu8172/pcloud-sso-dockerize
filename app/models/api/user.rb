@@ -8,6 +8,7 @@ class Api::User < User
 
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month
+  INVALID_SIGNATURE_ERROR = {error_code: "101", description: "invalid signature"}
 
   def authentication_token_key(user_id, token)
     "user:#{user_id}:account_token:#{token}"

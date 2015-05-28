@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       put 'email' => 'emails#update', format: 'json'
       resource :confirmation, format: 'json'
       resource :password, format: 'json'
+      resource :xmpp_account, format: 'json'
     end
     
     root "application#raise_not_found!", via: :all
