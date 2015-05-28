@@ -57,7 +57,7 @@ Rails.application.routes.draw do
 
     scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
-      resource :token, controller: :token, format: 'json'
+      resource :token, format: 'json'
       resource :register, format: 'json'
       put 'email' => 'emails#update', format: 'json'
       resource :confirmation, format: 'json'
