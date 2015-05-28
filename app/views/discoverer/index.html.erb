@@ -1,6 +1,6 @@
 <% provide(:tab, 'search') %>
 
-<div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl" ng-init="devices=<%= @result.to_json %>; indicated_list=[]">
+<div class="discoverer" ng-app="discoverer_app" ng-controller="DeviceListCtrl" ng-init="devices=<%= @result.to_json %>;">
   <div class="zyxel_bread">
     <span><%= I18n.t("titles.search_devices") %></span>
     <%# Top content - result text and re-find button %>
