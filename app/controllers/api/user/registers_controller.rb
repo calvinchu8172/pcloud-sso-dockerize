@@ -12,9 +12,10 @@ class Api::User::RegistersController < Api::Base
 
       {"001" => "email",
        "002" => "password",
-       "003" => "certificaate",
-       "004" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: field + @user.errors[field].first} unless @user.errors[field].empty?}
+       "003" => "certificaate"
+      }.each { |error_code, field| return render :json =>  {error_code: error_code, description: field + @user.errors[field].first} unless @user.errors[field].empty?}
 
+       return render :json => Api::User::INVALID_SIGNATURE_ERROR unless @user.errors['signature'].empty?
        return render :json =>  {error_code: '000', description: 'invalid parameters'} unless @user.errors.empty?
     end
 

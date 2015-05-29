@@ -4,7 +4,7 @@ class SslValidator < ActiveModel::Validator
 
     key = options[:signature_key].map{|field| record.send(field.to_s)}.join('')
       
-    record.errors["signature"] = "invalid signature" unless validate_signature(record.signature, key, record.certificate_serial) #record.signature == "1"
+    record.errors["signature"] = Api::User::INVALID_SIGNATURE_ERROR unless validate_signature(record.signature, key, record.certificate_serial)
   end
 
   
