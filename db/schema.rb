@@ -13,11 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150525081916) do
 
-  create_table "certificates", force: true do |t|
-    t.string "serial",  null: false
-    t.text   "content", null: false
-  end
-
   create_table "accepted_users", force: true do |t|
     t.integer  "invitation_id",           null: false
     t.integer  "user_id",                 null: false
@@ -28,6 +23,11 @@ ActiveRecord::Schema.define(version: 20150525081916) do
 
   add_index "accepted_users", ["invitation_id"], name: "index_accepted_users_on_invitation_id", using: :btree
   add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
+
+  create_table "certificates", force: true do |t|
+    t.string "serial",  null: false
+    t.text   "content", null: false
+  end
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
