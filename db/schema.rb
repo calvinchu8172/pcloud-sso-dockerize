@@ -11,12 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150525081916) do
 
   create_table "certificates", force: true do |t|
     t.string "serial",  null: false
     t.text   "content", null: false
   end
+=======
+ActiveRecord::Schema.define(version: 20150511074926) do
+
+  create_table "accepted_users", force: true do |t|
+    t.integer  "invitation_id",           null: false
+    t.integer  "user_id",                 null: false
+    t.integer  "status",        limit: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accepted_users", ["invitation_id"], name: "index_accepted_users_on_invitation_id", using: :btree
+  add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
+>>>>>>> 8568ba690e691fa102ce13af0ee4fb5c2a5bb765
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
@@ -63,6 +78,18 @@ ActiveRecord::Schema.define(version: 20150525081916) do
 
   add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true, using: :btree
   add_index "identities", ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true, using: :btree
+
+  create_table "invitations", force: true do |t|
+    t.string   "key",                                null: false
+    t.string   "share_point",                        null: false
+    t.integer  "permission",   limit: 1, default: 0
+    t.integer  "device_id",                          null: false
+    t.integer  "expire_count",           default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations", ["device_id"], name: "index_invitations_on_device_id", using: :btree
 
   create_table "pairings", force: true do |t|
     t.integer  "user_id",              null: false

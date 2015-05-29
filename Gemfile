@@ -77,8 +77,8 @@ gem 'rmagick'
 gem 'aws-sdk'
 gem 'rails_admin', group: [:test, :development, :staging]
 
-gem 'rest_client'
-gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
+gem 'rest-client'
+# gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
 

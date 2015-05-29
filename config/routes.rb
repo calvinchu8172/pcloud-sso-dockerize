@@ -63,11 +63,13 @@ Rails.application.routes.draw do
       resource :confirmation, format: 'json'
       resource :password, format: 'json'
       resource :xmpp_account, format: 'json'
+      get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
+      post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
     end
-    
+
     root "application#raise_not_found!", via: :all
   end
-  
+
   get "*path", to: "application#raise_not_found!", via: :all
 
 end
