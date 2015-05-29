@@ -11,15 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150525081916) do
 
   create_table "certificates", force: true do |t|
     t.string "serial",  null: false
     t.text   "content", null: false
   end
-=======
-ActiveRecord::Schema.define(version: 20150511074926) do
 
   create_table "accepted_users", force: true do |t|
     t.integer  "invitation_id",           null: false
@@ -31,7 +28,6 @@ ActiveRecord::Schema.define(version: 20150511074926) do
 
   add_index "accepted_users", ["invitation_id"], name: "index_accepted_users_on_invitation_id", using: :btree
   add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
->>>>>>> 8568ba690e691fa102ce13af0ee4fb5c2a5bb765
 
   create_table "ddns", force: true do |t|
     t.integer  "device_id",             null: false
