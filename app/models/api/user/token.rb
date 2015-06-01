@@ -6,6 +6,7 @@ class Api::User::Token < Api::User
 
     user = self.find_for_database_authentication(email: payload[:email])
     unless user and user.valid_password?(payload[:password])
+      user = self.new(email: payload[:email])
       user.errors.add(:authenticate, {code: '001', description: 'Invalid email or password.'})
       return user
     end
