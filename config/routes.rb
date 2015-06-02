@@ -1,12 +1,6 @@
 
 Rails.application.routes.draw do
 
-  namespace :api do
-  namespace :user do
-    get 'register/create'
-    end
-  end
-
   # get '*unmatched_route', :to => 'application#raise_not_found!'
 
   # get "/404", :to => 'application#raise_not_found!'
@@ -62,10 +56,14 @@ Rails.application.routes.draw do
     post '/d/1/:action' => "device"
     post '/d/2/:action' => "device"
 
-    scope :path => '/user/1/', :module => "api/user" do
+    scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
-      resource :tokens, format: 'json'
+      resource :token, format: 'json'
       resource :register, format: 'json'
+      put 'email' => 'emails#update', format: 'json'
+      resource :confirmation, format: 'json'
+      resource :password, format: 'json'
+      resource :xmpp_account, format: 'json'
       get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
       post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
     end

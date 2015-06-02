@@ -1,4 +1,8 @@
 magic_number: 890980
+api:
+  stun_ip_addresses:
+    - ec2-54-85-72-999.compute-1.amazonaws.com
+    - ec2-107-21-4-999.compute-1.amazonaws.com
 xmpp:
   server: localhost
   device_resource_id: device

@@ -8,15 +8,15 @@ class Api::User < User
 
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month
+  INVALID_SIGNATURE_ERROR = {error_code: "101", description: "invalid signature"}
 
-  def authentication_token_key
-    "user:#{id}:account_token"
+  def authentication_token_key(user_id, token)
+    "user:#{user_id}:account_token:#{token}"
   end
 
   def create_authentication_token
     @authentication_token = SecureRandom.urlsafe_base64(nil, false)
-    key = authentication_token_key + ':' + @authentication_token
-    redis_token = Redis::Value.new(key)
+    redis_token = Redis::Value.new(authentication_token_key(id.to_s, @authentication_token))
     redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
     @authentication_token
   end
@@ -47,6 +47,18 @@ class Api::User < User
     xmpp_user.password = info[:password]
     xmpp_user.save
     info
+  end
+
+  def verify_authentication_token(token)
+    redis_token = Redis::Value.new(authentication_token_key(id.to_s, token))
+    return false if redis_token.nil?
+
+    if DateTime.strptime(redis_token.value) > DateTime.now 
+      redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
+      return true
+    else
+      return false
+    end
   end
 
   protected
