@@ -22,11 +22,18 @@ class Api::User::TokensController < Api::Base
   end
 
   def destroy
+    user = Api::User::Token.find_by_encoded_id(destroy_params[:cloud_id])
+    return render json: Api::User::INVALID_TOKEN_AUTHENTICATION if !user or !user.revoke_token(destroy_params[:account_token])
+    render json: {result: "success"}
   end
 
   private 
 
     def token_params
       params.permit(:email, :password, :certificate_serial, :signature, :app_key, :os)
+    end
+
+    def destroy_params
+      params.permit(:cloud_id, :account_token)
     end
 end

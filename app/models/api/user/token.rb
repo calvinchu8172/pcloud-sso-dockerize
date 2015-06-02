@@ -27,9 +27,23 @@ class Api::User::Token < Api::User
     user
   end
 
+  def revoke_token(account_token)
+    redis_token = get_account_token(account_token)
+    return false if redis_token.empty?
+
+    revoke_authentication_token(redis_token.get(:authentication_token))
+    redis_token.clear
+  end
+
   def revoke_authentication_token key
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, key))
-    redis_token.delete
+    redis_token.delete unless redis_token.nil?
   end
+
+  # private
+    def get_account_token(account_token)
+      Redis::HashKey.new(account_token_key(account_token))
+    end
+
 
 end
