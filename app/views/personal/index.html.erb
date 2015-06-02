@@ -1,7 +1,6 @@
 <% provide(:flow, I18n.t("titles.my_devices") ) %>
 <% provide(:tab, 'my_devices') %>
-
-<div class="personal">
+<div class="personal" ng-app="personal_app" ng-controller="PersonalController">
 
   <%# paired device list %>
   <div class="zyxel_content" style="max-width:660px">
@@ -12,7 +11,14 @@
       <% unless @pairing.empty? %>
 
         <%# show all paired devices %>
-        <% @pairing.each do |pairing| %>
+        <% @pairing.each_with_index do |pairing, index| %>
+          <tr>
+            <td colspan="3" class="text-center table_btn_area">
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
+            </td>
+          </tr>
           <tr>
             <th><%= image_tag pairing.device.product.asset.url(:medium) %></th>
 
@@ -46,11 +52,46 @@
             </td>
             <%# show ddns information - end %>
           </tr>
-          <tr>
-            <td colspan="3" class="text-right table_btn_area">
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
+          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.escaped_encrypted_id%>');">
+            <td colspan="3">
+              <div ng-show="infoArea.show" class="device_info_area container-fluid">
+                <div ng-switch on="infoArea.panel" class="text-center">
+                  <div ng-switch-when="none"></div>
+                  <div ng-switch-when="loading">
+                    <div><%= image_tag 'loading.gif' %></div>
+                  </div>
+                  <div ng-switch-when="done">
+                    <div class="col-xs-6 col-sm-3">
+                      <div class="info">
+                        <h4>RAID</h4>
+                        <h4>status</h4>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                      <div class="info">
+                        <h4>Available</h4>
+                        <h4>capacity</h4>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                      <div class="info">
+                        <h4>CPU</h4>
+                        <h4>temp</h4>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                      <div class="info">
+                        <h4>Fan</h4>
+                        <h4>speed</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center device_info_btn_area">
+                <a ng-if="!infoArea.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="infoArea.open();">V</a>
+                <a ng-if="infoArea.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="infoArea.close();">A</a>
+              </div>
             </td>
           </tr>
         <% end %>
@@ -66,3 +107,100 @@
   </div>
   <%# paired device list - end %>
 </div>
+<script type="text/javascript">
+  var personal_app = angular.module('personal_app', []);
+
+  personal_app.controller('PersonalController', function ($scope) {
+    $scope.deviceInfoAreas = {};
+  });
+
+  personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
+
+    $scope.deviceId;
+    $scope.session;
+    $scope.infoArea = {
+      panel: 'none',
+      timer: null,
+      show: false,
+      open: function(){
+        this.show = true;
+        $scope.connectingStep();
+        $scope.getDeviceInfo();
+      },
+      close: function(){
+        this.show = false;
+        $scope.cancelStep();
+        if($scope.session){
+          $scope.session.expire_in = 0;
+          $timeout.cancel(this.timer);
+        }
+      }
+    };
+
+    $scope.init = function(id){
+      $scope.deviceId = id;
+      $scope.deviceInfoAreas[id] = $scope.infoArea;
+    };
+
+    $scope.getDeviceInfo = function(){
+      angular.forEach($scope.deviceInfoAreas, function(infoArea, device_id) {
+        if(device_id != $scope.deviceId){
+          infoArea.close();
+        }
+      });
+      $http.get("/personal/device_info/"+$scope.deviceId+".json",{ cache: false }).success(function(response){
+        $scope.session = response;
+        $scope.checkSessionStatus();
+      }).error(function(response){
+        $scope.failureStep();
+      });
+    }
+
+    $scope.checkSessionStatus = function(){
+      $http.get("/personal/check_status/"+$scope.session.session_id+".json").success(function(response){
+        $scope.session = response;
+        switch($scope.session.status){
+          case 'start':
+            if($scope.infoArea.show && $scope.session.expire_in > 0){
+              $scope.infoArea.timer = $timeout(function(){
+                $scope.checkSessionStatus();
+              }, 3000);
+            }else{
+              $scope.failureStep();
+            }
+            break;
+          case 'timeout':
+            $scope.failureStep();
+            break;
+          case 'failure':
+            $scope.failureStep();
+            break;
+          case 'done':
+            // show informations
+            console.log("it's deone...");
+            $scope.doneStep();
+            break;
+        }
+      });
+    }
+
+    $scope.connectingStep = function(){
+      $scope.infoArea.panel = 'loading';
+    }
+
+    $scope.failureStep = function(){
+      $scope.infoArea.panel = 'none';
+    }
+
+    $scope.cancelStep = function(){
+      $scope.infoArea.panel = 'none';
+    }
+
+    $scope.doneStep = function(){
+      $scope.infoArea.panel = 'done';
+    }
+
+  });
+</script>
+
+
