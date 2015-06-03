@@ -1,6 +1,5 @@
 class Api::Resource::PermissionsController < Api::Base
 	skip_before_filter :verify_authenticity_token
-	before_filter :authenticate_user_by_token!
 	before_filter :validate_delete_permission_params
 
 	def delete
@@ -27,6 +26,6 @@ class Api::Resource::PermissionsController < Api::Base
 
 	private
 		def valid_params
-    	params.permit(:certificate, :signature, :device_account, :cloud_id, :authentication_token)
+    	params.permit(:certificate, :signature, :device_account, :cloud_id)
   	end
 end
