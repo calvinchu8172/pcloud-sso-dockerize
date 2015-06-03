@@ -28,4 +28,8 @@ class Invitation < ActiveRecord::Base
     accepted_user = AcceptedUser.create(invitation_id: self.id, user_id: user_id, status: 0)
     accepted_user.save
   end
+
+  def self.handle_permission? permission
+    PERMISSIONS.has_key?(permission.to_i)
+  end
 end

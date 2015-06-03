@@ -1,13 +1,14 @@
-class Api::Resource::PermissionsController < ApplicationController
+class Api::Resource::PermissionsController < Api::Base
 	skip_before_filter :verify_authenticity_token
+	before_filter :authenticate_user_by_token!
 	before_filter :validate_delete_permission_params
 
 	def delete
-		user = User.find_by_encrypted_id(api_params[:cloud_id])
+		user = User.find_by_encrypted_id(valid_params[:cloud_id])
 		return render :json => { error_code: "012", description: "invalid cloud id or token." }, status: 400 if user.blank?
 		permissions = Api::Resource::Permission.where(user_id: user.id)
 		permissions.each do |permission|
-			xmpp_user = XmppUser.find_by(username: api_params[:device_account])
+			xmpp_user = XmppUser.find_by(username: valid_params[:device_account])
 			next if xmpp_user.blank?
 			permission.destroy if permission.invitation.device.id == xmpp_user.session.to_i
 		end
@@ -15,16 +16,17 @@ class Api::Resource::PermissionsController < ApplicationController
 	end
 
 	def validate_delete_permission_params
-		permission = Api::Resource::Permission.new api_params
+		permission = Api::Resource::Permission.new valid_params
 	    unless permission.valid?
-	      	{ "004" => "device_account", 
-	      	  "012" => "cloud_id", 
-	      	  "013" => "certificate", 
+	      	{ "004" => "device_account",
+	      	  "012" => "cloud_id",
+	      	  "013" => "certificate",
 	      	  "014" => "signature" }.each { |error_code, field| return render :json =>  { error_code: error_code, description: permission.errors[field].first } unless permission.errors[field].empty? }
 		end
 	end
 
-	def api_params
-    	params.permit(:certificate, :signature, :device_account, :cloud_id)
+	private
+		def valid_params
+    	params.permit(:certificate, :signature, :device_account, :cloud_id, :authentication_token)
   	end
 end
