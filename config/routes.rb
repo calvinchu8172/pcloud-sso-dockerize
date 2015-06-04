@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     get 'upnp/check/:id' , to: 'upnp#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
+
   end
 
   constraints :host => Settings.environments.api_domain  do
@@ -65,6 +66,15 @@ Rails.application.routes.draw do
       resource :xmpp_account, format: 'json'
       get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
       post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
+    end
+
+    scope :path => '/resource/1/', :module => "api/resource" do
+      delete 'permission', to: 'permissions#delete', format:'json'
+
+      get 'invitation', to: 'invitations#index', format: 'json'
+      post 'invitation', to: 'invitations#create', format: 'json'
+
+      get 'device_list' => "personal#device_list", format: 'json'
     end
 
     root "application#raise_not_found!", via: :all

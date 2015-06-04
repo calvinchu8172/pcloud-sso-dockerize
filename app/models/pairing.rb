@@ -5,6 +5,7 @@ class Pairing < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :device
+  has_many :invitations, :through => :device
 
   START_PERIOD = 10.seconds
   WAITING_PERIOD = 10.minutes
