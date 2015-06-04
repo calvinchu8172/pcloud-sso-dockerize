@@ -17,7 +17,7 @@ class Api::User::Token < Api::User
     user.os = payload[:os]
     user.valid?
     unless user.errors["signature"].blank?
-      user.errors.add(:authenticate, {error_code: "101", description: "invalid signature"}) 
+      user.errors.add(:authenticate, Api::User::INVALID_SIGNATURE_ERROR) 
       return user
     end
     
