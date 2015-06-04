@@ -9,8 +9,7 @@ class Api::User::TokensController < Api::Base
       return  render json: @user.errors[:authenticate].first
     end
     
-    @user.app_info.bulk_set(token_params.slice(:app_key, :os)) if !token_params[:app_key].blank? and !token_params[:os].blank? and ['1', '2'].include?(token_params[:os])
-    @user.create_token_set
+    @user.create_token
   end
 
   def show
@@ -18,15 +17,27 @@ class Api::User::TokensController < Api::Base
   end
 
   def update
+    user = Api::User::Token.find_by_encoded_id(update_params[:cloud_id])
+    logger.debug('update user:' + user.inspect)
+    return render json: Api::User::INVALID_TOKEN_AUTHENTICATION unless user
+    authentication_token = user.renew_authentication_token(update_params[:account_token])
+    return render json: Api::User::INVALID_TOKEN_AUTHENTICATION unless authentication_token
 
+    render json: {authentication_token: authentication_token}
   end
 
   def destroy
+    user = Api::User::Token.find_by_encoded_id(update_params[:cloud_id])
+    return render json: Api::User::INVALID_TOKEN_AUTHENTICATION if !user or !user.revoke_token(update_params[:account_token])
+    render json: {result: "success"}
   end
 
   private 
-
     def token_params
       params.permit(:email, :password, :certificate_serial, :signature, :app_key, :os)
+    end
+
+    def update_params
+      params.permit(:cloud_id, :account_token)
     end
 end

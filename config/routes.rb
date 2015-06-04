@@ -60,7 +60,8 @@ Rails.application.routes.draw do
       # match ':controller(/:action(/:id(.:format)))', :via => :all
       resource :token, format: 'json'
       resource :register, format: 'json'
-      put 'email' => 'emails#update', format: 'json'
+      # put 'email' => 'emails#update', format: 'json'
+      resource :email, format: 'json'
       resource :confirmation, format: 'json'
       resource :password, format: 'json'
       resource :xmpp_account, format: 'json'
