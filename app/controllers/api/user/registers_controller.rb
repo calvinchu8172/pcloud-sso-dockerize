@@ -2,24 +2,28 @@ class Api::User::RegistersController < Api::Base
 
   def create
     
-    @user = Api::User::Register.new valid_params.except(:id)
-    @user.email = valid_params[:id]
-    @user.agreement = "1"
+    register = Api::User::Register.new valid_params.except(:id)
+    register.email = valid_params[:id]
+    register.agreement = "1"
 
-    unless @user.save
-
-      logger.debug('user errors:' + @user.errors.inspect)
+    unless register.save
 
       {"001" => "email",
        "002" => "password",
-       "003" => "certificaate"
-      }.each { |error_code, field| return render :json =>  {error_code: error_code, description: field + @user.errors[field].first} unless @user.errors[field].empty?}
+       "003" => "certificaat"
+      }.each { |error_code, field| return render :json =>  {error_code: error_code, description: field + register.errors[field].first} unless register.errors[field].empty?}
 
-       return render :json => Api::User::INVALID_SIGNATURE_ERROR unless @user.errors['signature'].empty?
-       return render :json =>  {error_code: '000', description: 'invalid parameters'} unless @user.errors.empty?
+       return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
+       return render :json =>  {error_code: '000', description: 'invalid parameters'} unless register.errors.empty?
     end
 
-    @user.create_token_set
+    logger.debug('register:' + register.attributes.inspect)
+    @user = Api::User::Token.new(register.attributes)
+    @user.app_key = valid_params[:app_key]
+    @user.os = valid_params[:os]
+
+    logger.debug('create_token:' + @user.attributes.inspect)
+    @user.create_token
 
   	render "api/user/tokens/create.json.jbuilder"
   end
