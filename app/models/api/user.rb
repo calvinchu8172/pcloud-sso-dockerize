@@ -9,9 +9,10 @@ class Api::User < User
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month
   INVALID_SIGNATURE_ERROR = {error_code: "101", description: "invalid signature"}
+  INVALID_TOKEN_AUTHENTICATION = {result: 'failure', description: 'Invalid cloud id or token'}
 
   def authentication_token_key(user_id, token)
-    "user:#{user_id}:account_token:#{token}"
+    "user:#{user_id}:authentication_token:#{token}"
   end
 
   def create_authentication_token
@@ -21,15 +22,15 @@ class Api::User < User
     @authentication_token
   end
 
-  def account_token_key
-    "user:#{id}:account_token"
+  def account_token_key(token)
+    "user:#{id}:account_token:#{token}"
   end
 
   #including account token and authentication token
   def create_token_set
     @account_token = SecureRandom.urlsafe_base64(nil, false)
     @authentication_token = create_authentication_token
-    key = account_token_key + ':' + @account_token
+    key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
     redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token}) 
     {account_token: @account_token, authentication_token: @authentication_token}

@@ -7,7 +7,7 @@ class Api::Base < ApplicationController
       @current_token_user = Api::User.find_by_encoded_id(authentication_params[:cloud_id])
       if @current_token_user.nil? or !@current_token_user.verify_authentication_token(authentication_params[:authentication_token])
         @current_token_user = false
-        return render :json => {result: 'failure', description: 'Invalid cloud id or token'}
+        return render :json => Api::User::INVALID_TOKEN_AUTHENTICATION
       end
     end
 
