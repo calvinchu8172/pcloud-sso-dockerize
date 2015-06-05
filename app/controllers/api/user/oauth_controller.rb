@@ -49,7 +49,8 @@ class Api::User::OauthController < Api::Base
       user = Api::User::Register.new register_params.except(:access_token, :user_id)
       user.email = data['email']
       user.agreement = "1"
-      user.skip_confirmation!
+      user.confirmation_token = Devise.friendly_token
+      user.confirmed_at = Time.now.utc
 
       unless user.save
         {"004" => "certificate_serial",
