@@ -70,11 +70,9 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/resource/1/', :module => "api/resource" do
-      # post 'invitation', to: 'invitations#create', format: 'json'
-      # get 'invitation', to: 'invitations#show', format: 'json'
-      # delete 'permission', to: 'permissions#destroy', format:'json'
-      resource :invitation, format: 'json'
-      resource :permission, format: 'json'
+      post 'invitation', to: 'invitations#create', format: 'json'
+      get 'invitation', to: 'invitations#show', format: 'json'
+      delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
     end
 
