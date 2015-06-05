@@ -3,7 +3,7 @@ class Api::User::Token < Api::User
   validates_with SslValidator, signature_key: [:id, :password, :certificate_serial]
   
   def self.authenticate(payload = {})
-
+    payload[:email] = payload.delete(:id)
     user = self.find_for_database_authentication(email: payload[:email])
     unless user and user.valid_password?(payload[:password])
       user = self.new(email: payload[:email])
