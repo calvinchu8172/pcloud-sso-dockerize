@@ -12,7 +12,7 @@ class XmppUser < ActiveRecord::Base
   #   PRIMARY KEY (`username`)
   # ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  
+
   self.table_name = "users"
   self.redis_prefix = "xmpp"
 

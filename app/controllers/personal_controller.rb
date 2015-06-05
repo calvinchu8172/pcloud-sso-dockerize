@@ -36,5 +36,6 @@ class PersonalController < ApplicationController
       end
       info_hash
     end
+
     helper_method :get_info
 end

@@ -7,7 +7,8 @@ class Device < ActiveRecord::Base
   has_one :ddns
 
   has_many :pairing
-
+  has_many :invitations
+  
   hash_key :session
   hash_key :pairing_session
   set :module_list
