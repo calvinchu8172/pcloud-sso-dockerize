@@ -4,7 +4,7 @@ class Api::User::PasswordsController < Api::Base
 
   	return render json: {result: 'success'} if user.errors.empty?
 
-  	render json: {code: 001, description: 'E-mail not found.'}
+  	render json: {error_code: 001, description: 'E-mail not found.'}
   end
 
   private 
