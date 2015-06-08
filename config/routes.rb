@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     post '/d/1/:action' => "device"
     post '/d/2/:action' => "device"
 
-    scope :path => '/d/3/', :module => "api/device/v3" do
+    scope :path => '/d/3/', :module => "api/devices/v3" do
       post 'register', to: 'register#create', format: 'json'
     end
 
