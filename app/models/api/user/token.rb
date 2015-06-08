@@ -7,7 +7,7 @@ class Api::User::Token < Api::User
     user = self.find_for_database_authentication(email: payload[:email])
     unless user and user.valid_password?(payload[:password])
       user = self.new(email: payload[:email])
-      user.errors.add(:authenticate, {code: '001', description: 'Invalid email or password.'})
+      user.errors.add(:authenticate, {error_code: '001', description: 'Invalid email or password.'})
       return user
     end
 
@@ -22,7 +22,7 @@ class Api::User::Token < Api::User
     end
     
     if ((Time.zone.now - user.created_at) / 1.day) > 3
-      user.errors.add(:authenticate, {code: '002', description: 'client have to confirm email account before continuing.'})
+      user.errors.add(:authenticate, {error_code: '002', description: 'client have to confirm email account before continuing.'})
       return user
     end
 
