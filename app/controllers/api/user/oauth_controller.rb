@@ -10,10 +10,7 @@ class Api::User::OauthController < Api::Base
     return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
 
     user = User.find_by(email: data['email'])
-
     return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if user.nil?
-
-    # 避免來自其他provider的portal user
     return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if is_portal_user?(user)
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
@@ -31,8 +28,13 @@ class Api::User::OauthController < Api::Base
   end
 
   # POST /user/1/register/:oauth_provider
+  # 邏輯行為如下:
+  # 1. 藉由get_oauth_data取得使用者實際email
+  # 2. 透過email查詢使用者是否存在，若使用者不存在則直接建立user
+  # 3. 承2，若使用者存在則判斷過去是否為portal oauth，若屬portal使用者即建立confirmation token
+  # 4. 最後建立identity並登入
   def mobile_register
-    certificate_serial        = register_params[:certificate_serial]
+    certificate_serial = register_params[:certificate_serial]
     user_id            = register_params[:user_id]
     password           = register_params[:password]
     access_token       = register_params[:access_token]
@@ -53,23 +55,20 @@ class Api::User::OauthController < Api::Base
       user.confirmed_at = Time.now.utc
 
       unless user.save
-        {"004" => "certificate_serial",
-         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: user.errors[field].first} unless user.errors[field].empty?}
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].empty?
       end
     end
 
     return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present? && !is_portal_user?(user)
 
     if is_portal_user?(user)
-      logger.debug 'portal user'
       user = Api::User::Register.find(user)
       user.confirmation_token = Devise.friendly_token
       user.confirmed_at = Time.now.utc
 
       unless user.update(register_params.except(:access_token, :user_id))
-        {"004" => "certificate_serial",
-         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: user.errors[field].first} unless user.errors[field].empty?}
-       end
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].empty?
+      end
     end
 
     if identity.nil?
@@ -79,14 +78,12 @@ class Api::User::OauthController < Api::Base
       identity.uid = data['id']
 
       unless identity.save
-        {"004" => "certificate_serial",
-         "005" => "signature"}.each { |error_code, field| return render :json =>  {error_code: error_code, description: identity.errors[field].first} unless identity.errors[field].empty?}
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless identity.errors['signature'].empty?
       end
     end
 
     sign_in(:user, user, store: false, bypass: false)
     redirect_to authenticated_root_path
-
   end
 
   def get_oauth_data(provider, user_id, access_token)
