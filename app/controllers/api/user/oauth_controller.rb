@@ -7,11 +7,11 @@ class Api::User::OauthController < Api::Base
     access_token = checkin_params[:access_token]
 
     data = get_oauth_data(@provider, user_id, access_token)
-    return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
+    return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" } if data.nil?
 
     user = User.find_by(email: data['email'])
-    return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if user.nil?
-    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if is_portal_user?(user)
+    return render :json => { :error_code => '001',  :description => 'unregistered' } if user.nil?
+    return render :json => { :error_code => '002',  :description => 'not binding yet' } if is_portal_user?(user)
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
 
@@ -23,7 +23,7 @@ class Api::User::OauthController < Api::Base
       identity.save
     end
 
-    return render :json => { :result => 'registered', :account => identity.user.email }, :status => 200
+    return render :json => { :result => 'registered', :account => identity.user.email }
 
   end
 
@@ -39,10 +39,10 @@ class Api::User::OauthController < Api::Base
     password           = register_params[:password]
     access_token       = register_params[:access_token]
 
-    return render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400 if password.nil? || !password.length.between?(8, 14)
+    return render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' } if password.nil? || !password.length.between?(8, 14)
 
     data = get_oauth_data(@provider, user_id, access_token)
-    return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
+    return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" } if data.nil?
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
     user = User.find_by(email: data['email'])
@@ -59,7 +59,7 @@ class Api::User::OauthController < Api::Base
       end
     end
 
-    return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present? && !is_portal_user?(user)
+    return render :json => { :error_code => '003',  :description => 'registered account' } if identity.present? && !is_portal_user?(user)
 
     if is_portal_user?(user)
       user = Api::User::Register.find(user)
