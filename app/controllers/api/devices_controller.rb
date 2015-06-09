@@ -1,5 +1,6 @@
-class Api::DeviceController < Api::Base
-
+class Api::DevicesController < Api::Base
+  before_filter :device_checking
+  
   def create
 
     @device.ddns_checkin
