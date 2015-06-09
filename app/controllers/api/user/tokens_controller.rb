@@ -6,7 +6,7 @@ class Api::User::TokensController < Api::Base
     
     @user = Api::User::Token.authenticate(token_params)
     unless @user.errors.empty?
-      return  render json: @user.errors[:authenticate].first
+      return  render json: @user.errors[:authenticate].first, :status => 400
     end
     
     @user.create_token
