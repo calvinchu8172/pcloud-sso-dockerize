@@ -72,13 +72,8 @@ class PersonalController < ApplicationController
 
   def check_status
     check_timeout
-    result = {
-      :status => @session['status'],
-      :expire_at => @session['expire_at'],
-      :session_id => @device_info_session.escaped_encrypted_id,
-      :expire_in => @session['expire_in']
-    }
-    render :json => result, status: 200
+    @session['session_id'] = @device_info_session.escaped_encrypted_id
+    render :json => @session, status: 200
   end
 
   protected
