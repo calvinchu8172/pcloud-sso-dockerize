@@ -1,4 +1,4 @@
-class Api::Device::v3::Lite
+class Api::Device::Lite < Api::Device
   include Redis::Objects
   attr_accessor :origin_id, #mac_address + serial_number
                 :mac_address,
@@ -18,7 +18,7 @@ class Api::Device::v3::Lite
   end
 
   def self.create(params = {})
-    instance = self.new(params.merge(origin_id: params['mac_address'] + params['serial_number']))
+    instance = self.new(params)
     instance.info.bulk_set(params)
   end
 end

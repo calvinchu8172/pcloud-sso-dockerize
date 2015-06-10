@@ -13,4 +13,8 @@ class Api::Device::V3::Ip
   def initialize params = {}
     params.each { |key, value| send "#{key}=", value }
   end
+
+  def self.create(ip, origin_id)
+
+  end
 end
