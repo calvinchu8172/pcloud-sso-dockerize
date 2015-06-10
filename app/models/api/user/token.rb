@@ -1,6 +1,6 @@
 class Api::User::Token < Api::User
   attr_accessor :certificate_serial, :signature, :app_key, :os
-  validates_with SslValidator, signature_key: [:id, :password, :certificate_serial]
+  validates_with SslValidator, signature_key: [:email, :certificate_serial]
   
   def self.authenticate(payload = {})
     payload[:email] = payload.delete(:id)
@@ -21,7 +21,7 @@ class Api::User::Token < Api::User
       return user
     end
     
-    if ((Time.zone.now - user.created_at) / 1.day) > 3
+    if ((Time.zone.now - user.created_at) / 1.day) > 3 and !user.confirmed?
       user.errors.add(:authenticate, {error_code: '002', description: 'client have to confirm email account before continuing.'})
       return user
     end
