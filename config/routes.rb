@@ -53,8 +53,21 @@ Rails.application.routes.draw do
 
   constraints :host => Settings.environments.api_domain  do
 
-    post '/d/1/:action' => "device"
-    post '/d/2/:action' => "device"
+    # post '/d/1/:action' => "device"
+    # post '/d/2/:action' => "device"
+
+    scope :path => '/d/1/', :module => "api/devices" do
+      post 'register', to: 'devices#create', format: 'json'
+    end
+
+    scope :path => '/d/2/', :module => "api/devices/v2" do
+      post 'register', to: 'devices#create', format: 'json'
+    end
+
+    scope :path => '/d/3/', :module => "api/devices/v3" do
+      post 'register', to: 'register#create', format: 'json'
+      post 'lite', to: 'lite#create', format: 'json'
+    end
 
     scope :path => '/d/3/', :module => "api/devices/v3" do
       post 'register', to: 'register#create', format: 'json'
