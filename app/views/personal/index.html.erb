@@ -63,19 +63,19 @@
                   <div ng-switch-when="done">
 
                     <div class="row">
-                      <div class="col-xs-12 col-sm-4">
+                      <div class="col-xs-9 col-sm-3 col-sm-offset-2">
                         <div class="zyxel-grid-style1 info-block-sm">
                           <div class="title">RAID status</div>
                           <div class="value">{{info.raidStatus}}</div>
                         </div>
                       </div>
-                      <div class="col-xs-12 col-sm-4">
+                      <div class="col-xs-9 col-sm-3">
                         <div class="zyxel-grid-style1 info-block-sm">
                           <div class="title">CPU temp</div>
                           <div class="value">{{info.cpuTemp.cel}} / {{info.cpuTemp.fah}}</div>
                         </div>
                       </div>
-                      <div class="col-xs-12 col-sm-4">
+                      <div class="col-xs-9 col-sm-3">
                         <div class="zyxel-grid-style1 info-block-sm">
                           <div class="title">Fan speed</div>
                           <div class="value">{{info.fanSpeed}}</div>
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-xs-12 col-sm-12">
+                      <div class="col-xs-12 col-sm-9 col-sm-offset-2">
                         <div class="zyxel-grid-style1 info-block-lg">
                           <div class="title">Available capacity</div>
                           <div class="value">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
@@ -92,7 +92,7 @@
                           <div class="volume-info-block">
                             <div class="volume-info row" ng-repeat="volume in info.volumeList">
 
-                              <div class="col-sm-4">
+                              <div class="col-sm-3">
                                 <div class="volume-name">{{volume['volume-name']}}</div>
                               </div>
 
@@ -103,7 +103,7 @@
                               </div>
 
                               <div class="col-sm-2" style="padding-left: 0;">
-                                <div class="volume-size text-left">{{volume['total-capacity']}}</div>
+                                <div class="volume-size text-left" ng-click="changeUnit();">{{volume['total-capacity']}}</div>
                               </div>
 
                             </div>
@@ -171,7 +171,6 @@
             }
           });
           volumeList.push(volume);
-          volume['total-capacity']
           $scope.info.capacity.add(parseInt(volume['total-capacity']), parseInt(volume['used-capacity']));
         });
         this.volumeList = volumeList;
