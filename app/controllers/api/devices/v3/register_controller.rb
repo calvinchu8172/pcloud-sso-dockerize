@@ -7,12 +7,11 @@ class Api::Devices::V3::RegisterController < Api::DeviceController
     end
 
     def device_checking
-
       payload = api_permit
       payload[:model_class_name] = payload.delete(:model_name)
-      @device = Api::Device::V3.checkin(api_permit.merge(current_ip_address: request.remote_ip))
-      @device.valid?
-      return render json: Api::User::INVALID_SIGNATURE_ERROR unless @device.errors['signature'].blank?
+      @device = Api::Device.checkin(api_permit.merge(current_ip_address: request.remote_ip))
       return render :json => {:result => 'invalid parameter'}, :status => 400 if @device.nil?
+      @device.valid?
+      return render json: @device.errors['signature'].first unless @device.errors['signature'].blank?
     end
 end

@@ -1,5 +1,6 @@
 class Api::Device < Device
   attr_accessor :current_ip_address, :model_class_name, :signature, :module, :algo, :reset, :xmpp_account
+  validate :validate_device_info
 
   DEFAULT_MODULE_LIST = [{name: 'ddns', ver: '1'}, {name: 'upnp', ver: '1'}]
 
@@ -142,5 +143,14 @@ class Api::Device < Device
     def generate_new_passoword
       origin = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
       (0...10).map { origin[rand(origin.length)] }.join
+    end
+
+    def validate_device_info
+      mac_address_regex = /^[0-9a-fA-F]{12}$/
+
+      if mac_address.blank? || mac_address_regex.match(mac_address) == nil || serial_number.blank?
+        logger.info('result: invalid Mac Address or Serial Number')
+        errors.add(:parameter, {result: 'invalid parameter'})
+      end
     end
 end
