@@ -11,13 +11,11 @@ class SslValidator < ActiveModel::Validator
 
   private
 
-    def validate_signature(signature, key, serail)
-
-      return signature == "1"
+    def validate_signature(signature, key, serial)
 
       sha224 = OpenSSL::Digest::SHA224.new
       begin
-        return Api::Certificate.find_public_by_serial(serail).verify(sha224, signature, key)
+        return Api::Certificate.find_public_by_serial(serial).verify(sha224, Base64.encode64(signature), key)
       rescue
         return false
       end    
