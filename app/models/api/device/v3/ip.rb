@@ -15,6 +15,12 @@ class Api::Device::V3::Ip
   end
 
   def self.create(ip, origin_id)
+    instance = new(ip_address: ip, origin_id: origin_id)
+    instance.activities << origin_id
+  end
 
+  def self.find_activities(ip)
+    instance = self.new(ip_address: ip)
+    instance.activities
   end
 end

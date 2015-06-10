@@ -66,6 +66,7 @@ Rails.application.routes.draw do
 
     scope :path => '/d/3/', :module => "api/devices/v3" do
       post 'register', to: 'register#create', format: 'json'
+      post 'lite', to: 'lite#create', format: 'json'
     end
 
     scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
