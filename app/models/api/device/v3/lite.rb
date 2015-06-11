@@ -42,7 +42,8 @@ class Api::Device::V3::Lite < Api::Device
   def self.find_by_ip(ip_address)
     result = []
     Api::Device::V3::Ip.find_activities(ip_address).each do |device_origin_id|
-      result << find(device_origin_id)
+      instance = find(device_origin_id)
+      result << instance unless instance.mac_address.blank? or instance.serial_number.blank?
     end
     result
   end
