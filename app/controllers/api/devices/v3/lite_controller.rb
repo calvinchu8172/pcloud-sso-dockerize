@@ -13,6 +13,6 @@ class Api::Devices::V3::LiteController < Api::DeviceController
 
   private
     def api_permit
-      params.permit(:mac_address, :serial_number, :model_class_name, :firmware_version, :signature, :module, :algo, :reset)
+      params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :module, :algo, :reset)
     end
 end
