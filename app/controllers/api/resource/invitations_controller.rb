@@ -46,6 +46,27 @@ class Api::Resource::InvitationsController < Api::Base
 		render :json => { invitation_key: invitation_key }, status: 200
 	end
 
+	def show
+		result = Array.new
+		user = User.find_by_encrypted_id(params[:cloud_id])
+		return render_error_response "012" if user.blank?
+
+		user.invitations.each do |invitation|
+			device = invitation.device
+			invitation.accepted_users.each do |accepted_user|
+				next unless accepted_user.inbox?(params[:last_updated_at])
+				result.push({ invitation_key: invitation.key,
+					device_id: device.id,
+					share_point: invitation.share_point,
+					permission: invitation.permission_name,
+					accepted_user: accepted_user.user.email,
+					accepted_time: accepted_user.accepted_time })
+			end
+		end
+		result.sort_by! { |data| -Time.parse(data[:accepted_time]).to_i }
+		render :json => result, status: 200
+	end
+
 	def validate_index_params
 		params[:last_updated_at] = params[:last_updated_at].blank? ? 0 : params[:last_updated_at].to_i
 		render_error_response "012" if params[:cloud_id].blank?

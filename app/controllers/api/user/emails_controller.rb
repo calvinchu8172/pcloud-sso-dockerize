@@ -4,7 +4,7 @@ class Api::User::EmailsController < Api::Base
   def show
     user = Api::User::Email.new(show_params)
     user.valid?
-    return render json: Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].blank?
+    return render json: Api::User::INVALID_SIGNATURE_ERROR, :status => 400 unless user.errors['signature'].blank?
 
     render json: user.find_by_cloud_ids.to_json
   end
@@ -19,7 +19,7 @@ class Api::User::EmailsController < Api::Base
 
     unless user.update_email
     	logger.debug('error old email:' + user.email)
-      return render json: user.errors[:email].first unless user.errors[:email].blank?
+      return render json: user.errors[:email].first, :status => 400 unless user.errors[:email].blank?
     end
 
     

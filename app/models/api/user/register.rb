@@ -1,6 +1,6 @@
 class Api::User::Register < Api::User
   attr_accessor :certificate_serial, :signature, :app_key, :os
-  validates_with SslValidator, signature_key: [:email, :password, :certificate_serial]
+  validates_with SslValidator, signature_key: [:email, :certificate_serial]
   validates_presence_of :email, :password, :certificate_serial, :signature, message: "invalid parameters"
   validates_presence_of :app_key, if: :app_key_or_os_need_presence?
   validates :os, inclusion: { in: %w(0 1 2),
