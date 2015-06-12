@@ -8,11 +8,11 @@ Feature: Generate Invitation Key
     Client invite user with valid information
 
     When client send a POST request to "/resource/1/invitation" with:
-      | cloud_id | ENCODE USER ID |
-      | device_id | ENCODE DEVICE ID |
-      | share_point | SHARE POINT |
-      | expire_count | 5 |
-      | permission | 1 |
+      | cloud_id             | ENCODE USER ID       |
+      | device_id            | ENCODE DEVICE ID     |
+      | share_point          | SHARE POINT          |
+      | expire_count         | 5                    |
+      | permission           | 1                    |
       | authentication_token | AUTHENTICATION_TOKEN |
 
     Then the response status should be "200"
@@ -22,12 +22,12 @@ Feature: Generate Invitation Key
     Client invite user with invalid device id
 
     When client send a POST request to "/resource/1/invitation" with:
-      | cloud_id | ENCODE USER ID |
-      | device_id | INVALID ENCODE DEVICE ID |
-      | share_point | SHARE POINT |
-      | expire_count | 5 |
-      | permission | 1 |
-      | authentication_token | AUTHENTICATION_TOKEN |
+      | cloud_id             | ENCODE USER ID           |
+      | device_id            | INVALID ENCODE DEVICE ID |
+      | share_point          | SHARE POINT              |
+      | expire_count         | 5                        |
+      | permission           | 1                        |
+      | authentication_token | AUTHENTICATION_TOKEN     |
 
     Then the response status should be "400"
     And the JSON response should include error code: "004"
@@ -37,11 +37,11 @@ Feature: Generate Invitation Key
     Client invite user with invalid permission
 
     When client send a POST request to "/resource/1/invitation" with:
-      | cloud_id | ENCODE USER ID |
-      | device_id | ENCODE DEVICE ID |
-      | share_point | SHARE POINT |
-      | expire_count | 5 |
-      | permission | 4 |
+      | cloud_id             | ENCODE USER ID       |
+      | device_id            | ENCODE DEVICE ID     |
+      | share_point          | SHARE POINT          |
+      | expire_count         | 5                    |
+      | permission           | 4                    |
       | authentication_token | AUTHENTICATION_TOKEN |
 
     Then the response status should be "400"
@@ -53,11 +53,11 @@ Feature: Generate Invitation Key
     Client invite user with expired authentication token
 
     When client send a POST request to "/resource/1/invitation" with:
-      | cloud_id | ENCODE USER ID |
-      | device_id | ENCODE DEVICE ID |
-      | share_point | SHARE POINT |
-      | expire_count | 5 |
-      | permission | 1 |
+      | cloud_id             | ENCODE USER ID               |
+      | device_id            | ENCODE DEVICE ID             |
+      | share_point          | SHARE POINT                  |
+      | expire_count         | 5                            |
+      | permission           | 1                            |
       | authentication_token | EXPIRED AUTHENTICATION_TOKEN |
 
     Then the response status should be "400"
