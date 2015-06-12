@@ -1,33 +1,28 @@
 class Api::Device < Device
   attr_accessor :current_ip_address, :model_class_name, :signature, :module, :algo, :reset, :xmpp_account
   validate :validate_device_info
+  validate :validate_model_name
 
   DEFAULT_MODULE_LIST = [{name: 'ddns', ver: '1'}, {name: 'upnp', ver: '1'}]
 
-  def self.checkin args
+  def checkin
     
-    result = self.where( args.slice(:mac_address, :serial_number))
-    if result.empty?
-
-      product = Product.where(args.slice(:model_class_name))
-
-      return nil if product.empty?
-
-      instance = self.create(args.merge({product_id: product.first.id}))
-      logger.info('create new device id:' + instance.id.to_s)
-
-      instance.attributes = args
-      return instance     
+    instance = self.class.find_by( mac_address: mac_address, serial_number: serial_number)
+    if instance.blank?
+      # self.create!(instance.attributes.merge({product_id: @product.id}))
+      self.product_id = @product.id
+      self.save
+      logger.info('create new device id:' + self.id.to_s)
+      return true
     end
 
-    instance = result.first
-    unless args[:firmware_version] == instance.firmware_version
-      logger.info('update device from fireware version' + args[:firmware_version] + ' from ' + instance.firmware_version)
-      instance.update_attribute(:firmware_version, args[:firmware_version])
+    unless firmware_version == instance.firmware_version
+      logger.info('update device from fireware version' + firmware_version + ' from ' + firmware_version)
+      instance.update_attribute(:firmware_version, firmware_version)
     end
     
-    instance.attributes = args
-    return instance
+    self.id = instance.id
+    return true
   end
 
   # 每次device 登入，會更改DDNS 上的對應IP
@@ -92,10 +87,10 @@ class Api::Device < Device
       return
     end
 
-    return if pairing.nil?
+    return if self.pairing.blank?
 
-    pairing.destroy
-    Job::UnpairMessage.new.push_device_id(id.to_s)
+    self.pairing.destroy_all
+    Job::UnpairMessage.new.push_device_id(self.id.to_s)
   end
 
   # 如果該台 device 沒有xmpp 帳號則註冊一組
@@ -152,5 +147,12 @@ class Api::Device < Device
         logger.info('result: invalid Mac Address or Serial Number')
         errors.add(:parameter, {result: 'invalid parameter'})
       end
+    end
+
+    def validate_model_name
+      @product = Product.find_by(model_class_name: model_class_name)
+      logger.debug("validate model name: " + @product.inspect)
+
+      errors.add(:parameter, {result: 'invalid parameter'}) if @product.blank?
     end
 end
