@@ -9,7 +9,7 @@ class Api::Resource::InvitationsController < Api::Base
 		user = User.find_by_encrypted_id(params[:cloud_id])
 		return render_error_response "012" if user.blank?
 
-		user.invitations.each do |invitation| 
+		user.invitations.each do |invitation|
 			device = invitation.device
 			invitation.accepted_users.each do |accepted_user|
 				next unless accepted_user.inbox?(params[:last_updated_at])
@@ -70,11 +70,11 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def render_error_response error_code
 		error_descriptions = {
-			"004" => "invalid device.",
-			"005" => "Invalid share point and permission.",
-			"012" => "invalid cloud id or token.",
-			"013" => "invalid certificate.",
-			"014" => "invalid signature."
+			"004" => "Invalid device.",
+			"005" => "Invalid share point or permission.",
+			"012" => "Invalid cloud id or token.",
+			"013" => "Invalid certificate.",
+			"014" => "Invalid signature."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end
