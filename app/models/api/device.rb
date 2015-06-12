@@ -92,9 +92,9 @@ class Api::Device < Device
       return
     end
 
-    return if pairing.nil?
+    return if pairing.blank?
 
-    pairing.destroy
+    pairing.destroy_all
     Job::UnpairMessage.new.push_device_id(id.to_s)
   end
 

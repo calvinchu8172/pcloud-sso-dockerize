@@ -19,7 +19,7 @@ class Api::DevicesController < Api::Base
     def device_checking
       payload = api_permit
       payload[:model_class_name] = payload.delete(:model_name)
-      @device = Api::Device.checkin(api_permit.merge(current_ip_address: request.remote_ip))
+      @device = Api::Device::V1.checkin(api_permit.merge(current_ip_address: request.remote_ip))
       return render :json => {:result => 'invalid parameter'}, :status => 400 if @device.nil?
       @device.valid?
       return render json: @device.errors[:magic_number].first, :status => 400 unless @device.errors[:magic_number].blank?
