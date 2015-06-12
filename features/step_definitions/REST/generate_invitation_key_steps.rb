@@ -15,7 +15,7 @@ When(/^client send a POST request to "(.*?)" with:$/) do |url_path, table|
   authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
   device_id = data["device_id"].include?("INVALID") ? "" : @device.encrypted_id
   post path, {
-    cloud_id: @user.encrypted_id,
+    cloud_id: @user.encoded_id,
     authentication_token: authentication_token,
     device_id: device_id,
     permission: data["permission"]
