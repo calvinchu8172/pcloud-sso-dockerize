@@ -24,9 +24,9 @@ When(/^client send a GET request to "(.*?)" with:$/) do |url_path, table|
   path = '//' + Settings.environments.api_domain + url_path
 
   authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
-
+  cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id
   get path, {
-    cloud_id: @user.encoded_id,
+    cloud_id: cloud_id,
     last_updated_at: (5.minute.ago).to_i,
     authentication_token: authentication_token
   }

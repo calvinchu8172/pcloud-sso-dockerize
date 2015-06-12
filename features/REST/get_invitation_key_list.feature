@@ -30,3 +30,15 @@ Feature: Get Invitation Key List
   Then the response status should be "400"
   And the JSON response should include error code: "012"
   And the JSON response should include description: "Invalid cloud id or token."
+
+  Scenario: [REST_02_03]
+    Client access invitation list with invalid cloud_id
+
+  When client send a GET request to "/resource/1/invitation" with:
+    | cloud_id             | INVALID ENCODE USER ID       |
+    | last_updated_at      | LAST UPDATED TIMESTAMP       |
+    | authentication_token | AUTHENTICATION_TOKEN |
+
+  Then the response status should be "400"
+  And the JSON response should include error code: "012"
+  And the JSON response should include description: "Invalid cloud id or token."
