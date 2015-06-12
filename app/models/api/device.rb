@@ -21,7 +21,7 @@ class Api::Device < Device
       instance.update_attribute(:firmware_version, firmware_version)
     end
     
-    self.id = instance.id
+    self.attributes = instance.attributes
     return true
   end
 
