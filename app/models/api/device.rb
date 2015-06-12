@@ -18,7 +18,7 @@ class Api::Device < Device
 
     unless firmware_version == instance.firmware_version
       logger.info('update device from fireware version' + firmware_version + ' from ' + firmware_version)
-      instance.update_attribute(firmware_version: firmware_version)
+      instance.update_attribute(:firmware_version, firmware_version)
     end
     
     self.id = instance.id
