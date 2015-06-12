@@ -92,10 +92,10 @@ class Api::Device < Device
       return
     end
 
-    return if pairing.blank?
+    return if self.pairing.blank?
 
-    pairing.destroy_all
-    Job::UnpairMessage.new.push_device_id(id.to_s)
+    self.pairing.destroy_all
+    Job::UnpairMessage.new.push_device_id(self.id.to_s)
   end
 
   # 如果該台 device 沒有xmpp 帳號則註冊一組
