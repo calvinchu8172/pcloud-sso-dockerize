@@ -22,7 +22,7 @@ class Api::DevicesController < Api::Base
       @device = Api::Device.checkin(api_permit.merge(current_ip_address: request.remote_ip))
       return render :json => {:result => 'invalid parameter'}, :status => 400 if @device.nil?
       @device.valid?
-      return render json: @device.errors[:magic_number].first unless @device.errors[:magic_number].blank?
-      return render json: @device.errors[:parameter].first unless @device.errors[:parameter].blank?
+      return render json: @device.errors[:magic_number].first, :status => 400 unless @device.errors[:magic_number].blank?
+      return render json: @device.errors[:parameter].first, :status => 400 unless @device.errors[:parameter].blank?
     end
 end
