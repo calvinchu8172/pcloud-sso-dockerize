@@ -13,8 +13,9 @@ module TestingHelper
   def self.signin_user(user)
     login_as(user, scope: :user)
   end
-  def self.create_and_confirm
-    user = FactoryGirl.create(:user)
+
+  def self.create_and_confirm(user = nil)
+    user = user.nil? ? FactoryGirl.create(:user) : user
     user.confirmed_at = Time.now.utc
     user.confirmation_token = Devise.friendly_token
     user.confirmation_sent_at = Time.now.utc
