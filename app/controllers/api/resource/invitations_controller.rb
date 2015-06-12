@@ -6,7 +6,7 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def index
 		result = Array.new
-		user = User.find_by_encrypted_id(params[:cloud_id])
+		user = User.find_by_encoded_id(params[:cloud_id])
 		return render_error_response "012" if user.blank?
 
 		user.invitations.each do |invitation|
@@ -56,7 +56,7 @@ class Api::Resource::InvitationsController < Api::Base
 		device_id = params[:device_id] || ''
 		permission = params[:permission] || ''
 
-		user = User.find_by_encrypted_id( cloud_id )
+		user = User.find_by_encoded_id( cloud_id )
 		return render_error_response "012" if user.blank?
 
 		device = Device.find_by_encrypted_id( device_id )
