@@ -9,7 +9,7 @@ class Api::User < User
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month
   INVALID_SIGNATURE_ERROR = {error_code: "101", description: "Invalid signature"}
-  INVALID_TOKEN_AUTHENTICATION = {error_code: '201', description: 'Invalid cloud id or token'}
+  INVALID_TOKEN_AUTHENTICATION = {error_code: '201', description: 'Invalid cloud id or token.'}
 
   def authentication_token_key(user_id, token)
     "user:#{user_id}:authentication_token:#{token}"
@@ -32,7 +32,7 @@ class Api::User < User
     @authentication_token = create_authentication_token
     key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token}) 
+    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token})
     {account_token: @account_token, authentication_token: @authentication_token}
   end
 
@@ -54,7 +54,7 @@ class Api::User < User
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, token))
     return false if redis_token.nil?
 
-    if DateTime.strptime(redis_token.value) > DateTime.now 
+    if DateTime.strptime(redis_token.value) > DateTime.now
       redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
       return true
     else
