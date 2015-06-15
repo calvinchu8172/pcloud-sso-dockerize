@@ -5,7 +5,7 @@ class Api::Resource::PersonalController < Api::Base
 	def device_list
 	  cloud_id = params[ :cloud_id ] || ''
 	  device_id = ''
-	  user = User.find_by_encrypted_id( cloud_id )
+	  user = User.find_by_encoded_id( cloud_id )
 	  pairings = user.pairings.take(50)
 	  accepted_invitations = AcceptedUser.where(user_id: user.id, status: 1).take(50)
 	  redis = Redis.new
@@ -14,7 +14,8 @@ class Api::Resource::PersonalController < Api::Base
 	  pairings.each do | pairing |
 	    device = pairing.device
 	    ddns = device.ddns
-	    own_device[device.encrypted_id] = {
+	    next if ddns.nil?
+	    own_device[device.encoded_id] = {
 	    	:xmpp_account => (redis.HGET "device:#{device.id.to_s}:session", "xmpp_account"),
 	     	:mac_address => device.mac_address.scan(/.{2}/).join(":"),
 	     	:host_name => ddns[ :hostname ],
@@ -31,7 +32,8 @@ class Api::Resource::PersonalController < Api::Base
 	    device_info = Hash.new
       device = accepted_invitation.invitation.device
       ddns = device.ddns
-	    others_device[device.encrypted_id] = {
+      next if ddns.nil?
+	    others_device[device.encoded_id] = {
 		    :xmpp_account => (redis.HGET "device:#{device.id.to_s}:session", "xmpp_account"),
 		    :mac_address => device.mac_address.scan(/.{2}/).join(":"),
 		    :host_name => ddns[ :hostname ],
@@ -49,9 +51,9 @@ class Api::Resource::PersonalController < Api::Base
 
 	def validate_cloud_id
     cloud_id = params[:cloud_id]
-    user = User.find_by_encrypted_id( cloud_id )
+    user = User.find_by_encoded_id( cloud_id )
     if user.blank?
-      render :json => { error_code: "012", description: "Invalid cloud id or token." }, status: 400
+      render :json => { error_code: "201", description: "Invalid cloud id or token." }, status: 400
       return
     end
   end

@@ -16,7 +16,7 @@ module InvitationHelper
 			return
 		end
 		@user = User.find_by(email: cloud_id)
-		if @user.id == @invitation.device.pairing.user.id
+		if @user.id == @invitation.device.pairing.owner.first.id
 			logger.info(I18n.t("warnings.settings.invitation.accepting_by_owner")) #shouldn't accepted by owner
 			render :template => '/invitations/accept'
 		end
