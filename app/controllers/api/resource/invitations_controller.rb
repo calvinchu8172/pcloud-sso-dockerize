@@ -72,7 +72,7 @@ class Api::Resource::InvitationsController < Api::Base
 		error_descriptions = {
 			"004" => "Invalid device.",
 			"005" => "Invalid share point or permission.",
-			"012" => "Invalid cloud id or token.",
+			"012" => "Invalid cloud id.",
 			"013" => "Invalid certificate.",
 			"014" => "Invalid signature."
 		}
