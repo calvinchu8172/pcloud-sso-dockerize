@@ -4,27 +4,6 @@ class Api::Resource::InvitationsController < Api::Base
 	before_filter :validate_index_params, :only => [:index]
 	before_filter :validate_create_params, :only => [:create]
 
-	def index
-		result = Array.new
-		user = User.find_by_encoded_id(params[:cloud_id])
-		return render_error_response "012" if user.blank?
-
-		user.invitations.each do |invitation|
-			device = invitation.device
-			invitation.accepted_users.each do |accepted_user|
-				next unless accepted_user.inbox?(params[:last_updated_at])
-				result.push({ invitation_key: invitation.key,
-					device_id: device.id,
-					share_point: invitation.share_point,
-					permission: invitation.permission_name,
-					accepted_user: accepted_user.user.email,
-					accepted_time: accepted_user.accepted_time })
-			end
-		end
-		result.sort_by! { |data| -Time.parse(data[:accepted_time]).to_i }
-		render :json => result, status: 200
-	end
-
 	def create
 		cloud_id = valid_params[:cloud_id] || ''
 		share_point = valid_params[:share_point] || ''
@@ -48,7 +27,7 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def show
 		result = Array.new
-		user = User.find_by_encrypted_id(params[:cloud_id])
+		user = User.find_by_encoded_id(params[:cloud_id])
 		return render_error_response "012" if user.blank?
 
 		user.invitations.each do |invitation|
