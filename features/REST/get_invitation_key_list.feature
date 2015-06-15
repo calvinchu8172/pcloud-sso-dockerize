@@ -28,7 +28,7 @@ Feature: Get Invitation Key List
     | authentication_token | EXPIRED_AUTHENTICATION_TOKEN |
 
   Then the response status should be "400"
-  And the JSON response should include error code: "012"
+  And the JSON response should include error code: "201"
   And the JSON response should include description: "Invalid cloud id or token."
 
   Scenario: [REST_02_03]
@@ -40,5 +40,5 @@ Feature: Get Invitation Key List
     | authentication_token | AUTHENTICATION_TOKEN |
 
   Then the response status should be "400"
-  And the JSON response should include error code: "012"
+  And the JSON response should include error code: "201"
   And the JSON response should include description: "Invalid cloud id or token."

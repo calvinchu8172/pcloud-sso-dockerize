@@ -61,5 +61,5 @@ Feature: Generate Invitation Key
       | authentication_token | EXPIRED AUTHENTICATION_TOKEN |
 
     Then the response status should be "400"
-    And the JSON response should include error code: "012"
+    And the JSON response should include error code: "201"
     And the JSON response should include description: "Invalid cloud id or token."
