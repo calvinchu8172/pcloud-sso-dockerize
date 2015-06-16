@@ -1,5 +1,4 @@
-Given(/^a existing device XMPP account$/) do
-
+Given(/^an existing certificate and RSA key$/) do
   create_certificate_and_rsa_key
 end
 
@@ -47,5 +46,5 @@ def create_signature(*arg)
 
   digest = OpenSSL::Digest::SHA224.new
   private_key = @rsa_key
-  signature = CGI::escape(Base64::encode64(private_key.sign(digest,data)))
+  signature = CGI::escape(Base64::encode64(private_key.sign(digest, data)))
 end

@@ -3,7 +3,7 @@ Feature: Delete User's Binding with Device
   Background:
     Given a signed in client
     And an existing device with pairing signed in client
-    And a existing device XMPP account
+    And an existing certificate and RSA key
 
   Scenario: [REST_04_01]
     Client try to delete user's binding on portal with valid information
