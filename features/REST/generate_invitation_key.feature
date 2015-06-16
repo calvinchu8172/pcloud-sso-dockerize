@@ -54,21 +54,6 @@ Feature: Generate Invitation Key
     And the JSON response should include description: "Invalid share point or permission."
 
   Scenario: [REST_03_04]
-    Client invite user with invalid permission
-
-    When client send a POST request to "/resource/1/invitation" with:
-      | cloud_id             | ENCODE USER ID       |
-      | device_id            | ENCODE DEVICE ID     |
-      | share_point          | INVALID SHARE POINT  |
-      | expire_count         | 5                    |
-      | permission           | 1                    |
-      | authentication_token | AUTHENTICATION_TOKEN |
-
-    Then the response status should be "400"
-    And the JSON response should include error code: "005"
-    And the JSON response should include description: "Invalid share point or permission."
-
-  Scenario: [REST_03_05]
     Client invite user with expired authentication token
 
     When client send a POST request to "/resource/1/invitation" with:

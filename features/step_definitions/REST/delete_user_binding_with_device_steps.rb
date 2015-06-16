@@ -1,5 +1,5 @@
 Given(/^a existing device XMPP account$/) do
-  @
+  pending # express the regexp above with the code you wish you had
 end
 
 When(/^client send a DELETE request to "(.*?)" with:$/) do |url_path, table|
