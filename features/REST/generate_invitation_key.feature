@@ -18,10 +18,10 @@ Feature: Generate Invitation Key
     Then the response status should be "200"
     And the JSON response should include valid invitation_key
 
-  Examples:
-    | permission |
-    | 1          |
-    | 2          |
+    Examples:
+      | permission |
+      | 1          |
+      | 2          |
 
   Scenario: [REST_03_02]
     Client invite user with invalid device id
