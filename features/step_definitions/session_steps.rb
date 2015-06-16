@@ -32,6 +32,14 @@ module TestingHelper
     device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
     device
   end
+
+  def self.create_device_and_xmpp
+    device = create_device
+    xmpp_user = XmppUser.find_or_create_by(username: device.session['xmpp_account'], password: 'password')
+    xmpp_user.session = device.id
+    device
+  end
+
   def self.create_and_signin
     user = create_and_confirm
     signin_user(user)

@@ -3,7 +3,7 @@ Given(/^a signed in client$/) do
 end
 
 Given(/^an existing device with pairing signed in client$/) do
-  @device = TestingHelper.create_device
+  @device = TestingHelper.create_device_and_xmpp
   FactoryGirl.create(:pairing, user_id: @user.id, device_id: @device.id)
 end
 

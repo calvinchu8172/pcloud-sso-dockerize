@@ -26,6 +26,10 @@ Then(/^the JSON response should be$/) do |response|
   expect(JSON.parse(last_response.body)).to eq(JSON.parse(response))
 end
 
+Then(/^permission record count should be (\d+)$/) do |count|
+  expect(Api::Resource::Permission.count).to eq(count.to_i)
+end
+
 def create_certificate_and_rsa_key
   @rsa_key = OpenSSL::PKey::RSA.new(2048)
 
