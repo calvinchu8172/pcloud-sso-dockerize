@@ -5,8 +5,6 @@ class Api::Resource::InvitationsController < Api::Base
 	before_filter :validate_create_params, :only => [:create]
 
 	def create
-		return render_error_response "005" if valid_params[:share_point].blank?
-
 		cloud_id = valid_params[:cloud_id] || ''
 		share_point = valid_params[:share_point] || ''
 		device_id = valid_params[:device_id] || '1'
