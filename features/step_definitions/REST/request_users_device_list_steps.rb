@@ -1,36 +1,44 @@
 Given(/^a user sign in from APP$/) do
-  @user = TestingHelper.create_and_signin
-end
-
-Given(/^the user get a authentication token already$/) do
-  # @user = TestingHelper.create_and_signin
-  @user.confirmation_token = Devise.friendly_token
+  @user = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
 end
 
 Given(/^a user try to request own device list from APP$/) do
-  pending # express the regexp above with the code you wish you had
+  @device = TestingHelper.create_device
 end
 
-When(/^APP request POST to https:\/\/api\-mycloud\.zyxel\.com\/resources\/(\d+)\/device_list$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^APP sent a GET request to "(.*?)" with:$/) do |url_path, table|
+  data = table.rows_hash
+  path = '//' + Settings.environments.api_domain + url_path
+
+  authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
+  cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id
+  get path, {
+    cloud_id: cloud_id,
+    authentication_token: authentication_token
+  }
 end
 
-Then(/^APP will get HTTP: (\d+)$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^the HTTP response status should be "(.*?)"$/) do |status_code|
+  expect(last_response.status).to eq(status_code.to_i)
 end
 
-Then(/^the JSON should include \["(.*?)","(.*?)","(.*?)","(.*?)","(.*?)","(.*?)", "(.*?)"\]$/) do |arg1, arg2, arg3, arg4, arg5, arg6, arg7|
-  pending # express the regexp above with the code you wish you had
+Then(/^the JSON response should include$/) do |attributes|
+  body_array = JSON.parse(last_response.body)
+  attributes = JSON.parse(attributes)
+
+  body_array.each do |body|
+    attributes.each do |attribute|
+      expect(attribute).to be true
+    end
+  end
 end
 
-Given(/^a client didn’t use app after sign up for more than (\d+) seconds$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^the responsed JSON should include error code: "(.*?)"$/) do |error_code|
+  body = JSON.parse(last_response.body)
+  expect(body["error_code"]).to eq(error_code)
 end
 
-Given(/^the client try to request own device list from APP$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^the JSON response at "(.*?)" should be "(.*?)"$/) do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+Then(/^the responsed JSON should include description: "(.*?)"$/) do |description|
+  body = JSON.parse(last_response.body)
+  expect(body["description"]).to eq(description)
 end
