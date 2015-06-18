@@ -1,7 +1,7 @@
 class Api::Resource::InvitationsController < Api::Base
 	skip_before_filter :verify_authenticity_token
 	before_filter :authenticate_user_by_token!
-	before_filter :validate_index_params, :only => [:index]
+	before_filter :validate_show_params, :only => [:show]
 	before_filter :validate_create_params, :only => [:create]
 
 	def create
@@ -11,7 +11,7 @@ class Api::Resource::InvitationsController < Api::Base
 		permission = valid_params[:permission] || '1'
 		expire_count = valid_params[:expire_count] || '5'
 
-		device = Device.find_by_encrypted_id( device_id )
+		device = Device.find_by_encoded_id( device_id )
 		return render_error_response "004" if device.blank?
 		device_id = device.id
 		#組成字串
@@ -27,8 +27,8 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def show
 		result = Array.new
-		user = User.find_by_encrypted_id(params[:cloud_id])
-		return render_error_response "012" if user.blank?
+		user = User.find_by_encoded_id(params[:cloud_id])
+		return render_error_response "201" if user.blank?
 
 		user.invitations.each do |invitation|
 			device = invitation.device
@@ -46,9 +46,9 @@ class Api::Resource::InvitationsController < Api::Base
 		render :json => result, status: 200
 	end
 
-	def validate_index_params
+	def validate_show_params
 		params[:last_updated_at] = params[:last_updated_at].blank? ? 0 : params[:last_updated_at].to_i
-		render_error_response "012" if params[:cloud_id].blank?
+		render_error_response "201" if params[:cloud_id].blank?
 	end
 
 	def validate_create_params
@@ -56,10 +56,10 @@ class Api::Resource::InvitationsController < Api::Base
 		device_id = params[:device_id] || ''
 		permission = params[:permission] || ''
 
-		user = User.find_by_encrypted_id( cloud_id )
+		user = User.find_by_encoded_id( cloud_id )
 		return render_error_response "012" if user.blank?
 
-		device = Device.find_by_encrypted_id( device_id )
+		device = Device.find_by_encoded_id( device_id )
 		return render_error_response "004" if device.blank?
 
 		pairing = Pairing.find_by_device_id( device.id )
@@ -72,9 +72,9 @@ class Api::Resource::InvitationsController < Api::Base
 		error_descriptions = {
 			"004" => "invalid device.",
 			"005" => "Invalid share point and permission.",
-			"012" => "invalid cloud id or token.",
 			"013" => "invalid certificate.",
-			"014" => "invalid signature."
+			"014" => "invalid signature.",
+			"201" => "invalid cloud id or token."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end

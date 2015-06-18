@@ -26,15 +26,19 @@ class AcceptedUser < ActiveRecord::Base
 	end
 
 	def self.handling_status
-	    ['start']
+	  ['start']
 	end
 
 	def session_expire_in
-	    waiting_second = AcceptedUser::WAITING_PERIOD.to_i
-	    return 0 if !self.class.handling_status.include?(session.get('status'))
+	  waiting_second = AcceptedUser::WAITING_PERIOD.to_i
+	  return 0 if !self.class.handling_status.include?(session.get('status'))
 
-	    time_difference = self.session.get('expire_at').to_i - Time.now().to_i
-	    return time_difference
+	  time_difference = self.session.get('expire_at').to_i - Time.now().to_i
+	  return time_difference
+	end
+
+	def finish_accept
+		self.update(:status => 1)
 	end
 
 end
