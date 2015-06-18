@@ -7,10 +7,10 @@ Given(/^an existing device with pairing signed in client$/) do
   FactoryGirl.create(:pairing, user_id: @user.id, device_id: @device.id)
 end
 
-When(/^client send a POST request to "(.*?)" with:$/) do |url_path, table|
+When(/^client send a POST request to \/resource\/1\/invitation with:$/) do |table|
 
   data = table.rows_hash
-  path = '//' + Settings.environments.api_domain + url_path
+  path = '//' + Settings.environments.api_domain + "/resource/1/invitation"
 
   authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
   device_id = data["device_id"].include?("INVALID") ? "" : @device.encrypted_id

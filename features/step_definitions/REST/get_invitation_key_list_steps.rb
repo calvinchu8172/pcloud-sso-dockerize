@@ -2,9 +2,9 @@ Given(/^(\d+) existing invitation record$/) do |record_count|
   record_count.to_i.times { create_fake_invitation(@user, @device) }
 end
 
-When(/^client send a GET request to "(.*?)" with:$/) do |url_path, table|
+When(/^client send a GET request to \/resource\/1\/invitation with:$/) do |table|
   data = table.rows_hash
-  path = '//' + Settings.environments.api_domain + url_path
+  path = '//' + Settings.environments.api_domain + "/resource/1/invitation"
 
   authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
   cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id

@@ -2,9 +2,9 @@ Given(/^an existing certificate and RSA key$/) do
   create_certificate_and_rsa_key
 end
 
-When(/^client send a DELETE request to "(.*?)" with:$/) do |url_path, table|
+When(/^client send a DELETE request to \/resource\/1\/permission with:$/) do |table|
   data = table.rows_hash
-  path = '//' + Settings.environments.api_domain + url_path
+  path = '//' + Settings.environments.api_domain + "/resource/1/permission"
 
   device_account = data["device_account"].include?("INVALID") ? "" : @device.session['xmpp_account']
   cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id

@@ -9,7 +9,7 @@ Feature: Get Invitation Key List
     Client access invitaiton list with valid authentication token and last updated time
 
     Given <record_count> existing invitation record
-    When client send a GET request to "/resource/1/invitation" with:
+    When client send a GET request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID         |
       | last_updated_at      | LAST UPDATED TIMESTAMP |
       | authentication_token | AUTHENTICATION_TOKEN   |
@@ -29,7 +29,7 @@ Feature: Get Invitation Key List
     Client access invitaiton list with valid authentication token and expired last updated time
 
     Given 1 existing invitation record
-    When client send a GET request to "/resource/1/invitation" with:
+    When client send a GET request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID                 |
       | last_updated_at      | EXPIRED LAST UPDATED TIMESTAMP |
       | authentication_token | AUTHENTICATION_TOKEN           |
@@ -41,7 +41,7 @@ Feature: Get Invitation Key List
     Client access invitation list with expired authentication token
 
     Given 1 existing invitation record
-    When client send a GET request to "/resource/1/invitation" with:
+    When client send a GET request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID               |
       | last_updated_at      | LAST UPDATED TIMESTAMP       |
       | authentication_token | EXPIRED_AUTHENTICATION_TOKEN |
@@ -54,7 +54,7 @@ Feature: Get Invitation Key List
     Client access invitation list with invalid cloud_id
 
   Given 1 existing invitation record
-    When client send a GET request to "/resource/1/invitation" with:
+    When client send a GET request to /resource/1/invitation with:
       | cloud_id             | INVALID ENCODE USER ID       |
       | last_updated_at      | LAST UPDATED TIMESTAMP       |
       | authentication_token | AUTHENTICATION_TOKEN |

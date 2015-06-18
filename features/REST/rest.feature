@@ -64,7 +64,7 @@ Feature: REST API testing
     Then the API should return success respond
     And the record in databases as expected
 
-  Scenario: [REST-06]
+  Scenario: [REST-00-06]
     Check incorrect update process when signature invalid
 
     Given the device already registration
