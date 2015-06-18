@@ -8,8 +8,6 @@ class Api::User::TokensController < Api::Base
     unless @user.errors.empty?
       return  render json: @user.errors[:authenticate].first, :status => 400
     end
-    
-    @user.create_token
   end
 
   def show
