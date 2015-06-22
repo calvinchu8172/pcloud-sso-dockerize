@@ -7,7 +7,7 @@ Feature: Generate Invitation Key
   Scenario Outline: [REST_03_01]
     Client invite user with valid information
 
-    When client send a POST request to "/resource/1/invitation" with:
+    When client send a POST request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID       |
       | device_id            | ENCODE DEVICE ID     |
       | share_point          | SHARE POINT          |
@@ -26,7 +26,7 @@ Feature: Generate Invitation Key
   Scenario: [REST_03_02]
     Client invite user with invalid device id
 
-    When client send a POST request to "/resource/1/invitation" with:
+    When client send a POST request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID           |
       | device_id            | INVALID ENCODE DEVICE ID |
       | share_point          | SHARE POINT              |
@@ -41,7 +41,7 @@ Feature: Generate Invitation Key
   Scenario: [REST_03_03]
     Client invite user with invalid permission
 
-    When client send a POST request to "/resource/1/invitation" with:
+    When client send a POST request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID       |
       | device_id            | ENCODE DEVICE ID     |
       | share_point          | SHARE POINT          |
@@ -56,7 +56,7 @@ Feature: Generate Invitation Key
   Scenario: [REST_03_04]
     Client invite user with expired authentication token
 
-    When client send a POST request to "/resource/1/invitation" with:
+    When client send a POST request to /resource/1/invitation with:
       | cloud_id             | ENCODE USER ID               |
       | device_id            | ENCODE DEVICE ID             |
       | share_point          | SHARE POINT                  |

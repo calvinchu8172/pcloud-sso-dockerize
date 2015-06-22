@@ -9,7 +9,7 @@ Feature: Delete User's Binding with Device
   Scenario: [REST_04_01]
     Client try to delete user's binding on portal with valid information
 
-    When client send a DELETE request to "/resource/1/permission" with:
+    When client send a DELETE request to /resource/1/permission with:
     | device_account     | DEVICE XMPP ACCOUNT |
     | cloud_id           | ENCODED USER ID     |
     | certificate_serial | CERTIFICATE SERIAL  |
@@ -25,7 +25,7 @@ Feature: Delete User's Binding with Device
   Scenario: [REST_04_02]
     Client try to delete user's binding on portal with invalid device account
 
-    When client send a DELETE request to "/resource/1/permission" with:
+    When client send a DELETE request to /resource/1/permission with:
     | device_account     | INVALID DEVICE ACCOUNT |
     | cloud_id           | ENCODED USER ID        |
     | certificate_serial | CERTIFICATE SERIAL     |
@@ -39,7 +39,7 @@ Feature: Delete User's Binding with Device
   Scenario: [REST_04_03]
     Client try to delete user's binding on portal with invalid cloud id
 
-    When client send a DELETE request to "/resource/1/permission" with:
+    When client send a DELETE request to /resource/1/permission with:
     | device_account     | DEVICE ACCOUNT |
     | cloud_id           | INVALID ENCODED USER ID        |
     | certificate_serial | CERTIFICATE SERIAL     |
@@ -53,7 +53,7 @@ Feature: Delete User's Binding with Device
   Scenario: [REST_04_04]
     Client try to delete user's binding on portal with invalid certificate serial
 
-    When client send a DELETE request to "/resource/1/permission" with:
+    When client send a DELETE request to /resource/1/permission with:
     | device_account     | DEVICE ACCOUNT |
     | cloud_id           | ENCODED USER ID        |
     | certificate_serial | INVALID CERTIFICATE SERIAL     |
@@ -67,7 +67,7 @@ Feature: Delete User's Binding with Device
   Scenario: [REST_04_05]
     Client try to delete user's binding on portal with invalid signature
 
-    When client send a DELETE request to "/resource/1/permission" with:
+    When client send a DELETE request to /resource/1/permission with:
     | device_account     | DEVICE ACCOUNT |
     | cloud_id           | ENCODED USER ID        |
     | certificate_serial | CERTIFICATE SERIAL     |
