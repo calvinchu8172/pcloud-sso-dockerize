@@ -14,7 +14,10 @@ class Api::User::OauthController < Api::Base
     access_token = checkin_params[:access_token]
 
     data = get_oauth_data(@provider, user_id, access_token)
-    return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil? || data['email'].nil?
+    if data.nil? || data['email'].nil?
+      logger.debug 'the oauth token is invalid'
+      return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
+    end
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
     return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if identity.nil?
@@ -42,7 +45,11 @@ class Api::User::OauthController < Api::Base
     return render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400 if password.nil? || !password.length.between?(8, 14)
 
     data = get_oauth_data(@provider, user_id, access_token)
-    return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
+
+    if data.nil? || data['email'].nil?
+      logger.debug 'the oauth token is invalid'
+      return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
+    end
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
     user = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
