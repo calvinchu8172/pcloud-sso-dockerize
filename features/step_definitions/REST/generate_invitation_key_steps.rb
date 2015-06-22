@@ -13,7 +13,7 @@ When(/^client send a POST request to \/resource\/1\/invitation with:$/) do |tabl
   path = '//' + Settings.environments.api_domain + "/resource/1/invitation"
 
   authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
-  device_id = data["device_id"].include?("INVALID") ? "" : @device.encrypted_id
+  device_id = data["device_id"].include?("INVALID") ? "" : @device.encoded_id
 
   post path, {
     cloud_id: @user.encoded_id,
