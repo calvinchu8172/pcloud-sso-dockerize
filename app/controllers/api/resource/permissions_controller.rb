@@ -3,8 +3,8 @@ class Api::Resource::PermissionsController < Api::Base
 	before_filter :validate_delete_permission_params
 
 	def destroy
-		user = User.find_by_encrypted_id(valid_params[:cloud_id])
-		return render :json => { error_code: "012", description: "invalid cloud id or token." }, status: 400 if user.blank?
+		user = User.find_by_encoded_id(valid_params[:cloud_id])
+		return render :json => { error_code: "201", description: "invalid cloud id or token." }, status: 400 if user.blank?
 		permissions = Api::Resource::Permission.where(user_id: user.id)
 		permissions.each do |permission|
 			xmpp_user = XmppUser.find_by(username: valid_params[:device_account])

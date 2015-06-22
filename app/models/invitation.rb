@@ -15,10 +15,6 @@ class Invitation < ActiveRecord::Base
     PERMISSIONS[self.permission]
   end
 
-  def session user_email
-  	InvitationSession.find(self.device.id, user_email)
-  end
-
   # decreasing the expire_count of invitation
   # creating accepted_user data
   def accepted_by user_id
