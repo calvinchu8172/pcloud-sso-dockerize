@@ -40,7 +40,6 @@ class Api::User::OauthController < Api::Base
     user_id            = register_params[:user_id]
     password           = register_params[:password]
     access_token       = register_params[:access_token]
-    signature          = register_params[:signature]
 
     return render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400 if password.nil? || !password.length.between?(8, 14)
 
@@ -52,29 +51,29 @@ class Api::User::OauthController < Api::Base
     end
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
-    user = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
+    register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
 
-    if user.nil?
-      user = Api::User::OauthUser.new(register_params)
-      user.email = data['email']
-      user.agreement = "1"
-      user.confirmation_token = Devise.friendly_token
-      user.confirmed_at = Time.now.utc
+    if register.nil?
+      register = Api::User::OauthUser.new(register_params)
+      register.email = data['email']
+      register.agreement = "1"
+      register.confirmation_token = Devise.friendly_token
+      register.confirmed_at = Time.now.utc
 
-      unless user.save
+      unless register.save
         logger.debug 'Oauth user not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].empty?
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
       end
     end
 
-    if is_portal_user?(user)
-      user = Api::User::OauthUser.find(user)
-      user.confirmation_token = Devise.friendly_token
-      user.confirmed_at = Time.now.utc
+    if is_portal_user?(register)
+      register = Api::User::OauthUser.find(register)
+      register.confirmation_token = Devise.friendly_token
+      register.confirmed_at = Time.now.utc
 
-      unless user.update(register_params)
+      unless register.update(register_params)
         logger.debug 'Oauth portal user not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].empty?
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
       end
     else
       return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
@@ -83,7 +82,7 @@ class Api::User::OauthController < Api::Base
     if identity.nil?
       identity = Api::User::Identity.new(register_params.except(:password, :app_key, :os))
       identity.provider = @provider
-      identity["user_id"] = user.id
+      identity["user_id"] = register.id
       identity.uid = data['id']
 
       unless identity.save
@@ -92,14 +91,12 @@ class Api::User::OauthController < Api::Base
       end
     end
 
-    token = Api::User::Token.new(id: user.id ,email: data['email'], certificate_serial: certificate_serial)
-    token.app_key = register_params[:app_key]
-    token.os = register_params[:os]
-    token.create_token
+    @user = Api::User::Token.new(register.attributes)
+    @user.app_key = register_params[:app_key]
+    @user.os = register_params[:os]
+    @user.create_token
 
-
-    sign_in(:user, user, store: false, bypass: false)
-    redirect_to authenticated_root_path
+    render "api/user/tokens/create.json.jbuilder"
   end
 
   def get_oauth_data(provider, user_id, access_token)

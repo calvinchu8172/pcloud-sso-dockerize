@@ -10,8 +10,8 @@ class Api::User::XmppAccountsController < Api::Base
     render :json =>  xmpp_info
   end
 
-  private 
+  private
     def update_params
-      params.permit(:certificate_serial, :signature)
+      params.permit(:certificate_serial, :signature, :authentication_token, :cloud_id)
     end
 end
