@@ -50,6 +50,10 @@ class Api::User < User
     info
   end
 
+  def confirmed_in_grace_period?
+    !(((Time.zone.now - created_at) / 1.day) > 3 and !confirmed?)
+  end
+
   def verify_authentication_token(token)
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, token))
     return false if redis_token.nil?

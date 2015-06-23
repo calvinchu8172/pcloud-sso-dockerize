@@ -1,5 +1,5 @@
 class Api::User::EmailsController < Api::Base 
-  before_filter :authenticate_user_by_token!, only: :udpate
+  before_filter :authenticate_user_by_token_incloud_unconfirmed!, only: :update
   
   def show
     user = Api::User::Email.new(show_params)
