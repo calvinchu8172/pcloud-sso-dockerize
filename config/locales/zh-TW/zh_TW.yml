@@ -45,7 +45,7 @@ zh-TW:
     edit_profile: '資訊修改'
     mac_address: 'MAC Address'
     serial_number: 'Serial Number'
-    find_me: 'Find Me'
+    find_nas: 'Find NAS'
   titles:
     change_password: '變更密碼'
     forgot_password: '密碼重設'
