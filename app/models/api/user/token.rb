@@ -21,8 +21,16 @@ class Api::User::Token < Api::User
       return user
     end
 
+    user.create_token
+
     if ((Time.zone.now - user.created_at) / 1.day) > 3 and !user.confirmed?
-      user.errors.add(:authenticate, {error_code: '002', description: 'client have to confirm email account before continuing.'})
+      user.errors.add(:authenticate, {error_code: '002',
+                                      description: 'client have to confirm email account before continuing.',
+                                      user_id: user.encoded_id,
+                                      account_token: user.account_token,
+                                      authentication_token: user.authentication_token,
+                                      timeout: user.authentication_token_ttl
+                                      })
       return user
     end
     user
