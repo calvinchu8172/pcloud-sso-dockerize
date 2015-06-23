@@ -14,7 +14,7 @@ class Api::Base < ApplicationController
       unless authenticate_token!
         return render :json => Api::User::INVALID_TOKEN_AUTHENTICATION, :status => 400
       end
-      if @current_token_user.confirmed_in_grace_period?
+      unless @current_token_user.confirmed_in_grace_period?
         return render :json => Api::User::INVALID_TOKEN_AUTHENTICATION, :status => 400
       end
     end
@@ -34,7 +34,7 @@ class Api::Base < ApplicationController
         return false
       end
 
-      if !@current_token_user.verify_authentication_token(authentication_params[:authentication_token])
+      unless @current_token_user.verify_authentication_token(authentication_params[:authentication_token])
         return false
       end
 
