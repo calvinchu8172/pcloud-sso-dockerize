@@ -1,6 +1,3 @@
-Given(/^an existing certificate and RSA key$/) do
-  create_certificate_and_rsa_key
-end
 
 When(/^client send a DELETE request to \/resource\/1\/permission with:$/) do |table|
   data = table.rows_hash
@@ -22,33 +19,6 @@ When(/^client send a DELETE request to \/resource\/1\/permission with:$/) do |ta
 
 end
 
-Then(/^the JSON response should be$/) do |response|
-  expect(JSON.parse(last_response.body)).to eq(JSON.parse(response))
-end
-
 Then(/^permission record count should be (\d+)$/) do |count|
   expect(Api::Resource::Permission.count).to eq(count.to_i)
-end
-
-def create_certificate_and_rsa_key
-  @rsa_key = OpenSSL::PKey::RSA.new(2048)
-
-  cert = OpenSSL::X509::Certificate.new
-  cert.version = 2
-  cert.serial = 0
-  cert.not_before = Time.now
-  cert.not_after = Time.now + 365*24*60*60
-
-  cert.public_key = @rsa_key.public_key
-  cert.subject = OpenSSL::X509::Name.parse 'CN=nobody/DC=example'
-
-  @certificate = Api::Certificate.create(serial: "serial_name", content: cert.to_pem)
-end
-
-def create_signature(*arg)
-  data = arg.map { |param| param.to_s}.join('')
-
-  digest = OpenSSL::Digest::SHA224.new
-  private_key = @rsa_key
-  signature = CGI::escape(Base64::encode64(private_key.sign(digest, data)))
 end

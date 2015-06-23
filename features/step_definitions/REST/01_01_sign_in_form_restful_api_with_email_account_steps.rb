@@ -1,10 +1,3 @@
-Given(/^an existing user's account and password$/) do
-  @user = FactoryGirl.create(:api_user,
-    email: "acceptance@ecoworkinc.com",
-    password: "secret123",
-    password_confirmation: "secret123")
-end
-
 When(/^client send a POST request to \/user\/1\/token with:$/) do |table|
   data = table.rows_hash
   path = path = '//' + Settings.environments.api_domain + "/user/1/token"
@@ -22,15 +15,6 @@ When(/^client send a POST request to \/user\/1\/token with:$/) do |table|
     app_key: data["app_key"],
     os: data["os"]
   }
-end
-
-Then(/^the JSON response should include:$/) do |attributes|
-  body_hash = JSON.parse(last_response.body)
-  attributes = JSON.parse(attributes)
-
-  attributes.each do |attribute|
-    expect(body_hash.key?(attribute)).to be true
-  end
 end
 
 Then(/^the client should be using other$/) do

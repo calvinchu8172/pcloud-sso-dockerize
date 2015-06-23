@@ -21,20 +21,6 @@ Then(/^the JSON response should be empty$/) do
   expect(JSON.parse(last_response.body).count).to eq(0)
 end
 
-Then(/^the JSON response should include (\d+):$/) do |record_count, attributes|
-
-  body_array = JSON.parse(last_response.body)
-  expect(body_array.count).to eq(record_count.to_i)
-
-  attributes = JSON.parse(attributes)
-
-  body_array.each do |body|
-    attributes.each do |attribute|
-      expect(body.key?(attribute)).to be true
-    end
-  end
-end
-
 def create_fake_invitation(user, device)
   cloud_id = user.encoded_id
   share_point = "fake_share_point"

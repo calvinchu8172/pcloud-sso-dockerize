@@ -18,9 +18,3 @@ When(/^client send a POST request to \/user\/1\/register with:$/) do |table|
   }
 end
 
-Given(/^an existing user with:$/) do |table|
-  data = table.rows_hash
-  email = data["id"]
-  password = data["password"]
-  FactoryGirl.create(:api_user, email: email, password: password, password_confirmation: password)
-end
