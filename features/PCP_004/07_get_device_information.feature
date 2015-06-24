@@ -41,9 +41,9 @@ Feature: [PCP_004_007] Get Device Information
     And the available capacity percentage should be: <percentage>
 
     Examples:
-      | total_capacity | used_capacity | display | percentage |
-      | 4095MB         | 500MB         | 4095MB  | 12%        |
-      | 4096MB         | 1000MB        | 4GB     | 24%        |
+      | total_capacity  | used_capacity | display       | percentage   |
+      | 4095MB          | 500MB         | 4095MB        | 12%          |
+      | 4096MB          | 1000MB        | 4GB           | 24%          |
 
   Scenario Outline: [PCP_004_007_005]
     Display volumn capacity
@@ -55,8 +55,8 @@ Feature: [PCP_004_007] Get Device Information
     Then the volumn capacity should display: <display>
 
     Examples:
-      | total_capacity | used_capacity | display_total | display_used|
-      | 4096MB         | 1000MB        | 4.0GB     | 1.0GB |
+      | total_capacity  | used_capacity | display_total | display_used |
+      | 4096MB          | 1000MB        | 4.0GB         | 1.0GB        |
 
   Scenario Outline: [PCP_004_007_006]
     Switch display volumn capacity unit
@@ -69,5 +69,5 @@ Feature: [PCP_004_007] Get Device Information
     Then the volumn capacity should display: <display>
 
     Examples:
-      | volumn_capacity | used_capacity | display_total | display_used|
-      | 4096MB         | 1000MB        | 4096MB     | 1000MB
+      | volumn_capacity | used_capacity | display_total | display_used |
+      | 4096MB          | 1000MB        | 4096MB        | 1000MB       |
