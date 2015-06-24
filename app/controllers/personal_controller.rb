@@ -44,7 +44,7 @@ class PersonalController < ApplicationController
 
     @session[:session_id] = device_info_session.escaped_encrypted_id
     @session[:expire_in] = DeviceInfoSession::WAITING_PERIOD.to_i
-    job = {:job => 'device_info', :session_id => @device_info_session.id}
+    job = {:job => 'device_info', :session_id => device_info_session.id}
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_s)
   end
 
