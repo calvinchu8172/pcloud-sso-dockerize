@@ -11,7 +11,8 @@ class Api::Device::V3::Lite < Api::Device
                 :certificate_serial,
                 :signature,
                 :alog,
-                :ip_address
+                :ip_address,
+                :lan_ip
 
   self.redis_prefix= 'device:lite'
   self.redis_id_field :origin_id

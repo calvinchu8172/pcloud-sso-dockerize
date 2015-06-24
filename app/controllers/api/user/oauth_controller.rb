@@ -1,3 +1,10 @@
+# Oauth API for mobile
+# 主要參數如下:
+# user_id: oauth provider提供的uuid
+# access_token: oauth prodier提供的token
+# data: 透過access_token及"get_oauth_data"方法取得使用者資料
+# user: identity所綁定的使用者，而且需要注意使用者可變更email
+# is_portal_user? : 為portal第一階段未綁定密碼
 class Api::User::OauthController < Api::Base
   before_action :adjust_provider, only: [:mobile_checkin, :mobile_register]
 
@@ -7,32 +14,27 @@ class Api::User::OauthController < Api::Base
     access_token = checkin_params[:access_token]
 
     data = get_oauth_data(@provider, user_id, access_token)
-    return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
-
-    user = User.find_by(email: data['email'])
-    return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if user.nil?
-    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if is_portal_user?(user)
-
-    identity = Identity.find_by(uid: data['id'], provider: @provider)
-
-    if identity.nil?
-      identity = Identity.new
-      identity.provider = @provider
-      identity.user_id = user.id
-      identity.uid = data['id']
-      identity.save
+    if data.nil? || data['email'].nil?
+      logger.debug 'the oauth token is invalid'
+      return render :json => { :error_code => '000', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
     end
 
-    return render :json => { :result => 'registered', :account => identity.user.email }, :status => 200
+    identity = Identity.find_by(uid: data['id'], provider: @provider)
+    register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
+    return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if register.nil?
+    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if identity.nil?
+    return render :json => { :error_code => '003',  :description => 'not have password' }, :status => 400 if  is_portal_user?(register)
+
+    return render :json => { :result => 'registered', :account => register.email }, :status => 200
 
   end
 
   # POST /user/1/register/:oauth_provider
   # 邏輯行為如下:
-  # 1. 藉由get_oauth_data取得使用者實際email
-  # 2. 透過email查詢使用者是否存在，若使用者不存在則直接建立user
-  # 3. 承2，若使用者存在則判斷過去是否為portal oauth，若屬portal使用者即建立confirmation token
-  # 4. 最後建立identity並登入
+  # 1. 查詢使用者是否存在，若使用者不存在則直接建立user
+  # 2. 承2，若使用者存在則判斷過去是否為portal oauth，若屬portal使用者即更新密碼
+  # 3. 最後建立identity並登入
+  # signature data: certificate_serial + user_id + access_token
   def mobile_register
     certificate_serial = register_params[:certificate_serial]
     user_id            = register_params[:user_id]
@@ -42,48 +44,59 @@ class Api::User::OauthController < Api::Base
     return render :json => { :error_code => '002',  :description => 'Password has to be 8-14 characters length' }, :status => 400 if password.nil? || !password.length.between?(8, 14)
 
     data = get_oauth_data(@provider, user_id, access_token)
-    return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400 if data.nil?
+
+    if data.nil? || data['email'].nil?
+      logger.debug 'the oauth token is invalid'
+      return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
+    end
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
-    user = User.find_by(email: data['email'])
+    register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
 
-    if user.nil?
-      user = Api::User::Register.new register_params.except(:access_token, :user_id)
-      user.email = data['email']
-      user.agreement = "1"
-      user.confirmation_token = Devise.friendly_token
-      user.confirmed_at = Time.now.utc
+    if register.nil?
+      register = Api::User::OauthUser.new(register_params)
+      register.email = data['email']
+      register.agreement = "1"
+      register.confirmation_token = Devise.friendly_token
+      register.confirmed_at = Time.now.utc
 
-      unless user.save
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].empty?
+      unless register.save
+        logger.debug 'Oauth user not save'
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
       end
     end
 
-    return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present? && !is_portal_user?(user)
+    if is_portal_user?(register)
+      register = Api::User::OauthUser.find(register)
+      register.confirmation_token = Devise.friendly_token
+      register.confirmed_at = Time.now.utc
 
-    if is_portal_user?(user)
-      user = Api::User::Register.find(user)
-      user.confirmation_token = Devise.friendly_token
-      user.confirmed_at = Time.now.utc
-
-      unless user.update(register_params.except(:access_token, :user_id))
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless user.errors['signature'].empty?
+      unless register.update(register_params)
+        logger.debug 'Oauth portal user not save'
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
       end
+    else
+      return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
     end
 
     if identity.nil?
-      identity = Api::User::Identity.new register_params.except(:access_token, :user_id, :password)
+      identity = Api::User::Identity.new(register_params.except(:password, :app_key, :os))
       identity.provider = @provider
-      identity.user_id = user.id
+      identity["user_id"] = register.id
       identity.uid = data['id']
 
       unless identity.save
+        logger.debug 'Oauth identity not save'
         return render :json => Api::User::INVALID_SIGNATURE_ERROR unless identity.errors['signature'].empty?
       end
     end
 
-    sign_in(:user, user, store: false, bypass: false)
-    redirect_to authenticated_root_path
+    @user = Api::User::Token.new(register.attributes)
+    @user.app_key = register_params[:app_key]
+    @user.os = register_params[:os]
+    @user.create_token
+
+    render "api/user/tokens/create.json.jbuilder"
   end
 
   def get_oauth_data(provider, user_id, access_token)
@@ -106,7 +119,7 @@ class Api::User::OauthController < Api::Base
   private
 
   def register_params
-    params.permit(:access_token, :user_id, :password, :certificate_serial, :signature)
+    params.permit(:access_token, :user_id, :password, :certificate_serial, :signature, :app_key, :os)
   end
 
   def checkin_params

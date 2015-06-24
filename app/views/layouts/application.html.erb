@@ -3,6 +3,11 @@
 <head>
   <meta charset='utf-8' />
   <title>myZyXELcloud<%= page_title %></title>
+  <% if( controller.controller_name == 'invitations' && controller.action_name == 'accept' ) %>
+    <meta name="apple-itunes-app" content="app-id=770537600">
+    <meta name="google-play-app" content="app-id=com.zyxel.zCloud, app-argument=http://www.zyxel.com/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <% end%>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -26,7 +31,6 @@
 </head>
 <body>
   <div class="container">
-
     <%# header %>
     <%= render 'layouts/header' %>
 

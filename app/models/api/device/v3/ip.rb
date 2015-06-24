@@ -3,7 +3,8 @@ class Api::Device::V3::Ip
   attr_accessor :origin_id, #mac_address + serial_number
                 :ip_address,
                 :mac_address,
-                :serial_number
+                :serial_number,
+                :lan_ip
 
   self.redis_prefix= 'device:lite:ip'
   self.redis_id_field :ip_address

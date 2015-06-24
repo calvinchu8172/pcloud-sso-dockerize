@@ -18,8 +18,9 @@ class Api::Resource::PersonalController < Api::Base
 	    	:xmpp_account => ( device.session.hget("xmpp_account") ),
 	     	:mac_address => device.mac_address.scan(/.{2}/).join(":"),
 	     	:host_name => ddns[ :hostname ],
-	     	:wan_ip => ddns[ :ip_address ],
+	     	:wan_ip => ddns.get_ip_addr,
 	     	:firmware_ver => device.firmware_version,
+        :model => device.product.model_class_name,
 	     	:last_update_time => ddns.updated_at.strftime("%Y/%m/%d %H:%I:%S"),
 	     	:is_owner => true
 	    }
@@ -36,8 +37,9 @@ class Api::Resource::PersonalController < Api::Base
 		    :xmpp_account => ( device.session.hget("xmpp_account") ),
 		    :mac_address => device.mac_address.scan(/.{2}/).join(":"),
 		    :host_name => ddns[ :hostname ],
-		    :wan_ip => ddns[ :ip_address ],
+		    :wan_ip => ddns.get_ip_addr,
 		    :firmware_ver => device.firmware_version,
+        :model => device.product.model_class_name,
 		    :last_update_time => ddns.updated_at.strftime("%Y/%m/%d %H:%I:%S"),
 		    :is_owner => false
 	    }

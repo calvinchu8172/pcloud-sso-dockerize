@@ -5,7 +5,7 @@
 
 	    <span class="zyxel_span2" ng-switch on="step">
 	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.invitation.connecting") %></span>
-	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>
+	      <!--<span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>-->
 	      <span ng-switch-when="timeout"><%= I18n.t("warnings.settings.invitation.timeout") %></span>
 	      <span ng-switch-when="done"><%= I18n.t("warnings.settings.invitation.success") %></span>
 	    </span>
@@ -23,6 +23,13 @@
 </div>
 
 <script type="text/javascript">
+	$.smartbanner({
+		icon:"https://lh4.ggpht.com/aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw",
+		daysHidden:0,
+		daysReminder:0,
+
+});
+
 	var invitation_app = angular.module('invitation_app', []);
 	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
 
