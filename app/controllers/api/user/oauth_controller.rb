@@ -22,7 +22,8 @@ class Api::User::OauthController < Api::Base
     identity = Identity.find_by(uid: data['id'], provider: @provider)
     register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
     return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if register.nil?
-    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if identity.nil? || is_portal_user?(register)
+    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if identity.nil?
+    return render :json => { :error_code => '003',  :description => 'not have password' }, :status => 400 if  is_portal_user?(register)
 
     return render :json => { :result => 'registered', :account => register.email }, :status => 200
 
