@@ -20,18 +20,17 @@ class Api::User::OauthController < Api::Base
     end
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
-    return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if identity.nil?
+    register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
+    return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if register.nil?
+    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if identity.nil? || is_portal_user?(register)
 
-    user = identity.user
-    return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if is_portal_user?(user)
-
-    return render :json => { :result => 'registered', :account => user.email }, :status => 200
+    return render :json => { :result => 'registered', :account => register.email }, :status => 200
 
   end
 
   # POST /user/1/register/:oauth_provider
   # 邏輯行為如下:
-  # 1. 透過identity查詢使用者是否存在，若使用者不存在則直接建立user
+  # 1. 查詢使用者是否存在，若使用者不存在則直接建立user
   # 2. 承2，若使用者存在則判斷過去是否為portal oauth，若屬portal使用者即更新密碼
   # 3. 最後建立identity並登入
   # signature data: certificate_serial + user_id + access_token
