@@ -90,14 +90,13 @@ class DiscovererController < ApplicationController
 
   def indicate
     device_id = params[:id]
-    puts "device_id: #{device_id}"
     indicator_session = DeviceIndicatorSession.create
     device = Device.find_by_encrypted_id device_id
     session = { device_id: device.id }
     indicator_session.session.bulk_set(session)
 
     job = {:job => 'led_indicator', :session_id => indicator_session.id}
-    # AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
 
     render :json => { "result" => "success" }, status: 200
   end
