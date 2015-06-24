@@ -18,9 +18,9 @@ When(/^APP sent a GET request to "(.*?)" with:$/) do |url_path, table|
   }
 end
 
-Then(/^the HTTP response status should be "(.*?)"$/) do |status_code|
-  expect(last_response.status).to eq(status_code.to_i)
-end
+# Then(/^the HTTP response status should be "(.*?)"$/) do |status_code|
+#   expect(last_response.status).to eq(status_code.to_i)
+# end
 
 Then(/^the JSON response should include$/) do |attributes|
   body_array = JSON.parse(last_response.body)
@@ -33,12 +33,12 @@ Then(/^the JSON response should include$/) do |attributes|
   end
 end
 
-Then(/^the responsed JSON should include error code: "(.*?)"$/) do |error_code|
-  body = JSON.parse(last_response.body)
-  expect(body["error_code"]).to eq(error_code)
-end
+# Then(/^the responsed JSON should include error code: "(.*?)"$/) do |error_code|
+#   body = JSON.parse(last_response.body)
+#   expect(body["error_code"]).to eq(error_code)
+# end
 
-Then(/^the responsed JSON should include description: "(.*?)"$/) do |description|
-  body = JSON.parse(last_response.body)
-  expect(body["description"]).to eq(description)
-end
+# Then(/^the responsed JSON should include description: "(.*?)"$/) do |description|
+#   body = JSON.parse(last_response.body)
+#   expect(body["description"]).to eq(description)
+# end
