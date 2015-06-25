@@ -32,7 +32,7 @@ class Api::User < User
     @authentication_token = create_authentication_token
     key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token}) 
+    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token})
     {account_token: @account_token, authentication_token: @authentication_token}
   end
 
@@ -42,11 +42,11 @@ class Api::User < User
 
   def apply_for_xmpp_account
 
-    info = {id: "m#{generate_xmpp_account}@#{Settings.xmpp.server}",
-            password: generate_new_passoword}
+    info = {id: "m#{generate_xmpp_account}", password: generate_new_passoword}
     xmpp_user = XmppUser.find_or_initialize_by(username: info[:id])
     xmpp_user.password = info[:password]
     xmpp_user.save
+    info[:id] += "@#{Settings.xmpp.server}"
     info
   end
 
@@ -58,7 +58,7 @@ class Api::User < User
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, token))
     return false if redis_token.nil?
 
-    if DateTime.strptime(redis_token.value) > DateTime.now 
+    if DateTime.strptime(redis_token.value) > DateTime.now
       redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
       return true
     else
