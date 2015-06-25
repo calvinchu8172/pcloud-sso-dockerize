@@ -1,7 +1,6 @@
 <% provide(:flow, I18n.t("titles.my_devices") ) %>
 <% provide(:tab, 'my_devices') %>
-
-<div class="personal">
+<div class="personal" ng-app="personal_app" ng-controller="PersonalController">
 
   <%# paired device list %>
   <div class="zyxel_content" style="max-width:660px">
@@ -12,7 +11,14 @@
       <% unless @pairing.empty? %>
 
         <%# show all paired devices %>
-        <% @pairing.each do |pairing| %>
+        <% @pairing.each_with_index do |pairing, index| %>
+          <tr>
+            <td colspan="3" class="text-center table_btn_area">
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
+            </td>
+          </tr>
           <tr>
             <th><%= image_tag pairing.device.product.asset.url(:medium) %></th>
 
@@ -46,12 +52,77 @@
             </td>
             <%# show ddns information - end %>
           </tr>
-          <tr>
-            <td colspan="3" class="text-right table_btn_area">
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Package::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
+
+          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.escaped_encrypted_id%>');">
+            <td colspan="3">
+              <div ng-show="area.show" class="device_info_area">
+                <div ng-switch on="area.panel" class="text-center">
+                  <div ng-switch-when="none"></div>
+                  <div ng-switch-when="loading">
+                    <div><%= image_tag 'loading.gif' %></div>
+                  </div>
+                  <div ng-switch-when="done">
+
+                    <div class="row">
+                      <div class="col-xs-9 col-sm-3 col-sm-offset-2">
+                        <div class="zyxel-grid-style1 info-block-sm">
+                          <div class="title">RAID status</div>
+                          <div class="value">{{info.raidStatus}}</div>
+                        </div>
+                      </div>
+                      <div class="col-xs-9 col-sm-3">
+                        <div class="zyxel-grid-style1 info-block-sm">
+                          <div class="title">CPU temp</div>
+                          <div class="value">{{info.cpuTemp.cel}} / {{info.cpuTemp.fah}}</div>
+                        </div>
+                      </div>
+                      <div class="col-xs-9 col-sm-3">
+                        <div class="zyxel-grid-style1 info-block-sm">
+                          <div class="title">Fan speed</div>
+                          <div class="value">{{info.fanSpeed}}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-9 col-sm-offset-2">
+                        <div class="zyxel-grid-style1 info-block-lg">
+                          <div class="title">Available capacity</div>
+                          <div class="value">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
+
+                          <div class="volume-info-block">
+                            <div class="volume-info row" ng-repeat="volume in info.volumeList">
+
+                              <div class="col-sm-3">
+                                <div class="volume-name">{{volume['volume-name']}}</div>
+                              </div>
+
+                              <div class="col-sm-6" style="padding:4px 0;">
+                                <div class="total-size-bar">
+                                  <div class="used-size-bar" style="width:{{300*(volume['used-capacity']/volume['total-capacity'])}}px">{{volume['used-capacity']}}</div>
+                                </div>
+                              </div>
+
+                              <div class="col-sm-2" style="padding-left: 0;">
+                                <div class="volume-size text-left" ng-click="changeUnit();">{{volume['total-capacity']}}</div>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="text-center device_info_btn_area">
+                <a ng-if="!area.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="area.open();">V</a>
+                <a ng-if="area.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="area.close();">A</a>
+              </div>
+>>>>>>> develop
             </td>
           </tr>
         <% end %>
@@ -67,3 +138,162 @@
   </div>
   <%# paired device list - end %>
 </div>
+<script type="text/javascript">
+  var personal_app = angular.module('personal_app', []);
+
+  personal_app.controller('PersonalController', function ($scope) {
+    $scope.deviceInfoAreas = {};
+  });
+
+  personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
+
+    $scope.deviceId;
+    $scope.session;
+    $scope.info = {
+      fanSpeed: '',
+      cpuTemp: {
+        cel: 0, // °C
+        fah: 0, // °F
+      },
+      cpuTempWarning: false,
+      raidStatus: 'healthy',
+      volumeList: null,
+      init: function(json){
+        this.raidStatus = json['raid_status'];
+        this.fanSpeed = json['fan_speed'] + 'RPM';
+        this.cpuTemp.cel = json['cpu_temperature_celsius'] + '°C';
+        this.cpuTemp.fah = json['cpu_temperature_fahrenheit'] + '°F';
+        this.cpuTempWarning = json['cpu_temperature_warning'];
+        var volumeList = [];
+        angular.forEach(json['volume_list'], function(volumeAttrs, index){
+          var volume = {};
+          angular.forEach(volumeAttrs, function(attrObj, index){
+            for(key in attrObj){
+              volume[key] = attrObj[key];
+            }
+          });
+          volumeList.push(volume);
+          $scope.info.capacity.add(parseInt(volume['total-capacity']), parseInt(volume['used-capacity']));
+        });
+        this.volumeList = volumeList;
+      },
+      capacity:{
+        available: 0,
+        total: 0,
+        used: 0,
+        unit: 'MB',
+        units: ['KB', 'MB', 'GB', 'TB', 'PB'],
+        add: function(total, used){
+          $scope.info.capacity.total += total;
+          $scope.info.capacity.used += used;
+          if($scope.info.capacity.total >= 4096){
+            $scope.info.capacity.to('GB');
+          }
+          $scope.info.capacity.available = ((($scope.info.capacity.total - $scope.info.capacity.used)/$scope.info.capacity.total) * 100).toFixed(2) + '%';
+        },
+        to: function(unit){
+          var capacity = $scope.info.capacity;
+          var powOfUnitFrom = capacity.units.indexOf(capacity.unit);
+          var powOfUnitTo = capacity.units.indexOf(unit);
+          if(powOfUnitFrom-powOfUnitTo < powOfUnitTo){
+            $scope.info.capacity.total *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+            $scope.info.capacity.used *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+          }else if(unit_pow_this > unit_pow_another){
+            $scope.info.capacity.total *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+            $scope.info.capacity.used *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+          }
+          $scope.info.capacity.total = $scope.info.capacity.total.toFixed(1);
+          $scope.info.capacity.used = $scope.info.capacity.used.toFixed(1);
+          $scope.info.capacity.unit = unit;
+        } // to: function(){...}
+      }
+    }
+
+    $scope.area = {
+      panel: 'none',
+      timer: null,
+      show: false,
+      open: function(){
+        this.show = true;
+        $scope.connectingStep();
+        $scope.getDeviceInfo();
+      },
+      close: function(){
+        this.show = false;
+        $scope.cancelStep();
+        if($scope.session){
+          $scope.session.expire_in = 0;
+          $timeout.cancel(this.timer);
+        }
+      }
+    };
+
+    $scope.init = function(id){
+      $scope.deviceId = id;
+      $scope.deviceInfoAreas[id] = $scope.area;
+    };
+
+    $scope.getDeviceInfo = function(){
+      angular.forEach($scope.deviceInfoAreas, function(area, device_id) {
+        if(device_id != $scope.deviceId){
+          area.close();
+        }
+      });
+      $http.get("/personal/device_info/"+$scope.deviceId+".json",{ cache: false }).success(function(response){
+        $scope.session = response;
+        $scope.checkSessionStatus();
+      }).error(function(response){
+        $scope.failureStep();
+      });
+    }
+
+    $scope.checkSessionStatus = function(){
+      $http.get("/personal/check_status/"+$scope.session.session_id+".json").success(function(response){
+        $scope.session = response;
+        switch($scope.session.status){
+          case 'start':
+            if($scope.area.show && $scope.session.expire_in > 0){
+              $scope.area.timer = $timeout(function(){
+                $scope.checkSessionStatus();
+              }, 3000);
+            }else{
+              $scope.failureStep();
+            }
+            break;
+          case 'timeout':
+            $scope.failureStep();
+            break;
+          case 'failure':
+            $scope.failureStep();
+            break;
+          case 'done':
+            var info = $scope.session.info;
+            var json_string = JSON.stringify(info);
+            var info_json = JSON.parse(json_string);
+            $scope.info.init(info_json);
+            $scope.doneStep();
+            break;
+        }
+      });
+    }
+
+    $scope.connectingStep = function(){
+      $scope.area.panel = 'loading';
+    }
+
+    $scope.failureStep = function(){
+      $scope.area.panel = 'none';
+    }
+
+    $scope.cancelStep = function(){
+      $scope.area.panel = 'none';
+    }
+
+    $scope.doneStep = function(){
+      $scope.area.panel = 'done';
+    }
+
+  });
+</script>
+
+
