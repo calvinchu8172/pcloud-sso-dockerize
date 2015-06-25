@@ -15,9 +15,9 @@ class Api::Resource::PersonalController < Api::Base
 	    ddns = device.ddns
 	    next if ddns.nil?
 	    own_device[device.encoded_id] = {
-	    	:xmpp_account => ( device.session.hget("xmpp_account") ),
-	     	:mac_address => device.mac_address.scan(/.{2}/).join(":"),
-	     	:host_name => ddns[ :hostname ],
+	    	:xmpp_account => device.get_xmpp_account,
+	     	:mac_address => device.get_mac_address,
+	     	:host_name => ddns[:hostname],
 	     	:wan_ip => ddns.get_ip_addr,
 	     	:firmware_ver => device.firmware_version,
         :model => device.product.model_class_name,
@@ -29,14 +29,13 @@ class Api::Resource::PersonalController < Api::Base
 
 	  others_device = Hash.new
 	  accepted_invitations.each do | accepted_invitation |
-	    device_info = Hash.new
       device = accepted_invitation.invitation.device
       ddns = device.ddns
       next if ddns.nil?
 	    others_device[device.encoded_id] = {
-		    :xmpp_account => ( device.session.hget("xmpp_account") ),
-		    :mac_address => device.mac_address.scan(/.{2}/).join(":"),
-		    :host_name => ddns[ :hostname ],
+		    :xmpp_account => device.get_xmpp_account,
+		    :mac_address => device.get_mac_address,
+		    :host_name => ddns[:hostname],
 		    :wan_ip => ddns.get_ip_addr,
 		    :firmware_ver => device.firmware_version,
         :model => device.product.model_class_name,
