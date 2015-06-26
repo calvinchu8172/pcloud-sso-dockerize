@@ -1,7 +1,7 @@
 class Api::User::RegistersController < Api::Base
 
   def create
-    
+
     register = Api::User::Register.new valid_params.except(:id)
     register.email = valid_params[:id]
     register.agreement = "1"
@@ -9,8 +9,7 @@ class Api::User::RegistersController < Api::Base
     unless register.save
 
       {"001" => "email",
-       "002" => "password",
-       "003" => "certificaat"
+       "002" => "password"
       }.each { |error_code, field| return render :json =>  {error_code: error_code, description: field + register.errors[field].first}, :status => 400 unless register.errors[field].empty?}
 
        return render :json => Api::User::INVALID_SIGNATURE_ERROR, :status => 400 unless register.errors['signature'].empty?
@@ -28,7 +27,7 @@ class Api::User::RegistersController < Api::Base
   	render "api/user/tokens/create.json.jbuilder"
   end
 
-  private 
+  private
     def valid_params
       params.permit(:id, :password, :certificate_serial, :signature, :app_key, :os)
     end
