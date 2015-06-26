@@ -53,6 +53,7 @@ class Api::User::OauthController < Api::Base
     identity = Identity.find_by(uid: data['id'], provider: @provider)
     register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
 
+    # Check the user registered before
     if register.nil?
       register = Api::User::OauthUser.new(register_params)
       register.email = data['email']
@@ -64,22 +65,25 @@ class Api::User::OauthController < Api::Base
         logger.debug 'Oauth user not save'
         return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
       end
-    end
-
-    if is_portal_user?(register)
-      register = Api::User::OauthUser.find(register)
-      register.confirmation_token = Devise.friendly_token
-      register.confirmed_at = Time.now.utc
-
-      unless register.update(register_params)
-        logger.debug 'Oauth portal user not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
-      end
     else
-      return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
+      # For store password when user doesn't having password
+      if is_portal_user?(register)
+        register = Api::User::OauthUser.find(register)
+        register.confirmation_token = Devise.friendly_token
+        register.confirmed_at = Time.now.utc
+
+        unless register.update(register_params)
+          logger.debug 'Oauth portal user not save'
+          return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
+        end
+      end
+      # For varify password
+      return render :json => { :error_code => '004', :description => 'invalid info' } unless register.valid_password?(password)
     end
 
-    if identity.nil?
+    if identity.present?
+      return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400
+    else
       identity = Api::User::Identity.new(register_params.except(:password, :app_key, :os))
       identity.provider = @provider
       identity["user_id"] = register.id

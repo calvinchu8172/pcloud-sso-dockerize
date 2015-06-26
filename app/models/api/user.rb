@@ -42,11 +42,11 @@ class Api::User < User
 
   def apply_for_xmpp_account
 
-    info = {id: "m#{generate_xmpp_account}@#{Settings.xmpp.server}",
-            password: generate_new_passoword}
+    info = {id: "m#{generate_xmpp_account}", password: generate_new_passoword}
     xmpp_user = XmppUser.find_or_initialize_by(username: info[:id])
     xmpp_user.password = info[:password]
     xmpp_user.save
+    info[:id] += "@#{Settings.xmpp.server}"
     info
   end
 
