@@ -123,7 +123,7 @@ Feature: [PCP_001_01] Sign Up
     And the new user should see "Resend" and "Confirm" button
 
   Scenario: [PCP_001_01_09]
-    Auto login after confirmed and redirect to confirmed page
+    Redirect to login page login after confirmed
 
     When the visitor success sign up an account:
       | E-mail            | personal@example.com   |
@@ -140,7 +140,7 @@ Feature: [PCP_001_01] Sign Up
 
     When user click the confirm button
 
-    Then user will auto login and redirect to dashboard
+    Then user will redirect to login page
 
   Scenario: [PCP_001_01_10]
     Redirect to login page when user click cancel button in sign up page
