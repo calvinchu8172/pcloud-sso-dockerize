@@ -26,15 +26,14 @@
 	$.smartbanner({
 		icon:"https://lh4.ggpht.com/aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw",
 		daysHidden:0,
-		daysReminder:0,
-
-});
+		daysReminder:0
+	});
 
 	var invitation_app = angular.module('invitation_app', []);
 	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
 
 		$scope.step = 'connecting';
-    	$scope.panel = 'loading';
+    $scope.panel = 'loading';
 		$scope.checkConnectionUrl = '/invitations/check_connection/';
 		$scope.interval = 3000
 
