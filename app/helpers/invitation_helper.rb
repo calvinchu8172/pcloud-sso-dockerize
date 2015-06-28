@@ -3,6 +3,7 @@ module InvitationHelper
 	def check_invitation_available
 		@validation = { :success => false }
 		@invitation_key = params[:id] || ''
+		@user = current_user
 		@invitation = Invitation.find_by(key: @invitation_key) unless @invitation_key.blank?
 	  if @invitation.nil?
 	    logger.info(I18n.t("warnings.settings.invitation.invalid_key"))
@@ -14,7 +15,8 @@ module InvitationHelper
 			render :template => '/invitations/accept'
 			return
 		end
-		puts current_user.id
+		logger.info("current_user.id: #{current_user.id}")
+		logger.info("@invitation.device.pairing.owner.first.id: #{@invitation.device.pairing.owner.first.id}")
 		if current_user.id == @invitation.device.pairing.owner.first.id
 			logger.info(I18n.t("warnings.settings.invitation.accepting_by_owner")) #shouldn't accepted by owner
 			render :template => '/invitations/accept'
