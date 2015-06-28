@@ -15,9 +15,7 @@ module InvitationHelper
 			render :template => '/invitations/accept'
 			return
 		end
-		logger.info("current_user.id: #{current_user.id}")
-		logger.info("@invitation.device.pairing.owner.first.id: #{@invitation.device.pairing.owner.first.id}")
-		if current_user.id == @invitation.device.pairing.owner.first.id
+		if current_user.id == @invitation.device.pairing.owner.first.user.id
 			logger.info(I18n.t("warnings.settings.invitation.accepting_by_owner")) #shouldn't accepted by owner
 			render :template => '/invitations/accept'
 		end
