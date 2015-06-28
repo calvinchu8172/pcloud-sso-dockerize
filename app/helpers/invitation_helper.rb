@@ -2,7 +2,6 @@ module InvitationHelper
 
 	def check_invitation_available
 		@validation = { :success => false }
-		cloud_id = current_user[:email] || ''
 		@invitation_key = params[:id] || ''
 		@invitation = Invitation.find_by(key: @invitation_key) unless @invitation_key.blank?
 	  if @invitation.nil?
@@ -15,12 +14,12 @@ module InvitationHelper
 			render :template => '/invitations/accept'
 			return
 		end
-		@user = User.find_by(email: cloud_id)
-		if @user.id == @invitation.device.pairing.owner.first.id
+		puts current_user.id
+		if current_user.id == @invitation.device.pairing.owner.first.id
 			logger.info(I18n.t("warnings.settings.invitation.accepting_by_owner")) #shouldn't accepted by owner
 			render :template => '/invitations/accept'
 		end
-		@accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: @user.id)
+		@accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: current_user.id)
 		unless @accepted_user.blank?
 			if @accepted_user.status == 1
 				logger.info(I18n.t("warnings.settings.invitation.accepted"))

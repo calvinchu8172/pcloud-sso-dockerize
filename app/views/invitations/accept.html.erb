@@ -5,7 +5,7 @@
 
 	    <span class="zyxel_span2" ng-switch on="step">
 	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.invitation.connecting") %></span>
-	      <!--<span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>-->
+	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>
 	      <span ng-switch-when="timeout"><%= I18n.t("warnings.settings.invitation.timeout") %></span>
 	      <span ng-switch-when="done"><%= I18n.t("warnings.settings.invitation.success") %></span>
 	    </span>
@@ -50,32 +50,33 @@
 
 	    $scope.checkConnection = function(){
 		    switch($scope.session.status){
-		        case 'start':
-		        	$scope.poll();
-		        	break;
-		        case 'timeout':
-		        	console.log("timeout....")
-		          	$scope.timeoutStep();
-		          	break;
-		        case 'failure':
-		          	$scope.failureStep();
-		          	break;
-		        case 'done':
-		          	$scope.completedStep();
-		          	break;
+		      case 'start':
+		      	$scope.poll();
+		      	break;
+		      case 'timeout':
+		        $scope.timeoutStep();
+		        break;
+		      case 'failure':
+		        $scope.failureStep();
+		        break;
+		      case 'done':
+		        $scope.completedStep();
+		        break;
 		    }
 	    };
 
 	    $scope.poll = function(){
-		    var url = $scope.checkConnectionUrl + $scope.invitationKey;
-		    $timeout(function(){
-			    $http.get(url).success(function(response) {
-			        $scope.session = response;
-			        $scope.checkConnection();
-			    }).error(function(response){
-			        $scope.failureStep();
-			    });
-		    }, $scope.interval);
+	    	if($scope.invitationKey != ''){
+			    var url = $scope.checkConnectionUrl + $scope.invitationKey;
+			    $timeout(function(){
+				    $http.get(url).success(function(response) {
+				        $scope.session = response;
+				        $scope.checkConnection();
+				    }).error(function(response){
+				        $scope.failureStep();
+				    });
+			    }, $scope.interval);
+		    }
 	    };
 
 	    $scope.connectingStep = function(){
