@@ -6,22 +6,32 @@ Feature: Oauth API
     And the user having password <abc12345>
     And the user using valid authentication token
 
-  Scenario: [REST_01_06_01]
+  Scenario Outline: [REST_01_06_01]
     Standard oauth api registration flow
 
-    When the device send information to "facebook" oauth checkin API
+    When the device send information to <account> oauth register API
     Then the API should return "001" error code and "unregistered" message
 
-    When the device send information to "facebook" oauth register API
+    When the device send information to <account> oauth register API
     Then the API should return user token message
 
-  Scenario: [REST_01_06_02]
-    Check the Facebook APP user wants to checkin
+    Examples:
+    | account  |
+    | facebook |
+    | google   |
 
-    Given the user having APP account from facebook already
+  Scenario Outline: [REST_01_06_02]
+    Check the APP user wants to checkin by Oauth
 
-    When the device send information to "facebook" oauth checkin API
+    Given the user having APP account from <account> already
+
+    When the device send information to <account> oauth checkin API
     Then the API should return "registered" message and email account
+
+    Examples:
+    | account  |
+    | facebook |
+    | google   |
 
   Scenario: [REST_01_06_03]
     Check the Facebook APP user wants to binding google account
