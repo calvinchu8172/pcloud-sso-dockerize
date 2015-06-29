@@ -85,6 +85,7 @@ gem 'json', '1.8.2'
 group :test do
   gem 'action_mailer_cache_delivery'
   gem 'email_spec'
+  gem 'simplecov', :require => false
 end
 
 # gem 'devise-async'
