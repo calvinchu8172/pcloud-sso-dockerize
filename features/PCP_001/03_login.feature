@@ -66,7 +66,6 @@ Feature: [PCP_001_03] Login
 
     Then the user should see the information when login successfully
 
-
   Scenario: [PCP_001_03_06]
     Show "Unverified" button when login successfully with an unconfirmed account registered not over 3 days
 

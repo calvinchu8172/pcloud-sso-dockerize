@@ -3,3 +3,4 @@ json.xmpp_password @device.xmpp_account[:password]
 json.xmpp_bots Settings.xmpp.bots
 json.xmpp_ip_addresses Settings.xmpp.nodes
 json.stun_ip_addresses Settings.api.stun_ip_addresses
+json.cloud_id @device.pairing.owner.first.user.encoded_id if @device.pairing.length > 0

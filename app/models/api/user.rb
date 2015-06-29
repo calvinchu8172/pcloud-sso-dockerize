@@ -40,6 +40,10 @@ class Api::User < User
     AUTHENTICATION_TOKEN_TTL.seconds
   end
 
+  def registered_in_portal_oauth?
+    self.password.blank? && self.identity.length > 0
+  end
+
   def apply_for_xmpp_account
 
     info = {id: "m#{generate_xmpp_account}", password: generate_new_passoword}

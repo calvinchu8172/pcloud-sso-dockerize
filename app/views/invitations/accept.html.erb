@@ -5,7 +5,7 @@
 
 	    <span class="zyxel_span2" ng-switch on="step">
 	      <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.invitation.connecting") %></span>
-	      <!--<span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>-->
+	      <span ng-switch-when="failure"><%= I18n.t("warnings.settings.invitation.failure") %></span>
 	      <span ng-switch-when="timeout"><%= I18n.t("warnings.settings.invitation.timeout") %></span>
 	      <span ng-switch-when="done"><%= I18n.t("warnings.settings.invitation.success") %></span>
 	    </span>
@@ -26,15 +26,14 @@
 	$.smartbanner({
 		icon:"https://lh4.ggpht.com/aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw",
 		daysHidden:0,
-		daysReminder:0,
-
-});
+		daysReminder:0
+	});
 
 	var invitation_app = angular.module('invitation_app', []);
 	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
 
 		$scope.step = 'connecting';
-    	$scope.panel = 'loading';
+    $scope.panel = 'loading';
 		$scope.checkConnectionUrl = '/invitations/check_connection/';
 		$scope.interval = 3000
 
@@ -51,32 +50,33 @@
 
 	    $scope.checkConnection = function(){
 		    switch($scope.session.status){
-		        case 'start':
-		        	$scope.poll();
-		        	break;
-		        case 'timeout':
-		        	console.log("timeout....")
-		          	$scope.timeoutStep();
-		          	break;
-		        case 'failure':
-		          	$scope.failureStep();
-		          	break;
-		        case 'done':
-		          	$scope.completedStep();
-		          	break;
+		      case 'start':
+		      	$scope.poll();
+		      	break;
+		      case 'timeout':
+		        $scope.timeoutStep();
+		        break;
+		      case 'failure':
+		        $scope.failureStep();
+		        break;
+		      case 'done':
+		        $scope.completedStep();
+		        break;
 		    }
 	    };
 
 	    $scope.poll = function(){
-		    var url = $scope.checkConnectionUrl + $scope.invitationKey;
-		    $timeout(function(){
-			    $http.get(url).success(function(response) {
-			        $scope.session = response;
-			        $scope.checkConnection();
-			    }).error(function(response){
-			        $scope.failureStep();
-			    });
-		    }, $scope.interval);
+	    	if($scope.invitationKey != ''){
+			    var url = $scope.checkConnectionUrl + $scope.invitationKey;
+			    $timeout(function(){
+				    $http.get(url).success(function(response) {
+				        $scope.session = response;
+				        $scope.checkConnection();
+				    }).error(function(response){
+				        $scope.failureStep();
+				    });
+			    }, $scope.interval);
+		    }
 	    };
 
 	    $scope.connectingStep = function(){
