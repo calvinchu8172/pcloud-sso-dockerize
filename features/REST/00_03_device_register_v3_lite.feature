@@ -28,7 +28,7 @@ Feature: Device Register V3 Lite
       Check incorrect update process when invalid format
 
       Given the device already registration
-      And the device "<information>" was be changed to "<value"
+      And the device "<information>" was be changed to "<value>"
       And the device send information to REST API
 
       Then the API should return "<http_status>" and "<json_message>" with failure responds
@@ -76,3 +76,21 @@ Feature: Device Register V3 Lite
 
       Then the API should return "400" and "Failure" with error responds
       And the database does not have record
+
+    Scenario: [REST_00_03_07]
+      Validate valid signature by RSA key and Certificate
+
+      Given an existing certificate and RSA key
+
+      When the device send information to REST API
+
+      Then the API should return success respond
+
+    Scenario: [REST_00_03_08]
+      Validate invalid signature by RSA key and Certificate
+
+      Given an existing certificate and RSA key
+
+      When the device send information to REST API
+
+      Then the API should return failure respond

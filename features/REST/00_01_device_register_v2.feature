@@ -28,7 +28,7 @@ Feature: Device Register V2
       Check incorrect update process when invalid format
 
       Given the device already registration
-      And the device "<information>" was be changed to "<value"
+      And the device "<information>" was be changed to "<value>"
       And the device send information to REST API
 
       Then the API should return "<http_status>" and "<json_message>" with failure responds
@@ -76,3 +76,12 @@ Feature: Device Register V2
 
       Then the API should return "400" and "Failure" with error responds
       And the database does not have record
+
+    Scenario: [REST_00_01_07]
+      Record device module with valid input
+
+      When the device send information to REST API
+
+      Then the API should return success respond
+      And the module record in database as expected
+
