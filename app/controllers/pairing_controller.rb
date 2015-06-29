@@ -87,6 +87,7 @@ class PairingController < ApplicationController
 
     waiting_expire_at = (Time.now() + Pairing::WAITING_PERIOD).to_i
     job_params = {:user_id => current_user.id,
+                  :cloud_id => current_user.encoded_id,
                   :status => :start,
                   :expire_at => waiting_expire_at}
 

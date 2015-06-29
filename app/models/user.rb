@@ -1,7 +1,13 @@
 class User < ActiveRecord::Base
+  include Guards::AttrEncryptor
   enum gender: {male: true, female: false}
   before_create :add_default_display_name
   has_many :identity
+  has_many :pairings
+  has_many :devices, :through => :pairings
+  has_many :invitations, :through => :devices
+  has_many :accepted_users
+
 
   VALIDATE_MOBILE_REGEX = /\A[0-9#\+\(\)-]*\z/
 
@@ -55,6 +61,16 @@ class User < ActiveRecord::Base
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"] if auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
+  end
+
+  def fetch_details_from_oauth(auth)
+    self.first_name   = auth["first_name"]  if auth["first_name"]
+    self.last_name    = auth["last_name"]   if auth["last_name"]
+    self.display_name = auth["name"]        if auth["name"]
+    self.email        = auth["email"]       if auth["email"]
+    self.middle_name  = auth["middle_name"] if auth["middle_name"]
+    self.language     = auth["locale"]      if auth["locale"]
+    self.gender       = auth["gender"]      if auth["gender"] && auth["gender"] != "other"
   end
 
   private
