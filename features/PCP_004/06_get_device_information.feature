@@ -4,7 +4,7 @@ Feature: [PCP_004_007] Get Device Information
     Given a user was signin and visits home page
     And the user have already paired device
 
-  Scenario: [PCP_004_007_001]
+  Scenario: [PCP_004_006_001]
     Show device information when user click down arrow button
 
     When user click on down arrow button
@@ -12,7 +12,7 @@ Feature: [PCP_004_007] Get Device Information
     Then the page should display device information
     And the page should include up arrow button
 
-  Scenario: [PCP_004_007_002]
+  Scenario: [PCP_004_006_002]
     Close device information when user click up arrow button
 
     When user click on down arrow button
@@ -20,7 +20,7 @@ Feature: [PCP_004_007] Get Device Information
 
     Then the page should not display device information
 
-  Scenario: [PCP_004_007_003]
+  Scenario: [PCP_004_006_003]
     Only show one device information when user click down arrow button
 
     Given user have another paired device
@@ -30,7 +30,7 @@ Feature: [PCP_004_007] Get Device Information
 
     Then the page should display another device information
 
-  Scenario Outline: [PCP_004_007_004]
+  Scenario Outline: [PCP_004_006_004]
     Display Available capacity
 
     Given the user have a piared device with total capacity: <total_capacity>, used capacity: <used_capacity>
@@ -45,7 +45,7 @@ Feature: [PCP_004_007] Get Device Information
       | 4095MB          | 500MB         | 4095MB        | 12%          |
       | 4096MB          | 1000MB        | 4GB           | 24%          |
 
-  Scenario Outline: [PCP_004_007_005]
+  Scenario Outline: [PCP_004_006_005]
     Display volumn capacity
 
     Given the user have a piared device with total capacity: <total_capacity>, used capacity: <used_capacity>
@@ -58,7 +58,7 @@ Feature: [PCP_004_007] Get Device Information
       | total_capacity  | used_capacity | display_total | display_used |
       | 4096MB          | 1000MB        | 4.0GB         | 1.0GB        |
 
-  Scenario Outline: [PCP_004_007_006]
+  Scenario Outline: [PCP_004_006_006]
     Switch display volumn capacity unit
 
     Given the user have a piared device with total capacity: <volumn_capacity>, used capacity: <used_capacity>
