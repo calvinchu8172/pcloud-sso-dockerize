@@ -3,6 +3,7 @@
 # -------------------------------------------------------------------
 
 Given(/^the device with information$/) do |table|
+  TestingHelper::create_product_table if Product.count == 0
   @device = table.rows_hash
   reset_signature(@device)
 end
@@ -13,7 +14,7 @@ When(/^the device send information to REST API$/) do
   post path, @device
 end
 
-Given(/^the device already registration$/) do 
+Given(/^the device already registration$/) do
   @registered_device = Device.checkin(@device.symbolize_keys)
 end
 
