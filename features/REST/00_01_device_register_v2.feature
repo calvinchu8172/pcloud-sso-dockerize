@@ -2,7 +2,11 @@ Feature: Device Register V2
 
   Background:
     Given the device with information
-
+      | mac_address      | 099789665701 |
+      | serial_number    | A123456      |
+      | model_name       | NSA325       |
+      | firmware_version | 1.0          |
+      | algo             | 1            |
 
     Scenario Outline: [REST_00_01_01]
       Check correct update process when valid format
