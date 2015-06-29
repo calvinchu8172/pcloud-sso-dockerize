@@ -65,31 +65,34 @@ class Api::User::OauthController < Api::Base
         logger.debug 'Oauth user not save'
         return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
       end
-    else
-      # For store password when user doesn't having password
-      if is_portal_user?(register)
-        register = Api::User::OauthUser.find(register)
-        register.confirmation_token = Devise.friendly_token
-        register.confirmed_at = Time.now.utc
-
-        unless register.update(register_params)
-          logger.debug 'Oauth portal user not save'
-          return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
-        end
-      end
-      return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
-      # For varify password
-      return render :json => { :error_code => '004', :description => 'Invalid password' }, :status => 400 unless register.valid_password?(password)
     end
 
-    identity = Api::Identity.new(register_params.except(:password, :app_key, :os))
-    identity.provider = @provider
-    identity["user_id"] = register.id
-    identity.uid = data['id']
+    if is_portal_user?(register)
+      register = Api::User::OauthUser.find(register)
+      register.confirmation_token = Devise.friendly_token
+      register.confirmed_at = Time.now.utc
 
-    unless identity.save
-      logger.debug 'Oauth identity not save'
-      return render :json => Api::User::INVALID_SIGNATURE_ERROR unless identity.errors['signature'].empty?
+      unless register.update(register_params)
+        logger.debug 'Oauth portal user not save'
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
+      end
+    else
+      return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
+    end
+
+    # For varify password
+    return render :json => { :error_code => '004', :description => 'Invalid password' }, :status => 400 unless register.valid_password?(password)
+
+    unless identity.present?
+      identity = Api::Identity.new(register_params.except(:password, :app_key, :os))
+      identity.provider = @provider
+      identity["user_id"] = register.id
+      identity.uid = data['id']
+
+      unless identity.save
+        logger.debug 'Oauth identity not save'
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless identity.errors['signature'].empty?
+      end
     end
 
     @user = Api::User::Token.new(register.attributes)
