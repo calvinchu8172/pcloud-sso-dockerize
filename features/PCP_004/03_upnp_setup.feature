@@ -41,6 +41,8 @@ Feature: [PCP_004_03] UPnP Setup
 	Scenario: [PCP_004_03_05]
 	  Renew the port numbers between 1025 and 65535 for those disabled services in service list and the port numbers should not in the used wan port list
 
+	  And the page will waiting for connection with device
+
 	  When the device was online the device will response service list
 	  And Some services in the list were disabled
 
@@ -50,6 +52,8 @@ Feature: [PCP_004_03] UPnP Setup
 
 	Scenario: [PCP_004_03_06]
 	  Show "Failure" text in the "Update Result" column when the service update failed
+
+	  And the page will waiting for connection with device
 
 	  When the device was online the device will response service list
 
@@ -67,6 +71,8 @@ Feature: [PCP_004_03] UPnP Setup
 	Scenario: [PCP_004_03_07]
 	  Show "Success" text in the "Update Result" column when the service update successfully
 
+	  And the page will waiting for connection with device
+
 	  When the device was online the device will response service list
 
 	  Given the user changed UPnP port setting of a disabled service
@@ -77,7 +83,6 @@ Feature: [PCP_004_03] UPnP Setup
 
 	  Then the user should see "Success" text in "Update Result" column of the service on UPnP setup page
 	  And the checkbox of the service should be checked
-
 
 
 	Scenario: [PCP_004_03_08]
