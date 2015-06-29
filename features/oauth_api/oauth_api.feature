@@ -6,7 +6,7 @@ Feature: Oauth API
     And the user having password <abc12345>
     And the user using valid authentication token
 
-  Scenario:
+  Scenario: [REST_01_06_01]
     Standard oauth api registration flow
 
     When the device send information to "facebook" oauth checkin API
@@ -15,7 +15,7 @@ Feature: Oauth API
     When the device send information to "facebook" oauth register API
     Then the API should return user token message
 
-  Scenario:
+  Scenario: [REST_01_06_02]
     Check the Facebook APP user wants to checkin
 
     Given the user having APP account from facebook already
@@ -23,7 +23,7 @@ Feature: Oauth API
     When the device send information to "facebook" oauth checkin API
     Then the API should return "registered" message and email account
 
-  Scenario:
+  Scenario: [REST_01_06_03]
     Check the Facebook APP user wants to binding google account
 
     Given the user having APP account from facebook already
@@ -35,7 +35,7 @@ Feature: Oauth API
     When the device send information to "google" oauth register API
     Then the API should return user token message
 
-  Scenario:
+  Scenario: [REST_01_06_04]
     Check the user having Facebook portal oauth account before and binding google account
 
     Given a user using the same email to register facebook portal oauth account already
@@ -52,7 +52,7 @@ Feature: Oauth API
     When the device send information to "google" oauth register API
     Then the API should return user token message
 
-  Scenario:
+  Scenario: [REST_01_06_05]
     Check the invalid flow when Facebook APP user using invalid access_token
 
     Given the user having invalid access token and uuid from Facebook
@@ -63,7 +63,7 @@ Feature: Oauth API
     When the device send information to "facebook" oauth register API
     Then the API should return "Invalid Facebook account" error message
 
-  Scenario:
+  Scenario: [REST_01_06_06]
     Check the invalid flow when Facebook APP user using not exist certificate_serial to register
 
     Given the user already checkin from Facebook
@@ -72,14 +72,14 @@ Feature: Oauth API
     When the device send information to "facebook" oauth checkin API
     Then the API should return "Invalid Facebook account" error message
 
-  Scenario:
+  Scenario: [REST_01_06_07]
     Check the invalid flow when Facebook APP registered user wants to register
 
     Given the user having APP account from facebook already
     When the device send information to "facebook" oauth register API
     Then the API should return "101" error code and "Invalid signature" message
 
-  Scenario:
+  Scenario: [REST_01_06_08]
     Check the invalid flow when Facebook APP registered user wants to binding google account with invalid password
 
     Given the user having APP account from facebook already
