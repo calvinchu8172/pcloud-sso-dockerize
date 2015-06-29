@@ -77,11 +77,10 @@ class Api::User::OauthController < Api::Base
           return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
         end
       end
+      return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
       # For varify password
       return render :json => { :error_code => '004', :description => 'Invalid password' }, :status => 400 unless register.valid_password?(password)
     end
-
-    return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
 
     identity = Api::Identity.new(register_params.except(:password, :app_key, :os))
     identity.provider = @provider
