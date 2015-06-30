@@ -18,7 +18,6 @@ class InvitationsController < ApplicationController
 	def connect_to_device
 	  waiting_expire_at = (Time.now() + AcceptedUser::WAITING_PERIOD).to_i
 	  job_params = {
-	  	cloud_id: @user.encrypted_id,
 	    device_id: @invitation.device.id,
 	    share_point: @invitation.share_point,
 	    permission: @invitation.permission_name,
