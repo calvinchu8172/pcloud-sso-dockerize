@@ -11,9 +11,10 @@ Feature: Device Register V2
     Scenario Outline: [REST_00_01_01]
       Check correct update process when valid format
 
-      When the device already registration
+      Given the device already registration
       And the device "<information>" was be changed to "<value>"
-      And the device send information to REST API
+
+      When the device send information to REST API /d/2/register
 
       Then the API should return success respond
       And the record in databases as expected
@@ -29,7 +30,8 @@ Feature: Device Register V2
 
       Given the device already registration
       And the device "<information>" was be changed to "<value>"
-      And the device send information to REST API
+
+      When the device send information to REST API /d/2/register
 
       Then the API should return "<http_status>" and "<json_message>" with failure responds
       And the database does not have record
@@ -44,7 +46,7 @@ Feature: Device Register V2
     Scenario: [REST_00_01_03]
       Check standard device registration process
 
-      When the device send information to REST API
+      When the device send information to REST API /d/2/register
 
       Then the API should return success respond
       And the record in databases as expected
@@ -53,7 +55,8 @@ Feature: Device Register V2
       Check reset process
 
       Given the device already registration
-      And the device send reset request to REST API
+
+      When the device send reset request to REST API /d/2/register
 
       Then the API should return success respond
       And the databases should have not pairing record
@@ -63,7 +66,8 @@ Feature: Device Register V2
 
       Given the device already registration
       And the device IP was be changed
-      And the device send information to REST API
+
+      When the device send information to REST API /d/2/register
 
       Then the API should return success respond
       And the record in databases as expected
@@ -73,16 +77,17 @@ Feature: Device Register V2
 
       Given the device already registration
       And the device signature was be changed to "abcde"
-      And the device send information to REST API
+
+      When the device send information to REST API /d/2/register
 
       Then the API should return "400" and "Failure" with error responds
       And the database does not have record
 
     Scenario: [REST_00_01_07]
       Record device module with valid input
+      Given the device module information
 
-      When the device send information to REST API
+      When the device send information to REST API /d/2/register
 
       Then the API should return success respond
       And the module record in database as expected
-
