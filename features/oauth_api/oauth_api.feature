@@ -91,7 +91,7 @@ Feature: Oauth API
     When the device send information to "facebook" oauth register API
     Then the API should return user token message
 
-  Scenario Outline: [REST_01_06_07]
+  Scenario: [REST_01_06_07]
     Check the invalid flow when Facebook APP user using invalid access_token
 
     Given the user having invalid access token and uuid from Facebook
@@ -111,7 +111,7 @@ Feature: Oauth API
     When the device send information to "facebook" oauth checkin API
     Then the API should return "Invalid Facebook account" error message
 
-  Scenario: [REST_01_06_09]
+  Scenario Outline: [REST_01_06_09]
     Check the invalid flow when APP registered user wants to register
 
     Given the user having APP account from <account> already
