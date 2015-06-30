@@ -9,7 +9,7 @@ Given(/^the device with information$/) do |table|
 end
 
 # When(/^the device POST to "(.*?)"$/) do |path|
-When(/^the device send information to REST API$/) do
+When(/^the device send information to REST API \/d\/1\/register$/) do
   path = '//' + Settings.environments.api_domain + '/d/1/register'
   post path, @device
 end
@@ -18,10 +18,10 @@ Given(/^the device already registration$/) do
   @registered_device = Device.checkin(@device.symbolize_keys)
 end
 
-When(/^the device send reset request to REST API$/) do
+When(/^the device send reset request to REST API \/d\/1\/register$/) do
   create_rest_pairing(@registered_device)
   @device["reset"] = 1
-  steps %{ When the device send information to REST API }
+  steps %{ When the device send information to REST API /d/1/register}
 end
 
 When(/^the device "(.*?)" was be changed to "(.*?)"$/) do |key, value|
@@ -31,6 +31,7 @@ end
 
 When(/^the device signature was be changed to "(.*?)"$/) do |value|
   @device["signature"] = value
+  @invalid_signature = true
 end
 
 When(/^the device IP was be changed$/) do
