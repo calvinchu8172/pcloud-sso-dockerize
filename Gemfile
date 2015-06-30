@@ -85,6 +85,7 @@ gem 'json', '1.8.2'
 group :test do
   gem 'action_mailer_cache_delivery'
   gem 'email_spec'
+  gem 'simplecov', :require => false
 end
 
 # gem 'devise-async'
@@ -101,4 +102,5 @@ group :development, :test do
   gem 'rack_session_access'
   gem 'yard'
   gem 'yard-cucumber'
+  gem 'pry'
 end
