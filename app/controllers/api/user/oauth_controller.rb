@@ -81,7 +81,7 @@ class Api::User::OauthController < Api::Base
     end
 
     # For varify password
-    return render :json => { :error_code => '004', :description => 'Invalid password' }, :status => 400 unless register.valid_password?(password)
+    return render :json => { :error_code => '004', :description => 'Invalid email or password.' }, :status => 400 unless register.valid_password?(password)
 
     unless identity.present?
       identity = Api::Identity.new(register_params.except(:password, :app_key, :os))
