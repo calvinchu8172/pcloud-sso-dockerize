@@ -102,4 +102,5 @@ group :development, :test do
   gem 'rack_session_access'
   gem 'yard'
   gem 'yard-cucumber'
+  gem 'pry'
 end
