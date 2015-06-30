@@ -8,12 +8,14 @@ Feature: Device Register V3
       | firmware_version | 1.0          |
       | algo             | 1            |
 
+    And an existing certificate and RSA key
+
     Scenario Outline: [REST_00_02_01]
       Check correct update process when valid format
 
       When the device already registration
       And the device "<information>" was be changed to "<value>"
-      And the device send information to REST API
+      And the device send information to REST API /d/3/register
 
       Then the API should return success respond
       And the record in databases as expected
@@ -29,7 +31,8 @@ Feature: Device Register V3
 
       Given the device already registration
       And the device "<information>" was be changed to "<value>"
-      And the device send information to REST API
+
+      When the device send information to REST API /d/3/register
 
       Then the API should return "<http_status>" and "<json_message>" with failure responds
       And the database does not have record
@@ -44,7 +47,7 @@ Feature: Device Register V3
     Scenario: [REST_00_02_03]
       Check standard device registration process
 
-      When the device send information to REST API
+      When the device send information to REST API /d/3/register
 
       Then the API should return success respond
       And the record in databases as expected
@@ -53,7 +56,8 @@ Feature: Device Register V3
       Check reset process
 
       Given the device already registration
-      And the device send reset request to REST API
+
+      When the device send reset request to REST API /d/3/register
 
       Then the API should return success respond
       And the databases should have not pairing record
@@ -63,7 +67,8 @@ Feature: Device Register V3
 
       Given the device already registration
       And the device IP was be changed
-      And the device send information to REST API
+
+      When the device send information to REST API /d/3/register
 
       Then the API should return success respond
       And the record in databases as expected
@@ -73,15 +78,18 @@ Feature: Device Register V3
 
       Given the device already registration
       And the device signature was be changed to "abcde"
-      And the device send information to REST API
 
-      Then the API should return "400" and "Failure" with error responds
+      When the device send information to REST API /d/3/register
+
+      Then the API should return "400" and "Invalid signature" with error responds
       And the database does not have record
 
     Scenario: [REST_00_02_07]
       Record device module with valid input
 
-      When the device send information to REST API
+      Given the device module information
+
+      When the device send information to REST API /d/3/register
 
       Then the API should return success respond
       And the module record in database as expected
@@ -89,18 +97,6 @@ Feature: Device Register V3
     Scenario: [REST_00_02_08]
       Validate valid signature by RSA key and Certificate
 
-      Given an existing certificate and RSA key
-
-      When the device send information to REST API
+      When the device send information to REST API /d/3/register
 
       Then the API should return success respond
-
-    Scenario: [REST_00_02_09]
-      Validate invalid signature by RSA key and Certificate
-
-      Given an existing certificate and RSA key
-
-      When the device send information to REST API
-
-      Then the API should return failure respond
-

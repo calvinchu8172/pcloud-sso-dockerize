@@ -13,7 +13,7 @@ Feature: REST API testing
 
     When the device already registration
     And the device "<information>" was be changed to "<value>"
-    And the device send information to REST API
+    And the device send information to REST API /d/1/register
     Then the API should return success respond
     And the record in databases as expected
 
@@ -28,7 +28,7 @@ Feature: REST API testing
 
     Given the device already registration
     And the device "<information>" was be changed to "<value>"
-    And the device send information to REST API
+    And the device send information to REST API /d/1/register
     Then the API should return "<http_status>" and "<json_message>" with failure responds
     And the database does not have record
 
@@ -43,7 +43,7 @@ Feature: REST API testing
   Scenario: [REST-00-00-03]
     Check standard device registration process
 
-    When the device send information to REST API
+    When the device send information to REST API /d/1/register
     Then the API should return success respond
     And the record in databases as expected
 
@@ -51,7 +51,7 @@ Feature: REST API testing
     Check reset process
 
     Given the device already registration
-    And the device send reset request to REST API
+    And the device send reset request to REST API /d/1/register
     Then the API should return success respond
     And the databases should have not pairing record
 
@@ -60,7 +60,7 @@ Feature: REST API testing
 
     Given the device already registration
     And the device IP was be changed
-    And the device send information to REST API
+    And the device send information to REST API /d/1/register
     Then the API should return success respond
     And the record in databases as expected
 
@@ -69,7 +69,7 @@ Feature: REST API testing
 
     Given the device already registration
     And the device signature was be changed to "abcde"
-    And the device send information to REST API
+    And the device send information to REST API /d/1/register
     Then the API should return "400" and "Failure" with error responds
     And the database does not have record
 
