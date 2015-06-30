@@ -37,7 +37,7 @@ Feature: REST API testing
       | mac_address | @@@@@@@@@@        | 400         | invalid parameter |
       | mac_address | 6D-81-45-4B-1A-B8 | 400         | invalid parameter |
       | mac_address | A6:3A:B9:05:3E:B3 | 400         | invalid parameter |
-
+      | model_name  | UNKNOWN           | 400         | invalid parameter |
 
 
   Scenario: [REST-00-00-03]
