@@ -1,17 +1,20 @@
-Given(/^a device has (\d+) valid cloud_id and (\d+) invalid cloud_id with:$/) do |arg1, arg2, table|
-  data = table.rows_hash
+Given(/^a device has some valid cloud_id and some invalid cloud_id with:$/) do
+  @total = rand(10..20)
+  array = Array.new(@total)
 
-  user1 = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
-  user2 = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
-  user3 = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
+  array.map! do |user|
+    if rand(2) == 1
+      user = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
+      user.encoded_id
+    else
+      user = "INVALID ENCODE USER ID"
+    end
+  end
 
-  cloud_id1 = user1.encoded_id
-  cloud_id2 = user2.encoded_id
-  cloud_id3 = user3.encoded_id
-  cloud_id4 = data["cloud_id4"]
-  cloud_id5 = data["cloud_id5"]
+  @invalid = array.select { |d| d.include?("INVALID")}.size
+  @valid = @total - @invalid
 
-  @cloud_ids = cloud_id1+","+cloud_id2+","+cloud_id3+","+cloud_id4+","+cloud_id5
+  @cloud_ids = (array).join(",")
 
 end
 
@@ -32,7 +35,13 @@ When(/^device request GET to \/user\/(\d+)\/email with:$/) do |arg1, table|
   }
 end
 
-Then(/^the JSON response at "(.*?)" size should be (\d+)$/) do |description, number|
+Then(/^the JSON response at "(.*?)" size should be equal to valid cloud_id number$/) do |arg1|
   body_array = JSON.parse(last_response.body)
-  expect(body_array[description].size).to eq(number.to_i)
+  expect(body_array["emails"].size).to eq(@valid)
 end
+
+Then(/^the JSON response at "(.*?)" size should be equal to invalid cloud_id number$/) do |arg1|
+  body_array = JSON.parse(last_response.body)
+  expect(body_array["ids_not_found"].size).to eq(@invalid)
+end
+
