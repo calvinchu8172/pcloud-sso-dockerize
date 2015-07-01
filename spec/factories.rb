@@ -34,4 +34,11 @@ FactoryGirl.define do
     edm_accept                "0"
     agreement                 "1"
   end
+  factory :oauth_user, class: Api::User::OauthUser do
+    sequence(:email)          {|n| "personal#{n}@example.com"}
+    password                  "12345678"
+    password_confirmation     "12345678"
+    edm_accept                "0"
+    agreement                 "1"
+  end
 end

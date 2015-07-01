@@ -1,15 +1,15 @@
 Feature: Oauth API
 
   Background:
-    Given a user sign in from APP
-    And the user having access token and uuid from Facebook
-    And the user having password <abc12345>
-    And the user using valid authentication token
+
+    Given the client has access token and uuid from facebook
+    And the user having password "abc12345"
+    And an existing certificate and RSA key
 
   Scenario Outline: [REST_01_06_01]
     Standard oauth api registration flow
 
-    When the device send information to <account> oauth register API
+    When the device send information to <account> oauth checkin API
     Then the API should return "001" error code and "unregistered" message
 
     When the device send information to <account> oauth register API
