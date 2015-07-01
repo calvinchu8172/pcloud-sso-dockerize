@@ -9,7 +9,7 @@ Feature: Google Checkin
     Client sign in by google uuid and access token with binding account
 
     Given client has registered in Rest API by google account
-    And this account is already binding to "google_auth2"
+    And this account is already binding to "google_oauth2"
 
     When client send a GET request to /user/1/checkin/google with:
     | user_id      | USER ID      |
@@ -25,7 +25,7 @@ Feature: Google Checkin
     Client sign in by google uuid and access token with binding account
 
     Given client has registered in Rest API by google account
-    And this account is already binding to "google_auth2"
+    And this account is already binding to "google_oauth2"
 
     When client send a GET request to /user/1/checkin/google with:
     | user_id      | INVALID USER ID      |
@@ -33,7 +33,7 @@ Feature: Google Checkin
 
     Then the response status should be "400"
     And the JSON response should include error code: "000"
-    And the JSON response should include description: "Invalid Facebook account"
+    And the JSON response should include description: "Invalid Google account"
 
   Scenario:
     Client sign in by google uuid and access token but not registered yet
@@ -63,10 +63,10 @@ Feature: Google Checkin
     Client sign in by google uuid and access token but not binding account yet
 
     Given client has registered in Rest API by google account
-    And this account is already binding to "google_auth2"
+    And this account is already binding to "google_oauth2"
     And client already has a portal account
 
-    When client send a GET request to /user/1/checkin/facebook with:
+    When client send a GET request to /user/1/checkin/google with:
     | user_id      | USER ID      |
     | access_token | ACCESS TOKEN |
 
