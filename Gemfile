@@ -16,7 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-gem 'immigrant'
+gem 'immigrant', '~> 0.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'angularjs-rails'
@@ -68,13 +68,13 @@ gem 'omniauth-twitter'
 gem 'devise', '3.1.0'
 gem 'devise-i18n'
 gem 'rails-i18n'
-gem "recaptcha", :require => "recaptcha/rails"
+gem "recaptcha", '~> 0.3', :require => "recaptcha/rails"
 gem 'i18n_country_select'
 gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1'
 gem 'rails_admin', group: [:test, :development, :staging]
 
 gem 'rest-client'
@@ -94,7 +94,7 @@ group :development, :test do
   gem 'faker'
   gem 'hipchat'
   gem 'capybara'
-  gem "capybara-webkit"
+  gem "capybara-webkit", '~> 1.3.0'
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails'
   gem 'database_cleaner'
