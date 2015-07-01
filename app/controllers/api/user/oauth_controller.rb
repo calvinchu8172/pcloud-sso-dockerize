@@ -63,7 +63,7 @@ class Api::User::OauthController < Api::Base
 
       unless register.save
         logger.debug 'Oauth user not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless register.errors['signature'].empty?
       end
     end
 
@@ -74,7 +74,7 @@ class Api::User::OauthController < Api::Base
 
       unless register.update(register_params)
         logger.debug 'Oauth portal user not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless register.errors['signature'].empty?
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless register.errors['signature'].empty?
       end
     else
       return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
@@ -91,7 +91,7 @@ class Api::User::OauthController < Api::Base
 
       unless identity.save
         logger.debug 'Oauth identity not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR unless identity.errors['signature'].empty?
+        return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless identity.errors['signature'].empty?
       end
     end
 
