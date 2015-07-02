@@ -11,11 +11,13 @@ class Api::User::EmailsController < Api::Base
 
   def update
     user = Api::User::Email.find_by_encoded_id(valid_params[:cloud_id])
+    return render json: { error_code: '006', description: 'the user has been confirmed' }, :status => 400 if user.confirmed?
+
     user.new_email = valid_params[:new_email]
     unless user.update_email
       return render json: user.errors[:email].first, :status => 400 unless user.errors[:email].blank?
     end
-    logger.debug("user.errors.to_json: #{user.errors.to_json}")
+
     render json: {result: 'success'}
   end
 

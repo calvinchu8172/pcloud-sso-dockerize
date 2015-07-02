@@ -27,11 +27,18 @@ class Api::User::Email < Api::User
       params.delete(:password_confirmation)
 
       self.email = params.delete(:email)
-      return false if new_email_not_valid?
+      self.confirmed_at = nil
+      return if new_email_not_valid?
 
-      self.save(:validate => false)
-      clean_up_passwords
-      return true
+      # update without validation but with callback
+      # and the confirmation would send to the new email address
+      # self.update_attribute(:email, self.email)
+
+      # change the email immediately instead of pending in unconfirmed_email field
+      # and the confirmation would send to the new email address
+      self.skip_reconfirmation!
+      self.save(validate: false)
+      self.class.send_confirmation_instructions(email: self.email, 'Content-Transfer-Encoding' => 'UTF-8')
   end
 
   private
