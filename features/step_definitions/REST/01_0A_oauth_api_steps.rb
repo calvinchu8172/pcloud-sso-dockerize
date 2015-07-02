@@ -1,41 +1,21 @@
 Given(/^the user having password "(.*?)"$/) do |password|
-  @password = password
+  pending
 end
 
 When(/^the device send information to facebook oauth register API$/) do
-
-  path = '//' + Settings.environments.api_domain + "/user/1/register/facebook"
-
-  signature = create_signature(@certificate.serial, @uuid, @access_token)
-
-  post path, {
-    user_id: @uuid,
-    access_token: @access_token,
-    password: @password,
-    certificate_serial: @certificate.serial,
-    signature: signature
-  }
+  pending
 end
 
 Then(/^the API should return "(.*?)" error code and "(.*?)" message$/) do |error_code, message|
-  response = JSON.parse(last_response.body)
-  expect(response["error_code"]).to eq(error_code)
-  expect(response["description"]).to eq(message)
+  pending
 end
 
 When(/^the device send information to facebook oauth checkin API$/) do
-  path = '//' + Settings.environments.api_domain + "/user/1/checkin/facebook"
-
-  get path, {
-    user_id: @uuid,
-    access_token: @access_token
-  }
-
+  pending
 end
 
 Then(/^the API should return user token message$/) do
-  response = JSON.parse(last_response.body)
-  expect(response["account_token"]).to be_present
+  pending
 end
 
 When(/^the device send information to google oauth register API$/) do
