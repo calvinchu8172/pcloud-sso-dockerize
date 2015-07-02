@@ -1,11 +1,10 @@
 class Api::User::Email < Api::User
   attr_accessor :new_email, :cloud_ids, :certificate_serial, :signature
   validates_with SslValidator, signature_key: [:certificate_serial, :cloud_ids]
-  
+
   def update_email
-    # to-do: dirty hack here, sorry I don't have to much time to override devise validation
     return false if new_email_not_modified? or new_email_not_uniqueness?
-    self.update_without_password(email: new_email)
+    update_without_password(email: new_email)
   end
 
   def find_by_cloud_ids
@@ -23,7 +22,24 @@ class Api::User::Email < Api::User
     result
   end
 
+  def update_without_password(params={})
+      params.delete(:password)
+      params.delete(:password_confirmation)
+
+      self.email = params.delete(:email)
+      return false if new_email_not_valid?
+
+      self.save(:validate => false)
+      clean_up_passwords
+      return true
+  end
+
   private
+    def new_email_not_valid?
+      self.valid?
+      errors.set(:email, [{error_code: '004', description: 'invalid email'}]) unless self.errors[:email].blank?
+    end
+
     def new_email_not_modified?
       if new_email == email
         errors.add(:email, {error_code: '003', description: 'new E-mail is the same as old'})

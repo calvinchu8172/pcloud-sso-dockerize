@@ -3,22 +3,13 @@ class AcceptedUser < ActiveRecord::Base
  	belongs_to :invitation
  	belongs_to :user
 
- 	hash_key :session
- 	redis_id_field :redis_id
+	hash_key :session
  	self.redis_prefix = 'invitation'
  	WAITING_PERIOD = 30.seconds
 
- 	def redis_id
- 		"#{self.invitation.id}:#{self.user.email}"
- 	end
-
- 	def session_exists?
- 		id = "invitation:#{redis_id}:session"
- 		self.redis.exists id
- 	end
 
 	def accepted_time
-		self.updated_at.strftime("%Y-%m-%d %H:%M:%S")	
+		self.updated_at.strftime("%Y-%m-%d %H:%M:%S")
 	end
 
 	def inbox? last_updated_at
