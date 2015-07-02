@@ -54,7 +54,7 @@ Feature: Facebook Register
   Scenario:
     Client register by facebook uuid and access token but already registered
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
     And this account is already binding to "facebook"
 
     When client send a POST request to /user/1/register/facebook with:
@@ -70,7 +70,7 @@ Feature: Facebook Register
   Scenario:
     Client register by facebook uuid and access token, already registered but password invalid
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
 
     When client send a POST request to /user/1/register/facebook with:
     | user_id      | USER ID      |

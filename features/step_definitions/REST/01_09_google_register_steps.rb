@@ -6,7 +6,7 @@ end
 
 Given(/^client has registered in Rest API by google account$/) do
   steps %{
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
   }
 end
 

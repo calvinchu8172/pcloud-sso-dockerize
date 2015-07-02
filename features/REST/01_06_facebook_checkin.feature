@@ -8,7 +8,7 @@ Feature: Facebook Checkin
   Scenario:
     Client sign in by facebook uuid and access token with binding account
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
     And this account is already binding to "facebook"
 
     When client send a GET request to /user/1/checkin/facebook with:
@@ -24,7 +24,7 @@ Feature: Facebook Checkin
   Scenario:
     Client sign in by facebook uuid and access token with binding account
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
     And this account is already binding to "facebook"
 
     When client send a GET request to /user/1/checkin/facebook with:
@@ -49,7 +49,7 @@ Feature: Facebook Checkin
   Scenario:
     Client sign in by facebook uuid and access token but not binding account yet
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
 
     When client send a GET request to /user/1/checkin/facebook with:
     | user_id      | USER ID      |
@@ -62,7 +62,7 @@ Feature: Facebook Checkin
   Scenario:
     Client sign in by facebook uuid and access token but not binding account yet
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
     And this account is already binding to "facebook"
     And client already has a portal account
 
