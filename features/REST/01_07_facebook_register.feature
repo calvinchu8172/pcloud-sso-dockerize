@@ -5,7 +5,7 @@ Feature: Facebook Register
     Given the client has access token and uuid from facebook
     And an existing certificate and RSA key
 
-  Scenario:
+  Scenario: [REST_01_07_01]
     Client register by facebook uuid and access token
 
     When client send a POST request to /user/1/register/facebook with:
@@ -20,7 +20,7 @@ Feature: Facebook Register
       ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
 
-  Scenario:
+  Scenario: [REST_01_07_02]
     Client register by invalid facebook uuid and access token
 
     When client send a POST request to /user/1/register/facebook with:
@@ -33,7 +33,7 @@ Feature: Facebook Register
     And the JSON response should include error code: "001"
     And the JSON response should include description: "Invalid Facebook account"
 
-  Scenario Outline:
+  Scenario Outline: [REST_01_07_03]
     Client register by facebook uuid and access token with invalid password
 
     When client send a POST request to /user/1/register/facebook with:
@@ -51,7 +51,7 @@ Feature: Facebook Register
     | 123             |
     | 123456789012345 |
 
-  Scenario:
+  Scenario: [REST_01_07_04]
     Client register by facebook uuid and access token but already registered
 
     Given client has registered in Rest API by facebook account and password "test_password"
@@ -67,7 +67,7 @@ Feature: Facebook Register
     And the JSON response should include error code: "003"
     And the JSON response should include description: "registered account"
 
-  Scenario:
+  Scenario: [REST_01_07_05]
     Client register by facebook uuid and access token, already registered but password invalid
 
     Given client has registered in Rest API by facebook account and password "test_password"
@@ -82,7 +82,7 @@ Feature: Facebook Register
     And the JSON response should include error code: "004"
     And the JSON response should include description: "Invalid email or password."
 
-  Scenario:
+  Scenario: [REST_01_07_06]
     Client register by facebook uuid and access token with invalid signature
 
     When client send a POST request to /user/1/register/facebook with:

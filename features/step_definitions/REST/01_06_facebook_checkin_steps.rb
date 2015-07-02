@@ -20,7 +20,6 @@ Given(/^the client has access token and uuid from facebook$/) do
     "verified"=>false,
     "email"=> @email
   }
-
 end
 
 Given(/^client has registered in Rest API by facebook account and password "(.*?)"$/) do |password|

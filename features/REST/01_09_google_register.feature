@@ -5,7 +5,7 @@ Feature: Google Register
     Given the client has access token and uuid from google
     And an existing certificate and RSA key
 
-  Scenario:
+  Scenario: [REST_01_09_01]
     Client register by google uuid and access token
 
     When client send a POST request to /user/1/register/google with:
@@ -20,7 +20,7 @@ Feature: Google Register
       ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
 
-  Scenario:
+  Scenario: [REST_01_09_02]
     Client register by invalid google uuid and access token
 
     When client send a POST request to /user/1/register/google with:
@@ -33,7 +33,7 @@ Feature: Google Register
     And the JSON response should include error code: "001"
     And the JSON response should include description: "Invalid Google account"
 
-  Scenario Outline:
+  Scenario Outline: [REST_01_09_03]
     Client register by google uuid and access token with invalid password
 
     When client send a POST request to /user/1/register/google with:
@@ -51,7 +51,7 @@ Feature: Google Register
     | 123             |
     | 123456789012345 |
 
-  Scenario:
+  Scenario: [REST_01_09_04]
     Client register by google uuid and access token but already registered
 
     Given client has registered in Rest API by google account
@@ -67,7 +67,7 @@ Feature: Google Register
     And the JSON response should include error code: "003"
     And the JSON response should include description: "registered account"
 
-  Scenario:
+  Scenario: [REST_01_09_05]
     Client register by google uuid and access token, already registered but password invalid
 
     Given client has registered in Rest API by google account
@@ -82,7 +82,7 @@ Feature: Google Register
     And the JSON response should include error code: "004"
     And the JSON response should include description: "Invalid email or password."
 
-  Scenario:
+  Scenario: [REST_01_09_06]
     Client register by google uuid and access token with invalid signature
 
     When client send a POST request to /user/1/register/google with:
@@ -94,5 +94,3 @@ Feature: Google Register
     Then the response status should be "400"
     And the JSON response should include error code: "101"
     And the JSON response should include description: "Invalid signature"
-
-

@@ -5,7 +5,7 @@ Feature: Google Checkin
     Given the client has access token and uuid from google
     And an existing certificate and RSA key
 
-  Scenario:
+  Scenario: [REST_01_08_01]
     Client sign in by google uuid and access token with binding account
 
     Given client has registered in Rest API by google account
@@ -21,8 +21,8 @@ Feature: Google Checkin
       ["result", "account"]
       """
 
-  Scenario:
-    Client sign in by google uuid and access token with binding account
+  Scenario: [REST_01_08_02]
+    Client sign in by invalid google uuid and access token with binding account
 
     Given client has registered in Rest API by google account
     And this account is already binding to "google_oauth2"
@@ -35,7 +35,7 @@ Feature: Google Checkin
     And the JSON response should include error code: "000"
     And the JSON response should include description: "Invalid Google account"
 
-  Scenario:
+  Scenario: [REST_01_08_03]
     Client sign in by google uuid and access token but not registered yet
 
     When client send a GET request to /user/1/checkin/google with:
@@ -46,7 +46,7 @@ Feature: Google Checkin
     And the JSON response should include error code: "001"
     And the JSON response should include description: "unregistered"
 
-  Scenario:
+  Scenario: [REST_01_08_04]
     Client sign in by google uuid and access token but not binding account yet
 
     Given client has registered in Rest API by google account
@@ -59,8 +59,8 @@ Feature: Google Checkin
     And the JSON response should include error code: "002"
     And the JSON response should include description: "not binding yet"
 
-  Scenario:
-    Client sign in by google uuid and access token but not binding account yet
+  Scenario: [REST_01_08_05]
+    Client sign in by google uuid and access token and already has a portal account
 
     Given client has registered in Rest API by google account
     And this account is already binding to "google_oauth2"
