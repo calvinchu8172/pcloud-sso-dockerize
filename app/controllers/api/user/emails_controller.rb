@@ -1,6 +1,6 @@
-class Api::User::EmailsController < Api::Base
+class Api::User::EmailsController < Api::Base 
   before_filter :authenticate_user_by_token_incloud_unconfirmed!, only: :update
-
+  
   def show
     user = Api::User::Email.new(show_params)
     user.valid?
@@ -11,19 +11,11 @@ class Api::User::EmailsController < Api::Base
 
   def update
     user = Api::User::Email.find_by_encoded_id(valid_params[:cloud_id])
-
-    logger.debug('old email:' + user.email)
     user.new_email = valid_params[:new_email]
-    logger.debug('after old email:' + user.email)
-
     unless user.update_email
-    	logger.debug('error old email:' + user.email)
       return render json: user.errors[:email].first, :status => 400 unless user.errors[:email].blank?
     end
-
-
-  	logger.debug('update email error:' + user.errors.inspect)
-
+    logger.debug("user.errors.to_json: #{user.errors.to_json}")
     render json: {result: 'success'}
   end
 

@@ -1,4 +1,4 @@
-class Api::Devices::V3::LiteController < Api::DeviceController
+class Api::Devices::V3::LiteController < Api::Base
 
 
   def create

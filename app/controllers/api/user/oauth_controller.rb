@@ -84,15 +84,11 @@ class Api::User::OauthController < Api::Base
     return render :json => { :error_code => '004', :description => 'Invalid email or password.' }, :status => 400 unless register.valid_password?(password)
 
     unless identity.present?
-      identity = Api::Identity.new(register_params.except(:password, :app_key, :os))
+      identity = register.identity.new
       identity.provider = @provider
-      identity["user_id"] = register.id
       identity.uid = data['id']
 
-      unless identity.save
-        logger.debug 'Oauth identity not save'
-        return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless identity.errors['signature'].empty?
-      end
+      identity.save
     end
 
     @user = Api::User::Token.new(register.attributes)
