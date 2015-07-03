@@ -6,9 +6,9 @@ When(/^client send a GET request to \/user\/1\/checkin\/google with:$/) do |tabl
   access_token = data["access_token"].include?("INVALID") ? "" : @access_token
 
   if user_id.blank? || access_token.blank?
-    Api::User::OauthController.any_instance.stub(get_oauth_data: nil)
+    allow_any_instance_of(Api::User::OauthController).to receive(:get_oauth_data).and_return(nil)
   else
-    Api::User::OauthController.any_instance.stub(get_oauth_data: @oauth_data)
+    allow_any_instance_of(Api::User::OauthController).to receive(:get_oauth_data).and_return(@oauth_data)
   end
 
   get path, {

@@ -11,6 +11,11 @@ require "rack_session_access/capybara"
 
 require 'cucumber/rspec/doubles'
 
+#specified require this file, because there's a same name class in app/controllers/oauth_controller.rb
+Dir[File.expand_path("app/controllers/api/user/oauth_controller.rb")].each do |file|
+  require file
+end
+
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.

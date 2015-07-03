@@ -18,9 +18,9 @@ When(/^client send a POST request to \/user\/1\/register\/google with:$/) do |ta
   access_token = data["access_token"].include?("INVALID") ? "" : @access_token
 
   if user_id.blank? || access_token.blank?
-    Api::User::OauthController.any_instance.stub(get_oauth_data: nil)
+    allow_any_instance_of(Api::User::OauthController).to receive(:get_oauth_data).and_return(nil)
   else
-    Api::User::OauthController.any_instance.stub(get_oauth_data: @oauth_data)
+    allow_any_instance_of(Api::User::OauthController).to receive(:get_oauth_data).and_return(@oauth_data)
   end
 
   signature = create_signature(@certificate.serial, @uuid, @access_token)
