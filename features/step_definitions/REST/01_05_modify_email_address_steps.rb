@@ -1,4 +1,7 @@
 When(/^client send a PUT request to \/user\/1\/email with:$/) do |table|
+
+  ActionMailer::Base.deliveries.clear
+
   data = table.rows_hash
   path = '//' + Settings.environments.api_domain + "/user/1/email"
 

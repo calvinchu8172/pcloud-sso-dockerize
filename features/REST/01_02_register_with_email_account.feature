@@ -16,6 +16,7 @@ Feature: Register with E-mail account
       """
       ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "stun_ip_addresses", "xmpp_account", "xmpp_ip_addresses"]
       """
+    And Email deliveries should be 1
 
   Scenario: [REST_01_02_02]
     register with email has been taken
@@ -32,6 +33,7 @@ Feature: Register with E-mail account
     Then the response status should be "400"
     And the JSON response should include error code: "001"
     And the JSON response should include description: "emailhas already been taken"
+    And Email deliveries should be 0
 
   Scenario: [REST_01_02_03]
     register with a password too long
@@ -44,6 +46,7 @@ Feature: Register with E-mail account
     Then the response status should be "400"
     And the JSON response should include error code: "002"
     And the JSON response should include description: "passwordis too long (maximum is 14 characters)"
+    And Email deliveries should be 0
 
   Scenario: [REST_01_02_04]
     register with a password too short
@@ -56,6 +59,7 @@ Feature: Register with E-mail account
     Then the response status should be "400"
     And the JSON response should include error code: "002"
     And the JSON response should include description: "passwordis too short (minimum is 8 characters)"
+    And Email deliveries should be 0
 
   Scenario: [REST_01_02_05]
     register with a invalid signature
@@ -68,3 +72,4 @@ Feature: Register with E-mail account
     Then the response status should be "400"
     And the JSON response should include error code: "101"
     And the JSON response should include description: "Invalid signature"
+    And Email deliveries should be 0

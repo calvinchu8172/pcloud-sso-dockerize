@@ -14,6 +14,7 @@ Feature: Resend Confirmation E-mail
       """
       {"result":"success"}
       """
+    And Email deliveries should be 1
 
   Scenario: [REST_01_04_01]
     resend confirmation email with unregistered email
@@ -23,3 +24,4 @@ Feature: Resend Confirmation E-mail
     Then the response status should be "400"
     And the JSON response should include error code: "001"
     And the JSON response should include description: "E-mail not found"
+    And Email deliveries should be 0

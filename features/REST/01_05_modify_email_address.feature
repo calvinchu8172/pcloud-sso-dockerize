@@ -16,6 +16,7 @@ Feature: Modify Email Address
       """
       {"result":"success"}
       """
+    And Email deliveries should be 1
 
   Scenario: [REST_01_05_02]
     modify email account with wrong authentication token
@@ -28,6 +29,7 @@ Feature: Modify Email Address
     Then the response status should be "400"
     And the JSON response should include error code: "201"
     And the JSON response should include description: "Invalid cloud id or token."
+    And Email deliveries should be 0
 
   Scenario: [REST_01_05_03]
     modify email account with the same one
@@ -40,6 +42,7 @@ Feature: Modify Email Address
     Then the response status should be "400"
     And the JSON response should include error code: "003"
     And the JSON response should include description: "new E-mail is the same as old"
+    And Email deliveries should be 0
 
   Scenario: [REST_01_05_04]
     modify email account with the email has been taken
@@ -56,3 +59,4 @@ Feature: Modify Email Address
     Then the response status should be "400"
     And the JSON response should include error code: "002"
     And the JSON response should include description: "new E-mail has been taken"
+    And Email deliveries should be 0

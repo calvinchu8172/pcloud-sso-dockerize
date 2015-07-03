@@ -66,6 +66,10 @@ Then(/^the JSON response should be$/) do |response|
   expect(JSON.parse(last_response.body)).to eq(JSON.parse(response))
 end
 
+Then(/^Email deliveries should be (\d+)$/) do |count|
+  expect(ActionMailer::Base.deliveries.count).to eq(count.to_i)
+end
+
 def create_certificate_and_rsa_key
   @rsa_key = OpenSSL::PKey::RSA.new(2048)
 
@@ -89,4 +93,3 @@ def create_signature(*arg)
   #signature = CGI::escape(Base64::encode64(private_key.sign(digest, data)))
   signature = Base64::encode64(private_key.sign(digest, data))
 end
-
