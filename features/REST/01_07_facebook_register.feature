@@ -98,7 +98,7 @@ Feature: Facebook Register
   Scenario: [REST_01_07_07]
     Client already has a portal accoutn, thne register by facebook uuid and access token with valid signature
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
     And client already has a portal account
 
     When client send a POST request to /user/1/register/facebook with:
@@ -116,7 +116,7 @@ Feature: Facebook Register
   Scenario: [REST_01_07_08]
     Client already has a portal accoutn, thne register by facebook uuid and access token with invalid signature
 
-    Given client has registered in Rest API by facebook account
+    Given client has registered in Rest API by facebook account and password "test_password"
     And client already has a portal account
 
     When client send a POST request to /user/1/register/facebook with:
