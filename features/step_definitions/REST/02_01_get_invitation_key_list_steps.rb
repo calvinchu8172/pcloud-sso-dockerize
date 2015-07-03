@@ -33,9 +33,9 @@ def create_fake_invitation(user, device)
     key: invitation_key,
     share_point: share_point,
     permission: "1",
-    device_id: @device.id,
+    device_id: device_id,
     expire_count: 5,
     )
-  invitation.accepted_by @user.id
+  invitation.accepted_by user.id
   invitation.accepted_users.first.update_attribute(:status, 1)
 end
