@@ -62,7 +62,6 @@ end
 Then(/^the JSON response should include$/) do |attributes|
   body_array = JSON.parse(last_response.body)
   attributes = JSON.parse(attributes)
-  binding.pry
 
   body_array.each do |key, value|
     attributes.each do |attribute|
