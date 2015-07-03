@@ -95,4 +95,36 @@ Feature: Facebook Register
     And the JSON response should include error code: "101"
     And the JSON response should include description: "Invalid signature"
 
+  Scenario: [REST_01_07_07]
+    Client already has a portal accoutn, thne register by facebook uuid and access token with valid signature
 
+    Given client has registered in Rest API by facebook account
+    And client already has a portal account
+
+    When client send a POST request to /user/1/register/facebook with:
+    | user_id      | USER ID       |
+    | access_token | ACCESS TOKEN  |
+    | password     | test_password |
+    | signature    | SIGNATURE     |
+
+    Then the response status should be "200"
+    And the JSON response should include:
+      """
+      ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
+      """
+
+  Scenario: [REST_01_07_08]
+    Client already has a portal accoutn, thne register by facebook uuid and access token with invalid signature
+
+    Given client has registered in Rest API by facebook account
+    And client already has a portal account
+
+    When client send a POST request to /user/1/register/facebook with:
+    | user_id      | USER ID           |
+    | access_token | ACCESS TOKEN      |
+    | password     | test_password     |
+    | signature    | INVALID SIGNATURE |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "101"
+    And the JSON response should include description: "Invalid signature"
