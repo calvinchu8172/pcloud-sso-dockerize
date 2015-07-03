@@ -2,6 +2,9 @@ Feature: Request User's Device List API Testing
 
   Background:
     Given a user sign in from APP
+    # Given a signed in client
+    # And an existing device with pairing signed in client
+    # And 1 existing invitation record
 
   Scenario: [REST_05_01]
     request user device list with valid authentication token
@@ -14,7 +17,7 @@ Feature: Request User's Device List API Testing
     Then the response status should be "200"
     And the JSON response should include
       """
-      ["xmpp_account","mac_address","host_name","wan_ip","firmware_ver","last_update_time", "is_owner"]
+      ["xmpp_account", "mac_address", "host_name", "wan_ip", "firmware_ver", "last_update_time", "is_owner"]
       """
 
   Scenario: [REST_05_02]
