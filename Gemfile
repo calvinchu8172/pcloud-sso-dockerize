@@ -16,7 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-gem 'immigrant'
+gem 'immigrant', '0.1.2'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'angularjs-rails'
@@ -74,6 +74,7 @@ gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
+gem 'aws-sdk-v1'
 gem 'aws-sdk'
 gem 'rails_admin', group: [:test, :development, :staging]
 
