@@ -25,19 +25,84 @@ class UpnpController < ApplicationController
     @upnp = UpnpSession.create
     @upnp.session.bulk_set(@session)
 
-    push_to_queue "upnp_query"
+    push_to_queue "upnp_query" if send_que?
     @session[:id] = @upnp.id
 
     service_logger.note({start_upnp: @session})
   end
 
-  # GET /upnp/:session_id/edit/
-  #
-  def edit
+  def send_que?
+    false
+  end
 
+  def bot_update_status upnp_session, session_id, step
+      service_list = ('[{"service_name":"FTP",
+                     "status":true,
+                     "enabled":true,
+                     "description":"FTP configuration",
+                     "wan_port":"22",
+                     "lan_port":"22",
+                     "path":"ftp://ip:port"},
+                    {"service_name":"DDNS",
+                     "status":false,
+                     "enabled":false,
+                     "description":"DDNS configuration",
+                     "wan_port":"7000",
+                     "lan_port":"7000",
+                     "path":""},
+                    {"service_name":"HTTP",
+                     "status":true,
+                     "enabled":true,
+                     "description":"HTTP configuration",
+                     "wan_port":"8000",
+                     "lan_port":"80",
+                     "path":"http://ip:port"}]').gsub("\n", "") if step == 1
+      service_list = ('[{"service_name":"FTP",
+                     "status":true,
+                     "enabled":true,
+                     "description":"FTP configuration",
+                     "wan_port":"22",
+                     "lan_port":"22",
+                     "path":"ftp://ip:port"},
+                    {"service_name":"DDNS",
+                     "status":false,
+                     "enabled":false,
+                     "description":"DDNS configuration",
+                     "wan_port":"7000",
+                     "lan_port":"7000",
+                     "path":""},
+                    {"service_name":"HTTP",
+                     "status":true,
+                     "enabled":true,
+                     "description":"HTTP configuration",
+                     "wan_port":"8000",
+                     "lan_port":"80",
+                     "path":"http://ip:port"},
+                    {"service_name":"XXX",
+                     "status":false,
+                     "enabled":false,
+                     "description":"for test....",
+                     "wan_port":"9000",
+                     "lan_port":"90",
+                     "path":""
+                      }]').gsub("\n", "") if step == 2
+    used_wan_port_list = ('["7000", "8000", "9000"]')
+    upnp_session['status'] = "form" if step == 1
+
+    upnp_session['service_list'] = service_list
+    upnp_session['used_wan_port_list'] = used_wan_port_list
+
+    UpnpSession.find(session_id).session.update(upnp_session)
+    upnp_session
+  end
+
+  # GET /upnp/:session_id/edit/
+  def edit
     session_id = params[:id]
     upnp_session = UpnpSession.find(session_id).session.all
     render :json => {:result => 'timeout'} and return if upnp_session.empty?
+
+    result = bot_update_status(upnp_session, session_id, 1) # for test....
 
     error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
@@ -58,32 +123,75 @@ class UpnpController < ApplicationController
   end
 
   def update
+    logger.debug("update: #{update_permit.to_json}")
+
     @upnp = UpnpSession.find(params[:id])
     settings = update_permit.merge({:status => :submit})
     result = @upnp.session.update(settings);
 
-    push_to_queue "upnp_submit" if result
+    push_to_queue "upnp_submit" if result && send_que?
 
     service_logger.note({edit_upnp: settings})
     render :json => {:result => result}.to_json
   end
 
-  # GET /pairing/check/:id
-  # for the polling from front end
-  # it will check out session is still avaliable
-  def check
-
+  # GET /upnp/reload/:id
+  # reload the service list when updating services not all successfully
+  def reload
     session_id = params[:id]
-    upnp = UpnpSession.find(session_id)
-    upnp_session = upnp.session.all
+    @upnp = UpnpSession.find(session_id)
+    upnp_session = @upnp.session.all
+    result = bot_update_status(upnp_session, session_id, 2) # for test...
+    render :json => {:result => 'timeout'} and return if upnp_session.empty?
+
+    push_to_queue "upnp_query" if upnp_session['status'] == 'reload' && send_que?
+    upnp_session['status'] = 'start' if upnp_session['status'] == 'reload'
 
     error_message = get_error_msg(upnp_session['error_code'])
     path_ip = decide_which_path_ip upnp_session
+    service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?) ? JSON.parse(upnp_session['service_list']) : []
+    service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
+    service_list = decide_which_description(service_list) unless service_list.empty?
 
+    updated_list = (upnp_session['status'] == 'form' && !upnp_session['updated_list'].empty?) ? JSON.parse(upnp_session['updated_list']) : []
+    used_wan_port_list = (upnp_session['status'] == 'form' && !upnp_session['used_wan_port_list'].empty?) ? JSON.parse(upnp_session['used_wan_port_list']) : []
+    used_wan_port_list.map! { |port_num| port_num.to_i }
+    updated_list.each do |updated_service|
+      updated_service.merge!({ :wan_port => random_port(used_wan_port_list), :enabled => false }) if enabled_service_failed?(updated_service)
+      service_list.each_with_index{ |service, index|
+        service_list[index] = updated_service if service['service_name'] == updated_service['service_name']
+      }
+    end
+    result = {
+      :error_message => error_message,
+      :service_list => service_list,
+      :path_ip => path_ip,
+      :id => session_id
+    }
+    service_logger.note({reload_upnp: result})
+    render :json => upnp_session.merge(result)
+  end
+
+  # GET /upnp/check/:id
+  # for the polling from front end
+  # it will check out session is still avaliable
+  def check
+    session_id = params[:id]
+    @upnp = UpnpSession.find(session_id)
+    upnp_session = @upnp.session.all
+
+    error_message = get_error_msg(upnp_session['error_code'])
+    path_ip = decide_which_path_ip upnp_session
     service_list = ((upnp_session['status'] == 'form' || upnp_session['status'] == 'updated') && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
     service_list = decide_which_description(service_list) unless service_list.empty?
     service_list = update_result(service_list) unless service_list.empty?
+
+    reload_session = Hash.new(upnp_session)
+    reload_session['status'] = "reload"
+    reload_session['updated_list'] = service_list.to_json
+    @upnp.session.update(reload_session) if !service_list.empty? and upnp_session['status'] == "form"
+    upnp_session['status'] = "reload" if !service_list.empty? and upnp_session['status'] == "form"
 
     result = {:status => upnp_session['status'],
               :device_id => upnp_session['device_id'],
@@ -92,7 +200,6 @@ class UpnpController < ApplicationController
               :path_ip => path_ip,
               :id => session_id
              }
-
     service_logger.note({failure_upnp: result}) if upnp_session['status'] == 'failure' || upnp_session['status'] == 'timeout'
     render :json => result
   end
@@ -113,98 +220,112 @@ class UpnpController < ApplicationController
     redirect_to :authenticated_root
   end
 
+
   private
 
-  def same_subnet? device_ip
-    request.remote_ip == device_ip
-  end
-
-  def decide_which_port(upnp_session, service_list)
-    device = Device.find upnp_session['device_id']
-    port = same_subnet?(device.session.hget('ip')) ? "lan_port" : "wan_port"
-    service_list.each do |service|
-      service['port'] = service[port]
+    def enabled_service_failed? updated_service
+      updated_service['enabled'] == true && updated_service['status'] == false && updated_service['update_result'] == "failure"
     end
-    service_list
-  end
 
-  def decide_which_path_ip upnp_session
-    device = Device.find upnp_session['device_id']
-    same_subnet?(device.session.hget('ip')) ? upnp_session['lan_ip'] : device.session.hget('ip')
-  end
+    def random_port exclude_num_list
+      rand_num = rand(1025..65535)
+      rand_num = random_port2(exclude_num_list) if exclude_num_list.include?(rand_num)
+      rand_num
+    end
 
-  # Return i18n service description
-  def decide_which_description(service_list)
-    desc_key_list = ["http", "streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget", "transmission",
-      "owncloud_http", "owncloud_https", "afp", "gallery_http", "gallery_https", "wordpress_http", "wordpress_https",
-       "php_mysql_phpmyadmin_http", "php_mysql_phpmyadmin_https"]
+    def same_subnet? device_ip
+      request.remote_ip == device_ip
+    end
 
-    service_list.each do |service|
-      unless service["service_name"].empty?
-        desc_key = service["service_name"].downcase.chomp(" ").gsub("-", "_").gsub("(", "_").gsub(")", "").gsub(" ", "_")
-        service["description"] = I18n.t("upnp_description.#{desc_key}")   if desc_key_list.include?(desc_key)
+    def decide_which_port(upnp_session, service_list)
+      device = Device.find upnp_session['device_id']
+      port = same_subnet?(device.session.hget('ip')) ? "lan_port" : "wan_port"
+      service_list.each do |service|
+        service['port'] = service[port]
       end
+      service_list
     end
-    service_list
-  end
 
-  def service_list_to_json
-    params[:service_list] = params[:service_list].to_json
-  end
-
-  def push_to_queue(job)
-    data = {:job => job, :session_id => @upnp.id}
-    sqs = AWS::SQS.new
-    queue = sqs.queues.named(Settings.environments.sqs.name)
-    queue.send_message(data.to_json)
-  end
-
-  def deleted_extra_key
-    extra_keys = ["port", "update_result"]
-    params[:service_list].each do |service|
-      extra_keys.each do |key|
-        service.delete(key) if service.has_key?(key)
-      end
+    def decide_which_path_ip upnp_session
+      device = Device.find upnp_session['device_id']
+      same_subnet?(device.session.hget('ip')) ? upnp_session['lan_ip'] : device.session.hget('ip')
     end
-  end
 
-  # check the updated result and added the result to each
-  def update_result service_list
-    service_list.each do |service|
-      result = "no_update"
+    # Return i18n service description
+    def decide_which_description(service_list)
+      desc_key_list = ["http", "streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget", "transmission",
+        "owncloud_http", "owncloud_https", "afp", "gallery_http", "gallery_https", "wordpress_http", "wordpress_https",
+         "php_mysql_phpmyadmin_http", "php_mysql_phpmyadmin_https"]
 
-      if service['error_code'] && service['enabled'] != service['status']
-        if service['error_code'].length == 0
-          result = "success"
-        else
-          result = "failure"
+      service_list.each do |service|
+        unless service["service_name"].empty?
+          desc_key = service["service_name"].downcase.chomp(" ").gsub("-", "_").gsub("(", "_").gsub(")", "").gsub(" ", "_")
+          service["description"] = I18n.t("upnp_description.#{desc_key}")   if desc_key_list.include?(desc_key)
         end
       end
-      service['update_result'] = result
+      service_list
     end
-    service_list
-  end
 
-  def update_permit
-    params.permit(:service_list);
-  end
-
-  def get_device_info
-    @device_ip = @device.session.hget(:ip)
-  end
-
-  def is_device_support?
-    unless @device.find_module_list.include?(Upnp::MODULE_NAME)
-      flash[:alert] = I18n.t('warnings.invalid_device')
-      redirect_to :authenticated_root 
+    def service_list_to_json
+      params[:service_list] = params[:service_list].to_json
     end
-  end
 
-  def get_error_msg error_code
-    if UpnpSession.handling_error_code?(error_code)
-      I18n.t("warnings.settings.upnp.error_code.num_" + error_code)
-    else
-      I18n.t("warnings.settings.upnp.not_found")
+    def push_to_queue(job)
+      data = {:job => job, :session_id => @upnp.id}
+      sqs = AWS::SQS.new
+      queue = sqs.queues.named(Settings.environments.sqs.name)
+      queue.send_message(data.to_json)
     end
-  end
+
+    def deleted_extra_key
+      extra_keys = ["port", "update_result"]
+      params[:service_list].each do |service|
+        extra_keys.each do |key|
+          service.delete(key) if service.has_key?(key)
+        end
+      end
+    end
+
+    # check the updated result and added the result to each
+    def update_result service_list
+      service_list.each do |service|
+        result = "no_update"
+
+        service['error_code'] = 'error....'
+
+        if service['error_code'] && service['enabled'] != service['status']
+          if service['error_code'].length == 0
+            result = "success"
+          else
+            result = "failure"
+          end
+        end
+
+        service['update_result'] = result
+      end
+      service_list
+    end
+
+    def update_permit
+      params.permit(:service_list);
+    end
+
+    def get_device_info
+      @device_ip = @device.session.hget(:ip)
+    end
+
+    def is_device_support?
+      unless @device.find_module_list.include?(Upnp::MODULE_NAME)
+        flash[:alert] = I18n.t('warnings.invalid_device')
+        redirect_to :authenticated_root
+      end
+    end
+
+    def get_error_msg error_code
+      if UpnpSession.handling_error_code?(error_code)
+        I18n.t("warnings.settings.upnp.error_code.num_" + error_code)
+      else
+        I18n.t("warnings.settings.upnp.not_found")
+      end
+    end
 end

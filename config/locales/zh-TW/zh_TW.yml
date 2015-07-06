@@ -31,6 +31,9 @@ zh-TW:
         table_head3: 'Service Name'
         table_head4: 'Description'
         table_head5: 'Update Result'
+        table_head6: 'Show Service Port'
+        table_head7: 'Hide Service Port'
+        table_head8: 'Service Port'
         result:
           success: '成功'
           failure: '失敗'
