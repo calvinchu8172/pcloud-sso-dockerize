@@ -1,18 +1,18 @@
-Given(/^a device has some valid cloud_id and some invalid cloud_id with:$/) do
-  @total = rand(10..20)
-  array = Array.new(@total)
+Given(/^a device has (\d+) emails including (\d+) cloud_id and some (\d+) cloud_id with:$/) do |record_count, valid, invalid|
 
-  array.map! do |user|
-    if rand(2) == 1
-      user = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
-      user.encoded_id
-    else
-      user = "INVALID ENCODE USER ID"
-    end
+  array = Array.new
+
+  @valid = valid.to_i
+  @invalid = invalid.to_i
+  @valid.times do
+    user = TestingHelper.create_and_confirm(FactoryGirl.create(:api_user))
+    array << user.encoded_id
   end
 
-  @invalid = array.select { |d| d.include?("INVALID")}.size
-  @valid = @total - @invalid
+  @invalid.times do
+    user = "INVALID ENCODE USER ID"
+    array << user
+  end
 
   @cloud_ids = (array).join(",")
 
