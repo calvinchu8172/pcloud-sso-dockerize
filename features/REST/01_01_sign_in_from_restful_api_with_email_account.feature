@@ -1,11 +1,12 @@
 Feature: Sign in from RESTful API with E-mail account
 
   Background:
-    Given an existing certificate and RSA key
+
 
   Scenario: [REST_01_01_01]
     User sign in from NAS
 
+    Given an existing certificate and RSA key
     Given an existing user's account and password
 
     When client send a POST request to /user/1/token with:
@@ -21,6 +22,7 @@ Feature: Sign in from RESTful API with E-mail account
   Scenario Outline: [REST_01_01_02]
     User sign in from APP
 
+    Given an existing certificate and RSA key
     Given an existing user's account and password
 
     When client send a POST request to /user/1/token with:
@@ -46,6 +48,7 @@ Feature: Sign in from RESTful API with E-mail account
   Scenario: [REST_01_01_03]
     User sign in with wrong password
 
+    Given an existing certificate and RSA key
     Given an existing user's account and password
 
     When client send a POST request to /user/1/token with:
@@ -59,6 +62,7 @@ Feature: Sign in from RESTful API with E-mail account
   Scenario: [REST_01_01_04]
     User sign in with the E-mail account have not confirmed yet longer than 3 days
 
+    Given an existing certificate and RSA key
     Given an existing user's account and password but have not confirmed yet longer than 3 days
 
     When client send a POST request to /user/1/token with:
