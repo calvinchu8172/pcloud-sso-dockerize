@@ -35,6 +35,19 @@ zh-TW:
           success: '成功'
           failure: '失敗'
           no_update: '未更新'
+      package:
+        instruction: 'Package設定'
+        table_head1: 'Enabled'
+        table_head2: 'Status'
+        table_head3: 'Package Name'
+        table_head4: 'Require'
+        table_head5: 'Version'
+        table_head6: 'Description'
+        table_head7: 'Update Result'
+        result:
+          success: '成功'
+          failure: '失敗'
+          no_update: '未更新'
     pairing: '裝置配對'
     paired: '裝置已配對'
     unpairing: '取消配對'
@@ -55,6 +68,7 @@ zh-TW:
     my_devices: '設備列表'
     search_devices: '搜尋裝置'
     settings:
+      package: 'Package設定'
       ddns: 'DDNS設定'
       upnp: 'UPnP設定'
     pairing: '裝置配對'
@@ -124,3 +138,14 @@ zh-TW:
             num_794: '載入 UPnP 連接埠對應清單失敗'
             num_793: '更新 UPnP 連接埠對應清單至資料庫失敗'
             num_792: '偵測不到您的裝置'
+      package:
+        sync: '正在同步Package設定...'
+        success: 'Package設定完成'
+        not_found: '偵測不到您的裝置'
+        cancel_instruction: '您確定要取消目前的Package設定流程？'
+        error_code:
+            num_498: 'Not in bot list'
+            num_489: 'Cannot get package list'
+            num_488: 'Cannot enable package'
+            num_487: 'Cannot disable package'
+

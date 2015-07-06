@@ -44,10 +44,14 @@ Rails.application.routes.draw do
     end
 
     resources :upnp
+    resources :package
 
     get 'upnp/check/:id' , to: 'upnp#check'
+    get 'package/check/:id' , to: 'package#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
+
+
 
   end
 

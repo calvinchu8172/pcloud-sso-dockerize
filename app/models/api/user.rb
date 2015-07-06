@@ -9,7 +9,7 @@ class Api::User < User
   AUTHENTICATION_TOKEN_TTL = 1.hour
   ACCOUNT_TOKEN_TTL = 1.month
   INVALID_SIGNATURE_ERROR = {error_code: "101", description: "Invalid signature"}
-  INVALID_TOKEN_AUTHENTICATION = {error_code: '201', description: 'Invalid cloud id or token'}
+  INVALID_TOKEN_AUTHENTICATION = {error_code: '201', description: 'Invalid cloud id or token.'}
 
   def authentication_token_key(user_id, token)
     "user:#{user_id}:authentication_token:#{token}"

@@ -17,10 +17,14 @@ class Api::Resource::PermissionsController < Api::Base
 	def validate_delete_permission_params
 		permission = Api::Resource::Permission.new valid_params
 	  unless permission.valid?
-	      	{ "004" => "device_account",
-	      	  "012" => "cloud_id",
-	      	  "013" => "certificate_serial",
-	      	  "014" => "signature" }.each { |error_code, field| return render :json =>  { error_code: error_code, description: permission.errors[field].first } unless permission.errors[field].empty? }
+	  	{ "004" => "device_account",
+	  	  "012" => "cloud_id",
+	  	  "013" => "certificate_serial",
+	  	  "101" => "signature" }.each do |error_code, field|
+	  	  	unless permission.errors[field].empty?
+	  	  		return render :json =>  { error_code: error_code, description: permission.errors[field].first }, status: 400
+	  	  	end
+	  	  end
 		end
 	end
 

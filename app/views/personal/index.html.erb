@@ -52,6 +52,7 @@
             </td>
             <%# show ddns information - end %>
           </tr>
+
           <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.escaped_encrypted_id%>');">
             <td colspan="3">
               <div ng-show="area.show" class="device_info_area">
@@ -121,6 +122,7 @@
                 <a ng-if="!area.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="area.open();">V</a>
                 <a ng-if="area.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="area.close();">A</a>
               </div>
+>>>>>>> develop
             </td>
           </tr>
         <% end %>

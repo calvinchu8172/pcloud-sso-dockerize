@@ -28,3 +28,4 @@ config/environments/*.local.yml
 config/*.yml
 
 /vendor/assets/components
+coverage
