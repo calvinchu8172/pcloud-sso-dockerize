@@ -142,8 +142,8 @@ end
 Then(/^one new user created by (.*?)$/) do |account|
   @email = account
   user = User.find_by_email(@email)
-  user.should_not be_nil
-  user.confirmation_token.should_not be_nil
+  expect(user).to be_present
+  expect(user.confirmation_token).to be_present
 end
 
 # Check confirmation email status

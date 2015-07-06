@@ -1,5 +1,5 @@
 Given(/^a user try to request own device list with (\d+) devices including (\d+) device and (\d+) device from APP$/) do |record_count, own, other|
-  @domain_id = Domain.create(domain_name: Settings.environments.ddns).id
+  domain_id = Domain.find_or_create_by(domain_name: Settings.environments.ddns).id
 
   array = Array.new
 
