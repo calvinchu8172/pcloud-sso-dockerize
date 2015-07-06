@@ -3,10 +3,11 @@ Feature: Facebook Register
   Background:
 
     Given the client has access token and uuid from facebook
-    And an existing certificate and RSA key
 
   Scenario: [REST_01_07_01]
     Client register by facebook uuid and access token
+
+    Given an existing certificate and RSA key
 
     When client send a POST request to /user/1/register/facebook with:
     | user_id      | USER ID       |
@@ -23,6 +24,8 @@ Feature: Facebook Register
   Scenario: [REST_01_07_02]
     Client register by invalid facebook uuid and access token
 
+    Given an existing certificate and RSA key
+
     When client send a POST request to /user/1/register/facebook with:
     | user_id      | INVALID USER ID      |
     | access_token | INVALID ACCESS TOKEN |
@@ -35,6 +38,8 @@ Feature: Facebook Register
 
   Scenario Outline: [REST_01_07_03]
     Client register by facebook uuid and access token with invalid password
+
+    Given an existing certificate and RSA key
 
     When client send a POST request to /user/1/register/facebook with:
     | user_id      | USER ID      |
@@ -54,6 +59,8 @@ Feature: Facebook Register
   Scenario: [REST_01_07_04]
     Client register by facebook uuid and access token but already registered
 
+    Given an existing certificate and RSA key
+
     Given client has registered in Rest API by facebook account and password "test_password"
     And this account is already binding to "facebook"
 
@@ -70,6 +77,8 @@ Feature: Facebook Register
   Scenario: [REST_01_07_05]
     Client register by facebook uuid and access token, already registered but password invalid
 
+    Given an existing certificate and RSA key
+
     Given client has registered in Rest API by facebook account and password "test_password"
 
     When client send a POST request to /user/1/register/facebook with:
@@ -85,6 +94,8 @@ Feature: Facebook Register
   Scenario: [REST_01_07_06]
     Client register by facebook uuid and access token with invalid signature
 
+    Given an existing certificate and RSA key
+
     When client send a POST request to /user/1/register/facebook with:
     | user_id      | USER ID           |
     | access_token | ACCESS TOKEN      |
@@ -97,6 +108,8 @@ Feature: Facebook Register
 
   Scenario: [REST_01_07_07]
     Client already has a portal accoutn, thne register by facebook uuid and access token with valid signature
+
+    Given an existing certificate and RSA key
 
     Given client has registered in Rest API by facebook account and password "test_password"
     And client already has a portal account
@@ -115,6 +128,8 @@ Feature: Facebook Register
 
   Scenario: [REST_01_07_08]
     Client already has a portal accoutn, thne register by facebook uuid and access token with invalid signature
+
+    Given an existing certificate and RSA key
 
     Given client has registered in Rest API by facebook account and password "test_password"
     And client already has a portal account

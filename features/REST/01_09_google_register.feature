@@ -3,10 +3,11 @@ Feature: Google Register
   Background:
 
     Given the client has access token and uuid from google
-    And an existing certificate and RSA key
 
   Scenario: [REST_01_09_01]
     Client register by google uuid and access token
+
+    Given an existing certificate and RSA key
 
     When client send a POST request to /user/1/register/google with:
     | user_id      | USER ID       |
@@ -23,6 +24,8 @@ Feature: Google Register
   Scenario: [REST_01_09_02]
     Client register by invalid google uuid and access token
 
+    Given an existing certificate and RSA key
+
     When client send a POST request to /user/1/register/google with:
     | user_id      | INVALID USER ID      |
     | access_token | INVALID ACCESS TOKEN |
@@ -35,6 +38,8 @@ Feature: Google Register
 
   Scenario Outline: [REST_01_09_03]
     Client register by google uuid and access token with invalid password
+
+    Given an existing certificate and RSA key
 
     When client send a POST request to /user/1/register/google with:
     | user_id      | USER ID      |
@@ -54,6 +59,8 @@ Feature: Google Register
   Scenario: [REST_01_09_04]
     Client register by google uuid and access token but already registered
 
+    Given an existing certificate and RSA key
+
     Given client has registered in Rest API by google account
     And this account is already binding to "google_oauth2"
 
@@ -70,6 +77,7 @@ Feature: Google Register
   Scenario: [REST_01_09_05]
     Client register by google uuid and access token, already registered but password invalid
 
+    Given an existing certificate and RSA key
     Given client has registered in Rest API by google account
 
     When client send a POST request to /user/1/register/google with:
@@ -85,6 +93,8 @@ Feature: Google Register
   Scenario: [REST_01_09_06]
     Client register by google uuid and access token with invalid signature
 
+    Given an existing certificate and RSA key
+
     When client send a POST request to /user/1/register/google with:
     | user_id      | USER ID           |
     | access_token | ACCESS TOKEN      |
@@ -98,6 +108,7 @@ Feature: Google Register
   Scenario: [REST_01_09_07]
     Client already has a portal accoutn, thne register by google uuid and access token with valid signature
 
+    Given an existing certificate and RSA key
     Given client has registered in Rest API by google account
     And client already has a portal account
 
@@ -116,6 +127,7 @@ Feature: Google Register
   Scenario: [REST_01_09_08]
     Client already has a portal accoutn, thne register by google uuid and access token with invalid signature
 
+    Given an existing certificate and RSA key
     Given client has registered in Rest API by google account
     And client already has a portal account
 
