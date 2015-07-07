@@ -33,10 +33,10 @@
             <div ng-switch on="result">
               <input id="check{{$index}}" type="checkbox" ng-model="package.enabled" >
               <div ng-switch-when="true">
-                <label><span></span></label>
+                <label for="check{{$index}}"><span>T</span></label>
               </div>
               <div ng-switch-when="false">
-                <label for="check{{$index}}"><span></span></label>
+                <label for="check{{$index}}"><span>F</span></label>
               </div>
             </div>
           </td>

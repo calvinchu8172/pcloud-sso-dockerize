@@ -178,7 +178,13 @@ class PackageController < ApplicationController
   end
 
   def update_permit
-    params.permit(:package_list);
+    package_list = JSON.parse( params[:package_list] )
+    puts package_list
+    package_list.each do | package |
+      puts package['package_name'] +"  ===  " + package['enabled'].to_s
+    end
+    params.permit(:package_list)
+
   end
 
   def get_device_info
