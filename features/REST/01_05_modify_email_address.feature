@@ -1,11 +1,12 @@
 Feature: Modify Email Address
 
   Background:
-    Given a signed in client
-    And client has not confirmed
 
   Scenario: [REST_01_05_01]
     modify email account
+
+    Given a signed in client
+    And client has not confirmed
 
     When client send a PUT request to /user/1/email with:
       | email                | new@ecoworkinc.com           |
@@ -22,6 +23,9 @@ Feature: Modify Email Address
   Scenario: [REST_01_05_02]
     modify email account with wrong authentication token
 
+    Given a signed in client
+    And client has not confirmed
+
     When client send a PUT request to /user/1/email with:
       | email                | new@ecoworkinc.com           |
       | cloud_id             | VALID_CLOUD_ID               |
@@ -35,6 +39,9 @@ Feature: Modify Email Address
   Scenario: [REST_01_05_03]
     modify email account with the same one
 
+    Given a signed in client
+    And client has not confirmed
+
     When client send a PUT request to /user/1/email with:
       | email                | THE_SAME_EMAIL               |
       | cloud_id             | VALID_CLOUD_ID               |
@@ -47,6 +54,9 @@ Feature: Modify Email Address
 
   Scenario: [REST_01_05_04]
     modify email account with the email has been taken
+
+    Given a signed in client
+    And client has not confirmed
 
     Given an existing user with:
       | id                   | taken@ecoworkinc.com         |
@@ -65,14 +75,17 @@ Feature: Modify Email Address
   Scenario Outline: [REST_01_05_05]
     modify email account with invalid email format
 
+    Given a signed in client
+    And client has not confirmed
+
     Given an existing user with:
       | id                   | taken@ecoworkinc.com         |
       | password             | taken123                     |
 
     When client send a PUT request to /user/1/email with:
-      | email                | <email_format>         |
-      | cloud_id             | VALID_CLOUD_ID               |
-      | authentication_token | VALID_AUTHENTICATION_TOKEN   |
+      | email                | <email_format>             |
+      | cloud_id             | VALID_CLOUD_ID             |
+      | authentication_token | VALID_AUTHENTICATION_TOKEN |
 
     Then the response status should be "400"
     And the JSON response should include error code: "004"
@@ -89,7 +102,7 @@ Feature: Modify Email Address
   Scenario: [REST_01_05_06]
     modify email account with user account has been confirmed
 
-    Given the client has been confirmed
+    Given a signed in client
 
     When client send a PUT request to /user/1/email with:
       | email                | new@ecoworkinc.com           |
