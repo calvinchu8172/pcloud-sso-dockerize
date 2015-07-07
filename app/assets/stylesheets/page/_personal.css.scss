@@ -18,63 +18,135 @@
     color: $zyxel_color2;
     padding-left: 10px;
   }
+  .device_info_block {
+    width: 50%;
+    float: left;
+  }
   .device_info_area {
     padding: 30px 0 30px 0;
-    .zyxel-grid-style1 {
-      .title {
-        font-size: 14px;
-        padding: 10px 0 10px 0;
-      }
-      .value {
-        padding: 10px 0;
-        font-size: 14px;
-        color: $zyxel_color2;
-      }
+    .col-sm-3 {
+      width: 240px;
+      height: 70px;
     }
     .info-block-sm {
+      font-size: 14px;
       margin-top: 5px;
       border-radius: 4px;
       color: black;
-      border: 1px solid $zyxel_color4;
-      height: 100px;
+      height: 70px;
+      .icon {
+        float: left;
+        width: 55px;
+        height: 70px;
+        &.raid-status {
+          background: image-url('raid_status_g.png') center no-repeat;
+        }
+        &.cpu-temp {
+          background: image-url('cpu_temp_g.png') center no-repeat;
+        }
+        &.fan-speed {
+          background: image-url('fan_speed_g.png') center no-repeat;
+        }
+      }
+      .title {
+        color: $zyxel_color4;
+        padding: 10px 0;
+        float: left;
+      }
+      .value {
+        width: 130px;
+        color: $zyxel_color2;
+        float: left;
+      }
     }
     .info-block-lg {
       margin-top: 5px;
       border-radius: 4px;
-      color: black;
-      border: 1px solid $zyxel_color4;
+      .icon {
+        float: left;
+        width: 55px;
+        height: 70px;
+        &.available-capacity {
+          background: image-url('available_capacity_g.png') center no-repeat;
+        }
+      }
+      .title {
+        width: 80%;
+        color: $zyxel_color4;
+        padding: 10px 0;
+        float: left;
+      }
+      .value {
+        width: 80%;
+        color: $zyxel_color2;
+        float: left;
+      }
+      .total-available-capacity {
+        height: 70px;
+      }
       .volume-info-block {
         .volume-info {
-          padding: 10px 15px;
-          .volume-name {
-            border-radius: 4px;
-            padding: 5px;
-            border: 1px solid $zyxel_color4;
-            font-weight: bold;
+          padding: 0px 15px;
+          .volumn-th {
+            float: left;
+            .icon {
+              width: 55px;
+              height: 30px;
+              &.volume {
+                background: image-url('available_capacity_g.png') center no-repeat;
+              }
+            }
+            .volume-name {
+              border-radius: 4px;
+              padding: 5px;
+              float: left;
+            }
           }
-          .total-size-bar {
-            height:20x;
-            border: 2px solid;
+          .volumn-td-1 {
+            padding: 4px 0;
+            .total-size-bar {
+              height:20x;
+              border: 2px solid $zyxel_color7;
+              .used-size-bar {
+                background-color: $zyxel_color7;
+                height:20px;
+                color: white;
+              }
+            }
           }
-          .used-size-bar {
-            border-right: 1px solid black;
-            background-color: $zyxel_color7;
-            height:20px;
-            color: white;
-          }
-          .volume-size {
-            padding: 5px;
-            font-weight: bold;
+          .volumn-td-2 {
+            padding-left: 0;
+            .volume-size {
+              padding: 5px;
+              font-weight: bold;
+            }
           }
         }
       }
     }
   }
+  div[ng-switch-when="loading"] {
+    img {
+      padding: 0 6px 0 0;
+    }
+  }
   .device_info_btn_area {
     border-bottom: 1px solid $zyxel_color4;
     padding:10px 0 20px 0;
+    .area_open_btn {
+      cursor: pointer;
+      padding: 25px;
+      background: image-url("arrow_down.png") no-repeat center;
+    }
+    .area_close_btn {
+      cursor: pointer;
+      padding: 25px;
+      background: image-url("arrow_up.png") no-repeat center;
+    }
   }
 }
+
+
 .zyxel_table_style4 {
   margin-top: 15px;
   td {
