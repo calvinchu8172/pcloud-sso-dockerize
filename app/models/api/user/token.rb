@@ -1,7 +1,7 @@
 class Api::User::Token < Api::User
   attr_accessor :certificate_serial, :signature, :app_key, :os
   validates_with SslValidator, signature_key: [:email, :certificate_serial]
-  
+
   def self.authenticate(payload = {})
     payload[:email] = payload.delete(:id)
     user = self.find_for_database_authentication(email: payload[:email])
@@ -17,14 +17,14 @@ class Api::User::Token < Api::User
     user.os = payload[:os]
     user.valid?
     unless user.errors["signature"].blank?
-      user.errors.add(:authenticate, Api::User::INVALID_SIGNATURE_ERROR) 
+      user.errors.add(:authenticate, Api::User::INVALID_SIGNATURE_ERROR)
       return user
     end
-    
+
     user.create_token
 
     if ((Time.zone.now - user.created_at) / 1.day) > 3 and !user.confirmed?
-      user.errors.add(:authenticate, {error_code: '002', 
+      user.errors.add(:authenticate, {error_code: '002',
                                       description: 'client have to confirm email account before continuing.',
                                       user_id: user.encoded_id,
                                       account_token: user.account_token,
@@ -33,7 +33,6 @@ class Api::User::Token < Api::User
                                       })
       return user
     end
-
     user
   end
 
@@ -43,7 +42,7 @@ class Api::User::Token < Api::User
 
     revoke_authentication_token(redis_token.get(:authentication_token))
     authentication_token = create_authentication_token
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: authentication_token}) 
+    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: authentication_token})
     authentication_token
   end
   def create_token
@@ -52,7 +51,7 @@ class Api::User::Token < Api::User
     key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
     redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token})
-    
+
     update_app_info
     {account_token: @account_token, authentication_token: @authentication_token}
   end
@@ -78,10 +77,10 @@ class Api::User::Token < Api::User
     end
 
     def expired?(expire_at)
-      DateTime.strptime(expire_at) < DateTime.now 
+      DateTime.strptime(expire_at) < DateTime.now
     end
     def update_app_info
-      return false if app_key.blank? or os.blank? or !['1', '2'].include?(os)
+      return false if app_key.blank? or os.blank? or !['0', '1', '2'].include?(os)
       app_info.bulk_set(app_key: app_key, os: os, account_token: account_token)
     end
 

@@ -6,7 +6,9 @@ class Api::Devices::V3::LiteController < Api::Base
     payload[:model_class_name] = payload.delete(:model_name)
     @device = Api::Device::V3::Lite.trigger(payload.merge(ip_address: request.remote_ip))
 
-    return render json: @device.errors.values[0].first, :status => 400 unless @device.valid?
+    @device.valid?
+    return render json: {:error=>@device.errors[:signature].first[:description]}, :status => 400 unless @device.errors[:signature].blank?
+    return render json: @device.errors[:parameter].first, :status => 400 unless @device.errors[:parameter].blank?
 
     render json: {result: 'success'}
   end

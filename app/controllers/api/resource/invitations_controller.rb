@@ -70,11 +70,11 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def render_error_response error_code
 		error_descriptions = {
-			"004" => "invalid device.",
-			"005" => "Invalid share point and permission.",
-			"013" => "invalid certificate.",
-			"014" => "invalid signature.",
-			"201" => "invalid cloud id or token."
+			"004" => "Invalid device.",
+			"005" => "Invalid share point or permission.",
+			"013" => "Invalid certificate.",
+			"014" => "Invalid signature.",
+			"201" => "Invalid cloud id or token."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end
