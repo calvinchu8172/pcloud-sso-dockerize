@@ -2,6 +2,7 @@ Feature: Modify Email Address
 
   Background:
     Given a signed in client
+    And client has not confirmed
 
   Scenario: [REST_01_05_01]
     modify email account
@@ -59,4 +60,43 @@ Feature: Modify Email Address
     Then the response status should be "400"
     And the JSON response should include error code: "002"
     And the JSON response should include description: "new E-mail has been taken"
+    And Email deliveries should be 0
+
+  Scenario Outline: [REST_01_05_05]
+    modify email account with invalid email format
+
+    Given an existing user with:
+      | id                   | taken@ecoworkinc.com         |
+      | password             | taken123                     |
+
+    When client send a PUT request to /user/1/email with:
+      | email                | <email_format>         |
+      | cloud_id             | VALID_CLOUD_ID               |
+      | authentication_token | VALID_AUTHENTICATION_TOKEN   |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "004"
+    And the JSON response should include description: "invalid email"
+    And Email deliveries should be 0
+
+    Examples:
+    | email_format |
+    |              |
+    | test         |
+    | @example.com |
+    | test@        |
+
+  Scenario: [REST_01_05_06]
+    modify email account with user account has been confirmed
+
+    Given the client has been confirmed
+
+    When client send a PUT request to /user/1/email with:
+      | email                | new@ecoworkinc.com           |
+      | cloud_id             | VALID_CLOUD_ID               |
+      | authentication_token | AUTHENTICATION_TOKEN |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "006"
+    And the JSON response should include description: "the user has been confirmed"
     And Email deliveries should be 0

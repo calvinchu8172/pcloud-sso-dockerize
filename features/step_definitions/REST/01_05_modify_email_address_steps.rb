@@ -15,3 +15,11 @@ When(/^client send a PUT request to \/user\/1\/email with:$/) do |table|
     new_email: email
   }
 end
+
+Given(/^client has not confirmed$/) do
+  @user.update_attributes(confirmed_at: nil)
+end
+
+Given(/^the client has been confirmed$/) do
+  @user.update_attributes(confirmed_at: Time.now)
+end
