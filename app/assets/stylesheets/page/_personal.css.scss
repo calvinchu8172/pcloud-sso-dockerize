@@ -28,102 +28,175 @@
       width: 240px;
       height: 70px;
     }
-    .info-block-sm {
+    .info-block {
       font-size: 14px;
       margin-top: 5px;
       border-radius: 4px;
-      color: black;
-      height: 70px;
       .icon {
-        float: left;
-        width: 55px;
+          float: left;
+          width: 55px;
+          height: 70px;
+          &.raid-status { background: image-url('raid_status_g.png') center no-repeat; }
+          &.cpu-temp { background: image-url('cpu_temp_g.png') center no-repeat; }
+          &.fan-speed { background: image-url('fan_speed_g.png') center no-repeat; }
+          &.available-capacity { background: image-url('available_capacity_g.png') center no-repeat; }
+          &.volume {
+            height: 30px;
+            background: image-url('available_capacity_g.png') center no-repeat;
+          }
+      }
+      &.small {
         height: 70px;
-        &.raid-status {
-          background: image-url('raid_status_g.png') center no-repeat;
+        .title {
+          color: $zyxel_color4;
+          padding: 10px 0;
+          float: left;
         }
-        &.cpu-temp {
-          background: image-url('cpu_temp_g.png') center no-repeat;
-        }
-        &.fan-speed {
-          background: image-url('fan_speed_g.png') center no-repeat;
-        }
-      }
-      .title {
-        color: $zyxel_color4;
-        padding: 10px 0;
-        float: left;
-      }
-      .value {
-        width: 130px;
-        color: $zyxel_color2;
-        float: left;
-      }
-    }
-    .info-block-lg {
-      margin-top: 5px;
-      border-radius: 4px;
-      .icon {
-        float: left;
-        width: 55px;
-        height: 70px;
-        &.available-capacity {
-          background: image-url('available_capacity_g.png') center no-repeat;
+        .value {
+          width: 130px;
+          color: $zyxel_color2;
+          float: left;
         }
       }
-      .title {
-        width: 80%;
-        color: $zyxel_color4;
-        padding: 10px 0;
-        float: left;
-      }
-      .value {
-        width: 80%;
-        color: $zyxel_color2;
-        float: left;
-      }
-      .total-available-capacity {
-        height: 70px;
-      }
-      .volume-info-block {
-        .volume-info {
-          padding: 0px 15px;
-          .volumn-th {
-            float: left;
-            .icon {
-              width: 55px;
-              height: 30px;
-              &.volume {
-                background: image-url('available_capacity_g.png') center no-repeat;
-              }
-            }
-            .volume-name {
-              border-radius: 4px;
-              padding: 5px;
+      &.large {
+        .title {
+          width: 80%;
+          color: $zyxel_color4;
+          padding: 10px 0;
+          float: left;
+        }
+        .value {
+          width: 80%;
+          color: $zyxel_color2;
+          float: left;
+        }
+        .total-available-capacity {
+          height: 70px;
+        }
+        .volume-info-block {
+          .volume-info {
+            padding: 0px 15px;
+            .volumn-th {
               float: left;
-            }
-          }
-          .volumn-td-1 {
-            padding: 4px 0;
-            .total-size-bar {
-              height:20x;
-              border: 2px solid $zyxel_color7;
-              .used-size-bar {
-                background-color: $zyxel_color7;
-                height:20px;
-                color: white;
+              .volume-name {
+                border-radius: 4px;
+                padding: 5px;
+                float: left;
               }
             }
-          }
-          .volumn-td-2 {
-            padding-left: 0;
-            .volume-size {
-              padding: 5px;
-              font-weight: bold;
+            .volumn-td-1 {
+              padding: 4px 0;
+              .total-size-bar {
+                height:20x;
+                border: 2px solid $zyxel_color7;
+                .used-size-bar {
+                  background-color: $zyxel_color7;
+                  height:20px;
+                  color: white;
+                }
+              }
+            }
+            .volumn-td-2 {
+              padding-left: 0;
+              .volume-size {
+                padding: 5px;
+              }
             }
           }
         }
       }
     }
+    // .info-block-sm {
+    //   height: 70px;
+    //   .icon {
+    //     float: left;
+    //     width: 55px;
+    //     height: 70px;
+    //     &.raid-status {
+    //       background: image-url('raid_status_g.png') center no-repeat;
+    //     }
+    //     &.cpu-temp {
+    //       background: image-url('cpu_temp_g.png') center no-repeat;
+    //     }
+    //     &.fan-speed {
+    //       background: image-url('fan_speed_g.png') center no-repeat;
+    //     }
+    //   }
+    //   .title {
+    //     color: $zyxel_color4;
+    //     padding: 10px 0;
+    //     float: left;
+    //   }
+    //   .value {
+    //     width: 130px;
+    //     color: $zyxel_color2;
+    //     float: left;
+    //   }
+    // }
+    // .info-block-lg {
+    //   margin-top: 5px;
+    //   border-radius: 4px;
+    //   .icon {
+    //     float: left;
+    //     width: 55px;
+    //     height: 70px;
+    //     &.available-capacity {
+    //       background: image-url('available_capacity_g.png') center no-repeat;
+    //     }
+    //   }
+    //   .title {
+    //     width: 80%;
+    //     color: $zyxel_color4;
+    //     padding: 10px 0;
+    //     float: left;
+    //   }
+    //   .value {
+    //     width: 80%;
+    //     color: $zyxel_color2;
+    //     float: left;
+    //   }
+    //   .total-available-capacity {
+    //     height: 70px;
+    //   }
+    //   .volume-info-block {
+    //     .volume-info {
+    //       padding: 0px 15px;
+    //       .volumn-th {
+    //         float: left;
+    //         .icon {
+    //           width: 55px;
+    //           height: 30px;
+    //           &.volume {
+    //             background: image-url('available_capacity_g.png') center no-repeat;
+    //           }
+    //         }
+    //         .volume-name {
+    //           border-radius: 4px;
+    //           padding: 5px;
+    //           float: left;
+    //         }
+    //       }
+    //       .volumn-td-1 {
+    //         padding: 4px 0;
+    //         .total-size-bar {
+    //           height:20x;
+    //           border: 2px solid $zyxel_color7;
+    //           .used-size-bar {
+    //             background-color: $zyxel_color7;
+    //             height:20px;
+    //             color: white;
+    //           }
+    //         }
+    //       }
+    //       .volumn-td-2 {
+    //         padding-left: 0;
+    //         .volume-size {
+    //           padding: 5px;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   }
   div[ng-switch-when="loading"] {
     img {
