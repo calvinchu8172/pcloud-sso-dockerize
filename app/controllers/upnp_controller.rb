@@ -25,75 +25,10 @@ class UpnpController < ApplicationController
     @upnp = UpnpSession.create
     @upnp.session.bulk_set(@session)
 
-    push_to_queue "upnp_query" if send_que?
+    push_to_queue "upnp_query"
     @session[:id] = @upnp.id
 
     service_logger.note({start_upnp: @session})
-  end
-
-  def send_que?
-    false
-  end
-
-  def bot_update_status upnp_session, session_id, step
-      service_list = ('[{"service_name":"FTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"FTP configuration",
-                     "wan_port":"22",
-                     "lan_port":"22",
-                     "path":"ftp://ip:port"},
-                    {"service_name":"DDNS",
-                     "status":false,
-                     "enabled":false,
-                     "description":"DDNS configuration",
-                     "wan_port":"7000",
-                     "lan_port":"7000",
-                     "path":""},
-                    {"service_name":"HTTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"HTTP configuration",
-                     "wan_port":"8000",
-                     "lan_port":"80",
-                     "path":"http://ip:port"}]').gsub("\n", "") if step == 1
-      service_list = ('[{"service_name":"FTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"FTP configuration",
-                     "wan_port":"22",
-                     "lan_port":"22",
-                     "path":"ftp://ip:port"},
-                    {"service_name":"DDNS",
-                     "status":false,
-                     "enabled":false,
-                     "description":"DDNS configuration",
-                     "wan_port":"7000",
-                     "lan_port":"7000",
-                     "path":""},
-                    {"service_name":"HTTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"HTTP configuration",
-                     "wan_port":"8000",
-                     "lan_port":"80",
-                     "path":"http://ip:port"},
-                    {"service_name":"XXX",
-                     "status":false,
-                     "enabled":false,
-                     "description":"for test....",
-                     "wan_port":"9000",
-                     "lan_port":"90",
-                     "path":""
-                      }]').gsub("\n", "") if step == 2
-    used_wan_port_list = ('["7000", "8000", "9000"]')
-    upnp_session['status'] = "form" if step == 1
-
-    upnp_session['service_list'] = service_list
-    upnp_session['used_wan_port_list'] = used_wan_port_list
-
-    UpnpSession.find(session_id).session.update(upnp_session)
-    upnp_session
   end
 
   # GET /upnp/:session_id/edit/
@@ -101,8 +36,6 @@ class UpnpController < ApplicationController
     session_id = params[:id]
     upnp_session = UpnpSession.find(session_id).session.all
     render :json => {:result => 'timeout'} and return if upnp_session.empty?
-
-    result = bot_update_status(upnp_session, session_id, 1) # for test....
 
     error_message = get_error_msg(upnp_session['error_code'])
     service_list = (upnp_session['status'] == 'form' && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
@@ -123,13 +56,11 @@ class UpnpController < ApplicationController
   end
 
   def update
-    logger.debug("update: #{update_permit.to_json}")
-
     @upnp = UpnpSession.find(params[:id])
     settings = update_permit.merge({:status => :submit})
     result = @upnp.session.update(settings);
 
-    push_to_queue "upnp_submit" if result && send_que?
+    push_to_queue "upnp_submit" if result
 
     service_logger.note({edit_upnp: settings})
     render :json => {:result => result}.to_json
@@ -141,10 +72,9 @@ class UpnpController < ApplicationController
     session_id = params[:id]
     @upnp = UpnpSession.find(session_id)
     upnp_session = @upnp.session.all
-    result = bot_update_status(upnp_session, session_id, 2) # for test...
     render :json => {:result => 'timeout'} and return if upnp_session.empty?
 
-    push_to_queue "upnp_query" if upnp_session['status'] == 'reload' && send_que?
+    push_to_queue "upnp_query" if upnp_session['status'] == 'reload'
     upnp_session['status'] = 'start' if upnp_session['status'] == 'reload'
 
     error_message = get_error_msg(upnp_session['error_code'])
@@ -168,13 +98,12 @@ class UpnpController < ApplicationController
       :path_ip => path_ip,
       :id => session_id
     }
-    service_logger.note({reload_upnp: result})
+    service_logger.note({reload_upnp_list: result})
     render :json => upnp_session.merge(result)
   end
 
   # GET /upnp/check/:id
-  # for the polling from front end
-  # it will check out session is still avaliable
+  # for the polling from front end, it will check out session is still avaliable
   def check
     session_id = params[:id]
     @upnp = UpnpSession.find(session_id)
@@ -290,8 +219,6 @@ class UpnpController < ApplicationController
     def update_result service_list
       service_list.each do |service|
         result = "no_update"
-
-        service['error_code'] = 'error....'
 
         if service['error_code'] && service['enabled'] != service['status']
           if service['error_code'].length == 0

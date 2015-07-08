@@ -151,7 +151,6 @@
     };
 
     $scope.loadConfig = function(){
-      console.log('loadConfig...');
       $scope.hideServicePort();
       $timeout(function() {
         $scope.loadTimes++;
@@ -172,7 +171,6 @@
           }
 
           if($scope.loadTimes < $scope.timesLimit){
-
             $scope.loadConfig();
             return;
           }
@@ -193,7 +191,6 @@
     };
 
     $scope.submit = function(){
-      console.log('submit...');
       $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false }).success(function(response){
         if(response.result){
           $scope.checkSubmit();
@@ -230,10 +227,8 @@
     };
 
     $scope.checkSubmit = function(){
-      console.log('checkSubmit...');
       $timeout(function() {
         $http.get($scope.checkPath + $scope.session.id, { cache: false }).success(function(response){
-
           $scope.checkTimes++;
           switch(response.status){
             case 'updated':
@@ -301,7 +296,6 @@
       $scope.step = response.status;
       $scope.panel = response.status;
       $scope.enableBtn();
-      console.log(response);
       $scope.session = response;
       $scope.service_list = response.service_list;
     }
