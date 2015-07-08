@@ -3,7 +3,7 @@
 <div class="personal" ng-app="personal_app" ng-controller="PersonalController">
 
   <%# paired device list %>
-  <div class="zyxel_content" style="max-width:800px">
+  <div class="zyxel_content" style="max-width:700px">
 
     <table class="zyxel_table_style3">
 
@@ -91,23 +91,23 @@
                   <div ng-switch-when="done">
 
                     <div class="row">
-                      <div class="col-xs-9 col-sm-3 col-sm-offset-1">
+                      <div class="col-xs-9 col-sm-3 col-sm-offset-2">
                         <div class="zyxel-grid-style1 info-block small">
-                          <div class="icon raid-status"></div>
+                          <div class="icon raid-status" ng-class="{'warning': info.raidStatus != 'Healthy'}"></div>
                           <div class="title text-left">RAID status</div>
                           <div class="value text-left">{{info.raidStatus}}</div>
                         </div>
                       </div>
                       <div class="col-xs-9 col-sm-3">
                         <div class="zyxel-grid-style1 info-block small">
-                          <div class="icon cpu-temp"></div>
+                          <div class="icon cpu-temp" ng-class="{'warning': info.cpuTempWarning}"></div>
                           <div class="title text-left">CPU temp</div>
                           <div class="value text-left">{{info.cpuTemp.cel}}/{{info.cpuTemp.fah}}</div>
                         </div>
                       </div>
                       <div class="col-xs-9 col-sm-3">
                         <div class="zyxel-grid-style1 info-block small">
-                          <div class="icon fan-speed"></div>
+                          <div class="icon fan-speed" ng-class="{'warning': info.fanSpeedWarning}"></div>
                           <div class="title text-left">Fan speed</div>
                           <div class="value text-left">{{info.fanSpeed}}</div>
                         </div>
@@ -115,7 +115,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-sm-offset-1">
+                      <div class="col-xs-12 col-sm-12 col-sm-offset-2">
                         <div class="zyxel-grid-style1 info-block large">
 
                           <div class="total-available-capacity">
@@ -124,22 +124,25 @@
                             <div class="value text-left">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
                           </div>
 
-                          <div class="volume-info-block">
-                            <div class="volume-info row" ng-repeat="volume in info.volumeList">
+                          <div class="volumes-available-capacity">
+                            <div class="volume-row row" ng-repeat="volume in info.volumeList" ng-controller="VolumeController" ng-init="init(volume)">
 
-                              <div class="volumn-th">
+                              <div class="volumn-th col-xs-12">
                                 <div class="icon volume"></div>
-                                <div class="volume-name">{{volume['volume-name']}}</div>
+                                <div class="volume-name">{{volumeName}}</div>
                               </div>
 
-                              <div class="volumn-td-1 col-sm-6">
-                                <div class="total-size-bar">
-                                  <div class="used-size-bar" style="width:{{300*(volume['used-capacity']/volume['total-capacity'])}}px">{{volume['used-capacity']}}</div>
+                              <div class="volumn-td-1 col-sm-6 col-xs-9">
+                                <div class="total-size-bar" ng-class="{'warning': volumeWarning}">
+                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" style="width:{{300*(usedCapacity/totalCapacity)}}px" >{{usedCapacity}}{{unit}}</div>
+
                                 </div>
                               </div>
 
-                              <div class="volumn-td-2 col-sm-2">
-                                <div class="volume-size text-left" ng-click="changeUnit();">{{volume['total-capacity']}}</div>
+                              <div class="volumn-td-2 col-sm-2 col-xs-3">
+                                <div class="volume-size text-left" ng-click="changeUnit();">
+                                  {{totalCapacity}}{{unit}}
+                                </div>
                               </div>
 
                             </div>
@@ -179,22 +182,53 @@
     $scope.deviceInfoAreas = {};
   });
 
-  personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
+  personal_app.controller('VolumeController', function ($scope) {
+    $scope.volumeName;
+    $scope.totalCapacity = 0;
+    $scope.usedCapacity = 0;
+    $scope.unit = 'MB';
+    $scope.units = ['KB', 'MB', 'GB', 'TB', 'PB'];
+    $scope.volumeWarning;
+    $scope.init = function(volume){
+      $scope.volumeName = volume['volume-name'];
+      $scope.totalCapacity = parseInt(volume['total-capacity']);
+      $scope.usedCapacity = parseInt(volume['used-capacity']);
+      $scope.changeUnit();
+      $scope.volumeWarning = volume['warning'];
+    }
+    $scope.changeUnit = function(){
+      var unit = ($scope.unit == 'MB' ? 'GB' : 'MB');
+      var powOfUnitFrom = $scope.units.indexOf($scope.unit);
+      var powOfUnitTo = $scope.units.indexOf(unit);
+      if(powOfUnitFrom < powOfUnitTo){
+        $scope.totalCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+        $scope.usedCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+      }else if(powOfUnitFrom > powOfUnitTo){
+        $scope.totalCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+        $scope.usedCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+      }
+      $scope.totalCapacity = $scope.totalCapacity.toFixed(1);
+      $scope.usedCapacity = $scope.usedCapacity.toFixed(1);
+      $scope.unit = unit;
+    }
+  });
 
+
+
+  personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
     $scope.deviceId;
     $scope.session;
     $scope.info = {
       fanSpeed: '',
-      cpuTemp: {
-        cel: 0, // °C
-        fah: 0, // °F
-      },
+      fanSpeedWarning: false,
+      cpuTemp: { cel: 0, fah: 0 },
       cpuTempWarning: false,
-      raidStatus: 'healthy',
+      raidStatus: 'Healthy',
       volumeList: null,
       init: function(json){
         this.raidStatus = json['raid_status'];
         this.fanSpeed = json['fan_speed'] + 'RPM';
+        this.fanSpeedWarning = json['fan_speed_warning'];
         this.cpuTemp.cel = json['cpu_temperature_celsius'] + '°C';
         this.cpuTemp.fah = json['cpu_temperature_fahrenheit'] + '°F';
         this.cpuTempWarning = json['cpu_temperature_warning'];
@@ -203,7 +237,9 @@
           var volume = {};
           angular.forEach(volumeAttrs, function(attrObj, index){
             for(key in attrObj){
-              volume[key] = attrObj[key];
+              var attr = attrObj[key];
+              if(key == 'warning'){ attr = (attrObj[key] === 'true'); }
+              volume[key] = attr;
             }
           });
           volumeList.push(volume);
@@ -217,6 +253,7 @@
         used: 0,
         unit: 'MB',
         units: ['KB', 'MB', 'GB', 'TB', 'PB'],
+        volumes: [],
         add: function(total, used){
           $scope.info.capacity.total += total;
           $scope.info.capacity.used += used;
@@ -229,10 +266,10 @@
           var capacity = $scope.info.capacity;
           var powOfUnitFrom = capacity.units.indexOf(capacity.unit);
           var powOfUnitTo = capacity.units.indexOf(unit);
-          if(powOfUnitFrom-powOfUnitTo < powOfUnitTo){
+          if(powOfUnitFrom < powOfUnitTo){
             $scope.info.capacity.total *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
             $scope.info.capacity.used *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
-          }else if(unit_pow_this > unit_pow_another){
+          }else if(powOfUnitFrom > powOfUnitTo){
             $scope.info.capacity.total *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
             $scope.info.capacity.used *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
           }

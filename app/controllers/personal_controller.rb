@@ -79,15 +79,16 @@ class PersonalController < ApplicationController
 
   def for_test
       info = ('{"fan_speed":"759",
+        "fan_speed_warning":"true",
         "cpu_temperature_celsius":"39.00",
         "cpu_temperature_fahrenheit":"102.20",
-        "cpu_temperature_warning":"false",
-        "raid_status":"healthy",
+        "cpu_temperature_warning":"true",
+        "raid_status":"Healthy",
         "volume_list":[
             [ {"volume-name":"Volume1"},
               {"used-capacity":"336.93"},
               {"total-capacity":"2832.96"},
-              {"warning":"false"}
+              {"warning":"true"}
             ],
             [ {"volume-name":"Volume2"},
               {"used-capacity":"400"},
