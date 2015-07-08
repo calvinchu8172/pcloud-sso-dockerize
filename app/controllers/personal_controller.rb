@@ -48,8 +48,6 @@ class PersonalController < ApplicationController
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
   end
 
-
-
   def check_device_info_session
     encrypted_session_id = params[:id] || ''
     render :json => { "result" => "failed" }, status: 400 and return if encrypted_session_id.blank?
