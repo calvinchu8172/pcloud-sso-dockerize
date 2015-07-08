@@ -48,8 +48,6 @@ class PersonalController < ApplicationController
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
   end
 
-
-
   def check_device_info_session
     encrypted_session_id = params[:id] || ''
     render :json => { "result" => "failed" }, status: 400 and return if encrypted_session_id.blank?
@@ -72,35 +70,8 @@ class PersonalController < ApplicationController
 
   def check_status
     check_timeout
-    for_test
     @session['session_id'] = @device_info_session.escaped_encrypted_id
     render :json => @session, status: 200
-  end
-
-  def for_test
-      info = ('{"fan_speed":"759",
-        "fan_speed_warning":"true",
-        "cpu_temperature_celsius":"39.00",
-        "cpu_temperature_fahrenheit":"102.20",
-        "cpu_temperature_warning":"true",
-        "raid_status":"Healthy",
-        "volume_list":[
-            [ {"volume-name":"Volume1"},
-              {"used-capacity":"336.93"},
-              {"total-capacity":"2832.96"},
-              {"warning":"true"}
-            ],
-            [ {"volume-name":"Volume2"},
-              {"used-capacity":"400"},
-              {"total-capacity":"1832.96"},
-              {"warning":"false"}
-            ]
-          ]}').gsub("\n", "")
-    @session['info'] = info
-    @device_info_session.session.bulk_set(@session)
-
-    @session['status'] = 'done'
-    @session['info'] = JSON.parse(@device_info_session.session.all['info'])
   end
 
   protected

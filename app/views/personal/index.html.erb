@@ -125,7 +125,7 @@
                           </div>
 
                           <div class="volumes-available-capacity">
-                            <div class="volume-row row" ng-repeat="volume in info.volumeList" ng-controller="VolumeController" ng-init="init(volume)">
+                            <div class="volume-row row" ng-repeat="volume in info.volumeList" ng-controller="VolumeController" ng-init="init(volume);">
 
                               <div class="volumn-th col-xs-12">
                                 <div class="icon volume"></div>
@@ -134,14 +134,13 @@
 
                               <div class="volumn-td-1 col-sm-6 col-xs-9">
                                 <div class="total-size-bar" ng-class="{'warning': volumeWarning}">
-                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" style="width:{{300*(usedCapacity/totalCapacity)}}px" >{{usedCapacity}}{{unit}}</div>
-
+                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" style="width:{{300*(volumeUsedCapacity/volumeTotalCapacity)}}px" >{{volumeUsedCapacity}}{{volumeUnit}}</div>
                                 </div>
                               </div>
 
                               <div class="volumn-td-2 col-sm-2 col-xs-3">
                                 <div class="volume-size text-left" ng-click="changeUnit();">
-                                  {{totalCapacity}}{{unit}}
+                                  {{volumeTotalCapacity}}{{volumeUnit}}
                                 </div>
                               </div>
 
@@ -184,36 +183,40 @@
 
   personal_app.controller('VolumeController', function ($scope) {
     $scope.volumeName;
-    $scope.totalCapacity = 0;
-    $scope.usedCapacity = 0;
-    $scope.unit = 'MB';
-    $scope.units = ['KB', 'MB', 'GB', 'TB', 'PB'];
+    $scope.volumeTotalCapacity = 0;
+    $scope.volumeUsedCapacity = 0;
+    $scope.volumeUnit = 'MB';
+    $scope.volumeUnitOptions = ['KB', 'MB', 'GB', 'TB', 'PB'];
     $scope.volumeWarning;
     $scope.init = function(volume){
-      $scope.volumeName = volume['volume-name'];
-      $scope.totalCapacity = parseInt(volume['total-capacity']);
-      $scope.usedCapacity = parseInt(volume['used-capacity']);
+      volumeObj = {};
+      angular.forEach(volume, function(volumeAttrs, index){
+        var key = Object.keys(volumeAttrs)[0];
+        volumeObj[key] = volumeAttrs[key];
+      });
+      $scope.volumeName = volumeObj['volume-name'];
+      $scope.volumeTotalCapacity = parseInt(volumeObj['total-capacity']);
+      $scope.volumeUsedCapacity = parseInt(volumeObj['used-capacity']);
+      $scope.volumeWarning = (volumeObj['warning'] === 'true');
+      $scope.info.capacity.add($scope.volumeTotalCapacity, $scope.volumeUsedCapacity);
       $scope.changeUnit();
-      $scope.volumeWarning = volume['warning'];
     }
     $scope.changeUnit = function(){
-      var unit = ($scope.unit == 'MB' ? 'GB' : 'MB');
-      var powOfUnitFrom = $scope.units.indexOf($scope.unit);
-      var powOfUnitTo = $scope.units.indexOf(unit);
+      var newUnit = ($scope.volumeUnit == 'MB' ? 'GB' : 'MB');
+      var powOfUnitFrom = $scope.volumeUnitOptions.indexOf($scope.volumeUnit);
+      var powOfUnitTo = $scope.volumeUnitOptions.indexOf(newUnit);
       if(powOfUnitFrom < powOfUnitTo){
-        $scope.totalCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
-        $scope.usedCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+        $scope.volumeTotalCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+        $scope.volumeUsedCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
       }else if(powOfUnitFrom > powOfUnitTo){
-        $scope.totalCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
-        $scope.usedCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+        $scope.volumeTotalCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+        $scope.volumeUsedCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
       }
-      $scope.totalCapacity = $scope.totalCapacity.toFixed(1);
-      $scope.usedCapacity = $scope.usedCapacity.toFixed(1);
-      $scope.unit = unit;
+      $scope.volumeTotalCapacity = $scope.volumeTotalCapacity.toFixed(1);
+      $scope.volumeUsedCapacity = $scope.volumeUsedCapacity.toFixed(1);
+      $scope.volumeUnit = newUnit;
     }
   });
-
-
 
   personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
     $scope.deviceId;
@@ -232,20 +235,7 @@
         this.cpuTemp.cel = json['cpu_temperature_celsius'] + '°C';
         this.cpuTemp.fah = json['cpu_temperature_fahrenheit'] + '°F';
         this.cpuTempWarning = json['cpu_temperature_warning'];
-        var volumeList = [];
-        angular.forEach(json['volume_list'], function(volumeAttrs, index){
-          var volume = {};
-          angular.forEach(volumeAttrs, function(attrObj, index){
-            for(key in attrObj){
-              var attr = attrObj[key];
-              if(key == 'warning'){ attr = (attrObj[key] === 'true'); }
-              volume[key] = attr;
-            }
-          });
-          volumeList.push(volume);
-          $scope.info.capacity.add(parseInt(volume['total-capacity']), parseInt(volume['used-capacity']));
-        });
-        this.volumeList = volumeList;
+        this.volumeList = json['volume_list'];
       },
       capacity:{
         available: 0,
@@ -255,8 +245,8 @@
         units: ['KB', 'MB', 'GB', 'TB', 'PB'],
         volumes: [],
         add: function(total, used){
-          $scope.info.capacity.total += total;
-          $scope.info.capacity.used += used;
+          $scope.info.capacity.total += parseInt(total);
+          $scope.info.capacity.used += parseInt(used);
           if($scope.info.capacity.total >= 4096){
             $scope.info.capacity.to('GB');
           }
