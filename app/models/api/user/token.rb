@@ -1,6 +1,6 @@
 class Api::User::Token < Api::User
-  attr_accessor :certificate_serial, :signature, :app_key, :os
-  validates_with SslValidator, signature_key: [:email, :certificate_serial]
+  attr_accessor :certificate_serial, :signature, :app_key, :os, :uuid
+  validates_with SslValidator, signature_key: [:email, :certificate_serial, :uuid]
 
   def self.authenticate(payload = {})
     payload[:email] = payload.delete(:id)
@@ -15,6 +15,7 @@ class Api::User::Token < Api::User
     user.certificate_serial = payload[:certificate_serial]
     user.app_key = payload[:app_key]
     user.os = payload[:os]
+    user.uuid = payload[:uuid]
     user.valid?
     unless user.errors["signature"].blank?
       user.errors.add(:authenticate, Api::User::INVALID_SIGNATURE_ERROR)
