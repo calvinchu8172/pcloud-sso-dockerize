@@ -30,6 +30,18 @@
         color: $btn_active_color;
       }
     }
+    > a.unverified {
+      color: $btn_color;
+      margin-right: 8px;
+      @include transition(all, .2s, color);
+      border: 1px solid $btn_color;
+      &:hover, &:focus {
+        text-decoration: none;
+        background-color: $btn_active_bg;
+        color: $btn_active_color;
+      }
+    }
+
   }
 }
 

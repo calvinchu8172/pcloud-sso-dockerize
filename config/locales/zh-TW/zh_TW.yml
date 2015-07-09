@@ -3,6 +3,7 @@ zh-TW:
     language: "語言"
     forgot_password: '忘記密碼'
     resend_confirmation: '重新寄送'
+    unverified: '未驗證'
     sign_in: '登入'
     sign_out: '登出'
     sign_up: '註冊'
