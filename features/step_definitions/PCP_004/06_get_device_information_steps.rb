@@ -1,12 +1,9 @@
 When(/^user click on down arrow button$/) do
-  find(:xpath, "//tr/td/div/a").click
+  find(:xpath, "//tr/td/div/a[@ng-if='!area.show']").click
   wait_server_response(1)
 end
 
 Then(/^the page should display device information$/) do
-
-  page.save_screenshot('test.jpg')
-binding.pry
   expect(page).to have_content("RAID status")
   expect(page).to have_content("CPU temp")
   expect(page).to have_content("Available capacity")
@@ -22,8 +19,8 @@ When(/^user click on up arrow button$/) do
 end
 
 Then(/^the page should not display device information$/) do
-  expect(page).not_to have_content("RAID status")
-  expect(page).not_to have_xpath("//a[@ng-if='area.show']")
+  expect(page).to have_no_content("RAID status")
+  expect(page).to have_no_xpath("//a[@ng-if='area.show']")
 end
 
 Given(/^user have another paired device$/) do
@@ -87,8 +84,7 @@ end
 
 def device_for_test(device, info_data = {})
 
-  @device_info_session = DeviceInfoSession.find_by_encrypted_id(URI.decode(device.encrypted_id))
-  @session = @device_info_session.session.all
+  @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
 
   info = %Q({"fan_speed":"759",
      "cpu_temperature_celsius":"39.00",
@@ -108,8 +104,13 @@ def device_for_test(device, info_data = {})
          ]
        ]}).gsub("\n", "")
 
-  @session['info'] = info
-  @session['status'] = 'done'
-  @device_info_session.session.bulk_set(@session)
-  # @session['info'] = JSON.parse(@device_info_session.session.all['info'])
+  device_info_session_id = @redis.get('device:info:session:index')
+
+  key = 'device:info:'+ device_info_session_id +':session'
+
+  @redis.hset(key, 'status', 'done')
+
+  @redis.hset(key, 'info', info)
+  device_info_all = @redis.hgetall(key)
+
 end
