@@ -72,7 +72,7 @@ class Api::User < User
 
   protected
     def generate_xmpp_account
-      url_safe_encode64(email)
+      url_safe_encode64(email + '-' + uuid.to_s )
     end
 
     #用英數產生密碼，大小寫有別
