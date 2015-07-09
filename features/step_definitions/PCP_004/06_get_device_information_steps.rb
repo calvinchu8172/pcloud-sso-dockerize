@@ -1,0 +1,115 @@
+When(/^user click on down arrow button$/) do
+  find(:xpath, "//tr/td/div/a").click
+  wait_server_response(1)
+end
+
+Then(/^the page should display device information$/) do
+
+  page.save_screenshot('test.jpg')
+binding.pry
+  expect(page).to have_content("RAID status")
+  expect(page).to have_content("CPU temp")
+  expect(page).to have_content("Available capacity")
+end
+
+Then(/^the page should include up arrow button$/) do
+  expect(page).to have_xpath("//a[@ng-if='area.show']")
+end
+
+When(/^user click on up arrow button$/) do
+  find(:xpath, "//a[@ng-if='area.show']").click
+  wait_server_response(1)
+end
+
+Then(/^the page should not display device information$/) do
+  expect(page).not_to have_content("RAID status")
+  expect(page).not_to have_xpath("//a[@ng-if='area.show']")
+end
+
+Given(/^user have another paired device$/) do
+  @another_pairing = TestingHelper.create_pairing(@user.id)
+end
+
+When(/^user click on down arrow button and then click on another down arrow button$/) do
+  steps %{
+    When user click on down arrow button
+    When user click on down arrow button
+  }
+end
+
+Then(/^the page should display only one down arrow button$/) do
+  expect(page).to have_xpath("//a[@ng-if='area.show']")
+  expect(page).to have_xpath("//a[@ng-if='!area.show']")
+end
+
+Given(/^the user have a piared device with total capacity: (\d+)MB, used capacity: (\d+)MB$/) do |arg1, arg2|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^the available capacity should display: (\d+)MB$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^the available capacity percentage should be: (\d+)%$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^the available capacity should display: (\d+)GB$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^the volumn capacity should display: <display>$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+When(/^click on volumn div$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Given(/^device feedback device info with:$/) do |table|
+  data = table.rows_hash
+  info_data = {}
+  info_data[:volumn_name] = data["volumn_name"]
+  info_data[:used_capacity] = data["used_capacity"]
+  info_data[:total_capacity] = data["total_capacity"]
+  device_for_test(Device.first, info_data)
+  wait_server_response(1)
+end
+
+Given(/^another device feedback device info with:$/) do |table|
+  # data = table.rows_hash
+  # info_data = {}
+  # info_data[:volumn_name] = data["volumn_name"]
+  # info_data[:used_capacity] = data["used_capacity"]
+  # info_data[:total_capacity] = data["total_capacity"]
+  # device_for_test(Device.last, info_data)
+end
+
+def device_for_test(device, info_data = {})
+
+  @device_info_session = DeviceInfoSession.find_by_encrypted_id(URI.decode(device.encrypted_id))
+  @session = @device_info_session.session.all
+
+  info = %Q({"fan_speed":"759",
+     "cpu_temperature_celsius":"39.00",
+     "cpu_temperature_fahrenheit":"102.20",
+     "cpu_temperature_warning":"false",
+     "raid_status":"healthy",
+     "volume_list":[
+         [ {"volume-name":"#{info_data[:volumn_name]}"},
+           {"used-capacity":"#{info_data[:used_capacity]}"},
+           {"total-capacity":"#{info_data[:used_capacity]}"},
+           {"warning":"false"}
+         ],
+         [ {"volume-name":"Volume2"},
+           {"used-capacity":"400"},
+           {"total-capacity":"1832.96"},
+           {"warning":"false"}
+         ]
+       ]}).gsub("\n", "")
+
+  @session['info'] = info
+  @session['status'] = 'done'
+  @device_info_session.session.bulk_set(@session)
+  # @session['info'] = JSON.parse(@device_info_session.session.all['info'])
+end
