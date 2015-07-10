@@ -120,7 +120,7 @@ Feature: [PCP_001_01] Sign Up
       | Confirm Password  | 12345678               |
 
     Then the page will redirect to success page
-    And the new user should see "unverified" button
+    And the user should see "unverified" button
 
   Scenario: [PCP_001_01_09]
     Redirect to login page after confirmed

@@ -152,8 +152,8 @@ Then(/^the new user should receive an email confirmation$/) do
 end
 
 # Check content for sent email page
-Then(/^the new user should see "(.*?)" button$/) do |btn|
-  expect(page).to have_link(btn, href: new_user_confirmation_path)
+Then(/^the user should see "(.*?)" button$/) do |btn|
+  expect(page).to have_link(btn)
 end
 
 Then(/^user should not see "(.*?)" button$/) do |btn|

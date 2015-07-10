@@ -35,6 +35,19 @@ Given(/^the account was confirmed$/) do
   @user.save
 end
 
+Given(/^the user has registered more than (\d+) days$/) do |days|
+  User.first.update_attributes(confirmation_sent_at: (days.to_i + 1).days.ago)
+end
+
+Given(/^the user login successfully with an unconfirmed account registered not over (\d+) days$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Given(/^the page shows the "(.*?)" button$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+
 # -------------------------------------------------------------------
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------
