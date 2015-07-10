@@ -141,6 +141,7 @@ Feature: [PCP_001_01] Sign Up
     When user click the confirm button
 
     Then user will redirect to login page
+    And user should not see "unverified" button
 
   Scenario: [PCP_001_01_10]
     Redirect to login page when user click cancel button in sign up page
