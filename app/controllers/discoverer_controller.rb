@@ -8,12 +8,9 @@ class DiscovererController < ApplicationController
   before_filter :check_device_available, :only => [:check]
 
   def index
-
     raw_result = Array.new
     search_available_device.each do |device|
-      logger.debug('get device product:' + device.product.to_json)
       next if(device.product.blank?)
-      logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
       raw_result.push({:device_id => device.escaped_encrypted_id,
         :paired => device.paired?,
         :product_name => device.product.name,
@@ -39,13 +36,11 @@ class DiscovererController < ApplicationController
   end
 
   def search
-
     unless mac_address_valid?(params[:device][:mac_address])
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'add'
       return
     end
-
     params[:device][:mac_address].gsub!(/:/, '')
     service_logger.note({searching_device: params[:device]})
     device = Device.search(params[:device][:mac_address], params[:device][:serial_number])
@@ -69,22 +64,17 @@ class DiscovererController < ApplicationController
   # 1. 同樣的public IP
   # 2. 裝置非本人配對中
   def search_available_device
-
     available_device_list = []
     available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
 
     service_logger.note({device_in_lan: available_ip_list})
 
     Device.where('id in (?)', available_ip_list).each do |device|
-
       pairing_session = device.pairing_session.all
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
       presence = device.presence?
-
       available_device_list << device if !pairing && presence
     end
-
-    logger.debug('result of searching available device list:' + available_device_list.inspect)
     available_device_list
   end
 
