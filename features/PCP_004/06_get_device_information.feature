@@ -37,45 +37,48 @@ Feature: [PCP_004_007] Get Device Information
   Scenario Outline: [PCP_004_006_004]
     Display Available capacity
 
-    Given the user have a piared device with total capacity: <total_capacity>, used capacity: <used_capacity>
-
     When user click on down arrow button
-    And another device feedback device info with:
-      | volumn_name    | volumn_ecowork |
-      | used_capacity  | 100            |
-      | total_capacity | 1000           |
+    And device feedback device info with:
+      | volumn_name    | volumn_ecowork   |
+      | used_capacity  | <used_capacity>  |
+      | total_capacity | <total_capacity> |
 
     Then the available capacity should display: <display>
     And the available capacity percentage should be: <percentage>
 
     Examples:
       | total_capacity  | used_capacity | display       | percentage   |
-      | 4095MB          | 500MB         | 4095MB        | 12%          |
-      | 4096MB          | 1000MB        | 4GB           | 24%          |
+      | 4095          | 500         | 4095        | 87.79%          |
+      | 4096          | 1000        | 4.0          | 75.00%          |
 
   Scenario Outline: [PCP_004_006_005]
     Display volumn capacity
 
-    Given the user have a piared device with total capacity: <total_capacity>, used capacity: <used_capacity>
-
     When user click on down arrow button
+    And device feedback device info with:
+      | volumn_name    | volumn_ecowork   |
+      | used_capacity  | <used_capacity>  |
+      | total_capacity | <total_capacity> |
 
-    Then the volumn capacity should display: <display>
+    Then the volumn capacity should display: <display_total>
 
     Examples:
-      | total_capacity  | used_capacity | display_total | display_used |
-      | 4096MB          | 1000MB        | 4.0GB         | 1.0GB        |
+      | total_capacity | used_capacity | display_total |
+      | 4096           | 1000          | 4.0           |
 
   Scenario Outline: [PCP_004_006_006]
     Switch display volumn capacity unit
 
-    Given the user have a piared device with total capacity: <volumn_capacity>, used capacity: <used_capacity>
-
     When user click on down arrow button
+    And device feedback device info with:
+      | volumn_name    | volumn_ecowork   |
+      | used_capacity  | <used_capacity>  |
+      | total_capacity | <total_capacity> |
+
     And click on volumn div
 
-    Then the volumn capacity should display: <display>
+    Then the volumn capacity should display: <display_total>
 
     Examples:
-      | volumn_capacity | used_capacity | display_total | display_used |
-      | 4096MB          | 1000MB        | 4096MB        | 1000MB       |
+      | total_capacity | used_capacity | display_total |
+      | 4096            | 1000          | 4096          |
