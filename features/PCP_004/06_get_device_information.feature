@@ -2,11 +2,12 @@
 Feature: [PCP_004_007] Get Device Information
 
   Background:
-    Given a user was signin and visits home page
-    And the user have already paired device
 
   Scenario: [PCP_004_006_001]
     Show device information when user click down arrow button
+
+    Given a user was signin and visits home page
+    And the user have already paired device
 
     When user click on down arrow button
     And device feedback device info with:
@@ -20,6 +21,9 @@ Feature: [PCP_004_007] Get Device Information
   Scenario: [PCP_004_006_002]
     Close device information when user click up arrow button
 
+    Given a user was signin and visits home page
+    And the user have already paired device
+
     When user click on down arrow button
     And user click on up arrow button
 
@@ -27,6 +31,9 @@ Feature: [PCP_004_007] Get Device Information
 
   Scenario: [PCP_004_006_003]
     Only show one device information when user click down arrow button
+
+    Given a user was signin and visits home page
+    And the user have already paired device
 
     Given user have another paired device
 
@@ -36,6 +43,9 @@ Feature: [PCP_004_007] Get Device Information
 
   Scenario Outline: [PCP_004_006_004]
     Display Available capacity
+
+    Given a user was signin and visits home page
+    And the user have already paired device
 
     When user click on down arrow button
     And device feedback device info with:
@@ -54,6 +64,9 @@ Feature: [PCP_004_007] Get Device Information
   Scenario Outline: [PCP_004_006_005]
     Display volumn capacity
 
+    Given a user was signin and visits home page
+    And the user have already paired device
+
     When user click on down arrow button
     And device feedback device info with:
       | volumn_name    | volumn_ecowork   |
@@ -68,6 +81,9 @@ Feature: [PCP_004_007] Get Device Information
 
   Scenario Outline: [PCP_004_006_006]
     Switch display volumn capacity unit
+
+    Given a user was signin and visits home page
+    And the user have already paired device
 
     When user click on down arrow button
     And device feedback device info with:
