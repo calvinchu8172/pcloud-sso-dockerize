@@ -25,6 +25,7 @@ end
 
 Given(/^user have another paired device$/) do
   @another_pairing = TestingHelper.create_pairing(@user.id)
+  visit authenticated_root_path
 end
 
 When(/^user click on down arrow button and then click on another down arrow button$/) do
@@ -112,5 +113,4 @@ def device_for_test(device, info_data = {})
 
   @redis.hset(key, 'info', info)
   device_info_all = @redis.hgetall(key)
-
 end
