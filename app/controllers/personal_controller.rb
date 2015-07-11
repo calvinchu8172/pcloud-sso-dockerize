@@ -70,6 +70,14 @@ class PersonalController < ApplicationController
 
   def check_status
     check_timeout
+
+    begin #convert @session['info'] if it's format is json
+      info_hash = JSON.parse(@session['info'])
+    rescue
+      info_hash = @session['info']
+    end
+    @session['info'] = info_hash
+
     @session['session_id'] = @device_info_session.escaped_encrypted_id
     render :json => @session, status: 200
   end
