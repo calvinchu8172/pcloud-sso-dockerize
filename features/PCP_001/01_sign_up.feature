@@ -112,7 +112,7 @@ Feature: [PCP_001_01] Sign Up
     And the new user should receive an email confirmation
 
   Scenario: [PCP_001_01_08]
-    In registration successfully page, should have resend confirm email link and confirm button
+    In registration successfully page, should have confirm email link
 
     When the visitor success sign up an account:
       | E-mail            | personal@example.com   |
@@ -120,27 +120,28 @@ Feature: [PCP_001_01] Sign Up
       | Confirm Password  | 12345678               |
 
     Then the page will redirect to success page
-    And the new user should see "Resend" and "Confirm" button
+    And the user should see "unverified" button
 
-  # Scenario: [PCP_001_01_09]
-  #   Redirect to login page login after confirmed
+  Scenario: [PCP_001_01_09]
+    Redirect to login page after confirmed
 
-  #   When the visitor success sign up an account:
-  #     | E-mail            | personal@example.com   |
-  #     | Password          | 12345678               |
-  #     | Confirm Password  | 12345678               |
+    When the visitor success sign up an account:
+      | E-mail            | personal@example.com   |
+      | Password          | 12345678               |
+      | Confirm Password  | 12345678               |
 
-  #   Then the page will redirect to success page
-  #   And one new user created by personal@example.com
-  #   And the new user should receive an email confirmation
+    Then the page will redirect to success page
+    And one new user created by personal@example.com
+    And the new user should receive an email confirmation
 
-  #   When the new user confirmed account within email
+    When the new user confirmed account within email
 
-  #   Then the page will redirect to confirmed page
+    Then the page will redirect to confirmed page
 
-  #   When user click the confirm button
+    When user click the confirm button
 
-  #   Then user will redirect to login page
+    Then user will redirect to login page
+    And user should not see "unverified" button
 
   Scenario: [PCP_001_01_10]
     Redirect to login page when user click cancel button in sign up page
