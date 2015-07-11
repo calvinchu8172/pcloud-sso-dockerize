@@ -36,7 +36,7 @@ Given(/^the account was confirmed$/) do
 end
 
 Given(/^the user has registered more than (\d+) days$/) do |days|
-  User.first.update_attributes(confirmation_sent_at: (days.to_i + 1).days.ago)
+  User.first.update_attributes(created_at: (days.to_i + 1).days.ago)
 end
 
 Given(/^the user login successfully with an unconfirmed account registered not over (\d+) days$/) do |arg1|

@@ -6,7 +6,6 @@ class DiscovererController < ApplicationController
   include PairingHelper
   before_action :authenticate_user!
   before_filter :check_device_available, :only => [:check]
-  before_action :check_confirmation_expire, only: [:index]
 
   def index
     raw_result = Array.new
@@ -92,12 +91,6 @@ class DiscovererController < ApplicationController
     render :json => { "result" => "success" }, status: 200
   end
 
-  def check_confirmation_expire
-    return if current_user.confirmed?
-    if current_user.confirmation_sent_at < 3.days.ago
-      redirect_to new_user_confirmation_path
-    end
-  end
 
   def mac_address_valid?(mac_address)
     # Sample: 20:13:10:00:00:A0  |  2013100000A0
