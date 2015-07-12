@@ -57,8 +57,8 @@ class User < ActiveRecord::Base
   # Overwrite the active_for_authentication? method in your model(User)
   # and add your validation logic. You want to return super && (true or false)
   def active_for_authentication?
-    grace_period = self.class.allow_unconfirmed_access_for
-    super && self.created_at.to_i > grace_period.ago.to_i
+    grace_period = 3.days
+    super && ((self.confirmed?) || (!self.confirmed? && self.created_at.to_i > grace_period.ago.to_i))
   end
 
   def fetch_details(auth)
