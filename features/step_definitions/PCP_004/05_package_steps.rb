@@ -1,0 +1,86 @@
+Given(/^a user visit Package setup page$/) do
+  @user = TestingHelper.create_and_signin
+  @pairing = TestingHelper.create_pairing(@user.id)
+  visit package_path(@pairing.device.escaped_encrypted_id)
+end
+
+When(/^the package page will wait for connection with device$/) do
+  @package_session = get_package_session
+end
+
+Then(/^the user should see "(.*?)" message on Package setup page$/) do |msg|
+  expect(page).to have_content(msg)
+end
+
+When(/^the device of Package was offline$/) do
+  set_package_status(@package_session, "failure")
+end
+
+When(/^the device was online the device will response package list$/) do
+  package_list = ('[{"service_name":"FTP",
+                     "status":true,
+                     "enabled":true,
+                     "description":"FTP configuration",
+                     "wan_port":"22",
+                     "lan_port":"22",
+                     "path":"ftp://ip:port"},
+                    {"service_name":"DDNS",
+                     "status":true,
+                     "enabled":false,
+                     "description":"DDNS configuration",
+                     "wan_port":"",
+                     "lan_port":"",
+                     "path":""},
+                    {"service_name":"HTTP",
+                     "status":true,
+                     "enabled":false,
+                     "description":"HTTP configuration",
+                     "wan_port":"8000",
+                     "lan_port":"80",
+                     "path":"http://ip:port"}]').gsub("\n", "")
+  set_package_status(@package_session, "form", package_list)
+  wait_server_response
+end
+
+Then(/^the user should see package name list$/) do
+  wait_server_response
+  expect(page).to have_content(I18n.t("labels.settings.package.table_head1"))
+  expect(page).to have_content(I18n.t("labels.settings.package.table_head2"))
+  expect(page).to have_content(I18n.t("labels.settings.package.table_head3"))
+  expect(page).to have_content(I18n.t("labels.settings.package.table_head4"))
+end
+
+When(/^the user changed Package setting$/) do
+  wait_server_response
+end
+
+When(/^the Package services was success updated$/) do
+  wait_server_response
+  set_package_status(@package_session, "updated")
+end
+
+Then(/^the user will see the confirm message about cancel Package setup$/) do
+  expect(page).to have_content I18n.t("warnings.settings.package.cancel_instruction")
+end
+
+Then(/^the user will go back to Package setup flow$/) do
+  expect(page).to have_content I18n.t("warnings.settings.package.sync")
+end
+
+Then(/^it should not do anything on Package setup page$/) do
+  expect(page).to have_content I18n.t("warnings.settings.package.sync")
+end
+
+def get_package_session
+  redis = Redis.new
+  @session_index = redis.GET("package:session:index")
+  PackageSession.find(@session_index).session.all
+end
+
+def set_package_status(package_session, status, package_list = "")
+  package_session['status'] = status
+  package_session['package_list'] = package_list
+  PackageSession.find(@session_index).session.update(package_session)
+  wait_server_response
+  package_session
+end
