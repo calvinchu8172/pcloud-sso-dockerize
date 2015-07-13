@@ -95,6 +95,6 @@ Then(/^the user will redirect to My Devices page$/) do
   expect(page.current_path).to eq "/personal/index"
 end
 
-def wait_server_response
-  sleep 5
+def wait_server_response(time = 5)
+  sleep time.to_i
 end

@@ -3,7 +3,7 @@
 <div class="personal" ng-app="personal_app" ng-controller="PersonalController">
 
   <%# paired device list %>
-  <div class="zyxel_content" style="max-width:660px">
+  <div class="zyxel_content" style="max-width:700px">
 
     <table class="zyxel_table_style3">
 
@@ -24,7 +24,7 @@
 
             <%# show ddns information %>
             <td>
-              <table class="zyxel_table_style4">
+              <table class="zyxel_table_style4" style="width:100%;">
               <%# get setting information %>
                 <% info_hash = get_info(pairing) %>
                 <tr style="position:relative">
@@ -34,19 +34,46 @@
                   <% end %>
                 </tr>
                 <tr>
-                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.wan_ip") %></span><%= info_hash[:ip] %></td>
+                  <td>
+                    <div class="device_info_block">
+                      <span class="device_info"><%= I18n.t("labels.settings.ddns.wan_ip") %></span>
+                    </div>
+                    <div class="device_info_block text-right"><%= info_hash[:ip] %></div>
+                  </td>
                 </tr>
                 <tr>
-                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.model") %></span><%= info_hash[:model_class_name] %></td>
+                  <td>
+                    <div>
+                      <div class="device_info_block">
+                        <span class="device_info"><%= I18n.t("labels.settings.ddns.model") %></span>
+                      </div>
+                      <div class="device_info_block text-right"><%= info_hash[:model_class_name] %></div>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.last_update") %></span><%= info_hash[:date] %></td>
+                  <td>
+                    <div class="device_info_block">
+                      <span class="device_info"><%= I18n.t("labels.settings.ddns.last_update") %></span>
+                    </div>
+                    <div class="device_info_block text-right"><%= info_hash[:date] %></div>
+                  </td>
                 </tr>
                 <tr>
-                  <td><span class="device_info"><%= I18n.t("labels.mac_address") %></span><%= info_hash[:mac_address]%></td>
+                  <td>
+                    <div class="device_info_block">
+                      <span class="device_info"><%= I18n.t("labels.mac_address") %></span>
+                    </div>
+                    <div class="device_info_block text-right"><%= info_hash[:mac_address]%></div>
+                  </td>
                 </tr>
                 <tr>
-                  <td><span class="device_info"><%= I18n.t("labels.settings.ddns.firmware_version") %></span><%= info_hash[:firmware_version] %></td>
+                  <td>
+                    <div class="device_info_block">
+                      <span class="device_info"><%= I18n.t("labels.settings.ddns.firmware_version") %></span>
+                    </div>
+                    <div class="device_info_block text-right"><%= info_hash[:firmware_version] %></div>
+                  </td>
                 </tr>
               </table>
             </td>
@@ -65,46 +92,56 @@
 
                     <div class="row">
                       <div class="col-xs-9 col-sm-3 col-sm-offset-2">
-                        <div class="zyxel-grid-style1 info-block-sm">
-                          <div class="title">RAID status</div>
-                          <div class="value">{{info.raidStatus}}</div>
+                        <div class="zyxel-grid-style1 info-block small">
+                          <div class="icon raid-status" ng-class="{'warning': info.raidStatus != 'Healthy'}"></div>
+                          <div class="title text-left">RAID status</div>
+                          <div class="value text-left">{{info.raidStatus}}</div>
                         </div>
                       </div>
                       <div class="col-xs-9 col-sm-3">
-                        <div class="zyxel-grid-style1 info-block-sm">
-                          <div class="title">CPU temp</div>
-                          <div class="value">{{info.cpuTemp.cel}} / {{info.cpuTemp.fah}}</div>
+                        <div class="zyxel-grid-style1 info-block small">
+                          <div class="icon cpu-temp" ng-class="{'warning': info.cpuTempWarning}"></div>
+                          <div class="title text-left">CPU temp</div>
+                          <div class="value text-left">{{info.cpuTemp.cel}}/{{info.cpuTemp.fah}}</div>
                         </div>
                       </div>
                       <div class="col-xs-9 col-sm-3">
-                        <div class="zyxel-grid-style1 info-block-sm">
-                          <div class="title">Fan speed</div>
-                          <div class="value">{{info.fanSpeed}}</div>
+                        <div class="zyxel-grid-style1 info-block small">
+                          <div class="icon fan-speed" ng-class="{'warning': info.fanSpeedWarning}"></div>
+                          <div class="title text-left">Fan speed</div>
+                          <div class="value text-left">{{info.fanSpeed}}</div>
                         </div>
                       </div>
                     </div>
 
                     <div class="row">
-                      <div class="col-xs-12 col-sm-9 col-sm-offset-2">
-                        <div class="zyxel-grid-style1 info-block-lg">
-                          <div class="title">Available capacity</div>
-                          <div class="value">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
+                      <div class="col-xs-12 col-sm-12 col-sm-offset-2">
+                        <div class="zyxel-grid-style1 info-block large">
 
-                          <div class="volume-info-block">
-                            <div class="volume-info row" ng-repeat="volume in info.volumeList">
+                          <div class="total-available-capacity">
+                            <div class="icon available-capacity"></div>
+                            <div class="title text-left">Available capacity</div>
+                            <div class="value text-left">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
+                          </div>
 
-                              <div class="col-sm-3">
-                                <div class="volume-name">{{volume['volume-name']}}</div>
+                          <div class="volumes-available-capacity">
+                            <div class="volume-row row" ng-repeat="volume in info.volumeList" ng-controller="VolumeController" ng-init="init(volume);">
+
+                              <div class="volumn-th col-xs-12">
+                                <div class="icon volume"></div>
+                                <div class="volume-name">{{volumeName}}</div>
                               </div>
 
-                              <div class="col-sm-6" style="padding:4px 0;">
-                                <div class="total-size-bar">
-                                  <div class="used-size-bar" style="width:{{300*(volume['used-capacity']/volume['total-capacity'])}}px">{{volume['used-capacity']}}</div>
+                              <div class="volumn-td-1 col-sm-6 col-xs-9">
+                                <div class="total-size-bar" ng-class="{'warning': volumeWarning}">
+                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" style="width:{{300*(volumeUsedCapacity/volumeTotalCapacity)}}px" >{{volumeUsedCapacity}}{{volumeUnit}}</div>
                                 </div>
                               </div>
 
-                              <div class="col-sm-2" style="padding-left: 0;">
-                                <div class="volume-size text-left" ng-click="changeUnit();">{{volume['total-capacity']}}</div>
+                              <div class="volumn-td-2 col-sm-2 col-xs-3">
+                                <div class="volume-size text-left" ng-click="changeUnit();">
+                                  {{volumeTotalCapacity}}{{volumeUnit}}
+                                </div>
                               </div>
 
                             </div>
@@ -119,10 +156,9 @@
                 </div>
               </div>
               <div class="text-center device_info_btn_area">
-                <a ng-if="!area.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="area.open();">V</a>
-                <a ng-if="area.show" class="zyxel_btn_style1" href="javascript:void(0)" ng-click="area.close();">A</a>
+                <a ng-if="!area.show" class="area_open_btn" href="javascript:void(0)" ng-click="area.open();"></a>
+                <a ng-if="area.show" class="area_close_btn" href="javascript:void(0)" ng-click="area.close();"></a>
               </div>
->>>>>>> develop
             </td>
           </tr>
         <% end %>
@@ -145,37 +181,61 @@
     $scope.deviceInfoAreas = {};
   });
 
-  personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
+  personal_app.controller('VolumeController', function ($scope) {
+    $scope.volumeName;
+    $scope.volumeTotalCapacity = 0;
+    $scope.volumeUsedCapacity = 0;
+    $scope.volumeUnit = 'MB';
+    $scope.volumeUnitOptions = ['KB', 'MB', 'GB', 'TB', 'PB'];
+    $scope.volumeWarning;
+    $scope.init = function(volume){
+      volumeObj = {};
+      angular.forEach(volume, function(volumeAttrs, index){
+        var key = Object.keys(volumeAttrs)[0];
+        volumeObj[key] = volumeAttrs[key];
+      });
+      $scope.volumeName = volumeObj['volume-name'];
+      $scope.volumeTotalCapacity = parseInt(volumeObj['total-capacity']);
+      $scope.volumeUsedCapacity = parseInt(volumeObj['used-capacity']);
+      $scope.volumeWarning = (volumeObj['warning'] === 'true');
+      $scope.info.capacity.add($scope.volumeTotalCapacity, $scope.volumeUsedCapacity);
+      $scope.changeUnit();
+    }
+    $scope.changeUnit = function(){
+      var newUnit = ($scope.volumeUnit == 'MB' ? 'GB' : 'MB');
+      var powOfUnitFrom = $scope.volumeUnitOptions.indexOf($scope.volumeUnit);
+      var powOfUnitTo = $scope.volumeUnitOptions.indexOf(newUnit);
+      if(powOfUnitFrom < powOfUnitTo){
+        $scope.volumeTotalCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+        $scope.volumeUsedCapacity *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
+      }else if(powOfUnitFrom > powOfUnitTo){
+        $scope.volumeTotalCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+        $scope.volumeUsedCapacity *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
+      }
+      $scope.volumeTotalCapacity = $scope.volumeTotalCapacity.toFixed(1);
+      $scope.volumeUsedCapacity = $scope.volumeUsedCapacity.toFixed(1);
+      $scope.volumeUnit = newUnit;
+    }
+  });
 
+  personal_app.controller('DeviceController', function ($scope, $timeout, $http) {
     $scope.deviceId;
     $scope.session;
     $scope.info = {
       fanSpeed: '',
-      cpuTemp: {
-        cel: 0, // °C
-        fah: 0, // °F
-      },
+      fanSpeedWarning: false,
+      cpuTemp: { cel: 0, fah: 0 },
       cpuTempWarning: false,
-      raidStatus: 'healthy',
+      raidStatus: 'Healthy',
       volumeList: null,
       init: function(json){
         this.raidStatus = json['raid_status'];
         this.fanSpeed = json['fan_speed'] + 'RPM';
+        this.fanSpeedWarning = json['fan_speed_warning'];
         this.cpuTemp.cel = json['cpu_temperature_celsius'] + '°C';
         this.cpuTemp.fah = json['cpu_temperature_fahrenheit'] + '°F';
         this.cpuTempWarning = json['cpu_temperature_warning'];
-        var volumeList = [];
-        angular.forEach(json['volume_list'], function(volumeAttrs, index){
-          var volume = {};
-          angular.forEach(volumeAttrs, function(attrObj, index){
-            for(key in attrObj){
-              volume[key] = attrObj[key];
-            }
-          });
-          volumeList.push(volume);
-          $scope.info.capacity.add(parseInt(volume['total-capacity']), parseInt(volume['used-capacity']));
-        });
-        this.volumeList = volumeList;
+        this.volumeList = json['volume_list'];
       },
       capacity:{
         available: 0,
@@ -183,9 +243,10 @@
         used: 0,
         unit: 'MB',
         units: ['KB', 'MB', 'GB', 'TB', 'PB'],
+        volumes: [],
         add: function(total, used){
-          $scope.info.capacity.total += total;
-          $scope.info.capacity.used += used;
+          $scope.info.capacity.total += parseInt(total);
+          $scope.info.capacity.used += parseInt(used);
           if($scope.info.capacity.total >= 4096){
             $scope.info.capacity.to('GB');
           }
@@ -195,10 +256,10 @@
           var capacity = $scope.info.capacity;
           var powOfUnitFrom = capacity.units.indexOf(capacity.unit);
           var powOfUnitTo = capacity.units.indexOf(unit);
-          if(powOfUnitFrom-powOfUnitTo < powOfUnitTo){
+          if(powOfUnitFrom < powOfUnitTo){
             $scope.info.capacity.total *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
             $scope.info.capacity.used *= Math.pow((1/1024), (powOfUnitTo-powOfUnitFrom));
-          }else if(unit_pow_this > unit_pow_another){
+          }else if(powOfUnitFrom > powOfUnitTo){
             $scope.info.capacity.total *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
             $scope.info.capacity.used *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
           }
@@ -283,6 +344,7 @@
 
     $scope.failureStep = function(){
       $scope.area.panel = 'none';
+      $scope.area.close();
     }
 
     $scope.cancelStep = function(){

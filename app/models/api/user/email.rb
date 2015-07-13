@@ -27,11 +27,24 @@ class Api::User::Email < Api::User
       params.delete(:password_confirmation)
 
       self.email = params.delete(:email)
-      return false if new_email_not_valid?
+      self.confirmed_at = nil
+      return if new_email_not_valid?
 
-      self.save(:validate => false)
+      # update without validation(to ignore SslValidator) but with callback(to trigger the Devise::Mailer)
+      # the code below will send the confirmation to the new email address after user modifying email
+      # but the email account will be replace by the new email only if the user confirmed the new email
+      #  * if unconfirmed user do sending forgot password, email will send to the old email
+      #  * if unconfirmed user do resending confirmation, email will send to the new email
+      # self.update_attribute(:email, self.email)
+
+      # update without validation(to ignore SslValidator) but with callback(to trigger the Devise::Mailer)
+      # the code below will update the email immediately instead of pending in unconfirmed_email field
+      # and the confirmation would send to the new email address
+      self.skip_reconfirmation!
+      self.save(validate: false)
+      self.class.send_confirmation_instructions(email: self.email, 'Content-Transfer-Encoding' => 'UTF-8')
+
       clean_up_passwords
-      return true
   end
 
   private
