@@ -23,6 +23,7 @@ class Api::User::RegistersController < Api::Base
     @user = Api::User::Token.new(register.attributes)
     @user.app_key = valid_params[:app_key]
     @user.os = valid_params[:os]
+    @user.uuid = valid_params[:uuid]
 
     logger.debug('create_token:' + @user.attributes.inspect)
     @user.create_token
@@ -32,6 +33,6 @@ class Api::User::RegistersController < Api::Base
 
   private
     def valid_params
-      params.permit(:id, :password, :certificate_serial, :signature, :app_key, :os)
+      params.permit(:id, :password, :certificate_serial, :signature, :app_key, :os, :uuid)
     end
 end

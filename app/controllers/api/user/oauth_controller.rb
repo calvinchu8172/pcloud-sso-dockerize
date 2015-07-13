@@ -34,7 +34,7 @@ class Api::User::OauthController < Api::Base
   # 1. 查詢使用者是否存在，若使用者不存在則直接建立user
   # 2. 承2，若使用者存在則判斷過去是否為portal oauth，若屬portal使用者即更新密碼
   # 3. 最後建立identity並登入
-  # signature data: certificate_serial + user_id + access_token
+  # signature data: certificate_serial + user_id + access_token + uuid
   def mobile_register
     certificate_serial = register_params[:certificate_serial]
     user_id            = register_params[:user_id]
@@ -94,6 +94,7 @@ class Api::User::OauthController < Api::Base
     @user = Api::User::Token.new(register.attributes)
     @user.app_key = register_params[:app_key]
     @user.os = register_params[:os]
+    @user.uuid = register_params[:uuid]
     @user.create_token
 
     render "api/user/tokens/create.json.jbuilder"
@@ -119,7 +120,7 @@ class Api::User::OauthController < Api::Base
   private
 
   def register_params
-    params.permit(:access_token, :user_id, :password, :certificate_serial, :signature, :app_key, :os)
+    params.permit(:access_token, :user_id, :password, :certificate_serial, :signature, :app_key, :os, :uuid)
   end
 
   def checkin_params
