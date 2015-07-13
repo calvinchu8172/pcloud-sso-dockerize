@@ -35,6 +35,19 @@ en:
           success: 'Success'
           failure: 'Failure'
           no_update: 'No Update'
+      package:
+        instruction: 'Package Setup'
+        table_head1: 'Enabled'
+        table_head2: 'Status'
+        table_head3: 'Package Name'
+        table_head4: 'Require'
+        table_head5: 'Version'
+        table_head6: 'Description'
+        table_head7: 'Update Result'
+        result:
+          success: 'Success'
+          failure: 'Failure'
+          no_update: 'No Update'
     pairing: 'Pairing'
     paired: 'Paired'
     unpairing: 'Unpairing'
@@ -115,3 +128,13 @@ en:
             num_794: 'Failed to list all port mapping'
             num_793: 'Failed to update UPnP port mapping in DB'
             num_792: 'Device is not found'
+      package:
+        sync: 'Synchronizing Package settings...'
+        success: 'Package settings have been successfully updated.'
+        not_found: 'Device is not found'
+        cancel_instruction: 'Are you sure you want to cancel the Package setting flow?'
+        error_code:
+            num_498: 'Not in bot list'
+            num_489: 'Cannot get package list'
+            num_488: 'Cannot enable package'
+            num_487: 'Cannot disable package'
