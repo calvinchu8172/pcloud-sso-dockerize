@@ -3,6 +3,7 @@ zh-TW:
     language: "語言"
     forgot_password: '忘記密碼'
     resend_confirmation: '重新寄送'
+    unverified: '未驗證'
     sign_in: '登入'
     sign_out: '登出'
     sign_up: '註冊'
@@ -31,6 +32,9 @@ zh-TW:
         table_head3: 'Service Name'
         table_head4: 'Description'
         table_head5: 'Update Result'
+        table_head6: 'Show Service Port'
+        table_head7: 'Hide Service Port'
+        table_head8: 'Service Port'
         result:
           success: '成功'
           failure: '失敗'
