@@ -31,7 +31,7 @@
             <%= I18n.t("labels.settings.upnp.table_head5") %>
           </th>
         </tr>
-        <tr ng-repeat="service in service_list">
+        <tr ng-repeat="service in service_list" ng-controller="ServiceCtrl" ng-init="recordOriginSettings();">
           <td data-title="'enabled'" class="column1">
             <div ng-switch on="result">
               <input id="check{{$index}}" type="checkbox" ng-model="service.enabled" ng-disabled="panel != 'form'" >
@@ -60,7 +60,7 @@
             {{service.description}}
           </td>
           <td data-title="'service_port'" class="column3">
-            <input ng-model="service.wan_port" ng-show="servicePort.show || submited" type="text" class="text-center" maxlength="5" size="7">
+            <input ng-model="service.wan_port" ng-show="servicePort.show || submited" type="text" class="text-center" maxlength="5" size="7"/>
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
             <span ng-switch on="service.update_result">
@@ -117,6 +117,18 @@
           .common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
     }
   ]);
+
+  upnp_app.controller('ServiceCtrl', function ($scope, $http, $timeout) {
+    $scope.service_list;
+    $scope.origin_wan_port;
+
+
+    $scope.recordOriginSettings = function(){
+      angular.forEach($scope.service_list, function(service, index){
+        service.origin_wan_port = service.wan_port;
+      });
+    }
+  });
 
   upnp_app.controller('UpnpCtrl', function ($scope, $http, $timeout) {
 
