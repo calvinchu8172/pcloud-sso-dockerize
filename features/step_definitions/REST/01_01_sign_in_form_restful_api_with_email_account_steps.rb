@@ -4,12 +4,14 @@ When(/^client send a POST request to \/user\/1\/token with:$/) do |table|
 
   id = data["id"]
   password = data["password"]
+  uuid = data["uuid"]
   certificate_serial = @certificate.serial
-  signature = create_signature(id, certificate_serial)
+  signature = create_signature(id, certificate_serial, uuid)
 
   post path, {
     id: id,
     password: password,
+    uuid: uuid,
     certificate_serial: certificate_serial,
     signature: signature,
     app_key: data["app_key"],
@@ -43,6 +45,19 @@ Given(/^an existing user's account and password but have not confirmed yet longe
     password: "secret123",
     password_confirmation: "secret123")
   @user.update_attribute(:created_at, Time.now - day_count.to_i*24*60*60)
+end
+
+When(/^record the first xmpp account$/) do
+  result = JSON.parse(last_response.body)
+  @first_xmpp_account = result["xmpp_account"]["id"]
+end
+
+Then(/^the second xmpp account is different with the first one$/) do
+  expect(@first_xmpp_account).to be_present
+
+  result = JSON.parse(last_response.body)
+  second_xmpp_account = result["xmpp_account"]["id"]
+  expect(second_xmpp_account).not_to eq(@first_xmpp_account)
 end
 
 # Given(/^an existing user's account and password but account is locked$/) do

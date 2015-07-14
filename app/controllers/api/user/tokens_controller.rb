@@ -3,7 +3,7 @@ class Api::User::TokensController < Api::Base
   before_filter :authenticate_user_by_token!, only: :show
 
   def create
-    
+
     @user = Api::User::Token.authenticate(token_params)
     unless @user.errors.empty?
       return  render json: @user.errors[:authenticate].first, :status => 400
@@ -30,9 +30,9 @@ class Api::User::TokensController < Api::Base
     render json: {result: "success"}
   end
 
-  private 
+  private
     def token_params
-      params.permit(:id, :password, :certificate_serial, :signature, :app_key, :os)
+      params.permit(:id, :password, :certificate_serial, :signature, :app_key, :os, :uuid)
     end
 
     def update_params

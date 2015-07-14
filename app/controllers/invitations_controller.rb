@@ -35,17 +35,30 @@ class InvitationsController < ApplicationController
 
 	def check_connection
 		check_timeout
-		@accepted_user.finish_accept if @accepted_session['status'] == 'done'
-		render :json => { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
+		@accepted_user.finish_accept if done?
+		render :json => { :status => session_status, :expire_at => @accepted_session['expire_at'] }
   end
 
 	def check_timeout
 	  expire_in = @accepted_user.session_expire_in.to_i
 	  logger.debug("expire_in: #{expire_in}")
-	  if(@accepted_session['status'] == 'start' && expire_in <= 0)
+	  if timeout?
 	    @accepted_user.session.store('status', :timeout)
 	    @accepted_session['status'] = :timeout
 	  end
 	end
 
+	private
+	def timeout?
+		expire_in = @accepted_user.session_expire_in.to_i
+		@accepted_session['status'] == 'start' && expire_in <= 0
+	end
+
+	def done?
+		@accepted_session['status'] == 'done'
+	end
+
+	def session_status
+		@accepted_session['status']
+	end
 end

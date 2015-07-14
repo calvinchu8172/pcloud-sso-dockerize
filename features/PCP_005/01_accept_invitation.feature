@@ -1,75 +1,96 @@
-# Feature: [PCP_005_01] Accept Invitation
+@javascript
+Feature: [PCP_005_01] Accept Invitation
 
-#   Background:
-#     Given a user visits accept invitation page
+  Background:
+    Given an existing user's account and password
+    And an existing device with pairing signed in client without xmpp
+    And 1 existing invitation record
 
-#   Scenario: [PCP_005_01_01]
-#     Redirect to login page when user not login
+  Scenario: [PCP_005_01_01]
+    Redirect to login page when user not login
 
-#     When the visitor not login
+    When a user visits accept invitation page
 
-#     Then the page will redirect to login page
+    Then the page will redirect to login page
 
 
-#   Scenario Outline: [PCP_005_01_02]
-#     Show error messages when invitation key invalid
+  Scenario: [PCP_005_01_02]
+    Show error messages when invitation key invalid
 
-#     When the invitation key invalid
-#     And user logined
-#     Then the visitor should see an error message for "invalid invitation key"
+    Given the invalid invitation key
+    And user logined
 
-#     Examples:
-#       | Invitation Key        |
-#       |                       |
-#       | 12312345              |
-#       | personal@             |
-#       | personal.example.com  |
+    When a user visits accept invitation page
 
-#   Scenario: [PCP_005_01_03]
-#     Show error messages when visitor own the device
+    Then the invitation page should see an error message for "fail"
 
-#     When user logined
-#     And the user paired the device of invitation
-#     Then the visitor should see an error message for "Owner can not be invited"
+  Scenario: [PCP_005_01_03]
+    Show error messages when visitor own the device
 
-#   Scenario: [PCP_005_01_04]
-#     Show timeout message when requset timeout
+    Given user logined who generate invitation key
 
-#     When user logined
-#     And connect over 30 sec and server send "timeout" message
-#     Then the visitor should see a timeout message for and button for "retry"
+    When a user visits accept invitation page
 
-#   Scenario: [PCP_005_01_05]
-#     Show error message when already accepted by user
+    Then the invitation page should see an error message for "fail"
 
-#     When user logined
-#     And user already acceped this invitation
-#     Then the visitor should see an error message for "Already accepted"
+  Scenario: [PCP_005_01_04]
+    Show timeout message when requset timeout
 
-#   Scenario: [PCP_005_01_06]
-#     Show error message when invitation key counting expired
+    Given user logined
+    And connect over 30 sec and server send "timeout" message
 
-#     When user logined
-#     And the invitation key counting = 0
-#     Then the visitor should see an error message for "Invitation key counting expired"
+    When a user visits accept invitation page
 
-#   Scenario: [PCP_005_01_07]
-#     Show success message when server return done message in time
+    Then the visitor should see a "timeout" message and button for "Retry"
 
-#     When user logined
-#     And invitation key is vaild and not expired
-#     And receive "done" message
-#     Then the visitor should see a success message and button for "confirm"
+  Scenario: [PCP_005_01_05]
+    Show error message when already accepted by user
 
-#   Scenario: [PCP_005_01_08]
-#     Redirect user to discover page when click "confirm" button
+    Given user logined
+    And user already acceped this invitation
 
-#     When user success in accept invitation
-#     And user click "confirm" button
-#     Then the visitor should redirect to discover page
+    When a user visits accept invitation page
 
-#   Scenario: [PCP_005_01_09]
-#     Redirect user to accept invitation page when click "retry" button
+    Then the invitation page should see an error message for "fail"
 
-#     When user click retry button
-#     Then the visitor should reload this page for retry
+  Scenario: [PCP_005_01_06]
+    Show error message when invitation key counting expired
+
+    Given user logined
+    And the invitation key expire count is zero
+
+    When a user visits accept invitation page
+
+    Then the invitation page should see an error message for "fail"
+
+  Scenario: [PCP_005_01_07]
+    Show success message when server return done message in time
+
+    Given user logined
+    And connect success and server send success message
+
+    When a user visits accept invitation page
+
+    Then the visitor should see a "success" message and button for "Confirm"
+
+  Scenario: [PCP_005_01_08]
+    Redirect user to discover page when click "Confirm" button
+
+    Given user logined
+    And connect success and server send success message
+
+    When a user visits accept invitation page
+    And user click "Confirm" button
+
+    Then the user will redirect to discover page
+
+  Scenario: [PCP_005_01_09]
+    Redirect user to accept invitation page when click "Retry" button
+
+    Given user logined
+    And connect over 30 sec and server send "timeout" message
+
+    When a user visits accept invitation page
+    And user click "Retry" button
+
+    Then the visitor should reload this page for retry

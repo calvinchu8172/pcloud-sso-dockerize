@@ -73,16 +73,21 @@ Feature: Sign in from RESTful API with E-mail account
     And the JSON response should include error code: "002"
     And the JSON response should include description: "client have to confirm email account before continuing."
 
-  # Scenario: [REST_01_01_05]
-  #   User sign in with the account is locked
+  Scenario: [REST_01_01_05]
+    User sign in with different uuid will get the different xmapp accounts
 
-  #   Given an existing user's account and password but account is locked
+    Given an existing certificate and RSA key
+    And an existing user's account and password
 
-  #   When client send a POST request to /user/1/token with:
-  #     | id       | acceptance@ecoworkinc.com |
-  #     | password | secret123                 |
+    When client send a POST request to /user/1/token with:
+      | id       | acceptance@ecoworkinc.com |
+      | password | secret123                 |
+      | uuid     | test_a                    |
 
-  #   Then the response status should be "400"
-  #   And the JSON response should include error code: "003"
-  #   And the JSON response should include description: "account is locked."
+    And record the first xmpp account
+    When client send a POST request to /user/1/token with:
+      | id       | acceptance@ecoworkinc.com |
+      | password | secret123                 |
+      | uuid     | test_b                    |
 
+    Then the second xmpp account is different with the first one
