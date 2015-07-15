@@ -32,4 +32,9 @@ module ApplicationHelper
 
     url_for url_params
   end
+
+  def confirmation_expire_time_string(timezone = nil)
+    timezone = Time.zone.name if timezone.nil?
+    current_user.confirmation_expire_time.in_time_zone(timezone).strftime("%Y-%m-%d %H:%M %Z")
+  end
 end

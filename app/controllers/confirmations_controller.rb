@@ -3,6 +3,11 @@ class ConfirmationsController < Devise::ConfirmationsController
   before_action :user_login!
   before_action :email_already_existed!, only: [:update]
 
+  def new
+    get_time_zone
+    super
+  end
+
   def update
 
     if current_user.email == @email
@@ -16,6 +21,10 @@ class ConfirmationsController < Devise::ConfirmationsController
   end
 
   protected
+
+  def get_time_zone
+    time_zone = Time.find_zone(cookies["browser.timezone"])
+  end
 
   def after_confirmation_path_for(resource_name, resource)
     hint_signup_path
