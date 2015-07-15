@@ -64,7 +64,7 @@ Feature: [PCP_001_03] Login
 
     When the user click "Sign in" button
 
-    Then the user should see the information when login successfully
+    Then user will login and redirect to dashboard
 
   Scenario: [PCP_001_03_06]
     Show "unverified" button when login successfully with an unconfirmed account registered not over 3 days
@@ -86,5 +86,44 @@ Feature: [PCP_001_03] Login
 
     Then the user should see "unverified" button
 
-    When the user click "unverified" link
+    When the user click unverified link
     Then the page should redirect to resend email of confirmation page
+
+  Scenario: [PCP_001_03_08]
+    Resend confirmation email
+
+    Given the user filled the correct information
+
+    When the user click "Sign in" button
+    And the user click unverified link
+    And the user click "Resend confirmation email" button
+
+    Then confirmation email should be delivered
+
+  Scenario: [PCP_001_03_09]
+    Change confirmation email address and resend
+
+    Given the user filled the correct information
+
+    When the user click "Sign in" button
+    And the user click unverified link
+    And the user click "Change to another email" link
+
+    And fill changing email "new@example.com"
+    And the user click "Submit" button
+
+    Then new confirmation email should be delivered
+
+  Scenario: [PCP_001_03_10]
+    Change confirmation email address but already existed
+
+    Given the user filled the correct information
+    And an existing user's email is "andy@example.com"
+
+    When the user click "Sign in" button
+    And the user click unverified link
+    And the user click "Change to another email" link
+    And fill changing email "andy@example.com"
+    And the user click "Submit" button
+
+    Then the page should redirect to edit email confirmation page

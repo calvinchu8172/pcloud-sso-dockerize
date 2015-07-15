@@ -29,25 +29,36 @@ Given(/^the user filled the correct information$/) do
 end
 
 Given(/^the account was confirmed$/) do
-  @user.confirmed_at = Time.now.utc
-  @user.confirmation_token = Devise.friendly_token
-  @user.confirmation_sent_at = Time.now.utc
+  @user.confirm!
   @user.save
 end
 
 Given(/^the user has registered more than (\d+) days$/) do |days|
-  User.first.update_attributes(created_at: (days.to_i + 1).days.ago)
+  @user.created_at = (days.to_i + 1).days.ago
+  @user.save
 end
 
-Given(/^the user login successfully with an unconfirmed account registered not over (\d+) days$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Given(/^the user click unverified link$/) do
+  ActionMailer::Base.deliveries.clear
+  click_link "unverified"
 end
 
-Given(/^the page shows the "(.*?)" button$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^new confirmation email should be delivered$/) do
+  expect(ActionMailer::Base.deliveries.count).to eq(1)
+  expect(ActionMailer::Base.deliveries.first.to).to include("new@example.com")
 end
 
+Given(/^an existing user's email is "(.*?)"$/) do |email|
+  FactoryGirl.create(:user, email: email)
+end
 
+When(/^fill changing email "(.*?)"$/) do |email|
+  fill_in "user[email]", with: email
+end
+
+Then(/^the page should redirect to edit email confirmation page$/) do
+  expect(page.current_path).to eq(users_confirmation_edit_path)
+end
 # -------------------------------------------------------------------
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------
@@ -78,6 +89,11 @@ Then(/^the user language information will be changed after user login to system$
   }
   find('.zyxel_btn_login_submit').click
   puts User.find(@user).language
+end
+
+Then(/^confirmation email should be delivered$/) do
+  expect(ActionMailer::Base.deliveries.count).to eq(1)
+  expect(ActionMailer::Base.deliveries.first.subject).to include("Account Confirmation")
 end
 
 def filled_in_login_info(password)

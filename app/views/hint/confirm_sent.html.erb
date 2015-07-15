@@ -1,0 +1,8 @@
+<% provide(:disable_alert, "hidden") %>
+
+<div class="zyxel_content">
+  <span class="zyxel_span3">The confirmation email has been sent.</span>
+  <div class="zyxel_btn_area i18n_fix">
+    <%= link_to I18n.t("labels.confirm") , destroy_user_session_path, method: :delete, class: "zyxel_btn_ok" %>
+  </div><!-- zyxel_btn_area -->
+</div><!-- content -->

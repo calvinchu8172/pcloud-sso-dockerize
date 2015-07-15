@@ -53,7 +53,6 @@ When(/^the user has completed the pairing process$/) do
 end
 
 Then(/^the user should not see the "(.*?)" button of the paired device$/) do |link|
-  page.save_screenshot('screenshot.png')
   expect(page).to have_content "Paired"
   expect(page).not_to have_content "Find NAS"
 end
