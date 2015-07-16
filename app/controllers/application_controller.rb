@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # rescue_from ActionController::RoutingError, with: :routing_error
 
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
+  before_action :check_user_confirmation_expire, unless: :devise_controller?
 
   include Locale
   before_filter :set_locale
@@ -89,6 +90,11 @@ class ApplicationController < ActionController::Base
       sqs = AWS::SQS.new
       queue = sqs.queues.named(Settings.environments.sqs.name)
       queue.send_message(data.to_json)
+    end
+
+    def check_user_confirmation_expire
+      return if current_user.nil?
+      redirect_to new_user_confirmation_path unless current_user.confirmation_valid?
     end
 
 end

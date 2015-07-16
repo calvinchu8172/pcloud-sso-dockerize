@@ -53,13 +53,6 @@ class User < ActiveRecord::Base
     identity
   end
 
-  # Customize user account status validation when logging in:
-  # Overwrite the active_for_authentication? method in your model(User)
-  # and add your validation logic. You want to return super && (true or false)
-  def active_for_authentication?
-    super && ((self.confirmed?) || (!self.confirmed? && self.confirmation_valid?))
-  end
-
   def fetch_details(auth)
     self.first_name = auth["info"]["first_name"] if auth["info"]["first_name"]
     self.last_name = auth["info"]["last_name"] if auth["info"]["last_name"]
@@ -85,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def confirmation_valid?
-    Time.now < confirmation_expire_time
+    Time.now.to_i < confirmation_expire_time.to_i
   end
 
   private

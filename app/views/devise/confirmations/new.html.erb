@@ -1,12 +1,12 @@
 <% provide(:flow, I18n.t("titles.resend_confirmation")) %>
 
 <div class="zyxel_content">
-  <%= link_to("Skip", :back) if current_user.confirmation_valid? %>
+  <%= link_to("Skip", :back) if current_user && current_user.confirmation_valid? %>
   <p><span class="zyxel_span3">You have applied your account successfully.</span></p>
 
   <p><span class="zyxel_span3">To finish the registration, please check your email <b><%= current_user.email %></b> and click the verification link.</span></p>
 
-  <p><span class="zyxel_span3">Please verify email before <b><%= confirmation_expire_time_string(Time.zone.name)%></b></span></p>
+  <p><span class="zyxel_span3">Please verify email before <b><%= confirmation_expire_time_string %></b></span></p>
 
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <table class="zyxel_table_style">

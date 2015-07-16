@@ -33,8 +33,14 @@ module ApplicationHelper
     url_for url_params
   end
 
-  def confirmation_expire_time_string(timezone = nil)
-    timezone = Time.zone.name if timezone.nil?
-    current_user.confirmation_expire_time.in_time_zone(timezone).strftime("%Y-%m-%d %H:%M %Z")
+  def confirmation_expire_time_string(timezone = Time.zone)
+    timezone ||= "UTC"
+    current_user.confirmation_expire_time.in_time_zone(Time.zone).strftime("%Y-%m-%d %H:%M %Z")
+  end
+
+  def show_unverified_button
+    unless current_user.confirmed? || params["controller"] == "confirmations"
+      link_to I18n.t("labels.unverified"), new_user_confirmation_path, class: "unverified"
+    end
   end
 end

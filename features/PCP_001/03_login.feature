@@ -40,7 +40,6 @@ Feature: [PCP_001_03] Login
     When the user click "Sign in" button
 
     Then the page should redirect to resend email of confirmation page
-    And the user should see the warning message
 
 
   Scenario: [PCP_001_03_04]
@@ -99,6 +98,11 @@ Feature: [PCP_001_03] Login
     And the user click "Resend confirmation email" button
 
     Then confirmation email should be delivered
+    And the page should redirect to hint confirmation sent page
+
+    When the user click "Confirm" link
+
+    Then the page should redirect to sign in page
 
   Scenario: [PCP_001_03_09]
     Change confirmation email address and resend
@@ -113,6 +117,7 @@ Feature: [PCP_001_03] Login
     And the user click "Submit" button
 
     Then new confirmation email should be delivered
+    And the user email account should be changed to "new@example.com"
 
   Scenario: [PCP_001_03_10]
     Change confirmation email address but already existed

@@ -59,6 +59,19 @@ end
 Then(/^the page should redirect to edit email confirmation page$/) do
   expect(page.current_path).to eq(users_confirmation_edit_path)
 end
+
+Then(/^the page should redirect to hint confirmation sent page$/) do
+  expect(page.current_path).to eq(hint_confirm_sent_path)
+end
+
+Then(/^the page should redirect to sign in page$/) do
+  expect(page).to have_content("Sign in")
+end
+
+Then(/^the user email account should be changed to "(.*?)"$/) do |email|
+  expect(User.first.email).to eq(email)
+end
+
 # -------------------------------------------------------------------
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------

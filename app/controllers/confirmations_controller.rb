@@ -3,28 +3,19 @@ class ConfirmationsController < Devise::ConfirmationsController
   before_action :user_login!
   before_action :email_already_existed!, only: [:update]
 
-  def new
-    get_time_zone
-    super
-  end
-
   def update
 
-    if current_user.email == @email
-      current_user.send_confirmation_instructions
-    else
+    if current_user.email != @email
       current_user.email = @email
+      current_user.skip_reconfirmation!
       current_user.save
     end
 
+    current_user.send_confirmation_instructions
     redirect_to hint_confirm_sent_path
   end
 
   protected
-
-  def get_time_zone
-    time_zone = Time.find_zone(cookies["browser.timezone"])
-  end
 
   def after_confirmation_path_for(resource_name, resource)
     hint_signup_path
@@ -40,6 +31,7 @@ class ConfirmationsController < Devise::ConfirmationsController
   end
 
   private
+
   def email_existed?
     !!User.find_by(email: @email)
   end
@@ -53,7 +45,7 @@ class ConfirmationsController < Devise::ConfirmationsController
     return if current_user.email == @email
 
     if email_existed?
-      flash[:error] = 'Email has been taken.'
+      flash[:alert] = 'Email has been taken.'
       redirect_to users_confirmation_edit_path
     end
   end
