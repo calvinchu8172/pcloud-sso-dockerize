@@ -1,4 +1,4 @@
-<% provide(:flow, "Change to another email") %>
+<% provide(:flow, I18n.t("devise.confirmations.change_account")) %>
 <div class="zyxel_content">
   <%= form_for(current_user, url: {action: "update"}) do |f| %>
     <table class="zyxel_table_style">
