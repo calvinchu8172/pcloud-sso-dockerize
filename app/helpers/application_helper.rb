@@ -44,7 +44,7 @@ module ApplicationHelper
     end
   end
 
-  def valid_unconfirmed_access?
+  def confirmed_or_valid_unconfirmed_access?
     current_user.confirmed? || current_user.confirmation_valid?
   end
 
