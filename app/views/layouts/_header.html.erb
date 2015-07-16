@@ -9,9 +9,7 @@
   <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
     <%# Display member link when user signed in %>
     <% if user_signed_in? && !current_page?('/help') %>
-      <% unless current_user.confirmed? %>
-        <li><%= link_to I18n.t("labels.unverified"), "/users/confirmation/new", class: "unverified" %></li>
-      <% end %>
+      <li><%= show_unverified_button %></li>
       <li>
         <%= link_to "", "/personal/profile", class: "member" %>
       </li>
@@ -35,7 +33,7 @@
     <%# Display sign out link when user signed in %>
     <% if user_signed_in? && !current_page?('/help') %>
       <li>
-        <%= link_to I18n.t("labels.sign_out") , destroy_user_session_path, method: :delete, class: "sign_out" %>
+        <%= link_to I18n.t("labels.sign_out") , destroy_user_session_path, class: "sign_out" %>
       </li>
     <% end %>
 

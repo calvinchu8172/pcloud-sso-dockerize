@@ -81,6 +81,7 @@ gem 'rest-client'
 # gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
+gem 'browser-timezone-rails'
 
 group :test do
   gem 'action_mailer_cache_delivery'

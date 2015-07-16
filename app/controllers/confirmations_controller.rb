@@ -1,5 +1,20 @@
 class ConfirmationsController < Devise::ConfirmationsController
 
+  before_action :user_login!
+  before_action :email_already_existed!, only: [:update]
+
+  def update
+
+    if current_user.email != @email
+      current_user.email = @email
+      current_user.skip_reconfirmation!
+      current_user.save
+    end
+
+    current_user.send_confirmation_instructions
+    redirect_to hint_confirm_sent_path
+  end
+
   protected
 
   def after_confirmation_path_for(resource_name, resource)
@@ -8,6 +23,30 @@ class ConfirmationsController < Devise::ConfirmationsController
       hint_signup_path(resource)
     else
       new_session_path(resource_name)
+    end
+  end
+
+  def after_resending_confirmation_instructions_path_for(resource_name)
+    is_navigational_format? ? hint_confirm_sent_path : '/'
+  end
+
+  private
+
+  def email_existed?
+    !!User.find_by(email: @email)
+  end
+
+  def user_login!
+    redirect_to unauthenticated_root_path if current_user.nil?
+  end
+
+  def email_already_existed!
+    @email = params[:user][:email]
+    return if current_user.email == @email
+
+    if email_existed?
+      flash[:alert] = 'Email has been taken.'
+      redirect_to users_confirmation_edit_path
     end
   end
 end
