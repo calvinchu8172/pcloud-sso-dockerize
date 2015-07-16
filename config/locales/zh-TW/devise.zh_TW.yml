@@ -6,6 +6,13 @@ zh-TW:
       confirmed: "您的帳號已通過驗證，現在您已成功登入。"
       send_instructions: "您將在幾分鐘後收到一封電子郵件，內有驗證帳號的步驟說明。"
       send_paranoid_instructions: "如果我們有您的信箱，您將會收到一封驗證您的帳號的電子郵件。"
+      apply_account: "你已經成功申請帳號。"
+      finish_step: "為了完成帳號註冊，請檢查你的郵件地址"
+      click_step: "並按下認證連結。"
+      confirm_before: "請進行認證，有效期限為"
+      change_account: "更換郵件地址"
+      resend: "重發認證信"
+      confirm_sent: "認證信已發送。"
     failure:
       already_authenticated: "您已經登入。"
       already_oauth_account: "帳號已被Facebook或Google+ 註冊過"

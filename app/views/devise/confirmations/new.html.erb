@@ -4,11 +4,11 @@
   <div class="text-right" style="">
     <%= link_to("Skip", :back, class: "zyxel_btn_style2") if current_user && current_user.confirmation_valid? %>
   </div>
-  <p><span class="zyxel_span3">You have applied your account successfully.</span></p>
+  <p><span class="zyxel_span3"><%= I18n.t("devise.confirmations.apply_account") %></span></p>
 
-  <p><span class="zyxel_span3">To finish the registration, please check your email <u><%= current_user.email %></u> and click the verification link.</span></p>
+  <p><span class="zyxel_span3"> <%= I18n.t("devise.confirmations.finish_step") %> <u><%= current_user.email %></u> <%= I18n.t("devise.confirmations.click_step") %></span></p>
 
-  <p><span class="zyxel_span3">Please verify email before <b><%= confirmation_expire_time_string %></b></span></p>
+  <p><span class="zyxel_span3"> <%= I18n.t("devise.confirmations.confirm_before") %> <b><%= confirmation_expire_time_string %></b></span></p>
 
   <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
     <table class="zyxel_table_style">
@@ -18,10 +18,10 @@
     </table>
     <div class="zyxel_btn_area i18n_fix">
       <div style="float: left; width: 100px; padding: 11px 0 13px 0">
-        <%= link_to "Change to another email", users_confirmation_edit_path %>
+        <%= link_to I18n.t("devise.confirmations.change_account"), users_confirmation_edit_path %>
       </div>
       <div style="float: right">
-        <%= f.submit "Resend confirmation email", class: "zyxel_btn_submit zyxel_btn_confirm" %>
+        <%= f.submit I18n.t("devise.confirmations.resend"), class: "zyxel_btn_submit zyxel_btn_confirm" %>
       </div>
     </div>
   <% end %>

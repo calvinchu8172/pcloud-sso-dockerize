@@ -2,7 +2,7 @@
 <% provide(:flow, I18n.t("titles.resend_confirmation")) %>
 
 <div class="zyxel_content">
-  <span class="zyxel_span3">The confirmation email has been sent.</span>
+  <span class="zyxel_span3"><%= I18n.t("devise.confirmations.confirm_sent") %></span>
   <div class="zyxel_btn_area i18n_fix">
     <%= link_to I18n.t("labels.confirm") , destroy_user_session_path, class: "zyxel_btn_ok" %>
   </div><!-- zyxel_btn_area -->
