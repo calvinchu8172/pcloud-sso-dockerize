@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
 
     def check_user_confirmation_expire
       return if current_user.nil?
-      redirect_to new_user_confirmation_path unless current_user.confirmation_valid?
+      redirect_to new_user_confirmation_path if (!current_user.confirmed? && !current_user.confirmation_valid?)
     end
 
 end
