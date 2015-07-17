@@ -43,4 +43,9 @@ module ApplicationHelper
       link_to I18n.t("labels.unverified"), new_user_confirmation_path, class: "unverified"
     end
   end
+
+  def confirmed_or_valid_unconfirmed_access?
+    current_user.confirmed? || current_user.confirmation_valid?
+  end
+
 end

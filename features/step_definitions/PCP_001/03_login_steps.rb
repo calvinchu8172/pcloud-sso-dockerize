@@ -56,6 +56,16 @@ When(/^fill changing email "(.*?)"$/) do |email|
   fill_in "user[email]", with: email
 end
 
+When(/^user click confirmation email link$/) do
+  email = ActionMailer::Base.deliveries.last
+  confirm_token = email.body.match(/confirmation_token=[\w\-]*/)
+  visit "/users/confirmation?#{confirm_token}"
+end
+
+Then(/^the page should redirect to hint sign up page$/) do
+  expect(page.current_path).to include(hint_signup_path)
+end
+
 Then(/^the page should redirect to edit email confirmation page$/) do
   expect(page.current_path).to eq(users_confirmation_edit_path)
 end
@@ -76,6 +86,7 @@ end
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------
 Then(/^the page should redirect to resend email of confirmation page$/) do
+  ActionMailer::Base.deliveries.clear
   expect(page.current_path).to eq(new_user_confirmation_path)
 end
 
@@ -105,8 +116,9 @@ Then(/^the user language information will be changed after user login to system$
 end
 
 Then(/^confirmation email should be delivered$/) do
+  @email = ActionMailer::Base.deliveries.first
   expect(ActionMailer::Base.deliveries.count).to eq(1)
-  expect(ActionMailer::Base.deliveries.first.subject).to include("Account Confirmation")
+  expect(@email.subject).to include("Account Confirmation")
 end
 
 def filled_in_login_info(password)
