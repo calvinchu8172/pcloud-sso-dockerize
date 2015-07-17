@@ -41,6 +41,11 @@ Feature: [PCP_001_03] Login
 
     Then the page should redirect to resend email of confirmation page
 
+    When the user click "Resend confirmation email" button
+    And user click confirmation email link
+
+    Then the page should redirect to hint sign up page
+
 
   Scenario: [PCP_001_03_04]
     Redirect to the personal devices page when user login successfully with an uncionfirmed account registered not over 3 days
@@ -53,6 +58,7 @@ Feature: [PCP_001_03] Login
 
     Then user will login and redirect to dashboard
     And the user should see the information when login successfully
+
 
 
   Scenario: [PCP_001_03_05]
@@ -104,6 +110,8 @@ Feature: [PCP_001_03] Login
 
     Then the page should redirect to sign in page
 
+    And the new user confirmed account within email
+
   Scenario: [PCP_001_03_09]
     Change confirmation email address and resend
 
@@ -118,6 +126,9 @@ Feature: [PCP_001_03] Login
 
     Then new confirmation email should be delivered
     And the user email account should be changed to "new@example.com"
+
+    When user click confirmation email link
+    Then the page should redirect to hint sign up page
 
   Scenario: [PCP_001_03_10]
     Change confirmation email address but already existed

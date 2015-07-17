@@ -56,6 +56,16 @@ When(/^fill changing email "(.*?)"$/) do |email|
   fill_in "user[email]", with: email
 end
 
+When(/^user click confirmation email link$/) do
+  @email = ActionMailer::Base.deliveries.first
+  confirm_token = @email.body.match(/confirmation_token=[\w\-]*/)
+  visit "/users/confirmation?#{confirm_token}"
+end
+
+Then(/^the page should redirect to hint sign up page$/) do
+  expect(page.current_path).to include(hint_signup_path)
+end
+
 Then(/^the page should redirect to edit email confirmation page$/) do
   expect(page.current_path).to eq(users_confirmation_edit_path)
 end
