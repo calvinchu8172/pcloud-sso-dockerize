@@ -59,8 +59,6 @@ Feature: [PCP_001_03] Login
     Then user will login and redirect to dashboard
     And the user should see the information when login successfully
 
-
-
   Scenario: [PCP_001_03_05]
     Show information when login successfully
 
