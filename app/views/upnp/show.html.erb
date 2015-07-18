@@ -43,7 +43,7 @@
               </div>
             </div>
           </td>
-          <td data-title="'status'" ng-switch on="statusResult(service.status, service.update_result)" class="column2">
+          <td data-title="'status'" ng-switch on="service.status" class="column2">
             <span ng-switch-when="true" class="">OK</span>
             <span ng-switch-when="false" class="">---</span>
           </td>
@@ -264,6 +264,7 @@
               $scope.successPanel(response);
               return;
             case 'reload':
+              // 暫存 updated_list
               $scope.updated_list = response.service_list;
               console.log('-------------- checkSubmit result start --------------------------');
               console.log('updated_list as below:');
@@ -314,13 +315,33 @@
               console.log('updated_list as below:');
               console.log($scope.updated_list);
               angular.forEach($scope.updated_list, function(updated_settings, index){
-                if( $scope.checkRandomPortNeeded(updated_settings) ){
-                  updated_settings.wan_port = $scope.randomPort();
-                }
+                // if( $scope.checkRandomPortNeeded(updated_settings) ){
+                //   updated_settings.wan_port = $scope.randomPort();
+                // }
                 angular.forEach($scope.service_list, function(service, index){
                   if(updated_settings['service_name'] == service['service_name']){
                     service['update_result'] = updated_settings['update_result'];
-                    service['wan_port'] = updated_settings['wan_port'];
+                    if(updated_settings['update_result'] == 'success'){
+                      // 如果 update 成功，應該把 update_list 當中所改到的設定顯示在畫面上，
+                      // 如果 update_list 的 enabled 是 true，則 status 應該也要顯示 true，
+                      // 如果 update_list 的 enabled 是 false，則 status 應該也要顯示 false，
+                      // wan_port 欄位應顯示 udpate_list 中的 wan_port。
+                      service['wan_port'] = updated_settings['wan_port'];
+                      service['status'] == updated_settings['enabled'];
+                      service['enabled'] == updated_settings['enabled'];
+                    }else if(updated_settings['update_result'] == 'failure'){
+                      // 如果 update 失敗，應該看有改到哪些設定，並且將修改前的值顯示在畫面上，
+                      // 判斷使用者是修改 port 還是 status，
+                      // 若是修改 port 則應 random port，
+                      // 若是修改 status，則畫面上應顯示修改前的status。
+                      if(updated_settings['is_service_port_modified'] == true){
+                        service['wan_port'] = $scope.randomPort();
+                      }
+                      if(updated_settings['is_service_status_modified'] == true){
+                        service['status'] = updated_settings['status'];
+                        service['enabled'] = updated_settings['status'];
+                      }
+                    }
                   }
                   $scope.service_list[index] = service;
                 });
@@ -393,14 +414,6 @@
         $thisBtn.setAttribute('href', $dataUrl);
       };
     };
-
-    $scope.statusResult = function(state, update_result){
-      if(update_result == "success"){
-        return !state;
-      }else{
-        return state;
-      }
-    }
 
     $scope.showServicePort = function(){
       $scope.servicePort.show = true;
