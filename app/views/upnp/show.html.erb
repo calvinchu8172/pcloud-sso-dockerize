@@ -1,7 +1,7 @@
 <% provide(:flow, @device.product.model_class_name + "," + I18n.t("titles.settings.upnp")) %>
 <% provide(:tab, 'my_devices') %>
 
-<div class="upnp zyxel_content" style="max-width:570px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json() %>;loadConfig();">
+<div class="upnp zyxel_content" style="max-width:700px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json() %>;loadConfig();">
 
   <%# Pairing information %>
   <div  ng-switch on="step">
@@ -119,7 +119,7 @@
   ]);
 
   upnp_app.controller('ServiceCtrl', function ($scope, $http, $timeout) {
-    $scope.service_list;
+
     $scope.origin_wan_port;
 
 
@@ -153,6 +153,10 @@
     $scope.servicePort = {
       show: false
     }
+    $scope.updated_list = [];
+    $scope.used_wan_port_list = [];
+    $scope.service_list = [];
+    $scope.randomed_num_list = [];
 
     $scope.init = function(){
       $scope.step = "updating";
@@ -167,9 +171,22 @@
       $timeout(function() {
         $scope.loadTimes++;
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false }).success(function(response) {
-
           switch(response.status){
             case 'form':
+              console.log('-------------- edit result start --------------------------');
+              console.log('whole response as below: ');
+              console.log(response);
+              $scope.used_wan_port_list = response.used_wan_port_list;
+              $scope.service_list = response.service_list;
+              angular.forEach($scope.service_list, function(service, index){
+                if( $scope.checkRandomPortNeeded(service) ){
+                  service.wan_port = $scope.randomPort();
+                }
+              });
+              console.log('used_wan_port_list: ' + $scope.used_wan_port_list);
+              console.log('service_list as below: ');
+              console.log($scope.service_list);
+              console.log('-------------- edit result end --------------------------');
               $scope.pathIp = response.path_ip;
               $scope.get_list = response;
               if($scope.step != "confirm_cancel") {
@@ -246,7 +263,12 @@
             case 'updated':
               $scope.successPanel(response);
               return;
-            case 'reload': // if service not all success, status will be set to reload
+            case 'reload':
+              $scope.updated_list = response.service_list;
+              console.log('-------------- checkSubmit result start --------------------------');
+              console.log('updated_list as below:');
+              console.log($scope.updated_list);
+              console.log('--------------- checkSubmit result end -------------------------');
               $scope.reloadService();
               return;
             case 'timeout': // if device is offline, status will be set to timeout by portal
@@ -272,7 +294,7 @@
         $scope.loadTimes++;
         $http.get($scope.reloadPath + $scope.session.id, { cache: false }).success(function(response) {
           switch(response.status){
-            case 'start': //
+            case 'start':
               if($scope.checkTimes < $scope.timesLimit){
                 $scope.reloadService();
               }else{
@@ -283,7 +305,28 @@
               }
               return;
             case 'form':
+              $scope.service_list = response.service_list;
+
+              console.log('-------------- reload result start --------------------------');
+              console.log('service_list as below:');
+              console.log($scope.service_list);
+              console.log('=============================================================');
+              console.log('updated_list as below:');
+              console.log($scope.updated_list);
+              angular.forEach($scope.updated_list, function(updated_settings, index){
+                if( $scope.checkRandomPortNeeded(updated_settings) ){
+                  updated_settings.wan_port = $scope.randomPort();
+                }
+                angular.forEach($scope.service_list, function(service, index){
+                  if(updated_settings['service_name'] == service['service_name']){
+                    service['update_result'] = updated_settings['update_result'];
+                    service['wan_port'] = updated_settings['wan_port'];
+                  }
+                  $scope.service_list[index] = service;
+                });
+              });
               $scope.formPanel(response);
+              console.log('-------------- reload result end --------------------------');
               return;
             case 'failure':
             case 'timeout':
@@ -291,6 +334,24 @@
           } // switch(response.status){....}
         });
       }, $scope.interval);
+    }
+
+    $scope.checkRandomPortNeeded = function(service){
+      return (service['wan_port'] == '-1') ||
+        ( service['enabled'] &&
+          (typeof service['origin_wan_port'] != 'undefined') &&
+          (service['origin_wan_port'] != '') &&
+          (service['origin_wan_port'] != service['wan_port'])
+        )
+    }
+
+    $scope.randomPort = function(){
+      var rand_num = Math.floor((Math.random() * 65535) + 1025);
+      if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
+        rand_num = $scope.randomPort();
+      }
+      $scope.randomed_num_list.push(rand_num);
+      return rand_num;
     }
 
     $scope.disableBtn = function(){
