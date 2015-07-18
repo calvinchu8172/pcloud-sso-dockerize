@@ -31,12 +31,12 @@
         <tr ng-repeat="package in package_list">
           <td data-title="'enabled'" class="column1">
             <div ng-switch on="result">
-              <input id="check{{$index}}" type="checkbox" ng-model="package.enabled" >
+              <input id="check{{$index}}" type="checkbox" ng-model="package.enabled" ng-change="update_enable({{$index}})">
               <div ng-switch-when="true">
-                <label for="check{{$index}}"><span>T</span></label>
+                <label for="check{{$index}}"><span></span></label>
               </div>
               <div ng-switch-when="false">
-                <label for="check{{$index}}"><span>F</span></label>
+                <label for="check{{$index}}"><span></span></label>
               </div>
             </div>
           </td>
@@ -106,6 +106,7 @@
 </div>
 
 <script type="text/javascript">
+
   var package_app = angular.module('package_app', ['timer']);
   package_app.config([
     '$httpProvider',
@@ -266,6 +267,7 @@
       $scope.enableBtn();
       $scope.session = response;
       $scope.package_list = response.package_list;
+      $scope.dependency_list = response.dependency_list;
     }
     $scope.successPanel = function(response){
       $scope.step = "form";
@@ -274,6 +276,7 @@
       $scope.result = "true";
       $scope.package_list = response.package_list;
       $scope.wording = '<%= I18n.t("warnings.settings.package.success") %>';
+      //$scope.dependency_list = response.dependency_list;
     }
 
     $scope.isFieldEmpty = function(name){
@@ -294,6 +297,37 @@
         return !state;
       }else{
         return state;
+      }
+    }
+    $scope.update_enable = function( index ){
+       if( $scope.package_list[index]['enabled'] )
+       {
+        depends = $scope.dependency_list.enable_list[ $scope.package_list[index]['package_name'] ]
+        if( depends )
+        {
+          for( depends_index in depends )
+          {
+            requires_name = depends[ depends_index ];
+            $scope.dependency_change( requires_name , 'enabled' , true );
+          }
+        }
+       }else
+        {
+          depends = $scope.dependency_list.disable_list[ $scope.package_list[index]['package_name'] ]
+          if( depends )
+          {
+            for( depends_index in depends )
+            {
+              requires_name = depends[ depends_index ];
+              $scope.dependency_change( requires_name , 'enabled' , false );
+            }
+          }
+        }
+    }
+    $scope.dependency_change = function( package_name ,attribute, value){
+      for( index in $scope.package_list )
+      {
+        if( $scope.package_list[index]['package_name'] ==  package_name )$scope.package_list[index][attribute] = value;
       }
     }
 

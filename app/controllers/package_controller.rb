@@ -38,32 +38,36 @@ class PackageController < ApplicationController
     session_id = params[:id]
     package_session = PackageSession.find(session_id).session.all
     render :json => {:result => 'timeout'} and return if package_session.empty?
-
     error_message = get_error_msg(package_session['error_code'])
     package_list = (package_session['status'] == 'form' && !package_session['package_list'].empty?)? JSON.parse(package_session['package_list']) : {}
-    #package_list = decide_which_description(package_list) unless package_list.empty?
+    package_list = decide_enable(package_list) unless package_list.empty?
     #path_ip = decide_which_path_ip package_session
-
+    dependency_list = gen_dependency_list session_id
     result = {:status => package_session['status'],
               :device_id => package_session['device_id'],
               :error_message => error_message,
               :package_list => package_list,
               :requires => package_session['requires'],
               :version => package_session['version'],
-              :id => session_id
+              :id => session_id,
+              :dependency_list => dependency_list
              }
 
     service_logger.note({edit_package: result})
+
+
     render :json => result
   end
 
   def update
     @package = PackageSession.find(params[:id])
-    settings = update_permit.merge({:status => :submit})
-    result = @package.session.update(settings);
-
+    current_settings = update_permit.merge({:status => :submit})
+    dependency_list = gen_dependency_list params[:id]
+    current_settings = check_enable( current_settings , dependency_list )
+    #puts current_settings
+    result = @package.session.update(current_settings);
     push_to_queue "package_submit" if result
-    service_logger.note({update_package: settings})
+    service_logger.note({update_package: current_settings})
     render :json => {:result => result}.to_json
   end
 
@@ -80,16 +84,17 @@ class PackageController < ApplicationController
     #path_ip = decide_which_path_ip package_session
 
     package_list = ((package_session['status'] == 'form' || package_session['status'] == 'updated') && !package_session['package_list'].empty?)? JSON.parse(package_session['package_list']) : {}
-    #service_list = decide_which_description(service_list) unless service_list.empty?
+    #package_list = decide_enable(package_list) unless package_list.empty?
     package_list = update_result(package_list) unless package_list.empty?
-
+    #dependency_list = gen_dependency_list session_id unless package_list.empty?
+    #puts package_list
     result = {:status => package_session['status'],
               :device_id => package_session['device_id'],
               :error_message => error_message,
               :package_list => package_list,
               :requires => package_session['requires'],
               :version => package_session['version'],
-              :id => session_id
+              :id => session_id,
              }
 
     service_logger.note({failure_package: result}) if package_session['status'] == 'failure' || package_session['status'] == 'timeout'
@@ -126,18 +131,13 @@ class PackageController < ApplicationController
   end
 
   # Return i18n service description
-  def decide_which_description(service_list)
-    desc_key_list = ["http", "streaming", "ftp", "telnet", "cifs", "mediaserver", "nzbget", "transmission",
-      "owncloud_http", "owncloud_https", "afp", "gallery_http", "gallery_https", "wordpress_http", "wordpress_https",
-       "php_mysql_phpmyadmin_http", "php_mysql_phpmyadmin_https"]
-
-    service_list.each do |service|
-      unless service["service_name"].empty?
-        desc_key = service["service_name"].downcase.chomp(" ").gsub("-", "_").gsub("(", "_").gsub(")", "").gsub(" ", "_")
-        service["description"] = I18n.t("upnp_description.#{desc_key}")   if desc_key_list.include?(desc_key)
+  def decide_enable(package_list)
+    package_list.each do |package|
+      unless package["package_name"].empty?
+        package["enabled"] = package["status"]
       end
     end
-    service_list
+    package_list
   end
 
   def service_list_to_json
@@ -146,9 +146,9 @@ class PackageController < ApplicationController
 
   def push_to_queue(job)
     data = {:job => job, :session_id => @package.id}
-    #sqs = AWS::SQS.new
-    #queue = sqs.queues.named(Settings.environments.sqs.name)
-    #queue.send_message(data.to_json)
+    sqs = AWS::SQS.new
+    queue = sqs.queues.named(Settings.environments.sqs.name)
+    queue.send_message(data.to_json)
   end
 
   def deleted_extra_key
@@ -165,26 +165,87 @@ class PackageController < ApplicationController
     package_list.each do |package|
       result = "no_update"
 
-      if package['error_code'] && package['enabled'] != package['status']
+      if package['error_code']
         if package['error_code'].length == 0
           result = "success"
         else
           result = "failure"
         end
       end
+      result = "no_update" if package['enabled'] == package['status']
       package['update_result'] = result
     end
     package_list
   end
 
-  def update_permit
-    package_list = JSON.parse( params[:package_list] )
-    puts package_list
-    package_list.each do | package |
-      puts package['package_name'] +"  ===  " + package['enabled'].to_s
+  def gen_dependency_list session_id
+    package_old = PackageSession.find(session_id)
+    enable_list = Hash.new
+    disable_list = Hash.new
+    dependency_list = Hash.new
+    package_session = package_old.session.all
+    package_list_current = ( package_session['package_list'] )? JSON.parse(package_session['package_list']) : {}
+    package_list_current.each do |package|
+      if package['requires']
+        if package['requires'][0] != nil
+          package_name = package['package_name']
+          package['requires'].each do | requires |
+            disable_list[ requires ] = Array.new if !disable_list[ requires ]
+            disable_list[ requires ] << package_name
+            enable_list [ package_name ] = Array.new if !enable_list [ package_name ]
+            enable_list [ package_name ] << requires
+          end
+        end
+      end
     end
-    params.permit(:package_list)
+    dependency_list['enable_list'] = enable_list
+    dependency_list['disable_list'] = disable_list
+    dependency_list
+  end
 
+  def update_permit
+    params.permit(:package_list);
+  end
+
+  def search_dependency ( package_name, list, enabled )
+    final_list = Hash.new
+    list.each {|key, requires|
+      if key == package_name
+        requires.each{|requires_name|
+          final_list[requires_name] = {:enabled => enabled}
+          final_list.merge( search_dependency( requires_name , list , enabled ) )
+        }
+      end
+     }
+    final_list
+  end
+
+  def check_enable (settings , dependency_list)
+    final_enable_list = Hash.new
+    final_disable_list = Hash.new
+    package_list = JSON.parse( settings['package_list'] )
+    package_list.each do | package_upload |
+      if package_upload['enabled'] != package_upload['status']
+        #puts 'package_name : ' + package_upload['package_name'] + '--' + package_upload['enabled'].to_s + '--' + package_upload['status'].to_s
+        if ( package_upload['enabled'] == false )
+          final_disable_list[package_upload['package_name']] = {:enabled => false}
+          final_disable_list.merge( search_dependency( package_upload['package_name'] , dependency_list['disable_list'] , false ) )
+        else
+          final_enable_list[package_upload['package_name']]= {:enabled => true}
+          final_enable_list.merge( search_dependency( package_upload['package_name'] , dependency_list['enable_list'] , true ) )
+        end
+      end
+    end
+    final_list = final_disable_list.merge( final_enable_list )
+    final_list.each{|package_name, data|
+      package_list.each{|package_current|
+        if(package_current['package_name'] == package_name)
+          package_current['enabled'] = data[:enabled]
+        end
+      }
+    }
+    settings['package_list'] =  package_list.to_json
+    settings
   end
 
   def get_device_info
