@@ -40,7 +40,7 @@
               </div>
             </div>
           </td>
-          <td data-title="'status'" ng-switch on="statusResult(package.status, package.update_result)" class="column2">
+          <td data-title="'status'" ng-switch on="package.status" class="column2">
             <span ng-switch-when="true" class="">Enable</span>
             <span ng-switch-when="false" class="">Disable</span>
           </td>
@@ -185,6 +185,7 @@
     };
 
     $scope.submit = function(){
+      $scope.session.package_list = $scope.package_list;
       $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
         if(response.result){
           $scope.checkSubmit();
@@ -293,10 +294,11 @@
     };
 
     $scope.statusResult = function(state, update_result){
+      alert ( state  + update_result );
       if(update_result == "success"){
-        return !state;
-      }else{
         return state;
+      }else{
+        return !state;
       }
     }
     $scope.update_enable = function( index ){

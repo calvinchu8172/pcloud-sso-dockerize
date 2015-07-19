@@ -77,8 +77,8 @@ class PackageController < ApplicationController
   def check
 
     session_id = params[:id]
-    package = PackageSession.find(session_id)
-    package_session = package.session.all
+    @package = PackageSession.find(session_id)
+    package_session = @package.session.all
 
     error_message = get_error_msg(package_session['error_code'])
     #path_ip = decide_which_path_ip package_session
@@ -86,6 +86,7 @@ class PackageController < ApplicationController
     package_list = ((package_session['status'] == 'form' || package_session['status'] == 'updated') && !package_session['package_list'].empty?)? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
     package_list = update_result(package_list) unless package_list.empty?
+
     #dependency_list = gen_dependency_list session_id unless package_list.empty?
     #puts package_list
     result = {:status => package_session['status'],
@@ -96,6 +97,8 @@ class PackageController < ApplicationController
               :version => package_session['version'],
               :id => session_id,
              }
+    package_session['package_list'] = package_list.to_json
+    @package.session.update( package_session );
 
     service_logger.note({failure_package: result}) if package_session['status'] == 'failure' || package_session['status'] == 'timeout'
     render :json => result
@@ -165,14 +168,15 @@ class PackageController < ApplicationController
     package_list.each do |package|
       result = "no_update"
 
-      if package['error_code']
+      if package['error_code'] && package['enabled'] != package['status']
         if package['error_code'].length == 0
           result = "success"
+          package['status'] = package['enabled']
         else
           result = "failure"
+          package['enabled'] = package['status']
         end
       end
-      result = "no_update" if package['enabled'] == package['status']
       package['update_result'] = result
     end
     package_list
@@ -242,6 +246,7 @@ class PackageController < ApplicationController
         if(package_current['package_name'] == package_name)
           package_current['enabled'] = data[:enabled]
         end
+        package_current['error_code'] = ''
       }
     }
     settings['package_list'] =  package_list.to_json
