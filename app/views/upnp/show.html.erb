@@ -5,8 +5,10 @@
 
   <%# Pairing information %>
   <div  ng-switch on="step">
-    <div class="waiting" ng-switch-when="updating">
-      <span class="zyxel_span2"><%= I18n.t("warnings.settings.upnp.sync") %></span>
+    <div class="waiting text-center" ng-switch-when="updating">
+      <div class="zyxel_span2">
+        <%= I18n.t("warnings.settings.upnp.sync") %>
+      </div>
     </div>
     <div ng-switch-when="form">
       <div ng-switch on="result">
@@ -60,7 +62,7 @@
             {{service.description}}
           </td>
           <td data-title="'service_port'" class="column3">
-            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7"/>
+            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only"/>
             <span ng-show="result == 'true'">{{service.wan_port}}</span>
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
@@ -432,5 +434,28 @@
     }
 
   });
+
+
+  upnp_app.directive('numbersOnly', function(){
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, modelCtrl) {
+        modelCtrl.$parsers.push(function (inputValue) {
+          // this next if is necessary for when using ng-required on your input.
+          // In such cases, when a letter is typed first, this parser will be called
+          // again, and the 2nd time, the value will be undefined
+          if (inputValue == undefined) return '';
+          var transformedInput = inputValue.replace(/[^0-9]/g, '');
+          if (transformedInput!=inputValue) {
+              modelCtrl.$setViewValue(transformedInput);
+              modelCtrl.$render();
+          }
+          return transformedInput;
+        });
+      }
+  };
+
+});
+
 </script>
 <!-- % end % -->
