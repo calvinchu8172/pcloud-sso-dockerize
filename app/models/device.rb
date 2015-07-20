@@ -3,7 +3,6 @@ class Device < ActiveRecord::Base
   include Guards::AttrEncryptor
 
   belongs_to :product
-  has_one :device_session
   has_one :ddns
 
   has_many :pairing
