@@ -30,3 +30,8 @@ end
 Then(/^DDNS ip should be update to "(.*?)"$/) do |ip|
   expect(Ddns.first.ip_address).to eq(ip)
 end
+
+Then(/^XmppLast should record this device register sign in time$/) do
+  username = Api::Device.first.xmpp_username
+  expect(XmppLast.find_by(username: username).last_signin_at).to be_present
+end
