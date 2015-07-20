@@ -120,7 +120,7 @@ class Api::Device < Device
     current_timestamp = Time.now.to_i
     xmpp_last = XmppLast.find_by(username: account[:name])
     if xmpp_last.nil?
-      xmpp_last.new
+      xmpp_last = XmppLast.new
       xmpp_last.username = account[:name]
       xmpp_last.last_signout_at = current_timestamp - 1
       xmpp_last.state = ""
