@@ -62,6 +62,15 @@ module TestingHelper
     pairing.save
     pairing
   end
+
+  def self.create_ddns(device, ip)
+    device.ddns = Ddns.create(
+      device_id: device.id,
+      ip_address: ip,
+      domain_id: Domain.first.id,
+      hostname: "test_hostname_#{device.id}"
+      )
+  end
 end
 
 # Click submit button
