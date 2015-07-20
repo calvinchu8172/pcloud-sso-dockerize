@@ -81,9 +81,15 @@
       &[ng-switch-when="false"] label span {
         background:image-url("switch_off.png") left center no-repeat;
       }
+      &[ng-switch-when="true"] label span {
+        background:image-url("switch_off.png") left center no-repeat;
+      }
     }
     &:checked + div[ng-switch-when] {
       &[ng-switch-when="false"] label span {
+        background:image-url("switch_on.png") left center no-repeat;
+      }
+      &[ng-switch-when="true"] label span {
         background:image-url("switch_on.png") left center no-repeat;
       }
     }
