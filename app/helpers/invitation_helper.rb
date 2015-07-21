@@ -10,7 +10,8 @@ module InvitationHelper
 	    render :template => '/invitations/accept'
 	    return
 	  end
-	  if @invitation.expire_count <= 0
+	  @accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: current_user.id)
+	  if @accepted_user.blank? && @invitation.expire_count <= 0
 			logger.info("此邀請已超過可接受的上限次數")
 			render :template => '/invitations/accept'
 			return
@@ -25,7 +26,6 @@ module InvitationHelper
 			render :template => '/invitations/accept'
 			return
 		end
-		@accepted_user = AcceptedUser.find_by(invitation_id: @invitation.id, user_id: current_user.id)
 		unless @accepted_user.blank?
 			if @accepted_user.status == 1
 				logger.info("已接受過相同的邀請")
