@@ -62,7 +62,7 @@
             {{service.description}}
           </td>
           <td data-title="'service_port'" class="column3">
-            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only"/>
+            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only" ng-blur="notEmpty($index);"/>
             <span ng-show="result == 'true'">{{service.wan_port}}</span>
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
@@ -125,12 +125,21 @@
 
     $scope.origin_wan_port;
 
-
     $scope.recordOriginSettings = function(){
       angular.forEach($scope.service_list, function(service, index){
         service.origin_wan_port = service.wan_port;
       });
     }
+
+    $scope.notEmpty = function(service_index){
+      var service = $scope.service_list[service_index];
+      console.log('wan_port:'+service.wan_port);
+      console.log('origin_wan_port:'+service.origin_wan_port);
+      if(service.wan_port == ''){
+        service.wan_port = service.origin_wan_port;
+      }
+    }
+
   });
 
   upnp_app.controller('UpnpCtrl', function ($scope, $http, $timeout) {
