@@ -80,10 +80,10 @@ class PackageController < ApplicationController
     @package = PackageSession.find(session_id)
     package_session = @package.session.all
 
-    error_message = get_error_msg(package_session['error_code'])
+    #error_message = get_error_msg(package_session['error_code'])
     #path_ip = decide_which_path_ip package_session
 
-    package_list = ((package_session['status'] == 'form' || package_session['status'] == 'updated') && !package_session['package_list'].empty?)? JSON.parse(package_session['package_list']) : {}
+    package_list = !package_session['package_list'].empty? ? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
     package_list = update_result(package_list) unless package_list.empty?
 
@@ -91,7 +91,7 @@ class PackageController < ApplicationController
     #puts package_list
     result = {:status => package_session['status'],
               :device_id => package_session['device_id'],
-              :error_message => error_message,
+              :error_message => '',
               :package_list => package_list,
               :requires => package_session['requires'],
               :version => package_session['version'],
