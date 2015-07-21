@@ -14,6 +14,7 @@ en:
     retry: 'Retry'
     submit: 'Submit'
     confirm: 'Confirm'
+    ok: 'OK'
     or: 'or'
     expand_all: 'Expand All'
     collapse_all: 'Collapse All'

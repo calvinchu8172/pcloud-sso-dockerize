@@ -104,7 +104,7 @@ Feature: [PCP_001_03] Login
     Then confirmation email should be delivered
     And the page should redirect to hint confirmation sent page
 
-    When the user click "Confirm" link
+    When the user click "OK" link
 
     Then the page should redirect to sign in page
 

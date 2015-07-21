@@ -1,25 +1,27 @@
 class ConfirmationsController < Devise::ConfirmationsController
 
-  before_action :user_login!
+  before_action :user_login!, only: [:edit, :new, :create, :update]
   before_action :email_validate, only: [:update]
+
+  def create
+    super
+    sign_out(current_user)
+  end
 
   def update
     current_user.skip_reconfirmation!
     current_user.save
 
     current_user.send_confirmation_instructions
+    sign_out(current_user)
     redirect_to hint_confirm_sent_path
   end
 
   protected
 
   def after_confirmation_path_for(resource_name, resource)
+    sign_in(resource) unless signed_in?(resource_name)
     hint_signup_path
-    if signed_in?(resource_name)
-      hint_signup_path(resource)
-    else
-      new_session_path(resource_name)
-    end
   end
 
   def after_resending_confirmation_instructions_path_for(resource_name)
