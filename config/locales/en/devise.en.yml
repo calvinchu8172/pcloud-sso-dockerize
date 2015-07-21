@@ -13,6 +13,7 @@ en:
       change_account: "Change to another email"
       resend: "Resend confirmation email"
       confirm_sent: "The confirmation email has been sent."
+      same_email_address: "The new email address is the same as old."
     failure:
       already_authenticated: "You are already signed in."
       already_oauth_account: "Already registered via Facebook or Google+"

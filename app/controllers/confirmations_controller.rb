@@ -1,15 +1,11 @@
 class ConfirmationsController < Devise::ConfirmationsController
 
   before_action :user_login!
-  before_action :email_already_existed!, only: [:update]
+  before_action :email_validate, only: [:update]
 
   def update
-
-    if current_user.email != @email
-      current_user.email = @email
-      current_user.skip_reconfirmation!
-      current_user.save
-    end
+    current_user.skip_reconfirmation!
+    current_user.save
 
     current_user.send_confirmation_instructions
     redirect_to hint_confirm_sent_path
@@ -40,12 +36,17 @@ class ConfirmationsController < Devise::ConfirmationsController
     redirect_to unauthenticated_root_path if current_user.nil?
   end
 
-  def email_already_existed!
-    @email = params[:user][:email]
-    return if current_user.email == @email
+  def email_validate
+    new_email = params[:user][:email]
+    if current_user.email == new_email
+     flash[:alert] = I18n.t("devise.confirmations.same_email_address")
+     redirect_to users_confirmation_edit_path
+     return
+    end
 
-    if email_existed?
-      flash[:alert] = 'Email has been taken.'
+    current_user.email = new_email
+    unless current_user.valid?
+      flash[:alert] = current_user.errors[:email].first
       redirect_to users_confirmation_edit_path
     end
   end

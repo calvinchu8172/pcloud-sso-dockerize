@@ -17,27 +17,41 @@ When(/^the device of Package was offline$/) do
 end
 
 When(/^the device was online the device will response package list$/) do
-  package_list = ('[{"service_name":"FTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"FTP configuration",
-                     "wan_port":"22",
-                     "lan_port":"22",
-                     "path":"ftp://ip:port"},
-                    {"service_name":"DDNS",
-                     "status":true,
-                     "enabled":false,
-                     "description":"DDNS configuration",
-                     "wan_port":"",
-                     "lan_port":"",
-                     "path":""},
-                    {"service_name":"HTTP",
-                     "status":true,
-                     "enabled":false,
-                     "description":"HTTP configuration",
-                     "wan_port":"8000",
-                     "lan_port":"80",
-                     "path":"http://ip:port"}]').gsub("\n", "")
+  package_list = ('[
+   {
+       "package_name": "WORDPRESS",
+       "status": true,
+       "requires": ["PHP-MySQL-phpMyAdmin"],
+       "enabled": false,
+       "description": ["a1","a2","a3"],
+       "version": "001zypkg013"
+   },
+   {
+       "package_name": "PHP-MySQL-phpMyAdmin",
+       "status": true,
+       "requires": [],
+       "enabled": false,
+       "description": ["b1.","b2.","b3"],
+       "version": "002zypkg013"
+   },
+   {
+       "package_name": "gallery",
+       "status": false,
+       "requires": ["PHP-MySQL-phpMyAdmin"],
+       "enabled": false,
+       "description": ["C1","C2","C3"],
+       "version": "003zypkg013"
+   },
+   {
+       "package_name": "Transmission",
+       "status": false,
+       "requires": [],
+       "enabled": false,
+       "description": ["d1","d2","d3"],
+       "version": "004zypkg013"
+   }
+  ]').gsub("\n", "")
+
   set_package_status(@package_session, "form", package_list)
   wait_server_response
 end

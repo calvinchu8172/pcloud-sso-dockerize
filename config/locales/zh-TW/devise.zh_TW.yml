@@ -13,6 +13,7 @@ zh-TW:
       change_account: "更換郵件地址"
       resend: "重發認證信"
       confirm_sent: "認證信已發送。"
+      same_email_address: "更改後的郵件地址與原本的相同"
     failure:
       already_authenticated: "您已經登入。"
       already_oauth_account: "帳號已被Facebook或Google+ 註冊過"
