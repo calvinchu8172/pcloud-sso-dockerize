@@ -1,14 +1,13 @@
 -- create xmpp server database
-DROP DATABASE IF EXISTS mogooseim;
-CREATE DATABASE `mogooseim`;
+CREATE DATABASE IF NOT EXISTS `mogooseim`;
 USE `mogooseim`;
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     username varchar(250) PRIMARY KEY,
     password text NOT NULL,
     pass_details text,
     created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) CHARACTER SET utf8;
-CREATE TABLE last (
+CREATE TABLE IF NOT EXISTS last (
     username varchar(250) PRIMARY KEY,
     seconds int NOT NULL,
     state text NOT NULl,
