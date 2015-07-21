@@ -136,7 +136,7 @@ class PackageController < ApplicationController
   # Return i18n service description
   def decide_enable(package_list)
     package_list.each do |package|
-      unless package["package_name"].empty?
+      unless package["package_name"].blank?
         package["enabled"] = package["status"]
       end
     end
@@ -188,7 +188,14 @@ class PackageController < ApplicationController
     disable_list = Hash.new
     dependency_list = Hash.new
     package_session = package_old.session.all
-    package_list_current = ( package_session['package_list'] )? JSON.parse(package_session['package_list']) : {}
+
+    begin
+      result = JSON.parse(package_session['package_list'])
+    rescue
+      result = {}
+    end
+
+    package_list_current = package_session['package_list'] ? result : {}
     package_list_current.each do |package|
       if package['requires']
         if package['requires'][0] != nil
