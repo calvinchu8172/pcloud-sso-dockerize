@@ -62,7 +62,7 @@
             {{service.description}}
           </td>
           <td data-title="'service_port'" class="column3">
-            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only" ng-blur="notEmpty($index);"/>
+            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only" ng-blur="validateWanPort($index);"/>
             <span ng-show="result == 'true'">{{service.wan_port}}</span>
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
@@ -131,11 +131,12 @@
       });
     }
 
-    $scope.notEmpty = function(service_index){
+    $scope.validateWanPort = function(service_index){
       var service = $scope.service_list[service_index];
-      console.log('wan_port:'+service.wan_port);
-      console.log('origin_wan_port:'+service.origin_wan_port);
       if(service.wan_port == ''){
+        service.wan_port = service.origin_wan_port;
+      }
+      if(service.wan_port < 1025 || service.wan_port > 65535){
         service.wan_port = service.origin_wan_port;
       }
     }
@@ -232,6 +233,11 @@
     };
 
     $scope.submit = function(){
+      angular.forEach($scope.service_list, function(service, index){
+        if(!service.enabled){
+          service.wan_port = service.origin_wan_port;
+        }
+      });
       $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false }).success(function(response){
         if(response.result){
           $scope.checkSubmit();
