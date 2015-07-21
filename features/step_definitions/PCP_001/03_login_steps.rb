@@ -40,7 +40,7 @@ end
 
 Given(/^the user click unverified link$/) do
   ActionMailer::Base.deliveries.clear
-  click_link "unverified"
+  click_link "Unverified"
 end
 
 Then(/^new confirmation email should be delivered$/) do
