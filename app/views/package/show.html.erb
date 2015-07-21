@@ -8,7 +8,7 @@
     <div class="waiting" ng-switch-when="updating">
       <span class="zyxel_span2"><%= I18n.t("warnings.settings.package.sync") %></span>
     </div>
-    <div ng-switch-when="form">
+    <div ng-switch-when="form" >
       <div ng-switch on="result">
         <h2 ng-switch-when="true" class="zyxel_h2_icon1">
           <span>{{wording}}</span>
@@ -30,7 +30,7 @@
         <tr ng-repeat="package in package_list">
           <td data-title="'enabled'" class="column1">
             <div ng-switch on="result">
-              <input id="check{{$index}}" type="checkbox" ng-model="package.enabled" ng-change="update_enable({{$index}})">
+              <input id="check{{$index}}" ng-disabled="panel == 'confirm'" type="checkbox" ng-model="package.enabled" ng-change="update_enable({{$index}})">
               <div ng-switch-when="true">
                 <label for="check{{$index}}"><span></span></label>
               </div>
@@ -67,9 +67,6 @@
         </tr>
       </table>
     </div>
-    <div class="waiting" ng-switch-when="failure">
-      <span class="zyxel_span4">{{error_msg}}</span>
-    </div>
     <div class="waiting" ng-switch-when="confirm_cancel">
       <span class="zyxel_span4"><%= I18n.t("warnings.settings.package.cancel_instruction") %></span>
     </div>
@@ -86,19 +83,21 @@
     </div>
     <div ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
-      <button class="zyxel_btn_submit" ng-click="retry()"><%= I18n.t("labels.retry") %></button>
+      <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.retry") %></button>
     </div>
     <div ng-switch-when="form" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
       <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
     </div>
     <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
-      <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
-      <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
+      <%= link_to(I18n.t("ok"), "/personal/index", class: "zyxel_btn_back") %>
+      <% if @device.find_module_list.include?('upnp') %>
+        <%= link_to I18n.t("labels.settings.upnp.instruction") , { :controller=> 'upnp', :action => 'show', :id => @device.escaped_encrypted_id }, class: "zyxel_btn_ok zyxel_enabled" %>
+      <% end  %>
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
       <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
-      <%= link_to(I18n.t("labels.confirm"), "/package/cancel/#{@package.id}", class: "zyxel_btn_ok zyxel_enabled") %>
+      <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
   </div>
   <%# Bottom content include loading image and retry button - end %>
@@ -178,8 +177,9 @@
     $scope.get_failure = function(response) {
       $scope.error_msg = response.error_message;
       $scope.loadTimes = 0;
-      $scope.step = "failure";
+      $scope.step = "form";
       $scope.panel = "retry";
+      $scope.package_list = response.package_list;
       $scope.enableBtn();
     };
 
@@ -231,6 +231,8 @@
             case 'form':
               $scope.formPanel(response);
               return;
+            case 'failure':
+              $scope.get_failure(response);
             case 'timeout':
               $scope.get_failure(response);
               return;
