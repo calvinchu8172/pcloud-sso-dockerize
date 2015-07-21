@@ -2,7 +2,7 @@
 
 <div class="zyxel_content">
   <div class="text-right" style="">
-    <%= link_to("Skip", :back, class: "zyxel_btn_style2") if current_user && current_user.confirmation_valid? %>
+    <%= link_to("Skip", root_path, class: "zyxel_btn_style2") if current_user && current_user.confirmation_valid? %>
   </div>
 
   <div> <%= image_tag("setp2.png", class: "step_confirmation") %></div>
