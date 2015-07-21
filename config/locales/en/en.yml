@@ -3,6 +3,7 @@ en:
     language: "Language"
     forgot_password: 'Forgot My Password'
     resend_confirmation: 'Resend'
+    unverified: 'Unverified'
     sign_in: 'Sign in'
     sign_out: 'Log Out'
     sign_up: 'Sign Up'
@@ -68,6 +69,7 @@ en:
     my_devices: 'Device List'
     search_devices: 'Search Results'
     settings:
+      package: 'Package Setting'
       ddns: 'DDNS Setting'
       upnp: 'UPnP Setting'
     pairing: 'Pairing'
