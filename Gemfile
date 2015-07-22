@@ -82,6 +82,7 @@ gem 'rest-client'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
 gem 'browser-timezone-rails'
+gem 'whenever', '~> 0.9.4', :require => false
 
 group :test do
   gem 'action_mailer_cache_delivery'

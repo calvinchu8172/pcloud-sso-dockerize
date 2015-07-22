@@ -71,6 +71,7 @@ GEM
     capybara-webkit (1.3.0)
       capybara (>= 2.0.2, < 2.5.0)
       json
+    chronic (0.10.2)
     chunky_png (1.3.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -366,6 +367,8 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     xmpp4r (0.5.6)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -436,9 +439,10 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
+  whenever (~> 0.9.4)
   xmpp4r
   yard
   yard-cucumber
 
 BUNDLED WITH
-   1.10.4
+   1.10.5
