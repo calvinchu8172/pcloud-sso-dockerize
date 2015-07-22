@@ -17,3 +17,21 @@ When(/^the device send reset request to REST API \/d\/3\/register$/) do
   @device["reset"] = 1
   steps %{ When the device send information to REST API /d/3/register}
 end
+
+Given(/^the device has a DDNS record, and ip is "(.*?)"$/) do |ip|
+  Domain.find_or_create_by(domain_name: Settings.environments.ddns)
+  TestingHelper.create_ddns(Device.first, ip)
+end
+
+Given(/^the device IP was be changed to "(.*?)"$/) do |ip|
+  ENV['RAILS_TEST_IP_ADDRESS'] = ip
+end
+
+Then(/^DDNS ip should be update to "(.*?)"$/) do |ip|
+  expect(Ddns.first.ip_address).to eq(ip)
+end
+
+Then(/^XmppLast should record this device register sign in time$/) do
+  username = Api::Device.first.xmpp_username
+  expect(XmppLast.find_by(username: username).last_signin_at).to be_present
+end

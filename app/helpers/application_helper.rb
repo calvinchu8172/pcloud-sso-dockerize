@@ -32,4 +32,20 @@ module ApplicationHelper
 
     url_for url_params
   end
+
+  def confirmation_expire_time_string(timezone = Time.zone)
+    timezone ||= "UTC"
+    current_user.confirmation_expire_time.in_time_zone(Time.zone).strftime("%Y-%m-%d %H:%M %Z")
+  end
+
+  def show_unverified_button
+    unless current_user.confirmed? || params["controller"] == "confirmations"
+      link_to I18n.t("labels.unverified"), new_user_confirmation_path, class: "unverified"
+    end
+  end
+
+  def confirmed_or_valid_unconfirmed_access?
+    current_user.confirmed? || current_user.confirmation_valid?
+  end
+
 end

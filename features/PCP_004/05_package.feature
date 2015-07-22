@@ -15,6 +15,7 @@ Feature: [PCP_004_05] Package Setup
     When the package page will wait for connection with device
     And the device of Package was offline
     Then the user should see "Device is not found" message on Package setup page
+    And the user should see "Retry" message on Package setup page
 
   Scenario: [PCP_004_05_03]
     Show device information and package name list
@@ -42,7 +43,7 @@ Feature: [PCP_004_05] Package Setup
     Then the user will see the confirm message about cancel Package setup
 
     When the user click "Confirm" link
-    Then the user will redirect to My Devices page after cancel
+    Then the user will redirect to My Devices page after confirm
 
   Scenario: [PCP_004_05_06]
     The Package setup should continue when user click cancel but the user want to go back to setup flow

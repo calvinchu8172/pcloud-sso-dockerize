@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'hint/reset'
     get 'hint/sent'
     get 'hint/agreement'
+    get 'hint/confirm_sent'
 
     resources :ddns
     post 'ddns/check'
@@ -37,6 +38,11 @@ Rails.application.routes.draw do
       :passwords => 'passwords',
       :omniauth_callbacks => "users/omniauth_callbacks"}
 
+    devise_scope :user do
+      get 'users/confirmation/edit', to: "confirmations#edit"
+      patch 'users/confirmation', to: "confirmations#update"
+    end
+
     get 'device/register'
 
     unless Rails.env.production?
@@ -50,9 +56,6 @@ Rails.application.routes.draw do
     get 'package/check/:id' , to: 'package#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
-
-
-
   end
 
   constraints :host => Settings.environments.api_domain  do

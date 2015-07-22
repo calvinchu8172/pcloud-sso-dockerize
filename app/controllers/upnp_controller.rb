@@ -33,15 +33,19 @@ class UpnpController < ApplicationController
   # GET /upnp/:session_id/edit/
   def edit
     error_message = get_error_msg(@upnp_session['error_code'])
-    service_list = (@upnp_session['status'] == 'form' && !@upnp_session['service_list'].empty?) ? JSON.parse(@upnp_session['service_list']) : {}
+    service_list = (@upnp_session['status'] == 'form' && !@upnp_session['service_list'].empty?) ? JSON.parse(@upnp_session['service_list']) : []
     service_list = decide_which_port(@upnp_session, service_list) unless service_list.empty?
     service_list = decide_which_description(service_list) unless service_list.empty?
     path_ip = decide_which_path_ip(@upnp_session)
+
+    used_wan_port_list = @upnp_session['used_wan_port_list'].blank? ? [] : JSON.parse(@upnp_session['used_wan_port_list'])
+    used_wan_port_list.map! { |port_num| port_num.to_i }
 
     result = {:status => @upnp_session['status'],
               :device_id => @upnp_session['device_id'],
               :error_message => error_message,
               :service_list => service_list,
+              :used_wan_port_list => used_wan_port_list,
               :path_ip => path_ip,
               :id => @session_id
              }
@@ -84,26 +88,20 @@ class UpnpController < ApplicationController
         end
       end
 
-      updated_list = @upnp_session['updated_list'].empty? ? [] : JSON.parse(@upnp_session['updated_list'])
-      used_wan_port_list = @upnp_session['used_wan_port_list'].empty? ? [] : JSON.parse(@upnp_session['used_wan_port_list'])
+      used_wan_port_list = @upnp_session['used_wan_port_list'].blank? ? [] : JSON.parse(@upnp_session['used_wan_port_list'])
       used_wan_port_list.map! { |port_num| port_num.to_i }
-
-      updated_list.each do |updated_service|
-        updated_service.merge!({ :wan_port => random_port(used_wan_port_list), :enabled => false }) if enabled_service_failed?(updated_service)
-        service_list.each_with_index{ |service, index|
-          service_list[index] = updated_service if service['service_name'] == updated_service['service_name']
-        }
-      end
     end
 
     result = {
       :error_message => error_message,
       :service_list => service_list,
+      :used_wan_port_list => used_wan_port_list,
       :path_ip => path_ip,
-      :id => @session_id
+      :id => @session_id,
+      :status => @upnp_session['status']
     }
     service_logger.note({reload_upnp_list: result})
-    render :json => @upnp_session.merge(result)
+    render :json => result
   end
 
   # GET /upnp/check/:id
@@ -114,16 +112,12 @@ class UpnpController < ApplicationController
     upnp_session = @upnp.session.all
 
     error_message = get_error_msg(upnp_session['error_code'])
-    path_ip = decide_which_path_ip upnp_session
-    service_list = ((upnp_session['status'] == 'form' || upnp_session['status'] == 'updated') && !upnp_session['service_list'].empty?)? JSON.parse(upnp_session['service_list']) : {}
+    path_ip = decide_which_path_ip(upnp_session)
+    service_list = (got_updated_service_list?(upnp_session) || upnp_session['status'] == 'reload') ? JSON.parse(upnp_session['service_list']) : []
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
     service_list = decide_which_description(service_list) unless service_list.empty?
     service_list = update_result(service_list) unless service_list.empty?
-
-    if !service_list.empty? && upnp_session['status'] == "form"
-      upnp_session.merge!({'status' => 'reload', 'updated_list' => service_list.to_json})
-      @upnp.session.update(upnp_session)
-    end
+    @upnp.session.update(upnp_session.merge({'status' => 'reload', 'service_list' => service_list.to_json})) if reload_step?(upnp_session)
 
     result = {:status => upnp_session['status'],
               :device_id => upnp_session['device_id'],
@@ -132,7 +126,7 @@ class UpnpController < ApplicationController
               :path_ip => path_ip,
               :id => session_id
              }
-    service_logger.note({failure_upnp: result}) if upnp_session['status'] == 'failure' || upnp_session['status'] == 'timeout'
+    service_logger.note({failure_upnp: result}) if failure_step?(upnp_session)
     render :json => result
   end
 
@@ -160,17 +154,16 @@ class UpnpController < ApplicationController
       render :json => { :result => 'timeout' } if @upnp_session.empty?
     end
 
-    def enabled_service_failed? updated_service
-      updated_service['enabled'] == true && updated_service['status'] == false && updated_service['update_result'] == "failure"
+    def reload_step? upnp_session
+      got_updated_service_list?(upnp_session) && upnp_session['status'] == 'form'
     end
 
-    def random_port exclude_num_list
-      @randomed_list = [] if @randomed_list.nil?
-      rand_num = rand(1025..65535)
-      rand_num = random_port(exclude_num_list) if exclude_num_list.include?(rand_num)
-      rand_num = random_port(exclude_num_list) if @randomed_list.include?(rand_num)
-      @randomed_list.push(rand_num)
-      rand_num
+    def failure_step? upnp_session
+      ['failure', 'timeout'].include?(upnp_session['status'])
+    end
+
+    def got_updated_service_list? upnp_session
+      ['form', 'updated'].include?(upnp_session['status']) && !upnp_session['service_list'].empty?
     end
 
     def same_subnet? device_ip
@@ -230,24 +223,29 @@ class UpnpController < ApplicationController
     def update_result service_list
       service_list.each do |service|
         result = "no_update"
-        if modified?(service)
-          if service['error_code'].length == 0
-            result = "success"
-          else
-            result = "failure"
-            service['status'] = false
-          end
+        service['is_service_port_modified'] = false
+        service['is_service_status_modified'] = false
+        if settings_modified?(service)
+            service['is_service_port_modified'] = true if is_service_port_modified?(service)
+            service['is_service_status_modified'] = true if is_service_status_modified?(service)
+            result = "failure" if (!service['error_code'].nil? && service['error_code'].length > 0)
+            result = "success" if service['error_code'].blank?
         end
         service['update_result'] = result
       end
       service_list
     end
 
-    def modified? service
-      service['error_code'] && (
-        (service['enabled'] != service['status']) ||
-        (service['enabled'] && !service['origin_wan_port'].blank? && service['origin_wan_port'] != service['wan_port'])
-      )
+    def settings_modified? service
+      is_service_status_modified?(service) || is_service_port_modified?(service)
+    end
+
+    def is_service_status_modified? service
+      service['enabled'] != service['status']
+    end
+
+    def is_service_port_modified? service
+      service['enabled'] && !service['origin_wan_port'].blank? && service['origin_wan_port'] != service['wan_port']
     end
 
     def update_permit

@@ -6,7 +6,7 @@ class Api::Device < Device
   DEFAULT_MODULE_LIST = [{name: 'ddns', ver: '1'}, {name: 'upnp', ver: '1'}]
 
   def checkin
-    
+
     instance = self.class.find_by( mac_address: mac_address, serial_number: serial_number)
     if instance.blank?
       # self.create!(instance.attributes.merge({product_id: @product.id}))
@@ -20,8 +20,9 @@ class Api::Device < Device
       logger.info('update device from fireware version' + firmware_version + ' from ' + firmware_version)
       instance.update_attribute(:firmware_version, firmware_version)
     end
-    
+
     self.attributes = instance.attributes
+    self.ddns = instance.ddns if instance.ddns.present?
     return true
   end
 
@@ -40,13 +41,15 @@ class Api::Device < Device
     return if ddns.nil?
 
     logger.debug('update ddns id:' + ddns.id.to_s)
-    service_logger.note({'update ddns ip from' => device_session['ip'], 'update fireware to' => request.remote_ip})
+    # ervice_logger.note({'update ddns ip from' => device_session['ip'], 'update fireware to' => request.remote_ip})
 
-    session = {device_id: @device.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
+    session = {device_id: self.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
     ddns_session = DdnsSession.create
     job = {:job => 'ddns', :session_id => ddns_session.id}
     ddns_session.session.bulk_set(session)
     AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+
+    Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
   end
 
   # 記錄下該Device 所需要的modules
@@ -113,9 +116,25 @@ class Api::Device < Device
     xmpp_user.save
 
     xmpp_user.session = id
+
+    current_timestamp = Time.now.to_i
+    xmpp_last = XmppLast.find_by(username: account[:name])
+    if xmpp_last.nil?
+      xmpp_last = XmppLast.new
+      xmpp_last.username = account[:name]
+      xmpp_last.last_signout_at = current_timestamp - 1
+      xmpp_last.state = ""
+    end
+
+    xmpp_last.last_signin_at = current_timestamp
+    xmpp_last.save
   end
 
-  private 
+  def xmpp_username
+    generate_new_username
+  end
+
+  private
 
     def reset_requestment?
       !reset.nil? && reset == 1.to_s

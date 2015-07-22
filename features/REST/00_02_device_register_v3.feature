@@ -66,12 +66,15 @@ Feature: Device Register V3
       Check correct update process when IP changed
 
       Given the device already registration
-      And the device IP was be changed
+      And the device has a DDNS record, and ip is "9.9.9.9"
+      And the device IP was be changed to "1.2.3.4"
 
       When the device send information to REST API /d/3/register
 
       Then the API should return success respond
       And the record in databases as expected
+      And DDNS ip should be update to "01020304"
+
 
     Scenario: [REST_00_02_06]
       Check incorrect update process when signature invalid
@@ -100,3 +103,10 @@ Feature: Device Register V3
       When the device send information to REST API /d/3/register
 
       Then the API should return success respond
+
+    Scenario: [REST_00_02_09]
+      Check XmppServer should save device register sign in time
+
+      When the device send information to REST API /d/3/register
+
+      Then XmppLast should record this device register sign in time
