@@ -1,4 +1,7 @@
 class Ddns < ActiveRecord::Base
+
+  enum status: { used: 0, warning: 1 }
+
   belongs_to :device
   belongs_to :domain
   before_save :save_ip_addr

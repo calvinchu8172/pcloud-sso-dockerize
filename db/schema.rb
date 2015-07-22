@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525081916) do
+ActiveRecord::Schema.define(version: 20150721090540) do
 
   create_table "accepted_users", force: true do |t|
     t.integer  "invitation_id",           null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150525081916) do
     t.datetime "updated_at"
     t.integer  "domain_id"
     t.string   "hostname",   limit: 63, null: false
+    t.integer  "status"
   end
 
   add_index "ddns", ["device_id"], name: "index_ddns_on_device_id", using: :btree
