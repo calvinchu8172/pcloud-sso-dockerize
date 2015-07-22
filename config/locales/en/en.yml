@@ -3,6 +3,7 @@ en:
     language: "Language"
     forgot_password: 'Forgot My Password'
     resend_confirmation: 'Resend'
+    unverified: 'Unverified'
     sign_in: 'Sign in'
     sign_out: 'Log Out'
     sign_up: 'Sign Up'
@@ -13,6 +14,7 @@ en:
     retry: 'Retry'
     submit: 'Submit'
     confirm: 'Confirm'
+    ok: 'OK'
     or: 'or'
     expand_all: 'Expand All'
     collapse_all: 'Collapse All'
@@ -31,6 +33,9 @@ en:
         table_head3: 'Service Name'
         table_head4: 'Description'
         table_head5: 'Update Result'
+        table_head6: 'Show Service Port'
+        table_head7: 'Hide Service Port'
+        table_head8: 'Service Port'
         result:
           success: 'Success'
           failure: 'Failure'
@@ -68,6 +73,7 @@ en:
     my_devices: 'Device List'
     search_devices: 'Search Results'
     settings:
+      package: 'Package Setting'
       ddns: 'DDNS Setting'
       upnp: 'UPnP Setting'
     pairing: 'Pairing'
