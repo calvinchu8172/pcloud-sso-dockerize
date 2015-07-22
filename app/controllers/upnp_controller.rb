@@ -117,6 +117,9 @@ class UpnpController < ApplicationController
     service_list = decide_which_port(upnp_session, service_list) unless service_list.empty?
     service_list = decide_which_description(service_list) unless service_list.empty?
     service_list = update_result(service_list) unless service_list.empty?
+
+    logger.info("upnp check status: #{upnp_session['status']}")
+
     @upnp.session.update(upnp_session.merge({'status' => 'reload', 'service_list' => service_list.to_json})) if reload_step?(upnp_session)
 
     result = {:status => upnp_session['status'],
@@ -144,6 +147,7 @@ class UpnpController < ApplicationController
     service_logger.note({cancel_upnp: session})
     redirect_to :authenticated_root
   end
+
 
   private
 
