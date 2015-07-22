@@ -85,6 +85,10 @@ Then(/^it should not do anything on Package setup page$/) do
   expect(page).to have_content I18n.t("warnings.settings.package.sync")
 end
 
+Then(/^the user will redirect to My Devices page after confirm$/) do
+  expect(page.current_path).to eq("/personal/index")
+end
+
 def get_package_session
   redis = Redis.new
   @session_index = redis.GET("package:session:index")
