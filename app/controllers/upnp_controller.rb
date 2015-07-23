@@ -170,10 +170,13 @@ class UpnpController < ApplicationController
       ['form', 'updated'].include?(upnp_session['status']) && !upnp_session['service_list'].empty?
     end
 
+
     def same_subnet? device_ip
       request.remote_ip == device_ip
     end
 
+    # 根據使用者的 ip 與 device 的 ip 比對，若處在相同的 ip 位置，
+    # 則使用 lan_port，其餘的情況使用 wan_port
     def decide_which_port(upnp_session, service_list)
       device = Device.find upnp_session['device_id']
       port = same_subnet?(device.session.hget('ip')) ? "lan_port" : "wan_port"
@@ -183,6 +186,8 @@ class UpnpController < ApplicationController
       service_list
     end
 
+    # 若與 device 在相同的 ip，則使用 lan_ip 當路徑，
+    # 其餘則使用 device 的 ip 當路徑
     def decide_which_path_ip upnp_session
       device = Device.find upnp_session['device_id']
       same_subnet?(device.session.hget('ip')) ? upnp_session['lan_ip'] : device.session.hget('ip')
@@ -228,10 +233,8 @@ class UpnpController < ApplicationController
       service_list.each do |service|
         result = "no_update"
         service['is_service_port_modified'] = false
-        service['is_service_status_modified'] = false
         if settings_modified?(service)
           service['is_service_port_modified'] = true if is_service_port_modified?(service)
-          service['is_service_status_modified'] = true if is_service_status_modified?(service)
           result = "failure"
           result = "success" if service['error_code'].blank?
         end
