@@ -232,7 +232,7 @@ class UpnpController < ApplicationController
         if settings_modified?(service)
           service['is_service_port_modified'] = true if is_service_port_modified?(service)
           service['is_service_status_modified'] = true if is_service_status_modified?(service)
-          result = "failure" if (!service['error_code'].nil? && service['error_code'].length > 0)
+          result = "failure"
           result = "success" if service['error_code'].blank?
         end
         service['update_result'] = result

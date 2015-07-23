@@ -33,7 +33,7 @@
             <%= I18n.t("labels.settings.upnp.table_head5") %>
           </th>
         </tr>
-        <tr ng-repeat="service in service_list" ng-controller="ServiceCtrl" ng-init="recordOriginSettings();">
+        <tr ng-repeat="service in service_list" ng-controller="ServiceCtrl" ng-init="checkService();">
           <td data-title="'enabled'" class="column1">
             <div ng-switch on="result">
               <input id="check{{$index}}" type="checkbox" ng-model="service.enabled" ng-disabled="panel != 'form'" >
@@ -62,8 +62,10 @@
             {{service.description}}
           </td>
           <td data-title="'service_port'" class="column3">
-            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only" ng-blur="validateWanPort($index);"/>
+
+            <input ng-model="service.wan_port" ng-show="(servicePort.show || submited) && result != 'true' " type="text" class="text-center" maxlength="5" size="7" numbers-only="numbers-only" ng-blur="onBlurValidatePort($index);" ng-focus="onFocusRecordPort();"/>
             <span ng-show="result == 'true'">{{service.wan_port}}</span>
+
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
             <span ng-switch on="service.update_result">
@@ -123,23 +125,90 @@
 
   upnp_app.controller('ServiceCtrl', function ($scope, $http, $timeout) {
 
-    $scope.origin_wan_port;
+    $scope.enabled = $scope.service['enabled'];
+    $scope.status = $scope.service['status'];
+    $scope.on_focus_port;
+    $scope.wan_port = $scope.service['wan_port'];
 
-    $scope.recordOriginSettings = function(){
-      angular.forEach($scope.service_list, function(service, index){
-        service.origin_wan_port = service.wan_port;
+    /**
+      重算 port 號執行條件：
+      1. wan_port 等於 -1。
+      2. service 未啟用且存在於已被使用的 port list 當中。
+      3. service 的 port 有被修改，且更新失敗。
+    */
+    $scope.checkService = function(){
+      var wan_port = $scope.wan_port;
+      var service_status = $scope.status;
+      $scope.service.origin_wan_port = wan_port;
+
+      // 載入列表時，重新計算 port 號的條件：
+      // 1. 如果 port 號為 -1。
+      // 2. 如果服務尚未啟用，且 port 號存在於已被使用的 port 號列表。
+      if( (wan_port == '-1') ||
+          (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(wan_port) > -1) ){
+        $scope.service['wan_port'] = $scope.randomPort();
+      }
+
+      // 當更新設定後：
+      // updated_list 為 reload 前所記錄的列表更新結果
+      if($scope.submited && $scope.updated_list.length > 0){
+        angular.forEach($scope.updated_list, function(updated_setting, index){
+          if($scope.service['service_name'] == updated_setting['service_name']){
+            $scope.service['update_result'] = updated_setting['update_result'];
+            if(updated_setting['update_result'] == 'success'){
+              //  如果 update 成功，應該把 update_list 當中所改到的設定顯示在畫面上，
+              //  畫面上的(service_list)狀態顯示應該要與更新過的(updated_list)相同，
+              //  wan_port 欄位應顯示更新後的(udpate_list) wan_port。
+              $scope.service['wan_port'] = updated_setting['wan_port'];
+              $scope.service['status'] = updated_setting['enabled'];
+              $scope.service['enabled'] = updated_setting['enabled'];
+
+            }else if(updated_setting['update_result'] == 'failure'){
+              // 重新套用使用者先前的操作
+              $scope.service['enabled'] = updated_setting['enabled'];
+              // 若有修改 port，則重新計算 port 號
+              if(updated_setting['is_service_port_modified']){
+                $scope.service['wan_port'] = $scope.randomPort();
+              }
+            }
+          }
+        });
+      }
+      console.log($scope);
+    }
+
+    // 驗證輸入的 port 號
+    $scope.onBlurValidatePort = function(service_index){
+      // var service = $scope.service_list[service_index];
+      var service = $scope.service;
+      if(service.wan_port == ''){
+        service.wan_port = service.on_focus_port;
+      }
+      if(service.wan_port < 1 || service.wan_port > 65535){
+        service.wan_port = service.on_focus_port;
+      }
+      // 判斷輸入的 port 號是否與畫面上的其他 service 重複
+      angular.forEach($scope.service_list, function(service_on_page, index){
+        if(service['service_name'] != service_on_page['service_name'] && service['wan_port'] == service_on_page['wan_port']){
+          service['wan_port'] = service['on_focus_port'];
+        }
       });
     }
-
-    $scope.validateWanPort = function(service_index){
-      var service = $scope.service_list[service_index];
-      if(service.wan_port == ''){
-        service.wan_port = service.origin_wan_port;
-      }
-      if(service.wan_port < 1025 || service.wan_port > 65535){
-        service.wan_port = service.origin_wan_port;
-      }
+    // 游標停駐輸入框時，記錄 wan port 輸入框中的 port 號
+    $scope.onFocusRecordPort = function(){
+      $scope.service.on_focus_port = $scope.service.wan_port;
     }
+
+    // 重新計算port號
+    $scope.randomPort = function(){
+      var rand_num = Math.floor((Math.random() * 65535) + 1025);
+      if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
+        rand_num = $scope.randomPort();
+      }
+      $scope.randomed_num_list.push(rand_num);
+      return rand_num;
+    }
+
 
   });
 
@@ -163,9 +232,7 @@
     $scope.showPort = false;
     $scope.service_url = "";
     $scope.error_msg = "";
-    $scope.servicePort = {
-      show: false
-    }
+    $scope.servicePort = { show: false };
     $scope.updated_list = [];
     $scope.used_wan_port_list = [];
     $scope.service_list = [];
@@ -188,16 +255,9 @@
             case 'form':
               console.log('-------------- 取列表結果 start --------------------------');
               console.log('載入upnp列表...');
-              console.log('Bot 寫入狀態為: form');
-              console.log('response 內容如下: ');
-              console.log(response);
               $scope.used_wan_port_list = response.used_wan_port_list;
               $scope.service_list = response.service_list;
-              angular.forEach($scope.service_list, function(service, index){
-                if( $scope.checkRandomPortNeeded(service) ){
-                  service.wan_port = $scope.randomPort();
-                }
-              });
+
               console.log('取得已使用的 wan port 列表: ' + $scope.used_wan_port_list);
               console.log('取得 upnp service 列表如下: ');
               console.log($scope.service_list);
@@ -284,7 +344,6 @@
             case 'updated':
               $scope.updated_list = response.service_list;
               $scope.successPanel(response);
-              $scope.displayUpdateResult();
               return;
             case 'reload':
               // 暫存 updated_list
@@ -330,17 +389,13 @@
               return;
             case 'form':
               $scope.service_list = response.service_list;
-
               console.log('-------------- 重新取得列表 start --------------------------');
-              console.log('重新取得的列表如下 (此列表是Bot寫入，尚未寫入保存的更新結果):');
+              console.log('重新取得的列表如下 (此列表是Bot寫入，尚未合併更新結果):');
               console.log($scope.service_list);
               console.log('=============================================================');
               console.log('先前的更新結果列表如下:');
               console.log($scope.updated_list);
-
               $scope.formPanel(response);
-              $scope.displayUpdateResult();
-
               console.log('-------------- 重新取得列表 end --------------------------');
               return;
             case 'failure':
@@ -350,7 +405,6 @@
               response.status = 'form';
               response.service_list = $scope.updated_list;
               $scope.formPanel(response);
-              // $scope.get_failure(response);
               return;
             case 'timeout':
               console.log('-------------- 重新取得列表 start --------------------------');
@@ -360,30 +414,11 @@
               response.status = 'form';
               response.service_list = $scope.updated_list;
               $scope.formPanel(response);
-              // $scope.get_failure(response);
               console.log('-------------- 重新取得列表 end --------------------------');
               return;
           } // switch(response.status){....}
         });
       }, $scope.interval);
-    }
-
-    $scope.checkRandomPortNeeded = function(service){
-      return (service['wan_port'] == '-1') ||
-        ( service['enabled'] &&
-          (typeof service['origin_wan_port'] != 'undefined') &&
-          (service['origin_wan_port'] != '') &&
-          (service['origin_wan_port'] != service['wan_port'])
-        )
-    }
-
-    $scope.randomPort = function(){
-      var rand_num = Math.floor((Math.random() * 65535) + 1025);
-      if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
-        rand_num = $scope.randomPort();
-      }
-      $scope.randomed_num_list.push(rand_num);
-      return rand_num;
     }
 
     $scope.disableBtn = function(){
@@ -397,6 +432,7 @@
         };
       };
     };
+
     $scope.formPanel = function(response){
       $scope.step = response.status;
       $scope.panel = response.status;
@@ -404,6 +440,7 @@
       $scope.session = response;
       $scope.service_list = response.service_list;
     }
+
     $scope.successPanel = function(response){
       $scope.step = "form";
       $scope.panel = 'confirm';
@@ -411,47 +448,6 @@
       $scope.result = "true";
       $scope.service_list = response.service_list;
       $scope.wording = '<%= I18n.t("warnings.settings.upnp.success") %>';
-    }
-
-    $scope.displayUpdateResult = function(){
-      angular.forEach($scope.updated_list, function(updated_settings, index){
-        angular.forEach($scope.service_list, function(service, index){
-          if(updated_settings['service_name'] == service['service_name']){
-            // 重新套用使用者先前的操作
-            service['update_result'] = updated_settings['update_result'];
-            if(updated_settings['update_result'] == 'success'){
-              // 如果 update 成功，應該把 update_list 當中所改到的設定顯示在畫面上，
-              // 如果 update_list 的 enabled 是 true，則 status 應該也要顯示 true，
-              // 如果 update_list 的 enabled 是 false，則 status 應該也要顯示 false，
-              // wan_port 欄位應顯示 udpate_list 中的 wan_port。
-              service['wan_port'] = updated_settings['wan_port'];
-              service['status'] = updated_settings['enabled'];
-              service['enabled'] = updated_settings['enabled'];
-              console.log('修改成功 -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
-            }else if(updated_settings['update_result'] == 'failure'){
-              // 如果 update 失敗，應該看有改到哪些設定，並且將修改前的值顯示在畫面上，
-              // 判斷使用者是修改 port 還是 status，
-              // 若是修改 port 則應 random port，
-              // 若是修改 status，則畫面上應顯示修改前的status。
-              service['enabled'] = updated_settings['enabled'];
-              if(updated_settings['is_service_port_modified'] == true){
-                service['wan_port'] = $scope.randomPort();
-                // 記錄使用者更新時的操作
-                // service['enabled'] = updated_settings['enabled'];
-              }
-              // if(updated_settings['is_service_status_modified'] == true){
-                // enabled 由 true 改 false 時，如果失敗，status 應顯示為 true
-                // enabled 由 false 改 true 時，如果失敗，status 應顯示為 false
-                // service['status'] = updated_settings['status'];
-                // 記錄使用者更新時的操作
-                // service['enabled'] = updated_settings['enabled'];
-              // }
-              console.log('修改失敗 -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
-            }
-          }
-          $scope.service_list[index] = service;
-        });
-      });
     }
 
     $scope.isFieldEmpty = function(name){
@@ -467,25 +463,24 @@
       };
     };
 
+    // click the "show service port" button
     $scope.showServicePort = function(){
       $scope.servicePort.show = true;
     }
 
+    // click the "hide service port" button
     $scope.hideServicePort = function(){
       $scope.servicePort.show = false;
     }
 
   });
 
-
+  // 在input[type='text']的tag中加入numbers-only屬性，則限制只能輸入數字
   upnp_app.directive('numbersOnly', function(){
     return {
       require: 'ngModel',
       link: function(scope, element, attrs, modelCtrl) {
         modelCtrl.$parsers.push(function (inputValue) {
-          // this next if is necessary for when using ng-required on your input.
-          // In such cases, when a letter is typed first, this parser will be called
-          // again, and the 2nd time, the value will be undefined
           if (inputValue == undefined) return '';
           var transformedInput = inputValue.replace(/[^0-9]/g, '');
           if (transformedInput!=inputValue) {
