@@ -29,7 +29,7 @@ Given(/^the user filled the correct information$/) do
 end
 
 Given(/^the account was confirmed$/) do
-  @user.confirm!
+  @user.confirm
   @user.save
 end
 
@@ -112,7 +112,7 @@ Then(/^the user language information will be changed after user login to system$
     And the account was confirmed
   }
   find('.zyxel_btn_login_submit').click
-  puts User.find(@user).language
+  puts User.find(@user.id).language
 end
 
 Then(/^confirmation email should be delivered$/) do
