@@ -1,5 +1,6 @@
 namespace :r53 do
 
+  desc "create Route53 dns record for ip4 and ip6v"
   task :check => :environment do
 
     account = {
@@ -11,6 +12,7 @@ namespace :r53 do
 
     target_name = "test." + ddns_name
     target_ip = "127.0.0.1"
+    target_ipv6 = "2406:da00:ff00::36f3:5ec8"
 
     route = AWS::Route53.new(account)
 
@@ -33,9 +35,27 @@ namespace :r53 do
       puts error
     end
 
+    begin
+      rrset = rrsets.create(target_name, 'AAAA', ttl: 300, resource_records: [{value: target_ipv6}])
+      puts "Create DDNS record: #{rrset.name}"
+      puts "                ip: #{rrset.resource_records.first[:value]}"
+    rescue Exception => error
+      puts error
+    end
+
+    begin
+      rrset = rrsets[target_name, 'AAAA']
+      info = rrset.delete
+      puts "Delete this record: #{rrset.name}, status: #{info.status}"
+    rescue Exception => error
+      puts error
+    end
+
+
   end
 end
 
+desc "SQS: Send a message, then receive it"
 namespace :sqs do
   task :queue => :environment do
     queue_name = Settings.environments.sqs.name
