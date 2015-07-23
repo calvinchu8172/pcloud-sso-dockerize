@@ -439,13 +439,13 @@
                 // 記錄使用者更新時的操作
                 // service['enabled'] = updated_settings['enabled'];
               }
-              if(updated_settings['is_service_status_modified'] == true){
+              // if(updated_settings['is_service_status_modified'] == true){
                 // enabled 由 true 改 false 時，如果失敗，status 應顯示為 true
                 // enabled 由 false 改 true 時，如果失敗，status 應顯示為 false
                 // service['status'] = updated_settings['status'];
                 // 記錄使用者更新時的操作
                 // service['enabled'] = updated_settings['enabled'];
-              }
+              // }
               console.log('修改失敗 -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
             }
           }
