@@ -1,140 +1,143 @@
+---
 en:
   labels:
-    language: "Language"
-    forgot_password: 'Forgot My Password'
-    resend_confirmation: 'Resend'
-    sign_in: 'Sign in'
-    sign_out: 'Log Out'
-    sign_up: 'Sign Up'
-    my_devices: 'My Devices'
-    search_devices: 'Search Devices'
-    research: 'Research'
-    cancel: 'Cancel'
-    retry: 'Retry'
-    submit: 'Submit'
-    confirm: 'Confirm'
-    or: 'or'
-    expand_all: 'Expand All'
-    collapse_all: 'Collapse All'
+    language: Language
+    forgot_password: Forgot My Password
+    resend_confirmation: Resend
+    sign_in: Sign in
+    sign_out: Log Out
+    sign_up: Sign Up
+    my_devices: My Devices
+    search_devices: Search Devices
+    research: Research
+    cancel: Cancel
+    retry: Retry
+    submit: Submit
+    confirm: Confirm
+    or: or
+    expand_all: Expand All
+    collapse_all: Collapse All
     settings:
       ddns:
-        instruction: 'DDNS Setup'
-        host_name: 'Host Name'
-        wan_ip: 'WAN IP'
-        model: 'Model'
-        last_update: 'Last Update'
-        firmware_version: 'Firmware Ver.'
+        instruction: DDNS Setup
+        host_name: Host Name
+        wan_ip: WAN IP
+        model: Model
+        last_update: Last Update
+        firmware_version: Firmware Ver.
       upnp:
-        instruction: 'UPnP Setup'
-        table_head1: 'Enabled'
-        table_head2: 'Status'
-        table_head3: 'Service Name'
-        table_head4: 'Description'
-        table_head5: 'Update Result'
+        instruction: UPnP Setup
+        table_head1: Enabled
+        table_head2: Status
+        table_head3: Service Name
+        table_head4: Description
+        table_head5: Update Result
         result:
-          success: 'Success'
-          failure: 'Failure'
-          no_update: 'No Update'
+          success: Success
+          failure: Failure
+          no_update: No Update
       package:
-        instruction: 'Package Setup'
-        table_head1: 'Enabled'
-        table_head2: 'Status'
-        table_head3: 'Package Name'
-        table_head4: 'Require'
-        table_head5: 'Version'
-        table_head6: 'Description'
-        table_head7: 'Update Result'
+        instruction: Package Setup
+        table_head1: Enabled
+        table_head2: Status
+        table_head3: Package Name
+        table_head4: Require
+        table_head5: Version
+        table_head6: Description
+        table_head7: Update Result
         result:
-          success: 'Success'
-          failure: 'Failure'
-          no_update: 'No Update'
-    pairing: 'Pairing'
-    paired: 'Paired'
-    unpairing: 'Unpairing'
-    manually: 'Manually Add'
-    profile: 'Profile'
-    back_to_home: 'Home'
-    change_password: 'Change Password'
-    edit_profile: 'Edit Profile'
-    mac_address: 'MAC Address'
-    serial_number: 'Serial Number'
-    find_nas: 'Find NAS'
+          success: Success
+          failure: Failure
+          no_update: No Update
+    pairing: Pairing
+    paired: Paired
+    unpairing: Unpairing
+    manually: Manually Add
+    profile: Profile
+    back_to_home: Home
+    change_password: Change Password
+    edit_profile: Edit Profile
+    mac_address: MAC Address
+    serial_number: Serial Number
+    find_nas: Find NAS
   titles:
-    change_password: 'Change Password'
-    forgot_password: 'Reset Password'
-    resend_confirmation: 'Resend Confirmation E-mail'
-    sign_in: 'Sign in'
-    sign_up: 'Sign Up'
-    my_devices: 'Device List'
-    search_devices: 'Search Results'
+    change_password: Change Password
+    forgot_password: Reset Password
+    resend_confirmation: Resend Confirmation E-mail
+    sign_in: Sign in
+    sign_up: Sign Up
+    my_devices: Device List
+    search_devices: Search Results
     settings:
-      ddns: 'DDNS Setting'
-      upnp: 'UPnP Setting'
-    pairing: 'Pairing'
-    unpairing: 'Unpairing'
-    terms: 'Terms of Use'
-    manually: 'Manually Add Device'
+      ddns: DDNS Setting
+      upnp: UPnP Setting
+    pairing: Pairing
+    unpairing: Unpairing
+    terms: Terms of Use
+    manually: Manually Add Device
   warnings:
-    not_config: 'DDNS is not Configured'
-    no_pairing_device: 'No device have been paired.'
-    invalid: 'is invalid'
-    invalid_device: 'Invalid device'
-    applied_success: 'You have applied your account successfully.'
-    confirmation_success: 'Feel free to enjoy the ZyXEL Cloud Services.'
-    forgot_password: 'Your password has been reset.'
-    sent_email: 'Email has been sent'
+    not_config: DDNS is not Configured
+    no_pairing_device: No device have been paired.
+    invalid: is invalid
+    invalid_device: Invalid device
+    applied_success: You have applied your account successfully.
+    confirmation_success: Feel free to enjoy the ZyXEL Cloud Services.
+    forgot_password: Your password has been reset.
+    sent_email: Email has been sent
     settings:
       unpairing:
-        instruction: 'Are you sure you want to unpair with this device?'
-        success: 'Device was successfully unpaired.'
+        instruction: Are you sure you want to unpair with this device?
+        success: Device was successfully unpaired.
       pairing:
-        instruction: 'Are you sure you want to pair with this device?'
-        cancel_instruction: 'Are you sure you want to cancel the Pairing flow?'
+        instruction: Are you sure you want to pair with this device?
+        cancel_instruction: Are you sure you want to cancel the Pairing flow?
         start:
           instruction: 'Pairing start, '
-          instruction_2: 'please click on paired button of device within'
-        connecting: 'Connecting...'
-        not_found: 'Device is not found'
-        pair_already: 'Device is paired already'
-        in_pairing: 'Device is pairing'
-        failure: 'Pairing timeout. Please try again.'
-        canceled: 'Pairing has been canceled'
-        success: 'Successfully paired. Please click "Confirm" button for following steps to continue setup.'
+          instruction_2: please click on paired button of device within
+        connecting: Connecting...
+        not_found: Device is not found
+        pair_already: Device is paired already
+        in_pairing: Device is pairing
+        failure: Pairing timeout. Please try again.
+        canceled: Pairing has been canceled
+        success: Successfully paired. Please click "Confirm" button for following
+          steps to continue setup.
       ddns:
         instruction: 'Please use:'
-        instruction_2: '3 to 63 characters'
-        instruction_3: 'First character should be a letter'
-        instruction_4: 'Numbers(0-9)'
-        instruction_5: 'Lowercase letters(a-z)'
-        instruction_6: 'Hyphen(-)'
-        sync: 'Synchronizing DDNS settings...'
-        success: 'DDNS settings have been successfully.'
-        failure: 'Server is busy, please try it again later'
-        not_found: 'Device is not found'
-        too_short: 'Your host name must be at least 3 characters long. Please try another.'
-        too_long: 'Your host name must be shorter than 63 characters long. Please try another.'
-        exist: 'is exist. Please try another'
+        instruction_2: 3 to 63 characters
+        instruction_3: First character should be a letter
+        instruction_4: Numbers(0-9)
+        instruction_5: Lowercase letters(a-z)
+        instruction_6: Hyphen(-)
+        sync: Synchronizing DDNS settings...
+        success: DDNS settings have been successfully.
+        failure: Server is busy, please try it again later
+        not_found: Device is not found
+        too_short: Your host name must be at least 3 characters long. Please try another.
+        too_long: Your host name must be shorter than 63 characters long. Please try
+          another.
+        exist: is exist. Please try another
       upnp:
-        sync: 'Synchronizing UPnP settings...'
-        success: 'UPnP settings have been successfully.'
-        not_found: 'Device is not found'
-        cancel_instruction: 'Are you sure you want to cancel the UPnP setting flow?'
+        sync: Synchronizing UPnP settings...
+        success: UPnP settings have been successfully.
+        not_found: Device is not found
+        cancel_instruction: Are you sure you want to cancel the UPnP setting flow?
         error_code:
-            num_799: 'Device gateway cannot be found'
-            num_798: 'Failed to get device IP address'
-            num_797: 'Failed to enable UPnP service'
-            num_796: 'Failed to disable UPnP service'
-            num_795: 'Failed to update UPnP port mapping'
-            num_794: 'Failed to list all port mapping'
-            num_793: 'Failed to update UPnP port mapping in DB'
-            num_792: 'Device is not found'
+          num_799: Device gateway cannot be found
+          num_798: Failed to get device IP address
+          num_797: Failed to enable UPnP service
+          num_796: Failed to disable UPnP service
+          num_795: Failed to update UPnP port mapping
+          num_794: Failed to list all port mapping
+          num_793: Failed to update UPnP port mapping in DB
+          num_792: Device is not found
       package:
-        sync: 'Synchronizing Package settings...'
-        success: 'Package settings have been successfully updated.'
-        not_found: 'Device is not found'
-        cancel_instruction: 'Are you sure you want to cancel the Package setting flow?'
+        sync: Synchronizing Package settings...
+        success: Package settings have been successfully updated.
+        not_found: Device is not found
+        cancel_instruction: Are you sure you want to cancel the Package setting flow?
         error_code:
-            num_498: 'Not in bot list'
-            num_489: 'Cannot get package list'
-            num_488: 'Cannot enable package'
-            num_487: 'Cannot disable package'
+          num_498: Not in bot list
+          num_489: Cannot get package list
+          num_488: Cannot enable package
+          num_487: Cannot disable package

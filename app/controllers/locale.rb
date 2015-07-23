@@ -25,7 +25,7 @@ module Locale
     @locale_options = { :English => 'en',
                         :Deutsch => 'de',
                         :Nederlands => 'nl',
-                        :"正體中文" => "zh-TW",
+                        :"正體中文" => "zh-tw",
                         :"ไทย" => 'th',
                         :"Türkçe" => 'tr',
                         :"Čeština" => 'cs',
