@@ -49,7 +49,7 @@
             <span ng-switch-when="true" class="">OK</span>
             <span ng-switch-when="false" class="">---</span>
           </td>
-          <td data-title="'Name'">
+          <td data-title="'Name'" style="max-width: 165px; word-wrap: break-word;">
             <%# add service link %>
             <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
               {{service.service_name}}
@@ -58,7 +58,7 @@
               {{service.service_name}}
             </span>
           </td>
-          <td data-title="'description'" class="column3">
+          <td data-title="'description'" class="column3" style="max-width: 220px; word-wrap: break-word;">
             {{service.description}}
           </td>
           <td data-title="'service_port'" class="column3">
@@ -186,8 +186,10 @@
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false }).success(function(response) {
           switch(response.status){
             case 'form':
-              console.log('-------------- edit result start --------------------------');
-              console.log('whole response as below: ');
+              console.log('-------------- 取列表結果 start --------------------------');
+              console.log('載入upnp列表...');
+              console.log('Bot 寫入狀態為: form');
+              console.log('response 內容如下: ');
               console.log(response);
               $scope.used_wan_port_list = response.used_wan_port_list;
               $scope.service_list = response.service_list;
@@ -196,10 +198,10 @@
                   service.wan_port = $scope.randomPort();
                 }
               });
-              console.log('used_wan_port_list: ' + $scope.used_wan_port_list);
-              console.log('service_list as below: ');
+              console.log('取得已使用的 wan port 列表: ' + $scope.used_wan_port_list);
+              console.log('取得 upnp service 列表如下: ');
               console.log($scope.service_list);
-              console.log('-------------- edit result end --------------------------');
+              console.log('-------------- 取列表結果 end --------------------------');
               $scope.pathIp = response.path_ip;
               $scope.get_list = response;
               if($scope.step != "confirm_cancel") {
@@ -207,6 +209,7 @@
               }
               return;
             case 'failure':
+              $scope.get_failure(response);
             case 'timeout':
               $scope.get_failure(response);
               return;
@@ -286,10 +289,10 @@
             case 'reload':
               // 暫存 updated_list
               $scope.updated_list = response.service_list;
-              console.log('-------------- checkSubmit result start --------------------------');
-              console.log('updated_list as below:');
+              console.log('-------------- polling 設定更新結果 start --------------------------');
+              console.log('保存修改過的 service_list 為 updated_list，內容如下:');
               console.log($scope.updated_list);
-              console.log('--------------- checkSubmit result end -------------------------');
+              console.log('--------------- polling 更新結果 end -------------------------');
               $scope.reloadService();
               return;
             case 'timeout': // if device is offline, status will be set to timeout by portal
@@ -328,20 +331,37 @@
             case 'form':
               $scope.service_list = response.service_list;
 
-              console.log('-------------- reload result start --------------------------');
-              console.log('service_list as below:');
+              console.log('-------------- 重新取得列表 start --------------------------');
+              console.log('重新取得的列表如下 (此列表是Bot寫入，尚未寫入保存的更新結果):');
               console.log($scope.service_list);
               console.log('=============================================================');
-              console.log('updated_list as below:');
+              console.log('先前的更新結果列表如下:');
               console.log($scope.updated_list);
 
               $scope.formPanel(response);
               $scope.displayUpdateResult();
 
-              console.log('-------------- reload result end --------------------------');
+              console.log('-------------- 重新取得列表 end --------------------------');
               return;
             case 'failure':
+              console.log('status: failure...');
+              console.log('顯示先前更新過的列表，內容如下：');
+              console.log($scope.updated_list);
+              response.status = 'form';
+              response.service_list = $scope.updated_list;
+              $scope.formPanel(response);
+              // $scope.get_failure(response);
+              return;
             case 'timeout':
+              console.log('-------------- 重新取得列表 start --------------------------');
+              console.log('status: timeout...');
+              console.log('顯示先前更新過的列表，內容如下：');
+              console.log($scope.updated_list);
+              response.status = 'form';
+              response.service_list = $scope.updated_list;
+              $scope.formPanel(response);
+              // $scope.get_failure(response);
+              console.log('-------------- 重新取得列表 end --------------------------');
               return;
           } // switch(response.status){....}
         });
@@ -406,7 +426,7 @@
               service['wan_port'] = updated_settings['wan_port'];
               service['status'] = updated_settings['enabled'];
               service['enabled'] = updated_settings['enabled'];
-              console.log('update success -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
+              console.log('修改成功 -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
             }else if(updated_settings['update_result'] == 'failure'){
               // 如果 update 失敗，應該看有改到哪些設定，並且將修改前的值顯示在畫面上，
               // 判斷使用者是修改 port 還是 status，
@@ -417,9 +437,13 @@
               }
               if(updated_settings['is_service_status_modified'] == true){
                 service['status'] = updated_settings['status'];
-                service['enabled'] = updated_settings['status'];
+
+                // 由 true 改 false 時，如果失敗，enabled 應顯示為 false
+                // 由 false 改 true 時，如果失敗，enabled 應顯示為 true
+                // 故註解下列一行：
+                // service['enabled'] = updated_settings['status'];
               }
-              console.log('update failed -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
+              console.log('修改失敗 -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
             }
           }
           $scope.service_list[index] = service;
