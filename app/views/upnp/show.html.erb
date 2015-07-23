@@ -417,6 +417,7 @@
       angular.forEach($scope.updated_list, function(updated_settings, index){
         angular.forEach($scope.service_list, function(service, index){
           if(updated_settings['service_name'] == service['service_name']){
+            // 重新套用使用者先前的操作
             service['update_result'] = updated_settings['update_result'];
             if(updated_settings['update_result'] == 'success'){
               // 如果 update 成功，應該把 update_list 當中所改到的設定顯示在畫面上，
@@ -432,16 +433,18 @@
               // 判斷使用者是修改 port 還是 status，
               // 若是修改 port 則應 random port，
               // 若是修改 status，則畫面上應顯示修改前的status。
+              service['enabled'] = updated_settings['enabled'];
               if(updated_settings['is_service_port_modified'] == true){
                 service['wan_port'] = $scope.randomPort();
+                // 記錄使用者更新時的操作
+                // service['enabled'] = updated_settings['enabled'];
               }
               if(updated_settings['is_service_status_modified'] == true){
-                service['status'] = updated_settings['status'];
-
-                // 由 true 改 false 時，如果失敗，enabled 應顯示為 false
-                // 由 false 改 true 時，如果失敗，enabled 應顯示為 true
-                // 故註解下列一行：
-                // service['enabled'] = updated_settings['status'];
+                // enabled 由 true 改 false 時，如果失敗，status 應顯示為 true
+                // enabled 由 false 改 true 時，如果失敗，status 應顯示為 false
+                // service['status'] = updated_settings['status'];
+                // 記錄使用者更新時的操作
+                // service['enabled'] = updated_settings['enabled'];
               }
               console.log('修改失敗 -> service_name:'+service['service_name']+', status: '+service['status']+', enabled: '+service['enabled']);
             }
