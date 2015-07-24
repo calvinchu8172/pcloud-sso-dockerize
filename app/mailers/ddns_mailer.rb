@@ -7,9 +7,9 @@ class DdnsMailer < ActionMailer::Base
   #
   #   en.ddns_mailer.notify_comment.subject
   #
-  def notify_comment
+  def notify_comment(user)
     @greeting = "Hi! This is test mail from Pcloud"
 
-    mail to: "calvinchu8172@gmail.com"
+    mail to: user.email
   end
 end
