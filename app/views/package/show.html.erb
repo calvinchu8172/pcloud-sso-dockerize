@@ -175,7 +175,7 @@
             return;
           }
 
-          $scope.get_failure(response);
+          $scope.get_timeout(response);
         });
       }, $scope.interval);
 
@@ -257,6 +257,7 @@
             $scope.checkSubmit();
           }else{
             $scope.checkTimes = 0;
+            $scope.error_msg = response.error_message;
             $scope.step = "failure";
             $scope.panel = "retry";
             $scope.enableBtn();
