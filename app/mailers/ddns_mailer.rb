@@ -1,7 +1,4 @@
 class DdnsMailer < ActionMailer::Base
-  # include Locale
-  # before_filter :set_locale
-
   default from: "no-reply@zyxel.me"
   # layout 'mailer'
 
@@ -11,10 +8,13 @@ class DdnsMailer < ActionMailer::Base
   #   en.ddns_mailer.notify_comment.subject
   #
   def notify_comment(user)
-    @greeting = "Hi! This is test mail from Pcloud"
+      @greeting = "Hi! This is test mail from Pcloud"
 
-    @user = User.first # for test
+      # @user = User.first # for test
 
-    mail to: @user.email
+      I18n.with_locale(user.language) do
+        mail to: @user.email
+      end
   end
+
 end
