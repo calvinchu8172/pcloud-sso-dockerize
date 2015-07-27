@@ -43,7 +43,7 @@ Then(/^the user should see the "(.*?)" button enable again$/) do |arg1|
 end
 
 When(/^the user clicked "(.*?)" link to start pairing$/) do |arg1|
-  expect(page).to have_link("Pairing", href: "/discoverer/check/#{@device.escaped_encrypted_id}")
+  expect(page).to have_link("Pairing", href: "/discoverer/check/#{@device.encoded_id}")
   click_link("Pairing")
 end
 

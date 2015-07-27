@@ -7,7 +7,7 @@ class Invitation < ActiveRecord::Base
  	READ_WRITE = 2
 
  	PERMISSIONS = {
- 		READ_ONLY => "R",
+ 		READ_ONLY => "RO",
  		READ_WRITE => "RW"
  	}
 

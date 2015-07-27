@@ -1,5 +1,5 @@
 When(/^user click on down arrow button$/) do
-  device_id = Device.first.escaped_encrypted_id
+  device_id = Device.first.encoded_id
 
   within(:xpath, "//tr[contains(@ng-init, '#{device_id}')]") do
     find("a").click
@@ -38,7 +38,7 @@ When(/^user click on down arrow button and then click on another down arrow butt
     When user click on down arrow button
   }
 
-  another_device_id = Device.last.escaped_encrypted_id
+  another_device_id = Device.last.encoded_id
 
   within(:xpath, "//tr[contains(@ng-init, '#{another_device_id}')]") do
     find("a").click

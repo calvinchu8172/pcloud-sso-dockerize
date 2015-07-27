@@ -19,10 +19,10 @@ class PersonalController < ApplicationController
   end
 
   def check_device_available
-    encrypted_device_id = params[:id] || ''
-    render :json => { "result" => "failed" }, status: 400 and return if encrypted_device_id.blank?
+    encoded_device_id = params[:id] || ''
+    render :json => { "result" => "failed" }, status: 400 and return if encoded_device_id.blank?
 
-    @device = Device.find_by_encrypted_id(encrypted_device_id)
+    @device = Device.find_by_encoded_id(encoded_device_id)
     render :json => { "result" => "failed" }, status: 400 and return if @device.nil?
   end
 

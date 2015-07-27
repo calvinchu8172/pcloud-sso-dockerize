@@ -1,7 +1,7 @@
 Given(/^a user visit Package setup page$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
-  visit package_path(@pairing.device.escaped_encrypted_id)
+  visit package_path(@pairing.device.encoded_id)
 end
 
 When(/^the package page will wait for connection with device$/) do
