@@ -128,6 +128,7 @@ namespace :ddns_expire do
     end
   end
 
+
   task :notice => :environment do
     # job_last_scan_time # wait for design
 
@@ -171,7 +172,7 @@ namespace :ddns_expire do
 
         user = device.pairing.first.user
 
-        DdnsMailer.notify_comment(user).deliver
+        DdnsMailer.notify_comment(user).deliver_now
         puts Time.now.to_s + " Sent mail to " + "#{ user.first_name }" + " : " + "#{ user.email }"
 
       end
