@@ -16,4 +16,8 @@ class XmppLast < ActiveRecord::Base
     last_signin_at > last_signout_at
   end
 
+  def offline?
+    last_signin_at < last_signout_at
+  end
+
 end
