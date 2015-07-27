@@ -45,3 +45,12 @@ Feature: Ddns expire
 
     Then ddns record should still exist
     And user should not receive any warning email
+
+  Scenario:
+    Device user has received warning email on previous scan, and user should not receive warning email again on next scan
+
+    Given user has received warning email on previous scan
+
+    When ddns expire scan
+
+    Then user should not receive any warning email

@@ -1,10 +1,11 @@
 Given(/^an user who has a device and pairing$/) do
   @user = FactoryGirl.build(:api_user)
-  user.skip_confirmation!
-  user.save
+  @user.skip_confirmation!
+  @user.save
 
+  TestingHelper::create_product_table if Product.count == 0
   @device = FactoryGirl.create(:api_device, product: Product.first)
-  FactoryGirl.create(:pairing, user: user, device: @device)
+  FactoryGirl.create(:pairing, user: @user, device: @device)
 
   ActionMailer::Base.deliveries.clear
 end
@@ -22,7 +23,8 @@ Given(/^device has been not used more than (\d+) days$/) do |day_num|
 end
 
 When(/^ddns expire scan$/) do
-  pending # express the regexp above with the code you wish you had
+  Services::DdnsExpire.notice
+  Services::DdnsExpire.delete
 end
 
 Then(/^user should receive a warning email$/) do
@@ -34,7 +36,7 @@ Then(/^ddns record should still exist$/) do
 end
 
 Given(/^user has received warning email on previous scan$/) do
-  pending # express the regexp above with the code you wish you had
+  @device.ddns.update(status: 1)
 end
 
 Then(/^ddns record should be deleted$/) do

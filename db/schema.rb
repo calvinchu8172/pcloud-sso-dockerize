@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150721090540) do
     t.datetime "updated_at"
     t.integer  "domain_id",  limit: 4
     t.string   "hostname",   limit: 63, null: false
-    t.integer  "status"
+    t.integer  "status",     limit: 4
   end
 
   add_index "ddns", ["device_id"], name: "index_ddns_on_device_id", using: :btree
