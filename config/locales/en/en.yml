@@ -137,6 +137,7 @@ en:
       package:
         sync: 'Synchronizing Package settings...'
         success: 'Package settings have been successfully updated.'
+        failure: 'Timeout. Please try again.'
         not_found: 'Device is not found'
         cancel_instruction: 'Are you sure you want to cancel the Package setting flow?'
         error_code:

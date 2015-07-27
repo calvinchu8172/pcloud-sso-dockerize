@@ -97,7 +97,7 @@
     <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.ok"), "/personal/index", class: "zyxel_btn_back") %>
       <% if @device.find_module_list.include?('upnp') %>
-        <%= link_to I18n.t("labels.settings.upnp.instruction") , { :controller=> 'upnp', :action => 'show', :id => @device.escaped_encrypted_id }, class: "zyxel_btn_ok zyxel_enabled" %>
+        <%= link_to I18n.t("labels.settings.upnp.instruction") , { :controller=> 'upnp', :action => 'show', :id => @device.encoded_id }, class: "zyxel_btn_ok zyxel_enabled" %>
       <% end  %>
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
@@ -175,7 +175,7 @@
             return;
           }
 
-          $scope.get_failure(response);
+          $scope.get_timeout(response);
         });
       }, $scope.interval);
 
@@ -257,6 +257,7 @@
             $scope.checkSubmit();
           }else{
             $scope.checkTimes = 0;
+            $scope.error_msg = response.error_message;
             $scope.step = "failure";
             $scope.panel = "retry";
             $scope.enableBtn();

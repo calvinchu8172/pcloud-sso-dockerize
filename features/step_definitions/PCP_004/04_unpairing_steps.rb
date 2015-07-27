@@ -1,5 +1,5 @@
 Given(/^the user visits unpairing page$/) do
-  visit "/unpairing/index/#{@pairing.device.escaped_encrypted_id}"
+  visit "/unpairing/index/#{@pairing.device.encoded_id}"
 end
 
 Given(/^the user successfully unpair device$/) do
@@ -27,7 +27,7 @@ Then(/^the user should see success message$/) do
 end
 
 Then(/^the user will redirect to success page$/) do
-  expect(page.current_path).to eq "/unpairing/success/#{@pairing.device.escaped_encrypted_id}"
+  expect(page.current_path).to eq "/unpairing/success/#{@pairing.device.encoded_id}"
 end
 
 Then(/^the user will redirect to Search Device page$/) do
