@@ -65,6 +65,7 @@ module Pcloud
       html_tag
     }
 
+    config.active_record.raise_in_transactional_callbacks = true
     # assign log4r's logger as rails' logger.
     log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
     YamlConfigurator.decode_yaml( log4r_config[Settings.environments.name]['log4r_config'] )
