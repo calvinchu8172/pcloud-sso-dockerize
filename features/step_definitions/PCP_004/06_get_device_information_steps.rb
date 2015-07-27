@@ -83,7 +83,7 @@ Given(/^device feedback device info with:$/) do |table|
   info_data[:used_capacity] = data["used_capacity"]
   info_data[:total_capacity] = data["total_capacity"]
   device_for_test(info_data)
-  wait_server_response(1)
+  wait_server_response
 end
 
 def device_for_test(info_data = {})
