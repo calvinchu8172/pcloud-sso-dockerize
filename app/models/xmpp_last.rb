@@ -13,11 +13,16 @@ class XmppLast < ActiveRecord::Base
   self.table_name = "last"
 
   def online?
-    last_signin_at > last_signout_at
+    last_signin_at >= last_signout_at
   end
 
   def offline?
     last_signin_at < last_signout_at
+  end
+
+  def self.find_by_decive(device)
+    username = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
+    xmpp_last_username = self.find_by(username: username)
   end
 
 end

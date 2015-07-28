@@ -1,26 +1,9 @@
-<h1>Taiwanese DdnsMailer#notify_comment</h1>
-
 <p>
-  <%= @greeting %>, find me in app/views/ddns_mailer/notify_comment.html.erb
-</p>
-<p>
-  Dear <%= @user.first_name %>,
+  親愛的<%= @user.first_name %>,您好:<br><br>
 
-  The latest update time is 2014-11-09 07:37:40 GMT +00:00. Your equipment needs report online at least in 60 days. The DDNS sever name wouldn’t be remove from our system.
-  If you still need to use “hanslu.zyxel.me” and didn’t want this sever name be removed out from our system, please connect your ZyXEL equipment to internet.
-  if you do not using “hanslu.zyxel.me” this sever name anymore, please ignore this message, your sever name will remove out from our system in 30days.
+  <%= @full_domain %> 最近的更新時間是 <%= @last_signout_at %>。必須在60 天內，您的設備至少要上線回報一次，DDNS 主機名稱才不會從我們的系統中移除。<br>
+  如果您還需要使用 “<%= @full_domain %>”, 且不想讓此主機名稱從我們的系統中刪除,請將您的 ZyXEL 設備立即連接上網。<br>
+  如果您不再使用 “<%= @full_domain %>”, 請忽略此訊息,您的主機名稱將會在30天後自動被移除。<br><br>
 
-  Best Regards,
-  myZyXELcloud Administrator
-  ZyXEL Communications Corp.
-</p>
-<p>
-  親愛的<%= @user.first_name %>,您好:
-
-  hanslu.zyxel.me 最近的更新時間是 2014-11-09 07:37:40 GMT +00:00。必須在60 天內，您的設備至少要上線回報一次，DDNS 主機名稱才不會從我們的系統中移除。
-  如果您還需要使用 hanslu.zyxel.me, 且不想讓此主機名稱從我們的系統中刪除,請將您的 ZyXEL 設備立即連接上網。
-  如果您不再使用 hanslu.zyxel.me, 請忽略此訊息,您的主機名稱將會在30天後自動被移除。
-
-  myZyXELcloud Service 敬上
-
+  myZyXELcloud Service 敬上<br>
 </p>

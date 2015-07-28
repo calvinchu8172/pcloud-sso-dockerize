@@ -40,8 +40,11 @@ module Services
           device.ddns.save
 
           user = device.pairing.first.user
+          xmpp_last_username = XmppLast.find_by_decive(device)
 
-          DdnsMailer.notify_comment(user).deliver_now
+          # binding.pry
+
+          DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_now
           puts Time.now.to_s + " Sent mail to " + "#{ user.first_name }" + " : " + "#{ user.email }"
 
         end
