@@ -1,7 +1,7 @@
 module Services
   module DdnsExpire
-    WARNING_TIME = 60.days.to_i
-    DELETE_TIME = 90.days.to_i
+    WARNING_TIME = 60.days.to_i - 1
+    DELETE_TIME = 90.days.to_i - 1
 
     def self.notice
       current_time = Time.now.to_i
@@ -82,18 +82,54 @@ module Services
         if device.present? && device.pairing.present? && device.pairing.first.user.present?
           warning_user_emails << device.pairing.first.user.email
 
-          # device.ddns.status = 1
-          # device.ddns.ip_address = device.ddns.get_ip_addr
           device.ddns.destroy
           delete_route53_record(device.ddns)
 
           user = device.pairing.first.user
-
           # DdnsMailer.notify_comment(user).deliver
           puts Time.now.to_s + " Delete DDNS " + "#{ user.first_name }" + " : " + "#{ user.email }"
 
         end
       end
     end
+
+    def self.create_route53_record(ddns)
+      route = AWS::Route53.new
+
+      zone_id = Settings.environments.zones_info.id
+      ddns_name = Settings.environments.ddns + '.'
+      target_name = ddns.hostname + "." + ddns_name
+
+      hosted_zone = route.hosted_zones[zone_id]
+      rrsets = hosted_zone.rrsets
+
+      begin
+        rrset = rrsets.create(target_name, 'A', ttl: 300, resource_records: [{value: ddns.get_ip_addr}])
+        puts "  Create DDNS record: #{rrset.name}"
+        puts "                  ip: #{rrset.resource_records.first[:value]}"
+      rescue Exception => error
+        puts error
+      end
+    end
+
+    def self.delete_route53_record(ddns)
+      route = AWS::Route53.new
+
+      zone_id = Settings.environments.zones_info.id
+      ddns_name = Settings.environments.ddns + '.'
+      target_name = ddns.hostname + "." + ddns_name
+
+      hosted_zone = route.hosted_zones[zone_id]
+      rrsets = hosted_zone.rrsets
+
+      begin
+        rrset = rrsets[target_name, 'A']
+        info = rrset.delete
+        puts "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
+      rescue Exception => error
+        puts error
+      end
+    end
+
   end
 end

@@ -13,7 +13,7 @@ class XmppLast < ActiveRecord::Base
   self.table_name = "last"
 
   def online?
-    last_signin_at > last_signout_at
+    last_signin_at >= last_signout_at
   end
 
   def offline?

@@ -11,8 +11,8 @@ class DdnsMailer < ActionMailer::Base
       @greeting = "Hi! This is test mail from Pcloud"
 
       # @user = User.first # for test
-
-      I18n.with_locale(user.language) do
+      @user = user
+      I18n.with_locale(@user.language) do
         mail to: @user.email
       end
   end

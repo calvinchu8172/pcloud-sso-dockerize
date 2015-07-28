@@ -27,19 +27,18 @@ Feature: Ddns expire
   Scenario:
     Ddns record which has a activity in recent should not receive any warning mail and should not be deleted after next scan
 
-    Given device has been used recently
+    Given device has been not used more than 1 days
 
     When ddns expire scan
 
     Then ddns record should still exist
     And user should not receive any warning email
 
-
   Scenario:
     Device user has received warning email and device is used recently, Ddns record should not be deleted after next scan
 
-    Given user has received warning email on previous scan
-    And device has been used recently
+    Given device has been not used more than 1 days
+    And user has received warning email on previous scan
 
     When ddns expire scan
 
@@ -49,8 +48,10 @@ Feature: Ddns expire
   Scenario:
     Device user has received warning email on previous scan, and user should not receive warning email again on next scan
 
-    Given user has received warning email on previous scan
+    Given device has been not used more than 60 days
+    And user has received warning email on previous scan
 
     When ddns expire scan
 
     Then user should not receive any warning email
+    And ddns record should still exist
