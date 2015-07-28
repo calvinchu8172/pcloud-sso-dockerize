@@ -13,12 +13,12 @@ end
 Given(/^device has been not used more than (\d+) days$/) do |day_num|
   @ddns = FactoryGirl.create(:ddns, ip_address: "1.1.1.1", hostname: "test", domain: Domain.first, device: @device)
 
-  xmpp_last = XmppLast.find_or_create_by(username: @device.xmpp_username)
-  xmpp_last.state ||= ""
+  xmpp_last = XmppLast.find_or_initialize_by(username: @device.xmpp_username)
+
   xmpp_last.update(
-    last_signin_at: (day_num.to_i + 1).days.ago,
-    last_signout_at: day_num.to_i.days.ago)
-  xmpp_last.save
+    last_signin_at: (day_num.to_i + 1).days.ago.to_i,
+    last_signout_at: day_num.to_i.days.ago.to_i,
+    state: "")
 
 end
 
@@ -36,7 +36,7 @@ Then(/^ddns record should still exist$/) do
 end
 
 Given(/^user has received warning email on previous scan$/) do
-  @device.ddns.update(status: 1)
+  @device.ddns.update(status: 1, ip_address: @device.ddns.get_ip_addr)
 end
 
 Then(/^ddns record should be deleted$/) do
@@ -45,8 +45,4 @@ end
 
 Then(/^user should not receive any warning email$/) do
   expect(ActionMailer::Base.deliveries.count).to eq(0)
-end
-
-Given(/^device has been used recently$/) do
-  pending # express the regexp above with the code you wish you had
 end

@@ -36,27 +36,9 @@ namespace :ddns_expire do
     xmpp_last = XmppLast.create(username: device.xmpp_username, last_signin_at: signin_time, last_signout_at: signout_time, state: "")
     puts "Create record: #{user.email}"
 
-    create_route53_record(ddns)
+    Services::DdnsExpire.create_route53_record(ddns)
   end
 
-  def create_route53_record(ddns)
-    route = AWS::Route53.new
-
-    zone_id = Settings.environments.zones_info.id
-    ddns_name = Settings.environments.ddns + '.'
-    target_name = ddns.hostname + "." + ddns_name
-
-    hosted_zone = route.hosted_zones[zone_id]
-    rrsets = hosted_zone.rrsets
-
-    begin
-      rrset = rrsets.create(target_name, 'A', ttl: 300, resource_records: [{value: ddns.get_ip_addr}])
-      puts "  Create DDNS record: #{rrset.name}"
-      puts "                  ip: #{rrset.resource_records.first[:value]}"
-    rescue Exception => error
-      puts error
-    end
-  end
 
   desc "delete fake data"
   task delete_fake: :environment do
@@ -84,26 +66,7 @@ namespace :ddns_expire do
     user.destroy if user
     puts "Delete record: #{user.email}"
 
-    delete_route53_record(ddns)
-  end
-
-  def delete_route53_record(ddns)
-    route = AWS::Route53.new
-
-    zone_id = Settings.environments.zones_info.id
-    ddns_name = Settings.environments.ddns + '.'
-    target_name = ddns.hostname + "." + ddns_name
-
-    hosted_zone = route.hosted_zones[zone_id]
-    rrsets = hosted_zone.rrsets
-
-    begin
-      rrset = rrsets[target_name, 'A']
-      info = rrset.delete
-      puts "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
-    rescue Exception => error
-      puts error
-    end
+    Services::DdnsExpire.delete_route53_record(ddns)
   end
 
   desc "check result after processing"
@@ -128,12 +91,9 @@ namespace :ddns_expire do
     end
   end
 
-
   task :notice => :environment do
     # job_last_scan_time # wait for design
-
     Services::DdnsExpire.notice
-
   end
 
   task :delete => :environment do
