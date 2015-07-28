@@ -34,6 +34,8 @@ class Api::Device < Device
   # * 該device 還未做過DDNS 註冊
   def ddns_checkin
 
+    ddns.update(ip_address: get_ip_addr, stauts: 0) # if device log in again, ddns status will be reset to 0.
+
     device_session = self.session.all
     return if device_session['ip'] == current_ip_address
     return if reset_requestment?
