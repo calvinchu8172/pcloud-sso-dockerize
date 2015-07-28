@@ -91,11 +91,12 @@ namespace :ddns_expire do
     end
   end
 
+  desc "notice use by email if ddns has expired for 60 days"
   task :notice => :environment do
-    # job_last_scan_time # wait for design
     Services::DdnsExpire.notice
   end
 
+  desc "delete ddns if ddns has expired for 90 days"
   task :delete => :environment do
     Services::DdnsExpire.delete
   end

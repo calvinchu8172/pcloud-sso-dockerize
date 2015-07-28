@@ -21,7 +21,8 @@
 
 set :output, 'log/cron.log'
 
-every 1.minute do
+every 2.minute do
   # runner "Model.Method"
-  rake "dev:notice"
+  rake "ddns_expire:notice"
+  # rake "dev:delete"
 end
