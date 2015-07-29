@@ -21,8 +21,71 @@
 
 set :output, 'log/cron.log'
 
-every 2.minute do
-  # runner "Model.Method"
-  rake "ddns_expire:notice"
-  # rake "dev:delete"
+# every 2.minute do
+#   # runner "Model.Method"
+#   rake "ddns_expire:notice"
+#   # rake "dev:delete"
+# end
+
+every :day, :at => '03:00pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '03:30pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '04:00pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '04:30pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '05:00pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '05:30pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '06:00pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '06:30pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
+end
+
+every :day, :at => '07:00pm' do
+  # rake "ddns_expire:delete_fake", :output => 'log/cron_delete_fake.log'
+  # rake "ddns_expire:create_fake", :output => 'log/cron_create_fake.log'
+  rake "ddns_expire:notice", :output => 'log/cron_notice.log'
+  rake "ddns_expire:delete", :output => 'log/cron_delete.log'
 end
