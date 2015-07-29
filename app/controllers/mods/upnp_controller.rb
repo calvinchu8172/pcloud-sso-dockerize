@@ -16,7 +16,7 @@ class Mods::UpnpController < ApplicationController
   before_action :service_list_to_json, :only => :update
   before_action :check_session_available, :only => :edit
 
-  # GET /:ver/upnp/show/:device_encoded_id
+  # GET /{module_version}/upnp/show/:device_encoded_id
   # 初始化 UPnP Session 並向Device 同步UPnP 設定資訊
   def show
     get_device_info
@@ -25,7 +25,7 @@ class Mods::UpnpController < ApplicationController
     @upnp = UpnpSession.create
     @upnp.session.bulk_set(@session)
 
-    push_to_queue "upnp_query"
+    push_to_queue("upnp_query", @device.get_module_version('upnp'))
     @session[:id] = @upnp.id
 
     service_logger.note({start_upnp: @session})
@@ -36,13 +36,15 @@ class Mods::UpnpController < ApplicationController
     settings = update_permit.merge({:status => :submit})
     result = @upnp.session.update(settings);
 
-    push_to_queue "upnp_submit" if result
+    upnp_session = @upnp.session.all
+    device = Device.find(upnp_session['device_id'])
+    push_to_queue("upnp_submit", device.get_module_version('upnp')) if result
 
     service_logger.note({edit_upnp: settings})
     render :json => {:result => result}.to_json
   end
 
-  # GET /:ver/upnp/cancel/:id
+  # GET /{module_version}/upnp/cancel/:id
   def cancel
     session_id = params[:id]
     @upnp = UpnpSession.find(session_id)
@@ -64,10 +66,6 @@ class Mods::UpnpController < ApplicationController
       @upnp = UpnpSession.find(@session_id)
       @upnp_session = @upnp.session.all
       render :json => { :result => 'timeout' } if @upnp_session.empty?
-    end
-
-    def check_module_version
-      module_version = @device.get_module_version('upnp')
     end
 
     # 判斷是否與 device 在相同網段下
@@ -97,8 +95,8 @@ class Mods::UpnpController < ApplicationController
       params[:service_list] = params[:service_list].to_json
     end
 
-    def push_to_queue(job)
-      data = {:job => job, :session_id => @upnp.id}
+    def push_to_queue(job, module_version)
+      data = {:job => job, :session_id => @upnp.id, :module_version => module_version}
       sqs = AWS::SQS.new
       queue = sqs.queues.named(Settings.environments.sqs.name)
       queue.send_message(data.to_json)
