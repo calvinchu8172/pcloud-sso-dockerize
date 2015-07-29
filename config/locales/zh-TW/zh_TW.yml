@@ -147,6 +147,7 @@ zh-TW:
         sync: '正在同步Package設定...'
         success: 'Package設定完成'
         not_found: '偵測不到您的裝置'
+        failure: '伺服器忙碌，請稍候再試'
         cancel_instruction: '您確定要取消目前的Package設定流程？'
         error_code:
             num_498: 'Not in bot list'
