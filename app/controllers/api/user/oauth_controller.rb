@@ -68,7 +68,7 @@ class Api::User::OauthController < Api::Base
     end
 
     if is_portal_user?(register)
-      register = Api::User::OauthUser.find(register)
+      register = Api::User::OauthUser.find(register.id)
       register.confirmation_token = Devise.friendly_token
       register.confirmed_at = Time.now.utc
 
