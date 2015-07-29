@@ -16,8 +16,8 @@
             <td colspan="3" class="text-center table_btn_area">
               <%= render partial: "module_link", locals: {device: pairing.device, module_name: Package::MODULE_NAME} %>
               <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Mods::Upnp::MODULE_NAME} %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.encoded_id, class: "zyxel_btn_style2" %>
             </td>
           </tr>
           <tr>
@@ -81,7 +81,7 @@
             <%# show ddns information - end %>
           </tr>
 
-          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.escaped_encrypted_id%>');">
+          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.encoded_id%>');">
             <td colspan="3">
               <div ng-show="area.show" class="device_info_area">
                 <div ng-switch on="area.panel" class="text-center">

@@ -1,7 +1,7 @@
 Given(/^a user visit UPnP setup page$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
-  visit upnp_path(@pairing.device.escaped_encrypted_id)
+  visit upnp_path(@pairing.device.encoded_id)
 end
 
 Given(/^the page will waiting for connection with device$/) do

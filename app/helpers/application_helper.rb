@@ -28,7 +28,7 @@ module ApplicationHelper
     url_params = {}
     url_params[:controller] = next_module != 'finished' ? next_module : 'personal'
     url_params[:action] = next_module != 'finished' ? 'show' : 'index'
-    url_params[:id] = device.escaped_encrypted_id unless next_module == 'finished'
+    url_params[:id] = device.encoded_id unless next_module == 'finished'
 
     url_for url_params
   end

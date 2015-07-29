@@ -67,7 +67,7 @@ class DdnsController < ApplicationController
     ddns = Ddns.find_by_hostname(hostname)
     filter_list = Settings.environments.filter_list
     # If hostname was exits, it will redirct to setting page and display error message
-    device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    device = Device.find_by_encoded_id(params[:id])
 
     if ddns && (!paired?(ddns.device_id) || ddns.device_id != device.id)
       flash[:error] = @full_domain.chomp('.') + " " + I18n.t("warnings.settings.ddns.exist")
@@ -79,7 +79,6 @@ class DdnsController < ApplicationController
       return
     end
 
-    # device = Device.find_by_encrypted_id(URI.decode(params[:id]))
     save_ddns_setting(device, hostname)
   end
 
@@ -97,12 +96,12 @@ class DdnsController < ApplicationController
       end
 
       flash[:error] = I18n.t("warnings.invalid")
-      redirect_to action: 'show', id: device.escaped_encrypted_id
+      redirect_to action: 'show', id: device.encoded_id
     end
 
     # Redirct to my device page when device is not paired for current user
     def device_available
-      @device = Device.find_by_encrypted_id(params[:id])
+      @device = Device.find_by_encoded_id(params[:id])
       if @device
         if !paired?(@device.id) || !@device.find_module_list.include?(Ddns::MODULE_NAME)
           error_action

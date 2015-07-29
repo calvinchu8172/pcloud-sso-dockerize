@@ -70,4 +70,5 @@ namespace :dev do
     puts "create DDNS"
 
   end
+
 end

@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '4.2.3'
+gem 'mail', '2.5.4'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
@@ -65,10 +67,10 @@ gem "omniauth-facebook"
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 #  Devise 3.1 no longer signs the user automatically in after confirmation
-gem 'devise', '3.1.0'
+gem 'devise', '3.5.1'
 gem 'devise-i18n'
 gem 'rails-i18n'
-gem "recaptcha", '~> 0.3', :require => "recaptcha/rails"
+gem "recaptcha", '~> 0.3.6', :require => "recaptcha/rails"
 gem 'i18n_country_select'
 gem 'attr_encrypted'
 
@@ -82,6 +84,7 @@ gem 'rest-client'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
 gem 'browser-timezone-rails'
+gem 'whenever', '~> 0.9.4', :require => false
 
 group :test do
   gem 'action_mailer_cache_delivery'
