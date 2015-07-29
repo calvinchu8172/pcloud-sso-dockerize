@@ -5,7 +5,7 @@ When(/^user click on down arrow button$/) do
     find("a").click
   end
 
-  wait_server_response(1)
+  wait_server_response
 end
 
 Then(/^the page should display device information$/) do
