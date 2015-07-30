@@ -17,7 +17,9 @@ class DiscovererController < ApplicationController
         :model_class_name => device.product.model_class_name,
         :mac_address => device.mac_address.scan(/.{2}/).join(":"),
         :firmware_version => device.firmware_version,
-        :img_url => device.product.asset.url(:thumb)})
+        :img_url => device.product.asset.url(:thumb),
+        :has_indicator => device.find_module_list.include?('indicator')
+        })
     end
 
     service_logger.note({available_to_pair: raw_result})

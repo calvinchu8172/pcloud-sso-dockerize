@@ -1,6 +1,7 @@
 Given(/^a user visit Package setup page$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
+  @device = @pairing.device
   visit package_path(@pairing.device.encoded_id)
 end
 
@@ -88,6 +89,14 @@ end
 Then(/^the user will redirect to My Devices page after confirm$/) do
   expect(page.current_path).to eq("/personal/index")
 end
+
+Then(/^the user will redirect to the UPnP Setup page$/) do
+  current_url = URI.decode(page.current_path).chomp
+  module_version = @pairing.device.get_module_version('upnp')
+  expect_url = URI.decode("/#{module_version}/upnp/" + @pairing.device.encoded_id).chomp
+  expect(current_url).to eq(expect_url)
+end
+
 
 def get_package_session
   redis = Redis.new

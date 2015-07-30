@@ -34,6 +34,7 @@ module TestingHelper
     device.session['ip'] = ip
     device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
     device.module_version['upnp'] = 1
+    # device.module_list << 'indicator'
     device
   end
 
@@ -100,6 +101,10 @@ When(/^the user want to click link without cancel$/) do
   find("a.sign_out").click
   find("a.btn_tab_color1").click
   find("a.btn_tab_color2").click
+end
+
+Given(/^the device has "(.*?)" module$/) do |module_name|
+  expect(@device.find_module_list.include?(module_name)).to be(true)
 end
 
 Then(/^the user will redirect to My Devices page$/) do

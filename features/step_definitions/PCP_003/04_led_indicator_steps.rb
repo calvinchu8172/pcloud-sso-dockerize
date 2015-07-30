@@ -6,6 +6,8 @@ end
 
 Given(/^the device connected$/) do
   @device = TestingHelper.create_device
+  @device.module_list << 'indicator'
+  puts "device.module_list: #{@device.module_list.to_json}"
   @redis.HSET "s3:#{@device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
   visit '/discoverer/index'
 end
