@@ -26,13 +26,32 @@ namespace :ddns_expire do
   def create_data(email, ip, hostname, signin_time, signout_time)
     return puts "#{email} has been existed." if User.find_by(email: email)
 
-    user = FactoryGirl.build(:api_user, email: email)
+    user = User.new(
+      email: email,
+      password: "12345678",
+      password_confirmation: "12345678",
+      edm_accept: "0",
+      agreement: "1")
+
+    # user = FactoryGirl.build(:api_user, email: email)
     user.skip_confirmation!
     user.save
 
-    device = FactoryGirl.create(:api_device, product: Product.first)
-    pairing = FactoryGirl.create(:pairing, user_id: user.id, device_id: device.id)
-    ddns = FactoryGirl.create(:ddns, ip_address: ip, hostname: hostname, domain: Domain.first, device: device)
+    # device = FactoryGirl.create(:api_device, product: Product.first)
+    device = nil
+    unless device
+      device = Api::Device.create(
+        serial_number: rand(1000000000..9999999999).to_s,
+        mac_address: rand(100000000000..999999999999).to_s,
+        firmware_version: "V4.70(AALS.0)_GPL_20140820",
+        model_class_name: Product.first.model_class_name,
+        product: Product.first)
+    end
+    # pairing = FactoryGirl.create(:pairing, user_id: user.id, device_id: device.id)
+    pairing = Pairing.create(user_id: user.id, device_id: device.id, ownership: "0")
+
+    # ddns = FactoryGirl.create(:ddns, ip_address: ip, hostname: hostname, domain: Domain.first, device: device)
+    ddns = Ddns.create(ip_address: ip, hostname: hostname, domain: Domain.first, device: device)
     xmpp_last = XmppLast.create(username: device.xmpp_username, last_signin_at: signin_time, last_signout_at: signout_time, state: "")
     puts "Create record: #{user.email}"
 
@@ -52,7 +71,10 @@ namespace :ddns_expire do
   def delete_data(email)
     user = User.find_by(email: email)
     return if user.nil?
-    return if user.devices.first.nil?
+    if user.devices.first.nil?
+      user.destroy
+      return
+    end
 
     device = Api::Device.find(user.devices.first.id)
     ddns = Ddns.find_by(device: device)
