@@ -34,7 +34,6 @@ module TestingHelper
     device.session['ip'] = ip
     device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
     device.module_version['upnp'] = 1
-    # device.module_list << 'indicator'
     device
   end
 

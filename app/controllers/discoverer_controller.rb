@@ -18,7 +18,7 @@ class DiscovererController < ApplicationController
         :mac_address => device.mac_address.scan(/.{2}/).join(":"),
         :firmware_version => device.firmware_version,
         :img_url => device.product.asset.url(:thumb),
-        :has_indicator => device.find_module_list.include?('indicator')
+        :has_indicator_module => device.find_module_list.include?('indicator')
         })
     end
 

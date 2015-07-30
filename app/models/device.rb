@@ -93,7 +93,6 @@ class Device < ActiveRecord::Base
       module_version = self.get_module_version(module_name)
       module_name = "mods/v#{module_version}/#{module_name}"
     end
-    puts "find_next_tutorial: #{module_name}"
     module_name
   end
 
