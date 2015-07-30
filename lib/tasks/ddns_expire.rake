@@ -1,4 +1,15 @@
 namespace :ddns_expire do
+
+  task :cronjob do
+    puts "**********#{ Time.now } cronjob starting...***********"
+    Rake::Task["ddns_expire:delete_fake"].invoke
+    Rake::Task["ddns_expire:create_fake"].invoke
+    Rake::Task["ddns_expire:notice"].invoke
+    Rake::Task["ddns_expire:delete"].invoke
+    Rake::Task["ddns_expire:test_fake"].invoke
+    puts "***********#{ Time.now } cronjob ending...************"
+  end
+
   desc "create fake data for test"
 
   DOMAIN = "@example.com"
@@ -13,6 +24,7 @@ namespace :ddns_expire do
 
 
   task create_fake: :environment do
+    puts "start creating fake data..."
     # create a ddns record last active now
     create_data(NOW_USER_EMAIL, "1.1.1.1", NOW_USER, Time.now.to_i, Time.now.to_i - 1)
 
@@ -21,6 +33,7 @@ namespace :ddns_expire do
 
     # create a ddns record last active 90 days ago
     create_data(EXPIRE90_USER_EMAIL, "3.3.3.3", EXPIRE90_USER, 100.days.ago.to_i, 90.days.ago.to_i)
+    puts "end creating fake data..."
   end
 
   def create_data(email, ip, hostname, signin_time, signout_time)
@@ -61,11 +74,11 @@ namespace :ddns_expire do
 
   desc "delete fake data"
   task delete_fake: :environment do
-
+    puts "start deleting fake data..."
     delete_data(NOW_USER_EMAIL)
     delete_data(EXPIRE60_USER_EMAIL)
     delete_data(EXPIRE90_USER_EMAIL)
-
+    puts "end deleting fake data..."
   end
 
   def delete_data(email)
@@ -88,14 +101,16 @@ namespace :ddns_expire do
     user.destroy if user
     puts "Delete record: #{user.email}"
 
-    Services::DdnsExpire.delete_route53_record(ddns)
+    Services::DdnsExpire.delete_route53_record(ddns) if ddns
   end
 
   desc "check result after processing"
   task test_fake: :environment do
+    puts "start checking the result..."
     check_ddns_record(NOW_USER_EMAIL)
     check_ddns_record(EXPIRE60_USER_EMAIL)
     check_ddns_record(EXPIRE90_USER_EMAIL)
+    puts "end checking the result..."
   end
 
   def check_ddns_record(email)
@@ -107,20 +122,24 @@ namespace :ddns_expire do
 
     ddns = Ddns.find_by(device: pairing.device)
     if ddns
-      puts "Error: #{user.email} DDNS record still exists."
+      puts "  #{user.email} DDNS record still exists."
     else
-      puts "Success: #{user.email} DDNS record has been deleted."
+      puts "  #{user.email} DDNS record has been deleted."
     end
   end
 
   desc "notice use by email if ddns has expired for 60 days"
   task :notice => :environment do
+    puts "starting noticing by email..."
     Services::DdnsExpire.notice
+    puts "end noticing by email..."
   end
 
   desc "delete ddns if ddns has expired for 90 days"
   task :delete => :environment do
+    puts "start deleting ddns..."
     Services::DdnsExpire.delete
+    puts "end deleting ddns..."
   end
 
 end
