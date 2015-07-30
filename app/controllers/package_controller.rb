@@ -265,7 +265,7 @@ class PackageController < ApplicationController
   end
 
   def is_device_support?
-    unless @device.find_module_list.include?(Upnp::MODULE_NAME)
+    unless @device.find_module_list.include?(Mods::V1::Upnp::MODULE_NAME)
       flash[:alert] = I18n.t('warnings.invalid_device')
       redirect_to :authenticated_root
     end

@@ -49,10 +49,20 @@ Rails.application.routes.draw do
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     end
 
-    resources :upnp
     resources :package
 
-    get 'upnp/check/:id' , to: 'upnp#check'
+    scope :path => '/1/', :module => 'mods/v1' do
+      resources :upnp
+      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+      get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
+    end
+
+    scope :path => '/2/', :module => 'mods/v2' do
+      resources :upnp
+      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+      get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
+    end
+
     get 'package/check/:id' , to: 'package#check'
     get '/:controller(/:action(/:id))(.format)'
     post 'oauth/confirm'
