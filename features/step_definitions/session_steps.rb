@@ -102,6 +102,10 @@ When(/^the user want to click link without cancel$/) do
   find("a.btn_tab_color2").click
 end
 
+Given(/^the device has "(.*?)" module$/) do |module_name|
+  expect(@device.find_module_list.include?(module_name)).to be(true)
+end
+
 Then(/^the user will redirect to My Devices page$/) do
   expect(page.current_path).to eq "/personal/index"
 end
