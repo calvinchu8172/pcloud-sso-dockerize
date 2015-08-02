@@ -61,9 +61,9 @@ Then(/^the user should see success message on DDNS setup page$/) do
 end
 
 Then(/^the user will redirect to UPnP setup page$/) do
-	module_version = @pairing.device.get_module_version('upnp')
   current_url = URI.decode(page.current_path).chomp
-  expect_url = URI.decode("/#{module_version}/upnp/show/" + @pairing.device.encoded_id + ".format").chomp
+  module_version = @pairing.device.get_module_version('upnp')
+  expect_url = URI.decode("/#{module_version}/upnp/" + @pairing.device.encoded_id).chomp
   expect(current_url).to eq(expect_url)
 end
 

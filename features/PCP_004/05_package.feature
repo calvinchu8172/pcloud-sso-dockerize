@@ -34,6 +34,10 @@ Feature: [PCP_004_05] Package Setup
     And the Package services was success updated
 
     Then the user should see "Package settings have been successfully updated." message on Package setup page
+    And the device has "upnp" module
+    And the user click "UPnP Setup" link
+    Then the user will redirect to the UPnP Setup page
+
 
   Scenario: [PCP_004_05_05]
     Redirect to My Devices page when user completely cancel the Package setup flow

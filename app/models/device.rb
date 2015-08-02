@@ -91,7 +91,7 @@ class Device < ActiveRecord::Base
     module_name = result.first[:name]
     if module_name == 'upnp'
       module_version = self.get_module_version(module_name)
-      module_name = "#{module_version}/#{module_name}"
+      module_name = "mods/v#{module_version}/#{module_name}"
     end
     module_name
   end

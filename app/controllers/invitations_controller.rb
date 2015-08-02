@@ -21,6 +21,7 @@ class InvitationsController < ApplicationController
 	    device_id: @invitation.device.id,
 	    share_point: @invitation.share_point,
 	    permission: @invitation.permission_name,
+	    cloud_id: @user.encoded_id,
 	    expire_at: waiting_expire_at,
 	    status: :start
 	  }

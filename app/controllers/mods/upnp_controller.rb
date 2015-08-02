@@ -152,7 +152,7 @@ class Mods::UpnpController < ApplicationController
         redirect_to :authenticated_root
         return
       end
-      unless @device.get_module_version(Mods::Upnp::MODULE_NAME) == module_version
+      unless @device.get_module_version(Mods::Upnp::MODULE_NAME).to_s == module_version.to_s
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root
         return

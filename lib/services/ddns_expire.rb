@@ -45,7 +45,7 @@ module Services
           # binding.pry
 
           DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_now
-          puts Time.now.to_s + " Sent mail to " + "#{ user.first_name }" + " : " + "#{ user.email }"
+          puts "  #{ Time.now } sent mail to #{ user.first_name } : #{ user.email }"
 
         end
       end
@@ -90,7 +90,7 @@ module Services
 
           user = device.pairing.first.user
           # DdnsMailer.notify_comment(user).deliver
-          puts Time.now.to_s + " Delete DDNS " + "#{ user.first_name }" + " : " + "#{ user.email }"
+          puts "  #{ Time.now } delete DDNS #{ user.first_name } : #{ user.email }"
 
         end
       end
