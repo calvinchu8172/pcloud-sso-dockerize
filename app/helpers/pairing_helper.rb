@@ -2,7 +2,7 @@ module PairingHelper
 
   def check_device_available
 
-    @device = Device.find_by_encrypted_id(params[:id])
+    @device = Device.find_by_encoded_id(params[:id])
     if @device.nil?
       # Device is not found
       logger.debug('device is nil');
@@ -13,7 +13,7 @@ module PairingHelper
       # device is paired already
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to controller: "discoverer", action: "index"
-      return 
+      return
     end
 
     @pairing_session = @device.pairing_session.all
@@ -27,7 +27,7 @@ module PairingHelper
 
   def check_pairing_session
 
-    @device = Device.find_by_encrypted_id params[:id]
+    @device = Device.find_by_encoded_id params[:id]
     if @device.nil?
       render :json => {:id => @device.id, :status => 'not registered device'}
     end

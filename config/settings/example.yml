@@ -42,6 +42,9 @@ environments:
       region: 'us-east-1'
   ddns: pcloud.ecoworkinc.com
   cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
+  zones_info:
+    id: 'Z23KWXIJBQNA7O'
+    name: 'pcloud.ecoworkinc.com'
   filter_list:
     - api
     - www

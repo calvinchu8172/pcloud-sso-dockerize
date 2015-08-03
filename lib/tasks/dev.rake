@@ -2,7 +2,21 @@
 
 namespace :dev do
 
-  task :rebuild => ["db:drop", "db:setup", :fake]
+  task :build_xmpp_database => :environment do
+    password = ActiveRecord::Base.configurations[Rails.env]["password"]
+    ActiveRecord::Base.establish_connection(adapter: "mysql2", password: password)
+
+    Dir[File.expand_path("lib/tasks/build_xmpp_database.sql")].each do |file|
+      puts "Excute SQL script: #{file}"
+      sql = File.open(file).read
+      sql.split(';').each do |sql_statement|
+        ActiveRecord::Base.connection.execute(sql_statement)
+        puts sql_statement
+      end
+    end
+  end
+
+  task :rebuild => ["db:drop", "db:setup", :build_xmpp_database, :fake]
 
   task :fake => :environment do
 
@@ -56,4 +70,5 @@ namespace :dev do
     puts "create DDNS"
 
   end
+
 end

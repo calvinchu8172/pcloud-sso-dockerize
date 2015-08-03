@@ -6,6 +6,7 @@ end
 
 Given(/^the device connected$/) do
   @device = TestingHelper.create_device
+  @device.module_list << 'indicator'
   @redis.HSET "s3:#{@device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
   visit '/discoverer/index'
 end
@@ -43,7 +44,7 @@ Then(/^the user should see the "(.*?)" button enable again$/) do |arg1|
 end
 
 When(/^the user clicked "(.*?)" link to start pairing$/) do |arg1|
-  expect(page).to have_link("Pairing", href: "/discoverer/check/#{@device.escaped_encrypted_id}")
+  expect(page).to have_link("Pairing", href: "/discoverer/check/#{@device.encoded_id}")
   click_link("Pairing")
 end
 

@@ -1,11 +1,11 @@
 When(/^user click on down arrow button$/) do
-  device_id = Device.first.escaped_encrypted_id
+  device_id = Device.first.encoded_id
 
   within(:xpath, "//tr[contains(@ng-init, '#{device_id}')]") do
     find("a").click
   end
 
-  wait_server_response(1)
+  wait_server_response
 end
 
 Then(/^the page should display device information$/) do
@@ -38,7 +38,7 @@ When(/^user click on down arrow button and then click on another down arrow butt
     When user click on down arrow button
   }
 
-  another_device_id = Device.last.escaped_encrypted_id
+  another_device_id = Device.last.encoded_id
 
   within(:xpath, "//tr[contains(@ng-init, '#{another_device_id}')]") do
     find("a").click
@@ -57,6 +57,7 @@ Then(/^the available capacity should display: (\d+)$/) do |arg1|
 end
 
 Then(/^the available capacity should display: (\d+)\.(\d+)$/) do |arg1, arg2|
+  # page.save_screenshot('screenshot.png')
   expect(page).to have_content(arg1 + "." + arg2)
 end
 
@@ -83,7 +84,7 @@ Given(/^device feedback device info with:$/) do |table|
   info_data[:used_capacity] = data["used_capacity"]
   info_data[:total_capacity] = data["total_capacity"]
   device_for_test(info_data)
-  wait_server_response(1)
+  wait_server_response
 end
 
 def device_for_test(info_data = {})

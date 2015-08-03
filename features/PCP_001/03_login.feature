@@ -70,14 +70,14 @@ Feature: [PCP_001_03] Login
     Then user will login and redirect to dashboard
 
   Scenario: [PCP_001_03_06]
-    Show "unverified" button when login successfully with an unconfirmed account registered not over 3 days
+    Show "Unverified" button when login successfully with an unconfirmed account registered not over 3 days
 
     Given the user filled the correct information
     # And the account was unconfirmed
 
     When the user click "Sign in" button
 
-    Then the user should see "unverified" button
+    Then the user should see "Unverified" button
 
 
   Scenario: [PCP_001_03_07]
@@ -87,7 +87,7 @@ Feature: [PCP_001_03] Login
 
     When the user click "Sign in" button
 
-    Then the user should see "unverified" button
+    Then the user should see "Unverified" button
 
     When the user click unverified link
     Then the page should redirect to resend email of confirmation page
@@ -104,7 +104,7 @@ Feature: [PCP_001_03] Login
     Then confirmation email should be delivered
     And the page should redirect to hint confirmation sent page
 
-    When the user click "Confirm" link
+    When the user click "OK" link
 
     Then the page should redirect to sign in page
 

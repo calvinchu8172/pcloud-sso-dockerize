@@ -1,22 +1,24 @@
 ---
 en:
   labels:
-    language: Language
-    forgot_password: Forgot My Password
-    resend_confirmation: Resend
-    sign_in: Sign in
-    sign_out: Log Out
-    sign_up: Sign Up
-    my_devices: My Devices
-    search_devices: Search Devices
-    research: Research
-    cancel: Cancel
-    retry: Retry
-    submit: Submit
-    confirm: Confirm
-    or: or
-    expand_all: Expand All
-    collapse_all: Collapse All
+    language: "Language"
+    forgot_password: 'Forgot My Password'
+    resend_confirmation: 'Resend'
+    unverified: 'Unverified'
+    sign_in: 'Sign in'
+    sign_out: 'Log Out'
+    sign_up: 'Sign Up'
+    my_devices: 'My Devices'
+    search_devices: 'Search Devices'
+    research: 'Research'
+    cancel: 'Cancel'
+    retry: 'Retry'
+    submit: 'Submit'
+    confirm: 'Confirm'
+    ok: 'OK'
+    or: 'or'
+    expand_all: 'Expand All'
+    collapse_all: 'Collapse All'
     settings:
       ddns:
         instruction: DDNS Setup
@@ -26,12 +28,15 @@ en:
         last_update: Last Update
         firmware_version: Firmware Ver.
       upnp:
-        instruction: UPnP Setup
-        table_head1: Enabled
-        table_head2: Status
-        table_head3: Service Name
-        table_head4: Description
-        table_head5: Update Result
+        instruction: 'UPnP Setup'
+        table_head1: 'Enabled'
+        table_head2: 'Status'
+        table_head3: 'Service Name'
+        table_head4: 'Description'
+        table_head5: 'Update Result'
+        table_head6: 'Show Service Port'
+        table_head7: 'Hide Service Port'
+        table_head8: 'Service Port'
         result:
           success: Success
           failure: Failure
@@ -69,12 +74,13 @@ en:
     my_devices: Device List
     search_devices: Search Results
     settings:
-      ddns: DDNS Setting
-      upnp: UPnP Setting
-    pairing: Pairing
-    unpairing: Unpairing
-    terms: Terms of Use
-    manually: Manually Add Device
+      package: 'Package Setting'
+      ddns: 'DDNS Setting'
+      upnp: 'UPnP Setting'
+    pairing: 'Pairing'
+    unpairing: 'Unpairing'
+    terms: 'Terms of Use'
+    manually: 'Manually Add Device'
   warnings:
     not_config: DDNS is not Configured
     no_pairing_device: No device have been paired.
@@ -132,10 +138,11 @@ en:
           num_793: Failed to update UPnP port mapping in DB
           num_792: Device is not found
       package:
-        sync: Synchronizing Package settings...
-        success: Package settings have been successfully updated.
-        not_found: Device is not found
-        cancel_instruction: Are you sure you want to cancel the Package setting flow?
+        sync: 'Synchronizing Package settings...'
+        success: 'Package settings have been successfully updated.'
+        failure: 'Timeout. Please try again.'
+        not_found: 'Device is not found'
+        cancel_instruction: 'Are you sure you want to cancel the Package setting flow?'
         error_code:
           num_498: Not in bot list
           num_489: Cannot get package list

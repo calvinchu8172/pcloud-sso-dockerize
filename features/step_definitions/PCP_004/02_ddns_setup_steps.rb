@@ -1,6 +1,6 @@
 Given(/^the user visits DDNS setup page$/) do
 	page.set_rack_session(first_pairing: true)
-	visit "/ddns/#{@pairing.device.escaped_encrypted_id}"
+	visit "/ddns/#{@pairing.device.encoded_id}"
 end
 
 Given(/^the device was first setting DDNS after paired$/) do
@@ -38,7 +38,7 @@ When(/^the device already registered hostname (.*?)$/) do |value|
 end
 
 When(/^the user visits another device DDNS setup page$/) do
-	visit "/ddns/#{@other_paired.device.escaped_encrypted_id}"
+	visit "/ddns/#{@other_paired.device.encoded_id}"
 end
 
 # -------------------------------------------------------------------
@@ -62,7 +62,8 @@ end
 
 Then(/^the user will redirect to UPnP setup page$/) do
   current_url = URI.decode(page.current_path).chomp
-  expect_url = URI.decode("/upnp/" + @pairing.device.escaped_encrypted_id).chomp
+  module_version = @pairing.device.get_module_version('upnp')
+  expect_url = URI.decode("/#{module_version}/upnp/" + @pairing.device.encoded_id).chomp
   expect(current_url).to eq(expect_url)
 end
 

@@ -34,6 +34,8 @@ class Api::Device < Device
   # * 該device 還未做過DDNS 註冊
   def ddns_checkin
 
+    ddns.update(ip_address: ddns.get_ip_addr, status: 0) if ddns.present? # if device log in again, its ddns status will be reset to 0.
+
     device_session = self.session.all
     return if device_session['ip'] == current_ip_address
     return if reset_requestment?
@@ -116,6 +118,22 @@ class Api::Device < Device
     xmpp_user.save
 
     xmpp_user.session = id
+
+    current_timestamp = Time.now.to_i
+    xmpp_last = XmppLast.find_by(username: account[:name])
+    if xmpp_last.nil?
+      xmpp_last = XmppLast.new
+      xmpp_last.username = account[:name]
+      xmpp_last.last_signout_at = current_timestamp - 1
+      xmpp_last.state = ""
+    end
+
+    xmpp_last.last_signin_at = current_timestamp
+    xmpp_last.save
+  end
+
+  def xmpp_username
+    generate_new_username
   end
 
   private

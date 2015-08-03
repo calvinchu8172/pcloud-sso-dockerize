@@ -87,7 +87,13 @@ class Device < ActiveRecord::Base
       next_step unless next_step.blank?
     end.compact
 
-    result.blank? ? 'finished' : result.first[:name]
+    return 'finished' if result.blank?
+    module_name = result.first[:name]
+    if module_name == 'upnp'
+      module_version = self.get_module_version(module_name)
+      module_name = "mods/v#{module_version}/#{module_name}"
+    end
+    module_name
   end
 
   # ignore paring module at this step
@@ -126,6 +132,11 @@ class Device < ActiveRecord::Base
     false
   end
 
+  def get_module_version module_name
+    module_version = self.module_version.get(module_name)
+    module_version = 1 if self.find_module_list.include?(module_name) && module_version.blank?
+    module_version
+  end
 
   def get_xmpp_account
     self.session.hget("xmpp_account")+"@#{Settings.xmpp.server}/#{Settings.xmpp.device_resource_id}" unless self.session.hget("xmpp_account").blank?

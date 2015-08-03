@@ -83,7 +83,7 @@ class PackageController < ApplicationController
     error_message = get_error_msg(package_session['error_code'])
     #path_ip = decide_which_path_ip package_session
 
-    package_list = ((package_session['status'] == 'form' || package_session['status'] == 'updated') && !package_session['package_list'].empty?)? JSON.parse(package_session['package_list']) : {}
+    package_list = !package_session['package_list'].empty? ? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
     package_list = update_result(package_list) unless package_list.empty?
 
@@ -91,7 +91,7 @@ class PackageController < ApplicationController
     #puts package_list
     result = {:status => package_session['status'],
               :device_id => package_session['device_id'],
-              :error_message => error_message,
+              :error_message => I18n.t("warnings.settings.package.failure"),
               :package_list => package_list,
               :requires => package_session['requires'],
               :version => package_session['version'],
@@ -136,7 +136,7 @@ class PackageController < ApplicationController
   # Return i18n service description
   def decide_enable(package_list)
     package_list.each do |package|
-      unless package["package_name"].empty?
+      unless package["package_name"].blank?
         package["enabled"] = package["status"]
       end
     end
@@ -174,7 +174,7 @@ class PackageController < ApplicationController
           package['status'] = package['enabled']
         else
           result = "failure"
-          package['enabled'] = package['status']
+          #package['enabled'] = package['status']
         end
       end
       package['update_result'] = result
@@ -188,7 +188,14 @@ class PackageController < ApplicationController
     disable_list = Hash.new
     dependency_list = Hash.new
     package_session = package_old.session.all
-    package_list_current = ( package_session['package_list'] )? JSON.parse(package_session['package_list']) : {}
+
+    begin
+      result = JSON.parse(package_session['package_list'])
+    rescue
+      result = {}
+    end
+
+    package_list_current = package_session['package_list'] ? result : {}
     package_list_current.each do |package|
       if package['requires']
         if package['requires'][0] != nil
@@ -258,7 +265,7 @@ class PackageController < ApplicationController
   end
 
   def is_device_support?
-    unless @device.find_module_list.include?(Upnp::MODULE_NAME)
+    unless @device.find_module_list.include?(Mods::V1::Upnp::MODULE_NAME)
       flash[:alert] = I18n.t('warnings.invalid_device')
       redirect_to :authenticated_root
     end

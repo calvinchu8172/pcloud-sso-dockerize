@@ -103,3 +103,10 @@ Feature: Device Register V3
       When the device send information to REST API /d/3/register
 
       Then the API should return success respond
+
+    Scenario: [REST_00_02_09]
+      Check XmppServer should save device register sign in time
+
+      When the device send information to REST API /d/3/register
+
+      Then XmppLast should record this device register sign in time

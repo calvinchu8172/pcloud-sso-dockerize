@@ -11,13 +11,15 @@ class DiscovererController < ApplicationController
     raw_result = Array.new
     search_available_device.each do |device|
       next if(device.product.blank?)
-      raw_result.push({:device_id => device.escaped_encrypted_id,
+      raw_result.push({:device_id => device.encoded_id,
         :paired => device.paired?,
         :product_name => device.product.name,
         :model_class_name => device.product.model_class_name,
         :mac_address => device.mac_address.scan(/.{2}/).join(":"),
         :firmware_version => device.firmware_version,
-        :img_url => device.product.asset.url(:thumb)})
+        :img_url => device.product.asset.url(:thumb),
+        :has_indicator_module => device.find_module_list.include?('indicator')
+        })
     end
 
     service_logger.note({available_to_pair: raw_result})
@@ -52,7 +54,7 @@ class DiscovererController < ApplicationController
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to action: 'add'
     else
-      redirect_to action: 'check', id: device.escaped_encrypted_id
+      redirect_to action: 'check', id: device.encoded_id
     end
   end
 
@@ -81,7 +83,7 @@ class DiscovererController < ApplicationController
   def indicate
     device_id = params[:id]
     indicator_session = DeviceIndicatorSession.create
-    device = Device.find_by_encrypted_id device_id
+    device = Device.find_by_encoded_id device_id
     session = { device_id: device.id }
     indicator_session.session.bulk_set(session)
 

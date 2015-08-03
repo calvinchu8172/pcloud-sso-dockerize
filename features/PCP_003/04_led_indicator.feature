@@ -10,6 +10,7 @@ Feature: [PCP_003_04] LED Indicator
     Show "Find NAS" button when device is not paired and the device has indicator module
 
     When the connected device in the list is not paired
+    And the device has "indicator" module
     Then the user should see the enabled "Find NAS" button of the device
 
   Scenario:  [PCP_003_04_02]

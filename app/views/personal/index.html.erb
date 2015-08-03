@@ -14,9 +14,10 @@
         <% @pairing.each_with_index do |pairing, index| %>
           <tr>
             <td colspan="3" class="text-center table_btn_area">
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Package::MODULE_NAME} %>
               <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Upnp::MODULE_NAME} %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.escaped_encrypted_id, class: "zyxel_btn_style2" %>
+              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Mods::Upnp::MODULE_NAME} %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.encoded_id, class: "zyxel_btn_style2" %>
             </td>
           </tr>
           <tr>
@@ -80,7 +81,7 @@
             <%# show ddns information - end %>
           </tr>
 
-          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.escaped_encrypted_id%>');">
+          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.encoded_id%>');">
             <td colspan="3">
               <div ng-show="area.show" class="device_info_area">
                 <div ng-switch on="area.panel" class="text-center">
@@ -231,10 +232,10 @@
       init: function(json){
         this.raidStatus = json['raid_status'];
         this.fanSpeed = json['fan_speed'] + 'RPM';
-        this.fanSpeedWarning = json['fan_speed_warning'];
+        this.fanSpeedWarning = (json['fan_speed_warning'] == 'true');
         this.cpuTemp.cel = json['cpu_temperature_celsius'] + '°C';
         this.cpuTemp.fah = json['cpu_temperature_fahrenheit'] + '°F';
-        this.cpuTempWarning = json['cpu_temperature_warning'];
+        this.cpuTempWarning = (json['cpu_temperature_warning'] == 'true');
         this.volumeList = json['volume_list'];
       },
       capacity:{
@@ -245,12 +246,14 @@
         units: ['KB', 'MB', 'GB', 'TB', 'PB'],
         volumes: [],
         add: function(total, used){
-          $scope.info.capacity.total += parseInt(total);
-          $scope.info.capacity.used += parseInt(used);
+          $scope.info.capacity.to('MB');
+          $scope.info.capacity.total = parseFloat($scope.info.capacity.total) + parseFloat(total);
+          $scope.info.capacity.used = parseFloat($scope.info.capacity.used) + parseFloat(used);
           if($scope.info.capacity.total >= 4096){
             $scope.info.capacity.to('GB');
           }
-          $scope.info.capacity.available = ((($scope.info.capacity.total - $scope.info.capacity.used)/$scope.info.capacity.total) * 100).toFixed(2) + '%';
+          $scope.info.capacity.available = ((($scope.info.capacity.total - $scope.info.capacity.used)/$scope.info.capacity.total) * 100).toFixed(2);
+          $scope.info.capacity.available += '%';
         },
         to: function(unit){
           var capacity = $scope.info.capacity;
@@ -263,8 +266,8 @@
             $scope.info.capacity.total *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
             $scope.info.capacity.used *= Math.pow(1024, (powOfUnitFrom-powOfUnitTo));
           }
-          $scope.info.capacity.total = $scope.info.capacity.total.toFixed(1);
-          $scope.info.capacity.used = $scope.info.capacity.used.toFixed(1);
+          $scope.info.capacity.total = parseFloat($scope.info.capacity.total).toFixed(1);
+          $scope.info.capacity.used = parseFloat($scope.info.capacity.used).toFixed(1);
           $scope.info.capacity.unit = unit;
         } // to: function(){...}
       }

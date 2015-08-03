@@ -1,7 +1,8 @@
 Given(/^a user visit Package setup page$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
-  visit package_path(@pairing.device.escaped_encrypted_id)
+  @device = @pairing.device
+  visit package_path(@pairing.device.encoded_id)
 end
 
 When(/^the package page will wait for connection with device$/) do
@@ -17,27 +18,41 @@ When(/^the device of Package was offline$/) do
 end
 
 When(/^the device was online the device will response package list$/) do
-  package_list = ('[{"service_name":"FTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"FTP configuration",
-                     "wan_port":"22",
-                     "lan_port":"22",
-                     "path":"ftp://ip:port"},
-                    {"service_name":"DDNS",
-                     "status":true,
-                     "enabled":false,
-                     "description":"DDNS configuration",
-                     "wan_port":"",
-                     "lan_port":"",
-                     "path":""},
-                    {"service_name":"HTTP",
-                     "status":true,
-                     "enabled":false,
-                     "description":"HTTP configuration",
-                     "wan_port":"8000",
-                     "lan_port":"80",
-                     "path":"http://ip:port"}]').gsub("\n", "")
+  package_list = ('[
+   {
+       "package_name": "WORDPRESS",
+       "status": true,
+       "requires": ["PHP-MySQL-phpMyAdmin"],
+       "enabled": false,
+       "description": ["a1","a2","a3"],
+       "version": "001zypkg013"
+   },
+   {
+       "package_name": "PHP-MySQL-phpMyAdmin",
+       "status": true,
+       "requires": [],
+       "enabled": false,
+       "description": ["b1.","b2.","b3"],
+       "version": "002zypkg013"
+   },
+   {
+       "package_name": "gallery",
+       "status": false,
+       "requires": ["PHP-MySQL-phpMyAdmin"],
+       "enabled": false,
+       "description": ["C1","C2","C3"],
+       "version": "003zypkg013"
+   },
+   {
+       "package_name": "Transmission",
+       "status": false,
+       "requires": [],
+       "enabled": false,
+       "description": ["d1","d2","d3"],
+       "version": "004zypkg013"
+   }
+  ]').gsub("\n", "")
+
   set_package_status(@package_session, "form", package_list)
   wait_server_response
 end
@@ -70,6 +85,18 @@ end
 Then(/^it should not do anything on Package setup page$/) do
   expect(page).to have_content I18n.t("warnings.settings.package.sync")
 end
+
+Then(/^the user will redirect to My Devices page after confirm$/) do
+  expect(page.current_path).to eq("/personal/index")
+end
+
+Then(/^the user will redirect to the UPnP Setup page$/) do
+  current_url = URI.decode(page.current_path).chomp
+  module_version = @pairing.device.get_module_version('upnp')
+  expect_url = URI.decode("/#{module_version}/upnp/" + @pairing.device.encoded_id).chomp
+  expect(current_url).to eq(expect_url)
+end
+
 
 def get_package_session
   redis = Redis.new
