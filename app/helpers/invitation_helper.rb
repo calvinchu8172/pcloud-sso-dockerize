@@ -38,10 +38,10 @@ module InvitationHelper
 
 	def check_accepted_session
 		invitation_key = params[:id] || ''
-		invitation = Invitation.find_by(key: invitation_key) unless invitation_key.blank?
-	  render :json => { :key => invitation_key, :status => 'invalid invitation key' } and return if invitation.nil?
+		@invitation = Invitation.find_by(key: invitation_key) unless invitation_key.blank?
+	  render :json => { :key => invitation_key, :status => 'invalid invitation key' } and return if @invitation.nil?
 
-		@accepted_user = AcceptedUser.find_by(user_id: current_user.id, invitation_id: invitation.id)
+		@accepted_user = AcceptedUser.find_by(user_id: current_user.id, invitation_id: @invitation.id)
 		@accepted_session = @accepted_user.session.all
  	end
 
