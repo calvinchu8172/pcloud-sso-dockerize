@@ -36,6 +36,33 @@ pl:
           success: Powodzenie
           failure: Niepowodzenie
           no_update: Brak aktualizacji
+      package:
+        instruction: Package Setup
+        table_head1: Enabled
+        table_head2: Status
+        table_head3: Package Name
+        table_head4: Require
+        table_head5: Version
+        table_head6: Description
+        table_head7: Update Result
+        result:
+          success: Success
+          failure: Failure
+          no_update: No Update
+        description:
+          gallery: "Ta aplikacja pozwala na udostępnianie obrazów przez urządzenie NAS. Zaloguj się jako administrator NAS. Administrator może później utworzyć konta dla innych użytkowników."
+          googledriveclient: "Zapewniamy usługę dwukierunkowej synchronizacji pomiędzy NAS oraz Google Drive."
+          squeezecenter: "To narzędzie pozwala zarządzać urządzeniem Logitech Squeezebox podłączonym do urządzenia NAS."
+          memopal: "Memopal to internetowe oprogramowanie do tworzenia kopii zapasowych i zapisywania danych, które archiwizuje pliki w czasie rzeczywistym na serwerze zdalnym."
+          nfs: "NFS (Network File System) to protokół wymiany plików używany głównie w systemach uniksowych."
+          nzbget: "Ten pakiet ściąga pliki .nzb z Usenet. Użytkownik: nzbget Hasło:1234"
+          php-mysql-phpmyadmin: "Narzędzie to umożliwia zarządzanie baza danych MySQL przez sieć. Wpisz 'root' jako nazwę użytkownika i '1234' jako hasło, aby się zalogować."
+          tftp: "Trivial File Transfer Protocol (TFTP) to internetowy protokół przesyłania plików, który używa portu numer 69. Przypomina FTP, ale używa protokołu UDP (User Datagram Protocol) zamiast TCP (Transmission Control Protocol). Nie obsługuje listingów katalogu ani uwierzytelniania użytkowników."
+          transmission: "Ten pakiet jest innym klientem P2P który wspiera linki magnet i i pliki torrenta"
+          wordpress: "To narzędzie pozwala utworzyć blog i zarządzać nim. Zaloguj się jako administrator NAS. Administrator może następnie utworzyć konta dla innych użytkowników."
+          myzyxelcloud-agent: "myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami i bezpiecznego dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego miejsca, w którym istnieje połączenie internetowe!"
+          owncloud: "Pozwala na utworzenie i zarządzanie własną chmurą danych."
+          pyload: 'NAS obsługuje pobieranie plików włączając pobieranie ze stron typu "one-clik-hosting".'
     pairing: Parowanie
     paired: Sparowane
     unpairing: Anulowanie parowania
