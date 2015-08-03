@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/local-ch/i18n-docs.git
+  revision: 6b79fc44f909aeb38369840359c420605c931ba7
+  specs:
+    i18n-docs (0.0.7)
+      rake
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: b417ed8871346aacabd959edd0585d7ca9f39e9c
   specs:
@@ -151,12 +158,10 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
-    i18n-country-translations (1.2.1)
+    i18n-country-translations (1.2.2)
       i18n (~> 0.5)
       railties (>= 3.0)
-    i18n-docs (0.0.7)
-      rake
-    i18n_country_select (1.1.4)
+    i18n_country_select (1.1.5)
       i18n (~> 0.5)
       i18n-country-translations (~> 1.0, >= 1.0.3)
       unicode_utils (~> 1.0, >= 1.0.0)
@@ -400,8 +405,9 @@ DEPENDENCIES
   faker
   fluent-logger
   hipchat
-  i18n-docs
-  i18n_country_select
+  i18n-country-translations (= 1.2.2)
+  i18n-docs!
+  i18n_country_select (= 1.1.5)
   immigrant (~> 0.1)
   jbuilder (~> 2.0)
   jquery-rails
@@ -444,4 +450,4 @@ DEPENDENCIES
   yard-cucumber
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

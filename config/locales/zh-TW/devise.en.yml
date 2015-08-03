@@ -1,5 +1,5 @@
 ---
-zh-tw:
+zh-TW:
   devise:
     confirmations:
       confirmed: "您的帳號已通過驗證，現在您已成功登入。"
