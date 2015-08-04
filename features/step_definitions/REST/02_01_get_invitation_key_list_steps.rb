@@ -29,13 +29,13 @@ def create_fake_invitation(user, device)
   invitation_key =  cloud_id + share_point + device_id.to_s + Time.now.to_s
   invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
 
-  invitation = Invitation.create(
+  @invitation = Invitation.create(
     key: invitation_key,
     share_point: share_point,
     permission: "1",
     device_id: device_id,
     expire_count: 5,
     )
-  invitation.accepted_by user.id
-  invitation.accepted_users.first.update_attribute(:status, 1)
+  @invitation.accepted_by user.id
+  @invitation.accepted_users.first.update_attribute(:status, 1)
 end

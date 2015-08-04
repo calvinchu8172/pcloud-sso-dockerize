@@ -22,7 +22,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the invitation page should see an error message for "fail"
+    Then the invitation page should see an error message for "Invitation accept failed"
 
   Scenario: [PCP_005_01_03]
     Show error messages when visitor own the device
@@ -31,7 +31,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the invitation page should see an error message for "fail"
+    Then the invitation page should see an error message for "Invitation accept failed"
 
   Scenario: [PCP_005_01_04]
     Show timeout message when requset timeout
@@ -41,7 +41,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the visitor should see a "timeout" message and button for "Retry"
+    Then the visitor should see a "Invitation accept failed" message and button for "Retry"
 
   Scenario: [PCP_005_01_05]
     Show error message when already accepted by user
@@ -51,7 +51,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the invitation page should see an error message for "fail"
+    Then the invitation page should see an error message for "Invitation accept failed"
 
   Scenario: [PCP_005_01_06]
     Show error message when invitation key counting expired
@@ -61,7 +61,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the invitation page should see an error message for "fail"
+    Then the invitation page should see an error message for "Invitation accept failed"
 
   Scenario: [PCP_005_01_07]
     Show success message when server return done message in time
@@ -71,7 +71,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the visitor should see a "success" message and button for "Confirm"
+    Then the visitor should see a "Invitation accept success" message and button for "Confirm"
 
   Scenario: [PCP_005_01_08]
     Redirect user to discover page when click "Confirm" button
