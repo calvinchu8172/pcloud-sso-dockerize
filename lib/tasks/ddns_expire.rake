@@ -1,13 +1,30 @@
 namespace :ddns_expire do
 
-  task :cronjob do
-    puts "**********#{ Time.now } cronjob starting...***********"
+  task :cronjob => :set_logger do
+  # task :cronjob do
+    # binding.pry
+
+    @rake_log.info "**********#{ Time.now } cronjob starting...***********"
     # Rake::Task["ddns_expire:delete_fake"].invoke
     # Rake::Task["ddns_expire:create_fake"].invoke
+
+
     Rake::Task["ddns_expire:notice"].invoke
     Rake::Task["ddns_expire:delete"].invoke
     # Rake::Task["ddns_expire:test_fake"].invoke
-    puts "***********#{ Time.now } cronjob ending...************"
+
+    # @rake_log.debug "This is a message with level DEBUG"
+    # @rake_log.info "This is a message with level INFO"
+    # @rake_log.warn "This is a message with level WARN"
+    # @rake_log.error "This is a message with level ERROR"
+    # @rake_log.fatal "This is a message with level FATAL"
+
+    @rake_log.info "***********#{ Time.now } cronjob ending...************"
+
+  end
+
+  task set_logger: :environment  do
+    @rake_log = Services::RakeLogger.log4r
   end
 
   desc "create fake data for test"
@@ -133,14 +150,16 @@ namespace :ddns_expire do
   end
 
   desc "notice use by email if ddns has expired for 60 days"
-  task :notice => :environment do
+  task :notice => :set_logger do
+    # @rake_log.info "starting noticing by email..."
     puts "starting noticing by email..."
     Services::DdnsExpire.notice
+    # @rake_log.info "end noticing by email..."
     puts "end noticing by email..."
   end
 
   desc "delete ddns if ddns has expired for 90 days"
-  task :delete => :environment do
+  task :delete => :set_logger do
     puts "start deleting ddns..."
     Services::DdnsExpire.delete
     puts "end deleting ddns..."
