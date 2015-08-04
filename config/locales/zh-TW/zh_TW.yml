@@ -107,14 +107,11 @@ zh-TW:
         canceled: '您的配對流程已取消'
         success: '已完成與此裝置的配對，請點擊”確定”按鈕以繼續設定裝置'
       invitation:
-          invalid_key: '非合法的邀請碼'
-          counting_expired: '此邀請已超過可接受的上限次數'
-          accepting_by_owner: '擁有者無法執行此項操作'
-          accepted: '已接受過相同的邀請'
           connecting: '連線中...'
-          success: '您已完成接受邀請'
-          timeout: '連線已逾時，請重新操作'
-          failure: '接受邀請失敗'
+          success: '接受成功'
+          failure: '接受失敗'
+          success_desc: "恭喜！你加入了共享文件夾 %{share_point} 成功。"
+          failure_desc: "該邀請 %{share_point} 不可用，請稍後再試一次。"
       ddns:
         instruction: '請使用：'
         instruction_2: '3至63個字元'
