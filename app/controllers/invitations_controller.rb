@@ -37,7 +37,7 @@ class InvitationsController < ApplicationController
 	def check_connection
 		check_timeout
 		@accepted_user.finish_accept if done?
-		render :json => { :status => @accepted_session['status'], :expire_at => @accepted_session['expire_at'] }
+		render :json => { :status => session_status, :expire_at => @accepted_session['expire_at'] }
   end
 
 	def check_timeout
@@ -57,6 +57,10 @@ class InvitationsController < ApplicationController
 
 	def done?
 		@accepted_session['status'] == 'done'
+	end
+
+	def session_status
+		@accepted_session['status']
 	end
 
 end

@@ -1,23 +1,27 @@
 <% provide(:disable_alert, "hidden") %>
 <div ng-app="invitation_app"  ng-controller="InvitationCtrl"
 	ng-init="invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; validation=<%= @validation.to_json %>; init();">
+
 	<div style="margin-top: 10px; padding-left: 150px;">
 		<span class="zyxel_span2" ng-switch on="step">
-		  <span ng-switch-when="connecting"><%= I18n.t("warnings.settings.invitation.connecting") %></span>
+		  <span ng-switch-when="connecting">
+		  	<%= I18n.t("warnings.settings.invitation.connecting") %>
+		  </span>
 		  <span ng-switch-when="failure">
 		  	<%= I18n.t("warnings.settings.invitation.failure") %>
 		  	<blockquote style="border-left: white;">
-		  		<%= I18n.t("warnings.settings.invitation.failure_desc", :share_point => "#{@invitation.share_point}") %>
+		  		<%= I18n.t("warnings.settings.invitation.failure_desc", :share_point => "#{@share_point}") %>
 		  	</blockquote>
 		  </span>
 		  <span ng-switch-when="done">
 		  	<%= I18n.t("warnings.settings.invitation.success") %>
 		  	<blockquote style="border-left: white;">
-		  		<%= I18n.t("warnings.settings.invitation.success_desc", :share_point => "#{@invitation.share_point}") %>
+		  		<%= I18n.t("warnings.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
 		  	</blockquote>
 		  </span>
 		</span>
 	</div>
+
 	<div class="bottom-content" ng-switch on="panel">
     <div class="countdown" ng-switch-when="loading">
       <%= image_tag 'loading.gif' %>

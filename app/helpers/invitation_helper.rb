@@ -5,6 +5,7 @@ module InvitationHelper
 		@invitation_key = params[:id] || ''
 		@user = current_user
 		@invitation = Invitation.find_by(key: @invitation_key) unless @invitation_key.blank?
+		@share_point = @invitation.nil? ? "" : @invitation.share_point
 	  if @invitation.nil?
 	    logger.info("非合法的邀請碼")
 	    render :template => '/invitations/accept'
