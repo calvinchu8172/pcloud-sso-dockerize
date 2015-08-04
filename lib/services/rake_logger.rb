@@ -30,7 +30,6 @@ module Services
       rake_log = Logger.new("log/cron.log")
       rake_log.datetime_format = '%Y-%m-%d %H:%M:%S'
       rake_log.level = Logger::DEBUG
-      # binding.pry
       return rake_log
     end
 

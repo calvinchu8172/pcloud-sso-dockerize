@@ -2,24 +2,16 @@ namespace :ddns_expire do
 
   task :cronjob => :set_logger do
   # task :cronjob do
-    # binding.pry
 
-    @rake_log.info "**********#{ Time.now } cronjob starting...***********"
+    @rake_log.info "**********cronjob starting...***********"
     # Rake::Task["ddns_expire:delete_fake"].invoke
     # Rake::Task["ddns_expire:create_fake"].invoke
-
 
     Rake::Task["ddns_expire:notice"].invoke
     Rake::Task["ddns_expire:delete"].invoke
     # Rake::Task["ddns_expire:test_fake"].invoke
 
-    # @rake_log.debug "This is a message with level DEBUG"
-    # @rake_log.info "This is a message with level INFO"
-    # @rake_log.warn "This is a message with level WARN"
-    # @rake_log.error "This is a message with level ERROR"
-    # @rake_log.fatal "This is a message with level FATAL"
-
-    @rake_log.info "***********#{ Time.now } cronjob ending...************"
+    @rake_log.info "***********cronjob ending...************"
 
   end
 
@@ -40,8 +32,8 @@ namespace :ddns_expire do
   EXPIRE90_USER_EMAIL = EXPIRE90_USER + DOMAIN
 
 
-  task create_fake: :environment do
-    puts "start creating fake data..."
+  task create_fake: :set_logger do
+    @rake_log.info "start creating fake data..."
     # create a ddns record last active now
     create_data(NOW_USER_EMAIL, "1.1.1.1", NOW_USER, Time.now.to_i, Time.now.to_i - 1)
 
@@ -50,11 +42,11 @@ namespace :ddns_expire do
 
     # create a ddns record last active 90 days ago
     create_data(EXPIRE90_USER_EMAIL, "3.3.3.3", EXPIRE90_USER, 100.days.ago.to_i, 90.days.ago.to_i)
-    puts "end creating fake data..."
+    @rake_log.info "end creating fake data..."
   end
 
   def create_data(email, ip, hostname, signin_time, signout_time)
-    return puts "#{email} has been existed." if User.find_by(email: email)
+    return @rake_log.info "#{email} has been existed." if User.find_by(email: email)
 
     user = User.new(
       email: email,
@@ -83,19 +75,19 @@ namespace :ddns_expire do
     # ddns = FactoryGirl.create(:ddns, ip_address: ip, hostname: hostname, domain: Domain.first, device: device)
     ddns = Ddns.create(ip_address: ip, hostname: hostname, domain: Domain.first, device: device)
     xmpp_last = XmppLast.create(username: device.xmpp_username, last_signin_at: signin_time, last_signout_at: signout_time, state: "")
-    puts "Create record: #{user.email}"
+    @rake_log.info "  Create record: #{user.email}"
 
     Services::DdnsExpire.create_route53_record(ddns)
   end
 
 
   desc "delete fake data"
-  task delete_fake: :environment do
-    puts "start deleting fake data..."
+  task delete_fake: :set_logger do
+    @rake_log.info "start deleting fake data..."
     delete_data(NOW_USER_EMAIL)
     delete_data(EXPIRE60_USER_EMAIL)
     delete_data(EXPIRE90_USER_EMAIL)
-    puts "end deleting fake data..."
+    @rake_log.info "end deleting fake data..."
   end
 
   def delete_data(email)
@@ -116,53 +108,51 @@ namespace :ddns_expire do
     pairing.destroy if pairing
     device.destroy if device
     user.destroy if user
-    puts "Delete record: #{user.email}"
+    @rake_log.info "  Delete record: #{user.email}"
 
     Services::DdnsExpire.delete_route53_record(ddns) if ddns
   end
 
   desc "check result after processing"
-  task test_fake: :environment do
-    puts "start checking the result..."
+  task test_fake: :set_logger do
+    @rake_log.info "start checking the result..."
     check_ddns_record(NOW_USER_EMAIL)
     check_ddns_record(EXPIRE60_USER_EMAIL)
     check_ddns_record(EXPIRE90_USER_EMAIL)
-    puts "end checking the result..."
+    @rake_log.info "end checking the result..."
   end
 
   def check_ddns_record(email)
     user = User.find_by(email: email)
-    return puts "Error: #{email} not found" if user.nil?
+    return @rake_log.error "  #{email} not found" if user.nil?
 
     pairing = Pairing.find_by(user: user)
-    return puts "Error: #{email} pairing not found" if pairing.nil?
+    return @rake_log.error "  #{email} pairing not found" if pairing.nil?
 
     ddns = Ddns.find_by(device: pairing.device)
     if ddns
       if ddns.status.nil?
-        puts "  #{user.email} DDNS record still exists. And ddns status is nil"
+        @rake_log.info "  #{user.email} DDNS record still exists. And ddns status: nil"
       else
-        puts "  #{user.email} DDNS record still exists. And ddns status is #{ddns.status}"
+        @rake_log.info "  #{user.email} DDNS record still exists. And ddns status: #{ddns.status}"
       end
     else
-      puts "  #{user.email} DDNS record has been deleted."
+      @rake_log.info "  #{user.email} DDNS record has been deleted."
     end
   end
 
   desc "notice use by email if ddns has expired for 60 days"
   task :notice => :set_logger do
-    # @rake_log.info "starting noticing by email..."
-    puts "starting noticing by email..."
+    @rake_log.info "start noticing by email..."
     Services::DdnsExpire.notice
-    # @rake_log.info "end noticing by email..."
-    puts "end noticing by email..."
+    @rake_log.info "end noticing by email..."
   end
 
   desc "delete ddns if ddns has expired for 90 days"
   task :delete => :set_logger do
-    puts "start deleting ddns..."
+    @rake_log.info "start deleting ddns..."
     Services::DdnsExpire.delete
-    puts "end deleting ddns..."
+    @rake_log.info "end deleting ddns..."
   end
 
 end
