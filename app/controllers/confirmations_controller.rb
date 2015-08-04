@@ -1,6 +1,6 @@
 class ConfirmationsController < Devise::ConfirmationsController
 
-  before_action :user_login!, only: [:edit, :new, :create, :update]
+  before_action :user_login!, only: [:edit, :new, :create, :update, :show]
   before_action :email_validate, only: [:update]
 
   def create
