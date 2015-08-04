@@ -6,21 +6,27 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def create
 		cloud_id = valid_params[:cloud_id] || ''
+		device_id = valid_params[:device_id] || ''
 		share_point = valid_params[:share_point] || ''
-		device_id = valid_params[:device_id] || '1'
-		permission = valid_params[:permission] || '1'
+		permission = valid_params[:permission] || ''
 		expire_count = valid_params[:expire_count] || '5'
+
+		user = User.find_by_encoded_id( cloud_id )
+		return render_error_response "012" if user.blank?
 
 		device = Device.find_by_encoded_id( device_id )
 		return render_error_response "004" if device.blank?
-		device_id = device.id
+
+		pairing = Pairing.find_by_device_id( device.id )
+		return render_error_response "004" if pairing.user_id.to_s != user.id.to_s
+
 		#組成字串
-		invitation_key =  cloud_id + share_point + device_id.to_s + Time.now.to_s
+		invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
 		#加密
 		#require 'digest/hmac'
 		#Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1)
 		invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
-		invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device_id, :expire_count => expire_count )
+		invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device.id, :expire_count => expire_count )
 		invitation.save
 		render :json => { invitation_key: invitation_key }, status: 200
 	end
@@ -52,19 +58,15 @@ class Api::Resource::InvitationsController < Api::Base
 	end
 
 	def validate_create_params
-		cloud_id = params[:cloud_id] || ''
-		device_id = params[:device_id] || ''
-		permission = params[:permission] || ''
+		cloud_id = valid_params[:cloud_id] || ''
+		device_id = valid_params[:device_id] || ''
+		share_point = valid_params[:share_point] || ''
+		permission = valid_params[:permission] || ''
 
-		user = User.find_by_encoded_id( cloud_id )
-		return render_error_response "012" if user.blank?
-
-		device = Device.find_by_encoded_id( device_id )
-		return render_error_response "004" if device.blank?
-
-		pairing = Pairing.find_by_device_id( device.id )
-		return render_error_response "004" if pairing.user_id.to_s != user.id.to_s
-
+		return render_error_response "012" if cloud_id.blank?
+		return render_error_response "004" if device_id.blank?
+		return render_error_response "005" if share_point.blank?
+		return render_error_response "005" if permission.blank?
 		return render_error_response "005" unless Invitation.handle_permission? permission
 	end
 
