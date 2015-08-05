@@ -7,7 +7,7 @@ module Services
       require 'log4r'
       include Log4r
 
-      rake_log = Logger.new 'mylog'
+      rake_log = Logger.new('rake_log')
       stdout = Outputter.stdout
       file_output = FileOutputter.new('cron', :filename =>  'log/cron.log')
 

@@ -44,11 +44,10 @@ module Services
 
           user = device.pairing.first.user
           xmpp_last_username = XmppLast.find_by_decive(device)
-
-          # binding.pry
+          expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
 
           DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_now
-          @rake_log.info "  sent mail to DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} of Device: #{ device.serial_number } of User: #{ user.email }"
+          @rake_log.info "  sent mail to DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
         end
       end
@@ -92,8 +91,10 @@ module Services
           delete_route53_record(device.ddns)
 
           user = device.pairing.first.user
-          # DdnsMailer.notify_comment(user).deliver
-          @rake_log.info "  delete DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} of Device: #{ device.serial_number } of User: #{ user.email }"
+          xmpp_last_username = XmppLast.find_by_decive(device)
+          expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
+
+          @rake_log.info "  delete DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
         end
       end
