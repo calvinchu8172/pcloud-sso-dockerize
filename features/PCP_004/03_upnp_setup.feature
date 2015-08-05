@@ -97,6 +97,10 @@ Feature: [PCP_004_03] UPnP Setup
 	  And the services was success updated
 
 	  Then the user should see "UPnP settings have been successfully." message on UPnP setup page
+	  And the user click "Confirm" link
+
+	  Then the user will redirect to My Devices page
+
 
 
 	Scenario: [PCP_004_03_09]
@@ -110,6 +114,8 @@ Feature: [PCP_004_03] UPnP Setup
 		When the user click "Confirm" link
 
 		Then the user will redirect to My Devices page after cancel
+
+
 
 	Scenario:	[PCP_004_03_10]
 		The UPnP setup should continue when user click cancel but the user want to go back to setup flow
