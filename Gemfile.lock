@@ -188,6 +188,8 @@ GEM
     kgio (2.9.3)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     log4r (1.1.10)
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
@@ -428,6 +430,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   json (= 1.8.2)
+  letter_opener
   log4r
   mail (= 2.5.4)
   mysql2 (= 0.3.16)
@@ -468,4 +471,4 @@ DEPENDENCIES
   yard-cucumber
 
 BUNDLED WITH
-   1.10.5
+   1.10.6

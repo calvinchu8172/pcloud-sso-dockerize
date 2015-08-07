@@ -107,4 +107,5 @@ group :development, :test do
   gem 'yard'
   gem 'yard-cucumber'
   gem 'pry'
+  gem "letter_opener"
 end
