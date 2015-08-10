@@ -48,7 +48,7 @@ Then(/^the user will redirect to discover page$/) do
 end
 
 Then(/^the visitor should reload this page for retry$/) do
-  expect(page).to have_content "connecting"
+  expect(page).to have_content "Connecting"
 end
 
 Given(/^an existing device with pairing signed in client without xmpp$/) do

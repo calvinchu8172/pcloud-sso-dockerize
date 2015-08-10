@@ -1,6 +1,4 @@
-
 Rails.application.routes.draw do
-
   # get '*unmatched_route', :to => 'application#raise_not_found!'
 
   # get "/404", :to => 'application#raise_not_found!'
@@ -110,5 +108,4 @@ Rails.application.routes.draw do
   end
 
   get "*path", to: "application#raise_not_found!", via: :all
-
 end

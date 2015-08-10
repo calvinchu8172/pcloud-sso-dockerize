@@ -1,5 +1,8 @@
 module Services
   module DdnsExpire
+
+    @rake_log = Services::RakeLogger.log4r
+
     WARNING_TIME = 60.days.to_i - 1
     DELETE_TIME = 90.days.to_i - 1
 
@@ -41,11 +44,10 @@ module Services
 
           user = device.pairing.first.user
           xmpp_last_username = XmppLast.find_by_decive(device)
-
-          # binding.pry
+          expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
 
           DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_now
-          puts "  #{ Time.now } sent mail to #{ user.first_name } : #{ user.email }"
+          @rake_log.info "  sent mail to DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
         end
       end
@@ -89,8 +91,10 @@ module Services
           delete_route53_record(device.ddns)
 
           user = device.pairing.first.user
-          # DdnsMailer.notify_comment(user).deliver
-          puts "  #{ Time.now } delete DDNS #{ user.first_name } : #{ user.email }"
+          xmpp_last_username = XmppLast.find_by_decive(device)
+          expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
+
+          @rake_log.info "  delete DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
         end
       end
@@ -108,10 +112,10 @@ module Services
 
       begin
         rrset = rrsets.create(target_name, 'A', ttl: 300, resource_records: [{value: ddns.get_ip_addr}])
-        puts "  Create DDNS record: #{rrset.name}"
-        puts "                  ip: #{rrset.resource_records.first[:value]}"
+        @rake_log.info "  Create DDNS record: #{rrset.name}"
+        @rake_log.info "                  ip: #{rrset.resource_records.first[:value]}"
       rescue Exception => error
-        puts error
+        @rake_log.error error
       end
     end
 
@@ -128,11 +132,12 @@ module Services
       begin
         rrset = rrsets[target_name, 'A']
         info = rrset.delete
-        puts "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
+        @rake_log.info "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
       rescue Exception => error
-        puts error
+        @rake_log.error error
       end
     end
 
   end
+
 end

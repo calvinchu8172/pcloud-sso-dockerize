@@ -135,7 +135,7 @@
 
                               <div class="volumn-td-1 col-sm-6 col-xs-9">
                                 <div class="total-size-bar" ng-class="{'warning': volumeWarning}">
-                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" style="width:{{300*(volumeUsedCapacity/volumeTotalCapacity)}}px" >{{volumeUsedCapacity}}{{volumeUnit}}</div>
+                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" ng-style="capacityBarWidth" >{{volumeUsedCapacity}}{{volumeUnit}}</div>
                                 </div>
                               </div>
 
@@ -189,6 +189,7 @@
     $scope.volumeUnit = 'MB';
     $scope.volumeUnitOptions = ['KB', 'MB', 'GB', 'TB', 'PB'];
     $scope.volumeWarning;
+    $scope.capacityBarWidth = 0;
     $scope.init = function(volume){
       volumeObj = {};
       angular.forEach(volume, function(volumeAttrs, index){
@@ -201,6 +202,7 @@
       $scope.volumeWarning = (volumeObj['warning'] === 'true');
       $scope.info.capacity.add($scope.volumeTotalCapacity, $scope.volumeUsedCapacity);
       $scope.changeUnit();
+      $scope.capacityBarWidth = { 'width': (300*($scope.volumeUsedCapacity/$scope.volumeTotalCapacity)) + 'px'};
     }
     $scope.changeUnit = function(){
       var newUnit = ($scope.volumeUnit == 'MB' ? 'GB' : 'MB');

@@ -59,10 +59,6 @@ Then(/^the user will see the confirm message about cancel UPnP setup$/) do
   expect(page).to have_content I18n.t("warnings.settings.upnp.cancel_instruction")
 end
 
-Then(/^the user will redirect to My Devices page after cancel$/) do
-  expect(page.current_path).to eq authenticated_root_path
-end
-
 Then(/^the user will go back to setup flow$/) do
   expect(page).to have_content I18n.t("warnings.settings.upnp.sync")
 end
@@ -74,6 +70,11 @@ Then(/^the user should see service list$/) do
   expect(page).to have_content(I18n.t("labels.settings.upnp.table_head3"))
   expect(page).to have_content(I18n.t("labels.settings.upnp.table_head4"))
 end
+
+Then(/^the user will redirect to My Devices page after cancel$/) do
+  expect(page.current_path).to eq authenticated_root_path
+end
+
 
 def get_upnp_session
   redis = Redis.new
