@@ -165,20 +165,20 @@ namespace :ddns_expire do
 
   def check_ddns_record(email)
     user = User.find_by(email: email)
-    return "  #{email} not found" if user.nil?
+    return "#{email} not found" if user.nil?
 
     pairing = Pairing.find_by(user: user)
-    return "  #{email} pairing not found" if pairing.nil?
+    return "#{email} pairing not found" if pairing.nil?
 
     ddns = Ddns.find_by(device: pairing.device)
     if ddns
       if ddns.status.nil?
-        return "  #{user.email} DDNS record still exists. DDNS status: nil"
+        return "#{user.email} DDNS record still exists. DDNS status: nil"
       else
-        return "  #{user.email} DDNS record still exists. DDNS status: #{ddns.status}"
+        return "#{user.email} DDNS record still exists. DDNS status: #{ddns.status}"
       end
     else
-      return "  #{user.email} DDNS record has been deleted."
+      return "#{user.email} DDNS record has been deleted."
     end
   end
 
