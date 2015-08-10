@@ -32,7 +32,8 @@ module Services
         intersection_account_mac_address_and_serial_number << username
       end
 
-      warning_user_emails = Array.new
+      # warning_user_emails = Array.new
+      @log_array = Array.new
       intersection_account_mac_address_and_serial_number.each do |i|
         device = Device.find_by(mac_address: i[0], serial_number: i[1])
 
@@ -47,10 +48,18 @@ module Services
           expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
 
           DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_now
-          @rake_log.info "  sent mail to DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
+          # @rake_log.info "  sent mail to DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
+          info = {
+            :user => user.email,
+            :ddns => "#{ device.ddns.hostname }.#{device.ddns.domain.domain_name}",
+            :expire_days => expire_days,
+            :device => device.serial_number
+          }
+          @log_array << info
         end
       end
+      @log_array
     end
 
     def self.delete
@@ -80,24 +89,38 @@ module Services
         intersection_account_mac_address_and_serial_number << username
       end
 
-      warning_user_emails = Array.new
+      # warning_user_emails = Array.new
+      @log_array = Array.new
       intersection_account_mac_address_and_serial_number.each do |i|
         device = Device.find_by(mac_address: i[0], serial_number: i[1])
 
         if device.present? && device.pairing.present? && device.pairing.first.user.present?
-          warning_user_emails << device.pairing.first.user.email
+          # warning_user_emails << device.pairing.first.user.email
 
           device.ddns.destroy
-          delete_route53_record(device.ddns)
+          route53, info, error = delete_route53_record(device.ddns)
 
           user = device.pairing.first.user
           xmpp_last_username = XmppLast.find_by_decive(device)
           expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
 
-          @rake_log.info "  delete DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
+          # @rake_log.info "  delete DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
+          info = {
+            :user => user.email,
+            :ddns => "#{ device.ddns.hostname }.#{device.ddns.domain.domain_name}",
+            :expire_days => expire_days,
+            :device => device.serial_number,
+            :route53 => {
+              :route53_record => route53,
+              :info => info,
+              :error => error
+            }
+          }
+          @log_array << info
         end
       end
+      @log_array
     end
 
     def self.create_route53_record(ddns)
@@ -112,11 +135,12 @@ module Services
 
       begin
         rrset = rrsets.create(target_name, 'A', ttl: 300, resource_records: [{value: ddns.get_ip_addr}])
-        @rake_log.info "  Create DDNS record: #{rrset.name}"
-        @rake_log.info "                  ip: #{rrset.resource_records.first[:value]}"
+        # @rake_log.info "  Create DDNS record: #{rrset.name}"
+        # @rake_log.info "                  ip: #{rrset.resource_records.first[:value]}"
       rescue Exception => error
-        @rake_log.error error
+        # @rake_log.error error
       end
+      return rrset.name, rrset.resource_records.first[:value], error
     end
 
     def self.delete_route53_record(ddns)
@@ -132,10 +156,12 @@ module Services
       begin
         rrset = rrsets[target_name, 'A']
         info = rrset.delete
-        @rake_log.info "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
+        # @rake_log.info "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
       rescue Exception => error
-        @rake_log.error error
+        # @rake_log.error error
       end
+      # binding.pry
+      return rrset.name, info.status, error
     end
 
   end
