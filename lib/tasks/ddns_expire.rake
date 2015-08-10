@@ -1,7 +1,6 @@
 namespace :ddns_expire do
 
   task :cronjob => :set_logger do
-  # task :cronjob do
 
     # @rake_log.info "**********cronjob starting...***********"
     Rake::Task["ddns_expire:delete_fake"].invoke
@@ -9,8 +8,8 @@ namespace :ddns_expire do
 
     Rake::Task["ddns_expire:notice"].invoke
     Rake::Task["ddns_expire:delete"].invoke
-    Rake::Task["ddns_expire:test_fake"].invoke
 
+    Rake::Task["ddns_expire:test_fake"].invoke
     # @rake_log.info "***********cronjob ending...************"
 
   end
@@ -174,9 +173,9 @@ namespace :ddns_expire do
     ddns = Ddns.find_by(device: pairing.device)
     if ddns
       if ddns.status.nil?
-        return "  #{user.email} DDNS record still exists. And ddns status: nil"
+        return "  #{user.email} DDNS record still exists. DDNS status: nil"
       else
-        return "  #{user.email} DDNS record still exists. And ddns status: #{ddns.status}"
+        return "  #{user.email} DDNS record still exists. DDNS status: #{ddns.status}"
       end
     else
       return "  #{user.email} DDNS record has been deleted."

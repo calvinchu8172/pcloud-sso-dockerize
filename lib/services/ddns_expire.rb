@@ -32,7 +32,6 @@ module Services
         intersection_account_mac_address_and_serial_number << username
       end
 
-      # warning_user_emails = Array.new
       @log_array = Array.new
       intersection_account_mac_address_and_serial_number.each do |i|
         device = Device.find_by(mac_address: i[0], serial_number: i[1])
@@ -89,13 +88,11 @@ module Services
         intersection_account_mac_address_and_serial_number << username
       end
 
-      # warning_user_emails = Array.new
       @log_array = Array.new
       intersection_account_mac_address_and_serial_number.each do |i|
         device = Device.find_by(mac_address: i[0], serial_number: i[1])
 
         if device.present? && device.pairing.present? && device.pairing.first.user.present?
-          # warning_user_emails << device.pairing.first.user.email
 
           device.ddns.destroy
           route53, info, error = delete_route53_record(device.ddns)
@@ -135,12 +132,14 @@ module Services
 
       begin
         rrset = rrsets.create(target_name, 'A', ttl: 300, resource_records: [{value: ddns.get_ip_addr}])
+        rrset_name = rrset.name if rrset
+        rrset_ip = rrset.resource_records.first[:value] if rrset
         # @rake_log.info "  Create DDNS record: #{rrset.name}"
         # @rake_log.info "                  ip: #{rrset.resource_records.first[:value]}"
       rescue Exception => error
         # @rake_log.error error
       end
-      return rrset.name, rrset.resource_records.first[:value], error
+      return rrset_name, rrset_ip, error
     end
 
     def self.delete_route53_record(ddns)
@@ -156,12 +155,13 @@ module Services
       begin
         rrset = rrsets[target_name, 'A']
         info = rrset.delete
+        rrset_name = rrset.name if rrset
+        info_status = info.status if info
         # @rake_log.info "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
       rescue Exception => error
         # @rake_log.error error
       end
-      # binding.pry
-      return rrset.name, info.status, error
+      return rrset_name, info_status, error
     end
 
   end
