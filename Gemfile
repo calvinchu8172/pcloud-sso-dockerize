@@ -85,7 +85,6 @@ gem 'rest-client'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
 gem 'browser-timezone-rails'
-gem 'i18n-docs', github: 'local-ch/i18n-docs'
 gem 'whenever', '~> 0.9.4', :require => false
 
 group :test do
@@ -109,4 +108,5 @@ group :development, :test do
   gem 'yard'
   gem 'yard-cucumber'
   gem 'pry'
+  gem 'i18n-docs', github: 'local-ch/i18n-docs'
 end
