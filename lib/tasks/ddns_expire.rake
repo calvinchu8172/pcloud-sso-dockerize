@@ -136,13 +136,14 @@ namespace :ddns_expire do
     user.destroy if user
     # @rake_log.info "  Delete record: #{user.email}"
 
-    route53, info, error = Services::DdnsExpire.delete_route53_record(ddns) if ddns
+    route53, info, result, error = Services::DdnsExpire.delete_route53_record(ddns) if ddns
 
     info = {
       :user => user.email,
       :route53 => {
         :route53_record => route53,
         :info => info,
+        :result => result,
         :error => error
       }
     }

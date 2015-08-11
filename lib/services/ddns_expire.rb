@@ -94,8 +94,18 @@ module Services
 
         if device.present? && device.pairing.present? && device.pairing.first.user.present?
 
-          device.ddns.destroy
-          route53, info, error = delete_route53_record(device.ddns)
+
+          route53, info, result, error = delete_route53_record(device.ddns)
+          if result == "delete route53 succeed"
+            device.ddns.destroy
+            if device.ddns.destroyed?
+              @result_db = "delete ddns db succeed"
+            else
+              @result_db = "delete ddns db failed"
+            end
+          else
+            @result_db = "delete ddns db failed"
+          end
 
           user = device.pairing.first.user
           xmpp_last_username = XmppLast.find_by_decive(device)
@@ -108,9 +118,11 @@ module Services
             :ddns => "#{ device.ddns.hostname }.#{device.ddns.domain.domain_name}",
             :expire_days => expire_days,
             :device => device.serial_number,
+            :result_db => @result_db,
             :route53 => {
               :route53_record => route53,
               :info => info,
+              :result => result,
               :error => error
             }
           }
@@ -154,14 +166,19 @@ module Services
 
       begin
         rrset = rrsets[target_name, 'A']
-        info = rrset.delete
         rrset_name = rrset.name if rrset
+        info = rrset.delete
         info_status = info.status if info
+        if rrset.exists? == false
+          result = "delete route53 succeed"
+        else
+          result = "delete route53 failed"
+        end
         # @rake_log.info "  Delete DDNS record: #{rrset.name}, status: #{info.status}"
       rescue Exception => error
         # @rake_log.error error
       end
-      return rrset_name, info_status, error
+      return rrset_name, info_status, result, error
     end
 
   end
