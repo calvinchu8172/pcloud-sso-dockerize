@@ -2,20 +2,20 @@
 <div ng-app="invitation_app"  ng-controller="InvitationCtrl"
 	ng-init="invitationKey='<%= @invitation_key %>';session=<%= @accepted_session.to_json() %>; validation=<%= @validation.to_json %>; init();">
 
-	<div style="margin-top: 10px; padding-left: 150px;">
+	<div style="">
 		<span class="zyxel_span2" ng-switch on="step">
 		  <span ng-switch-when="connecting">
 		  	<%= I18n.t("warnings.settings.invitation.connecting") %>
 		  </span>
 		  <span ng-switch-when="failure">
 		  	<%= I18n.t("warnings.settings.invitation.failure") %>
-		  	<blockquote style="border-left: white;">
+		  	<blockquote style="border-left: white;white-space:normal">
 		  		<%= I18n.t("warnings.settings.invitation.failure_desc", :share_point => "#{@share_point}") %>
 		  	</blockquote>
 		  </span>
 		  <span ng-switch-when="done">
 		  	<%= I18n.t("warnings.settings.invitation.success") %>
-		  	<blockquote style="border-left: white;">
+		  	<blockquote style="border-left: white;white-space: normal;">
 		  		<%= I18n.t("warnings.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
 		  	</blockquote>
 		  </span>
@@ -38,6 +38,7 @@
 <script type="text/javascript">
 	$.smartbanner({
 		icon:"https://lh4.ggpht.com/aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw",
+		url:"fb://fb.a.b",
 		daysHidden:0,
 		daysReminder:0
 	});

@@ -11,7 +11,7 @@ module Services
       stdout = Outputter.stdout
       file_output = FileOutputter.new('cron', :filename =>  'log/cron.log')
 
-      format = PatternFormatter.new(:pattern => '[%l] %d :: %m', :date_pattern => '%Y/%m/%d %H:%M:%S:%L')
+      format = PatternFormatter.new(:pattern => '[%l] %d :: %m', :date_pattern => '%Y/%m/%d %H:%M:%S:%L %Z')
 
       file_output.formatter = format
       stdout.formatter = format

@@ -109,4 +109,5 @@ group :development, :test do
   gem 'yard-cucumber'
   gem 'pry'
   gem 'i18n-docs', github: 'local-ch/i18n-docs'
+  gem "letter_opener"
 end
