@@ -3,13 +3,13 @@ namespace :ddns_expire do
   task :cronjob => :set_logger do
 
     # @rake_log.info "**********cronjob starting...***********"
-    Rake::Task["ddns_expire:delete_fake"].invoke
-    Rake::Task["ddns_expire:create_fake"].invoke
+    # Rake::Task["ddns_expire:delete_fake"].invoke
+    # Rake::Task["ddns_expire:create_fake"].invoke
 
     Rake::Task["ddns_expire:notice"].invoke
     Rake::Task["ddns_expire:delete"].invoke
 
-    Rake::Task["ddns_expire:test_fake"].invoke
+    # Rake::Task["ddns_expire:test_fake"].invoke
     # @rake_log.info "***********cronjob ending...************"
 
   end
