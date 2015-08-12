@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/local-ch/i18n-docs.git
-  revision: 6b79fc44f909aeb38369840359c420605c931ba7
-  specs:
-    i18n-docs (0.0.7)
-      rake
-
-GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: 947fbf6e7998154235f81754a44b6b187368a657
   specs:
@@ -433,7 +426,6 @@ DEPENDENCIES
   fluent-logger
   hipchat
   i18n-country-translations (= 1.2.2)
-  i18n-docs!
   i18n_country_select (= 1.1.5)
   immigrant (~> 0.1)
   jbuilder (~> 2.0)
@@ -480,4 +472,4 @@ DEPENDENCIES
   yard-cucumber
 
 BUNDLED WITH
-  1.10.6
+   1.10.6
