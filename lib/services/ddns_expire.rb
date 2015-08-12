@@ -136,7 +136,10 @@ module Services
       route = AWS::Route53.new
 
       zone_id = Settings.environments.zones_info.id
-      ddns_name = Settings.environments.ddns + '.'
+      ddns_name = Settings.environments.ddns
+      if ddns_name.last != '.'
+        ddns_name = ddns_name + '.'
+      end
       target_name = ddns.hostname + "." + ddns_name
 
       hosted_zone = route.hosted_zones[zone_id]
@@ -146,19 +149,27 @@ module Services
         rrset = rrsets.create(target_name, 'A', ttl: 300, resource_records: [{value: ddns.get_ip_addr}])
         rrset_name = rrset.name if rrset
         rrset_ip = rrset.resource_records.first[:value] if rrset
+        if rrset_ip.present?
+          result = "create route53 succeed"
+        else
+          result = "create route53 failed"
+        end
         # @rake_log.info "  Create DDNS record: #{rrset.name}"
         # @rake_log.info "                  ip: #{rrset.resource_records.first[:value]}"
       rescue Exception => error
         # @rake_log.error error
       end
-      return rrset_name, rrset_ip, error
+      return rrset_name, rrset_ip, result, error
     end
 
     def self.delete_route53_record(ddns)
       route = AWS::Route53.new
 
       zone_id = Settings.environments.zones_info.id
-      ddns_name = Settings.environments.ddns + '.'
+      ddns_name = Settings.environments.ddns
+      if ddns_name.last != '.'
+        ddns_name = ddns_name + '.'
+      end
       target_name = ddns.hostname + "." + ddns_name
 
       hosted_zone = route.hosted_zones[zone_id]

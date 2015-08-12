@@ -84,13 +84,14 @@ namespace :ddns_expire do
     xmpp_last = XmppLast.create(username: device.xmpp_username, last_signin_at: signin_time, last_signout_at: signout_time, state: "")
     # @rake_log.info "  Create record: #{user.email}"
 
-    route53, ip, error = Services::DdnsExpire.create_route53_record(ddns)
+    route53, ip, result, error = Services::DdnsExpire.create_route53_record(ddns)
 
     info = {
       :user => user.email,
       :route53 => {
         :route53_record => route53,
         :ip => ip,
+        :result => result,
         :error => error
       }
     }
