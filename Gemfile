@@ -71,7 +71,8 @@ gem 'devise', '3.5.1'
 gem 'devise-i18n'
 gem 'rails-i18n'
 gem "recaptcha", '~> 0.3.6', :require => "recaptcha/rails"
-gem 'i18n_country_select'
+gem 'i18n_country_select', '1.1.5'
+gem 'i18n-country-translations', '1.2.2'
 gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
@@ -107,4 +108,6 @@ group :development, :test do
   gem 'yard'
   gem 'yard-cucumber'
   gem 'pry'
+  # gem 'i18n-docs', github: 'local-ch/i18n-docs'
+  gem "letter_opener"
 end

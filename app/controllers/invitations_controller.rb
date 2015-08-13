@@ -62,4 +62,5 @@ class InvitationsController < ApplicationController
 	def session_status
 		@accepted_session['status']
 	end
+
 end

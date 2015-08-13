@@ -1,5 +1,5 @@
 development:
-  delivery_method: :smtp
+  delivery_method: :letter_opener
   smtp_settings:
     address: ""
     user_name: ""

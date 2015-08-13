@@ -1,0 +1,6 @@
+files:
+  devise.en.yml: "https://docs.google.com/spreadsheets/d/1cRUweMZ42Z44OFA1PZpc6CL4jq7YxFLRdA00AE-T_Ek/pub?gid=898546461&single=true&output=csv"
+  en.yml: "https://docs.google.com/spreadsheets/d/1cRUweMZ42Z44OFA1PZpc6CL4jq7YxFLRdA00AE-T_Ek/pub?gid=1976358950&single=true&output=csv"
+  upnp_description.en.yml: "https://docs.google.com/spreadsheets/d/1cRUweMZ42Z44OFA1PZpc6CL4jq7YxFLRdA00AE-T_Ek/pub?gid=2128347434&single=true&output=csv"
+  user.en.yml: "https://docs.google.com/spreadsheets/d/1cRUweMZ42Z44OFA1PZpc6CL4jq7YxFLRdA00AE-T_Ek/pub?gid=1137003426&single=true&output=csv"
+  mailer.en.yml: "https://docs.google.com/spreadsheets/d/1cRUweMZ42Z44OFA1PZpc6CL4jq7YxFLRdA00AE-T_Ek/pub?gid=623378773&single=true&output=csv"

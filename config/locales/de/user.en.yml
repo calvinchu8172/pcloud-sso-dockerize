@@ -1,0 +1,31 @@
+---
+de:
+  user:
+    labels:
+      country: Land
+      email: E-mail
+      display_name: Anzeigen als
+      first_name: Vorname
+      middle_name: Mittelname
+      last_name: Nachname
+      password: Passwort
+      password_suggestion: 8-14 characters password length
+      password_confirmation: Passwort bestätigen
+      new_password: Neues Passwort
+      new_password_confirmation: Neues Passwort bestätigen
+      current_password: Aktuelles Passwort
+      gender: Geschlecht
+      male: Männlich
+      female: Weiblich
+      birthday: Geburtstag
+      year: Jahr
+      month: Monat
+      day: Tag
+      phone_number: Mobilfunk Nummer
+      remember_me: Erinnere mich
+      language: Sprache
+      captcha: Captcha
+      terms:
+        instruction: Ich verstehe und stimme den
+        instruction_2: ZyXEL Cloud Bedingungen zur Nutzung zu
+      edm: Ja, senden Sie mir E-Mails zu ZyXEL Cloud Produkte und Diensten
