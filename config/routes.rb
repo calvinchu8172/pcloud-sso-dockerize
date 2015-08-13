@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     scope :path => '/2/', :module => 'mods/v2' do
       resources :upnp
       get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+      get 'upnp/reload/:id', to: 'upnp#reload', format: 'json'
       get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
     end
 
