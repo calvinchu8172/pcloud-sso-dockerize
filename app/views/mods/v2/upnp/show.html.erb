@@ -51,10 +51,10 @@
           </td>
           <td data-title="'Name'" style="max-width: 165px; word-wrap: break-word;">
             <%# add service link %>
-            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
+            <a ng-if="service.status && !isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
               {{service.service_name}}
             </a>
-            <span ng-if="isFieldEmpty(service.path)">
+            <span ng-if="(!service.status) || isFieldEmpty(service.path)">
               {{service.service_name}}
             </span>
           </td>
