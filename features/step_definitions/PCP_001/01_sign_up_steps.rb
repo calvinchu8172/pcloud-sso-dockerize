@@ -65,7 +65,7 @@ Given(/^the visitor success sign up and login$/) do
 
     When user click the confirm button
 
-    Then user will auto login and redirect to dashboard
+    Then user will redirect to login page
   }
 end
 
@@ -192,7 +192,7 @@ Then(/^user will login and redirect to dashboard$/) do
 end
 
 Then(/^user will redirect to login page$/) do
-  expect(page.current_path).to eq("/discoverer/index")
+  expect(page).to have_content("Sign in")
 end
 
 # Analog method of captcha
