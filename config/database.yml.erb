@@ -1,0 +1,33 @@
+# Database for Personal Cloud Rails app
+<%= @env %>:
+  adapter: mysql2
+  database: <%= @pcloud['aws']['service']['rds']['web']['name'] %>
+  encoding: utf8
+  collation: utf8_general_ci
+  host: <%= @pcloud['aws']['service']['rds']['web']['host'] %>
+  username: <%= @pcloud['aws']['service']['rds']['web']['username'] %>
+  password: <%= @pcloud['aws']['service']['rds']['web']['password'] %>
+  reconnect: <%= @pcloud['portal_app']['databases']['rails']['reconnect'] %>
+<% if @pcloud['portal_app']['databases']['rails']['pool'] %>
+  pool: <%= @pcloud['portal_app']['databases']['rails']['pool'] %>
+<% end %>
+<% if @pcloud['portal_app']['databases']['rails']['port'] %>
+  port: <%= @pcloud['portal_app']['databases']['rails']['port'] %>
+<% end %>
+
+# Database for XMPP Server
+xmpp_<%= @env %>:
+  adapter: mysql2
+  database: <%= @pcloud['aws']['service']['rds']['xmpp']['name'] %>
+  encoding: utf8
+  collation: utf8_general_ci
+  host: <%= @pcloud['aws']['service']['rds']['xmpp']['host'] %>
+  username: <%= @pcloud['aws']['service']['rds']['xmpp']['username'] %>
+  password: <%= @pcloud['aws']['service']['rds']['xmpp']['password'] %>
+  reconnect: <%= @pcloud['portal_app']['databases']['mongooseim']['reconnect'] %>
+<% if @pcloud['portal_app']['databases']['mongooseim']['pool'] %>
+  pool: <%= @pcloud['portal_app']['databases']['mongooseim']['pool'] %>
+<% end %>
+<% if @pcloud['portal_app']['databases']['mongooseim']['port'] %>
+  port: <%= @pcloud['portal_app']['databases']['mongooseim']['port'] %>
+<% end %>
