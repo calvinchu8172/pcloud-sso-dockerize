@@ -45,6 +45,7 @@ YAML.load(File.open("#{Rails.root}/config/environments.yml")).each do |env|
       config = PcloudConfigure.new(env)
       config.generate_settings("settings/settings.yml.erb", "settings/#{env}.yml")
       config.generate_settings("database.yml.erb", "database.yml")
+      config.generate_settings("mailer.yml.erb", "mailer.yml")
     end
   end
 end
