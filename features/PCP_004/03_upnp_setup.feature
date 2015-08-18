@@ -27,44 +27,55 @@ Feature: [PCP_004_03] UPnP Setup
 	  Then the user should see service list
 
 
- #  Scenario: [PCP_004_03_04]
- #    Show port number of each service when user click "Show Service Port"
+  Scenario: [PCP_004_03_04]
+    Show port number of each service when user click "Show Service Port"
 
- #    When user click "Show Service Port"
+    And user click "Show Service Port"
 
- #    Then user should see port numbers of each service
+    Then user should see port numbers of each service
 
- #    And the "Show Service Port" button should be replaced by "Hide Service Port" button
-
-
-
-	# Scenario: [PCP_004_03_05]
-	#   Renew the port numbers between 1025 and 65535 for those disabled services in service list and the port numbers should not in the used wan port list
-
-	#   And the page will waiting for connection with device
-
-	#   When the device was online the device will response service list
-	#   And Some services in the list were disabled
-
-	#   Then the port number of all disabled service will be given a random number between 1025 and 65525
-	#   And those port numbers should not in the used wan port list
+    And the "Show Service Port" button should be replaced by "Hide Service Port" button
 
 
-	# Scenario: [PCP_004_03_06]
-	#   Show "Failure" text in the "Update Result" column when the service update failed
 
-	#   And the page will waiting for connection with device
+	Scenario: [PCP_004_03_05]
+	  Renew the port numbers between 1025 and 65535 for those disabled services in service list and the port numbers should not in the used wan port list
 
-	#   When the device was online the device will response service list
+	  And the page will waiting for connection with device
 
-	#   Given the user changed UPnP port setting of a disabled service
-	#   And the user clicked the checkbox to enabled the service
+	  When the device was online the device will response other service list
+	  # And Some services in the list were disabled
+	  # And Some wan_port is duplicate with the port in used_wan_port_list
 
-	#   When the user click "Submit" button
-	#   And the service was failed in updating
+	  Then the port number of all disabled service will be given a random number between 1025 and 65525
+	  And those port numbers should not in the used wan port list
 
-	#   Then the user should see "Failure" text in "Update Result" column of the service on UPnP setup page
-	#   And the checkbox of the service should be unchecked
+
+	Scenario: [PCP_004_03_06]
+	  Show "Failure" text in the "Update Result" column when the service update failed
+
+	  And the page will waiting for connection with device
+
+	  When the device was online the device will response service list
+
+	  Given the user changed UPnP port setting of a disabled service
+	  And the user clicked the checkbox to enabled the service
+
+	  When the user click "Submit" button
+	  Then the user should see "Synchronizing UPnP settings... " message on UPnP setup page
+
+	  And the session status now should be "submit"
+
+		And the session status should be "reload"
+		And the session status should be updated to "start"
+
+	  When the device was online the device will response the new service list
+
+
+	  # Then the user should see service list
+
+	  # Then the user should see "Failure" text in "Update Result" column of the service on UPnP setup page
+	  And the checkbox of the service should be unchecked
 
 
 
