@@ -22,7 +22,7 @@ module Locale
     end
 
     # language select option
-    @locale_options = { :English => 'en',
+    locale_options = { :English => 'en',
                         :Deutsch => 'de',
                         :Nederlands => 'nl',
                         :"正體中文" => "zh-TW",
@@ -35,6 +35,11 @@ module Locale
                         :"Magyar" => 'hu',
                         :"Français" => 'fr',
                         :"Español" => 'es'}
+
+    @options_path = {}
+    locale_options.each do |key, value|
+      @options_path[key] = params.merge(locale: value)
+    end
   end
 
 

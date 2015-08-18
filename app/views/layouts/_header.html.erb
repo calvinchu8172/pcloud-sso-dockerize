@@ -24,8 +24,8 @@
         <%= t('labels.language') %>
       </a>
       <ul class="dropdown-menu" role="menu">
-        <% @locale_options.each do |l, value| %>
-          <li><%= link_to l, params.merge("locale" => value) %></li>
+        <% @options_path.each do |l, value| %>
+          <li><%= link_to l, value %></li>
         <% end %>
       </ul>
     </li>
