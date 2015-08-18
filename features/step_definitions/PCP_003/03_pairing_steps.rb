@@ -57,7 +57,7 @@ When(/^the user unpairing this device$/) do
   click_link "Confirm"
 
   current_url = URI.decode(page.current_path).chomp
-  expect_url = URI.decode("/unpairing/destroy/" + @device.encoded_id).chomp
+  expect_url = URI.decode("/unpairing/success/" + @device.encoded_id).chomp
   expect(current_url).to eq(expect_url)
 
   # Need add the key to mock the device was online

@@ -82,7 +82,7 @@ Rails.application.routes.draw do
 
     get 'unpairing/index/:id', to: 'unpairing#index', as: 'unpairing_index'
     get 'unpairing/success/:id', to: 'unpairing#success', as: 'unpairing_success'
-    delete 'unpairing/destroy/:id', to: 'unpairing#destroy', as: 'unpairing_destroy'
+    get 'unpairing/destroy/:id', to: 'unpairing#destroy', as: 'unpairing_destroy'
 
     post 'oauth/confirm'
     get 'oauth/new'
