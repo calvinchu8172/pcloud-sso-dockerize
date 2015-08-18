@@ -104,6 +104,7 @@ When (/^user disable a package$/) do
 end
 
 Then(/^child packages should become disable$/) do
+  wait_server_response
   expect(find(:xpath, "//label[@for='check0']/ancestor::td/following-sibling::td[1]/span").text).to eq('Disable')
 end
 
@@ -154,6 +155,7 @@ When(/^user enable a package$/)do
 end
 
 Then(/^parent packages should become enable$/) do
+  wait_server_response
   expect(find(:xpath, "//label[@for='check1']/ancestor::td/following-sibling::td[1]/span").text).to eq('Enable')
 end
 

@@ -69,10 +69,10 @@ Feature: [PCP_004_05] Package Setup
   Scenario: [PCP_004_05_08]
     Disable child package when disable parent package
 
-    # When user disable a package
     When the package page will wait for connection with device
     And the device was online the device will response package list
     And user disable a package
+  #   When user disable a package
   #   And this package is in require list of other package
   #   And child packages are enabled
   #   Then the user should see package name list
