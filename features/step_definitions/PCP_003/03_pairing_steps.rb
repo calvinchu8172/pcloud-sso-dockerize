@@ -57,7 +57,7 @@ When(/^the user unpairing this device$/) do
   click_link "Confirm"
 
   current_url = URI.decode(page.current_path).chomp
-  expect_url = URI.decode("/unpairing/success/" + @device.encoded_id).chomp
+  expect_url = URI.decode("/unpairing/destroy/" + @device.encoded_id).chomp
   expect(current_url).to eq(expect_url)
 
   # Need add the key to mock the device was online
@@ -122,7 +122,7 @@ Then(/^the user should find the device after unpairing$/) do
 end
 
 Then(/^the user will redirect to Search Devices page$/) do
-  expect(page.current_path).to eq "/discoverer.format"
+  expect(page.current_path).to eq "/discoverer/index"
 end
 
 Then(/^the user will see the confirm message about cancel Pairing flow$/) do

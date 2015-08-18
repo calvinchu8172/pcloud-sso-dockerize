@@ -25,6 +25,7 @@ module ApplicationHelper
     next_module = device.find_next_tutorial current_step
     url = '/personal/index'
     url = url_for({controller: next_module, action: 'show', id: device.encoded_id}) if next_module != 'finished'
+binding.pry
     url
   end
 

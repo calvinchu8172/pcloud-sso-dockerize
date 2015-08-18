@@ -15,7 +15,7 @@ class PersonalController < ApplicationController
   end
 
   def profile
-    @language = @locale_options.has_value?(current_user.language) ? @locale_options.key(current_user.language) : "English"
+    @language = @options_path.has_value?(current_user.language) ? @locale_options.key(current_user.language) : "English"
   end
 
   def check_device_available
