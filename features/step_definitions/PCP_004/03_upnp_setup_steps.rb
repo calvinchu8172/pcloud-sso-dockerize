@@ -56,6 +56,13 @@ When(/^device response the failure result of the modified service$/) do
   wait_server_response
 end
 
+When(/^device response the success result of the modified service$/) do
+  service_list = JSON.parse(@upnp_session['service_list'])
+  service_list = service_list.to_json.gsub("\n", "")
+  set_upnp_status(@upnp_session, "updated", service_list)
+  wait_server_response
+end
+
 Then(/^the session status now should be "(.*?)"$/) do |status|
   step "the page will waiting for connection with device"
   expect(@upnp_session['status']).to eq status
@@ -146,11 +153,6 @@ When(/^the device was online the device will response service list with used wan
 
 end
 
-# When(/^Some services in the list were disabled$/) do
-#   pending # express the regexp above with the code you wish you had
-#   # expect(all(:xpath, '//table/tbody/tr/td/input')[0].value).to have_content('22')
-# end
-
 Then(/^the port number of all disabled service will be given a random number between (\d+) and (\d+)$/) do |arg1, arg2|
   click_on(I18n.t("labels.settings.upnp.table_head6"))
   expect(all(:xpath, '//table/tbody/tr/td/input')[1].value).to be_between(arg1, arg2).inclusive
@@ -174,38 +176,38 @@ end
 #   pending # express the regexp above with the code you wish you had
 # end
 
-When(/^the service was failed in updating$/) do
-  service_list = [{ "service_name":"FTP",
-                    "status":true,
-                    "enabled":true,
-                    "description":"FTP configuration",
-                    "wan_port":"22",
-                    "lan_port":"22",
-                    "path":"ftp://ip:port" },
-                  { "service_name":"DDNS",
-                     "status":false,
-                     "enabled":false,
-                     "description":"DDNS configuration",
-                     "wan_port":"1000",
-                     "lan_port":"",
-                     "path":"" },
-                  { "service_name":"HTTP",
-                     "status":true,
-                     "enabled":true,
-                     "description":"HTTP configuration",
-                     "wan_port":"8888",
-                     "lan_port":"80",
-                     "path":"http://ip:port",
-                     "error_code":"795"
-                     }].to_json.gsub("\n", "")
-  @used_wan_port_list_array = ["1000", "8000", "9000"]
-  used_wan_port_list = @used_wan_port_list_array.to_json.gsub("\n", "")
-  set_upnp_status(@upnp_session, "form", service_list, used_wan_port_list)
-  wait_server_response
-end
+# When(/^the service was failed in updating$/) do
+#   service_list = [{ "service_name":"FTP",
+#                     "status":true,
+#                     "enabled":true,
+#                     "description":"FTP configuration",
+#                     "wan_port":"22",
+#                     "lan_port":"22",
+#                     "path":"ftp://ip:port" },
+#                   { "service_name":"DDNS",
+#                      "status":false,
+#                      "enabled":false,
+#                      "description":"DDNS configuration",
+#                      "wan_port":"1000",
+#                      "lan_port":"",
+#                      "path":"" },
+#                   { "service_name":"HTTP",
+#                      "status":true,
+#                      "enabled":true,
+#                      "description":"HTTP configuration",
+#                      "wan_port":"8888",
+#                      "lan_port":"80",
+#                      "path":"http://ip:port",
+#                      "error_code":"795"
+#                      }].to_json.gsub("\n", "")
+#   @used_wan_port_list_array = ["1000", "8000", "9000"]
+#   used_wan_port_list = @used_wan_port_list_array.to_json.gsub("\n", "")
+#   set_upnp_status(@upnp_session, "form", service_list, used_wan_port_list)
+#   wait_server_response
+# end
 
 Then(/^the user should see "(.*?)" text in "(.*?)" column of the service on UPnP setup page$/) do |text, column|
-  expect(find(:xpath, "//table/tbody/tr[@ng-controller='ServiceCtrl']/td[6]/span[@ng-switch]/span[@ng-switch-when='failure']")).to have_content text
+  expect(find(:xpath, "//table/tbody/tr[@ng-controller='ServiceCtrl']/td[6]/span[@ng-switch]/span[@ng-switch-when='#{text.downcase}']")).to have_content text
 end
 
 Then(/^the checkbox value of the service should be "(.*?)"$/) do |checkbox_value|

@@ -30,7 +30,7 @@ Feature: [PCP_004_03] UPnP Setup
   Scenario: [PCP_004_03_04]
     Show port number of each service when user click "Show Service Port"
 
-    And user click "Show Service Port"
+    When user click "Show Service Port"
 
     Then user should see port numbers of each service
 
@@ -73,21 +73,29 @@ Feature: [PCP_004_03] UPnP Setup
 		And the status value of the service should be "false"
 
 
-	# Scenario: [PCP_004_03_07]
-	#   Show "Success" text in the "Update Result" column when the service update successfully
+	Scenario: [PCP_004_03_07]
+	  Show "Success" text in the "Update Result" column when the service update successfully
 
-	#   And the page will waiting for connection with device
+	  And the page will waiting for connection with device
 
-	#   When the device was online the device will response service list
+	  When the device was online the device will response service list
 
-	#   Given the user changed UPnP port setting of a disabled service
-	#   And the user clicked the checkbox to enabled the service
+	  Given the user changed UPnP port setting of a disabled service
+	  And the user clicked the checkbox to enabled the service
 
-	#   When the user click "Submit" button
-	#   And the service was updated successfully
+	  When the user click "Submit" button
+	  Then the user should see "Synchronizing UPnP settings... " message on UPnP setup page
+	  And the session status now should be "submit"
 
-	#   Then the user should see "Success" text in "Update Result" column of the service on UPnP setup page
-	#   And the checkbox of the service should be checked
+	  # When the user click "Submit" button
+	  # And the service was updated successfully
+	  When device response the success result of the modified service
+	  And the session status now should be "updated"
+
+	  Then the user should see "Success" text in "Update Result" column of the service on UPnP setup page
+	  # And the checkbox of the service should be checked
+	  And the checkbox value of the service should be "true"
+		And the status value of the service should be "true"
 
 
 	Scenario: [PCP_004_03_08]
