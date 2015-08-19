@@ -50,11 +50,11 @@ Then(/^the user should see error message on manually add page$/) do
 end
 
 Then(/^the user will redirect to pairing check page$/) do
-  expect(page.current_path).to eq("/discoverer/check/#{@device.encoded_id}.format")
+  expect(page.current_path).to eq("/discoverer/check/#{@device.encoded_id}")
 end
 
 Then(/^the user will redirect to pairing check page of NSA325$/) do
-  expect(page.current_path).to eq("/discoverer/check/#{@device_nas325.encoded_id}.format")
+  expect(page.current_path).to eq("/discoverer/check/#{@device_nas325.encoded_id}")
 end
 
 Then(/^redirect to Search Devices page$/) do
