@@ -36,7 +36,7 @@ class Mods::V2::UpnpController < Mods::UpnpController
       # restart the session
       @upnp_session['status'] = 'start'
       @upnp.session.update(@upnp_session)
-      push_to_queue "upnp_query"
+      push_to_queue("upnp_query", Mods::V2::Upnp::MODULE_VERSION)
 
     elsif @upnp_session['status'] == 'form'
       unless @upnp_session['service_list'].empty?

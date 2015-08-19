@@ -18,7 +18,7 @@ class UnpairingController < ApplicationController
 
     @pairing.destroy
     Job::UnpairMessage.new.push_device_id(@device.id.to_s)
-    redirect_to "/unpairing/success/" + @device.encoded_id
+    redirect_to unpairing_success_path(@device.encoded_id)
   end
 
   private

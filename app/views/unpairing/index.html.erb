@@ -16,7 +16,7 @@
     <%# unpairing button %>
     <div class="zyxel_btn_area i18n_fix">
       <%= link_to I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back" %>
-      <%= link_to I18n.t("labels.confirm"), "/unpairing/destroy/" + @device.encoded_id, class: "zyxel_btn_ok" %>
+      <%= link_to I18n.t("labels.confirm"), unpairing_destroy_path(@device.encoded_id), method: :delete, class: "zyxel_btn_ok" %>
     </div>
     <%# unpairing button -end %>
   </div>
