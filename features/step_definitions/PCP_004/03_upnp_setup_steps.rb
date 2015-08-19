@@ -29,39 +29,13 @@ When(/^the device was online the device will response service list$/) do
                      "path":"ftp://ip:port"},
                     {"service_name":"DDNS",
                      "status":true,
-                     "enabled":false,
-                     "description":"DDNS configuration",
-                     "wan_port":"",
-                     "lan_port":"",
-                     "path":""},
-                    {"service_name":"HTTP",
-                     "status":true,
-                     "enabled":false,
-                     "description":"HTTP configuration",
-                     "wan_port":"8000",
-                     "lan_port":"80",
-                     "path":"http://ip:port"}].to_json.gsub("\n", "")
-  set_upnp_status(@upnp_session, "form", service_list)
-  wait_server_response
-end
-
-When(/^the device was online the device will response the new service list$/) do
-  service_list = [{ "service_name":"FTP",
-                    "status":true,
-                    "enabled":true,
-                    "description":"FTP configuration",
-                    "wan_port":"22",
-                    "lan_port":"22",
-                    "path":"ftp://ip:port" },
-                    { "service_name":"DDNS",
-                     "status":false,
-                     "enabled":false,
+                     "enabled":true,
                      "description":"DDNS configuration",
                      "wan_port":"1000",
                      "lan_port":"",
-                     "path":"" },
+                     "path":""},
                     {"service_name":"HTTP",
-                     "status":true,
+                     "status":false,
                      "enabled":false,
                      "description":"HTTP configuration",
                      "wan_port":"8000",
@@ -69,26 +43,27 @@ When(/^the device was online the device will response the new service list$/) do
                      "path":"http://ip:port"}].to_json.gsub("\n", "")
   set_upnp_status(@upnp_session, "form", service_list)
   wait_server_response
-  # binding.pry
-  # page.save_screenshot('screenshot.png')
+end
+
+
+When(/^device response the failure result of the modified service$/) do
+  service_list = JSON.parse(@upnp_session['service_list'])
+  service_list.map! {|service|
+    service['service_name'] == 'HTTP' ? service.merge({'error_code' => '798'}) : service
+  }
+  service_list = service_list.to_json.gsub("\n", "")
+  set_upnp_status(@upnp_session, "form", service_list)
+  wait_server_response
 end
 
 Then(/^the session status now should be "(.*?)"$/) do |status|
-  wait_server_response(10)
-  expect(@upnp_session['status']).to eq "submit"
+  step "the page will waiting for connection with device"
+  expect(@upnp_session['status']).to eq status
 end
 
-
-
-Then(/^the session status should be "(.*?)"$/) do |status|
-  expect(@upnp_session['status']).to eq "reload"
+Then(/^the upnp session flow should starting reload service list from device$/) do
+  step 'the session status now should be "start"'
 end
-
-Then(/^the session status should be updated to "(.*?)"$/) do |status|
-  wait_server_response
-  expect(@upnp_session['status']).to eq "start"
-end
-
 
 
 
@@ -103,6 +78,7 @@ Then(/^it should not do anything on UPnP setup page$/) do
 end
 
 Then(/^the user should see "(.*?)" message on UPnP setup page$/) do |msg|
+  wait_server_response
   expect(page).to have_content(msg)
 end
 
@@ -120,7 +96,6 @@ Then(/^the user should see service list$/) do
   expect(page).to have_content(I18n.t("labels.settings.upnp.table_head2"))
   expect(page).to have_content(I18n.t("labels.settings.upnp.table_head3"))
   expect(page).to have_content(I18n.t("labels.settings.upnp.table_head4"))
-  page.save_screenshot('screenshot.png')
 end
 
 Then(/^the user will redirect to My Devices page after cancel$/) do
@@ -142,7 +117,7 @@ Then(/^the "(.*?)" button should be replaced by "(.*?)" button$/) do |arg1, arg2
   expect(page).to have_content(I18n.t("labels.settings.upnp.table_head7"))
 end
 
-When(/^the device was online the device will response other service list$/) do
+When(/^the device was online the device will response service list with used wan port list$/) do
   service_list = [{ "service_name":"FTP",
                     "status":true,
                     "enabled":true,
@@ -193,7 +168,6 @@ end
 
 Given(/^the user clicked the checkbox to enabled the service$/) do
   all(:xpath, '//table/tbody/tr/td/div/div/label')[2].click
-  page.save_screenshot('screenshot4.png')
 end
 
 # When(/^the user click "(.*?)" button$/) do |arg1|
@@ -226,24 +200,20 @@ When(/^the service was failed in updating$/) do
                      }].to_json.gsub("\n", "")
   @used_wan_port_list_array = ["1000", "8000", "9000"]
   used_wan_port_list = @used_wan_port_list_array.to_json.gsub("\n", "")
-  # error_code = '795'
-  # binding.pry
   set_upnp_status(@upnp_session, "form", service_list, used_wan_port_list)
   wait_server_response
-  page.save_screenshot('screenshot5.png')
 end
 
-# Then(/^the user should see service list$/) do
-#   page.save_screenshot('screenshot.png')
-#   # pending # express the regexp above with the code you wish you had
-# end
-
-Then(/^the user should see "(.*?)" text in "(.*?)" column of the service on UPnP setup page$/) do |arg1, arg2|
-  pending # express the regexp above with the code you wish you had
+Then(/^the user should see "(.*?)" text in "(.*?)" column of the service on UPnP setup page$/) do |text, column|
+  expect(find(:xpath, "//table/tbody/tr[@ng-controller='ServiceCtrl']/td[6]/span[@ng-switch]/span[@ng-switch-when='failure']")).to have_content text
 end
 
-Then(/^the checkbox of the service should be unchecked$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^the checkbox value of the service should be "(.*?)"$/) do |checkbox_value|
+  expect(find("#check2", :visible => :all).checked?.to_s).to eq checkbox_value
+end
+
+Then(/^the status value of the service should be "(.*?)"$/) do |status_value|
+  expect(page).to have_xpath("//table/tbody/tr[@ng-controller='ServiceCtrl']/td[2]/span[@ng-switch-when='#{status_value}']")
 end
 
 
@@ -254,13 +224,10 @@ def get_upnp_session
 end
 
 def set_upnp_status(upnp_session, status, service_list = "", used_wan_port_list = "")
-  puts "set_upnp_status...."
   upnp_session['status'] = status
   upnp_session['service_list'] = service_list
   upnp_session['used_wan_port_list'] = used_wan_port_list
-  # upnp_session['error_code'] = error_code
   UpnpSession.find(@session_index).session.update(upnp_session)
   wait_server_response
   upnp_session
-  # binding.pry
 end

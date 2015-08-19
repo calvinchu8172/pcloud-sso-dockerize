@@ -43,7 +43,7 @@ Feature: [PCP_004_03] UPnP Setup
 
 	  And the page will waiting for connection with device
 
-	  When the device was online the device will response other service list
+	  When the device was online the device will response service list with used wan port list
 	  # And Some services in the list were disabled
 	  # And Some wan_port is duplicate with the port in used_wan_port_list
 
@@ -53,7 +53,6 @@ Feature: [PCP_004_03] UPnP Setup
 
 	Scenario: [PCP_004_03_06]
 	  Show "Failure" text in the "Update Result" column when the service update failed
-
 	  And the page will waiting for connection with device
 
 	  When the device was online the device will response service list
@@ -63,20 +62,15 @@ Feature: [PCP_004_03] UPnP Setup
 
 	  When the user click "Submit" button
 	  Then the user should see "Synchronizing UPnP settings... " message on UPnP setup page
-
 	  And the session status now should be "submit"
 
-		And the session status should be "reload"
-		And the session status should be updated to "start"
+	  When device response the failure result of the modified service
+		And the upnp session flow should starting reload service list from device
 
-	  When the device was online the device will response the new service list
-
-
-	  # Then the user should see service list
-
-	  # Then the user should see "Failure" text in "Update Result" column of the service on UPnP setup page
-	  And the checkbox of the service should be unchecked
-
+		When the device was online the device will response service list
+		And the user should see "Failure" text in "Update Result" column of the service on UPnP setup page
+		And the checkbox value of the service should be "true"
+		And the status value of the service should be "false"
 
 
 	# Scenario: [PCP_004_03_07]
