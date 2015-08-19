@@ -33,8 +33,8 @@
 
         // Calculate scale
         this.scale = this.options.scale == 'auto' ? $(window).width() / window.screen.width : this.options.scale
-        if (this.scale < 1) this.scale = 1
-
+        //if (this.scale < 1) this.scale = 1
+        this.scale = 1 ;
         // Get info from meta data
         var meta = $(this.type == 'android' ? 'meta[name="google-play-app"]' :
             this.type == 'ios' ? 'meta[name="apple-itunes-app"]' :
@@ -124,7 +124,7 @@
 
       , listen: function () {
             $('#smartbanner .sb-close').on('click',$.proxy(this.close, this))
-            $('#smartbanner .sb-button').on('click',$.proxy(this.install, this))
+            $('#smartbanner .sb-button,.sb-info').on('click',$.proxy(this.install, this))
         }
 
       , show: function(callback) {
@@ -184,8 +184,12 @@
 
       , install: function(e) {
 			if (this.options.hideOnInstall) {
-				this.hide()
+				//this.hide()
 			}
+            if (this.options.openMethod == 'js'  && this.options.url_market ) {
+                window.location = this.options.url;
+                setTimeout("window.location = '" + this.options.url_market + "';", 1000);
+            }
             //this.setCookie('sb-installed','true',this.options.daysReminder)
         }
 
@@ -246,14 +250,16 @@
         GooglePlayParams: null, // Aditional parameters for the market
         icon: null, // The URL of the icon (defaults to <meta name="apple-touch-icon">)
         iconGloss: null, // Force gloss effect for iOS even for precomposed
-        button: 'VIEW', // Text for the install button
+        button: 'OPEN', // Text for the install button
         url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+        url_market: null,
         scale: 'auto', // Scale based on viewport size (set to 1 to disable)
         speedIn: 300, // Show animation speed of the banner
         speedOut: 400, // Close animation speed of the banner
         daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
         daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
         force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+        openMethod: null,
         hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
         layer: false, // Display as overlay layer or slide down the page
         iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.
