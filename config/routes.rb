@@ -65,10 +65,9 @@ Rails.application.routes.draw do
     get 'package/cancel/:id', to: 'package#cancel'
 
     concern :upnp_mods do
-      resources :upnp, only: [:show, :edit]
-      get 'upnp/update/:id', to: 'upnp#update'
-      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+      resources :upnp, only: [:show, :edit, :update]
       get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
+      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
     end
 
     scope :path => '/1/', :module => 'mods/v1' do
