@@ -1,1 +1,1 @@
-AWS.config(Settings.environments.sqs.attributes);
+AWS.config(region: Settings.environments.sqs.attributes.region)
