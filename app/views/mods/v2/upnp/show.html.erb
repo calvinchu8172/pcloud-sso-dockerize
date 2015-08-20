@@ -146,7 +146,7 @@
       // 3. 如果服務尚未啟用，且 port 號存在於已被使用的 port 號列表。
       if($scope.result == 'false'){
         if( (wan_port == '-1') ||
-            (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(wan_port) > -1) ){
+            (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(parseInt(wan_port)) > -1) ){
           $scope.service['wan_port'] = $scope.randomPort();
         }
       }

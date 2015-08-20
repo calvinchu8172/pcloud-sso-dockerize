@@ -35,6 +35,7 @@ module TestingHelper
     device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
     device.module_version['upnp'] = 1
     device
+    # binding.pry
   end
 
   def self.create_product_table
