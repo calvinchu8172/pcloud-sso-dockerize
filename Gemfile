@@ -92,7 +92,9 @@ group :test do
   gem 'email_spec'
   gem 'simplecov', :require => false
 end
-
+group :development do
+  gem 'brakeman', :require => false
+end
 # gem 'devise-async'
 # gem 'sidekiq'
 group :development, :test do

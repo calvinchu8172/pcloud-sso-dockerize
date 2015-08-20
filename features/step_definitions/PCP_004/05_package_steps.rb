@@ -10,6 +10,7 @@ When(/^the package page will wait for connection with device$/) do
 end
 
 Then(/^the user should see "(.*?)" message on Package setup page$/) do |msg|
+  wait_server_response
   expect(page).to have_content(msg)
 end
 
@@ -176,10 +177,10 @@ end
 def switch_package_on_off(target_package)
   find(:xpath, target_package).click
   find('button', :text => I18n.t("labels.submit")).click
-  
+
   redis = Redis.new
   package_session_id = redis.GET( 'package:session:index' )
-  
+
   key = 'package:'+ package_session_id +':session'
   redis.hset(key, 'status', 'updated')
   wait_server_response

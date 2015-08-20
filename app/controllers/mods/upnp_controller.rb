@@ -16,7 +16,7 @@ class Mods::UpnpController < ApplicationController
   before_action :service_list_to_json, :only => :update
   before_action :check_session_available, :only => :edit
 
-  # GET /{module_version}/upnp/show/:device_encoded_id
+  # GET /{module_version}/upnp/:device_encoded_id
   # 初始化 UPnP Session 並向Device 同步UPnP 設定資訊
   def show
     get_device_info
@@ -31,6 +31,7 @@ class Mods::UpnpController < ApplicationController
     service_logger.note({start_upnp: @session})
   end
 
+  #PUT /{moduel_version}/upnp/:device_encoded_id
   def update
     @upnp = UpnpSession.find(params[:id])
     settings = update_permit.merge({:status => :submit})

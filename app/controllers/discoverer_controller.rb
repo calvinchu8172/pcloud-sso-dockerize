@@ -21,7 +21,6 @@ class DiscovererController < ApplicationController
         :has_indicator_module => device.find_module_list.include?('indicator')
         })
     end
-
     service_logger.note({available_to_pair: raw_result})
 
     @result = raw_result
