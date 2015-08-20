@@ -122,7 +122,7 @@ Then(/^the user should find the device after unpairing$/) do
 end
 
 Then(/^the user will redirect to Search Devices page$/) do
-  expect(page.current_path).to eq "/discoverer.format"
+  expect(page.current_path).to eq "/discoverer/index"
 end
 
 Then(/^the user will see the confirm message about cancel Pairing flow$/) do

@@ -16,7 +16,7 @@ namespace :dev do
     end
   end
 
-  task :rebuild => ["db:drop", "db:setup", :build_xmpp_database, :fake]
+  task :rebuild => ["db:drop", "db:setup", :fake]
 
   task :fake => :environment do
 

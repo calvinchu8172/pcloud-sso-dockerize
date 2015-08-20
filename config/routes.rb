@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       # setting root path to sign in page, if user not sign in
       unauthenticated do
-        root 'devise/sessions#new', as: :unauthenticated_root
+        root 'sessions#new', as: :unauthenticated_root
       end
     end
 
@@ -22,12 +22,6 @@ Rails.application.routes.draw do
     get 'hint/sent'
     get 'hint/agreement'
     get 'hint/confirm_sent'
-
-    resources :ddns
-    post 'ddns/check'
-    post 'discoverer/search'
-
-    get 'registrations/success'
 
     devise_for :users, :controllers => {
       :registrations => "registrations",
@@ -41,30 +35,60 @@ Rails.application.routes.draw do
       patch 'users/confirmation', to: "confirmations#update"
     end
 
-    get 'device/register'
+    get 'ddns/:id', to: 'ddns#show'
+    get 'ddns/success/:id', to: 'ddns#success'
+    get 'ddns/failure/:id', to: 'ddns#failure'
+    post 'ddns/check'
+
+    get 'discoverer/index', to: 'discoverer#index'
+    get 'discoverer/add'
+    get 'discoverer/check/:id', to: 'discoverer#check'
+    get 'discoverer/indicate/:id', to: 'discoverer#indicate'
+    post 'discoverer/search'
+
+    get 'personal/index'
+    get 'personal/profile'
+    get 'personal/device_info/:id', to: 'personal#device_info'
+    get 'personal/check_status/:id', to: 'personal#check_status'
 
     unless Rails.env.production?
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     end
 
-    resources :package
+    get 'pairing/index/:id', to: 'pairing#index'
+    get 'pairing/waiting/:id', to: 'pairing#waiting'
+    get 'pairing/check_connection/:id', to: 'pairing#check_connection'
+    get 'pairing/cancel/:id', to: 'pairing#cancel'
+
+    resources :package, only: [:show, :edit, :update]
+    get 'package/check/:id' , to: 'package#check'
+    get 'package/cancel/:id', to: 'package#cancel'
+
+    concern :upnp_mods do
+      resources :upnp, only: [:show, :edit, :update]
+      get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
+      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+    end
 
     scope :path => '/1/', :module => 'mods/v1' do
-      resources :upnp
-      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
-      get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
+      concerns :upnp_mods
     end
 
     scope :path => '/2/', :module => 'mods/v2' do
-      resources :upnp
-      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+      concerns :upnp_mods
       get 'upnp/reload/:id', to: 'upnp#reload', format: 'json'
-      get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
     end
 
-    get 'package/check/:id' , to: 'package#check'
-    get '/:controller(/:action(/:id))(.format)'
+    get 'unpairing/index/:id', to: 'unpairing#index', as: 'unpairing_index'
+    get 'unpairing/success/:id', to: 'unpairing#success', as: 'unpairing_success'
+    get 'unpairing/destroy/:id', to: 'unpairing#destroy', as: 'unpairing_destroy'
+
     post 'oauth/confirm'
+    get 'oauth/new'
+
+    get 'invitations/accept/:id', to: 'invitations#accept'
+    get 'invitations/accept', to: 'invitations#accept'
+    get 'invitations/check_connection/:id', to: 'invitations#check_connection'
   end
 
   constraints :host => Settings.environments.api_domain  do

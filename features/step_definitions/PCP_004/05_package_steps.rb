@@ -10,6 +10,7 @@ When(/^the package page will wait for connection with device$/) do
 end
 
 Then(/^the user should see "(.*?)" message on Package setup page$/) do |msg|
+  wait_server_response
   expect(page).to have_content(msg)
 end
 
@@ -104,6 +105,7 @@ When (/^user disable a package$/) do
 end
 
 Then(/^child packages should become disable$/) do
+  wait_server_response
   expect(find(:xpath, "//label[@for='check0']/ancestor::td/following-sibling::td[1]/span").text).to eq('Disable')
 end
 
@@ -154,6 +156,7 @@ When(/^user enable a package$/)do
 end
 
 Then(/^parent packages should become enable$/) do
+  wait_server_response
   expect(find(:xpath, "//label[@for='check1']/ancestor::td/following-sibling::td[1]/span").text).to eq('Enable')
 end
 
@@ -174,10 +177,10 @@ end
 def switch_package_on_off(target_package)
   find(:xpath, target_package).click
   find('button', :text => I18n.t("labels.submit")).click
-  
+
   redis = Redis.new
   package_session_id = redis.GET( 'package:session:index' )
-  
+
   key = 'package:'+ package_session_id +':session'
   redis.hset(key, 'status', 'updated')
   wait_server_response
