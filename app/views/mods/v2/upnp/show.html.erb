@@ -24,8 +24,8 @@
           <th><%= I18n.t("labels.settings.upnp.table_head3") %></th>
           <th><%= I18n.t("labels.settings.upnp.table_head4") %></th>
           <th ng-if="!submited">
-            <button class="zyxel_btn_style2" ng-show="!servicePort.show" ng-click="showServicePort()"><%= I18n.t("labels.settings.upnp.table_head6") %></button>
-            <button class="zyxel_btn_style2" ng-show="servicePort.show" ng-click="hideServicePort()"><%= I18n.t("labels.settings.upnp.table_head7") %></button>
+            <button id="mods_v2_upnp_show_serviceport_show_button" class="zyxel_btn_style2" ng-show="!servicePort.show" ng-click="showServicePort()"><%= I18n.t("labels.settings.upnp.table_head6") %></button>
+            <button id="mods_v2_upnp_show_serviceport_hide_button" class="zyxel_btn_style2" ng-show="servicePort.show" ng-click="hideServicePort()"><%= I18n.t("labels.settings.upnp.table_head7") %></button>
           </th>
           <th ng-if="submited"><%= I18n.t("labels.settings.upnp.table_head8") %></th>
           <%# display update result after submited %>
@@ -91,22 +91,22 @@
     <div ng-switch-when="loading">
       <div class="waiting"><%= image_tag 'loading.gif', size: "54x55" %></div>
       <div class="zyxel_btn_area i18n_fix" ng-if="!submited">
-        <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+        <button id="mods_v2_upnp_show_loading_cancel_button" class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
       </div>
     </div>
     <div ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
-      <button class="zyxel_btn_submit" ng-click="retry()"><%= I18n.t("labels.retry") %></button>
+      <button id="mods_v2_upnp_show_retry_button" class="zyxel_btn_submit" ng-click="retry()"><%= I18n.t("labels.retry") %></button>
     </div>
     <div ng-switch-when="form" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
-      <button class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
+      <button id="mods_v2_upnp_show_retry_submit_button" class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.submit") %></button>
     </div>
     <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
       <%= link_to(I18n.t("labels.confirm"), tutorial_path(@device, Mods::V2::Upnp::MODULE_NAME), class: "zyxel_btn_ok") %>
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
-      <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
+      <button id="mods_v2_upnp_show_retry_cancel_button" class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
       <%= link_to(I18n.t("labels.confirm"), "/{{moduleVersion}}/upnp/cancel/#{@upnp.id}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
   </div>
