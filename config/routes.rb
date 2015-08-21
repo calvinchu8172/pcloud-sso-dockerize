@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  # get '*unmatched_route', :to => 'application#raise_not_found!'
-
-  # get "/404", :to => 'application#raise_not_found!'
-
+  # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
       # setting root path to personal index page, if user signed in
@@ -92,6 +89,7 @@ Rails.application.routes.draw do
     get 'invitations/check_connection/:id', to: 'invitations#check_connection'
   end
 
+  # Routes for Pcloud REST API server
   constraints :host => Settings.environments.api_domain  do
 
     # post '/d/1/:action' => "device"
@@ -129,9 +127,9 @@ Rails.application.routes.draw do
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
     end
-
-    root "application#raise_not_found!", via: :all
   end
 
+  # Catch all routes
+  root "application#raise_not_found!", via: :all
   get "*path", to: "application#raise_not_found!", via: :all
 end
