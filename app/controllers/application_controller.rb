@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def raise_not_found!
     setup_log_context
 
-    logger.warn 'routing error paht:' + request.path + ', id:' + request.session_options[:id].to_s
+    logger.warn "routing error path: #{request.path}, id: #{request.session_options[:id].to_s}"
     render :file => 'public/404.html', :status => :not_found, :layout => false
   end
 
