@@ -37,3 +37,16 @@ end
 Then(/^the record of pairing should be removed$/) do
   expect(Pairing.exists?(@pairing.id)).to be false
 end
+
+Then(/^the device relations of invitations and accepted_users are all deleted$/) do
+  expect(Invitation.count).to eq(0)
+  expect(AcceptedUser.count).to eq(0)
+end
+
+Then(/^the device has inviation and accepted_user$/) do
+  user = FactoryGirl.create(:user)
+  pairing = TestingHelper.create_pairing(user.id, Device.first)
+  invitation = TestingHelper.create_invitation(user, user.pairings.first.device)
+  another_user = FactoryGirl.create(:user)
+  invitation.accepted_by(another_user.id)
+end
