@@ -90,7 +90,7 @@ class DdnsController < ApplicationController
       session = {device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
       ddns_session = DdnsSession.create
       job = {:job => 'ddns', :session_id => ddns_session.id}
-      if ddns_session.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+      if ddns_session.session.bulk_set(session) && AwsService.send_message_to_queue(job)
         redirect_to action: 'success', id: ddns_session.escaped_encrypted_id
         return
       end

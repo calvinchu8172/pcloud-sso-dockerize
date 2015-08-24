@@ -15,9 +15,8 @@ class UnpairingController < ApplicationController
 
   #GET /unpairing/destroy/:device_encrypted_id
   def destroy
-
     @pairing.destroy
-    Job::UnpairMessage.new.push_device_id(@device.id.to_s)
+    Job.new.push_device_id(@device.id.to_s)
     redirect_to unpairing_success_path(@device.encoded_id)
   end
 

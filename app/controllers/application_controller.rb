@@ -84,14 +84,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def push_to_queue_cancel(title, tag)
-      data = {job: "cancel", title: title, tag: tag}
-
-      sqs = AWS::SQS.new
-      queue = sqs.queues.named(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
-    end
-
     def check_user_confirmation_expire
       return if current_user.nil?
       redirect_to new_user_confirmation_path if (!current_user.confirmed? && !current_user.confirmation_valid?)

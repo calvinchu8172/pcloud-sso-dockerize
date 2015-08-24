@@ -53,7 +53,7 @@ class Mods::UpnpController < ApplicationController
     unless session.empty?
       session['status'] = "cancel"
       @upnp.session.update(session)
-      push_to_queue_cancel("get_upnp_service", @upnp.id)
+      AwsService.push_to_queue_cancel("get_upnp_service", @upnp.id)
     end
     service_logger.note({cancel_upnp: session})
     redirect_to :authenticated_root
@@ -98,9 +98,7 @@ class Mods::UpnpController < ApplicationController
 
     def push_to_queue(job, module_version)
       data = {:job => job, :session_id => @upnp.id, :module_version => module_version}
-      sqs = AWS::SQS.new
-      queue = sqs.queues.named(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
+      AwsService.send_message_to_queue(data)
     end
 
     def deleted_extra_key
