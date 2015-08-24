@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
 
     def device_paired_with?
       @device = Device.find_by_encoded_id(params[:id])
-      unless(@device.pairing.owner.first.user_id == current_user.id)
+      if @device.pairing.present? && @device.pairing.owner.first.user_id != current_user.id
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root
       end
