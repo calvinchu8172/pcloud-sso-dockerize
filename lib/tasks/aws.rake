@@ -61,7 +61,7 @@ namespace :sqs do
     queue_name = Settings.environments.sqs.name
 
 # This will actually send a queue then poll queues
-    queue = AWS::SQS.new.queues.named(queue_name)
+    queue = AwsService.get_queue
 
     message = "test123"
     puts "Send message: #{message}"

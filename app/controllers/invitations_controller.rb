@@ -31,7 +31,7 @@ class InvitationsController < ApplicationController
 
     @accepted_session = job_params
 		@accepted_session[:expire_in] = AcceptedUser::WAITING_PERIOD.to_i
-		AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{ "job":"create_permission", "session_id":"' + @accepted_user.id.to_s + '" }')
+		AwsService.send_message_to_queue('{ "job":"create_permission", "session_id":"' + @accepted_user.id.to_s + '" }')
 	end
 
 	def check_connection
