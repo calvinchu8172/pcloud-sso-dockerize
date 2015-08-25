@@ -99,7 +99,7 @@ test:
 staging:
   <<: *default_config
 
-developent:
+development:
   log4r_config:
     loggers:
     - <<: *app_logger
@@ -114,5 +114,3 @@ developent:
       name: db_file
       level: DEBUG
       filename: "log/db.log"
-
-
