@@ -113,7 +113,7 @@ class PackageController < ApplicationController
     unless session.empty?
       session['status'] = "cancel"
       @package.session.update(session)
-      push_to_queue_cancel("get_package_service", @package.id)
+      AwsService.push_to_queue_cancel("get_package_service", @package.id)
     end
 
     service_logger.note({cancel_package: session})
@@ -125,8 +125,6 @@ class PackageController < ApplicationController
   def same_subnet? device_ip
     request.remote_ip == device_ip
   end
-
-
 
   def decide_which_path_ip package_session
     device = Device.find package_session['device_id']
@@ -149,9 +147,7 @@ class PackageController < ApplicationController
 
   def push_to_queue(job)
     data = {:job => job, :session_id => @package.id}
-    sqs = AWS::SQS.new
-    queue = sqs.queues.named(Settings.environments.sqs.name)
-    queue.send_message(data.to_json)
+    AwsService.send_message_to_queue(data)
   end
 
   def deleted_extra_key

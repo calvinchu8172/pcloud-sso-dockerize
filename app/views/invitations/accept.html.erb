@@ -37,10 +37,10 @@
 
 <script type="text/javascript">
 	$.smartbanner({
-		icon: "https://lh4.ggpht.com/aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw",
-		url: "zyxeldrive://xxx.xxx.xxx",
+		icon: "<%= SecondaryConfig.find(:android_app_icon) %>",
+		url: "<%= SecondaryConfig.find(:android_app_scheme) %>",
 		//url:"vnd.youtube://test",
-		url_market: "https://play.google.com/store/apps/details?id=com.zyxel.zCloud",
+		url_market: "https://play.google.com/store/apps/details?id=<%= SecondaryConfig.find(:android_app_id) %>",
 		//url: "intent://scan/#Intent;scheme=vnd.youtube;package=com.google.android.youtube;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.google.android.youtube;end",
 		daysHidden: 0,
 		daysReminder: 0,
