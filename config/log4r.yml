@@ -74,39 +74,32 @@ log4r_config:
     filename: "log/db.log"
 
 # config for each enviornment
+default: &default_config
+  log4r_config:
+    loggers:
+    - <<: *app_logger
+    - <<: *db_logger
+    - <<: *service_logger
+    outputters:
+    - <<: *file_outputter
+      name: app_file
+      level: INFO
+      filename: "log/app.log"
+    - <<: *file_outputter
+      name: db_file
+      level: INFO
+      filename: "log/db.log"
+
 production:
-  log4r_config:
-    loggers:
-    - <<: *app_logger
-    - <<: *db_logger
-    - <<: *service_logger
-    outputters:
-    - <<: *file_outputter
-      name: app_file
-      level: INFO
-      filename: "log/app.log"
-    - <<: *file_outputter
-      name: db_file
-      level: INFO
-      filename: "log/db.log"
+  <<: *default_config
 
-beta:
-  log4r_config:
-    loggers:
-    - <<: *app_logger
-    - <<: *db_logger
-    - <<: *service_logger
-    outputters:
-    - <<: *file_outputter
-      name: app_file
-      level: INFO
-      filename: "log/app.log"
-    - <<: *file_outputter
-      name: db_file
-      level: INFO
-      filename: "log/db.log"
+test:
+  <<: *default_config
 
-alpha:
+staging:
+  <<: *default_config
+
+developent:
   log4r_config:
     loggers:
     - <<: *app_logger

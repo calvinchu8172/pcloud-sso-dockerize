@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       Log4r::MDC.put("ip", request.remote_ip)
       Log4r::MDC.put("user_id", current_user.id) if defined?(current_user) && !(current_user.blank?)
       Log4r::MDC.put("host", Socket.gethostname)
-      Log4r::MDC.put("environment", Settings.environments.name)
+      Log4r::MDC.put("environment", Rails.env)
     end
 
     def clear_log_context
