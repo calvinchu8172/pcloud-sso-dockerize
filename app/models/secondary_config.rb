@@ -6,7 +6,7 @@ class SecondaryConfig
   @default_value[:android_app_id] = 'com.zyxel.zCloud'; # android app id
   @default_value[:android_app_argument] = 'http://www.zyxel.com/'; #android app reference website
   @default_value[:android_app_scheme] = 'zyxeldrive://xxx.xxx.xxx'; #android app hook scheme
-  @default_value[:android_app_icon] = 'https://lh4.ggpht.com/ aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw'; #android smart banner icon
+  @default_value[:android_app_icon] = 'https://lh4.ggpht.com/aWuemfRx8lvlluW7pY6eNeV_l0_oxTHNX8r8LFfCAKWGlVox3Y4PCevAhReQH7bL0A=w300-rw'; #android smart banner icon
 
   def self.find id
     puts @default_value[id]
