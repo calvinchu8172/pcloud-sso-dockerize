@@ -1,6 +1,6 @@
-class EazyValue
-  include Redis::Objects
-  SESSION_INDEX = 'ez:portal:index'
+class SecondaryConfig
+  #include Redis::Objects
+  @redis_key = 'secondary_config:portal:index'
   @default_value = {}
   @default_value[:apple_app_id] = '770537600'; # apple app id
   @default_value[:android_app_id] = 'com.zyxel.zCloud'; # android app id
@@ -13,7 +13,7 @@ class EazyValue
     if  ( @default_value.has_key?(id) == false )
       return ''
     end
-    redis_values = Redis::HashKey.new(SESSION_INDEX)
+    redis_values = Redis::HashKey.new(@redis_key)
     if( redis_values.has_key?(id) == false )
       return @default_value[id]
     end 

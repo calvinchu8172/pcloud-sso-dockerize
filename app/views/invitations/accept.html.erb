@@ -37,10 +37,10 @@
 
 <script type="text/javascript">
 	$.smartbanner({
-		icon: "<%= EazyValue.find(:android_app_icon) %>",
-		url: "<%= EazyValue.find(:android_app_scheme) %>",
+		icon: "<%= SecondaryConfig.find(:android_app_icon) %>",
+		url: "<%= SecondaryConfig.find(:android_app_scheme) %>",
 		//url:"vnd.youtube://test",
-		url_market: "https://play.google.com/store/apps/details?id=<%= EazyValue.find(:android_app_id) %>",
+		url_market: "https://play.google.com/store/apps/details?id=<%= SecondaryConfig.find(:android_app_id) %>",
 		//url: "intent://scan/#Intent;scheme=vnd.youtube;package=com.google.android.youtube;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.google.android.youtube;end",
 		daysHidden: 0,
 		daysReminder: 0,
