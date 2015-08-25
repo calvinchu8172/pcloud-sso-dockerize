@@ -4,8 +4,8 @@
   <meta charset='utf-8' />
   <title>myZyXELcloud<%= page_title %></title>
   <% if( controller.controller_name == 'invitations' && controller.action_name == 'accept' ) %>
-    <meta name="apple-itunes-app" content="app-id=770537600">
-    <meta name="google-play-app" content="app-id=com.zyxel.zCloud, app-argument=http://www.zyxel.com/">
+    <meta name="apple-itunes-app" content="app-id=<%= EazyValue.find(:apple_app_id) %>">
+    <meta name="google-play-app" content="app-id=<%= EazyValue.find(:android_app_id) %>, app-argument=<%= EazyValue.find(:android_app_argument) %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <% end%>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
