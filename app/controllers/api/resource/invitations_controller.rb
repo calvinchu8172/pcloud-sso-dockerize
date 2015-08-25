@@ -39,7 +39,7 @@ class Api::Resource::InvitationsController < Api::Base
 		user.invitations.each do |invitation|
 			device = invitation.device
 			invitation.accepted_users.each do |accepted_user|
-				next unless accepted_user.inbox?(params[:last_updated_at])
+				next if accepted_user.user.nil? || !accepted_user.inbox?(params[:last_updated_at])
 				result.push({ invitation_key: invitation.key,
 					device_id: device.id,
 					share_point: invitation.share_point,
