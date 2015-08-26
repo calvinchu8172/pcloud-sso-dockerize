@@ -239,6 +239,9 @@
         this.cpuTemp.fah = json['cpu_temperature_fahrenheit'] + '°F';
         this.cpuTempWarning = (json['cpu_temperature_warning'] == 'true');
         this.volumeList = json['volume_list'];
+        $scope.info.capacity.available = 0;
+        $scope.info.capacity.total = 0;
+        $scope.info.capacity.used = 0;
       },
       capacity:{
         available: 0,
