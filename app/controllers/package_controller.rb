@@ -85,7 +85,7 @@ class PackageController < ApplicationController
 
     package_list = !package_session['package_list'].empty? ? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
-    if (package_session['status'] == 'updated')
+    if (package_session['status'] != 'submit')
       package_list = update_result(package_list) unless package_list.empty?
     end
 
