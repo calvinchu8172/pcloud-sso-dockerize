@@ -138,6 +138,15 @@ class PackageController < ApplicationController
         package["enabled"] = package["status"]
       end
     end
+    desc_key_list = ["gallery", "googledriveclient", "squeezecenter", "memopal", "nfs", "nzbget", "php-mysql-phpmyadmin", "tftp",
+        "transmission", "wordpress", "myzyxelcloud-agent", "owncloud", "pyload"]
+
+    package_list.each do |package|
+      unless package["package_name"].empty?
+        desc_key = package["package_name"].downcase
+        package["description"] = I18n.t("labels.settings.package.description.#{desc_key}")   if desc_key_list.include?(desc_key)
+      end
+    end
     package_list
   end
 
@@ -164,7 +173,7 @@ class PackageController < ApplicationController
     package_list.each do |package|
       result = "no_update"
 
-      if package['error_code'] && package['enabled'] != package['status']
+      if package['enabled'] != package['status']
         if package['error_code'].length == 0
           result = "success"
           package['status'] = package['enabled']
@@ -261,7 +270,7 @@ class PackageController < ApplicationController
   end
 
   def is_device_support?
-    unless @device.find_module_list.include?(Mods::V1::Upnp::MODULE_NAME)
+    unless @device.find_module_list.include?(Package::MODULE_NAME)
       flash[:alert] = I18n.t('warnings.invalid_device')
       redirect_to :authenticated_root
     end
