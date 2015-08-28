@@ -1,9 +1,24 @@
 # Set a user who visit password change page
 Given(/^the user was login and visits change password page$/) do
+  @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
   @user = TestingHelper.create_and_signin
 	visit edit_user_registration_path(type: "password")
 end
 
+# Go to forgot password page
+Given(/^the user has other 3 logined machines with account tokens and authentication tokens$/) do
+  3.times do |i|
+    TestingHelper.create_app_signined_tokens_for_user(@user.id)
+  end
+end
+
+Given(/^the user should have 3 account tokens$/) do
+  expect(@redis.keys("user:#{@user.id}:account_token:*").length).to eq(3)
+end
+
+Given(/^the user should have 3 authentication tokens$/) do
+  expect(@redis.keys("user:#{@user.id}:authentication_token:*").length).to eq(3)
+end
 # -------------------------------------------------------------------
 # ---------------------------    input   ----------------------------
 # -------------------------------------------------------------------
@@ -36,3 +51,8 @@ end
 Then(/^the user will get success message from change password$/) do
 	expect(page).to have_selector('.zyxel_smallok_area')
 end
+
+Then(/^the user's account tokens and authentication tokens should all revoked$/) do
+  expect(@redis.keys('user:#{@user.id}:*_token:*').length).to eq(0)
+end
+
