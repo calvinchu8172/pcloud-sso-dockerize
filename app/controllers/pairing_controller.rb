@@ -98,7 +98,7 @@ class PairingController < ApplicationController
 
     @pairing_session = job_params
 
-    job = {:job => 'pairing', :device_id => @device_id.to_s}
+    job = {:job => 'pairing', :device_id => @device.id.to_s}
     AwsService.send_message_to_queue(job)
     @device.pairing_session.bulk_set job_params
 
