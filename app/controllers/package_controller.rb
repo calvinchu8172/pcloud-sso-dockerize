@@ -85,7 +85,10 @@ class PackageController < ApplicationController
 
     package_list = !package_session['package_list'].empty? ? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
+    logger.note({ package_setted_before_update: package_list })
+
     package_list = update_result(package_list) unless package_list.empty?
+    logger.note({ package_setted_after_update: package_list })
 
     #dependency_list = gen_dependency_list session_id unless package_list.empty?
     #puts package_list
@@ -179,7 +182,7 @@ class PackageController < ApplicationController
           package['status'] = package['enabled']
         else
           result = "failure"
-          #package['enabled'] = package['status']
+          package['enabled'] = package['status']
         end
       end
       package['update_result'] = result
