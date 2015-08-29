@@ -94,18 +94,18 @@ module Services
 
         if device.present? && device.pairing.present? && device.pairing.first.user.present?
 
-
-          route53, info, result, error = delete_route53_record(device.ddns)
-          if result == "delete route53 succeed"
-            device.ddns.destroy
-            if device.ddns.destroyed?
-              @result_db = "delete ddns db succeed"
-            else
-              @result_db = "delete ddns db failed"
-            end
-          else
-            @result_db = "delete ddns db failed"
-          end
+          Job.new.push_device_id(device.id.to_s)
+#         route53, info, result, error = delete_route53_record(device.ddns)
+#         if result == "delete route53 succeed"
+#           device.ddns.destroy
+#           if device.ddns.destroyed?
+#             @result_db = "delete ddns db succeed"
+#           else
+#             @result_db = "delete ddns db failed"
+#           end
+#         else
+#           @result_db = "delete ddns db failed"
+#         end
 
           user = device.pairing.first.user
           xmpp_last_username = XmppLast.find_by_decive(device)
@@ -117,14 +117,14 @@ module Services
             :user => user.email,
             :ddns => "#{ device.ddns.hostname }.#{device.ddns.domain.domain_name}",
             :expire_days => expire_days,
-            :device => device.serial_number,
-            :result_db => @result_db,
-            :route53 => {
-              :route53_record => route53,
-              :info => info,
-              :result => result,
-              :error => error
-            }
+            :device => device.serial_number
+#           :result_db => @result_db,
+#           :route53 => {
+#             :route53_record => route53,
+#             :info => info,
+#             :result => result,
+#             :error => error
+#            }
           }
           @log_array << info
         end
