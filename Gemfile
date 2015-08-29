@@ -96,7 +96,7 @@ group :development do
   gem 'brakeman', :require => false
 end
 # gem 'devise-async'
-# gem 'sidekiq'
+gem 'sidekiq', '~> 3.4'
 group :development, :test do
   gem 'faker'
   gem 'hipchat'

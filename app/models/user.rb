@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
     google_oauth2: 'Google'
   }
 
+# https://github.com/plataformatec/devise#activejob-integration
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   def self.from_omniauth(auth)
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
