@@ -33,7 +33,7 @@ module TestingHelper
     device.update_ip_list ip
     device.session['ip'] = ip
     device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
-    device.module_version['upnp'] = 1
+    device.module_version['upnp'] = 2
     device.module_version['package'] = 1
     device.module_list << 'package'
     device.module_list << 'upnp'
