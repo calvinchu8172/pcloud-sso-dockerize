@@ -85,7 +85,9 @@ class PackageController < ApplicationController
 
     package_list = !package_session['package_list'].empty? ? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
-    package_list = update_result(package_list) unless package_list.empty?
+    if (package_session['status'] != 'submit')
+      package_list = update_result(package_list) unless package_list.empty?
+    end
 
     #dependency_list = gen_dependency_list session_id unless package_list.empty?
     #puts package_list
@@ -138,6 +140,15 @@ class PackageController < ApplicationController
         package["enabled"] = package["status"]
       end
     end
+    desc_key_list = ["gallery", "googledriveclient", "squeezecenter", "memopal", "nfs", "nzbget", "php-mysql-phpmyadmin", "tftp",
+        "transmission", "wordpress", "myzyxelcloud-agent", "owncloud", "pyload"]
+
+    package_list.each do |package|
+      unless package["package_name"].empty?
+        desc_key = package["package_name"].downcase
+        package["description"] = I18n.t("labels.settings.package.description.#{desc_key}")   if desc_key_list.include?(desc_key)
+      end
+    end
     package_list
   end
 
@@ -164,13 +175,13 @@ class PackageController < ApplicationController
     package_list.each do |package|
       result = "no_update"
 
-      if package['error_code'] && package['enabled'] != package['status']
+      if package['enabled'] != package['status']
         if package['error_code'].length == 0
           result = "success"
           package['status'] = package['enabled']
         else
           result = "failure"
-          #package['enabled'] = package['status']
+          package['enabled'] = package['status']
         end
       end
       package['update_result'] = result
@@ -261,7 +272,7 @@ class PackageController < ApplicationController
   end
 
   def is_device_support?
-    unless @device.find_module_list.include?(Mods::V1::Upnp::MODULE_NAME)
+    unless @device.find_module_list.include?(Package::MODULE_NAME)
       flash[:alert] = I18n.t('warnings.invalid_device')
       redirect_to :authenticated_root
     end

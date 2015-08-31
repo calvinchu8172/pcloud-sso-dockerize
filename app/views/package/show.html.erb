@@ -55,7 +55,7 @@
             {{package.version}}
           </td>
           <td data-title="'description'" class="column3">
-            {{package.description.join(" \n ")}}
+            {{package.description}}
           </td>
           <td data-title="'error_code'" class="update_result" ng-if="submited">
             <span ng-switch on="package.update_result">
