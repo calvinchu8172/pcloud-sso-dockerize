@@ -78,6 +78,18 @@ module TestingHelper
       hostname: "test_hostname_#{device.id}"
       )
   end
+
+  def self.create_app_signined_tokens_for_user(user_id)
+    auth_token = SecureRandom.urlsafe_base64(nil, false)
+    token = Redis::Value.new("user:#{user_id}:authentication_token:#{auth_token}")
+    token.value = (DateTime.now + Api::User::AUTHENTICATION_TOKEN_TTL).to_s
+
+    account_token = SecureRandom.urlsafe_base64(nil, false)
+    account_token_key = "user:#{user_id}:account_token:#{account_token}"
+    redis_token = Redis::HashKey.new(account_token_key)
+    redis_token.bulk_set('expire_at' => (DateTime.now + Api::User::ACCOUNT_TOKEN_TTL).to_s, 'authentication_token' => auth_token)
+  end
+
 end
 
 # Click submit button

@@ -50,6 +50,11 @@ class RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, flash_key
         end
         sign_in resource_name, resource, bypass: true
+
+        # logout other devices using account token
+        token_user = Api::User::Token.find_by_email(current_user.email)
+        token_user.revoke_all_account_and_authentication_tokens
+
         respond_with resource, location: after_update_path_for(resource)
       else
         clean_up_passwords resource
