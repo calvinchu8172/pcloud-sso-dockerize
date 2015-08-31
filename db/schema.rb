@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721090540) do
+ActiveRecord::Schema.define(version: 20150828070648) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(version: 20150721090540) do
   add_index "pairings", ["user_id", "device_id"], name: "index_pairings_on_user_id_and_device_id", unique: true, using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.string   "model_class_name",     limit: 120
+    t.string   "name",                 limit: 255, null: false
+    t.string   "model_class_name",     limit: 120, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "asset_file_name",      limit: 255
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20150721090540) do
     t.datetime "pairing_updated_at"
   end
 
-  add_index "products", ["model_class_name"], name: "index_products_on_model_class_name", using: :btree
+  add_index "products", ["model_class_name"], name: "index_products_on_model_class_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",   null: false
@@ -148,10 +148,13 @@ ActiveRecord::Schema.define(version: 20150721090540) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "accepted_users", "invitations", name: "accepted_users_invitation_id_fk"
+  add_foreign_key "accepted_users", "users", name: "accepted_users_user_id_fk"
   add_foreign_key "ddns", "devices", name: "ddns_device_id_fk"
   add_foreign_key "ddns", "domains", name: "ddns_domain_id_fk"
   add_foreign_key "devices", "products", name: "devices_product_id_fk"
   add_foreign_key "identities", "users", name: "identities_user_id_fk"
+  add_foreign_key "invitations", "devices", name: "invitations_device_id_fk"
   add_foreign_key "pairings", "devices", name: "pairings_device_id_fk"
   add_foreign_key "pairings", "users", name: "pairings_user_id_fk"
 end
