@@ -49,7 +49,7 @@ class Api::Device < Device
     ddns_session = DdnsSession.create
     job = {:job => 'ddns', :session_id => ddns_session.id}
     ddns_session.session.bulk_set(session)
-    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+    AwsService.send_message_to_queue(job)
 
     Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
   end
@@ -95,7 +95,7 @@ class Api::Device < Device
     return if self.pairing.blank?
 
     self.pairing.destroy_all
-    Job::UnpairMessage.new.push_device_id(self.id.to_s)
+    Job.new.push_device_id(self.id.to_s)
   end
 
   # 如果該台 device 沒有xmpp 帳號則註冊一組

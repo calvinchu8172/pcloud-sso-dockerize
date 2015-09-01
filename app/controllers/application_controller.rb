@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def raise_not_found!
     setup_log_context
 
-    logger.warn 'routing error paht:' + request.path + ', id:' + request.session_options[:id].to_s
+    logger.warn "routing error path: #{request.path}, id: #{request.session_options[:id].to_s}"
     render :file => 'public/404.html', :status => :not_found, :layout => false
   end
 
@@ -78,18 +78,10 @@ class ApplicationController < ActionController::Base
 
     def device_paired_with?
       @device = Device.find_by_encoded_id(params[:id])
-      unless(@device.pairing.owner.first.user_id == current_user.id)
+      if @device.pairing.present? && @device.pairing.owner.first.user_id != current_user.id
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root
       end
-    end
-
-    def push_to_queue_cancel(title, tag)
-      data = {job: "cancel", title: title, tag: tag}
-
-      sqs = AWS::SQS.new
-      queue = sqs.queues.named(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
     end
 
     def check_user_confirmation_expire

@@ -21,7 +21,7 @@ Feature: Ddns expire
 
     When ddns expire scan
 
-    Then ddns record should be deleted
+#    Then ddns record should be deleted
     And user should not receive any warning email
 
   Scenario:

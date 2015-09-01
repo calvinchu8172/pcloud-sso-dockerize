@@ -4,6 +4,7 @@
 # 2. 輸入mac address 與 serial number 搜尋
 class DiscovererController < ApplicationController
   include PairingHelper
+
   before_action :authenticate_user!
   before_filter :check_device_available, :only => [:check]
 
@@ -87,7 +88,7 @@ class DiscovererController < ApplicationController
     indicator_session.session.bulk_set(session)
 
     job = {:job => 'led_indicator', :session_id => indicator_session.id}
-    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+    AwsService.send_message_to_queue(job)
 
     render :json => { "result" => "success" }, status: 200
   end
