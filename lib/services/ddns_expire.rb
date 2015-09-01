@@ -46,7 +46,7 @@ module Services
           xmpp_last_username = XmppLast.find_by_decive(device)
           expire_days = (current_time - xmpp_last_username.last_signout_at)/(24*60*60)
 
-          DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_now
+          DdnsMailer.notify_comment(user, device, xmpp_last_username).deliver_later
           # @rake_log.info "  sent mail to DDNS: #{ device.ddns.hostname }.#{device.ddns.domain.domain_name} expired #{ expire_days } days of Device: #{ device.serial_number } of User: #{ user.email }"
 
           info = {
