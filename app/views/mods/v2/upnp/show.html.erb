@@ -202,7 +202,7 @@
 
     // 重新計算port號
     $scope.randomPort = function(){
-      var rand_num = Math.floor((Math.random() * 65535) + 1025);
+      var rand_num = $scope.getRandomIntInclusive(65535, 1025);
       if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
         rand_num = $scope.randomPort();
       }
@@ -210,6 +210,10 @@
       return rand_num;
     }
 
+    // 產生區間亂數
+    $scope.getRandomIntInclusive = function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
   });
 

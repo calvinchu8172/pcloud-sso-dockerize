@@ -50,6 +50,7 @@
       width:400px;  // Ref model img between device_info padding
       text-overflow: ellipsis;
       white-space: nowrap;
+      padding-right: 10px;
       &.model_name{
         font-size: 17px;
         color: $zyxel_color4;

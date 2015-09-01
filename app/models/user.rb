@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :timeoutable, :omniauthable
+         :confirmable, :timeoutable, :omniauthable, :async
 
   validates_acceptance_of :agreement, :allow_nil => false,
   :acceptance => true, :on => :create
@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
-
 
   def self.sign_up_omniauth(auth, current_user, agreement)
     identity = Identity.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize

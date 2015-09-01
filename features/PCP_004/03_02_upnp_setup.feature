@@ -89,7 +89,7 @@ Feature: [PCP_004_03_02] UPnP Setup Version 2
 
 	  When the device was online the device will response service list with used wan port list
 
-	  Then the port number of all disabled service will be given a random number between 1025 and 65525
+	  Then the port number of all disabled service will be given a random number between 1025 and 65535
 	  And those port numbers should not in the used wan port list
 
 
