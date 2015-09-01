@@ -39,3 +39,13 @@ Feature: [PCP_004_04] Unpairing
     When the user click "Cancel" link
 
     Then the user will redirect to My Devices page
+
+  Scenario: [PCP_004_04_05]
+    Delete pairing data and its associations, including Invitation, AcceptedUser
+
+    Given the device has inviation and accepted_user
+
+    When the user click "Confirm" link
+
+    Then the record of pairing should be removed
+    And the device relations of invitations and accepted_users are all deleted

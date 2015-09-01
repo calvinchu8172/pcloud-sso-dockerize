@@ -63,11 +63,22 @@ module TestingHelper
     signin_user(user)
     user
   end
-  def self.create_pairing(user_id)
-    device = create_device
+  def self.create_pairing(user_id, device = nil)
+    device ||= create_device
     pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device.id)
-    pairing.save
     pairing
+  end
+
+  def self.create_invitation(user, device, share_point = "fake_share", permission = "RW", expire_count = 5)
+    cloud_id = user.encoded_id
+    invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
+    #加密
+    #require 'digest/hmac'
+    #Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1)
+    invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
+    invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device.id, :expire_count => expire_count )
+    invitation.save
+    invitation
   end
 
   def self.create_ddns(device, ip)

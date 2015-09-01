@@ -1,6 +1,6 @@
 class Invitation < ActiveRecord::Base
 	include Guards::AttrEncryptor
-  has_many :accepted_users
+  has_many :accepted_users, dependent: :destroy
 	belongs_to :device
 
  	READ_ONLY = 1
