@@ -7,7 +7,7 @@ module AwsService
   def self.send_message_to_queue(message)
     queue = get_queue
     if queue.nil?
-      logger.fatal({ fail_send_queue: message })
+      logger.note({ fail_send_queue: message })
     else
       logger.note({ send_queue: message })
       queue.send_message(message.to_json)
