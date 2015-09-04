@@ -155,7 +155,7 @@ end
 
 Then(/^the port number of all disabled service will be given a random number between (\d+) and (\d+)$/) do |arg1, arg2|
   click_on(I18n.t("labels.settings.upnp.table_head6"))
-  expect(all(:xpath, '//table/tbody/tr/td/input')[1].value).to be_between(arg1, arg2).inclusive
+  expect(all(:xpath, '//table/tbody/tr/td/input')[1].value.to_i).to be_between(arg1.to_i, arg2.to_i).inclusive
 end
 
 Then(/^those port numbers should not in the used wan port list$/) do
