@@ -22,17 +22,17 @@ When(/^the connected device in the list is not paired$/) do
 end
 
 Then(/^the user should see the enabled "(.*?)" button of the device$/) do |arg1|
-  expect(page).to have_content('Pairing')
-  expect(page).to have_content('Find NAS')
+  expect(page).to have_content I18n.t('labels.pairing')
+  expect(page).to have_content I18n.t('labels.find_nas')
 end
 
 When(/^the user click the "(.*?)" button of the device$/) do |arg1|
-  click_link('Find NAS')
+  click_link I18n.t("labels.find_nas")
 end
 
 Then(/^the user should see the "(.*?)" button of the device disabled for (\d+) seconds$/) do |arg1, arg2|
   expect(page).to have_selector('.zyxel_btn_disabled')
-  expect(page).not_to have_link("Find NAS", href: "#")
+  expect(page).not_to have_link( I18n.t('labels.find_nas'), href: "#" )
 end
 
 When(/^the "(.*?)" button has already disabled (\d+) seconds and NAS accepted pairing$/) do |button, second|
@@ -40,12 +40,12 @@ When(/^the "(.*?)" button has already disabled (\d+) seconds and NAS accepted pa
 end
 
 Then(/^the user should see the "(.*?)" button enable again$/) do |arg1|
-  expect(page).to have_link("Find NAS", href: "#")
+  expect(page).to have_link( I18n.t('labels.find_nas'), href: "#" )
 end
 
 When(/^the user clicked "(.*?)" link to start pairing$/) do |arg1|
-  expect(page).to have_link("Pairing", href: "/discoverer/check/#{@device.encoded_id}")
-  click_link("Pairing")
+  expect(page).to have_link( I18n.t('labels.pairing'), href: "/discoverer/check/#{@device.encoded_id}")
+  click_link I18n.t('labels.pairing')
 end
 
 When(/^the user has completed the pairing process$/) do
@@ -54,6 +54,6 @@ When(/^the user has completed the pairing process$/) do
 end
 
 Then(/^the user should not see the "(.*?)" button of the paired device$/) do |link|
-  expect(page).to have_content "Paired"
-  expect(page).not_to have_content "Find NAS"
+  expect(page).to have_content I18n.t('labels.paired')
+  expect(page).not_to have_content I18n.t('labels.find_nas')
 end
