@@ -16,7 +16,7 @@
       </li>
     <% end %>
 
-    <% if current_user.nil? && current_page?(root_path) %>
+    <% if current_user.nil? && (current_page?(root_path) || current_page?(new_user_session_path))%>
     <li class="dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <%= t('labels.language') %>
