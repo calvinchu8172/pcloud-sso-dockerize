@@ -19,6 +19,11 @@ en:
     or: 'or'
     expand_all: 'Expand All'
     collapse_all: 'Collapse All'
+    device_info:
+      raid_status: 'RAID status'
+      cpu_temperature: 'CPU temp'
+      fan_speed: 'Fan Speed'
+      available_capacity: 'Available capacity'
     settings:
       ddns:
         instruction: DDNS Setup
