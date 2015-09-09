@@ -78,7 +78,7 @@ en:
     edit_profile: Edit Profile
     mac_address: MAC Address
     serial_number: Serial Number
-    find_nas: Find NAS
+    find_nas: Locate NAS
   titles:
     change_password: Change Password
     forgot_password: Reset Password
