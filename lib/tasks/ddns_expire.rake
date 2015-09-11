@@ -17,7 +17,8 @@ namespace :ddns_expire do
   end
 
   task :set_logger => :environment  do
-    @rake_log = Rails.logger
+    # @rake_log = Rails.logger
+    @rake_log = Services::RakeLogger.rails_log
   end
 
   desc "create fake data for test"
