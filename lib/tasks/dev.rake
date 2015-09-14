@@ -20,26 +20,32 @@ namespace :dev do
 
   task :fake => :environment do
 
-    user = User.create(
+    user = User.new(
       email: "fake@example.com",
       password: "fakepassword",
       password_confirmation: "fakepassword",
       edm_accept: "0",
-      agreement: "1",
-      confirmed_at: Time.now
+      agreement: "1"
       )
+    user.confirmation_token = Devise.friendly_token
+    user.skip_confirmation!
+    user.save
+    
     puts "create fake user for developement"
     puts "  email: #{user.email}"
     puts "  password: #{user.password}"
     
-    user2 = User.create(
+    user2 = User.new(
       email: "tomohung@ecoworkinc.com",
       password: "tttttttt",
       password_confirmation: "tttttttt",
       edm_accept: "0",
-      agreement: "1",
-      confirmed_at: Time.now
+      agreement: "1"
       )
+    user2.confirmation_token = Devise.friendly_token
+    user2.skip_confirmation!
+    user2.save
+
     puts "create fake user for developement"
     puts "  email: #{user2.email}"
     puts "  password: #{user2.password}"

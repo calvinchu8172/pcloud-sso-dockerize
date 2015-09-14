@@ -11,7 +11,7 @@ class OauthController < ApplicationController
       identity = User.sign_up_omniauth(session["devise.omniauth_data"], current_user, agreement)
       # Sign In and redirect to root path
       sign_in identity.user
-      redirect_to authenticated_root_path
+      redirect_to session[:previous_url] || authenticated_root_path
     else
       # Redirect to Sign in page, when user un-agreement the terms
       flash[:notice] = I18n.t('activerecord.errors.messages.accepted')
