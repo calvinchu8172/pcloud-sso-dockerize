@@ -17,8 +17,12 @@ namespace :ddns_expire do
   end
 
   task :set_logger => :environment  do
-    # @rake_log = Rails.logger
-    @rake_log = Services::RakeLogger.rails_log
+    if Rails.env == "development"
+      # @rake_log = Logger.new(STDOUT)
+      @rake_log = Services::RakeLogger.rails_log # only for development environment. output to STDOUT and cron.log
+    else
+      @rake_log = Rails.logger # for staging and production, log will be saved in system log
+    end
   end
 
   desc "create fake data for test"
