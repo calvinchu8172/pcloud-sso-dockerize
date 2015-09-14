@@ -29,6 +29,12 @@
     <div class="zyxel_btn_area i18n_fix" ng-switch-when="retry">
       <%= link_to(I18n.t("labels.retry"), "/invitations/accept/#{@invitation_key}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
+    <div class="zyxel_btn_area" ng-switch-when="done"> 
+      <%= link_to(image_tag("zdrive_qrcode.png"), "https://findme.zyxel.com/zdrive") %> 
+    </div>
+    <div class="zyxel_btn_area" ng-switch-when="done"> 
+      <%= link_to("findme.zyxel.com", "https://findme.zyxel.com/zdrive")%>
+    </div>
     <div class="zyxel_btn_area" ng-switch-when="done">
       <%= link_to(I18n.t("labels.confirm"), "/discoverer/index", class: "zyxel_btn_ok") %>
     </div>
