@@ -31,6 +31,18 @@ namespace :dev do
     puts "create fake user for developement"
     puts "  email: #{user.email}"
     puts "  password: #{user.password}"
+    
+    user2 = User.create(
+      email: "tomohung@ecoworkinc.com",
+      password: "tttttttt",
+      password_confirmation: "tttttttt",
+      edm_accept: "0",
+      agreement: "1",
+      confirmed_at: Time.now
+      )
+    puts "create fake user for developement"
+    puts "  email: #{user2.email}"
+    puts "  password: #{user2.password}"
 
     device = Device.create(
       serial_number: "1234567890",
@@ -69,6 +81,13 @@ namespace :dev do
       )
     puts "create DDNS"
 
+    invitation = Invitation.create(
+      key: "key",
+      share_point: "sharename",
+      permission: "2",
+      device_id: device.id,
+      expire_count: 5
+    )
   end
-
 end
+
