@@ -36,17 +36,6 @@
 </div>
 
 <script type="text/javascript">
-	$.smartbanner({
-		icon: "<%= SecondaryConfig.find(:android_app_icon) %>",
-		url: "<%= SecondaryConfig.find(:android_app_scheme) %>",
-		//url:"vnd.youtube://test",
-		url_market: "https://play.google.com/store/apps/details?id=<%= SecondaryConfig.find(:android_app_id) %>",
-		//url: "intent://scan/#Intent;scheme=vnd.youtube;package=com.google.android.youtube;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.google.android.youtube;end",
-		daysHidden: 0,
-		daysReminder: 0,
-		openMethod: 'js'
-	});
-
 	var invitation_app = angular.module('invitation_app', []);
 	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
 		$scope.step = 'connecting';
