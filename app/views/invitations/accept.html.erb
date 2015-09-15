@@ -30,10 +30,16 @@
       <%= link_to(I18n.t("labels.retry"), "/invitations/accept/#{@invitation_key}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
     <div class="zyxel_btn_area" ng-switch-when="done"> 
-      <%= link_to(image_tag("zdrive_qrcode.png"), "https://findme.zyxel.com/zdrive") %> 
-    </div>
-    <div class="zyxel_btn_area" ng-switch-when="done"> 
-      <%= link_to("findme.zyxel.com", "https://findme.zyxel.com/zdrive")%>
+      <h2><%= I18n.t("warnings.settings.invitation.zyxel_drive") %></h2>
+      <blockquote style="border-left: white;white-space:normal">
+        <%= I18n.t("warnings.settings.invitation.zyxel_drive_desc") %>
+      </blockquote>
+      <%= image_tag("findme_ZyXEL Drive.png") %>
+      <blockquote style="border-left: white;white-space:normal">
+        <%= I18n.t("warnings.settings.invitation.zyxel_drive_download_desc") %>
+      </blockquote>
+      <div><%= link_to(image_tag("zdrive_invitation_qrcode.png"), SecondaryConfig.find(:zdrive_url)) %></div>
+      <div><%= link_to(SecondaryConfig.find(:zdrive_url), SecondaryConfig.find(:zdrive_url)) %></div>
     </div>
     <div class="zyxel_btn_area" ng-switch-when="done">
       <%= link_to(I18n.t("labels.confirm"), "/discoverer/index", class: "zyxel_btn_ok") %>
@@ -47,6 +53,7 @@
 		$scope.step = 'connecting';
     $scope.panel = 'loading';
 		$scope.checkConnectionUrl = '/invitations/check_connection/';
+    $scope.logoutUrl = '/users/sign_out';
 		$scope.interval = 3000;
 
 	    $scope.init = function(){
@@ -73,6 +80,7 @@
 		        $scope.failureStep();
 		        break;
 		      case 'done':
+            $http.get($scope.logoutUrl)
 		        $scope.completedStep();
 		        break;
 		    }
