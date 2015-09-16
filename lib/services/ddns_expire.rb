@@ -1,7 +1,7 @@
 module Services
   module DdnsExpire
 
-    @rake_log = Services::RakeLogger.log4r
+    @rake_log = Rails.logger
 
     WARNING_TIME = 60.days.to_i - 1
     DELETE_TIME = 90.days.to_i - 1
