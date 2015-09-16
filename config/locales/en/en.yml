@@ -132,6 +132,9 @@ en:
         failure: 'Invitation accept failed'
         success_desc: "Congratulation! You joined the shared folder %{share_point} successfully."
         failure_desc: "The invite to %{share_point} is not available, please try it again later."
+        zyxel_drive: "ZyXEL Drive"
+        zyxel_drive_desc: "See and share your stuff from anywhere."
+        zyxel_drive_download_desc: "Download Now at"
       ddns:
         instruction: 'Please use:'
         instruction_2: 3 to 63 characters

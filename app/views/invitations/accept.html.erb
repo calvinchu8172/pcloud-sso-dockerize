@@ -13,12 +13,6 @@
 		  		<%= I18n.t("warnings.settings.invitation.failure_desc", :share_point => "#{@share_point}") %>
 		  	</blockquote>
 		  </span>
-		  <span ng-switch-when="done">
-		  	<%= I18n.t("warnings.settings.invitation.success") %>
-		  	<blockquote style="border-left: white;white-space: normal;">
-		  		<%= I18n.t("warnings.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
-		  	</blockquote>
-		  </span>
 		</span>
 	</div>
 
@@ -29,29 +23,39 @@
     <div class="zyxel_btn_area i18n_fix" ng-switch-when="retry">
       <%= link_to(I18n.t("labels.retry"), "/invitations/accept/#{@invitation_key}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
+    <div class="zyxel_btn_area" ng-switch-when="done"> 
+      <div><span class="zyxel_h2"><%= I18n.t("warnings.settings.invitation.success") %></span></div>
+      <div>
+        <span class="zyxel_span2">
+          <blockquote style="border-left: white;white-space: normal;">
+            <%= I18n.t("warnings.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
+          </blockquote>
+          <div style="text-align: left; padding-left: 50px; margin-top: 40px; font-size: 23px"><%= I18n.t("warnings.settings.invitation.zyxel_drive") %></div>
+          <div style="text-align: left; padding-left: 50px">
+            <%= I18n.t("warnings.settings.invitation.zyxel_drive_desc") %>
+          </div>
+          <div style="margin-top: 20px">
+            <%= image_tag("findme_ZyXEL Drive.png") %>
+          </div>
+        </span>
+      </div>
+      <div style="margin-top: 30px"><%= I18n.t("warnings.settings.invitation.zyxel_drive_download_desc") %></div>
+      <div><%= link_to(image_tag("zdrive_invitation_qrcode.png"), SecondaryConfig.find(:zdrive_url)) %></div>
+      <div><%= link_to(SecondaryConfig.find(:zdrive_url), SecondaryConfig.find(:zdrive_url)) %></div>
+    </div>
     <div class="zyxel_btn_area" ng-switch-when="done">
-      <%= link_to(I18n.t("labels.confirm"), "/discoverer/index", class: "zyxel_btn_ok") %>
+      <%= link_to(I18n.t("labels.confirm"), root_path, class: "zyxel_btn_ok") %>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-	$.smartbanner({
-		icon: "<%= SecondaryConfig.find(:android_app_icon) %>",
-		url: "<%= SecondaryConfig.find(:android_app_scheme) %>",
-		//url:"vnd.youtube://test",
-		url_market: "https://play.google.com/store/apps/details?id=<%= SecondaryConfig.find(:android_app_id) %>",
-		//url: "intent://scan/#Intent;scheme=vnd.youtube;package=com.google.android.youtube;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.google.android.youtube;end",
-		daysHidden: 0,
-		daysReminder: 0,
-		openMethod: 'js'
-	});
-
 	var invitation_app = angular.module('invitation_app', []);
 	invitation_app.controller('InvitationCtrl', function ($scope, $timeout, $http) {
 		$scope.step = 'connecting';
     $scope.panel = 'loading';
 		$scope.checkConnectionUrl = '/invitations/check_connection/';
+    $scope.logoutUrl = '/users/sign_out';
 		$scope.interval = 3000;
 
 	    $scope.init = function(){
@@ -78,6 +82,7 @@
 		        $scope.failureStep();
 		        break;
 		      case 'done':
+            $http.get($scope.logoutUrl)
 		        $scope.completedStep();
 		        break;
 		    }

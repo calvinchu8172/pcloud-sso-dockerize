@@ -131,6 +131,9 @@ zh-TW:
           failure: '接受失敗'
           success_desc: "恭喜！你加入了共享文件夾 %{share_point} 成功。"
           failure_desc: "該邀請 %{share_point} 不可用，請稍後再試一次。"
+          zyxel_drive: "ZyXEL Drive"
+          zyxel_drive_desc: "See and share your stuff from anywhere."
+          zyxel_drive_download_desc: "Download Now at"
       ddns:
         instruction: '請使用：'
         instruction_2: '3至63個字元'

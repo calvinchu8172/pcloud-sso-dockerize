@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
 
   after_action :clear_log_context
   before_filter :setup_log_context
-  after_action :store_location
 
   #called by last route matching unmatched routes.  Raises RoutingError which will be rescued from in the same way as other exceptions.
   def raise_not_found!
