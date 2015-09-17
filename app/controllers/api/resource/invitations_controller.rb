@@ -20,6 +20,12 @@ class Api::Resource::InvitationsController < Api::Base
 		pairing = Pairing.find_by_device_id( device.id )
 		return render_error_response "004" if pairing.user_id.to_s != user.id.to_s
 
+    invitation = Invitation.find_by(share_point: share_point)
+    if invitation && invitation.device == device
+      render_error_response "020" and return
+    end
+
+
 		#組成字串
 		invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
 		#加密
@@ -27,7 +33,12 @@ class Api::Resource::InvitationsController < Api::Base
 		#Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1)
 		invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
 		invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device.id, :expire_count => expire_count )
-		invitation.save
+    begin
+      invitation.save!
+    rescue ActiveRecord::ActiveRecordError => e
+      Rails.logger.error e
+      render_error_response "019" and return
+    end
 		render :json => { invitation_key: invitation_key }, status: 200
 	end
 
@@ -76,7 +87,9 @@ class Api::Resource::InvitationsController < Api::Base
 			"005" => "Invalid share point or permission.",
 			"013" => "Invalid certificate.",
 			"014" => "Invalid signature.",
-			"201" => "Invalid cloud id or token."
+			"201" => "Invalid cloud id or token.",
+      "019" => "Invalid sharename.",
+      "020" => "The sharename has existed."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end
