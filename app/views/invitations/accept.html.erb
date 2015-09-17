@@ -77,9 +77,11 @@
 		      case 'timeout':
 		      	// timeout 時顯示 "接受失敗"
 		        $scope.failureStep();
+            console.log('接受邀請失敗，超過 30 秒未取得回應，timeout...');
 		        break;
 		      case 'failure':
 		        $scope.failureStep();
+            console.log('接受邀請失敗， error_code from NAS: '+$scope.session.error_code);
 		        break;
 		      case 'done':
             $http.get($scope.logoutUrl)
@@ -97,6 +99,7 @@
 				        $scope.checkConnection();
 				    }).error(function(response){
 				        $scope.failureStep();
+                console.log('the polling request is failed...');
 				    });
 			    }, $scope.interval);
 		    }
