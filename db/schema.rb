@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828070648) do
+ActiveRecord::Schema.define(version: 20150921040420) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150828070648) do
     t.datetime "updated_at"
   end
 
+  add_index "accepted_users", ["invitation_id", "user_id"], name: "index_accepted_users_on_invitation_id_and_user_unique", unique: true, using: :btree
   add_index "accepted_users", ["invitation_id"], name: "index_accepted_users_on_invitation_id", using: :btree
   add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
 
@@ -39,10 +40,9 @@ ActiveRecord::Schema.define(version: 20150828070648) do
     t.integer  "status",     limit: 4
   end
 
-  add_index "ddns", ["device_id"], name: "index_ddns_on_device_id", using: :btree
-  add_index "ddns", ["device_id"], name: "index_domains_on_domain_name_unique", unique: true, using: :btree
-  add_index "ddns", ["domain_id"], name: "ddns_domain_id_fk", using: :btree
-  add_index "ddns", ["hostname", "domain_id"], name: "index_ddns_on_hostname_and_domain_id", unique: true, using: :btree
+  add_index "ddns", ["device_id"], name: "index_ddns_on_device_id_unique", unique: true, using: :btree
+  add_index "ddns", ["domain_id"], name: "index_ddns_on_domain_id", using: :btree
+  add_index "ddns", ["hostname", "domain_id"], name: "index_ddns_on_hostname_and_domain_id_unique", unique: true, using: :btree
 
   create_table "devices", force: :cascade do |t|
     t.string   "serial_number",    limit: 100, null: false
