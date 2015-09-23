@@ -7,7 +7,7 @@ class Api::Device < Device
 
   def checkin
 
-    instance = self.class.find_by( mac_address: mac_address, serial_number: serial_number)
+    instance = self.class.includes(pairing: :invitations).find_by( mac_address: mac_address, serial_number: serial_number)
     if instance.blank?
       # self.create!(instance.attributes.merge({product_id: @product.id}))
       self.product_id = @product.id

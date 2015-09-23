@@ -5,9 +5,9 @@ class Api::Resource::PersonalController < Api::Base
 	def device_list
 	  cloud_id = params[ :cloud_id ] || ''
 	  device_id = ''
-	  user = User.find_by_encoded_id( cloud_id )
+    user = User.includes(pairings: {device: [:product, :ddns]}).find_by_encoded_id( cloud_id )
 	  pairings = user.pairings.take(50)
-	  accepted_invitations = AcceptedUser.where(user_id: user.id, status: 1).take(50)
+    accepted_invitations = AcceptedUser.includes(invitation: :device).where(user_id: user.id, status: 1).take(50)
 
 	  own_device = Hash.new
 	  pairings.each do | pairing |

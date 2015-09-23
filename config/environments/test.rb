@@ -46,6 +46,9 @@ Rails.application.configure do
     Bullet.enable = true
     Bullet.bullet_logger = true
     Bullet.raise = true # raise an error if n+1 query occurs
+
+    # Detect eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = false
   end
 end
 

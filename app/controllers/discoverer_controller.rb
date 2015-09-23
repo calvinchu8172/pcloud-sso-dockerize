@@ -71,7 +71,7 @@ class DiscovererController < ApplicationController
 
     service_logger.note({device_in_lan: available_ip_list})
 
-    Device.where('id in (?)', available_ip_list).each do |device|
+    Device.includes(:product).where('id in (?)', available_ip_list).each do |device|
       pairing_session = device.pairing_session.all
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
       presence = device.presence?
