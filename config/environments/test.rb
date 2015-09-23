@@ -41,6 +41,12 @@ Rails.application.configure do
 
   # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.raise = true # raise an error if n+1 query occurs
+  end
 end
 
 RailsAdmin.config do |config|
