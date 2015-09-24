@@ -26,6 +26,9 @@ Capybara.always_include_port = true
 Capybara.default_host = Settings.environments.portal_domain
 Capybara.app_host = 'http://' + Settings.environments.portal_domain
 
+Capybara::Webkit.configure do |config|
+  config.block_unknown_urls
+end
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
 # your application behaves in the production environment, where an error page will
