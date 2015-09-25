@@ -62,16 +62,6 @@ class User < ActiveRecord::Base
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
   end
 
-  def fetch_details_from_oauth(auth)
-    self.first_name   = auth["first_name"]  if auth["first_name"]
-    self.last_name    = auth["last_name"]   if auth["last_name"]
-    self.display_name = auth["name"]        if auth["name"]
-    self.email        = auth["email"]       if auth["email"]
-    self.middle_name  = auth["middle_name"] if auth["middle_name"]
-    self.language     = auth["locale"]      if auth["locale"]
-    self.gender       = auth["gender"]      if auth["gender"] && auth["gender"] != "other"
-  end
-
   def confirmation_expire_time
     self.created_at + 3.days
   end
