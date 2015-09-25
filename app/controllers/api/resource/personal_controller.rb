@@ -9,44 +9,25 @@ class Api::Resource::PersonalController < Api::Base
 	  pairings = user.pairings.take(50)
 	  accepted_invitations = AcceptedUser.where(user_id: user.id, status: 1).take(50)
 
-	  own_device = Hash.new
-	  pairings.each do | pairing |
-	    device = pairing.device
-	    ddns = device.ddns
-	    next if ddns.nil?
-	    own_device[device.encoded_id] = {
-	    	:xmpp_account => device.get_xmpp_account,
-	     	:mac_address => device.get_mac_address,
-	     	:host_name => ddns[:hostname],
-	     	:wan_ip => ddns.get_ip_addr,
-	     	:firmware_ver => device.firmware_version,
-        :model => device.product.model_class_name,
-	     	:last_update_time => ddns.updated_at.strftime("%Y/%m/%d %H:%I:%S"),
-	     	:is_owner => true
-	    }
+    result = Hash.new
+    [pairings, accepted_invitations].each do |rel_type|
+      rel_type.each  do | type |
+        device, is_owner = type.is_a?(Pairing) ? [type.device, true] : [type.invitation.device, false]
+        ddns = device.ddns
+        result[device.encoded_id] = {
+          :xmpp_account => device.get_xmpp_account,
+          :mac_address => device.get_mac_address,
+          :host_name => ddns.nil? ? '' : ddns[:hostname],
+          :wan_ip => ddns.nil? ? '' : ddns.get_ip_addr,
+          :firmware_ver => device.firmware_version,
+          :model => device.product.model_class_name,
+          :last_update_time => ddns.nil? ? '' : ddns.updated_at.strftime("%Y/%m/%d %H:%I:%S"),
+          :is_owner => is_owner
+        }
+      end
+      result.sort_by{ |device_id, obj| [obj[:is_owner] ? 1 : 0,  obj[:host_name]] }
     end
-	  own_device.sort_by{ |device_id, obj| obj[:host_name] }
-
-	  others_device = Hash.new
-	  accepted_invitations.each do | accepted_invitation |
-      device = accepted_invitation.invitation.device
-      ddns = device.ddns
-      next if ddns.nil?
-	    others_device[device.encoded_id] = {
-		    :xmpp_account => device.get_xmpp_account,
-		    :mac_address => device.get_mac_address,
-		    :host_name => ddns[:hostname],
-		    :wan_ip => ddns.get_ip_addr,
-		    :firmware_ver => device.firmware_version,
-        :model => device.product.model_class_name,
-		    :last_update_time => ddns.updated_at.strftime("%Y/%m/%d %H:%I:%S"),
-		    :is_owner => false
-	    }
-	  end
-		others_device.sort_by{ |device_id, obj| obj[:host_name] }
-
-		result_hash = own_device.merge(others_device);
-		render :json => result_hash, status: 200
+		render :json => result, status: 200
 	end
 
 	def validate_cloud_id
