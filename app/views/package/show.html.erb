@@ -102,7 +102,7 @@
     </div>
     <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
       <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
-      <%= link_to(I18n.t("labels.confirm"), "/personal/index", class: "zyxel_btn_ok zyxel_enabled") %>
+      <%= link_to(I18n.t("labels.confirm"), cancel_package_path(@session[:id]), class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
     <div ng-switch-when="time_out" class="zyxel_btn_area  i18n_fix">
       <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
