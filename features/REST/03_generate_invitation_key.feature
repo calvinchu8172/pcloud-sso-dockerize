@@ -67,3 +67,42 @@ Feature: Generate Invitation Key
     Then the response status should be "400"
     And the JSON response should include error code: "201"
     And the JSON response should include description: "Invalid cloud id or token."
+
+  Scenario: [REST_03_04]
+    Client invite user with invalid sharename (utf8mb4)
+
+    When client send a POST request to /resource/1/invitation with:
+      | cloud_id             | ENCODE USER ID               |
+      | device_id            | ENCODE DEVICE ID             |
+      | share_point          | INVALID SHARE POINT          |
+      | expire_count         | 5                            |
+      | permission           | 1                            |
+      | authentication_token | AUTHENTICATION_TOKEN |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "019"
+    And the JSON response should include description: "Invalid sharename."
+
+  Scenario: [REST_03_05]
+    Client invite user with the same sharename 
+
+    When client send a POST request to /resource/1/invitation with:
+      | cloud_id             | ENCODE USER ID               |
+      | device_id            | ENCODE DEVICE ID             |
+      | share_point          | SHARE POINT                  |
+      | expire_count         | 5                            |
+      | permission           | 1                            |
+      | authentication_token | AUTHENTICATION_TOKEN |
+
+    When client send a POST request to /resource/1/invitation with:
+      | cloud_id             | ENCODE USER ID               |
+      | device_id            | ENCODE DEVICE ID             |
+      | share_point          | SHARE POINT                  |
+      | expire_count         | 5                            |
+      | permission           | 1                            |
+      | authentication_token | AUTHENTICATION_TOKEN |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "020"
+    And the JSON response should include description: "The sharename has existed."
+

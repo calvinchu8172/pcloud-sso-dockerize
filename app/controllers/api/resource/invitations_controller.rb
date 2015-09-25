@@ -20,6 +20,12 @@ class Api::Resource::InvitationsController < Api::Base
 		pairing = Pairing.find_by_device_id( device.id )
 		return render_error_response "004" if pairing.user_id.to_s != user.id.to_s
 
+    invitation = Invitation.find_by(share_point: share_point)
+    if invitation && invitation.device == device
+      render_error_response "020" and return
+    end
+
+
 		#組成字串
 		invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
 		#加密
@@ -27,19 +33,24 @@ class Api::Resource::InvitationsController < Api::Base
 		#Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1)
 		invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
 		invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device.id, :expire_count => expire_count )
-		invitation.save
+    begin
+      invitation.save!
+    rescue ActiveRecord::ActiveRecordError => e
+      Rails.logger.error e
+      render_error_response "019" and return
+    end
 		render :json => { invitation_key: invitation_key }, status: 200
 	end
 
 	def show
 		result = Array.new
-		user = User.find_by_encoded_id(params[:cloud_id])
+    user = User.includes(invitations: [:device, :accepted_users]).find_by_encoded_id(params[:cloud_id])
 		return render_error_response "201" if user.blank?
 
 		user.invitations.each do |invitation|
 			device = invitation.device
 			invitation.accepted_users.each do |accepted_user|
-				next unless accepted_user.inbox?(params[:last_updated_at])
+				next if accepted_user.user.nil? || !accepted_user.inbox?(params[:last_updated_at])
 				result.push({ invitation_key: invitation.key,
 					device_id: device.id,
 					share_point: invitation.share_point,
@@ -76,7 +87,9 @@ class Api::Resource::InvitationsController < Api::Base
 			"005" => "Invalid share point or permission.",
 			"013" => "Invalid certificate.",
 			"014" => "Invalid signature.",
-			"201" => "Invalid cloud id or token."
+			"201" => "Invalid cloud id or token.",
+      "019" => "Invalid sharename.",
+      "020" => "The sharename has existed."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end

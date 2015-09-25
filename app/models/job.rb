@@ -9,7 +9,7 @@ class Job
   # Push message to queue
   def push_to_queue(body)
     data = body.merge({:job => get_job_name})
-    get_queue.send_message(data.to_json)
+    AwsService.send_message_to_queue(data)
   end
 
   def push_session_id(session_id)
@@ -39,16 +39,10 @@ class Job
 
   def get_job_name
   	if @job_name.nil?
-  	  class_name = self.class.name
-  	  @job_name = class_name.split('::')[1].downcase
+  	  @job_name = 'unpairmessage'
   	  @job_name['message'] = ''
     end
     return @job_name
-  end
-
-  def get_queue
-  	@queue = AWS::SQS.new.queues.named(Settings.environments.sqs.name) if @queue.nil?
-  	return @queue
   end
 
   def get_session_model

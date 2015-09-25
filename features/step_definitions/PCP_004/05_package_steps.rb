@@ -10,6 +10,7 @@ When(/^the package page will wait for connection with device$/) do
 end
 
 Then(/^the user should see "(.*?)" message on Package setup page$/) do |msg|
+  wait_server_response
   expect(page).to have_content(msg)
 end
 
@@ -23,7 +24,7 @@ When(/^the device was online the device will response package list$/) do
        "package_name": "WORDPRESS",
        "status": true,
        "requires": ["PHP-MySQL-phpMyAdmin"],
-       "enabled": false,
+       "enabled": true,
        "description": ["a1","a2","a3"],
        "version": "001zypkg013"
    },
@@ -31,7 +32,7 @@ When(/^the device was online the device will response package list$/) do
        "package_name": "PHP-MySQL-phpMyAdmin",
        "status": true,
        "requires": [],
-       "enabled": false,
+       "enabled": true,
        "description": ["b1.","b2.","b3"],
        "version": "002zypkg013"
    },
@@ -97,6 +98,67 @@ Then(/^the user will redirect to the UPnP Setup page$/) do
   expect(current_url).to eq(expect_url)
 end
 
+When (/^user disable a package$/) do
+  wait_server_response
+  target_package = "//label[@for='check1']"
+  switch_package_on_off(target_package)
+end
+
+Then(/^child packages should become disable$/) do
+  wait_server_response
+  expect(find(:xpath, "//label[@for='check0']/ancestor::td/following-sibling::td[1]/span").text).to eq('Disable')
+end
+
+When(/^the device was online the device will response package list all turning off$/) do
+  package_list = ('[
+   {
+       "package_name": "WORDPRESS",
+       "status": false,
+       "requires": ["PHP-MySQL-phpMyAdmin"],
+       "enabled": false,
+       "description": ["a1","a2","a3"],
+       "version": "001zypkg013"
+   },
+   {
+       "package_name": "PHP-MySQL-phpMyAdmin",
+       "status": false,
+       "requires": [],
+       "enabled": false,
+       "description": ["b1.","b2.","b3"],
+       "version": "002zypkg013"
+   },
+   {
+       "package_name": "gallery",
+       "status": false,
+       "requires": ["PHP-MySQL-phpMyAdmin"],
+       "enabled": false,
+       "description": ["C1","C2","C3"],
+       "version": "003zypkg013"
+   },
+   {
+       "package_name": "Transmission",
+       "status": false,
+       "requires": [],
+       "enabled": false,
+       "description": ["d1","d2","d3"],
+       "version": "004zypkg013"
+   }
+  ]').gsub("\n", "")
+
+  set_package_status(@package_session, "form", package_list)
+  wait_server_response
+end
+
+When(/^user enable a package$/)do
+  wait_server_response
+  target_package = "//label[@for='check0']"
+  switch_package_on_off(target_package)
+end
+
+Then(/^parent packages should become enable$/) do
+  wait_server_response
+  expect(find(:xpath, "//label[@for='check1']/ancestor::td/following-sibling::td[1]/span").text).to eq('Enable')
+end
 
 def get_package_session
   redis = Redis.new
@@ -110,4 +172,17 @@ def set_package_status(package_session, status, package_list = "")
   PackageSession.find(@session_index).session.update(package_session)
   wait_server_response
   package_session
+end
+
+def switch_package_on_off(target_package)
+  find(:xpath, target_package).click
+  find('button', :text => I18n.t("labels.submit")).click
+
+  redis = Redis.new
+  package_session_id = redis.GET( 'package:session:index' )
+
+  key = 'package:'+ package_session_id +':session'
+  redis.hset(key, 'status', 'updated')
+  wait_server_response
+  redis.hset(key, 'status', 'form')
 end

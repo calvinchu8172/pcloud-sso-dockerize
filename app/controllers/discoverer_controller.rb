@@ -4,6 +4,7 @@
 # 2. 輸入mac address 與 serial number 搜尋
 class DiscovererController < ApplicationController
   include PairingHelper
+
   before_action :authenticate_user!
   before_filter :check_device_available, :only => [:check]
 
@@ -21,7 +22,6 @@ class DiscovererController < ApplicationController
         :has_indicator_module => device.find_module_list.include?('indicator')
         })
     end
-
     service_logger.note({available_to_pair: raw_result})
 
     @result = raw_result
@@ -71,7 +71,7 @@ class DiscovererController < ApplicationController
 
     service_logger.note({device_in_lan: available_ip_list})
 
-    Device.where('id in (?)', available_ip_list).each do |device|
+    Device.includes(:product).where('id in (?)', available_ip_list).each do |device|
       pairing_session = device.pairing_session.all
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
       presence = device.presence?
@@ -88,7 +88,7 @@ class DiscovererController < ApplicationController
     indicator_session.session.bulk_set(session)
 
     job = {:job => 'led_indicator', :session_id => indicator_session.id}
-    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+    AwsService.send_message_to_queue(job)
 
     render :json => { "result" => "success" }, status: 200
   end

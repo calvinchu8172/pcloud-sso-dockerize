@@ -16,7 +16,7 @@ class Mods::UpnpController < ApplicationController
   before_action :service_list_to_json, :only => :update
   before_action :check_session_available, :only => :edit
 
-  # GET /{module_version}/upnp/show/:device_encoded_id
+  # GET /{module_version}/upnp/:device_encoded_id
   # 初始化 UPnP Session 並向Device 同步UPnP 設定資訊
   def show
     get_device_info
@@ -31,6 +31,7 @@ class Mods::UpnpController < ApplicationController
     service_logger.note({start_upnp: @session})
   end
 
+  #PUT /{moduel_version}/upnp/:device_encoded_id
   def update
     @upnp = UpnpSession.find(params[:id])
     settings = update_permit.merge({:status => :submit})
@@ -52,7 +53,7 @@ class Mods::UpnpController < ApplicationController
     unless session.empty?
       session['status'] = "cancel"
       @upnp.session.update(session)
-      push_to_queue_cancel("get_upnp_service", @upnp.id)
+      AwsService.push_to_queue_cancel("get_upnp_service", @upnp.id)
     end
     service_logger.note({cancel_upnp: session})
     redirect_to :authenticated_root
@@ -97,9 +98,7 @@ class Mods::UpnpController < ApplicationController
 
     def push_to_queue(job, module_version)
       data = {:job => job, :session_id => @upnp.id, :module_version => module_version}
-      sqs = AWS::SQS.new
-      queue = sqs.queues.named(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
+      AwsService.send_message_to_queue(data)
     end
 
     def deleted_extra_key

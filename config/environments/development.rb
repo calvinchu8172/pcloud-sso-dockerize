@@ -47,6 +47,11 @@ Rails.application.configure do
   #     :secret_access_key => 'vsys5QRBqdhzurgBfR8NgKP1zHojPcF+HYVITANy'
   #   }
   # }
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.add_footer = true
+  end
 end
 
 RailsAdmin.config do |config|

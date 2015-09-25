@@ -20,20 +20,6 @@ Bundler.require(*Rails.groups)
 # APP_CONFIG = Settings.oauth
 module Pcloud
   class Application < Rails::Application
-
-    # log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
-    # YamlConfigurator.decode_yaml( log4r_config['log4r_config'] )
-    # log_cfg = Log4r::YamlConfigurator
-    # log_cfg["ENV"] = Rails.env
-    # log_cfg["APPNAME"] = Rails.application.class.parent_name
-    # log_cfg.decode_yaml( log4r_config['log4r_config'] )
-
-    # disable standard Rails logging
-    # config.log_level = DEBUG
-    # config.logger = Log4r::Logger[Rails.env]
-    # config.logger = Log4r::Logger.new("Application Log")
-    # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -66,14 +52,14 @@ module Pcloud
     }
 
     config.active_record.raise_in_transactional_callbacks = true
+
     # assign log4r's logger as rails' logger.
-    log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
-    YamlConfigurator.decode_yaml( log4r_config[Settings.environments.name]['log4r_config'] )
-
-    config.logger = Log4r::Logger["application"]
-
-    ActiveRecord::Base.logger = Log4r::Logger["database"]
-
-    # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
+    unless Rails.env.development?
+      log4r_config= YAML.load_file(File.join(File.dirname(__FILE__),"log4r.yml"))
+      YamlConfigurator.decode_yaml( log4r_config[Rails.env]['log4r_config'] )
+      config.logger = Log4r::Logger["application"]
+      ActiveRecord::Base.logger = Log4r::Logger["database"]
+      # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
+    end
   end
 end

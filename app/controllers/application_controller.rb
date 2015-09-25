@@ -12,13 +12,12 @@ class ApplicationController < ActionController::Base
 
   after_action :clear_log_context
   before_filter :setup_log_context
-  after_action :store_location
 
   #called by last route matching unmatched routes.  Raises RoutingError which will be rescued from in the same way as other exceptions.
   def raise_not_found!
     setup_log_context
 
-    logger.warn 'routing error paht:' + request.path + ', id:' + request.session_options[:id].to_s
+    logger.warn "routing error path: #{request.path}, id: #{request.session_options[:id].to_s}"
     render :file => 'public/404.html', :status => :not_found, :layout => false
   end
 
@@ -33,7 +32,7 @@ class ApplicationController < ActionController::Base
       Log4r::MDC.put("ip", request.remote_ip)
       Log4r::MDC.put("user_id", current_user.id) if defined?(current_user) && !(current_user.blank?)
       Log4r::MDC.put("host", Socket.gethostname)
-      Log4r::MDC.put("environment", Settings.environments.name)
+      Log4r::MDC.put("environment", Rails.env)
     end
 
     def clear_log_context
@@ -78,18 +77,10 @@ class ApplicationController < ActionController::Base
 
     def device_paired_with?
       @device = Device.find_by_encoded_id(params[:id])
-      unless(@device.pairing.owner.first.user_id == current_user.id)
+      if @device.pairing.present? && @device.pairing.owner.first.user_id != current_user.id
         flash[:alert] = I18n.t('warnings.invalid_device')
         redirect_to :authenticated_root
       end
-    end
-
-    def push_to_queue_cancel(title, tag)
-      data = {job: "cancel", title: title, tag: tag}
-
-      sqs = AWS::SQS.new
-      queue = sqs.queues.named(Settings.environments.sqs.name)
-      queue.send_message(data.to_json)
     end
 
     def check_user_confirmation_expire

@@ -35,3 +35,7 @@ Then(/^XmppLast should record this device register sign in time$/) do
   username = Api::Device.first.xmpp_username
   expect(XmppLast.find_by(username: username).last_signin_at).to be_present
 end
+
+Then(/^the database should have no any association data with this device, including Invitation and AcceptedUser$/) do
+
+end

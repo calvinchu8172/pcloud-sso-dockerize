@@ -51,10 +51,10 @@
           </td>
           <td data-title="'Name'" style="max-width: 165px; word-wrap: break-word;">
             <%# add service link %>
-            <a ng-if="!isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
+            <a ng-if="service.status && !isFieldEmpty(service.path)" href="{{bind_url(service, service.path, service.port)}}" target="_blank" class="upnp service_list_name">
               {{service.service_name}}
             </a>
-            <span ng-if="isFieldEmpty(service.path)">
+            <span ng-if="(!service.status) || isFieldEmpty(service.path)">
               {{service.service_name}}
             </span>
           </td>
@@ -146,7 +146,7 @@
       // 3. 如果服務尚未啟用，且 port 號存在於已被使用的 port 號列表。
       if($scope.result == 'false'){
         if( (wan_port == '-1') ||
-            (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(wan_port) > -1) ){
+            (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(parseInt(wan_port)) > -1) ){
           $scope.service['wan_port'] = $scope.randomPort();
         }
       }
@@ -202,7 +202,7 @@
 
     // 重新計算port號
     $scope.randomPort = function(){
-      var rand_num = Math.floor((Math.random() * 65535) + 1025);
+      var rand_num = $scope.getRandomIntInclusive(65535, 1025);
       if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
         rand_num = $scope.randomPort();
       }
@@ -210,6 +210,10 @@
       return rand_num;
     }
 
+    // 產生區間亂數
+    $scope.getRandomIntInclusive = function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
   });
 
@@ -453,7 +457,8 @@
     }
 
     $scope.isFieldEmpty = function(name){
-      return (typeof(name) == 'undefined' || name == null || name.length == 0)
+      name = name.split(' ').join('');
+      return (typeof(name) == 'undefined' || name == null || name.length == 0);
     }
 
     $scope.enableBtn = function(){

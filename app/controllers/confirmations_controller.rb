@@ -33,7 +33,7 @@ class ConfirmationsController < Devise::ConfirmationsController
   protected
 
   def after_confirmation_path_for(resource_name, resource)
-    sign_in(resource) unless signed_in?(resource_name)
+    sign_out(current_user) if current_user
     hint_signup_path
   end
 

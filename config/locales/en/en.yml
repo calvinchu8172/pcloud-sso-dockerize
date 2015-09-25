@@ -19,6 +19,11 @@ en:
     or: 'or'
     expand_all: 'Expand All'
     collapse_all: 'Collapse All'
+    device_info:
+      raid_status: 'RAID status'
+      cpu_temperature: 'CPU temp'
+      fan_speed: 'Fan Speed'
+      available_capacity: 'Available capacity'
     settings:
       ddns:
         instruction: DDNS Setup
@@ -78,7 +83,7 @@ en:
     edit_profile: Edit Profile
     mac_address: MAC Address
     serial_number: Serial Number
-    find_nas: Find NAS
+    find_nas: Locate NAS
   titles:
     change_password: Change Password
     forgot_password: Reset Password
@@ -127,6 +132,9 @@ en:
         failure: 'Invitation accept failed'
         success_desc: "Congratulation! You joined the shared folder %{share_point} successfully."
         failure_desc: "The invite to %{share_point} is not available, please try it again later."
+        zyxel_drive: "ZyXEL Drive"
+        zyxel_drive_desc: "See and share your stuff from anywhere."
+        zyxel_drive_download_desc: "Download Now at"
       ddns:
         instruction: 'Please use:'
         instruction_2: 3 to 63 characters
@@ -144,7 +152,7 @@ en:
         exist: is exist. Please try another
       upnp:
         sync: Synchronizing UPnP settings...
-        success: UPnP settings have been successfully.
+        success: UPnP settings have been successfully updated.
         not_found: Device is not found
         cancel_instruction: Are you sure you want to cancel the UPnP setting flow?
         error_code:

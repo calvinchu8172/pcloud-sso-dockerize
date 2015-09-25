@@ -66,18 +66,25 @@ Feature: [PCP_004_05] Package Setup
     And the user want to click link without cancel
     Then it should not do anything on Package setup page
 
-  # Scenario: [PCP_004_05_08]
-  #   Disable child package when disable parent package
+  Scenario: [PCP_004_05_08]
+    Disable child package when disable parent package
 
+    When the package page will wait for connection with device
+    And the device was online the device will response package list
+    And user disable a package
   #   When user disable a package
   #   And this package is in require list of other package
   #   And child packages are enabled
-  #   Then child packages should become disable
+  #   Then the user should see package name list
+    Then child packages should become disable
 
-  # Scenario: [PCP_004_05_09]
-  #   Enable parent packages when enable child package
+  Scenario: [PCP_004_05_09]
+    Enable parent packages when enable child package
 
+    When the package page will wait for connection with device
+    And the device was online the device will response package list all turning off
+    And user enable a package
   #   When user enable a package
   #   And this package requires other packages
   #   And parent package is disabled
-  #   Then parent packages should become enable
+    Then parent packages should become enable

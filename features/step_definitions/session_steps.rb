@@ -33,8 +33,13 @@ module TestingHelper
     device.update_ip_list ip
     device.session['ip'] = ip
     device.session['xmpp_account'] = 'd' + device.mac_address.gsub(':', '-') + '-' + device.serial_number.gsub(/([^\w])/, '-')
-    device.module_version['upnp'] = 1
+    device.module_version['upnp'] = 2
+    device.module_version['package'] = 1
+    device.module_list << 'package'
+    device.module_list << 'upnp'
+    device.module_list << 'ddns'
     device
+    # binding.pry
   end
 
   def self.create_product_table
@@ -58,11 +63,22 @@ module TestingHelper
     signin_user(user)
     user
   end
-  def self.create_pairing(user_id)
-    device = create_device
+  def self.create_pairing(user_id, device = nil)
+    device ||= create_device
     pairing = FactoryGirl.create(:pairing, user_id: user_id, device_id: device.id)
-    pairing.save
     pairing
+  end
+
+  def self.create_invitation(user, device, share_point = "fake_share", permission = "RW", expire_count = 5)
+    cloud_id = user.encoded_id
+    invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
+    #加密
+    #require 'digest/hmac'
+    #Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1)
+    invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
+    invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device.id, :expire_count => expire_count )
+    invitation.save
+    invitation
   end
 
   def self.create_ddns(device, ip)
@@ -73,6 +89,18 @@ module TestingHelper
       hostname: "test_hostname_#{device.id}"
       )
   end
+
+  def self.create_app_signined_tokens_for_user(user_id)
+    auth_token = SecureRandom.urlsafe_base64(nil, false)
+    token = Redis::Value.new("user:#{user_id}:authentication_token:#{auth_token}")
+    token.value = (DateTime.now + Api::User::AUTHENTICATION_TOKEN_TTL).to_s
+
+    account_token = SecureRandom.urlsafe_base64(nil, false)
+    account_token_key = "user:#{user_id}:account_token:#{account_token}"
+    redis_token = Redis::HashKey.new(account_token_key)
+    redis_token.bulk_set('expire_at' => (DateTime.now + Api::User::ACCOUNT_TOKEN_TTL).to_s, 'authentication_token' => auth_token)
+  end
+
 end
 
 # Click submit button

@@ -1,3 +1,5 @@
+require "services/ddns_expire"
+
 namespace :ddns_expire do
 
   task :cronjob => :set_logger do
@@ -14,8 +16,13 @@ namespace :ddns_expire do
 
   end
 
-  task set_logger: :environment  do
-    @rake_log = Services::RakeLogger.log4r
+  task :set_logger => :environment  do
+    if Rails.env == "development"
+      # @rake_log = Logger.new(STDOUT)
+      @rake_log = Services::RakeLogger.rails_log # only for development environment. output to STDOUT and cron.log
+    else
+      @rake_log = Rails.logger # for staging and production, log will be saved in system log
+    end
   end
 
   desc "create fake data for test"
@@ -190,10 +197,11 @@ namespace :ddns_expire do
     log_array = Services::DdnsExpire.notice
 
     info = {
-      :event => "notice by email",
+      :event => "[DDNS_CRON] notice by email",
       :count => log_array.size,
       :result => log_array
     }.to_json
+
     @rake_log.info info
 
     # @rake_log.info "end noticing by email..."
@@ -205,10 +213,11 @@ namespace :ddns_expire do
     log_array = Services::DdnsExpire.delete
 
     info = {
-      :event => "delete ddns and route53",
+      :event => "[DDNS_CRON] delete ddns and route53",
       :count => log_array.size,
       :result => log_array
     }.to_json
+
     @rake_log.info info
 
     # @rake_log.info "end deleting ddns..."

@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
 
-
   def self.sign_up_omniauth(auth, current_user, agreement)
     identity = Identity.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize
 

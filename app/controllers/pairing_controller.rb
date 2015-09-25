@@ -13,6 +13,7 @@
 # 則前一次配對中的流程會被取消
 class PairingController < ApplicationController
   include PairingHelper
+
   before_action :authenticate_user!
   before_action :check_device_available, :only => [:index, :waiting]
   before_action :check_pairing_session, :only => [:check_connection, :reconnect]
@@ -54,7 +55,7 @@ class PairingController < ApplicationController
     pairing = device.pairing_session
     unless pairing.all.empty?
       pairing.bulk_set 'status' => "cancel"
-      push_to_queue_cancel("pairing", device.id)
+      AwsService.push_to_queue_cancel("pairing", device.id)
       flash[:notice] = I18n.t("warnings.settings.pairing.canceled")
     end
 
@@ -97,7 +98,8 @@ class PairingController < ApplicationController
 
     @pairing_session = job_params
 
-    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message('{"job":"pairing", "device_id":"' + @device.id.to_s + '"}')
+    job = {:job => 'pairing', :device_id => @device.id.to_s}
+    AwsService.send_message_to_queue(job)
     @device.pairing_session.bulk_set job_params
 
     @pairing_session[:expire_in] = Pairing::WAITING_PERIOD.to_i
