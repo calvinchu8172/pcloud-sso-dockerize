@@ -111,4 +111,6 @@ group :development, :test do
   gem 'pry'
   # gem 'i18n-docs', github: 'local-ch/i18n-docs'
   gem "letter_opener"
+  gem 'bullet'
 end
+

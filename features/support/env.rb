@@ -73,3 +73,15 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :transaction
+
+if Bullet.enable?
+  Before do
+    Bullet.start_request
+  end
+
+  After do
+    Bullet.perform_out_of_channel_notification if Bullet.notification?
+    Bullet.end_request
+  end
+end
+

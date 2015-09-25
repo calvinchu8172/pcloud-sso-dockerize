@@ -8,26 +8,26 @@
     <table class="zyxel_table_style3">
 
       <%# check paired devices %>
-      <% unless @pairing.empty? %>
+      <% unless @devices.empty? %>
 
         <%# show all paired devices %>
-        <% @pairing.each_with_index do |pairing, index| %>
+        <% @devices.each do |device| %>
           <tr>
             <td colspan="3" class="text-center table_btn_area">
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Package::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Ddns::MODULE_NAME} %>
-              <%= render partial: "module_link", locals: {device: pairing.device, module_name: Mods::Upnp::MODULE_NAME} %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + pairing.device.encoded_id, class: "zyxel_btn_style2" %>
+              <%= render partial: "module_link", locals: {device: device, module_name: Package::MODULE_NAME} %>
+              <%= render partial: "module_link", locals: {device: device, module_name: Ddns::MODULE_NAME} %>
+              <%= render partial: "module_link", locals: {device: device, module_name: Mods::Upnp::MODULE_NAME} %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + device.encoded_id, class: "zyxel_btn_style2" %>
             </td>
           </tr>
           <tr>
-            <th><%= image_tag pairing.device.product.asset.url(:medium) %></th>
+            <th><%= image_tag device.product.asset.url(:medium) %></th>
 
             <%# show ddns information %>
             <td>
               <table class="zyxel_table_style4" style="width:100%;">
               <%# get setting information %>
-                <% info_hash = get_info(pairing) %>
+                <% info_hash = get_info(device) %>
                 <tr style="position:relative">
                   <td class=<%= info_hash[:class_name] %> ><%= info_hash[:title].chomp('.') %></td>
                   <% if info_hash[:title].length > 50 %>
@@ -81,7 +81,7 @@
             <%# show ddns information - end %>
           </tr>
 
-          <tr ng-controller="DeviceController" ng-init="init('<%=pairing.device.encoded_id%>');">
+          <tr ng-controller="DeviceController" ng-init="init('<%=device.encoded_id%>');">
             <td colspan="3">
               <div ng-show="area.show" class="device_info_area">
                 <div ng-switch on="area.panel" class="text-center">

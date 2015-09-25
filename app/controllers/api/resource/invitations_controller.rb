@@ -44,7 +44,7 @@ class Api::Resource::InvitationsController < Api::Base
 
 	def show
 		result = Array.new
-		user = User.find_by_encoded_id(params[:cloud_id])
+    user = User.includes(invitations: [:device, :accepted_users]).find_by_encoded_id(params[:cloud_id])
 		return render_error_response "201" if user.blank?
 
 		user.invitations.each do |invitation|
