@@ -20,12 +20,6 @@ class Api::Resource::InvitationsController < Api::Base
 		pairing = Pairing.find_by_device_id( device.id )
 		return render_error_response "004" if pairing.user_id.to_s != user.id.to_s
 
-    invitation = Invitation.find_by(share_point: share_point)
-    if invitation && invitation.device == device
-      render_error_response "020" and return
-    end
-
-
 		#組成字串
 		invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
 		#加密
@@ -88,8 +82,7 @@ class Api::Resource::InvitationsController < Api::Base
 			"013" => "Invalid certificate.",
 			"014" => "Invalid signature.",
 			"201" => "Invalid cloud id or token.",
-      "019" => "Invalid sharename.",
-      "020" => "The sharename has existed."
+      "019" => "Invalid sharename."
 		}
 		render :json => { error_code: error_code, description: error_descriptions[error_code] }, status: 400
 	end
