@@ -18,6 +18,12 @@ Given(/^the user filled the invalid Hostname (.*?)$/) do |value|
 end
 
 Given(/^the user filled the exist Hostname$/) do
+  another_device = TestingHelper.create_device
+  Ddns.create(ip_address: "127.0.0.1", device_id: another_device.id, domain_id: Domain.first.id, hostname: "test")
+	submit_hostname('test')
+end
+
+Given(/^the user filled the reserved Hostname$/) do
 	submit_hostname('zyxel')
 end
 
@@ -69,6 +75,14 @@ end
 
 Then(/^it should not do anything on DDNS setup page$/) do
 	expect(page).to	have_content I18n.t("warnings.settings.ddns.sync")
+end
+
+When(/^the user visits DDNS setup page with un\-existed device id$/) do
+	visit "/ddns/lksjdlkfjhsdl"
+end
+
+Then(/^the user should see error message "(.*?)"$/) do |error_message|
+  expect(page).to have_content(error_message)
 end
 # -------------------------------------------------------------------
 # ----------------------------   code   -----------------------------

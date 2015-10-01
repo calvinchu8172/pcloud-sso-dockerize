@@ -38,3 +38,15 @@ Feature: [PCP_001_04] oauth
 		And the user visits profile page
 
 		Then the omniauth user should not see change password link
+
+	Scenario:  [PCP_001_04_02]
+	  Redirect to Terms of Use page when omniauth user have not agree terms of use, then check and click confirm
+	  And the user was not a member
+
+	  When the user click sign in with Facebook link and grant permission
+
+	  Then the user will redirect to Terms of Use page
+	  And the user should see oauth feature "Terms of Use" message
+
+    When the user click Terms of Use page
+    Then user will login and redirect to dashboard

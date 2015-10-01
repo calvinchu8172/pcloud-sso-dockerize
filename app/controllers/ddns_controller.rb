@@ -51,12 +51,6 @@ class DdnsController < ApplicationController
     end
   end
 
-  # Set error message and redirect to setting page
-  def failure
-    flash[:error] = I18n.t("warnings.settings.ddns.failure")
-    redirect_to action: 'show', id: CGI::escape(params[:id])
-  end
-
   # POST /ddns/check
   # Check full domain name
   def check
@@ -116,7 +110,7 @@ class DdnsController < ApplicationController
     end
 
     def error_action
-      flash[:error] = I18n.t("warnings.settings.ddns.not_found")
+      flash[:alert] = I18n.t("warnings.settings.ddns.not_found")
       redirect_to "/personal/index"
     end
     # Redirct to my device page when device is not paired for current user - end
