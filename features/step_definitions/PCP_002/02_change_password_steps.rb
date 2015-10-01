@@ -7,8 +7,9 @@ end
 
 # Go to forgot password page
 Given(/^the user has other 3 logined machines with account tokens and authentication tokens$/) do
+  api_user = Api::User.find(@user.id)
   3.times do |i|
-    TestingHelper.create_app_signined_tokens_for_user(@user.id)
+    api_user.create_token_set
   end
 end
 

@@ -39,21 +39,26 @@ class Api::User::Token < Api::User
 
   def renew_authentication_token(account_token)
     redis_token = get_account_token(account_token)
-    return false if redis_token.empty? or expired?(redis_token.get(:expire_at))
+    return false if redis_token.blank? or expired?(redis_token.get(:expire_at))
 
     revoke_authentication_token(redis_token.get(:authentication_token))
     authentication_token = create_authentication_token
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: authentication_token})
+    expire_time = DateTime.now + ACCOUNT_TOKEN_TTL
+    redis_token.bulk_set({expire_at: expire_time.to_s, authentication_token: authentication_token})
+    redis_token.expireat(expire_time.to_i)
     authentication_token
   end
 
+  # Create user's account token and authentication token
+  # @return [Hash] The token string of account_token and authentication_token
   def create_token
     @account_token = SecureRandom.urlsafe_base64(nil, false)
     @authentication_token = create_authentication_token
     key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token})
-
+    expire_time = DateTime.now + ACCOUNT_TOKEN_TTL
+    redis_token.bulk_set({expire_at: expire_time.to_s, authentication_token: @authentication_token})
+    redis_token.expireat(expire_time.to_i)
     update_app_info
     {account_token: @account_token, authentication_token: @authentication_token}
   end
