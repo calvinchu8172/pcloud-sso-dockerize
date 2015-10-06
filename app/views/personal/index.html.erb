@@ -83,77 +83,66 @@
 
           <tr ng-controller="DeviceController" ng-init="init('<%=device.encoded_id%>');">
             <td colspan="3">
-              <div ng-show="area.show" class="device_info_area">
-                <div ng-switch on="area.panel" class="text-center">
-                  <div ng-switch-when="none"></div>
-                  <div ng-switch-when="loading">
-                    <div><%= image_tag 'loading.gif' %></div>
-                  </div>
-                  <div ng-switch-when="done">
-
-                    <div class="row">
-                      <div class="col-xs-9 col-sm-3 col-sm-offset-2">
-                        <div class="zyxel-grid-style1 info-block small">
-                          <div class="icon raid-status" ng-class="{'warning': info.raidStatus != 'Healthy'}"></div>
-                          <div class="title text-left">RAID status</div>
-                          <div class="value text-left">{{info.raidStatus}}</div>
-                        </div>
-                      </div>
-                      <div class="col-xs-9 col-sm-3">
-                        <div class="zyxel-grid-style1 info-block small">
-                          <div class="icon cpu-temp" ng-class="{'warning': info.cpuTempWarning}"></div>
-                          <div class="title text-left">CPU temp</div>
-                          <div class="value text-left">{{info.cpuTemp.cel}}/{{info.cpuTemp.fah}}</div>
-                        </div>
-                      </div>
-                      <div class="col-xs-9 col-sm-3">
-                        <div class="zyxel-grid-style1 info-block small">
-                          <div class="icon fan-speed" ng-class="{'warning': info.fanSpeedWarning}"></div>
-                          <div class="title text-left">Fan speed</div>
-                          <div class="value text-left">{{info.fanSpeed}}</div>
-                        </div>
+              <div ng-show="area.show" ng-switch on="area.panel" class="device_info_area text-center">
+                <div ng-switch-when="none"></div>
+                <div ng-switch-when="loading"><div><%= image_tag 'loading.gif' %></div></div>
+                <div ng-switch-when="done">
+                  <div class="row ">
+                    <div class="col-xs-9 col-sm-3 zyxel-grid-style small col-sm-offset-2">
+                      <!-- <div class="zyxel-grid-head-s icon raid-status" ng-class="{'warning': info.raidStatus != 'Healthy'}"></div> -->
+                      <img src="raid_status_g.png" ng-class="{'warning': info.raidStatus != 'Healthy'}">
+                      <div class="zyxel-grid-body-s">
+                        <div class="title text-left"><%= I18n.t("labels.device_info.raid_status") %></div>
+                        <div class="value text-left">{{info.raidStatus}}</div>
                       </div>
                     </div>
+                    <div class="col-xs-9 col-sm-3 zyxel-grid-style small">
+                      <div class="zyxel-grid-head-s icon cpu-temp" ng-class="{'warning': info.cpuTempWarning}"></div>
+                      <div class="zyxel-grid-body-s">
+                        <div class="title text-left"><%= I18n.t("labels.device_info.cpu_temperature") %></div>
+                        <div class="value text-left">{{info.cpuTemp.cel}}/{{info.cpuTemp.fah}}</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-9 col-sm-3 zyxel-grid-style small">
+                      <div class="zyxel-grid-head-s icon fan-speed" ng-class="{'warning': info.fanSpeedWarning}"></div>
+                      <div class="zyxel-grid-body-s">
+                        <div class="title text-left"><%= I18n.t("labels.device_info.fan_speed") %></div>
+                        <div class="value text-left">{{info.fanSpeed}}</div>
+                      </div>
+                    </div>
+                  </div> <!-- end of <div class="row"> -->
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-sm-offset-2">
+                      <div class="zyxel-grid-style large">
 
-                    <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-sm-offset-2">
-                        <div class="zyxel-grid-style1 info-block large">
+                        <div class="total-available-capacity">
+                          <div class="icon available-capacity"></div>
+                          <div class="title text-left"><%= I18n.t("labels.device_info.available_capacity") %></div>
+                          <div class="value text-left">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
+                        </div>
 
-                          <div class="total-available-capacity">
-                            <div class="icon available-capacity"></div>
-                            <div class="title text-left">Available capacity</div>
-                            <div class="value text-left">{{info.capacity.available}} / {{info.capacity.total}}{{info.capacity.unit}}</div>
-                          </div>
-
-                          <div class="volumes-available-capacity">
-                            <div class="volume-row row" ng-repeat="volume in info.volumeList" ng-controller="VolumeController" ng-init="init(volume);">
-
-                              <div class="volumn-th col-xs-12">
-                                <div class="icon volume"></div>
-                                <div class="volume-name">{{volumeName}}</div>
-                              </div>
-
-                              <div class="volumn-td-1 col-sm-6 col-xs-9">
-                                <div class="total-size-bar" ng-class="{'warning': volumeWarning}">
-                                  <div class="used-size-bar" ng-class="{'warning': volumeWarning}" ng-style="capacityBarWidth" >{{volumeUsedCapacity}}{{volumeUnit}}</div>
-                                </div>
-                              </div>
-
-                              <div class="volumn-td-2 col-sm-2 col-xs-3">
-                                <div class="volume-size text-left" ng-click="changeUnit();">
-                                  {{volumeTotalCapacity}}{{volumeUnit}}
-                                </div>
-                              </div>
-
+                        <div class="volumes-available-capacity">
+                          <div class="volume-info row" ng-repeat="volume in info.volumeList" ng-controller="VolumeController" ng-init="init(volume);">
+                            <div class="volume-info-identity col-xs-12">
+                              <div class="icon volume"></div>
+                              <div class="volume-name">{{volumeName}}</div>
                             </div>
-                          </div>
+                            <div class="volume-info-size-bar col-sm-6 col-xs-9">
+                              <div class="volume-total" ng-class="{'warning': volumeWarning}">
+                                <div class="volume-used" ng-class="{'warning': volumeWarning}" ng-style="capacityBarWidth" >{{volumeUsedCapacity}}{{volumeUnit}}</div>
+                              </div>
+                            </div>
+                            <div class="volume-info-size-num col-sm-2 col-xs-3">
+                              <div class="volume-size text-left" ng-click="changeUnit();">
+                                {{volumeTotalCapacity}}{{volumeUnit}}
+                              </div>
+                            </div>
+                          </div> <!-- end of <div class="volume-info row"> -->
+                        </div> <!-- end of <div class="volumes-available-capacity"> -->
 
-                        </div>
                       </div>
                     </div>
-
-
-                  </div>
+                  </div> <!-- end of <div class="row"> -->
                 </div>
               </div>
               <div class="text-center device_info_btn_area">
