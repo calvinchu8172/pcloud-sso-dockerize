@@ -29,72 +29,8 @@
     .zyxel-grid-style {
       font-size: 14px;
       border-radius: 4px;
-      &.small {
-        .zyxel-grid-head-s { width: 30%; }
-        .zyxel-grid-body-s {
-          width: 70%;
-          display: inline-block;
-          .title {
-            color: $zyxel_color4;
-            padding: 10px 0;
-            word-wrap: break-word;
-          }
-          .value { color: $zyxel_color2; }
-        }
-      } // &.small
-      &.large {
-        .title {
-          width: 80%;
-          color: $zyxel_color4;
-          padding: 10px 0;
-        }
-        .value {
-          width: 80%;
-          color: $zyxel_color2;
-        }
-        .total-available-capacity {
-          height: 70px;
-        }
-        .volumes-available-capacity {
-          padding: 10px 0 0 0;
-          .volume-info {
-            padding: 0px 15px;
-            .volume-info-identity {
-              width: 130px;
-              // float: left;
-              padding: 0;
-              .volume-name {
-                border-radius: 4px;
-                padding: 5px;
-                // float: left;
-              }
-            } // .volume-info-identity
-            .volume-info-size-bar {
-              padding: 4px 10px;
-              .volume-total {
-                height:20x;
-                border: 2px solid $zyxel_color8;
-                &.warning { border: 2px solid $zyxel_color9; }
-                .volume-used {
-                  background-color: $zyxel_color8;
-                  height:20px;
-                  color: $zyxel_color2;;
-                  &.warning { background-color: $zyxel_color9; }
-                }
-              }
-            } // .volume-info-size-bar
-            .volume-info-size-num {
-              padding-left: 0;
-              .volume-size { padding: 5px; }
-            } // .volume-info-size-num
-          } // .volume-info
-        }
-      } // &.large
-
       .icon {
-        float: left;
-        width: 55px;
-        height: 70px;
+        float: left; width: 55px; height: 70px;
         &.raid-status {
           background: image-url('raid_status_g.png') center no-repeat;
           &.warning { background: image-url('raid_status_o.png') center no-repeat; }
@@ -116,9 +52,49 @@
           background: image-url('volume.png') center no-repeat;
         }
       }
+      &.small {
+        .zyxel-grid-head-s { width: 30%; }
+        .zyxel-grid-body-s {
+          width: 70%; display: inline-block;
+          .title { color: $zyxel_color4; padding: 10px 0; word-wrap: break-word; }
+          .value { color: $zyxel_color2; }
+        }
+      } // &.small
+      &.large {
+        .title { width: 80%; color: $zyxel_color4; padding: 10px 0; }
+        .value { width: 80%; color: $zyxel_color2; }
+        .total-available-capacity { height: 70px; }
+        .volumes-available-capacity {
+          padding: 10px 0 0 0;
+          .volume-info {
+            padding: 0px 15px;
 
+            .volume-info-identity {
+              width: 130px; padding: 0;
+              .volume-name { border-radius: 4px; padding: 5px; }
+            } // .volume-info-identity
 
+            .volume-info-size-bar {
+              padding: 4px 10px;
+              .volume-total {
+                width: 330px; height: 20px; border: 2px solid $zyxel_color8;
+                &.warning { border: 2px solid $zyxel_color9; }
 
+                .volume-used {
+                  background-color: $zyxel_color8; height: 18px; color: $zyxel_color2;;
+                  &.warning { background-color: $zyxel_color9; }
+                }
+              }
+            } // .volume-info-size-bar
+
+            .volume-info-size-num {
+              padding-left: 0;
+              .volume-size { padding: 5px; }
+            } // .volume-info-size-num
+
+          } // .volume-info
+        } // .volumes-available-capacity
+      } // &.large
     } // .zyxel-grid-style
   } // .device_info_area
 
