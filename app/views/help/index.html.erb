@@ -5,9 +5,257 @@
       <button id="collapse" href="#" ><%= I18n.t("labels.collapse_all")%></button>
     </div>
     <ul id="tabs">
-      <%= render partial: "help/locale/help" %>
-    </ul>
 
+      <!-- Content -->
+
+      <!-- Introduction -->
+      <li>
+        <h2><%= I18n.t("help.intro.title") %></h2>
+        <article>
+          <p><%= I18n.t("help.intro.step_1") %>
+            <br>
+            <%= I18n.t("help.intro.step_2") %>
+          </p>
+        </article>
+      </li>
+      <!-- Introduction End -->
+
+      <!-- Sign In -->
+      <li>
+        <h2><%= I18n.t("help.sign_in.title") %></h2>
+        <article>
+          <%= image_tag 'help/en/login.png' %>
+          <br>
+          <p>
+            <%= I18n.t("help.sign_in.step_1") %>
+          </p>
+          <%= image_tag 'help/en/facebook-1.png' %>
+          <p>
+            <%= I18n.t("help.sign_in.step_2") %>
+          </p>
+          <%= image_tag 'help/en/google_plus.png' %>
+          <p>
+            <%= I18n.t("help.sign_in.step_3") %>
+          </p>
+          <%= image_tag 'help/en/facebook-2.png' %>
+          <p>
+            <%= I18n.t("help.sign_in.step_4") %>
+          </p>          
+          <%= image_tag 'help/en/edit_profile_Social.png' %>
+        </article>
+      </li>
+      <!-- Sign In End -->
+
+      <!-- Register -->
+      <li>
+        <h2><%= I18n.t("help.register.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.register.step_1") %>
+          </p>
+          <%= image_tag 'help/en/sign_up.png' %>
+          <p>
+            <%= I18n.t("help.register.step_2") %>
+          </p>
+
+          <p>
+            <%= I18n.t("help.register.step_3") %>
+          </p>
+          <p>
+            <%= I18n.t("help.register.step_4") %>
+          </p>
+          <p>
+            <%= I18n.t("help.register.step_5") %>
+          </p>
+          <p>
+            <%= I18n.t("help.register.step_6") %>
+          </p>
+
+          <!-- delete -->
+          <%= image_tag 'help/en/e-mail_confirmation.png' %>
+          <p>Please check your email account’s inbox and click the link to confirm your account registration in the e-mail.</p>
+          <%= image_tag 'help/en/e-mail_confirmation-2.png' %>
+          <!-- delete -->
+
+          <p>
+            <%= I18n.t("help.register.step_7") %>
+          </p>
+          <%= image_tag 'help/en/e-mail_confirmation-3.png' %>
+
+        </article>
+      </li>
+      <!-- Register End -->
+
+      <!-- Forget Password -->
+      <li>
+        <h2><%= I18n.t("help.forget_pwd.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.forget_pwd.step_1") %>
+          </p>
+          <%= image_tag 'help/en/login.png' %>
+          <p>
+            <%= I18n.t("help.forget_pwd.step_2") %>
+          </p>
+          <p>
+            <%= I18n.t("help.forget_pwd.step_3") %>
+          </p>
+          <%= image_tag 'help/en/forgot_password-1.png' %>
+          <p>
+            <%= I18n.t("help.forget_pwd.step_4") %>
+          </p>
+          <%= image_tag 'help/en/forgot_password-3.png' %>
+          <p>
+            <%= I18n.t("help.forget_pwd.step_5") %>
+          </p>
+          <%= image_tag 'help/en/forgot_password-4.png' %>
+          <p>
+            <%= I18n.t("help.forget_pwd.step_6") %>
+          </p>
+          <%= image_tag 'help/en/forgot_password-2.png' %>
+        </article>
+      </li>
+      <!-- Forget Password End -->
+
+      <!-- Profile -->
+      <li>
+        <h2><%= I18n.t("help.profile.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.profile.step_1_1") %>
+            <i class="member_icon"></i>
+            <%= I18n.t("help.profile.step_1_2") %>
+          </p>
+          <%= image_tag 'help/en/edit_profile-0.png' %>
+          <p>
+            <%= I18n.t("help.profile.step_2") %>
+          </p>
+          <%= image_tag 'help/en/change_Password-1.png'%>
+          <p>
+            <%= I18n.t("help.profile.step_3") %>
+          </p>
+          <%= image_tag 'help/en/edit_profile.png'%>
+        </article>
+      </li>
+      <!-- Profile End -->
+
+      <!-- Pairing -->
+      <li>
+        <h2><%= I18n.t("help.pair.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.pair.step_1") %>
+          </p>
+          <%= image_tag 'help/en/search_device-1.png' %>
+          <p>
+            <%= I18n.t("help.pair.step_2") %>
+          </p>
+          <p>
+            <%= I18n.t("help.pair.step_3") %>
+          </p>
+          <%= image_tag 'help/en/manully_add.png' %>
+          <p>
+            <%= I18n.t("help.pair.step_4") %>
+          </p>
+          <%= image_tag 'help/en/manully_add-1.png' %>
+          <p>
+            <%= I18n.t("help.pair.step_5") %>
+          </p>
+          <%= image_tag 'help/en/manully_add-2.png' %>
+          <p>
+            <%= I18n.t("help.pair.step_6") %>
+          </p>
+          <%= image_tag 'help/en/manully_add-3.png' %>
+        </article>
+      </li>
+      <!-- Pairing End -->
+
+      <!-- DDNS -->
+      <li>
+        <h2><%= I18n.t("help.ddns.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.ddns.step_1") %>
+          </p>
+          <%= image_tag 'help/en/ddns_edit.png' %>
+        </article>
+      </li>
+      <!-- DDNS End -->
+
+      <!-- UPNP -->
+      <li>
+        <h2><%= I18n.t("help.upnp.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.upnp.step_1") %>
+          </p>
+          <%= image_tag 'help/en/my_device-1.png'%>
+          <p>
+            <%= I18n.t("help.upnp.step_2") %>
+          </p>
+          <%= image_tag 'help/en/upnp-1.png'%>
+          <p>
+            <%= I18n.t("help.upnp.step_3") %>
+          </p>
+          <p>
+            <%= I18n.t("help.upnp.step_4") %>
+          </p>
+          <%= image_tag 'help/en/upnp-2.png'%>
+          <p>
+            <%= I18n.t("help.upnp.step_5") %>
+          </p>
+          <p>
+            <%= I18n.t("help.upnp.step_6") %>
+          </p>
+          <p>
+            <%= I18n.t("help.upnp.step_7") %>
+          </p>
+          <%= image_tag 'help/en/my_device.png'%>
+          <p>
+            <%= I18n.t("help.upnp.step_8") %>
+          </p>
+          <p>
+            <%= I18n.t("help.upnp.step_9") %>
+          </p>
+          <p>
+            <%= I18n.t("help.upnp.step_10") %>
+          </p>
+        </article>
+      </li>
+      <!-- UPNP End -->
+
+      <!-- Package -->
+      <li>
+        <h2><%= I18n.t("help.package.title") %></h2>
+        <article>
+          <p>
+            <%= I18n.t("help.package.step_1") %>
+          </p>
+          <p>
+            <%= I18n.t("help.package.step_2") %>
+          </p>
+          <%= image_tag 'help/en/my_device-1.png'%>
+          <p>
+            <%= I18n.t("help.package.step_3") %>
+          </p>
+          <%= image_tag 'help/en/upnp-1.png'%>
+          <p>
+            <%= I18n.t("help.package.step_4") %>
+          </p>
+          <%= image_tag 'help/en/upnp-2.png'%>
+          <p>
+            <%= I18n.t("help.package.step_5") %>
+          </p>
+          <%= image_tag 'help/en/my_device.png'%>
+          <p>
+            <%= I18n.t("help.package.step_6") %>
+          </p>
+        </article>
+      </li>
+      <!-- Package End -->
+
+      <!-- Content End -->
+    </ul>
 </div>
 
 <script>
