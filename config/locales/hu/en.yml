@@ -4,6 +4,7 @@ hu:
     language: Nyelv
     forgot_password: Elfelejtett jelszó
     resend_confirmation: "Újraküldés"
+    unverified: Nincs megerősítve
     sign_in: Bejelentkezés
     sign_out: Kijelentkezés
     sign_up: Regisztráció
@@ -14,10 +15,19 @@ hu:
     retry: "Újra"
     submit: Elküldés
     confirm: Megerősítés
+    ok: OK
     or: vagy
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: "Összes kibontása"
+    collapse_all: "Összes elrejtése"
     settings:
+      invitation:
+        connecting: Csatlakozás...
+        success: Meghívás elfogadása sikeres
+        failure: Meghívás elfogadása sikertelen
+        success_desc: Gratulálunk! Ön sikeresen csatlakozott [megosztási pont neve]
+          megosztott mappához.
+        failure_desc: "[megosztási pont neve] meghívása nem elérhető, kérjük, próbálja
+          meg később."
       ddns:
         instruction: DDNS beállítás
         host_name: Gazda neve
@@ -32,37 +42,26 @@ hu:
         table_head3: Szolgáltatás neve
         table_head4: Leírás
         table_head5: Frissítés eredménye
+        table_head6: Szolgáltatásport mutatása
+        table_head7: Szolgáltatásport elrejtése
+        table_head8: Szolgáltatásport
         result:
           success: Sikeres
           failure: Sikertelen
           no_update: Nincs frissítés
       package:
-        instruction: Package Setup
-        table_head1: Enabled
-        table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
-        table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        instruction: Csomag beállítása
+        table_head1: Engedélyezve
+        table_head2: "Állapot"
+        table_head3: Csomag neve
+        table_head4: Kötelező
+        table_head5: Verzió
+        table_head6: Leírás
+        table_head7: Frissítés eredménye
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
-        description:
-          gallery: "Ez a webes alkalmazás biztosítja a NAS számára a képek hosztolásának lehetőségét. Használja a NAS adminisztrátor hitelesítési adatokat a bejelentkezéshez. Az adminisztrátor további fiókokat készíthet más felhasználóknak."
-          googledriveclient: "Így lehetővé válik a kétirányú szinkronizálás a NAS és a Google Drive közt."
-          squeezecenter: "Lehetővé teszi a NAS-hoz csatlakoztatott Logitech Squeezebox kezelését."
-          memopal: "A Memopal egy online biztonsági mentési és online tároló szoftver, amely valós időben archiválja fájljait egy távoli kiszolgálóra."
-          nfs: "Az NFS (Network File System - Hálózati Fájl Rendszer) egy fájlmegosztó protokol amit általában Unix-hoz hasonló rendszereken implementálnak."
-          nzbget: "Ez a csomag .nzb file-t tölt le a Usenet-ről. Alapértelemezett felhasználónév: nzbget jelzó: 1234"
-          php-mysql-phpmyadmin: "Ez az eszköz a MySQL weben történő kezelésére használatos. Üsse be a 'root'-ot felhasználónévként, az '1234'-et pedig jelszóként a bejelentkezéshez."
-          tftp: "A TFTP (Trivial File Transfer Protocol) egy internetes fájl átvitel protokoll, mely a 69-es portot használja. Hasonló az FTP-hez, de a TCP (Transmission Control Protocol) helyett az UDP-t (User Datagram Protocol) használja. Könyvtárak listázására, felhasználók azonosítására azonban nem képes."
-          transmission: "Ez a csomag egy másik P2P letöltő kliens, ami torrentet és magnet linkeket kezel."
-          wordpress: "Segítségével létrehozhat és kezelhet egy blogot. Használja a NAS adminisztrátor bejelentkezési adatokat a belépéshez. Az adminisztrátor további fiókokat készíthet más felhasználóknak."
-          myzyxelcloud-agent: "A myZyXELcloud az Ön választása alkalmazásainak távoli kezelésére, és a ZyXEL hálózat eszköz erőforrásainak elérésére a világon bárhonnan, ahol van internet elérés."
-          owncloud: "Így létrehozhatja és kezelheti saját felhőjét."
-          pyload: "A NAS kezelje az Ön letöltéseit, beleértve a one-click-hosting site-okról történőeket is."
+          success: Sikeres
+          failure: Sikertelen
+          no_update: Nincs frissítés
     pairing: Párosítás
     paired: Párosítva
     unpairing: Párosítás törlése
@@ -73,6 +72,12 @@ hu:
     edit_profile: Profil szerkesztése
     mac_address: MAC cím
     serial_number: Sorozatszám
+    find_nas: NAS helyének keresése
+    device_info:
+      raid_status: RAID állapot
+      cpu_temperature: CPU hőmérséklet
+      fan_speed: Ventilátor fordulatszám
+      available_capacity: Elérhető kapacitás
   titles:
     change_password: Jelszó módosítása
     forgot_password: Jelszó visszaállítása
@@ -82,6 +87,7 @@ hu:
     my_devices: Eszközök listája
     search_devices: Keresési eredmények
     settings:
+      package: Csomag beállítás
       ddns: DDNS beállítás
       upnp: UPnP beállítás
     pairing: Párosítás
@@ -143,3 +149,18 @@ hu:
           num_794: Port kiosztások listázása sikertelen
           num_793: UPnP port kiosztás frissítése sikertelen az adatbázisban
           num_792: Az eszköz nem található
+      package:
+        sync: Csomag beállítások szinkronizálása...
+        success: Csomag beállítások sikeresen frissítve.
+        failure: Időtúllépés. Próbálja újra.
+        not_found: Az eszköz nem található
+        cancel_instruction: Biztosan megszakítja a Csomag beállítás folyamatát?
+        error_code:
+          num_498: Nincs a botlistában
+          num_489: Csomaglista behívása nem lehetséges
+          num_488: Csomag engedélyezése nem lehetséges
+          num_487: Csomag letiltása nem lehetséges
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: Tekintse és ossza meg anyagait, bárhol is jár.
+        zyxel_drive_download_desc: 'Töltse le most:'

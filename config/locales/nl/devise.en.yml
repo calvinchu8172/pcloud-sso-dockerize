@@ -8,9 +8,17 @@ nl:
       send_paranoid_instructions: Als uw e-mailadres bestaat in onze database ontvangt
         u een e-mail met instructies over hoe u uw account te bevestigen in een paar
         minuten.
+      apply_account: Uw account is succesvol aangemaakt.
+      finish_step: Controleer uw email, om uw aanmelding te voltooien
+      click_step: en klik op de verrificatie link
+      confirm_before: Controleer uw emailadres vooraf
+      change_account: Verander naar een ander emailadres
+      resend: Verzend bevestigings email opnieuw
+      confirm_sent: De bevestigingsemail is verstuurd
+      same_email_address: Het nieuwe emailadres is het zelfde als het voorgaande emailadres
     failure:
       already_authenticated: U bent al aangemeld.
-      already_oauth_account: Already registered via Facebook or Google+
+      already_oauth_account: Eerder aangemeld via Facebook of Google+
       inactive: Uw account is nog niet geactiveerd.
       invalid: Ongeldig e-mailadres of wachtwoord.
       locked: Uw account is geblokkeerd.
@@ -79,8 +87,8 @@ nl:
       confirmation_period_expired: dient te worden bevestigd binnen %{period}, doe
         alstublieft een nieuwe aanvraag.
       expired: has expired, please request a new one
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: Gebruik uw bestaande socialnetwork account(Facebook of Google+)
+        om uw wachtwoorde te wijzigen.
       not_found: Niet gevonden
       not_locked: was niet geblokkeerd
       not_saved:

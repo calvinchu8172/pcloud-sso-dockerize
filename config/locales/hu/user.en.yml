@@ -9,7 +9,7 @@ hu:
       middle_name: Középső név
       last_name: Vezetéknév
       password: Jelszó
-      password_suggestion: 8-14 characters password length
+      password_suggestion: 'jelszó javaslat: „8-14 karakter hosszú jelszó”'
       password_confirmation: Jelszó megerősítése
       new_password: "Új jelszó"
       new_password_confirmation: "Új jelszó megerősítése"
