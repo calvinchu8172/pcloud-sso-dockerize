@@ -138,7 +138,7 @@ en:
         exist: is exist. Please try another
       upnp:
         sync: Synchronizing UPnP settings...
-        success: UPnP settings have been successfully.
+        success: UPnP settings have been successfully updated.
         not_found: Device is not found
         cancel_instruction: Are you sure you want to cancel the UPnP setting flow?
         error_code:
