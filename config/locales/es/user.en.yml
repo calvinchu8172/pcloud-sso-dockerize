@@ -9,7 +9,8 @@ es:
       middle_name: Segundo nombre
       last_name: Apellidos
       password: Contraseña
-      password_suggestion: 8-14 characters password length
+      password_suggestion: 'sugerencia de contraseña: ''longitud de contraseña de
+        8-14 caracteres'''
       password_confirmation: Confirmar contraseña
       new_password: Contraseña nueva
       new_password_confirmation: Confirmar contraseña nueva

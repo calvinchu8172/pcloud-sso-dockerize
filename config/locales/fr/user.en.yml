@@ -9,7 +9,8 @@ fr:
       middle_name: deuxième prénom
       last_name: Nom de famille
       password: Mot de passe
-      password_suggestion: 8-14 characters password length
+      password_suggestion: 'suggestion de mot de passe : ''mot de passe de 8 à 14
+        caractères de longueur'''
       password_confirmation: Confirmer le mot de passe
       new_password: Nouveau mot de passe
       new_password_confirmation: Confirmer le nouveau mot de passe

@@ -9,7 +9,7 @@ tr:
       middle_name: "İkinci Ad"
       last_name: Soyadı
       password: "Şifre"
-      password_suggestion: 8-14 characters password length
+      password_suggestion: "Şifre önerisi: '8-14 karakterlik şifre uzunluğu'"
       password_confirmation: "Şifreyi Onayla"
       new_password: Yeni Şifre
       new_password_confirmation: Yeni Şifreyi Onayla

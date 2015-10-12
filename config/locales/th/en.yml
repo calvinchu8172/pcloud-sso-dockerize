@@ -4,6 +4,7 @@ th:
     language: "ภาษา"
     forgot_password: "ลืมรหัสผ่าน"
     resend_confirmation: "ส่งการยืนยันใหม่อีกครั้ง"
+    unverified: "ยังไม่ได้รับการยืนยัน"
     sign_in: "ล็อกอิน"
     sign_out: "ล็อกเอ้าท์"
     sign_up: "สมัครลงทะเบียน"
@@ -14,10 +15,18 @@ th:
     retry: "ยกเลิก"
     submit: "ส่ง"
     confirm: "ยืนยัน"
+    ok: "ตกลง"
     or: "หรือ"
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: "ขยายทั้งหมด"
+    collapse_all: "ยุบทั้งหมด"
     settings:
+      invitation:
+        connecting: "กำลังเชื่อมต่อ..."
+        success: "ยอมรับการเชิญสำเร็จ"
+        failure: "ยอมรับการเชิญไม่สำเร็จ"
+        success_desc: "ขอแสดงความยินดีด้วย! คุณได้ร่วมใช้งานแชร์โฟลเดอร์ [share point
+          name] สำเร็จแล้ว"
+        failure_desc: "การเชิญขเอง [share point name] ยังไม่มี โปรดลองอีกครั้งในภายหลัง"
       ddns:
         instruction: DDNS ตั้งค่า
         host_name: "ชื่อโฮสต์"
@@ -32,37 +41,26 @@ th:
         table_head3: "ชื่อบริการ"
         table_head4: "รายละเอียด"
         table_head5: "ผลการอัปเดต"
+        table_head6: "แสดงพอร์ตบริการ"
+        table_head7: "ซ่อนพอร์ตบริการ"
+        table_head8: "พอร์ตบริการ"
         result:
           success: "สำเร็จ"
           failure: "ล้มเหลว"
           no_update: "ไม่มีการปรับปรุง"
       package:
-        instruction: Package Setup
-        table_head1: Enabled
-        table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
-        table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        instruction: "การติดตั้งแพ็คเกจ"
+        table_head1: "เปิดใช้งานแล้ว"
+        table_head2: "สถานะ"
+        table_head3: "ชื่อแพ็คเกจ"
+        table_head4: "ต้องการ"
+        table_head5: "เวอร์ชั่น"
+        table_head6: "รายละเอียด"
+        table_head7: "ผลการอัปเดต"
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
-        description:
-          gallery: "แอพพลิเคชั่นนี้อนุญาตให้เอ็นเอสเอเป็นคลังรูปภาพเพื่อสามารถสร้างชื่อผู้ใช้อื่น ต้องเข้าสู่ระบบด้วยชื่อผู้ดูแลระบบ"
-          googledriveclient: "ขั้นตอนนี้เป็นการให้บริการซิงโครไนซ์แบบ 2 ทางระหว่าง NAS และ Google Drive"
-          squeezecenter: "ให้คุณสามารถจัดการอุปกรณ์สควีซบ็อกของล็อกจิเทค ที่เชื่อมต่อกับเอ็นเอสเอได้"
-          memopal: "Memopal เป็นซอฟต์แวร์การสำรองข้อมูลและการจัดเก็บข้อมูลออนไลน์ที่เก็บถาวรไฟล์ของคุณในเวลาจริงกับเซิร์ฟเวอร์ระยะไกล"
-          nfs: "เอ็นเอฟเอสเป็น โปรโตคอลที่ใช้ในการแชร์ไฟล์สำหรับระบบยูนิกซ์หรือระบบที่มีลักษณะเดียวกันกับยูนิกซ์"
-          nzbget: "แพคเกจนี้สามารถดาวน์โหลดไฟล์.nzb ได้จาก Usenet ชื่อผู้ใช้: nzbget รหัสผ่าน: 1234"
-          php-mysql-phpmyadmin: "เครื่องมือนี้ใช้จัดการมายเอสคิวแอลผ่านหน้าเว็บ ระบุ 'root' เป็นชื่อผู้ใช้และ '1234' เป็นรหัสผ่านสำหรับล็อกอิน"
-          tftp: "ทีเอฟทีพีคือ โปรโตคอลการถ่ายโอนย้ายไฟล์ โดยใช้พอร์ต 69 ทีเอฟทีพีคล้ายกับ เอฟทีพี แต่ใช้ยูดีพี แทนทีซีพี และไม่สามารถแสดงรายการไดเรกทอรี รวมถึงไม่สามารถทำการตรวจสอบสิทธิของผู้ใช้ได้"
-          transmission: "แพคเกจนี้เป็นอีกหนึ่งโปรแกรมการดาวน์โหลด P2P ซึ่งรองรับ ทอเร็นท์และแม็กเนท"
-          wordpress: "อนุญาตการสร้างและจัดการบล็อกเพื่อสร้างชื่อผู้ใช้อื่น ต้องเข้าสู่ระบบด้วยชื่อผู้ดูแลระบบ"
-          myzyxelcloud-agent: "myZyXELcloud, โซลูชั่นของคุณสำหรับการจัดการแอประยะไกลและการเข้าสูเครือข่ายอุปกรณ์เสริมของ ZyXEL ของคุณอย่างปลอดภัย จากทุกหนแห่งที่มีการเชื่อมตจ่ออินเทอร์เนต!"
-          owncloud: "ขั้นตอนนี้จะช่วยให้คุณสามารถสร้างและจัดการคลาว์ส่วนตัวของคุณ ใช้"
-          pyload: "NAS สามารถจัดการ การดาวน์โหลดของคุณ รวมถึงจากไซต์วัน-คลิก-โฮสติ้ง"
+          success: "สำเร็จ"
+          failure: "ล้มเหลว"
+          no_update: "ไม่มีการปรับปรุง"
     pairing: "จับคู่"
     paired: "จับคู่แล้ว"
     unpairing: "เลิกจับคู่"
@@ -73,6 +71,12 @@ th:
     edit_profile: "แก้ไขโปรไฟล์"
     mac_address: MAC Address
     serial_number: "หมายเลขซีเรียล"
+    find_nas: "ระบุตำแหน่ง NAS"
+    device_info:
+      raid_status: "สถานะ RAID"
+      cpu_temperature: "อุณหภูมิ CPU"
+      fan_speed: "ความเร็วพัดลม"
+      available_capacity: "ความจุที่ใช้ได้"
   titles:
     change_password: "เปลี่ยนรหัสผ่าน"
     forgot_password: "รีเซ็ตรหัสผ่าน"
@@ -82,6 +86,7 @@ th:
     my_devices: "รายชื่ออุปกรณ์"
     search_devices: "ผลการค้นหา"
     settings:
+      package: "การตั้งค่าแพ็คเกจ"
       ddns: DDNS ตั้งค่า
       upnp: UPnP ตั้งค่า
     pairing: "จับคู่"
@@ -145,3 +150,18 @@ th:
           num_794: Failed to list all port mapping
           num_793: "ไม่สามารถอัปเดตพอร์ตแม้ปปิ้งใน DB ได้"
           num_792: "ไม่พบอุปกรณ์"
+      package:
+        sync: "การตั้งค่าการซิงค์แพ็คเกจ..."
+        success: "การตั้งค่าแพคเกจได้รับการอัปเดตแล้ว"
+        failure: "หมดเวลา โปรดลองอีกครั้ง"
+        not_found: "ไม่พบอุปกรณ์"
+        cancel_instruction: "คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการตั้งค่าแพ็คเกจ"
+        error_code:
+          num_498: "ไม่อยู่ในรายการบ็อท"
+          num_489: "ไม่สามารถได้รับรายชื่อแพคเกจ"
+          num_488: "ไม่สามารถเปิดใช้แพคเกจ"
+          num_487: "ไม่สามารถปิดการใช้งานแพ็กเกจ"
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: "คุณสามารถดูและแชร์สิ่งต่างๆ ได้จากทุกที่"
+        zyxel_drive_download_desc: "ดาวน์โหลดตอนนี้ที่"

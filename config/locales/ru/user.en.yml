@@ -9,7 +9,7 @@ ru:
       middle_name: "Отчество"
       last_name: "Фамилия"
       password: "Пароль"
-      password_suggestion: 8-14 characters password length
+      password_suggestion: "рекомендуемый пароль: 'пароль длиной 8-14 символов'"
       password_confirmation: "Подтвердить пароль"
       new_password: "Новый пароль"
       new_password_confirmation: "Подтвердить новый пароль"

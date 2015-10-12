@@ -4,6 +4,7 @@ cz:
     language: Jazyk
     forgot_password: Zapomněl jsem své heslo
     resend_confirmation: Znovu zaslat
+    unverified: Neověřeno
     sign_in: Přihlásit
     sign_out: Odhlásit
     sign_up: Registrovat
@@ -14,10 +15,19 @@ cz:
     retry: Opakovat
     submit: Odeslat
     confirm: Potvrdit
+    ok: OK
     or: nebo
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: Rozbalit vše
+    collapse_all: Sbalit vše
     settings:
+      invitation:
+        connecting: Připojování...
+        success: Přijetí pozvánky bylo úspěšné
+        failure: Přijetí pozvánky se nezdařilo
+        success_desc: Blahopřejeme! Úspěšně jste se přidali do sdílené složky [název
+          sdíleného bodu].
+        failure_desc: Pozvánka pro [název sdíleného bodu] není dostupná. Zkuste to
+          prosím později.
       ddns:
         instruction: Nastavení DDNS
         host_name: Název hostitele
@@ -32,37 +42,26 @@ cz:
         table_head3: Název služby
         table_head4: Popis
         table_head5: Výsledky aktualizace
+        table_head6: Zobrazit port služby
+        table_head7: Skrýt port služby
+        table_head8: Port služby
         result:
           success: "Úspěch"
           failure: Neúspěch
           no_update: "Žádná aktualizace"
       package:
-        instruction: Package Setup
-        table_head1: Enabled
-        table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
-        table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        instruction: Nastavení balíčku
+        table_head1: Povoleno
+        table_head2: Stav
+        table_head3: Název balíčku
+        table_head4: Požadovat
+        table_head5: Verze
+        table_head6: Popis
+        table_head7: Výsledky aktualizace
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
-        description:
-          gallery: 'This web-based application allows your NSA to host pictures. Use the administrator account of your NSA to log in to the Gallery console.'
-          googledriveclient: 'This offers service of 2-way synchronization between NAS and Google Drive.'
-          squeezecenter: "This enables you to manage a Logitech's Squeezebox device connected to the NAS."
-          memopal: 'Memopal is online backup and online storage software that archives your files in real-time to a remote server.'
-          nfs: 'NFS (Network File System) is a file-sharing protocol most commonly implemented on Unix-like systems.'
-          nzbget: 'This package downloads .nzb file from Usenet. Default username:nzbget password:1234'
-          php-mysql-phpmyadmin: "This tool can be used to manage MySQL through the web. Enter 'root' as the username and '1234' as the password to log in."
-          tftp: 'Trivial File Transfer Protocol (TFTP) is an Internet file transfer protocol that uses port number 69. It is similar to FTP but uses UDP (User Datagram Protocol) rather than TCP (Transmission Control Protocol). It cannot list directories nor authenticate users.'
-          transmission: 'This package is another P2P download client which supports torrent and magnet.'
-          wordpress: 'This allows you to create and manage a blog. Use the NAS administrator credentials to log in. The administrator can then create accounts for other users.'
-          myzyxelcloud-agent: 'myZyXELcloud, your solution for remote application management and securely access to your ZyXEL network devices accessory from anywhere that has an internet connection!'
-          owncloud: 'This allows you to create and manage your private cloud.'
-          pyload: 'Have the NAS manage your downloads including those from one-click-hosting sites.'
+          success: "Úspěch"
+          failure: Neúspěch
+          no_update: "Žádná aktualizace"
     pairing: Párování
     paired: Spárováno
     unpairing: Rušení párování
@@ -73,6 +72,12 @@ cz:
     edit_profile: Upravit profil
     mac_address: Adresa MAC
     serial_number: Sériové číslo
+    find_nas: Najít NAS
+    device_info:
+      raid_status: Stav pole RAID
+      cpu_temperature: Teplota procesoru
+      fan_speed: Otáčky ventilátoru
+      available_capacity: Dostupná kapacita
   titles:
     change_password: Změnit heslo
     forgot_password: Resetovat heslo
@@ -82,6 +87,7 @@ cz:
     my_devices: Seznam zařízení
     search_devices: Výsledky hledání
     settings:
+      package: Nastavení balíčku
       ddns: Nastavení DDNS
       upnp: Nastavení UPnP
     pairing: Párování
@@ -143,3 +149,18 @@ cz:
           num_794: Uvedení seznamu všech portů se nezdařilo
           num_793: Aktualizace mapování portů UPnP v databázi se nezdařila
           num_792: Zařízení nebylo nalezeno
+      package:
+        sync: Probíhá synchronizace nastavení balíčku...
+        success: Nastavení balíčku bylo úspěšně aktualizováno.
+        failure: "Časový limit vypršel. Opakujte akci znovu."
+        not_found: Zařízení nebylo nalezeno
+        cancel_instruction: Opravdu chcete zrušit nastavení balíčku?
+        error_code:
+          num_498: Není v seznamu BOT
+          num_489: Nelze načíst seznam balíčku
+          num_488: Nelze povolit balíček
+          num_487: Nelze zakázat balíček
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: Zobrazujte a sdílejte své informace odkudkoli.
+        zyxel_drive_download_desc: Stáhnout na
