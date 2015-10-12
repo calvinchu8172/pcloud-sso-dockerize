@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'hint/sent'
     get 'hint/agreement'
     get 'hint/confirm_sent'
+    # get 'help', to: 'help#index'
     get 'help', to: 'help#index'
 
     devise_for :users, :controllers => {
