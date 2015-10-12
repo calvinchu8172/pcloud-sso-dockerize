@@ -8,9 +8,18 @@ de:
       send_paranoid_instructions: Wenn Ihre E-Mail Adresse in unserer Datenbank existiert,
         erhalten Sie in einigen Minuten eine E-Mail mit weiteren Anweisungen dazu,
         wie Sie Ihren Account bestätigen können.
+      apply_account: Der Account wurde erfolgreich bestätigt.
+      finish_step: Um die Registrierung abzuschließen, überprüfen Sie bitte Ihre E-Mail´s.
+      click_step: und bestätigen Sie den Verifizierungs-Link
+      confirm_before: Bitte die E-Mail Adresse vorab bestätigen.
+      change_account: E-Mail Adresse ändern
+      resend: Bestätigungs E-Mail erneut senden
+      confirm_sent: Die Bestätigungs E-Mail wurde gesendet.
+      same_email_address: Die neue E-Mail Adresse ist die selbe wie Ihre alte E-Mail
+        Adresse.
     failure:
       already_authenticated: Sie sind bereits angemeldet.
-      already_oauth_account: Already registered via Facebook or Google+
+      already_oauth_account: Bereits über Facebook oder Google+ registriert.
       inactive: Ihr Account wurde noch nicht aktiviert.
       invalid: Falsche E-Mail Adresse oder Passwort.
       locked: Ihr Account ist gesperrt.
@@ -81,8 +90,8 @@ de:
       confirmation_period_expired: muss innerhalb von %{period}, bestätigt werden.
         Bitte fordern Sie einen neuen an
       expired: ist ausgelaufen, bitte fordern Sie einen neuen an
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: Bitte nutzen Sie Ihren bestehenden Social Network Account (Facebook
+        oder Google+) um das existierende Passwort zu ändern.
       not_found: nicht gefunden
       not_locked: wurde nicht gesperrt
       not_saved:

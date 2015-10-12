@@ -1,30 +1,33 @@
 ---
 en:
   labels:
-    language: "Language"
-    forgot_password: 'Forgot My Password'
-    resend_confirmation: 'Resend'
-    unverified: 'Unverified'
-    sign_in: 'Sign in'
-    sign_out: 'Log Out'
-    sign_up: 'Sign Up'
-    my_devices: 'My Devices'
-    search_devices: 'Search Devices'
-    research: 'Research'
-    cancel: 'Cancel'
-    retry: 'Retry'
-    submit: 'Submit'
-    confirm: 'Confirm'
-    ok: 'OK'
-    or: 'or'
-    expand_all: 'Expand All'
-    collapse_all: 'Collapse All'
-    device_info:
-      raid_status: 'RAID status'
-      cpu_temperature: 'CPU temp'
-      fan_speed: 'Fan Speed'
-      available_capacity: 'Available capacity'
+    language: Language
+    forgot_password: Forgot My Password
+    resend_confirmation: Resend
+    unverified: Unverified
+    sign_in: Sign in
+    sign_out: Log Out
+    sign_up: Sign Up
+    my_devices: My Devices
+    search_devices: Search Devices
+    research: Research
+    cancel: Cancel
+    retry: Retry
+    submit: Submit
+    confirm: Confirm
+    ok: OK
+    or: or
+    expand_all: Expand All
+    collapse_all: Collapse All
     settings:
+      invitation:
+        connecting: Connecting...
+        success: Invitation accept success
+        failure: Invitation accept failed
+        success_desc: Congratulation! You joined the shared folder [share point name]
+          successfully.
+        failure_desc: The invite to  [share point name] is not available, please try
+          it again later.
       ddns:
         instruction: DDNS Setup
         host_name: Host Name
@@ -33,15 +36,15 @@ en:
         last_update: Last Update
         firmware_version: Firmware Ver.
       upnp:
-        instruction: 'UPnP Setup'
-        table_head1: 'Enabled'
-        table_head2: 'Status'
-        table_head3: 'Service Name'
-        table_head4: 'Description'
-        table_head5: 'Update Result'
-        table_head6: 'Show Service Port'
-        table_head7: 'Hide Service Port'
-        table_head8: 'Service Port'
+        instruction: UPnP Setup
+        table_head1: Enabled
+        table_head2: Status
+        table_head3: Service Name
+        table_head4: Description
+        table_head5: Update Result
+        table_head6: Show Service Port
+        table_head7: Hide Service Port
+        table_head8: Service Port
         result:
           success: Success
           failure: Failure
@@ -59,20 +62,6 @@ en:
           success: Success
           failure: Failure
           no_update: No Update
-        description:
-          gallery: 'This web-based application allows your NSA to host pictures. Use the administrator account of your NSA to log in to the Gallery console.'
-          googledriveclient: 'This offers service of 2-way synchronization between NAS and Google Drive.'
-          squeezecenter: "This enables you to manage a Logitech's Squeezebox device connected to the NAS."
-          memopal: 'Memopal is online backup and online storage software that archives your files in real-time to a remote server.'
-          nfs: 'NFS (Network File System) is a file-sharing protocol most commonly implemented on Unix-like systems.'
-          nzbget: 'This package downloads .nzb file from Usenet. Default username:nzbget password:1234'
-          php-mysql-phpmyadmin: "This tool can be used to manage MySQL through the web. Enter 'root' as the username and '1234' as the password to log in."
-          tftp: 'Trivial File Transfer Protocol (TFTP) is an Internet file transfer protocol that uses port number 69. It is similar to FTP but uses UDP (User Datagram Protocol) rather than TCP (Transmission Control Protocol). It cannot list directories nor authenticate users.'
-          transmission: 'This package is another P2P download client which supports torrent and magnet.'
-          wordpress: 'This allows you to create and manage a blog. Use the NAS administrator credentials to log in. The administrator can then create accounts for other users.'
-          myzyxelcloud-agent: 'myZyXELcloud, your solution for remote application management and securely access to your ZyXEL network devices accessory from anywhere that has an internet connection!'
-          owncloud: 'This allows you to create and manage your private cloud.'
-          pyload: 'Have the NAS manage your downloads including those from one-click-hosting sites.'
     pairing: Pairing
     paired: Paired
     unpairing: Unpairing
@@ -84,6 +73,11 @@ en:
     mac_address: MAC Address
     serial_number: Serial Number
     find_nas: Locate NAS
+    device_info:
+      raid_status: RAID status
+      cpu_temperature: CPU temp
+      fan_speed: Fan Speed
+      available_capacity: Available capacity
   titles:
     change_password: Change Password
     forgot_password: Reset Password
@@ -93,13 +87,13 @@ en:
     my_devices: Device List
     search_devices: Search Results
     settings:
-      package: 'Package Setting'
-      ddns: 'DDNS Setting'
-      upnp: 'UPnP Setting'
-    pairing: 'Pairing'
-    unpairing: 'Unpairing'
-    terms: 'Terms of Use'
-    manually: 'Manually Add Device'
+      package: Package Setting
+      ddns: DDNS Setting
+      upnp: UPnP Setting
+    pairing: Pairing
+    unpairing: Unpairing
+    terms: Terms of Use
+    manually: Manually Add Device
   warnings:
     not_config: DDNS is not Configured
     no_pairing_device: No device have been paired.
@@ -118,23 +112,15 @@ en:
         cancel_instruction: Are you sure you want to cancel the Pairing flow?
         start:
           instruction: 'Pairing start, '
-          instruction_2: 'please click on paired button of device within'
-        connecting: 'Connecting...'
-        not_found: 'Device is not found'
-        pair_already: 'Device is paired already'
-        in_pairing: 'Device is pairing'
-        failure: 'Pairing timeout. Please try again.'
-        canceled: 'Pairing has been canceled'
-        success: 'Successfully paired. Please click "Confirm" button for following steps to continue setup.'
-      invitation:
-        connecting: 'Connecting...'
-        success: 'Invitation accept success'
-        failure: 'Invitation accept failed'
-        success_desc: "Congratulation! You joined the shared folder %{share_point} successfully."
-        failure_desc: "The invite to %{share_point} is not available, please try it again later."
-        zyxel_drive: "ZyXEL Drive"
-        zyxel_drive_desc: "See and share your stuff from anywhere."
-        zyxel_drive_download_desc: "Download Now at"
+          instruction_2: please click on paired button of device within
+        connecting: Connecting...
+        not_found: Device is not found
+        pair_already: Device is paired already
+        in_pairing: Device is pairing
+        failure: Pairing timeout. Please try again.
+        canceled: Pairing has been canceled
+        success: Successfully paired. Please click "Confirm" button for following
+          steps to continue setup.
       ddns:
         instruction: 'Please use:'
         instruction_2: 3 to 63 characters
@@ -165,13 +151,17 @@ en:
           num_793: Failed to update UPnP port mapping in DB
           num_792: Device is not found
       package:
-        sync: 'Synchronizing Package settings...'
-        success: 'Package settings have been successfully updated.'
-        failure: 'Timeout. Please try again.'
-        not_found: 'Device is not found'
-        cancel_instruction: 'Are you sure you want to cancel the Package setting flow?'
+        sync: Synchronizing Package settings...
+        success: Package settings have been successfully updated.
+        failure: Timeout. Please try again.
+        not_found: Device is not found
+        cancel_instruction: Are you sure you want to cancel the Package setting flow?
         error_code:
           num_498: Not in bot list
           num_489: Cannot get package list
           num_488: Cannot enable package
           num_487: Cannot disable package
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: See and share your stuff from anywhere.
+        zyxel_drive_download_desc: Download Now at

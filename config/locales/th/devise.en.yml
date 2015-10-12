@@ -6,6 +6,14 @@ th:
       send_instructions: "คุณจะได้รับอีเมลที่มีคำแนะนำเกี่ยวกับวิธีการยืนยันบัญชีของคุณภายในเวลาไม่กี่นาที"
       send_paranoid_instructions: "ถ้าที่อยู่อีเมลของคุณเป็นอีเมลที่มีอยู่ในฐานข้อมูลของเรา
         คุณจะได้รับอีเมลที่มีคำแนะนำเกี่ยวกับวิธีการยืนยันบัญชีของคุณภายในเวลาไม่กี่นาที"
+      apply_account: "คุณได้lมัครใช้บัญชีของคุณสำเร็จแล้ว"
+      finish_step: "เพื่อให้เสร็จสิ้นการลงทะเบียน โปรดตรวจสอบอีเมลของคุณ"
+      click_step: "และคลิกลิงก์การตรวจสอบ"
+      confirm_before: "โปรดยืนยันอีเมลก่อน"
+      change_account: "เปลี่ยนอีเมลอื่น"
+      resend: "ส่งอีเมลยืนยันซ้ำอีกครั้ง"
+      confirm_sent: "ส่งอีเมลยืนยันแล้ว"
+      same_email_address: "ที่อยู่อีเมลใหม่เหมือนกันกับที่เก่า"
     failure:
       already_authenticated: "คุณได้ลงชื่อเข้าใช้งานแล้ว"
       already_oauth_account: "ลงทะเบียนผ่าน Facebook หรือ Google+ แล้ว"
@@ -65,8 +73,8 @@ th:
       already_confirmed: "ได้รับการยืนยันแล้ว กรุณาลองลงชื่อเข้าใช้งานอีก"
       confirmation_period_expired: "ต้องมีการยืนยันภายใน %{period}, กรุณาขอใหม่"
       expired: "หมดอายุแล้ว กรุณาขอใหม่"
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: "โปรดใช้บัญชีของเครือข่ายทางสังคมที่มีอยู่ (Facebook หรือ Google+)
+        เพื่อเปลี่ยนรหัสผ่านของคุณ"
       not_found: "ไม่พบ"
       not_locked: "ไม่ถูกล็อค"
       not_saved:

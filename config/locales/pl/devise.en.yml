@@ -8,6 +8,14 @@ pl:
       send_paranoid_instructions: Jeżeli Twój e-mail istnieje w naszej bazie danych,
         za chwilę otrzymasz wiadomość e-mail z instrukcjami jak potwierdzić rejestrację
         konta.
+      apply_account: Zmiany na koncie wprowadzono z powodzeniem.
+      finish_step: Aby dokończyć rejestrację, proszę sprawdzić pocztę e-mail
+      click_step: i kliknąć łącze weryfikacyjne.
+      confirm_before: Proszę najpierw zweryfikować e-mail
+      change_account: Zmień na inny adres e-mail
+      resend: Wyślij e-mail weryfikacyjny ponownie
+      confirm_sent: Wiadomość weryfikacyjna została wysłana.
+      same_email_address: Nowy adres e-mail jest taki sam, jak stary.
     failure:
       already_authenticated: Użytkownik jest już zalogowany.
       already_oauth_account: Już zarejestrowano poprzez Facebook lub Google+
@@ -77,8 +85,8 @@ pl:
       confirmation_period_expired: wymaga potwierdzenia w ciągu %{period}, poproś
         o nowy
       expired: wygasł, poproś o nowy
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: Skorzystaj z istniejącego konta sieci społecznościowych (Facebook
+        lub Google+), aby zmienić bieżące hasło.
       not_found: nie znaleziono
       not_locked: nie zostało zablokowane
       not_saved:

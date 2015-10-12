@@ -15,6 +15,14 @@ ru:
         onaylanacağı konusunda talimatları içeren bir e-posta alacaksınız.\tЕсли ваш
         адрес эл.почты существует в нашей базе данных, через несколько минут вы получите
         электронное сообщение с указаниями о том, как подтвердить вашу учетную запись."
+      apply_account: "Ваша учетная запись успешно применена."
+      finish_step: "Для завершения регистрации проверьте эл.почту"
+      click_step: "и нажмите на ссылке подтверждения."
+      confirm_before: "Сначала подтвердите ваш адрес эл.почты"
+      change_account: "Выбрать другую эл.почту"
+      resend: "Оправить письмо подтверждения повторно"
+      confirm_sent: "Письмо с подтверждением отправлено."
+      same_email_address: "Новый адрес эл.почты совпадает со старым."
     failure:
       already_authenticated: "Вы вошли в систему."
       already_oauth_account: "Уже зарегистрировано через Facebook или Google+"
@@ -92,8 +100,8 @@ ru:
       confirmation_period_expired: "требуется подтвердить в течение %{period}; запросите
         новый"
       expired: "имеет истекший срок действия, запросите новый"
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: "Измените существующий пароль с использованием данных вашего
+        аккаунта в социальной сети (Facebook или Google+)."
       not_found: "не найдено"
       not_locked: "не заблокирован"
       not_saved:

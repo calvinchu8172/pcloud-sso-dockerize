@@ -4,6 +4,7 @@ es:
     language: Idioma
     forgot_password: He olvidado mi contraseña
     resend_confirmation: Reenviar
+    unverified: Sin verificar
     sign_in: Iniciar sesión
     sign_out: Cerrar sesión
     sign_up: Registrarse
@@ -14,10 +15,19 @@ es:
     retry: Reintentar
     submit: Enviar
     confirm: Confirmar
+    ok: Aceptar
     or: o
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: Desplegar todo
+    collapse_all: Contraer todo
     settings:
+      invitation:
+        connecting: Conectando...
+        success: Invitación aceptada con éxito
+        failure: Error al aceptar invitación
+        success_desc: "¡Enhorabuena! Se ha unido su carpeta compartida [nombre de
+          punto compartido] con éxito."
+        failure_desc: La invitación para [nombre de punto compartido] no está disponible,
+          vuelva a intentarlo más tarde.
       ddns:
         instruction: Configuración DDNS
         host_name: Nombre de host
@@ -32,37 +42,26 @@ es:
         table_head3: Nombre del servicio
         table_head4: Descripción
         table_head5: Resultado de actualizaciones
+        table_head6: Registrar puerto del servicio
+        table_head7: Ocultar puerto del servicio
+        table_head8: Puerto del servicio
         result:
           success: Con éxito
           failure: Error
           no_update: No hay actualizaciones
       package:
-        instruction: Package Setup
-        table_head1: Enabled
-        table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
-        table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        instruction: Configuración de paquetes
+        table_head1: Habilitado
+        table_head2: Estado
+        table_head3: Nombre del paquete
+        table_head4: Requiere
+        table_head5: Versión
+        table_head6: Descripción
+        table_head7: Resultado de actualizaciones
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
-        description:
-          gallery: "Esta aplicación basada en web permite a su NAS servir imágenes. Utilice la cuenta de administrador de su NAS para iniciar sesión en la consola Galería."
-          googledriveclient: "Esto ofrece un servicio de sincronización de doble sentido entre NAS y Google Drive."
-          squeezecenter: "Esto le permite administrar el dispositivo Squeezebox de Logitech conectado al NAS."
-          memopal: "Memopal es un software de copia de seguridad online que guarda sus archivos a tiempo real en un servidor remoto."
-          nfs: "NFS (Network File System) es un protocolo para compartir archivos implementado principalmente en sistemas como Unix."
-          nzbget: "Este paquete puede descargar el archivo .nzb de Usenet. Usuario: nzbget Contraseña :1234"
-          php-mysql-phpmyadmin: "Esta herramienta puede usarse para administrar MySQL a través de la web. Escriba 'root' como nombre de usuario y '1234' como contraseña para iniciar sesión."
-          tftp: "Trivial File Transfer Protocol (TFTP) es un protocolo de transferencia de archivos en Internet que utiliza el número de puerto 69. Es similar a FTP pero utiliza UDP (User Datagram Protocol) en lugar de TCP (Transmission Control Protocol). No puede listar los directorios ni autenticar usuarios."
-          transmission: "Este paquete es otro cliente P2P de descarga que apoya torrent y magnet"
-          wordpress: "Esto le permite crear y administrar un blog. Utilice las credenciales de administrador NAS para iniciar sesión."
-          myzyxelcloud-agent: "¡myZyXELcloud, su solución para la administración remota de aplicaciones y acceso seguro a los accesorios de los dispositivos de la red ZyXEL desde cualquier lugar con conexión a Internet!"
-          owncloud: "Esto le permite crear y administrar su nube privada."
-          pyload: "Deja que el NAS gestione tus descargas incluyendo las de sitios de descarga directa."
+          success: Con éxito
+          failure: Error
+          no_update: No hay actualizaciones
     pairing: Asociación
     paired: Asociado
     unpairing: Quitar asociación
@@ -73,6 +72,12 @@ es:
     edit_profile: Editar perfil
     mac_address: Dirección MAC
     serial_number: Número de serie
+    find_nas: Localizar NAS
+    device_info:
+      raid_status: Estado de la RAID
+      cpu_temperature: Temp de CPU
+      fan_speed: Velocidad del ventilador
+      available_capacity: Capacidad disponible
   titles:
     change_password: Cambiar contraseña
     forgot_password: Restaurar contraseña
@@ -82,6 +87,7 @@ es:
     my_devices: Lista de dispositivos
     search_devices: Resultados de búsqueda
     settings:
+      package: Configuración de paquete
       ddns: Configuración de DDNS
       upnp: Configuración de UPnP
     pairing: Asociación
@@ -147,3 +153,19 @@ es:
           num_794: Error al listar todo el mapeo de puertos
           num_793: Error al actualizar el mapeo de puertos UPnP en DB
           num_792: El dispositivo no se ha encontrado
+      package:
+        sync: Sincronizando configuración paquetes...
+        success: La configuración de paquetes se ha actualizado con éxito.
+        failure: Tiempo límite. Por favor, vuelva a intentarlo.
+        not_found: El dispositivo no se ha encontrado
+        cancel_instruction: "¿Seguro que desea cancelar la transmisión de la configuración
+          de paquetes?"
+        error_code:
+          num_498: No en la lista bot
+          num_489: No se puede obtener lista de paquetes
+          num_488: No se puede habilitar paquete
+          num_487: No se puede deshabilitar paquete
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: Consulte y comparta sus datos desde cualquier sitio.
+        zyxel_drive_download_desc: Descargar ahora en
