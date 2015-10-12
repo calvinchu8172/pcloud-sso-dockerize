@@ -24,10 +24,8 @@ tr:
         connecting: Bağlanıyor...
         success: Davet kabul edildi
         failure: Davet kabul edilmedi
-        success_desc: Tebrikler! Paylaşılan klasöre [paylaşım noktası adı] başarıyla
-          katıldınız.
-        failure_desc: "[Paylaşım noktası adı] daveti mevcut değil; lütfen daha sonra
-          tekrar deneyin."
+        success_desc: "Tebrikler! Paylaşılan klasöre %{share_point} başarıyla katıldınız."
+        failure_desc: "%{share_point} daveti mevcut değil; lütfen daha sonra tekrar deneyin."
       ddns:
         instruction: DDNS Ayarı
         host_name: Sunucu Adı
@@ -119,8 +117,7 @@ tr:
         in_pairing: Cihaz eşleştiriliyor
         failure: Eşleştirme zaman aşımı. Lütfen tekrar deneyin.
         canceled: Eşleştirme iptal edildi
-        success: Başarıyla eşleştirildi. Lütfen DDNS ve UPnP ayarlamak için "Onayla"
-          düğmesine tıklayın.
+        success: Başarıyla eşleştirildi. Lütfen DDNS ve UPnP ayarlamak için "Onayla" düğmesine tıklayın.
       ddns:
         instruction: 'Lütfen kullanın:'
         instruction_2: 3 ila 63 karakter
@@ -132,10 +129,8 @@ tr:
         success: DDNS ayarları başarıyla eşitlendi.
         failure: Sunucu meşgul; lütfen daha sonra tekrar deneyin
         not_found: Cihaz bulunamadı
-        too_short: Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka
-          bir tane deneyin.
-        too_long: Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane
-          deneyin.
+        too_short: Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka bir tane deneyin.
+        too_long: Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane deneyin.
         exist: mevcut. Lütfen başka bir tane deneyin.
       upnp:
         sync: UPnP  ayarları eşitleniyor...

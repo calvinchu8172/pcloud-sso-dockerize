@@ -24,10 +24,8 @@ hu:
         connecting: Csatlakozás...
         success: Meghívás elfogadása sikeres
         failure: Meghívás elfogadása sikertelen
-        success_desc: Gratulálunk! Ön sikeresen csatlakozott [megosztási pont neve]
-          megosztott mappához.
-        failure_desc: "[megosztási pont neve] meghívása nem elérhető, kérjük, próbálja
-          meg később."
+        success_desc: "Gratulálunk! Ön sikeresen csatlakozott %{share_point} megosztott mappához."
+        failure_desc: "%{share_point} meghívása nem elérhető, kérjük, próbálja meg később."
       ddns:
         instruction: DDNS beállítás
         host_name: Gazda neve
@@ -119,8 +117,7 @@ hu:
         in_pairing: Az eszköz párosítása
         failure: Párosítás időtúllépés. Próbálja újra.
         canceled: A párosítást megszakították
-        success: Sikeres párosítás. Kattintson a "Megerősítés" gombra a DDNS és UPnP
-          beállításához.
+        success: Sikeres párosítás. Kattintson a "Megerősítés" gombra a DDNS és UPnP beállításához.
       ddns:
         instruction: 'Kérem, ezt használja:'
         instruction_2: 3 - 63 karakter

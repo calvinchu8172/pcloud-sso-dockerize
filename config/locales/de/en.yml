@@ -24,10 +24,8 @@ de:
         connecting: Verbinden...
         success: Einladung annehmen erfolgreich
         failure: Einladung annehmen fehlgeschlagen
-        success_desc: Herlichen Glückwunsch! Sie haben den geteilten Ordner [Ordner
-          Name] erfolgreich aufgerufen.
-        failure_desc: Die Einladung zum [Ordner Name] ist nicht verfügbar, bitte versuchen
-          Sie es später noch einmal.
+        success_desc: "Herlichen Glückwunsch! Sie haben den geteilten Ordner %{share_point} erfolgreich aufgerufen."
+        failure_desc: "Die Einladung zum %{share_point} ist nicht verfügbar, bitte versuchen Sie es später noch einmal."
       ddns:
         instruction: DDNS Einrichtung
         host_name: Host Name
@@ -109,20 +107,17 @@ de:
         success: Gerät erfolgreich getrennt.
       pairing:
         instruction: Sind Sie sicher das Sie dieses Gerät verbinden möchten?
-        cancel_instruction: Sind Sie sicher, dass Sie den Verbindungsversuch abbrechen
-          möchten?
+        cancel_instruction: Sind Sie sicher, dass Sie den Verbindungsversuch abbrechen möchten?
         start:
           instruction: 'Verbinden gestartet, '
-          instruction_2: bitte klicken Sie auf den Verbinden Button im Gerät innerhalb
-            von
+          instruction_2: bitte klicken Sie auf den Verbinden Button im Gerät innerhalb von
         connecting: Verbinden...
         not_found: Gerät wurde nicht gefunden
         pair_already: Gerät wurde bereits mit einem Account verbunden
         in_pairing: Gerät wird verbunden
         failure: Verbindungs Timeout. Bitte erneut versuchen.
         canceled: Verbinden wurde abgebrochen
-        success: Erfolgreich verbunden. Bitte klicken Sie den "Bestätigen" Button
-          um die DDNS und UPnP Einrichtung abzuschließen.
+        success: Erfolgreich verbunden. Bitte klicken Sie den "Bestätigen" Button um die DDNS und UPnP Einrichtung abzuschließen.
       ddns:
         instruction: 'Bitte nutzen Sie:'
         instruction_2: 3-63 Zeichen
@@ -134,17 +129,14 @@ de:
         success: DDNS Einstellungen wurden erfolgreich synchronisiert.
         failure: Server is busy, please try it again later
         not_found: Gerät nicht gefunden
-        too_short: Ihr Host Name muss mindestens 3 Zeichen lang sein. Bitte nutzen
-          Sie einen anderen.
-        too_long: Ihr Host Name darf maximal 63 Zeichen lang sein. Bitte nutzen Sie
-          einen anderen.
+        too_short: Ihr Host Name muss mindestens 3 Zeichen lang sein. Bitte nutzen Sie einen anderen.
+        too_long: Ihr Host Name darf maximal 63 Zeichen lang sein. Bitte nutzen Sie einen anderen.
         exist: existiert bereits. Bitte nutzen Sie einen anderen.
       upnp:
         sync: UPnP Einstellungen synchronisieren...
         success: UPnP Einstellungen wurden erfolgreich synchronisiert.
         not_found: Gerät nicht gefunden
-        cancel_instruction: Sind Sie sicher, dass die UPnP Einstellungen abgebrochen
-          werden sollen?
+        cancel_instruction: Sind Sie sicher, dass die UPnP Einstellungen abgebrochen werden sollen?
         error_code:
           num_799: Geräte Gateway kann nicht gefunden warden
           num_798: IP-Adresse konnte nicht bezogen warden

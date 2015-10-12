@@ -24,10 +24,8 @@ fr:
         connecting: Connexion...
         success: Acceptation d'invitation réussie
         failure: Echec d'acceptation d'invitation
-        success_desc: Félicitations ! Vous avez rejoint le dossier partagé [partager
-          le nom du point] avec succès.
-        failure_desc: L'invitation à [partager le nom du point] n'est pas disponible,
-          réessayez plus tard.
+        success_desc: "Félicitations ! Vous avez rejoint le dossier partagé %{share_point} avec succès."
+        failure_desc: "L'invitation à %{share_point} n'est pas disponible, réessayez plus tard."
       ddns:
         instruction: Installation DDNS
         host_name: Nom de l'hôte
@@ -105,25 +103,21 @@ fr:
     sent_email: L'e-mail a été envoyé
     settings:
       unpairing:
-        instruction: "Êtes-vous sûr de vouloir supprimer l'association avec cet appareil
-          ?"
+        instruction: "Êtes-vous sûr de vouloir supprimer l'association avec cet appareil ?"
         success: L'appareil a été dissocié avec succès.
       pairing:
         instruction: "Êtes-vous sûr de vouloir associer avec cet appareil ?"
-        cancel_instruction: "Êtes-vous sûr de vouloir annuler le flux d'association
-          ?"
+        cancel_instruction: "Êtes-vous sûr de vouloir annuler le flux d'association ?"
         start:
           instruction: 'Démarrer l''association, '
-          instruction_2: Veuillez cliquer sur le bouton associé de l'appareil en moins
-            de
+          instruction_2: Veuillez cliquer sur le bouton associé de l'appareil en moins de
         connecting: Connexion...
         not_found: Appareil introuvable
         pair_already: L'appareil est déjà associé
         in_pairing: L'appareil est en cours d'association
         failure: Délai d'association. Réessayez.
         canceled: L'association a été annulée
-        success: Association réussie. Veuillez cliquer sur le bouton "Confirmer" pour
-          installer DDNS et UPnP.
+        success: Association réussie. Veuillez cliquer sur le bouton "Confirmer" pour installer DDNS et UPnP.
       ddns:
         instruction: 'Veuillez utiliser :'
         instruction_2: 3 à 63 caractères
@@ -135,17 +129,14 @@ fr:
         success: Les paramètres DDNS ont été mis à jour avec succès.
         failure: Le serveur est occupé, veuillez réessayer plus tard
         not_found: Appareil introuvable
-        too_short: Votre nom d'hôte doit comporter au moins trois caractères. Veuillez
-          en essayer un autre.
-        too_long: Votre nom d'hôte doit comporter moins de 63 caractères. Veuillez
-          en essayer un autre.
+        too_short: Votre nom d'hôte doit comporter au moins trois caractères. Veuillez en essayer un autre.
+        too_long: Votre nom d'hôte doit comporter moins de 63 caractères. Veuillez en essayer un autre.
         exist: existe Veuillez en essayer un autre.
       upnp:
         sync: Synchronisation des paramètres UPnP ...
         success: Les paramètres UPnP ont été mis à jour avec succès.
         not_found: Appareil introuvable
-        cancel_instruction: "Êtes-vous sûr de vouloir annuler le flux de configuration
-          UPnP ?"
+        cancel_instruction: "Êtes-vous sûr de vouloir annuler le flux de configuration UPnP ?"
         error_code:
           num_799: Passerelle de l'appareil introuvable
           num_798: Impossible d'obtenir l'adresse IP de l'appareil
@@ -160,8 +151,7 @@ fr:
         success: Les paramètres du paquet ont été mis à jour avec succès.
         failure: Temporisation. Réessayez.
         not_found: Appareil introuvable
-        cancel_instruction: "Êtes-vous sûr de vouloir annuler le flux de Configuration
-          du paquet ?"
+        cancel_instruction: "Êtes-vous sûr de vouloir annuler le flux de Configuration du paquet ?"
         error_code:
           num_498: Pas dans la liste de bots
           num_489: Impossible d'obtenir la liste des paquets

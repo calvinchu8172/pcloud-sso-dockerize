@@ -24,8 +24,8 @@ zh-TW:
         connecting: "連線中..."
         success: "接受成功"
         failure: "接受失敗"
-        success_desc: "恭喜！你加入了共享文件夾[共享點名稱]成功。"
-        failure_desc: "該邀請[共享點名稱]不可用，請稍後再試一次。"
+        success_desc: "恭喜！你加入了共享文件夾 %{share_point} 成功。"
+        failure_desc: "該邀請 %{share_point} 不可用，請稍後再試一次。"
       ddns:
         instruction: DDNS設定
         host_name: Host Name

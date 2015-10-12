@@ -4,8 +4,7 @@ pl:
     language: Język
     forgot_password: Zapomniane hasło
     resend_confirmation: Wyślij ponownie
-    unverified: Skorzystaj z istniejącego konta sieci społecznościowych (Facebook
-      lub Google+), aby zmienić bieżące hasło.
+    unverified: Niezweryfikowany
     sign_in: Zaloguj
     sign_out: Wyloguj
     sign_up: Zarejestruj
@@ -25,10 +24,8 @@ pl:
         connecting: "Łączenie..."
         success: Akceptacja zaproszenia zakończona powodzeniem
         failure: Akceptacja zaproszenia nieudana
-        success_desc: Gratulacje! Dołączenie do współdzielonego folderu [nazwa punktu
-          współdzielenia] zakończyło się powodzeniem.
-        failure_desc: Zaproszenie do [nazwa punktu współdzielenia] jest niedostępne,
-          spróbuj ponownie.
+        success_desc: "Gratulacje! Dołączenie do współdzielonego folderu %{share_point} zakończyło się powodzeniem."
+        failure_desc: "Zaproszenie do %{share_point} jest niedostępne, spróbuj ponownie."
       ddns:
         instruction: Konfiguracja DDNS
         host_name: Nazwa hosta
@@ -120,8 +117,7 @@ pl:
         in_pairing: Urządzenie jest parowane
         failure: Limit czasu parowania. Spróbuj ponownie.
         canceled: Parowanie anulowane
-        success: Parowanie zakończone powodzeniem. Kliknij przycisk „Potwierdź”, aby
-          skonfigurować DDNS oraz UPnP.
+        success: Parowanie zakończone powodzeniem. Kliknij przycisk „Potwierdź”, aby skonfigurować DDNS oraz UPnP.
       ddns:
         instruction: 'Wykorzystaj:'
         instruction_2: od 3 do 63 znaków
