@@ -60,6 +60,20 @@ es:
           success: Con éxito
           failure: Error
           no_update: No hay actualizaciones
+        description:
+          gallery: 'Esta aplicación basada en web permite a su NAS servir imágenes. Utilice la cuenta de administrador de su NAS para iniciar sesión en la consola Galería.'
+          googledriveclient: 'Esto ofrece un servicio de sincronización de doble sentido entre NAS y Google Drive.'
+          squeezecenter: 'Esto le permite administrar el dispositivo Squeezebox de Logitech conectado al NAS.'
+          memopal: 'Memopal es un software de copia de seguridad online que guarda sus archivos a tiempo real en un servidor remoto.'
+          nfs: 'NFS (Network File System) es un protocolo para compartir archivos implementado principalmente en sistemas como Unix.'
+          nzbget: 'Este paquete puede descargar el archivo .nzb de Usenet. Usuario: nzbget Contraseña :1234'
+          php-mysql-phpmyadmin: 'Esta herramienta puede usarse para administrar MySQL a través de la web. Escriba ''root'' como nombre de usuario y ''1234'' como contraseña para iniciar sesión.'
+          tftp: 'Trivial File Transfer Protocol (TFTP) es un protocolo de transferencia de archivos en Internet que utiliza el número de puerto 69. Es similar a FTP pero utiliza UDP (User Datagram Protocol) en lugar de TCP (Transmission Control Protocol). No puede listar los directorios ni autenticar usuarios.'
+          transmission: 'Este paquete es otro cliente P2P de descarga que apoya torrent y magnet'
+          wordpress: 'Esto le permite crear y administrar un blog. Utilice las credenciales de administrador NAS para iniciar sesión.'
+          myzyxelcloud-agent: "¡myZyXELcloud, su solución para la administración remota de aplicaciones y acceso seguro a los accesorios de los dispositivos de la red ZyXEL desde cualquier lugar con conexión a Internet!"
+          owncloud: 'Esto le permite crear y administrar su nube privada.'
+          pyload: 'Deja que el NAS gestione tus descargas incluyendo las de sitios de descarga directa.'
     pairing: Asociación
     paired: Asociado
     unpairing: Quitar asociación

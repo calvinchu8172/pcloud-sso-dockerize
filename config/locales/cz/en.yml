@@ -60,6 +60,20 @@ cz:
           success: "Úspěch"
           failure: Neúspěch
           no_update: "Žádná aktualizace"
+        description:
+          gallery: 'Tato webová aplikace umožňuje zařízení NAS fungovat jako hostitelské zařízení, kde se ukládají fotografie. Přihlaste se pomocí administrátorského účtu a vytvořte účty pro další uživatele.'
+          googledriveclient: 'To nabízí službu dvoucestné synchronizace mezi serverem NAS a službou Google Drive.'
+          squeezecenter: 'Slouží pro správu zařízení Logitech''s Squeezebox připojeného k NAS.        '
+          memopal: 'Memopal je software pro online zálohování a ukládání dat, který archivuje vaše soubory v reálném čase na vzdálený server.'
+          nfs: 'NFS (Network File System) je protokol pro sdílení souborů, který je obvykle implementován na systémech na Unixové bázi.'
+          nzbget: 'Tento balíček stáhne  soubor *.nzb ze server Usenet. Tovární Jmého:nzbget a Heslo:1234'
+          php-mysql-phpmyadmin: 'Tento nástroj se používá ke správě MySQL přes web. Přihlaste se uživatelským jménem ''root'' a heslem ''1234''.'
+          tftp: 'Trivial File Transfer Protocol (TFTP) je protokol pro přenos souborů po internetu, který pracuje na portu 69. Je podobný FTP, ale je založen na protokolu UDP (User Datagram Protocol) místo na protokolu TCP (Transmission Control Protocol).'
+          transmission: 'Tento balíček je další P2P klient, který podporuje torrenty a magnet “link”.'
+          wordpress: 'Slouží pro vytvoření a správu blogu. Přihlaste se pomocí administrátorského účtu a vytvořte účty pro další uživatele.'
+          myzyxelcloud-agent: 'Služba myZyXELcloud představuje vaše řešení pro vzdálené řízení aplikací a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv místa s připojení k Internetu!'
+          owncloud: 'To vám umožní vytvořit a spravovat privátní cloud.'
+          pyload: 'Tento balíček umožňuje stažení souborů do NAS na jedno kliknutí.'
     pairing: Párování
     paired: Spárováno
     unpairing: Rušení párování

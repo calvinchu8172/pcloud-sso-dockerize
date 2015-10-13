@@ -60,6 +60,20 @@ fr:
           success: Succès
           failure: "Échec"
           no_update: Pas de mise à jour
+        description:
+          gallery: 'Cette application basée web permet à votre NAS d''héberger des images. Utilisez les informations d''identification de l''administrateur du NAS pour ouvrir une session. L''administrateur peut alors créer des comptes pour les autres utilisateurs.'
+          googledriveclient: 'Cela offre un service une synchronisation bidirectionnelle entre NAS et Google Drive.'
+          squeezecenter: 'Cela vous permet de gérer un périphérique Squeezebox de Logitech connecté au NAS.'
+          memopal: 'Memopal est un logiciel de sauvegarde en ligne et de stockage en ligne qui archive vos fichiers en temps réel sur un serveur distant.'
+          nfs: 'NFS (Network File System) est un protocole de partage de fichiers plus couramment implémenté sur les systèmes de fichiers de type Unix.'
+          nzbget: 'Ce forfait télécharge le fichier .nzb depuis Usenet. Nom d''utilisateur par défaut : .nzbget mot de passe : 1234'
+          php-mysql-phpmyadmin: 'Cet outil peut être utilisé pour gérer MySQL par le web. Entrez ''root'' comme nom d''utilisateur et ''1234'' comme mot de passe pour ouvrir une session.'
+          tftp: 'Le protocole simplifié de transfert de fichiers (TFTP) est un protocole de transfert de fichiers d''Internet qui utilise le numéro de port 69. Il est similaire au FTP mais utilise le protocole de datagramme utilisateur (UDP) plutôt que le protocole de contrôle de transmissions (TCP). Il ne peut pas lister les répertoires ni authentifier les utilisateurs.'
+          transmission: 'Ce forfait est un autre client de téléchargement P2P prenant en charge torrent et magnet.'
+          wordpress: 'Cela vous permet de créer et de gérer un blog. Utilisez les informations d''identification de l''administrateur du NAS pour ouvrir une session. L''administrateur peut alors créer des comptes pour les autres utilisateurs.'
+          myzyxelcloud-agent: 'myZyXELcloud, votre solution pour la gestion des applications à distance et l''accès en toute sécurité à vos appareils du réseau ZyXEL depuis n''importe quel endroit équipé d''une connexion Internet !'
+          owncloud: 'Cela vous permet de créer et de gérer votre cloud privé.'
+          pyload: 'Demandez aux NAS de gérer vos téléchargements y compris ceux des sites de téléchargement (sites FTP one-click hosting).'
     pairing: Association
     paired: Associé
     unpairing: Dissocier

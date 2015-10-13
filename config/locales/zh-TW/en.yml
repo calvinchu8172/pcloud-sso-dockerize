@@ -60,6 +60,20 @@ zh-TW:
           success: "成功"
           failure: "失敗"
           no_update: "未更新"
+        description:
+          gallery: "這個以網頁為主的套件可以讓您管理 NAS 的照片。請利用 NAS 的管理者帳號登入。管理者可以建立其他使用者的帳號。"
+          googledriveclient: "這項服務提供NAS與Google Drive的雙向同步更新"
+          squeezecenter: "這讓您管理一個連接到 NAS 上的 Logitech 的多媒體播放裝置 (Squeezebox)。"
+          memopal: Memopal 是一套線上備份與儲存軟體，可即時備份您的資料到遠端伺服器。
+          nfs: NFS (網路檔案系統 Network File System) 是一種檔案分享系統，常常用於 Unix 類型的系統。
+          nzbget: "這個套件能夠從 Usenet 下載 .nzb 檔案。帳號:nzbget 密碼:1234"
+          php-mysql-phpmyadmin: "這個套件可透過網頁來管理MySQL。輸入使用者名稱 'root' 與密碼 '1234' 來登入。"
+          tftp: "簡單檔案傳輸協定 (TFTP) 是使用 69 號通訊埠的網際網路檔案傳輸協定，類似 FTP，但使用 UDP (使用者資料報通訊協定) 而非 TCP (傳輸控制協定)。TFTP 無法列出目錄或驗證使用者。"
+          transmission: "這個套件是另一個支援 torrent 和 magnet 的 P2P 下載工具。"
+          wordpress: "這個套件可讓您建立及管理一個部落格。 請用 NAS 管理帳號登入。管理者可以建立其他使用者的帳號。"
+          myzyxelcloud-agent: "myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台"
+          owncloud: "允許你建立與管理個人雲."
+          pyload: "透過NAS輕鬆管理免費空間(one-click-hosting)的下載任務。"
     pairing: "裝置配對"
     paired: "裝置已配對"
     unpairing: "取消配對"
