@@ -60,6 +60,20 @@ tr:
           success: Başarılı
           failure: Başarısız
           no_update: hayır güncelleme
+        description:
+          gallery: 'Bu Web-tabanlı uygulama fotoğraflarınızı yönetebilmek için NAS cihazınıza izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için hesap oluşturabilir.'
+          googledriveclient: 'NAS ve Google Drive arasında iki yönlü senkronizasyon hizmeti sunar.'
+          squeezecenter: 'NAS cihazınıza bağlı olan bir Logitech''ın Squeezebox cihazını yönetmenize imkan sağlar.'
+          memopal: 'Memopal dosyalarınızı gerçek zamanlı olarak uzak bir sunucuya arşivleyen bir çevrimiçi yedekleme ve depolama yazılımıdır.'
+          nfs: 'NFS (Network File System) daha çok Unix benzeri sistemlere entegre edilmiş bir dosya-paylaşım protokolüdür.'
+          nzbget: 'Bu paket .nzb dosyasını Usenet''ten indirmektedir. Varsayılan; kullanıcı adı: nzbget şifre: 1234'
+          php-mysql-phpmyadmin: 'Bu araç web üzerinden MySQL yönetmek için kullanılabilir. Giriş yapmak için kullanıcı adı olarak ''root'' ve şifre olarak ''1234'' giriniz.'
+          tftp: 'Trivial File Transfer Protocol (TFTP) 69 portunu kullanan bir internet dosya transfer protokolüdür. FTP ile benzerdir fakat TCP''den (Transmission Control Protocol) ziyade UDP''yi (User Datagram Protocol) kullanır. Yetkilendirilmiş kullanıcılar için dizinleri listeleyemez.'
+          transmission: 'Bu paket torrent ve magnet''i destekleyen bir başka P2P indirme istemcisidir.'
+          wordpress: 'Bir blog oluşturmanıza ve yönetmenize izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için hesap oluşturabilir.'
+          myzyxelcloud-agent: 'myZyXELcloud, uzak uygulama yönetimi ve bir Internet bağlantısına sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza güvenli erişime yönelik çözümünüzdür!'
+          owncloud: 'Kişisel bulut hesabınızı oluşturmanıza ve yönetmenize izin verir.'
+          pyload: 'NAS cihazınızın one-click-hosting sitelerinin de içerisinde bulunduğu indirmelerini yönetebilirsiniz.'
     pairing: Eşleştiriliyor
     paired: Eşleştirildi
     unpairing: Eşleştirme kaldırılıyor

@@ -60,6 +60,20 @@ de:
           success: Erfolgreich
           failure: Fehlerhaft
           no_update: kein Update
+        description:
+          gallery: Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten.
+          googledriveclient: Dies stellt den Dienst einer 2-Wege Synchronisierung zwischen dem NAS und Google Drive zur Verfügung.
+          squeezecenter: 'Hiermit haben Sie die Möglichkeit, ein Squeezebox-Gerät von Logitech zu verwalten, welches mit dem NAS verbunden ist.'
+          memopal: 'Memopal ist eine Online Backup und Online Speicherplatz Software, die Ihre Dateien in Echtzeit speichern kann.'
+          nfs: 'NFS (Network File System) ist ein Datenaustauschprotokoll, dass gewöhnlich in Unix-gestützten Systemen verwendet wird.'
+          nzbget: 'Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername: nzbget Passwort: 1234'
+          php-mysql-phpmyadmin: 'Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen ''root'' und als Kennwort ''1234'' ein.'
+          tftp: 'TFTP (Trivial File Transfer Protocol) ist ein Internet-Datenübertragungsprotokoll, das die Port-Nummer 69 verwendet. Es ist ähnlich wie FTP, verwendet aber UDP (User Datagram Protocol) anstelle von TCP (Transmission Control Protocol). Es kann weder Verzeichnisse auflisten noch Benutzer authentifizieren.'
+          transmission: 'Dieses Paket ist ein anderer P2P Client, welcher auch Magnet Links unterstützt.'
+          wordpress: 'Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten.'
+          myzyxelcloud-agent: 'vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und sicheren Zugriff auf Ihrem ZyXEL NAS'
+          owncloud: 'Damit können Sie Ihre private Cloud erstellen und verwalten.'
+          pyload: 'Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster Support.'
     pairing: Verbinden
     paired: Verbunden
     unpairing: Trennen
@@ -107,17 +121,20 @@ de:
         success: Gerät erfolgreich getrennt.
       pairing:
         instruction: Sind Sie sicher das Sie dieses Gerät verbinden möchten?
-        cancel_instruction: Sind Sie sicher, dass Sie den Verbindungsversuch abbrechen möchten?
+        cancel_instruction: Sind Sie sicher, dass Sie den Verbindungsversuch abbrechen
+          möchten?
         start:
           instruction: 'Verbinden gestartet, '
-          instruction_2: bitte klicken Sie auf den Verbinden Button im Gerät innerhalb von
+          instruction_2: bitte klicken Sie auf den Verbinden Button im Gerät innerhalb
+            von
         connecting: Verbinden...
         not_found: Gerät wurde nicht gefunden
         pair_already: Gerät wurde bereits mit einem Account verbunden
         in_pairing: Gerät wird verbunden
         failure: Verbindungs Timeout. Bitte erneut versuchen.
         canceled: Verbinden wurde abgebrochen
-        success: Erfolgreich verbunden. Bitte klicken Sie den "Bestätigen" Button um die DDNS und UPnP Einrichtung abzuschließen.
+        success: Erfolgreich verbunden. Bitte klicken Sie den "Bestätigen" Button
+          um die DDNS und UPnP Einrichtung abzuschließen.
       ddns:
         instruction: 'Bitte nutzen Sie:'
         instruction_2: 3-63 Zeichen
@@ -129,14 +146,17 @@ de:
         success: DDNS Einstellungen wurden erfolgreich synchronisiert.
         failure: Server is busy, please try it again later
         not_found: Gerät nicht gefunden
-        too_short: Ihr Host Name muss mindestens 3 Zeichen lang sein. Bitte nutzen Sie einen anderen.
-        too_long: Ihr Host Name darf maximal 63 Zeichen lang sein. Bitte nutzen Sie einen anderen.
+        too_short: Ihr Host Name muss mindestens 3 Zeichen lang sein. Bitte nutzen
+          Sie einen anderen.
+        too_long: Ihr Host Name darf maximal 63 Zeichen lang sein. Bitte nutzen Sie
+          einen anderen.
         exist: existiert bereits. Bitte nutzen Sie einen anderen.
       upnp:
         sync: UPnP Einstellungen synchronisieren...
         success: UPnP Einstellungen wurden erfolgreich synchronisiert.
         not_found: Gerät nicht gefunden
-        cancel_instruction: Sind Sie sicher, dass die UPnP Einstellungen abgebrochen werden sollen?
+        cancel_instruction: Sind Sie sicher, dass die UPnP Einstellungen abgebrochen
+          werden sollen?
         error_code:
           num_799: Geräte Gateway kann nicht gefunden warden
           num_798: IP-Adresse konnte nicht bezogen warden

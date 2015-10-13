@@ -60,6 +60,20 @@ nl:
           success: Success
           failure: Mislukt
           no_update: geen update
+        description:
+          gallery: 'Met deze web-based applicatie kun je foto''s op je NAS bewaren. Gebruik het Administratoraccount om de gebruikersaccounts op te zetten van andere gebruikers.'
+          googledriveclient: 'Dit biedt een dienst van 2-weg synchronisatie tussen uw NAS en uw Google Drive.'
+          squeezecenter: 'Dit stelt u in staat om een Logitech'' s Squeezebox-apparaat te beheren welke is aangesloten op de NAS.'
+          memopal: 'Memopal is een online backup en online opslag software die uw bestanden real -time naar een externe server archiveert.'
+          nfs: 'NFS (Network File System) is een file-sharing protocol meestal uitgevoerd op Unix-achtige systemen.'
+          nzbget: 'Dit pakket download een .nzb bestand van Usenet. Standaard gebruikersnaam: nzbget password: 1234'
+          php-mysql-phpmyadmin: 'Deze tool kan worden gebruikt voor het beheren van MySQL via het web. Gebruik ''root'' als gebruikersnaam en ''1234'' als wachtwoord om in te loggen.'
+          tftp: 'Trivial File Transfer Protocol (TFTP) is een Internet file transfer protocol dat poortnummer 69 gebruikt Het is vergelijkbaar met FTP, maar maakt gebruik van UDP (User Datagram Protocol) in plaats van TCP (Transmission Control Protocol). Het kan niet directories lijst openen of gebruikers authenticeren.'
+          transmission: 'Dit pakket is een ander P2P download client, welke torrents en magneet-links ondersteunt.'
+          wordpress: 'Dit stelt u in staat om een blog te creëren en te beheren. Gebruik de NAS Administratoraccount om in te loggen. De Administrator kan dan accounts maken voor andere gebruikers.'
+          myzyxelcloud-agent: 'myZyXELcloud, uw oplossing voor remote applicatiebeheer en veilig toegang tot uw ZyXEL netwerkapparaten en accessoires vanaf elke locatie met een internetverbinding!'
+          owncloud: 'Dit stelt u in staat om uw Cloud te creëren en te beheren.'
+          pyload: 'Laat de NAS uw downloads beheren en uitvoeren, waaronder die van one-click-hosting sites.'
     pairing: Koppelen
     paired: Gekoppeld
     unpairing: Ontkoppelen

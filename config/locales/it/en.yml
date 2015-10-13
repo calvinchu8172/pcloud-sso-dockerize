@@ -60,6 +60,20 @@ it:
           success: Esito positivo
           failure: Errore
           no_update: Nessun aggiornamento
+        description:
+          gallery: 'Questa applicazione basata sul Web consente all''NAS di ospitare immagini. Utilizzare le credenziali amministratore NAS per effettuare l''accesso. L''amministratore può creare account per altri utenti.'
+          googledriveclient: 'Questo offre un servizio di sincronizzazione a 2-vie tra NAS e Google Drive.'
+          squeezecenter: 'Questa opzione consente di gestire un dispositivo Squeezebox di Logitech collegato all''NAS.'
+          memopal: 'Memopal è un software di backup e memorizzazione online che archivia i file in tempo reale su un server remoto.'
+          nfs: 'NFS (Network File System) è un protocollo per la condivisione dei file implementato sopratutto sui sistemi simili a Unix.'
+          nzbget: 'Con questo pacchetto è possibile scaricare file .nzb da Usenet. Username:nzbget Password:1234'
+          php-mysql-phpmyadmin: 'Questo strumento può essere utilizzato per gestire MySQL dal Web. Inserire ''root'' come nome utente e ''1234'' come password per effettuare l''accesso.'
+          tftp: 'Il protocollo TFTP (Trivial File Transfer Protocol) è un protocollo di trasferimento file per Internet che utilizza la porta numero 69. È simile al protocollo FTP, con la differenza che utilizza il protocollo UDP (User Datagram Protocol) invece del protocollo TCP (Transmission Control Protocol). Non può elencare directory né utenti autenticati.'
+          transmission: 'Questo pacchetto è un client P2P che supporta file torrent e magnet.'
+          wordpress: 'Questa funzione consente di creare e gestire un blog. Utilizzare le credenziali amministratore NAS per effettuare l''accesso. L''amministratore può creare account per altri utenti.'
+          myzyxelcloud-agent: 'myZyXELcloud, la soluzione per la gestione delle applicazioni remote e accesso sicuro ai tuoi dispositivi accessori di rete ZyXEL da qualsiasi parte che dispone di una connessione ad internet!'
+          owncloud: 'Questo permette di creare e gestire il proprio cloud privato.'
+          pyload: 'Permetti al NAS di gestire tutti i tuoi download, inclusi quelli dai siti di hosting più diffusi.'
     pairing: Abbinamento in corso
     paired: Associato
     unpairing: Disabbinamento in corso
