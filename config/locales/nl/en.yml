@@ -24,10 +24,8 @@ nl:
         connecting: Verbinden...
         success: Uitnodiging succesvol geaccepteerd
         failure: Mislukt om uitnodiging te accepteren
-        success_desc: Gefeliciteerd! U bent succesvol aan de gedeelde map [share point
-          name] toegevoegd
-        failure_desc: De uitnodigning voor [share point name] is niet mogelijk, probeer
-          het later opnieuw.
+        success_desc: "Gefeliciteerd! U bent succesvol aan de gedeelde map %{share_point} toegevoegd"
+        failure_desc: "De uitnodigning voor %{share_point} is niet mogelijk, probeer het later opnieuw."
       ddns:
         instruction: DDNS Setup
         host_name: Host Name
@@ -119,8 +117,7 @@ nl:
         in_pairing: Apparaat is verbinding aan het maken
         failure: Koppel timeout. Probeer het opnieuw.
         canceled: Koppelen is geannuleerd
-        success: Het koppelen is gelukt. Klik op de "Bevestig" knop om de setup DDNS
-          en UPnP te starten.
+        success: Het koppelen is gelukt. Klik op de "Bevestig" knop om de setup DDNS en UPnP te starten.
       ddns:
         instruction: 'Gelieve te gebruiken:'
         instruction_2: 3 tot 63 tekens
@@ -132,10 +129,8 @@ nl:
         success: DDNS-instellingen zijn succesvol opgeslagen.
         failure: Server is bezet, probeer het later nog eens
         not_found: Apparaat wordt niet gevonden
-        too_short: Uw hostnaam moet minimaal 3 tekens lang zijn. Probeer een andere
-          naam.
-        too_long: Uw hostnaam moet korter zijn dan 63 tekens lang zijn. Probeer een
-          andere naam.
+        too_short: Uw hostnaam moet minimaal 3 tekens lang zijn. Probeer een andere naam.
+        too_long: Uw hostnaam moet korter zijn dan 63 tekens lang zijn. Probeer een andere naam.
         exist: is al aanwezig. Probeer een andere.
       upnp:
         sync: Synchroniseren UPnP instellingen...

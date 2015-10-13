@@ -24,10 +24,8 @@ es:
         connecting: Conectando...
         success: Invitación aceptada con éxito
         failure: Error al aceptar invitación
-        success_desc: "¡Enhorabuena! Se ha unido su carpeta compartida [nombre de
-          punto compartido] con éxito."
-        failure_desc: La invitación para [nombre de punto compartido] no está disponible,
-          vuelva a intentarlo más tarde.
+        success_desc: "¡Enhorabuena! Se ha unido su carpeta compartida %{share_point} con éxito."
+        failure_desc: "La invitación para %{share_point} no está disponible, vuelva a intentarlo más tarde."
       ddns:
         instruction: Configuración DDNS
         host_name: Nombre de host
@@ -112,16 +110,14 @@ es:
         cancel_instruction: "¿Seguro que desea cancelar la transmisión de la asociación?"
         start:
           instruction: 'Inicio de asociación, '
-          instruction_2: haga clic en el botón de asociación del dispositivo antes
-            de
+          instruction_2: haga clic en el botón de asociación del dispositivo antes de
         connecting: Conectando...
         not_found: El dispositivo no se ha encontrado
         pair_already: El dispositivo ya está asociado
         in_pairing: El dispositivo se está asociando
         failure: Tiempo de asociación agotado. Por favor, vuelva a intentarlo.
         canceled: La asociación ha sido cancelada
-        success: Asociado con éxito. Haga clic en el botón "Confirm" para configurar
-          DDNS y UPnP.
+        success: Asociado con éxito. Haga clic en el botón "Confirm" para configurar DDNS y UPnP.
       ddns:
         instruction: 'Por favor, utilice:'
         instruction_2: 3 a 63 caracteres
@@ -133,17 +129,14 @@ es:
         success: La configuración DDNS se ha actualizado con éxito.
         failure: El servidor está ocupado, vuelva a intentarlo más tarde
         not_found: El dispositivo no se ha encontrado
-        too_short: Su nombre de host debe tener al menos 3 caracteres de longitud.
-          Intente otro.
-        too_long: Su nombre de host debe tener menos de 63 caracteres de longitud.
-          Intente otro.
+        too_short: Su nombre de host debe tener al menos 3 caracteres de longitud. Intente otro.
+        too_long: Su nombre de host debe tener menos de 63 caracteres de longitud. Intente otro.
         exist: ya existe. Intente otro.
       upnp:
         sync: Sincronizando configuración UPnP...
         success: La configuración UPnP se ha actualizado con éxito.
         not_found: El dispositivo no se ha encontrado
-        cancel_instruction: "¿Seguro que desea cancelar la transmisión de la configuración
-          UPnP?"
+        cancel_instruction: "¿Seguro que desea cancelar la transmisión de la configuración UPnP?"
         error_code:
           num_799: No se puede encontrar la puerta de enlace del dispositivo
           num_798: No se puede obtener la dirección IP
@@ -158,8 +151,7 @@ es:
         success: La configuración de paquetes se ha actualizado con éxito.
         failure: Tiempo límite. Por favor, vuelva a intentarlo.
         not_found: El dispositivo no se ha encontrado
-        cancel_instruction: "¿Seguro que desea cancelar la transmisión de la configuración
-          de paquetes?"
+        cancel_instruction: "¿Seguro que desea cancelar la transmisión de la configuración de paquetes?"
         error_code:
           num_498: No en la lista bot
           num_489: No se puede obtener lista de paquetes

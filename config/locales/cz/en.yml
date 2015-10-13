@@ -24,10 +24,8 @@ cz:
         connecting: Připojování...
         success: Přijetí pozvánky bylo úspěšné
         failure: Přijetí pozvánky se nezdařilo
-        success_desc: Blahopřejeme! Úspěšně jste se přidali do sdílené složky [název
-          sdíleného bodu].
-        failure_desc: Pozvánka pro [název sdíleného bodu] není dostupná. Zkuste to
-          prosím později.
+        success_desc: "Blahopřejeme! Úspěšně jste se přidali do sdílené složky %{share_point}."
+        failure_desc: "Pozvánka pro %{share_point} není dostupná. Zkuste to prosím později."
       ddns:
         instruction: Nastavení DDNS
         host_name: Název hostitele
@@ -119,8 +117,7 @@ cz:
         in_pairing: Zařízení se páruje
         failure: "Časový limit párování. Opakujte akci znovu."
         canceled: Párování bylo zrušeno
-        success: "Úspěšně spárováno. Klikněte na tlačítko „Potvrdit“ a nastavte DDNS
-          a UPnP."
+        success: "Úspěšně spárováno. Klikněte na tlačítko „Potvrdit“ a nastavte DDNS a UPnP."
       ddns:
         instruction: 'Použijte:'
         instruction_2: 3 až 63 znaků

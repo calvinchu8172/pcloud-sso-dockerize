@@ -24,10 +24,8 @@ en:
         connecting: Connecting...
         success: Invitation accept success
         failure: Invitation accept failed
-        success_desc: Congratulation! You joined the shared folder [share point name]
-          successfully.
-        failure_desc: The invite to  [share point name] is not available, please try
-          it again later.
+        success_desc: "Congratulation! You joined the shared folder %{share_point} successfully."
+        failure_desc: "The invite to %{share_point} is not available, please try it again later."
       ddns:
         instruction: DDNS Setup
         host_name: Host Name
@@ -119,8 +117,7 @@ en:
         in_pairing: Device is pairing
         failure: Pairing timeout. Please try again.
         canceled: Pairing has been canceled
-        success: Successfully paired. Please click "Confirm" button for following
-          steps to continue setup.
+        success: Successfully paired. Please click "Confirm" button for following steps to continue setup.
       ddns:
         instruction: 'Please use:'
         instruction_2: 3 to 63 characters
@@ -133,8 +130,7 @@ en:
         failure: Server is busy, please try it again later
         not_found: Device is not found
         too_short: Your host name must be at least 3 characters long. Please try another.
-        too_long: Your host name must be shorter than 63 characters long. Please try
-          another.
+        too_long: Your host name must be shorter than 63 characters long. Please try another.
         exist: is exist. Please try another
       upnp:
         sync: Synchronizing UPnP settings...

@@ -24,10 +24,8 @@ it:
         connecting: Connessione in corso...
         success: Accettazione invito riuscita
         failure: Accettazione invito non riuscita
-        success_desc: Congratulazioni! Iscrizione alla cartella condivisa [nome del
-          punto condiviso] riuscita.
-        failure_desc: L’invito per il [nome punto condiviso] non è disponibile, riprovare
-          in un secondo momento.
+        success_desc: "Congratulazioni! Iscrizione alla cartella condivisa %{share_point} riuscita."
+        failure_desc: "L’invito per il %{share_point} non è disponibile, riprovare in un secondo momento."
       ddns:
         instruction: Configurazione DDNS
         host_name: Nome host
@@ -119,8 +117,7 @@ it:
         in_pairing: L'abbinamento del dispositivo è in corso
         failure: Timeout abbinamento. Riprovare.
         canceled: L'abbinamento è stato annullato.
-        success: Abbinamento eseguito con successo. Cliccare il pulsante "Conferma"
-          per impostare DDNS e UPnP.
+        success: Abbinamento eseguito con successo. Cliccare il pulsante "Conferma" per impostare DDNS e UPnP.
       ddns:
         instruction: 'Si prega di usare:'
         instruction_2: da 3 a 63 caratteri
@@ -139,8 +136,7 @@ it:
         sync: Sincronizzazione della configurazione UPnP in corso...
         success: Le impostazioni UPnP sono state aggiornate con successo.
         not_found: Dispositivo non trovato
-        cancel_instruction: Sei sicuro di voler annullare il flusso di configurazione
-          UPnP?
+        cancel_instruction: Sei sicuro di voler annullare il flusso di configurazione UPnP?
         error_code:
           num_799: Impossibile trovare il gateway del dispositivo
           num_798: Impossibile ottenere l'indirizzo IP del dispositivo
@@ -155,8 +151,7 @@ it:
         success: Le impostazioni Pacchetto sono state aggiornate con successo.
         failure: Timeout. Riprovare.
         not_found: Dispositivo non trovato
-        cancel_instruction: Siete sicuri di voler annullare il flusso di configurazione
-          Pacchetto?
+        cancel_instruction: Siete sicuri di voler annullare il flusso di configurazione Pacchetto?
         error_code:
           num_498: Non nell’elenco bot
           num_489: Impossibile recuperare l’elenco pacchetti
