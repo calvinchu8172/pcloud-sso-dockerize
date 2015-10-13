@@ -4,6 +4,7 @@ tr:
     language: Dil
     forgot_password: "Şifremi Unuttum"
     resend_confirmation: Onayı Tekrar Gönder
+    unverified: Doğrulanmadı
     sign_in: Oturum Aç
     sign_out: Oturumu Kapat
     sign_up: Kaydol
@@ -14,10 +15,17 @@ tr:
     retry: Tekrar Dene
     submit: Gönder
     confirm: Onayla
+    ok: Tamam
     or: veya
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: Tümünü Genişlet
+    collapse_all: Tümünü Daralt
     settings:
+      invitation:
+        connecting: Bağlanıyor...
+        success: Davet kabul edildi
+        failure: Davet kabul edilmedi
+        success_desc: "Tebrikler! Paylaşılan klasöre %{share_point} başarıyla katıldınız."
+        failure_desc: "%{share_point} daveti mevcut değil; lütfen daha sonra tekrar deneyin."
       ddns:
         instruction: DDNS Ayarı
         host_name: Sunucu Adı
@@ -32,37 +40,26 @@ tr:
         table_head3: Hizmet Adı
         table_head4: Açıklama
         table_head5: Güncelleme Sonucu
+        table_head6: Hizmet Bağlantı Noktasını Göster
+        table_head7: Hizmet Bağlantı Noktasını Gizle
+        table_head8: Hizmet Bağlantı Noktası
         result:
           success: Başarılı
           failure: Başarısız
           no_update: hayır güncelleme
       package:
-        instruction: Package Setup
-        table_head1: Enabled
-        table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
-        table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        instruction: Paket Kurulumu
+        table_head1: Etkin
+        table_head2: Durum
+        table_head3: Paket Adı
+        table_head4: Gerekli
+        table_head5: Sürüm
+        table_head6: Açıklama
+        table_head7: Güncelleme Sonucu
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
-        description:
-          gallery: "Bu Web-tabanlı uygulama fotoğraflarınızı yönetebilmek için NAS cihazınıza izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için hesap oluşturabilir."
-          googledriveclient: "NAS ve Google Drive arasında iki yönlü senkronizasyon hizmeti sunar."
-          squeezecenter: "NAS cihazınıza bağlı olan bir Logitech'ın Squeezebox cihazını yönetmenize imkan sağlar."
-          memopal: "Memopal dosyalarınızı gerçek zamanlı olarak uzak bir sunucuya arşivleyen bir çevrimiçi yedekleme ve depolama yazılımıdır."
-          nfs: "NFS (Network File System) daha çok Unix benzeri sistemlere entegre edilmiş bir dosya-paylaşım protokolüdür."
-          nzbget: "Bu paket .nzb dosyasını Usenet'ten indirmektedir. Varsayılan; kullanıcı adı: nzbget şifre: 1234"
-          php-mysql-phpmyadmin: "Bu araç web üzerinden MySQL yönetmek için kullanılabilir. Giriş yapmak için kullanıcı adı olarak 'root' ve şifre olarak '1234' giriniz."
-          tftp: "Trivial File Transfer Protocol (TFTP) 69 portunu kullanan bir internet dosya transfer protokolüdür. FTP ile benzerdir fakat TCP'den (Transmission Control Protocol) ziyade UDP'yi (User Datagram Protocol) kullanır. Yetkilendirilmiş kullanıcılar için dizinleri listeleyemez."
-          transmission: "Bu paket torrent ve magnet'i destekleyen bir başka P2P indirme istemcisidir."
-          wordpress: "Bir blog oluşturmanıza ve yönetmenize izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için hesap oluşturabilir."
-          myzyxelcloud-agent: "myZyXELcloud, uzak uygulama yönetimi ve bir Internet bağlantısına sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza güvenli erişime yönelik çözümünüzdür!"
-          owncloud: "Kişisel bulut hesabınızı oluşturmanıza ve yönetmenize izin verir."
-          pyload: "NAS cihazınızın one-click-hosting sitelerinin de içerisinde bulunduğu indirmelerini yönetebilirsiniz."
+          success: Başarılı
+          failure: Başarısız
+          no_update: hayır güncelleme
     pairing: Eşleştiriliyor
     paired: Eşleştirildi
     unpairing: Eşleştirme kaldırılıyor
@@ -73,6 +70,12 @@ tr:
     edit_profile: Profili Düzenle
     mac_address: MAC Adresi
     serial_number: Seri Numara
+    find_nas: NAS'ı bul
+    device_info:
+      raid_status: RAID durumu
+      cpu_temperature: "İşlemci sıcaklığı"
+      fan_speed: Fan Hızı
+      available_capacity: Kullanılabilir kapasite
   titles:
     change_password: "Şifre Değiştir"
     forgot_password: "Şifreyi Sıfırla"
@@ -82,6 +85,7 @@ tr:
     my_devices: Cihaz Listesi
     search_devices: Arama Sonuçları
     settings:
+      package: Paket Ayarı
       ddns: DDNS Ayarı
       upnp: UPnP Ayarı
     pairing: Eşleştiriliyor
@@ -113,8 +117,7 @@ tr:
         in_pairing: Cihaz eşleştiriliyor
         failure: Eşleştirme zaman aşımı. Lütfen tekrar deneyin.
         canceled: Eşleştirme iptal edildi
-        success: Başarıyla eşleştirildi. Lütfen DDNS ve UPnP ayarlamak için "Onayla"
-          düğmesine tıklayın.
+        success: Başarıyla eşleştirildi. Lütfen DDNS ve UPnP ayarlamak için "Onayla" düğmesine tıklayın.
       ddns:
         instruction: 'Lütfen kullanın:'
         instruction_2: 3 ila 63 karakter
@@ -126,10 +129,8 @@ tr:
         success: DDNS ayarları başarıyla eşitlendi.
         failure: Sunucu meşgul; lütfen daha sonra tekrar deneyin
         not_found: Cihaz bulunamadı
-        too_short: Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka
-          bir tane deneyin.
-        too_long: Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane
-          deneyin.
+        too_short: Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka bir tane deneyin.
+        too_long: Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane deneyin.
         exist: mevcut. Lütfen başka bir tane deneyin.
       upnp:
         sync: UPnP  ayarları eşitleniyor...
@@ -145,3 +146,18 @@ tr:
           num_794: Failed to list all port mapping
           num_793: Veritabanındaki bağlantı noktası eşleme güncellenemedi
           num_792: Cihaz bulunamadı
+      package:
+        sync: Paket ayarları eşitleniyor...
+        success: Paket ayarları başarıyla güncellendi.
+        failure: Zaman aşımı. Lütfen tekrar deneyin.
+        not_found: Cihaz bulunamadı
+        cancel_instruction: Paket ayarı akışını iptal etmek istediğinize emin misiniz?
+        error_code:
+          num_498: Robot listesinde yok
+          num_489: Paket listesi alınamıyor
+          num_488: Paket etkinleştirilemiyor
+          num_487: Paket devre dışı bırakılamıyor
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: "İçeriklerinizi her yerden görün ve paylaşın."
+        zyxel_drive_download_desc: "Şimdi İndirin:"

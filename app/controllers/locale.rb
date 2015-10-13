@@ -28,7 +28,7 @@ module Locale
                         :"正體中文" => "zh-TW",
                         :"ไทย" => 'th',
                         :"Türkçe" => 'tr',
-                        :"Čeština" => 'cs',
+                        :"Čeština" => 'cz',
                         :"русский" => 'ru',
                         :"Polski" => 'pl',
                         :"Italiano" => 'it',

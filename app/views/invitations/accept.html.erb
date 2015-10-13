@@ -5,12 +5,12 @@
 	<div style="">
 		<span class="zyxel_span2" ng-switch on="step">
 		  <span ng-switch-when="connecting">
-		  	<%= I18n.t("warnings.settings.invitation.connecting") %>
+		  	<%= I18n.t("labels.settings.invitation.connecting") %>
 		  </span>
 		  <span ng-switch-when="failure">
-		  	<%= I18n.t("warnings.settings.invitation.failure") %>
+		  	<%= I18n.t("labels.settings.invitation.failure") %>
 		  	<blockquote style="border-left: white;white-space:normal">
-		  		<%= I18n.t("warnings.settings.invitation.failure_desc", :share_point => "#{@share_point}") %>
+		  		<%= I18n.t("labels.settings.invitation.failure_desc", :share_point => "#{@share_point}") %>
 		  	</blockquote>
 		  </span>
 		</span>
@@ -23,12 +23,12 @@
     <div class="zyxel_btn_area i18n_fix" ng-switch-when="retry">
       <%= link_to(I18n.t("labels.retry"), "/invitations/accept/#{@invitation_key}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
-    <div class="zyxel_btn_area" ng-switch-when="done"> 
-      <div><span class="zyxel_h2"><%= I18n.t("warnings.settings.invitation.success") %></span></div>
+    <div class="zyxel_btn_area" ng-switch-when="done">
+      <div><span class="zyxel_h2"><%= I18n.t("labels.settings.invitation.success") %></span></div>
       <div>
         <span class="zyxel_span2">
           <blockquote style="border-left: white;white-space: normal;">
-            <%= I18n.t("warnings.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
+            <%= I18n.t("labels.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
           </blockquote>
           <div style="text-align: left; padding-left: 50px; margin-top: 40px; font-size: 23px"><%= I18n.t("warnings.settings.invitation.zyxel_drive") %></div>
           <div style="text-align: left; padding-left: 50px">

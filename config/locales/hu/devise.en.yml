@@ -8,6 +8,14 @@ hu:
       send_paranoid_instructions: Ha e-mail címe szerepel adatbázisunkban, néhány
         perc múlva e-mailben megkapja az útmutatót, mely segítségével hitelesítheti
         fiókját.
+      apply_account: Sikeresen beállította fiókját.
+      finish_step: A regisztráció befejezéséhez kérjük, ellenőrizze levelezését
+      click_step: "és kattintson az ellenőrző hivatkozásra."
+      confirm_before: Kérjük, előbb ellenőrizze az e-mailt
+      change_account: E-mail cím cseréje
+      resend: Megerősítő e-mail újraküldése
+      confirm_sent: A megerősítő e-mailt elküldtük.
+      same_email_address: Az új e-mail cím megegyezik a régivel.
     failure:
       already_authenticated: Már bejelentkezett.
       already_oauth_account: Már regisztrált Facebook vagy Google+ fiókjával
@@ -76,8 +84,8 @@ hu:
       confirmation_period_expired: hitelesítésének %{period} időn belül meg kell történnie,
         kérjen újat
       expired: lejárt, kérjen újat
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: Kérjük, az aktuális jelszó módosításához használja meglévő közösségi
+        hálózaton (Facebook vagy Google+) lévő fiókját.
       not_found: nem található
       not_locked: nincs zárolva
       not_saved:

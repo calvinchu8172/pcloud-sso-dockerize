@@ -10,7 +10,6 @@
 class PackageController < ApplicationController
   before_action :authenticate_user!
   before_action :device_paired_with?, :only => :show
-  #before_action :deleted_extra_key, :only => :update
   before_action :service_list_to_json, :only => :update
   before_action :is_device_support?, :only => :show
 
@@ -124,15 +123,6 @@ class PackageController < ApplicationController
 
   private
 
-  def same_subnet? device_ip
-    request.remote_ip == device_ip
-  end
-
-  def decide_which_path_ip package_session
-    device = Device.find package_session['device_id']
-    same_subnet?(device.session.hget('ip')) ? package_session['lan_ip'] : device.session.hget('ip')
-  end
-
   # Return i18n service description
   def decide_enable(package_list)
     package_list.each do |package|
@@ -159,15 +149,6 @@ class PackageController < ApplicationController
   def push_to_queue(job)
     data = {:job => job, :session_id => @package.id}
     AwsService.send_message_to_queue(data)
-  end
-
-  def deleted_extra_key
-    extra_keys = ["port", "update_result"]
-    params[:package_list].each do |package|
-      extra_keys.each do |key|
-        service.delete(key) if service.has_key?(key)
-      end
-    end
   end
 
   # check the updated result and added the result to each

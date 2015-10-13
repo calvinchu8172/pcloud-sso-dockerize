@@ -39,7 +39,6 @@ module TestingHelper
     device.module_list << 'upnp'
     device.module_list << 'ddns'
     device
-    # binding.pry
   end
 
   def self.create_product_table
@@ -91,14 +90,18 @@ module TestingHelper
   end
 
   def self.create_app_signined_tokens_for_user(user_id)
-    auth_token = SecureRandom.urlsafe_base64(nil, false)
-    token = Redis::Value.new("user:#{user_id}:authentication_token:#{auth_token}")
-    token.value = (DateTime.now + Api::User::AUTHENTICATION_TOKEN_TTL).to_s
+    auth_token_str = SecureRandom.urlsafe_base64(nil, false)
+    auth_token = Redis::Value.new("user:#{user_id}:authentication_token:#{auth_token_str}")
+    auth_token.value = (DateTime.now + Api::User::AUTHENTICATION_TOKEN_TTL).to_s
+    ### set the redis expire time of authentication token
+    auth_token.expireat(auth_token.value.to_i)
 
-    account_token = SecureRandom.urlsafe_base64(nil, false)
-    account_token_key = "user:#{user_id}:account_token:#{account_token}"
-    redis_token = Redis::HashKey.new(account_token_key)
-    redis_token.bulk_set('expire_at' => (DateTime.now + Api::User::ACCOUNT_TOKEN_TTL).to_s, 'authentication_token' => auth_token)
+    account_token_str = SecureRandom.urlsafe_base64(nil, false)
+    account_token_key = "user:#{user_id}:account_token:#{account_token_str}"
+    account_token = Redis::HashKey.new(account_token_key)
+    account_token.bulk_set('expire_at' => (DateTime.now + Api::User::ACCOUNT_TOKEN_TTL).to_s, 'authentication_token' => auth_token_str)
+    ### set the redis expire time of account token
+    account_token.expireat(account_token.get('expire_at').to_i)
   end
 
 end

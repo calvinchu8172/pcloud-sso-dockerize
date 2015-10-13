@@ -8,6 +8,16 @@ es:
       send_paranoid_instructions: Si su dirección de correo electrónico ya existe
         en nuestra base de datos, recibirá un correo electrónico en unos minutos con
         instrucciones sobre cómo confirmar su cuenta.
+      apply_account: Ha aplicado su cuenta con éxito.
+      finish_step: Para finalizar el registro, compruebe el correo electrónico de
+        nuevo
+      click_step: y haga clic en el enlace de verificación.
+      confirm_before: Verifique el correo electrónico primero
+      change_account: Cambiar a otro correo electrónico
+      resend: Volver a enviar el mensaje de confirmación
+      confirm_sent: El mensaje de confirmación ha sido enviado.
+      same_email_address: La nueva dirección de correo electrónico es igual que la
+        anterior.
     failure:
       already_authenticated: Ya estaba registrado..
       already_oauth_account: Ya registrado a través de Facebook o Google+
@@ -81,8 +91,8 @@ es:
       confirmation_period_expired: necesita ser confirmada en %{period}, pida una
         nueva
       expired: ha caducado, pida una nueva
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: utilice una cuenta de red social (Facebook o Google+) para cambiar
+        su contraseña actual.
       not_found: no se ha encontrado
       not_locked: no ha sido bloqueada
       not_saved:
