@@ -9,7 +9,7 @@ de:
       middle_name: Mittelname
       last_name: Nachname
       password: Passwort
-      password_suggestion: 8-14 characters password length
+      password_suggestion: 8-14 Zeichen Passwort Länge
       password_confirmation: Passwort bestätigen
       new_password: Neues Passwort
       new_password_confirmation: Neues Passwort bestätigen

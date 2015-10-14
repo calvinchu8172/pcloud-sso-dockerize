@@ -1,6 +1,6 @@
 When(/^a user visits accept invitation page$/) do
   visit "/invitations/accept/#{Invitation.first.key}"
-  wait_server_response(3)
+  wait_server_response
 end
 
 Given(/^the invalid invitation key$/) do

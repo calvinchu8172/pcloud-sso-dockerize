@@ -6,7 +6,26 @@ class DdnsMailer < ActionMailer::Base
   #
   #   en.ddns_mailer.notify_comment.subject
   #
-  def notify_comment(user, device, xmpp_last_username)
+
+  def notify_comment(user, device, xmpp_last_username, option={})
+    
+    if option[:mode] == "test"
+      
+      @greeting = "Hi! This is test mail from Pcloud"
+
+      # @user = User.first # for test
+      @user = Fakemailman.new
+      @full_domain = "FULL_DOMAIN"
+      @last_signout_at = "LAST_SIGNOUT_AT"
+
+      option[:lang] = "en" unless option[:lang]
+
+      I18n.with_locale(option[:lang]) do
+        mail to: "test@example.com", subject: I18n.t('mailer.subjects.notification')
+      end
+      return self
+    end
+    
       @greeting = "Hi! This is test mail from Pcloud"
 
       # @user = User.first # for test
@@ -18,6 +37,14 @@ class DdnsMailer < ActionMailer::Base
       I18n.with_locale(@user.language) do
         mail to: @user.email, subject: I18n.t('mailer.subjects.notification')
       end
+
+      puts "Sending real"
   end
 
+end
+
+class Fakemailman
+  def first_name
+    "USER"
+  end
 end

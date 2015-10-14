@@ -15,10 +15,13 @@ class Api::User < User
     "user:#{user_id}:authentication_token:#{token}"
   end
 
+  # Create user's authentication token
   def create_authentication_token
     @authentication_token = SecureRandom.urlsafe_base64(nil, false)
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, @authentication_token))
-    redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
+    expire_time = DateTime.now + AUTHENTICATION_TOKEN_TTL
+    redis_token.value = expire_time.to_s
+    redis_token.expireat(expire_time.to_i)
     @authentication_token
   end
 
@@ -32,7 +35,9 @@ class Api::User < User
     @authentication_token = create_authentication_token
     key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token})
+    expire_time = DateTime.now + ACCOUNT_TOKEN_TTL
+    redis_token.bulk_set({expire_at: expire_time.to_s, authentication_token: @authentication_token})
+    redis_token.expireat(expire_time.to_i)
     {account_token: @account_token, authentication_token: @authentication_token}
   end
 
@@ -63,7 +68,9 @@ class Api::User < User
     return false if redis_token.nil?
 
     if DateTime.strptime(redis_token.value) > DateTime.now
-      redis_token.value = (DateTime.now + AUTHENTICATION_TOKEN_TTL).to_s
+      expire_time = DateTime.now + AUTHENTICATION_TOKEN_TTL
+      redis_token.value = expire_time.to_s
+      redis_token.expireat(expire_time.to_i)
       return true
     else
       return false

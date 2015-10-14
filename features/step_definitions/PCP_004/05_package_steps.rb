@@ -88,7 +88,7 @@ Then(/^it should not do anything on Package setup page$/) do
 end
 
 Then(/^the user will redirect to My Devices page after confirm$/) do
-  expect(page.current_path).to eq("/personal/index")
+  expect(page.current_path).to eq(authenticated_root_path)
 end
 
 Then(/^the user will redirect to the UPnP Setup page$/) do

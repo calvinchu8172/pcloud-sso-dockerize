@@ -56,11 +56,13 @@ Feature: Device Register V3
       Check reset process
 
       Given the device already registration
+      And the device has inviation and accepted_user
 
       When the device send reset request to REST API /d/3/register
 
       Then the API should return success respond
       And the databases should have not pairing record
+      And the database should have no any association data with this device, including Invitation and AcceptedUser
 
     Scenario: [REST_00_02_05]
       Check correct update process when IP changed

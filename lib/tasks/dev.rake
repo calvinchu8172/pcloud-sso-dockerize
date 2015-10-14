@@ -2,35 +2,39 @@
 
 namespace :dev do
 
-  task :build_xmpp_database => :environment do
-    password = ActiveRecord::Base.configurations[Rails.env]["password"]
-    ActiveRecord::Base.establish_connection(adapter: "mysql2", password: password)
-
-    Dir[File.expand_path("lib/tasks/build_xmpp_database.sql")].each do |file|
-      puts "Excute SQL script: #{file}"
-      sql = File.open(file).read
-      sql.split(';').each do |sql_statement|
-        ActiveRecord::Base.connection.execute(sql_statement)
-        puts sql_statement
-      end
-    end
-  end
-
   task :rebuild => ["db:drop", "db:setup", :fake]
 
   task :fake => :environment do
 
-    user = User.create(
+    user = User.new(
       email: "fake@example.com",
       password: "fakepassword",
       password_confirmation: "fakepassword",
       edm_accept: "0",
-      agreement: "1",
-      confirmed_at: Time.now
+      agreement: "1"
       )
+    user.confirmation_token = Devise.friendly_token
+    user.skip_confirmation!
+    user.save
+    
     puts "create fake user for developement"
     puts "  email: #{user.email}"
     puts "  password: #{user.password}"
+    
+    user2 = User.new(
+      email: "tomohung@ecoworkinc.com",
+      password: "tttttttt",
+      password_confirmation: "tttttttt",
+      edm_accept: "0",
+      agreement: "1"
+      )
+    user2.confirmation_token = Devise.friendly_token
+    user2.skip_confirmation!
+    user2.save
+
+    puts "create fake user for developement"
+    puts "  email: #{user2.email}"
+    puts "  password: #{user2.password}"
 
     device = Device.create(
       serial_number: "1234567890",
@@ -69,6 +73,13 @@ namespace :dev do
       )
     puts "create DDNS"
 
+    invitation = Invitation.create(
+      key: "key",
+      share_point: "sharename",
+      permission: "2",
+      device_id: device.id,
+      expire_count: 5
+    )
   end
-
 end
+

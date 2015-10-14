@@ -4,6 +4,7 @@ de:
     language: Sprache
     forgot_password: Passwort vergessen
     resend_confirmation: Bestätigung erneut senden
+    unverified: Nicht verififiziert
     sign_in: Anmelden
     sign_out: Abmelden
     sign_up: Anmeldung
@@ -14,10 +15,17 @@ de:
     retry: Wiederholen
     submit: Abschicken
     confirm: Bestätigen
+    ok: OK
     or: oder
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: Alle erweitern
+    collapse_all: Alle zusammenklappen
     settings:
+      invitation:
+        connecting: Verbinden...
+        success: Einladung annehmen erfolgreich
+        failure: Einladung annehmen fehlgeschlagen
+        success_desc: "Herlichen Glückwunsch! Sie haben den geteilten Ordner %{share_point} erfolgreich aufgerufen."
+        failure_desc: "Die Einladung zum %{share_point} ist nicht verfügbar, bitte versuchen Sie es später noch einmal."
       ddns:
         instruction: DDNS Einrichtung
         host_name: Host Name
@@ -32,37 +40,40 @@ de:
         table_head3: Dienst Name
         table_head4: Beschreibung
         table_head5: Update Ergebnis
+        table_head6: Dienst-Port anzeigen
+        table_head7: Dienst-Port verbergen
+        table_head8: Dienst-Port
         result:
           success: Erfolgreich
           failure: Fehlerhaft
           no_update: kein Update
       package:
-        instruction: Package Setup
-        table_head1: Enabled
+        instruction: Paket Einrichtung
+        table_head1: Aktiviert
         table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
+        table_head3: Paket Name
+        table_head4: Erforderlich
         table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        table_head6: Beschreibung
+        table_head7: Update Ergebnis
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
+          success: Erfolgreich
+          failure: Fehlerhaft
+          no_update: kein Update
         description:
-          gallery: "Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
-          googledriveclient: "Dies stellt den Dienst einer 2-Wege Synchronisierung zwischen dem NAS und Google Drive zur Verfügung."
-          squeezecenter: "Hiermit haben Sie die Möglichkeit, ein Squeezebox-Gerät von Logitech zu verwalten, welches mit dem NAS verbunden ist."
-          memopal: "Memopal ist eine Online Backup und Online Speicherplatz Software, die Ihre Dateien in Echtzeit speichern kann."       
-          nfs: "NFS (Network File System) ist ein Datenaustauschprotokoll, dass gewöhnlich in Unix-gestützten Systemen verwendet wird."      
-          nzbget: "Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername: nzbget Passwort: 1234"     
-          php-mysql-phpmyadmin: "Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen 'root' und als Kennwort '1234' ein."     
-          tftp: "TFTP (Trivial File Transfer Protocol) ist ein Internet-Datenübertragungsprotokoll, das die Port-Nummer 69 verwendet. Es ist ähnlich wie FTP, verwendet aber UDP (User Datagram Protocol) anstelle von TCP (Transmission Control Protocol). Es kann weder Verzeichnisse auflisten noch Benutzer authentifizieren."
-          transmission: "Dieses Paket ist ein anderer P2P Client, welcher auch Magnet Links unterstützt."     
-          wordpress: "Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten."
-          myzyxelcloud-agent: "vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und sicheren Zugriff auf Ihrem ZyXEL NAS"
-          owncloud: "Damit können Sie Ihre private Cloud erstellen und verwalten."
-          pyload: "Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster Support."
+          gallery: Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten.
+          googledriveclient: Dies stellt den Dienst einer 2-Wege Synchronisierung zwischen dem NAS und Google Drive zur Verfügung.
+          squeezecenter: 'Hiermit haben Sie die Möglichkeit, ein Squeezebox-Gerät von Logitech zu verwalten, welches mit dem NAS verbunden ist.'
+          memopal: 'Memopal ist eine Online Backup und Online Speicherplatz Software, die Ihre Dateien in Echtzeit speichern kann.'
+          nfs: 'NFS (Network File System) ist ein Datenaustauschprotokoll, dass gewöhnlich in Unix-gestützten Systemen verwendet wird.'
+          nzbget: 'Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername: nzbget Passwort: 1234'
+          php-mysql-phpmyadmin: 'Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen ''root'' und als Kennwort ''1234'' ein.'
+          tftp: 'TFTP (Trivial File Transfer Protocol) ist ein Internet-Datenübertragungsprotokoll, das die Port-Nummer 69 verwendet. Es ist ähnlich wie FTP, verwendet aber UDP (User Datagram Protocol) anstelle von TCP (Transmission Control Protocol). Es kann weder Verzeichnisse auflisten noch Benutzer authentifizieren.'
+          transmission: 'Dieses Paket ist ein anderer P2P Client, welcher auch Magnet Links unterstützt.'
+          wordpress: 'Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten.'
+          myzyxelcloud-agent: 'vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und sicheren Zugriff auf Ihrem ZyXEL NAS'
+          owncloud: 'Damit können Sie Ihre private Cloud erstellen und verwalten.'
+          pyload: 'Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster Support.'
     pairing: Verbinden
     paired: Verbunden
     unpairing: Trennen
@@ -73,6 +84,12 @@ de:
     edit_profile: Profil bearbeiten
     mac_address: MAC Adresse
     serial_number: Seriennummer
+    find_nas: NAS finden
+    device_info:
+      raid_status: RAID Status
+      cpu_temperature: CPU Temperatur
+      fan_speed: Lüfter Geschwindigkeit
+      available_capacity: Verfügbare Kapazität
   titles:
     change_password: Passwort ändern
     forgot_password: Passwort zurücksetzen
@@ -82,6 +99,7 @@ de:
     my_devices: Geräte Liste
     search_devices: Suchergebnisse
     settings:
+      package: Paket Einstellungen
       ddns: DDNS Einstellungen
       upnp: UPnP Einstellungen
     pairing: Verbinden
@@ -148,3 +166,18 @@ de:
           num_794: Port Mapping Auflistung fehlgeschlagen
           num_793: UPnP Port Mapping DB Update fehlgeschlagen
           num_792: Gerät nicht gefunden
+      package:
+        sync: Packet Einstellungen synchronisieren
+        success: Paket Einstellungen erfolgriech geupdatet.
+        failure: Zeitüberschreitung. Bitte erneut versuchen.
+        not_found: Gerät nicht gefunden
+        cancel_instruction: Sind Sie sicher, die Paket Einstellungen Änderungen abzubrechen?
+        error_code:
+          num_498: Nicht in Bot Liste
+          num_489: Paket Liste kann nicht geladen werden
+          num_488: Paket kann nicht aktiviert werden
+          num_487: Paket kann nicht deaktiviert werden
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: Sehen und Teilen Sie Ihren Content von überall.
+        zyxel_drive_download_desc: Jetzt herunterladen

@@ -39,37 +39,57 @@ class Api::User::Token < Api::User
 
   def renew_authentication_token(account_token)
     redis_token = get_account_token(account_token)
-    return false if redis_token.empty? or expired?(redis_token.get(:expire_at))
+    return false if redis_token.blank? or expired?(redis_token.get(:expire_at))
 
     revoke_authentication_token(redis_token.get(:authentication_token))
     authentication_token = create_authentication_token
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: authentication_token})
+    expire_time = DateTime.now + ACCOUNT_TOKEN_TTL
+    redis_token.bulk_set({expire_at: expire_time.to_s, authentication_token: authentication_token})
+    redis_token.expireat(expire_time.to_i)
     authentication_token
   end
+
+  # Create user's account token and authentication token
+  # @return [Hash] The token string of account_token and authentication_token
   def create_token
     @account_token = SecureRandom.urlsafe_base64(nil, false)
     @authentication_token = create_authentication_token
     key = account_token_key(@account_token)
     redis_token = Redis::HashKey.new(key)
-    redis_token.bulk_set({expire_at: (DateTime.now + ACCOUNT_TOKEN_TTL).to_s, authentication_token: @authentication_token})
-
+    expire_time = DateTime.now + ACCOUNT_TOKEN_TTL
+    redis_token.bulk_set({expire_at: expire_time.to_s, authentication_token: @authentication_token})
+    redis_token.expireat(expire_time.to_i)
     update_app_info
     {account_token: @account_token, authentication_token: @authentication_token}
   end
 
+  # Revoke account_token by account token string.
+  # @note This method will also delete the authentication token related to the deleted account token
+  # @param [String] account_token The account token string
+  # @return [Boolean] whether the account token is deleted
   def revoke_token(account_token)
     redis_token = get_account_token(account_token)
     return false if redis_token.empty?
-
     revoke_app_info(account_token)
 
     revoke_authentication_token(redis_token.get(:authentication_token))
     redis_token.clear
   end
 
+  # Revoke authentication_token by authentication token string.
+  # @param [String] key The authentication token string
+  # @return
   def revoke_authentication_token key
     redis_token = Redis::Value.new(authentication_token_key(id.to_s, key))
     redis_token.delete unless redis_token.nil?
+  end
+
+  # Revoke all account_tokens and authentication_tokens of the user.
+  def revoke_all_account_and_authentication_tokens
+    self.redis.keys(account_token_key('*')).each do |token_key|
+      token = token_key.gsub("user:#{id}:account_token:", '')
+      revoke_token(token)
+    end
   end
 
   private

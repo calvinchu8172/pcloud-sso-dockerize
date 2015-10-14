@@ -1,4 +1,5 @@
+---
 fr:
   mailer:
     subjects:
-      notification: 'Your DDNS expired notification'
+      notification: Your DDNS expired notification

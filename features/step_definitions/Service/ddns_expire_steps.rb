@@ -12,7 +12,6 @@ end
 
 Given(/^device has been not used more than (\d+) days$/) do |day_num|
   @ddns = FactoryGirl.create(:ddns, ip_address: "1.1.1.1", hostname: "test", domain: Domain.first, device: @device)
-  Services::DdnsExpire.create_route53_record(@ddns)
 
   xmpp_last = XmppLast.find_or_initialize_by(username: @device.xmpp_username)
 

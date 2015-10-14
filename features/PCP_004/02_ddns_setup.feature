@@ -18,10 +18,12 @@ Feature: [PCP_004_02] DDNS Setup
       | hi			 |
       | hi@      |
       | 0A0  		 |
+      | 1234567890123456789012345678901234567890123456789012345678901234|
 
 	Scenario:  [PCP_004_02_02]
 	  Show error message when hostname exists
-		And the user filled the exist Hostname
+
+		Given the user filled the exist Hostname
 
 		When the user click "Submit" button
 
@@ -69,3 +71,18 @@ Feature: [PCP_004_02] DDNS Setup
 
     Then the user should see error message for Hostname
 
+	Scenario:  [PCP_004_02_07]
+	  Show error message when hostname exists
+    
+		Given the user filled the reserved Hostname
+
+		When the user click "Submit" button
+
+	  Then the user should see error message for Hostname
+
+	Scenario:  [PCP_004_02_08]
+	  Show error message when device not found
+    
+	  When the user visits DDNS setup page with un-existed device id
+
+	  Then the user should see error message "not found"

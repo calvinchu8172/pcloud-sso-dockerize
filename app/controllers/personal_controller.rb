@@ -4,14 +4,16 @@ class PersonalController < ApplicationController
   before_action :check_device_info_session, only: [:check_status]
 
   def index
-    @pairing = Pairing.owner.where(user_id: current_user.id)
-    service_logger.note({paired_device: @pairing})
+    pairing = Pairing.includes(device: [:product, :ddns]).owner.where(user_id: current_user.id)
+    service_logger.note({paired_device: pairing})
 
-    if @pairing.empty?
+    if pairing.empty?
       @paired = false
       flash[:alert] = flash[:notice] ? flash[:notice] : I18n.t("warnings.no_pairing_device")
       redirect_to "/discoverer/index" and return
     end
+
+    @devices = pairing.map(&:device)
   end
 
   def profile
@@ -45,7 +47,7 @@ class PersonalController < ApplicationController
     @session[:session_id] = device_info_session.escaped_encrypted_id
     @session[:expire_in] = DeviceInfoSession::WAITING_PERIOD.to_i
     job = {:job => 'device_info', :session_id => device_info_session.id}
-    AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+    AwsService.send_message_to_queue(job)
   end
 
   def check_device_info_session
@@ -83,8 +85,7 @@ class PersonalController < ApplicationController
   end
 
   protected
-    def get_info(pairing)
-      device = pairing.device
+    def get_info(device)
       info_hash = Hash.new
       info_hash[:model_class_name] = device.product.model_class_name
       info_hash[:firmware_version] = device.firmware_version

@@ -17,7 +17,6 @@ class Api::User::TokensController < Api::Base
 
   def update
     user = Api::User::Token.find_by_encoded_id(update_params[:cloud_id])
-    logger.debug('update user:' + user.inspect)
     return render json: Api::User::INVALID_TOKEN_AUTHENTICATION, :status => 400 unless user
     authentication_token = user.renew_authentication_token(update_params[:account_token])
     return render json: Api::User::INVALID_TOKEN_AUTHENTICATION, :status => 400 unless authentication_token

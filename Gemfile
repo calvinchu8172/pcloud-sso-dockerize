@@ -95,13 +95,12 @@ end
 group :development do
   gem 'brakeman', :require => false
 end
-# gem 'devise-async'
-# gem 'sidekiq'
+
 group :development, :test do
   gem 'faker'
   gem 'hipchat'
   gem 'capybara'
-  gem "capybara-webkit", '~> 1.3.0'
+  gem "capybara-webkit", '~> 1.7'
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails'
   gem 'database_cleaner'
@@ -112,4 +111,6 @@ group :development, :test do
   gem 'pry'
   # gem 'i18n-docs', github: 'local-ch/i18n-docs'
   gem "letter_opener"
+  gem 'bullet'
 end
+

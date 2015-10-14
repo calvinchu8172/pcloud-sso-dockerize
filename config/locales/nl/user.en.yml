@@ -9,7 +9,7 @@ nl:
       middle_name: Tweede naam
       last_name: Achternaam
       password: Wachtwoord
-      password_suggestion: 8-14 characters password length
+      password_suggestion: Het wachtwoord dient 8-14 caracters lang te zijn
       password_confirmation: Bevestig wachtwoord
       new_password: Nieuw wachtwoord
       new_password_confirmation: Bevestig nieuw wachtwoord

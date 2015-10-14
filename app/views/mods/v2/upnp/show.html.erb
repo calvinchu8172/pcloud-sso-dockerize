@@ -146,7 +146,7 @@
       // 3. 如果服務尚未啟用，且 port 號存在於已被使用的 port 號列表。
       if($scope.result == 'false'){
         if( (wan_port == '-1') ||
-            (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(wan_port) > -1) ){
+            (!service_status && $scope.used_wan_port_list.length > 0 && $scope.used_wan_port_list.indexOf(parseInt(wan_port)) > -1) ){
           $scope.service['wan_port'] = $scope.randomPort();
         }
       }
@@ -175,7 +175,6 @@
           }
         });
       }
-      console.log($scope);
     }
 
     // 驗證輸入的 port 號
@@ -202,7 +201,7 @@
 
     // 重新計算port號
     $scope.randomPort = function(){
-      var rand_num = Math.floor((Math.random() * 65535) + 1025);
+      var rand_num = $scope.getRandomIntInclusive(65535, 1025);
       if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
         rand_num = $scope.randomPort();
       }
@@ -210,6 +209,10 @@
       return rand_num;
     }
 
+    // 產生區間亂數
+    $scope.getRandomIntInclusive = function(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
   });
 
@@ -255,15 +258,8 @@
         $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false }).success(function(response) {
           switch(response.status){
             case 'form':
-              console.log('-------------- 取列表結果 start --------------------------');
-              console.log('載入upnp列表...');
               $scope.used_wan_port_list = response.used_wan_port_list;
               $scope.service_list = response.service_list;
-
-              console.log('取得已使用的 wan port 列表: ' + $scope.used_wan_port_list);
-              console.log('取得 upnp service 列表如下: ');
-              console.log($scope.service_list);
-              console.log('-------------- 取列表結果 end --------------------------');
               $scope.pathIp = response.path_ip;
               $scope.get_list = response;
               if($scope.step != "confirm_cancel") {
@@ -350,10 +346,6 @@
             case 'reload':
               // 暫存 updated_list
               $scope.updated_list = response.service_list;
-              console.log('-------------- polling 設定更新結果 start --------------------------');
-              console.log('保存修改過的 service_list 為 updated_list，內容如下:');
-              console.log($scope.updated_list);
-              console.log('--------------- polling 更新結果 end -------------------------');
               $scope.reloadService();
               return;
             case 'timeout': // if device is offline, status will be set to timeout by portal
@@ -391,32 +383,17 @@
               return;
             case 'form':
               $scope.service_list = response.service_list;
-              console.log('-------------- 重新取得列表 start --------------------------');
-              console.log('重新取得的列表如下 (此列表是Bot寫入，尚未合併更新結果):');
-              console.log($scope.service_list);
-              console.log('=============================================================');
-              console.log('先前的更新結果列表如下:');
-              console.log($scope.updated_list);
               $scope.formPanel(response);
-              console.log('-------------- 重新取得列表 end --------------------------');
               return;
             case 'failure':
-              console.log('status: failure...');
-              console.log('顯示先前更新過的列表，內容如下：');
-              console.log($scope.updated_list);
               response.status = 'form';
               response.service_list = $scope.updated_list;
               $scope.formPanel(response);
               return;
             case 'timeout':
-              console.log('-------------- 重新取得列表 start --------------------------');
-              console.log('status: timeout...');
-              console.log('顯示先前更新過的列表，內容如下：');
-              console.log($scope.updated_list);
               response.status = 'form';
               response.service_list = $scope.updated_list;
               $scope.formPanel(response);
-              console.log('-------------- 重新取得列表 end --------------------------');
               return;
           } // switch(response.status){....}
         });

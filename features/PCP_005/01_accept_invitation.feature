@@ -74,7 +74,7 @@ Feature: [PCP_005_01] Accept Invitation
     Then the visitor should see a "Invitation accept success" message and button for "Confirm"
 
   Scenario: [PCP_005_01_08]
-    Redirect user to discover page when click "Confirm" button
+    Redirect user to login page when click "Confirm" button
 
     Given user logined
     And connect success and server send success message
@@ -82,7 +82,7 @@ Feature: [PCP_005_01] Accept Invitation
     When a user visits accept invitation page
     And user click "Confirm" button
 
-    Then the user will redirect to discover page
+    Then user will redirect to login page
 
   Scenario: [PCP_005_01_09]
     Redirect user to accept invitation page when click "Retry" button

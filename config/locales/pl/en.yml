@@ -4,6 +4,7 @@ pl:
     language: Język
     forgot_password: Zapomniane hasło
     resend_confirmation: Wyślij ponownie
+    unverified: Niezweryfikowany
     sign_in: Zaloguj
     sign_out: Wyloguj
     sign_up: Zarejestruj
@@ -14,10 +15,17 @@ pl:
     retry: Spróbuj ponownie
     submit: Prześlij
     confirm: Potwierdź
+    ok: OK
     or: lub
-    expand_all: Expand All
-    collapse_all: Collapse All
+    expand_all: Rozszerz wszystkie
+    collapse_all: Zwiń wszystkie
     settings:
+      invitation:
+        connecting: "Łączenie..."
+        success: Akceptacja zaproszenia zakończona powodzeniem
+        failure: Akceptacja zaproszenia nieudana
+        success_desc: "Gratulacje! Dołączenie do współdzielonego folderu %{share_point} zakończyło się powodzeniem."
+        failure_desc: "Zaproszenie do %{share_point} jest niedostępne, spróbuj ponownie."
       ddns:
         instruction: Konfiguracja DDNS
         host_name: Nazwa hosta
@@ -32,36 +40,39 @@ pl:
         table_head3: Nazwa usługi
         table_head4: Opis
         table_head5: Aktualizuj wyniki
+        table_head6: Pokaż port usługi
+        table_head7: Ukryj port usługi
+        table_head8: Port usługi
         result:
           success: Powodzenie
           failure: Niepowodzenie
           no_update: Brak aktualizacji
       package:
-        instruction: Package Setup
-        table_head1: Enabled
+        instruction: Konfiguracja pakietu
+        table_head1: Włączone
         table_head2: Status
-        table_head3: Package Name
-        table_head4: Require
-        table_head5: Version
-        table_head6: Description
-        table_head7: Update Result
+        table_head3: Nazwa pakietu
+        table_head4: Wymagane
+        table_head5: Wersja
+        table_head6: Opis
+        table_head7: Aktualizuj wyniki
         result:
-          success: Success
-          failure: Failure
-          no_update: No Update
+          success: Powodzenie
+          failure: Niepowodzenie
+          no_update: Brak aktualizacji
         description:
-          gallery: "Ta aplikacja pozwala na udostępnianie obrazów przez urządzenie NAS. Zaloguj się jako administrator NAS. Administrator może później utworzyć konta dla innych użytkowników."
-          googledriveclient: "Zapewniamy usługę dwukierunkowej synchronizacji pomiędzy NAS oraz Google Drive."
-          squeezecenter: "To narzędzie pozwala zarządzać urządzeniem Logitech Squeezebox podłączonym do urządzenia NAS."
-          memopal: "Memopal to internetowe oprogramowanie do tworzenia kopii zapasowych i zapisywania danych, które archiwizuje pliki w czasie rzeczywistym na serwerze zdalnym."
-          nfs: "NFS (Network File System) to protokół wymiany plików używany głównie w systemach uniksowych."
-          nzbget: "Ten pakiet ściąga pliki .nzb z Usenet. Użytkownik: nzbget Hasło:1234"
-          php-mysql-phpmyadmin: "Narzędzie to umożliwia zarządzanie baza danych MySQL przez sieć. Wpisz 'root' jako nazwę użytkownika i '1234' jako hasło, aby się zalogować."
-          tftp: "Trivial File Transfer Protocol (TFTP) to internetowy protokół przesyłania plików, który używa portu numer 69. Przypomina FTP, ale używa protokołu UDP (User Datagram Protocol) zamiast TCP (Transmission Control Protocol). Nie obsługuje listingów katalogu ani uwierzytelniania użytkowników."
-          transmission: "Ten pakiet jest innym klientem P2P który wspiera linki magnet i i pliki torrenta"
-          wordpress: "To narzędzie pozwala utworzyć blog i zarządzać nim. Zaloguj się jako administrator NAS. Administrator może następnie utworzyć konta dla innych użytkowników."
-          myzyxelcloud-agent: "myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami i bezpiecznego dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego miejsca, w którym istnieje połączenie internetowe!"
-          owncloud: "Pozwala na utworzenie i zarządzanie własną chmurą danych."
+          gallery: 'Ta aplikacja pozwala na udostępnianie obrazów przez urządzenie NAS. Zaloguj się jako administrator NAS. Administrator może później utworzyć konta dla innych użytkowników.'
+          googledriveclient: 'Zapewniamy usługę dwukierunkowej synchronizacji pomiędzy NAS oraz Google Drive.'
+          squeezecenter: 'To narzędzie pozwala zarządzać urządzeniem Logitech Squeezebox podłączonym do urządzenia NAS.'
+          memopal: 'Memopal to internetowe oprogramowanie do tworzenia kopii zapasowych i zapisywania danych, które archiwizuje pliki w czasie rzeczywistym na serwerze zdalnym.'
+          nfs: 'NFS (Network File System) to protokół wymiany plików używany głównie w systemach uniksowych.'
+          nzbget: 'Ten pakiet ściąga pliki .nzb z Usenet. Użytkownik: nzbget Hasło:1234'
+          php-mysql-phpmyadmin: 'Narzędzie to umożliwia zarządzanie baza danych MySQL przez sieć. Wpisz ''root'' jako nazwę użytkownika i ''1234'' jako hasło, aby się zalogować.'
+          tftp: 'Trivial File Transfer Protocol (TFTP) to internetowy protokół przesyłania plików, który używa portu numer 69. Przypomina FTP, ale używa protokołu UDP (User Datagram Protocol) zamiast TCP (Transmission Control Protocol). Nie obsługuje listingów katalogu ani uwierzytelniania użytkowników.'
+          transmission: 'Ten pakiet jest innym klientem P2P który wspiera linki magnet i i pliki torrenta'
+          wordpress: 'To narzędzie pozwala utworzyć blog i zarządzać nim. Zaloguj się jako administrator NAS. Administrator może następnie utworzyć konta dla innych użytkowników.'
+          myzyxelcloud-agent: 'myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami i bezpiecznego dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego miejsca, w którym istnieje połączenie internetowe!'
+          owncloud: 'Pozwala na utworzenie i zarządzanie własną chmurą danych.'
           pyload: 'NAS obsługuje pobieranie plików włączając pobieranie ze stron typu "one-clik-hosting".'
     pairing: Parowanie
     paired: Sparowane
@@ -73,6 +84,12 @@ pl:
     edit_profile: Edytuj profil
     mac_address: Adres MAC
     serial_number: Numer seryjny
+    find_nas: Zlokalizuj NAS
+    device_info:
+      raid_status: Stan RAID
+      cpu_temperature: Temp. CPU
+      fan_speed: Prędkość wentylatora
+      available_capacity: Dostępna przestrzeń dyskowa
   titles:
     change_password: Zmień hasło
     forgot_password: Resetuj hasło
@@ -82,6 +99,7 @@ pl:
     my_devices: Lista urządzeń
     search_devices: Wynik wyszukiwania
     settings:
+      package: Ustawienia pakietu
       ddns: Ustawienia DDNS
       upnp: Ustawienia UPnP
     pairing: Parowanie
@@ -113,8 +131,7 @@ pl:
         in_pairing: Urządzenie jest parowane
         failure: Limit czasu parowania. Spróbuj ponownie.
         canceled: Parowanie anulowane
-        success: Parowanie zakończone powodzeniem. Kliknij przycisk „Potwierdź”, aby
-          skonfigurować DDNS oraz UPnP.
+        success: Parowanie zakończone powodzeniem. Kliknij przycisk „Potwierdź”, aby skonfigurować DDNS oraz UPnP.
       ddns:
         instruction: 'Wykorzystaj:'
         instruction_2: od 3 do 63 znaków
@@ -143,3 +160,18 @@ pl:
           num_794: Zestawienie listy mapowania wszystkich portów nieudane
           num_793: Aktualizacja mapowania portów UPnP w bazie danych nieudana
           num_792: Nie znaleziono urządzenia
+      package:
+        sync: Synchronizacja ustawień pakietu...
+        success: Aktualizacja ustawień pakietu zakończona powodzeniem.
+        failure: Przekroczenie czasu oczekiwania. Spróbuj ponownie.
+        not_found: Nie znaleziono urządzenia
+        cancel_instruction: Czy na pewno chcesz anulować kolejkę ustawień pakietu?
+        error_code:
+          num_498: Nie na liście bota
+          num_489: Nie można pobrać listy pakietów
+          num_488: Nie można włączyć pakietu
+          num_487: Nie można wyłączyć pakietu
+      invitation:
+        zyxel_drive: ZyXEL Drive
+        zyxel_drive_desc: Oglądaj i udostępniaj swoje rzeczy z dowolnego miejsca.
+        zyxel_drive_download_desc: Pobierz teraz z

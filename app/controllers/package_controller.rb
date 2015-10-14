@@ -10,7 +10,6 @@
 class PackageController < ApplicationController
   before_action :authenticate_user!
   before_action :device_paired_with?, :only => :show
-  #before_action :deleted_extra_key, :only => :update
   before_action :service_list_to_json, :only => :update
   before_action :is_device_support?, :only => :show
 
@@ -85,7 +84,9 @@ class PackageController < ApplicationController
 
     package_list = !package_session['package_list'].empty? ? JSON.parse(package_session['package_list']) : {}
     #package_list = decide_enable(package_list) unless package_list.empty?
-    package_list = update_result(package_list) unless package_list.empty?
+    if (package_session['status'] != 'submit')
+      package_list = update_result(package_list) unless package_list.empty?
+    end
 
     #dependency_list = gen_dependency_list session_id unless package_list.empty?
     #puts package_list
@@ -113,7 +114,7 @@ class PackageController < ApplicationController
     unless session.empty?
       session['status'] = "cancel"
       @package.session.update(session)
-      push_to_queue_cancel("get_package_service", @package.id)
+      AwsService.push_to_queue_cancel("get_package_service", @package.id)
     end
 
     service_logger.note({cancel_package: session})
@@ -122,22 +123,20 @@ class PackageController < ApplicationController
 
   private
 
-  def same_subnet? device_ip
-    request.remote_ip == device_ip
-  end
-
-
-
-  def decide_which_path_ip package_session
-    device = Device.find package_session['device_id']
-    same_subnet?(device.session.hget('ip')) ? package_session['lan_ip'] : device.session.hget('ip')
-  end
-
   # Return i18n service description
   def decide_enable(package_list)
     package_list.each do |package|
       unless package["package_name"].blank?
         package["enabled"] = package["status"]
+      end
+    end
+    desc_key_list = ["gallery", "googledriveclient", "squeezecenter", "memopal", "nfs", "nzbget", "php-mysql-phpmyadmin", "tftp",
+        "transmission", "wordpress", "myzyxelcloud-agent", "owncloud", "pyload"]
+
+    package_list.each do |package|
+      unless package["package_name"].empty?
+        desc_key = package["package_name"].downcase
+        package["description"] = I18n.t("labels.settings.package.description.#{desc_key}")   if desc_key_list.include?(desc_key)
       end
     end
     package_list
@@ -149,18 +148,7 @@ class PackageController < ApplicationController
 
   def push_to_queue(job)
     data = {:job => job, :session_id => @package.id}
-    sqs = AWS::SQS.new
-    queue = sqs.queues.named(Settings.environments.sqs.name)
-    queue.send_message(data.to_json)
-  end
-
-  def deleted_extra_key
-    extra_keys = ["port", "update_result"]
-    params[:package_list].each do |package|
-      extra_keys.each do |key|
-        service.delete(key) if service.has_key?(key)
-      end
-    end
+    AwsService.send_message_to_queue(data)
   end
 
   # check the updated result and added the result to each
@@ -168,13 +156,13 @@ class PackageController < ApplicationController
     package_list.each do |package|
       result = "no_update"
 
-      if package['error_code'] && package['enabled'] != package['status']
+      if package['enabled'] != package['status']
         if package['error_code'].length == 0
           result = "success"
           package['status'] = package['enabled']
         else
           result = "failure"
-          #package['enabled'] = package['status']
+          package['enabled'] = package['status']
         end
       end
       package['update_result'] = result
@@ -265,7 +253,7 @@ class PackageController < ApplicationController
   end
 
   def is_device_support?
-    unless @device.find_module_list.include?(Mods::V1::Upnp::MODULE_NAME)
+    unless @device.find_module_list.include?(Package::MODULE_NAME)
       flash[:alert] = I18n.t('warnings.invalid_device')
       redirect_to :authenticated_root
     end

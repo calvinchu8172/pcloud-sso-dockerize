@@ -8,6 +8,14 @@ tr:
       send_paranoid_instructions: E-posta adresiniz veritabanımızda mevcutsa, birkaç
         dakika içinde hesabınızın nasıl onaylanacağı konusunda talimatları içeren
         bir e-posta alacaksınız.
+      apply_account: Hesabınızı başarıyla uyguladınız.
+      finish_step: Kaydı tamamlamak için lütfen e-postanızı denetleyin
+      click_step: ve doğrulama bağlantısına tıklayın.
+      confirm_before: Lütfen önce e-posta adresini doğrulayın
+      change_account: Başka e-posta adresine değiştir
+      resend: Onay e-postasını tekrar gönder
+      confirm_sent: Onay e-postası gönderildi.
+      same_email_address: Yeni e-posta adresi eskisiyle aynı.
     failure:
       already_authenticated: Zaten oturum açtınız.
       already_oauth_account: Facebook veya Google+ aracılığıyla zaten kayıt yapılmış
@@ -80,8 +88,8 @@ tr:
       confirmation_period_expired: "%{period} içinde onaylanması gerekli, lütfen yeni
         bir tane isteyin"
       expired: süresi bitti, lütfen yeni bir tane isteyin
-      oauth_password: please use your existing social network account (Facebook or
-        Google+) to change your existing password.
+      oauth_password: Var olan şifrenizi değiştirmek için lütfen sosyal ağ hesabınızı
+        (Facebook veya Google+) kullanın.
       not_found: bulunamadı
       not_locked: kilitlenmedi
       not_saved:

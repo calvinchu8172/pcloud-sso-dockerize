@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
 
-
   def self.sign_up_omniauth(auth, current_user, agreement)
     identity = Identity.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize
 
@@ -61,16 +60,6 @@ class User < ActiveRecord::Base
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"] if auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
-  end
-
-  def fetch_details_from_oauth(auth)
-    self.first_name   = auth["first_name"]  if auth["first_name"]
-    self.last_name    = auth["last_name"]   if auth["last_name"]
-    self.display_name = auth["name"]        if auth["name"]
-    self.email        = auth["email"]       if auth["email"]
-    self.middle_name  = auth["middle_name"] if auth["middle_name"]
-    self.language     = auth["locale"]      if auth["locale"]
-    self.gender       = auth["gender"]      if auth["gender"] && auth["gender"] != "other"
   end
 
   def confirmation_expire_time

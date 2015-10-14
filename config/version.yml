@@ -1,12 +1,12 @@
 development:
-  version: 'V.B.20150813_01'
+  version: '2.0.0'
   suffix: '-dev'
 test:
-  version: 'V.B.20150813_01'
+  version: '2.0.0'
   suffix: '-testing'
 staging:
-  version: 'V.B.20150813_01'
+  version: '2.0.0'
   suffix: '-alpha'
 production:
-  version: 'V.B.20150813_01'
+  version: '2.0.0'
   suffix: '-release'
