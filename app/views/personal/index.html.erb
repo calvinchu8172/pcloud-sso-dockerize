@@ -13,11 +13,13 @@
         <%# show all paired devices %>
         <% @devices.each do |device| %>
           <tr>
-            <td colspan="3" class="text-center table_btn_area">
+            <td colspan="3" class="table_btn_area">
+            <div style="margin: 0 auto; width: 70%;">
               <%= render partial: "module_link", locals: {device: device, module_name: Package::MODULE_NAME} %>
               <%= render partial: "module_link", locals: {device: device, module_name: Ddns::MODULE_NAME} %>
               <%= render partial: "module_link", locals: {device: device, module_name: Mods::Upnp::MODULE_NAME} %>
-              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + device.encoded_id, class: "zyxel_btn_style2" %>
+              <%= link_to I18n.t("labels.unpairing") , "/unpairing/index/" + device.encoded_id, class: "zyxel_btn_style2", style: "margin: 2px;" %>
+            </div>
             </td>
           </tr>
           <tr>
