@@ -68,7 +68,7 @@ Feature: Generate Invitation Key
     And the JSON response should include error code: "201"
     And the JSON response should include description: "Invalid cloud id or token."
 
-  Scenario: [REST_03_04]
+  Scenario: [REST_03_05]
     Client invite user with invalid sharename (utf8mb4)
 
     When client send a POST request to /resource/1/invitation with:
