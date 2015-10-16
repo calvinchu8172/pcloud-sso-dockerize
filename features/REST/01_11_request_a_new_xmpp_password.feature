@@ -1,4 +1,4 @@
-Feature: Request a new xmpp password
+Feature: [REST_01_11] Request a new xmpp password
 
   Background:
     Given a signed in client

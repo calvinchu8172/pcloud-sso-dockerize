@@ -1,4 +1,4 @@
-Feature: Get User's Email
+Feature: [REST_01_13] Get User's Email
 
   Background:
     Given a signed in client

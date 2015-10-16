@@ -1,4 +1,4 @@
-Feature: Request User's Device List API Testing
+Feature: [REST_05] Request User's Device List API Testing
 
   Background:
     Given a signed in client

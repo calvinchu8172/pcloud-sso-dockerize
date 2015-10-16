@@ -1,4 +1,4 @@
-Feature: Resend Confirmation E-mail
+Feature: [REST_01_04] Resend Confirmation E-mail
 
   Scenario: [REST_01_04_01]
     resend confirmation email

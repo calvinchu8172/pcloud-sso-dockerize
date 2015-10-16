@@ -1,4 +1,4 @@
-Feature: Ddns expire
+Feature: [Service_01] Ddns expire
 
   Background:
     Given an user who has a device and pairing

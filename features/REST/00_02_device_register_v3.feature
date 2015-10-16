@@ -1,4 +1,4 @@
-Feature: Device Register V3
+Feature: [REST_00_02] Device Register V3
 
   Background:
     Given the device with information

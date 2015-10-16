@@ -1,4 +1,4 @@
-Feature: Facebook Register
+Feature: [REST_01_07] Facebook Register
 
   Background:
 

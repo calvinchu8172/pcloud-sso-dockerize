@@ -1,4 +1,4 @@
-Feature: Delete User's Binding with Device
+Feature: [REST_04] Delete User's Binding with Device
 
   Background:
     Given a signed in client

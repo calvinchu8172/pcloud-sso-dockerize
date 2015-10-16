@@ -1,4 +1,4 @@
-Feature: Sign in from RESTful API with E-mail account
+Feature: [REST_01_01] Sign in from RESTful API with E-mail account
 
   Background:
 

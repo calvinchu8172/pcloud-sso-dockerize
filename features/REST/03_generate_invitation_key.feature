@@ -1,4 +1,4 @@
-Feature: Generate Invitation Key
+Feature: [REST_03] Generate Invitation Key
 
   Background:
     Given a signed in client

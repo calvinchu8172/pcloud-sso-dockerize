@@ -1,5 +1,5 @@
 @javascript
-Feature: [PCP_004_007] Get Device Information
+Feature: [PCP_004_006] Get Device Information
 
   Background:
 

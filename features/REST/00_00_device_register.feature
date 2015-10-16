@@ -1,4 +1,4 @@
-Feature: REST API testing
+Feature: [REST_00_00] REST API testing
 
   Background:
     Given the device with information

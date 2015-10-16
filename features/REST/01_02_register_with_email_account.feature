@@ -1,4 +1,4 @@
-Feature: Register with E-mail account
+Feature: [REST_01_02] Register with E-mail account
 
   Background:
     Given an existing certificate and RSA key
