@@ -1,5 +1,5 @@
 ---
-cz:
+cs:
   devise:
     confirmations:
       confirmed: Váš účet byl úspěšně potvrzen.
