@@ -33,7 +33,7 @@ module Pcloud
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr, :cz, :ru, :pl, :it, :hu, :fr, :es]
+    config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr, :cs, :ru, :pl, :it, :hu, :fr, :es]
     # config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths << Rails.root.join('lib')
 
