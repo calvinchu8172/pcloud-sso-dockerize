@@ -2,10 +2,10 @@
 
   <% if module_name == 'upnp' %>
     <% module_version = device.get_module_version(module_name) %>
-    <%= link_to I18n.t("labels.settings.#{module_name}.instruction") , { :controller=> "mods/v#{module_version}/#{module_name}", :action => 'show', :id => device.encoded_id }, class: "zyxel_btn_style1", style: "margin: 2px;" %>
+    <%= link_to I18n.t("labels.settings.#{module_name}.instruction") , { :controller=> "mods/v#{module_version}/#{module_name}", :action => 'show', :id => device.encoded_id }, class: "zyxel_btn_style1 zyxel_btn_menu" %>
 
   <% else %>
-    <%= link_to I18n.t("labels.settings.#{module_name}.instruction") , { :controller=> module_name, :action => 'show', :id => device.encoded_id }, class: "zyxel_btn_style1", style: "margin: 2px;" %>
+    <%= link_to I18n.t("labels.settings.#{module_name}.instruction") , { :controller=> module_name, :action => 'show', :id => device.encoded_id }, class: "zyxel_btn_style1 zyxel_btn_menu" %>
   <% end  %>
 
 <% end  %>
