@@ -20,13 +20,13 @@
         <div class="countdown" ng-switch-when="loading">
           <%= image_tag 'loading.gif' %>
           <div class="zyxel_btn_area i18n_fix">
-            <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+            <button id="pairing_waiting_loading_cancel_button" class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
           </div>
         </div>
         <div class="countdown" ng-switch-when="waiting">
             <%= image_tag @device.product.pairing.url %>
             <div class="zyxel_btn_area i18n_fix">
-              <button class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+              <button id="pairing_waiting_waiting_cancel_button" class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
             </div>
         </div>
         <div  ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
@@ -39,7 +39,7 @@
           <%= link_to(I18n.t("labels.confirm"), tutorial_path(@device), class: "zyxel_btn_ok") %>
         </div>
         <div ng-switch-when="confirm_cancel" class="zyxel_btn_area i18n_fix">
-          <button class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
+          <button id="pairing_waiting_confirm_cancel_cancel_button" class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
           <%= link_to(I18n.t("labels.confirm"), "/pairing/cancel/#{@device.encoded_id}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
     </div>
