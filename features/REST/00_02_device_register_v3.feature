@@ -112,3 +112,18 @@ Feature: Device Register V3
       When the device send information to REST API /d/3/register
 
       Then XmppLast should record this device register sign in time
+
+    Scenario: [REST_00_02_10]
+      Check device's IP address every time it registered
+
+      When the device signs up through d/3/register
+      And the device's IP is "<IP>"
+
+      Then the database should have the same record
+
+      Examples: IP addresses
+      |        IP       |
+      | 192.168.100.100 |
+      | 192.168.100.101 |
+      | 192.168.100.102 |
+      | 192.168.100.103 |
