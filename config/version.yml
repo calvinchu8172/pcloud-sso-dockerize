@@ -1,12 +1,12 @@
 development:
-  version: '2.0.0'
+  version: '2.0.1'
   suffix: '-dev'
 test:
-  version: '2.0.0'
+  version: '2.0.1'
   suffix: '-testing'
 staging:
-  version: '2.0.0'
+  version: '2.0.1'
   suffix: '-alpha'
 production:
-  version: '2.0.0'
+  version: '2.0.1'
   suffix: '-release'
