@@ -73,3 +73,16 @@ Feature: REST API testing
     Then the API should return "400" and "Failure" with error responds
     And the database does not have record
 
+  Scenario Outline: [REST-00-00-07]
+    Check device's IP address being same as in database every time it registered
+
+    When the device's IP is "<IP>"
+    And the device send information to REST API /d/1/register
+
+    Then the database should have the same IP record
+
+    Examples:
+    |      IP     |
+    | 192.100.1.0 |
+    | 192.100.1.1 |
+    | 192.100.1.2 |

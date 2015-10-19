@@ -27,16 +27,6 @@ Given(/^the device IP was be changed to "(.*?)"$/) do |ip|
   ENV['RAILS_TEST_IP_ADDRESS'] = ip
 end
 
-When(/^the device's IP is "(.*?)"$/) do |ip|
-  ENV['RAILS_TEST_IP_ADDRESS'] = ip
-end
-
-Then(/^the database should have the same record$/) do
-  @record = Device.find_by(mac_address: @device["mac_address"])
-  decoded_ip = IPAddr.new(@record.ip_address.to_i(16), Socket::AF_INET).to_s
-  expect(decoded_ip).to eq(ENV['RAILS_TEST_IP_ADDRESS']), "expected #{ENV['RAILS_TEST_IP_ADDRESS']}, but got #{decoded_ip}"
-end
-
 Then(/^DDNS ip should be update to "(.*?)"$/) do |ip|
   expect(Ddns.first.ip_address).to eq(ip)
 end

@@ -119,7 +119,7 @@ Feature: Device Register V3
       When the device's IP is "<IP>"
       And the device send information to REST API /d/3/register
 
-      Then the database should have the same record
+      Then the database should have the same IP record
 
       Examples:
         |      IP     |

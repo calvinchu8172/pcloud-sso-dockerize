@@ -70,6 +70,16 @@ Then(/^Email deliveries should be (\d+)$/) do |count|
   expect(ActionMailer::Base.deliveries.count).to eq(count.to_i)
 end
 
+When(/^the device's IP is "(.*?)"$/) do |ip|
+  ENV['RAILS_TEST_IP_ADDRESS'] = ip
+end
+
+Then(/^the database should have the same IP record$/) do
+  @record = Device.find_by(mac_address: @device["mac_address"])
+  decoded_ip = IPAddr.new(@record.ip_address.to_i(16), Socket::AF_INET).to_s
+  expect(decoded_ip).to eq(ENV['RAILS_TEST_IP_ADDRESS']), "expected #{ENV['RAILS_TEST_IP_ADDRESS']}, but got #{decoded_ip}"
+end
+
 def create_certificate_and_rsa_key
   @rsa_key = OpenSSL::PKey::RSA.new(2048)
 

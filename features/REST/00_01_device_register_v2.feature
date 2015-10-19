@@ -91,3 +91,17 @@ Feature: Device Register V2
 
       Then the API should return success respond
       And the module record in database as expected
+
+    Scenario Outline: [REST_00_01_08]
+      Check device's IP address being same as in database every time it registered
+
+      When the device's IP is "<IP>"
+      And the device send information to REST API /d/2/register
+
+      Then the database should have the same IP record
+
+      Examples:
+        |      IP     |
+        | 192.100.1.0 |
+        | 192.100.1.1 |
+        | 192.100.1.2 |
