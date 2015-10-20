@@ -1,4 +1,4 @@
-Feature: REST API testing
+Feature: [REST_00_00] REST API testing
 
   Background:
     Given the device with information
@@ -8,7 +8,7 @@ Feature: REST API testing
       | firmware_version | 1.0          |
       | algo             | 1            |
 
-  Scenario Outline: [REST-00-00-01]
+  Scenario Outline: [REST_00_00_01]
     Check correct update process when valid format
 
     When the device already registration
@@ -23,7 +23,7 @@ Feature: REST API testing
       | mac_address      | 000000000000 |
       | serial_number    | 654321A      |
 
-  Scenario Outline: [REST-00-00-02]
+  Scenario Outline: [REST_00_00_02]
     Check incorrect update process when invalid format
 
     Given the device already registration
@@ -40,14 +40,14 @@ Feature: REST API testing
       | model_name  | UNKNOWN           | 400         | invalid parameter |
 
 
-  Scenario: [REST-00-00-03]
+  Scenario: [REST_00_00_03]
     Check standard device registration process
 
     When the device send information to REST API /d/1/register
     Then the API should return success respond
     And the record in databases as expected
 
-  Scenario: [REST-00-00-04]
+  Scenario: [REST_00_00_04]
     Check reset process
 
     Given the device already registration
@@ -55,7 +55,7 @@ Feature: REST API testing
     Then the API should return success respond
     And the databases should have not pairing record
 
-  Scenario: [REST-00-00-05]
+  Scenario: [REST_00_00_05]
     Check correct update process when IP changed
 
     Given the device already registration
@@ -64,7 +64,7 @@ Feature: REST API testing
     Then the API should return success respond
     And the record in databases as expected
 
-  Scenario: [REST-00-00-06]
+  Scenario: [REST_00_00_06]
     Check incorrect update process when signature invalid
 
     Given the device already registration
