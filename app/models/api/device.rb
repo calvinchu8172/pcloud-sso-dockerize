@@ -11,9 +11,12 @@ class Api::Device < Device
     if instance.blank?
       # self.create!(instance.attributes.merge({product_id: @product.id}))
       self.product_id = @product.id
+      self.ip_address = ip_encode_hex
       self.save
       logger.info('create new device id:' + self.id.to_s)
       return true
+    else
+      instance.update_attribute(:ip_address, ip_encode_hex)
     end
 
     unless firmware_version == instance.firmware_version
@@ -175,5 +178,9 @@ class Api::Device < Device
       logger.debug("validate model name: " + @product.inspect)
 
       errors.add(:parameter, {result: 'invalid parameter'}) if @product.blank?
+    end
+
+    def ip_encode_hex
+      IPAddr.new(current_ip_address).to_i.to_s(16).rjust(8, "0")
     end
 end
