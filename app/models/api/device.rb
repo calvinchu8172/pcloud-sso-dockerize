@@ -40,9 +40,8 @@ class Api::Device < Device
     ddns.update(ip_address: ddns.get_ip_addr, status: 0) if ddns.present? # if device log in again, its ddns status will be reset to 0.
 
     device_session = self.session.all
-    return if device_session['ip'] == current_ip_address
+    return unless ip_changed?
     return if reset_requestment?
-
     return if ddns.nil?
 
     logger.debug('update ddns id:' + ddns.id.to_s)
@@ -54,7 +53,7 @@ class Api::Device < Device
     ddns_session.session.bulk_set(session)
     AwsService.send_message_to_queue(job)
 
-    Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
+    # Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
   end
 
   # 記錄下該Device 所需要的modules
@@ -79,9 +78,9 @@ class Api::Device < Device
 
     xmpp_account = generate_new_username
 
-    update_ip_list(current_ip_address) if current_ip_address != session['ip']
+    update_ip_list(current_ip_address) if ip_changed?
 
-    if current_ip_address != session['ip'] || xmpp_account != session['xmpp_account']
+    if ip_changed? || xmpp_account != session['xmpp_account']
       session['ip'] = current_ip_address
       session['xmpp_account'] = xmpp_account
       logger.info('create or update device session: ' + session.inspect + ', raw data:' + session.inspect)
@@ -137,6 +136,12 @@ class Api::Device < Device
 
   def xmpp_username
     generate_new_username
+  end
+
+  # the value of @changed only defined once when device registering
+  def ip_changed?
+    @changed = (current_ip_address != session['ip']) if @changed.nil?
+    @changed
   end
 
   private
