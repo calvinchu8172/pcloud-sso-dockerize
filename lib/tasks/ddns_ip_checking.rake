@@ -19,7 +19,7 @@ namespace :ddns_ip_checking do
     @rake_log.info("==========  Start executing ddns_ip_checking:check_and_fix ==========")
 
     Rake::Task["ddns_ip_checking:check"].invoke
-    fix_all_incorrect_ddns_ip if @data_to_fix.empty?
+    fix_all_incorrect_ddns_ip unless @data_to_fix.empty?
 
     @rake_log.info("==========  Finish executing ddns_ip_checking:check_and_fix ==========")
   end
