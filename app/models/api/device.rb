@@ -44,13 +44,11 @@ class Api::Device < Device
     return if reset_requestment?
     return if ddns.nil?
 
-    logger.debug('update ddns id:' + ddns.id.to_s)
-    # ervice_logger.note({'update ddns ip from' => device_session['ip'], 'update fireware to' => request.remote_ip})
-
     session = {device_id: self.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
     ddns_session = DdnsSession.create
     job = {:job => 'ddns', :session_id => ddns_session.id}
     ddns_session.session.bulk_set(session)
+    logger.info("device ip is changed, now creating ddns session: #{session}, and sending ddns queue: #{job}")
     AwsService.send_message_to_queue(job)
 
     # Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
@@ -81,16 +79,15 @@ class Api::Device < Device
     update_ip_list(current_ip_address) if ip_changed?
 
     if ip_changed? || xmpp_account != session['xmpp_account']
-      session['ip'] = current_ip_address
-      session['xmpp_account'] = xmpp_account
-      logger.info('create or update device session: ' + session.inspect + ', raw data:' + session.inspect)
+      device_session_data = { 'ip' => current_ip_address, 'xmpp_account' => xmpp_account}
+      logger.info("create or update device session: #{device_session_data} !")
+      self.session.bulk_set(device_session_data)
     end
   end
 
   # 如參數帶有reset=1的參數，並且該裝置已配對，則重設該台Device
   def reset_pairing
     unless reset_requestment?
-      logger.debug("don't reset");
       return
     end
 
