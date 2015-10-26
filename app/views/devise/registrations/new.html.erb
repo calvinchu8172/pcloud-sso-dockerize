@@ -145,22 +145,26 @@
 
 
     <div class="checkbox_i18n_wrap">
-      <%# Terms accept %>
+      <!-- Terms accept -->
       <div class="checkbox_area">
+        <!-- Visual Checkbox -->
+        <%= f.check_box :agreement, class: "th_label" %>
+        <label class="check_icon" for="user_agreement"><span></span></label>
+        <!-- End of visual Checkbox -->
+        <!-- Checkbox real label text -->
         <label class="checkbox_label" for="user_agreement"><%= I18n.t("user.labels.terms.instruction") %> </label>
         <a href="#"  onClick="window.open('<%= hint_agreement_path %>','_blank')" ><%= I18n.t("user.labels.terms.instruction_2") %></a>
         <strong> *</strong>
-        <%= f.check_box :agreement, class: "th_label" %>
-        <label class="check_icon" for="user_agreement"><span></span></label>
+        <!-- End of checkbox real label text -->
       </div>
-      <%# Terms accept - end %>
+      <!-- End of terms accept -->
 
-      <%# e-Mail DM %>
+      <!-- E-mail DM -->
       <div class="checkbox_area">
         <%= f.check_box :edm_accept %>
         <label class="checkbox_label" for="user_edm_accept"><span></span><%= I18n.t("user.labels.edm") %></label>
       </div>
-      <%# e-Mail DM - end %>
+      <!-- End of e-mail DM -->
     </div>
 
 
