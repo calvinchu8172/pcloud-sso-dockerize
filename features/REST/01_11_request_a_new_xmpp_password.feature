@@ -1,11 +1,11 @@
-Feature: Request a new xmpp password
+Feature: [REST_01_11] Request a new xmpp password
 
   Background:
     Given a signed in client
     And an existing certificate and RSA key
 
   Scenario: [REST_01_11_01]
-    Client request a new xmpp password with a valid authentication toekn
+    Client request a new xmpp password with a valid authentication token
 
     When client send a PUT request to /user/1/xmpp_account with:
       | cloud_id             | ENCODED USER ID              |
@@ -33,7 +33,7 @@ Feature: Request a new xmpp password
     And the JSON response should include description: "Invalid cloud id or token."
 
   Scenario: [REST_01_11_03]
-    Client request a new xmpp password with expired authentication_token
+    Client request a new xmpp password with invalid signature
 
     When client send a PUT request to /user/1/xmpp_account with:
       | cloud_id             | ENCODED USER ID              |

@@ -1,4 +1,4 @@
-Feature: Forgot Password
+Feature: [REST_01_03] Forgot Password
 
   Background:
     Given an existing user with:

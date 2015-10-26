@@ -1,4 +1,4 @@
-Feature: Api::User::OauthController
+Feature: [REST_01_0A] Api::User::OauthController
 
   Scenario: [REST_01_0A_01]
     get_oauth_data should return facebook data with valid uuid and access token

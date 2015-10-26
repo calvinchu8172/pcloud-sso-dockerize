@@ -1,4 +1,4 @@
-Feature: Google Checkin
+Feature: [REST_01_08] Google Checkin
 
   Background:
 

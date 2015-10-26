@@ -39,7 +39,7 @@ Feature: [PCP_001_04] oauth
 
 		Then the omniauth user should not see change password link
 
-	Scenario:  [PCP_001_04_02]
+	Scenario:  [PCP_001_04_05]
 	  Redirect to Terms of Use page when omniauth user have not agree terms of use, then check and click confirm
 	  And the user was not a member
 

@@ -1,4 +1,4 @@
-Feature: Google Register
+Feature: [REST_01_09] Google Register
 
   Background:
 

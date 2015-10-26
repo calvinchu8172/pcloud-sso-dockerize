@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922035359) do
+ActiveRecord::Schema.define(version: 20151015092006) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150922035359) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "product_id",       limit: 4,   null: false
+    t.string   "ip_address",       limit: 15
   end
 
   add_index "devices", ["mac_address", "serial_number"], name: "index_devices_on_mac_address_and_serial_number", unique: true, using: :btree

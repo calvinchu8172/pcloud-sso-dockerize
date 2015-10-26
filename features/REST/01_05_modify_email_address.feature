@@ -1,4 +1,4 @@
-Feature: Modify Email Address
+Feature: [REST_01_05] Modify Email Address
 
   Background:
 

@@ -1,4 +1,4 @@
-Feature: Device Register V3
+Feature: [REST_00_02] Device Register V3
 
   Background:
     Given the device with information
@@ -75,7 +75,8 @@ Feature: Device Register V3
 
       Then the API should return success respond
       And the record in databases as expected
-      And DDNS ip should be update to "01020304"
+      # And DDNS ip should be update to "01020304"
+      And the ip in device session should be the same as "1.2.3.4"
 
 
     Scenario: [REST_00_02_06]
@@ -112,3 +113,17 @@ Feature: Device Register V3
       When the device send information to REST API /d/3/register
 
       Then XmppLast should record this device register sign in time
+
+    Scenario Outline: [REST_00_02_10]
+      Check device's IP address being same as in database every time it registered
+
+      When the device's IP is "<IP>"
+      And the device send information to REST API /d/3/register
+
+      Then the database should have the same IP record
+
+      Examples:
+        |      IP     |
+        | 192.100.1.0 |
+        | 192.100.1.1 |
+        | 192.100.1.2 |

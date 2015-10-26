@@ -1,4 +1,4 @@
-Feature: Get Invitation Key List
+Feature: [REST_02] Get Invitation Key List
 
   Background:
     Given a signed in client

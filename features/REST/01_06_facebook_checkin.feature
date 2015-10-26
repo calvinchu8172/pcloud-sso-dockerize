@@ -1,4 +1,4 @@
-Feature: Facebook Checkin
+Feature: [REST_01_06] Facebook Checkin
 
   Background:
 
