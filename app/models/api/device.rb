@@ -46,12 +46,17 @@ class Api::Device < Device
 
     session = {device_id: self.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
     ddns_session = DdnsSession.create
-    job = {:job => 'ddns', :session_id => ddns_session.id}
-    ddns_session.session.bulk_set(session)
-    logger.info("device ip is changed, now creating ddns session: #{session}, and sending ddns queue: #{job}")
-    AwsService.send_message_to_queue(job)
+    job = {
+      :job => 'ddns',
+      :session_id => ddns_session.id,
+      :ip => current_ip_address,
+      :full_domain => "#{ddns.hostname}.#{Settings.environments.ddns}",
+      :xmpp_account => session['xmpp_account']
+    }
 
-    # Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
+    logger.info("device ip is changed, now creating ddns session: #{session}, and sending ddns queue: #{job}")
+    ddns_session.session.bulk_set(session)
+    AwsService.send_message_to_queue(job)
   end
 
   # 記錄下該Device 所需要的modules

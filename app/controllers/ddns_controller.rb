@@ -80,10 +80,16 @@ class DdnsController < ApplicationController
 
     # If full domain was not exits, it will insert data to database and redirct to success page
     def save_ddns_setting(device, hostname)
-      # job = Job::DdnsMessage.new
-      session = {device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
+      session = { device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start' }
       ddns_session = DdnsSession.create
-      job = {:job => 'ddns', :session_id => ddns_session.id}
+      job = {
+        :job => 'ddns',
+        :session_id => ddns_session.id,
+        :ip => device.ip_address,
+        :full_domain => "#{hostname}.#{Settings.environments.ddns}",
+        :xmpp_account => device.session['xmpp_account']
+      }
+      logger.debug("ddns job: #{job}")
       if ddns_session.session.bulk_set(session) && AwsService.send_message_to_queue(job)
         redirect_to action: 'success', id: ddns_session.escaped_encrypted_id
         return
