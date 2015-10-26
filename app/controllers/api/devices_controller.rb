@@ -3,11 +3,10 @@ class Api::DevicesController < Api::Base
 
   def create
 
+    @device.device_session_checkin
     @device.ddns_checkin
     @device.install_module
-    @device.device_session_checkin
     @device.reset_pairing
-
     @device.xmpp_checkin
   end
 

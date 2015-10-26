@@ -75,7 +75,8 @@ Feature: [REST_00_02] Device Register V3
 
       Then the API should return success respond
       And the record in databases as expected
-      And DDNS ip should be update to "01020304"
+      # And DDNS ip should be update to "01020304"
+      And the ip in device session should be the same as "1.2.3.4"
 
 
     Scenario: [REST_00_02_06]

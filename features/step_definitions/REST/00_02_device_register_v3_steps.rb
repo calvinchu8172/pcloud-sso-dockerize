@@ -39,3 +39,14 @@ end
 Then(/^the database should have no any association data with this device, including Invitation and AcceptedUser$/) do
 
 end
+
+Then(/^the ip in device session should be the same as "(.*?)"$/) do |ip|
+  expect(Device.first.session['ip']).to eq(ip)
+end
+
+
+
+
+
+
+
