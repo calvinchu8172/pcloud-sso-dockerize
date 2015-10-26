@@ -1,9 +1,9 @@
 @javascript
-Feature: [PCP_004_006] Get Device Information
+Feature: [PCP_004_06] Get Device Information
 
   Background:
 
-  Scenario: [PCP_004_006_001]
+  Scenario: [PCP_004_06_01]
     Show device information when user click down arrow button
 
     Given a user was signin and visits home page
@@ -18,7 +18,7 @@ Feature: [PCP_004_006] Get Device Information
     Then the page should display device information
     And the page should include up arrow button
 
-  Scenario: [PCP_004_006_002]
+  Scenario: [PCP_004_06_02]
     Close device information when user click up arrow button
 
     Given a user was signin and visits home page
@@ -29,7 +29,7 @@ Feature: [PCP_004_006] Get Device Information
 
     Then the page should not display device information
 
-  Scenario: [PCP_004_006_003]
+  Scenario: [PCP_004_006_03]
     Only show one device information when user click down arrow button
 
     Given a user was signin and visits home page
@@ -41,7 +41,7 @@ Feature: [PCP_004_006] Get Device Information
 
     Then the page should display only one down arrow button
 
-  Scenario Outline: [PCP_004_006_004]
+  Scenario Outline: [PCP_004_006_04]
     Display Available capacity
 
     Given a user was signin and visits home page
@@ -61,7 +61,7 @@ Feature: [PCP_004_006] Get Device Information
       | 4095          | 500         | 4095        | 87.79%          |
       | 4096          | 1000        | 4.0          | 75.00%          |
 
-  Scenario Outline: [PCP_004_006_005]
+  Scenario Outline: [PCP_004_006_05]
     Display volumn capacity
 
     Given a user was signin and visits home page
@@ -79,7 +79,7 @@ Feature: [PCP_004_006] Get Device Information
       | total_capacity | used_capacity | display_total |
       | 4096           | 1000          | 4.0           |
 
-  Scenario Outline: [PCP_004_006_006]
+  Scenario Outline: [PCP_004_006_06]
     Switch display volumn capacity unit
 
     Given a user was signin and visits home page
