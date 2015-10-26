@@ -40,21 +40,18 @@ class Api::Device < Device
     ddns.update(ip_address: ddns.get_ip_addr, status: 0) if ddns.present? # if device log in again, its ddns status will be reset to 0.
 
     device_session = self.session.all
-    return if device_session['ip'] == current_ip_address
+    return unless ip_changed?
     return if reset_requestment?
-
     return if ddns.nil?
-
-    logger.debug('update ddns id:' + ddns.id.to_s)
-    # ervice_logger.note({'update ddns ip from' => device_session['ip'], 'update fireware to' => request.remote_ip})
 
     session = {device_id: self.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
     ddns_session = DdnsSession.create
     job = {:job => 'ddns', :session_id => ddns_session.id}
     ddns_session.session.bulk_set(session)
+    logger.info("device ip is changed, now creating ddns session: #{session}, and sending ddns queue: #{job}")
     AwsService.send_message_to_queue(job)
 
-    Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
+    # Ddns.find_by(ddns.id).update(ip_address: current_ip_address)
   end
 
   # 記錄下該Device 所需要的modules
@@ -79,19 +76,18 @@ class Api::Device < Device
 
     xmpp_account = generate_new_username
 
-    update_ip_list(current_ip_address) if current_ip_address != session['ip']
+    update_ip_list(current_ip_address) if ip_changed?
 
-    if current_ip_address != session['ip'] || xmpp_account != session['xmpp_account']
-      session['ip'] = current_ip_address
-      session['xmpp_account'] = xmpp_account
-      logger.info('create or update device session: ' + session.inspect + ', raw data:' + session.inspect)
+    if ip_changed? || xmpp_account != session['xmpp_account']
+      device_session_data = { 'ip' => current_ip_address, 'xmpp_account' => xmpp_account}
+      logger.info("create or update device session: #{device_session_data}, update device ip from #{self.session['ip']} to #{current_ip_address} !")
+      self.session.bulk_set(device_session_data)
     end
   end
 
   # 如參數帶有reset=1的參數，並且該裝置已配對，則重設該台Device
   def reset_pairing
     unless reset_requestment?
-      logger.debug("don't reset");
       return
     end
 
@@ -137,6 +133,12 @@ class Api::Device < Device
 
   def xmpp_username
     generate_new_username
+  end
+
+  # the value of @changed only defined once when device registering
+  def ip_changed?
+    @changed = (current_ip_address != session['ip']) if @changed.nil?
+    @changed
   end
 
   private
