@@ -80,7 +80,7 @@ class Api::Device < Device
 
     if ip_changed? || xmpp_account != session['xmpp_account']
       device_session_data = { 'ip' => current_ip_address, 'xmpp_account' => xmpp_account}
-      logger.info("create or update device session: #{device_session_data} !")
+      logger.info("create or update device session: #{device_session_data}, update device ip from #{self.session['ip']} to #{current_ip_address} !")
       self.session.bulk_set(device_session_data)
     end
   end
