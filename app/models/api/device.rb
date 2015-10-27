@@ -48,6 +48,7 @@ class Api::Device < Device
     job = {
       :job => 'ddns',
       :session_id => ddns_session.id,
+      :device_id => self.id,
       :ip => current_ip_address,
       :full_domain => "#{ddns.hostname}.#{Settings.environments.ddns}",
       :xmpp_account => self.session['xmpp_account']

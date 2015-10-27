@@ -85,6 +85,7 @@ class DdnsController < ApplicationController
       job = {
         :job => 'ddns',
         :session_id => ddns_session.id,
+        :device_id => device.id,
         :ip => device.ip_address,
         :full_domain => "#{hostname}.#{Settings.environments.ddns}",
         :xmpp_account => device.session['xmpp_account']
