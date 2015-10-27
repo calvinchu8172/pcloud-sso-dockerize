@@ -39,23 +39,22 @@ class Api::Device < Device
 
     ddns.update(ip_address: ddns.get_ip_addr, status: 0) if ddns.present? # if device log in again, its ddns status will be reset to 0.
 
-    device_session = self.session.all
     return unless ip_changed?
     return if reset_requestment?
     return if ddns.nil?
 
-    session = {device_id: self.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start'}
+    ddns_session_data = { device_id: self.id, host_name: ddns.hostname, domain_name: Settings.environments.ddns, status: 'start' }
     ddns_session = DdnsSession.create
     job = {
       :job => 'ddns',
       :session_id => ddns_session.id,
       :ip => current_ip_address,
       :full_domain => "#{ddns.hostname}.#{Settings.environments.ddns}",
-      :xmpp_account => session['xmpp_account']
+      :xmpp_account => self.session['xmpp_account']
     }
 
-    logger.info("device ip is changed, now creating ddns session: #{session}, and sending ddns queue: #{job}")
-    ddns_session.session.bulk_set(session)
+    logger.info("device ip is changed, now creating ddns session: #{ddns_session_data}, and sending ddns queue: #{job}")
+    ddns_session.session.bulk_set(ddns_session_data)
     AwsService.send_message_to_queue(job)
   end
 
