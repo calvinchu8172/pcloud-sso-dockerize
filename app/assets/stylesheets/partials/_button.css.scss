@@ -30,6 +30,18 @@
         color: $btn_active_color;
       }
     }
+    > a.unverified {
+      color: $btn_color;
+      margin-right: 8px;
+      @include transition(all, .2s, color);
+      border: 1px solid $btn_color;
+      &:hover, &:focus {
+        text-decoration: none;
+        background-color: $btn_active_bg;
+        color: $btn_active_color;
+      }
+    }
+
   }
 }
 
@@ -202,8 +214,8 @@
   vertical-align: middle;
 }
 .zyxel_table_style3 .table_btn_area{
-  border-bottom: 1px solid $zyxel_color4;
-  padding:10px 0 30px 0;
+  // border-bottom: 1px solid $zyxel_color4;
+  padding:30px 0 10px 0;
 }
 .zyxel_btn_sns {
   width: 48%;
@@ -259,4 +271,18 @@
   background-color: #F0F0F0;
   color: #CCC;
   cursor: no-drop;
+}
+
+.zyxel_btn_confirm {
+  width: 48%;
+  white-space: normal;
+}
+
+.zyxel_btn_menu{
+  margin: 2px;
+}
+
+.zyxel_btn_menu_block{
+  margin: 0 auto;
+  width: 70%;
 }

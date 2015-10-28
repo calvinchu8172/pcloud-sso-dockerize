@@ -11,7 +11,6 @@ class SessionsController < Devise::SessionsController
     end
   end
 
-
   private
   def omniauth_accout?(user_email)
     oauth = false
@@ -21,4 +20,5 @@ class SessionsController < Devise::SessionsController
     end
     oauth
   end
+
 end

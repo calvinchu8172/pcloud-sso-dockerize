@@ -22,14 +22,25 @@ module ApplicationHelper
   end
 
   def tutorial_path device, current_step = nil
-
     next_module = device.find_next_tutorial current_step
-
-    url_params = {}
-    url_params[:controller] = next_module != 'finished' ? next_module : 'personal'
-    url_params[:action] = next_module != 'finished' ? 'show' : 'index'
-    url_params[:id] = device.escaped_encrypted_id unless next_module == 'finished'
-
-    url_for url_params
+    url = '/personal/index'
+    url = url_for({controller: next_module, action: 'show', id: device.encoded_id}) if next_module != 'finished'
+    url
   end
+
+  def confirmation_expire_time_string(timezone = Time.zone)
+    timezone ||= "UTC"
+    current_user.confirmation_expire_time.in_time_zone(Time.zone).strftime("%Y-%m-%d %H:%M %Z")
+  end
+
+  def show_unverified_button
+    unless current_user.confirmed? || params["controller"] == "confirmations"
+      link_to I18n.t("labels.unverified"), new_user_confirmation_path, class: "unverified"
+    end
+  end
+
+  def confirmed_or_valid_unconfirmed_access?
+    current_user.confirmed? || current_user.confirmation_valid?
+  end
+
 end

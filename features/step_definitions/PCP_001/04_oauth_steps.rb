@@ -45,6 +45,11 @@ Then(/^the user will redirect to Terms of Use page$/) do
   expect(page.current_path).to eq("/oauth/new")
 end
 
+When(/^the user click Terms of Use page$/) do
+  find(:xpath, ".//input[@id='user_agreement']").set(true)
+  click_button "Confirm"
+end
+
 Then(/^the user should login$/) do
   expect(page).to have_link I18n.t("labels.sign_out")
 end

@@ -3,8 +3,18 @@
 # newer version of cucumber-rails. Consider adding your own code to a new file
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require 'cucumber/rails'
 require "rack_session_access/capybara"
+
+require 'cucumber/rspec/doubles'
+
+#specified require this file, because there's a same name class in app/controllers/oauth_controller.rb
+Dir[File.expand_path("app/controllers/api/user/oauth_controller.rb")].each do |file|
+  require file
+end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -16,6 +26,9 @@ Capybara.always_include_port = true
 Capybara.default_host = Settings.environments.portal_domain
 Capybara.app_host = 'http://' + Settings.environments.portal_domain
 
+Capybara::Webkit.configure do |config|
+  config.block_unknown_urls
+end
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how
 # your application behaves in the production environment, where an error page will
@@ -60,3 +73,15 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :transaction
+
+if Bullet.enable?
+  Before do
+    Bullet.start_request
+  end
+
+  After do
+    Bullet.perform_out_of_channel_notification if Bullet.notification?
+    Bullet.end_request
+  end
+end
+

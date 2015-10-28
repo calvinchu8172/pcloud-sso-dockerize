@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
+  config.serve_static_files  = true
   config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
@@ -29,7 +29,8 @@ Rails.application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  # config.action_mailer.delivery_method = :test
+
+  config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -40,6 +41,15 @@ Rails.application.configure do
 
   # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.raise = true # raise an error if n+1 query occurs
+
+    # Detect eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = false
+  end
 end
 
 RailsAdmin.config do |config|

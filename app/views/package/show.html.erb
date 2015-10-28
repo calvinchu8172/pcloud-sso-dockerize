@@ -1,0 +1,355 @@
+<% provide(:flow, @device.product.model_class_name + "," + I18n.t("titles.settings.package")) %>
+<% provide(:tab, 'my_devices') %>
+
+<div class="package zyxel_content" style="max-width:570px;" ng-app="package_app"  ng-controller="PackageCtrl" ng-init="session=<%= @session.to_json() %>;loadConfig();">
+
+  <%# Pairing information %>
+  <div  ng-switch on="step">
+    <div class="waiting" ng-switch-when="updating">
+      <span class="zyxel_span2"><%= I18n.t("warnings.settings.package.sync") %></span>
+    </div>
+    <div ng-switch-when="form" >
+      <div ng-switch on="result">
+        <h2 ng-switch-when="true" class="zyxel_h2_icon1">
+          <span>{{wording}}</span>
+        </h2>
+      </div>
+      <table ng-table class="zyxel_table_style5">
+        <tr>
+          <th><%= I18n.t("labels.settings.package.table_head1") %></th>
+          <th><%= I18n.t("labels.settings.package.table_head2") %></th>
+          <th><%= I18n.t("labels.settings.package.table_head3") %></th>
+          <th><%= I18n.t("labels.settings.package.table_head4") %></th>
+          <th><%= I18n.t("labels.settings.package.table_head5") %></th>
+          <th><%= I18n.t("labels.settings.package.table_head6") %></th>
+          <%# display update result after submited %>
+          <th ng-if="submited">
+            <%= I18n.t("labels.settings.package.table_head7") %>
+          </th>
+        </tr>
+        <tr ng-repeat="package in package_list">
+          <td data-title="'enabled'" class="column1">
+            <div ng-switch on="result">
+              <input id="check{{$index}}" ng-disabled="panel == 'confirm'" type="checkbox" ng-model="package.enabled" ng-change="update_enable({{$index}})">
+              <div ng-switch-when="true">
+                <label for="check{{$index}}"><span></span></label>
+              </div>
+              <div ng-switch-when="false">
+                <label for="check{{$index}}"><span></span></label>
+              </div>
+            </div>
+          </td>
+          <td data-title="'status'" ng-switch on="package.status" class="column2">
+            <span ng-switch-when="true" class="">Enable</span>
+            <span ng-switch-when="false" class="">Disable</span>
+          </td>
+          <td data-title="'Name'">
+            <span ng-if="isFieldEmpty(package.path)">
+              {{package.package_name}}
+            </span>
+          </td>
+          <td data-title="'requires'" class="column2">
+            {{package.requires.join(" \n ")}}
+          </td>
+          <td data-title="'version'" class="column2">
+            {{package.version}}
+          </td>
+          <td data-title="'description'" class="column3">
+            {{package.description}}
+          </td>
+          <td data-title="'error_code'" class="update_result" ng-if="submited">
+            <span ng-switch on="package.update_result">
+              <span ng-switch-when="no_update"><%= I18n.t("labels.settings.package.result.no_update") %></span>
+              <span ng-switch-when="success" class="green"><%= I18n.t("labels.settings.package.result.success") %></span>
+              <span ng-switch-when="failure" class="red"><%= I18n.t("labels.settings.package.result.failure") %></span>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+     <div class="waiting" ng-switch-when="failure">
+      <span class="zyxel_span4">{{error_msg}}</span>
+    </div>
+    <div class="waiting" ng-switch-when="confirm_cancel">
+      <span class="zyxel_span4"><%= I18n.t("warnings.settings.package.cancel_instruction") %></span>
+    </div>
+  </div>
+  <%# Pairing information - end %>
+
+  <%# Bottom content include loading image and retry button %>
+  <div class="pairing-panel" ng-switch on="panel">
+    <div ng-switch-when="loading">
+      <div class="waiting"><%= image_tag 'loading.gif', size: "54x55" %></div>
+      <div class="zyxel_btn_area i18n_fix" ng-if="!submited">
+        <button id="package_show_loading_cancel_button" class="zyxel_btn_back" ng-click="cancel()"><%= I18n.t("labels.cancel") %></button>
+      </div>
+    </div>
+    <div ng-switch-when="retry" class="zyxel_btn_area i18n_fix">
+      <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
+      <button id="package_show_retry_button" class="zyxel_btn_submit" ng-click="submit()"><%= I18n.t("labels.retry") %></button>
+    </div>
+    <div ng-switch-when="form" class="zyxel_btn_area i18n_fix">
+      <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
+      <button id="package_show_form_submit_button" class="zyxel_btn_submit" ng-click="submit()" ng-if="!submited"><%= I18n.t("labels.submit") %></button>
+      <button id="package_show_form_retry_button" class="zyxel_btn_submit" ng-click="submit()" ng-if="submited"><%= I18n.t("labels.retry") %></button>
+
+    </div>
+    <div ng-switch-when="confirm" class="zyxel_btn_area i18n_fix">
+      <%= link_to(I18n.t("labels.ok"), "/personal/index", class: "zyxel_btn_back") %>
+      <% if @device.find_module_list.include?('upnp') %>
+        <%= link_to I18n.t("labels.settings.upnp.instruction") , { :controller=> "mods/v#{@device.get_module_version('upnp')}/upnp", :action => 'show', :id => @device.encoded_id }, class: "zyxel_btn_ok zyxel_enabled" %>
+      <% end  %>
+    </div>
+    <div ng-switch-when="confirm_cancel" class="zyxel_btn_area  i18n_fix">
+      <button id="package_show_confirm_cancel_button" class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>
+      <%= link_to(I18n.t("labels.confirm"), cancel_package_path(@session[:id]), class: "zyxel_btn_ok zyxel_enabled") %>
+    </div>
+    <div ng-switch-when="time_out" class="zyxel_btn_area  i18n_fix">
+      <%= link_to(I18n.t("labels.cancel"), "/personal/index", class: "zyxel_btn_back") %>
+      <button id="package_show_timeout_retry_button" class="zyxel_btn_submit" ng-click="retry()"><%= I18n.t("labels.retry") %></button>
+  </div>
+  <%# Bottom content include loading image and retry button - end %>
+</div>
+
+<script type="text/javascript">
+
+  var package_app = angular.module('package_app', ['timer']);
+  package_app.config([
+    '$httpProvider',
+    function($httpProvider) {
+        $httpProvider.defaults.headers
+          .common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
+    }
+  ]);
+
+  package_app.controller('PackageCtrl', function ($scope, $http, $timeout) {
+
+    $scope.session;
+    $scope.indexPath = '/package/';
+    $scope.checkPath = '/package/check/';
+    $scope.step = "updating";
+    $scope.panel = "loading";
+    $scope.result = "false"
+    $scope.loadTimes = 0;
+    $scope.checkTimes = 0;
+    $scope.timesLimit = 85;
+    $scope.interval = 3500;
+    $scope.pathIp;
+    $scope.wording;
+    $scope.get_list = false;
+    $scope.submited = false;
+    $scope.service_url = "";
+    $scope.error_msg = "";
+
+    $scope.init = function(){
+
+      $scope.step = "updating";
+      $scope.panel = "loading";
+      $scope.disableBtn();
+      $scope.wording = '';
+      $scope.loadConfig();
+    };
+    $scope.loadConfig = function(){
+
+      $timeout(function() {
+        $scope.loadTimes++;
+        $http.get($scope.indexPath + $scope.session.id + "/edit", { cache: false}).success(function(response) {
+
+          switch(response.status){
+            case 'form':
+              $scope.pathIp = response.path_ip;
+              $scope.get_list = response;
+              if($scope.step != "confirm_cancel") {
+                $scope.formPanel(response);
+              }
+              return;
+            case 'failure':
+            case 'timeout':
+              $scope.get_timeout(response);
+              return;
+          }
+
+          if($scope.loadTimes < $scope.timesLimit){
+
+            $scope.loadConfig();
+            return;
+          }
+
+          $scope.get_timeout(response);
+        });
+      }, $scope.interval);
+
+      $scope.disableBtn();
+    };
+
+    $scope.get_failure = function(response) {
+      $scope.error_msg = response.error_message;
+      $scope.loadTimes = 0;
+      $scope.step = "failure";
+      $scope.panel = "form";
+      $scope.package_list = response.package_list;
+      $scope.enableBtn();
+    };
+     $scope.get_timeout = function(response) {
+      $scope.error_msg = response.error_message;
+      $scope.loadTimes = 0;
+      $scope.step = "failure";
+      $scope.panel = "time_out";
+      //$scope.package_list = response.package_list;
+      $scope.enableBtn();
+    };
+    $scope.submit = function(){
+      $scope.session.package_list = $scope.package_list;
+      $http.put($scope.indexPath + $scope.session.id, $scope.session, { cache: false}).success(function(response){
+        if(response.result){
+          $scope.checkSubmit();
+        }
+      });
+
+      $scope.submited = true;
+      $scope.step = "updating"
+      $scope.panel = "loading";
+      $scope.disableBtn();
+    };
+    $scope.retry = function(){
+      location.reload();
+    };
+
+    $scope.cancel = function() {
+      $scope.step = "confirm_cancel";
+      $scope.panel = "confirm_cancel";
+    };
+
+    $scope.continue = function() {
+      if($scope.get_list.status == "form") {
+        $scope.formPanel($scope.get_list);
+      } else {
+        $scope.step = "updating";
+        $scope.panel = "loading";
+      }
+      $scope.get_list = false;
+    }
+
+    $scope.bind_url = function(service, path, port){
+      $scope.service_url = path.replace(/(\/\/+)[^:]*(:)[^\/]*(\/?.*)/, '$1' + $scope.pathIp + '$2' + port + '$3');
+      return $scope.service_url;
+    };
+    $scope.checkSubmit = function(){
+      $timeout(function() {
+        $http.get($scope.checkPath + $scope.session.id, { cache: false}).success(function(response){
+
+          $scope.checkTimes++;
+          switch(response.status){
+            case 'updated':
+              $scope.successPanel(response);
+              return;
+            case 'form':
+              $scope.formPanel(response);
+              return;
+            case 'failure':
+              $scope.get_failure(response);
+            case 'timeout':
+              $scope.get_failure(response);
+              return;
+          }
+
+          if($scope.checkTimes < $scope.timesLimit){
+            $scope.checkSubmit();
+          }else{
+            $scope.checkTimes = 0;
+            $scope.error_msg = response.error_message;
+            $scope.step = "failure";
+            $scope.panel = "retry";
+            $scope.enableBtn();
+          }
+        });
+      }, $scope.interval);
+
+      $scope.disableBtn();
+    };
+
+    $scope.disableBtn = function(){
+      var allButton = document.querySelectorAll("a:not(.zyxel_enabled)");
+      for(var i=0; i<allButton.length; i++){
+        var $thisBtn = allButton[i];
+        var $thisUrl = $thisBtn.getAttribute('href');
+        if ($thisUrl != "#"){
+          $thisBtn.setAttribute('data-href', $thisUrl);
+          $thisBtn.setAttribute('href', '#');
+        };
+      };
+    };
+    $scope.formPanel = function(response){
+      $scope.step = response.status;
+      $scope.panel = response.status;
+      $scope.enableBtn();
+      $scope.session = response;
+      $scope.package_list = response.package_list;
+      $scope.dependency_list = response.dependency_list;
+    }
+    $scope.successPanel = function(response){
+      $scope.step = "form";
+      $scope.panel = 'confirm';
+      $scope.enableBtn();
+      $scope.result = "true";
+      $scope.package_list = response.package_list;
+      $scope.wording = '<%= I18n.t("warnings.settings.package.success") %>';
+      //$scope.dependency_list = response.dependency_list;
+    }
+
+    $scope.isFieldEmpty = function(name){
+      return (typeof(name) == 'undefined' || name == null || name.length == 0)
+    }
+
+    $scope.enableBtn = function(){
+      var allButton = document.querySelectorAll("a[data-href]:not(.zyxel_enabled)");
+      for(var i=0; i<allButton.length; i++){
+        var $thisBtn = allButton[i];
+        var $dataUrl = $thisBtn.getAttribute('data-href');
+        $thisBtn.setAttribute('href', $dataUrl);
+      };
+    };
+
+    $scope.statusResult = function(state, update_result){
+      alert ( state  + update_result );
+      if(update_result == "success"){
+        return state;
+      }else{
+        return !state;
+      }
+    }
+    $scope.update_enable = function( index ){
+       if( $scope.package_list[index]['enabled'] )
+       {
+        depends = $scope.dependency_list.enable_list[ $scope.package_list[index]['package_name'] ]
+        if( depends )
+        {
+          for( depends_index in depends )
+          {
+            requires_name = depends[ depends_index ];
+            $scope.dependency_change( requires_name , 'enabled' , true );
+          }
+        }
+       }else
+        {
+          depends = $scope.dependency_list.disable_list[ $scope.package_list[index]['package_name'] ]
+          if( depends )
+          {
+            for( depends_index in depends )
+            {
+              requires_name = depends[ depends_index ];
+              $scope.dependency_change( requires_name , 'enabled' , false );
+            }
+          }
+        }
+    }
+    $scope.dependency_change = function( package_name ,attribute, value){
+      for( index in $scope.package_list )
+      {
+        if( $scope.package_list[index]['package_name'] ==  package_name )$scope.package_list[index][attribute] = value;
+      }
+    }
+
+  });
+</script>
+<!-- % end % -->

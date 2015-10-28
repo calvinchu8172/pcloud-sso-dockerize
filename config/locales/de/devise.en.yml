@@ -1,0 +1,99 @@
+---
+de:
+  devise:
+    confirmations:
+      confirmed: Ihr Account wurde erfolgreich bestätigt.
+      send_instructions: Sie erhalten in Kürze eine E-Mail mit weiteren Anweisungen,
+        wie Sie Ihren Account bestätigen können.
+      send_paranoid_instructions: Wenn Ihre E-Mail Adresse in unserer Datenbank existiert,
+        erhalten Sie in einigen Minuten eine E-Mail mit weiteren Anweisungen dazu,
+        wie Sie Ihren Account bestätigen können.
+      apply_account: Der Account wurde erfolgreich bestätigt.
+      finish_step: Um die Registrierung abzuschließen, überprüfen Sie bitte Ihre E-Mail´s.
+      click_step: und bestätigen Sie den Verifizierungs-Link
+      confirm_before: Bitte die E-Mail Adresse vorab bestätigen.
+      change_account: E-Mail Adresse ändern
+      resend: Bestätigungs E-Mail erneut senden
+      confirm_sent: Die Bestätigungs E-Mail wurde gesendet.
+      same_email_address: Die neue E-Mail Adresse ist die selbe wie Ihre alte E-Mail
+        Adresse.
+    failure:
+      already_authenticated: Sie sind bereits angemeldet.
+      already_oauth_account: Bereits über Facebook oder Google+ registriert.
+      inactive: Ihr Account wurde noch nicht aktiviert.
+      invalid: Falsche E-Mail Adresse oder Passwort.
+      locked: Ihr Account ist gesperrt.
+      last_attempt: Sie haben noch einen Versuch, bevor Ihr Account gesperrt wird.
+      not_found_in_database: Falsche E-Mail Adresse oder Passwort.
+      timeout: Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.
+      unauthenticated: Sie müssen sich anmelden oder registrieren um fortzufahren.
+      unconfirmed: Sie müssen Ihren Account aktivieren um fortzufahren.
+    mailer:
+      confirmation_instructions:
+        subject: ZyXEL Cloud - Account Bestätigung
+        instruction: 'Vielen Dank für Ihre Registrierung bei ZyXEL Cloud. Bitte klicken
+          Sie auf den folgenden Link um Ihre Registrierung abzuschließen:'
+        instruction_2: Bitte klicken Sie innerhalb von 3 Tagen nach Erhalt der E-Mail
+          auf den Link.
+      reset_password_instructions:
+        subject: ZyXEL Cloud - Anfrage zum Passwort zurücksetzen
+        instruction: Sie möchten Ihr ZyXEL Cloud Account Passwort ändern. Bitte klicken
+          Sie dazu auf den folgenden Link
+        instruction_2: Wenn Sie dies nicht angefragt haben, ignorieren Sie bitte diese
+          E-Mail.
+      unlock_instructions:
+        subject: Freischalt Anweisungen
+    omniauth_callbacks:
+      failure: Sie konnten nicht authentifiziert werden von %{kind} wegen "%{reason}".
+      success: Erfolgreiche Authentifizierung von %{kind} Account.
+      fb_primary_mail: "(Erste E-Mail Adresse in Facebook)"
+    passwords:
+      no_token: Sie können diese Seite nicht aufrufen, wenn Sie von keiner Passwort
+        Zurücksetzen E-Mail kommen. Sollten Sie von dieser kommen, stellen Sie sicher,
+        dass Sie die vollständige URL kopiert oder geklickt haben.
+      send_instructions: Sie erhalten in einigen Minuten eine E-Mail wie Sie Ihr Passwort
+        zurücksetzen können.
+      send_paranoid_instructions: Sollte Ihre E-Mail Adresse in unserer Datenbank
+        existieren, erhalten Sie in wenigen Minuten einen Link um Ihr Passwort wiederherzustellen.
+      updated: Ihr Passwort wurde erfolgreich geändert. Sie sind nun angemeldet.
+      updated_not_active: Ihr Passwort wurde erfolgreich geändert.
+    registrations:
+      destroyed: Auf Wiedersehen! Ihr Account wurde erfolgreich abgemeldet. Wir hoffen
+        Sie bald wieder begrüßen zu dürfen.
+      signed_up: Willkommen! Sie haben sich erfolgreich angemeldet.
+      signed_up_but_inactive: Sie haben sich erfolgreich angemeldet. Wir konnten Sie
+        jedoch nicht anmelden, da Ihr Account noch nicht aktiviert wurde.
+      signed_up_but_locked: Sie haben sich erfolgreich angemeldet. Wir konnten Sie
+        jedoch nicht anmelden, da Ihr Account gesperrt ist.
+      signed_up_but_unconfirmed: Eine Nachricht mit einem Bestätigungslink für Ihren
+        Account wurde an Ihre E-Mail Adresse gesendet. Bitte öffnen Sie diesen Link
+        um den Account zu aktivieren.
+      update_needs_confirmation: Sie haben Ihren Account erfolgreich geupdatet. Bitte
+        bestätigen Sie die neue E-Mail Adresse. Wir haben Ihnen dazu eine E-Mail mit
+        einem Bestätigungslink gesendet um die Änderungen abzuschließen.
+      updated: Sie haben Ihren Account erfolgreich geupdatet.
+      captcha: Es gab einen Fehler mit dem Captcha-Code. Bitte geben Sie diesen erneut
+        ein.
+    sessions:
+      signed_in: Anmeldung erfolgreich.
+      signed_out: Abmeldung erfolgreich.
+    unlocks:
+      send_instructions: Sie erhalten in wenigen Minuten eine E-Mail mit Anweisungen
+        wie Sie Ihren Account entsperren können.
+      send_paranoid_instructions: Sollte Ihr Account existieren, erhalten Sie in wenigen
+        Minuten eine E-Mail mit Anweisungen wie Sie Ihren Account entsperren können.
+      unlocked: Ihr Account wurde erfolgreich entsperrt. Bitte melden Sie sich an
+        um fortzufahren.
+  errors:
+    messages:
+      already_confirmed: wurde bereits bestätigt, bitte versuchen Sie es erneut.
+      confirmation_period_expired: muss innerhalb von %{period}, bestätigt werden.
+        Bitte fordern Sie einen neuen an
+      expired: ist ausgelaufen, bitte fordern Sie einen neuen an
+      oauth_password: Bitte nutzen Sie Ihren bestehenden Social Network Account (Facebook
+        oder Google+) um das existierende Passwort zu ändern.
+      not_found: nicht gefunden
+      not_locked: wurde nicht gesperrt
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: "%{count} errors prohibited this %{resource} from being saved:"

@@ -4,25 +4,24 @@
 # 2. 輸入mac address 與 serial number 搜尋
 class DiscovererController < ApplicationController
   include PairingHelper
+
   before_action :authenticate_user!
   before_filter :check_device_available, :only => [:check]
 
   def index
-
     raw_result = Array.new
     search_available_device.each do |device|
-      logger.debug('get device product:' + device.product.to_json)
       next if(device.product.blank?)
-      logger.info "discovered device id:" + device.id.to_s + ", product name:" + device.product.name
-      raw_result.push({:device_id => device.escaped_encrypted_id,
+      raw_result.push({:device_id => device.encoded_id,
         :paired => device.paired?,
         :product_name => device.product.name,
         :model_class_name => device.product.model_class_name,
         :mac_address => device.mac_address.scan(/.{2}/).join(":"),
         :firmware_version => device.firmware_version,
-        :img_url => device.product.asset.url(:thumb)})
+        :img_url => device.product.asset.url(:thumb),
+        :has_indicator_module => device.find_module_list.include?('indicator')
+        })
     end
-
     service_logger.note({available_to_pair: raw_result})
 
     @result = raw_result
@@ -39,26 +38,23 @@ class DiscovererController < ApplicationController
   end
 
   def search
-
-    valid = mac_address_valid?(params[:device][:mac_address])
-    params[:device][:mac_address].gsub!(/:/, '')
-
-    service_logger.note({searching_device: params[:device]})
-
-    devices = Device.where(params['device']);
-    logger.info "searched device:" + params['device'].inspect
-
-    if !valid
+    unless mac_address_valid?(params[:device][:mac_address])
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'add'
-    elsif devices.empty?
+      return
+    end
+    params[:device][:mac_address].gsub!(/:/, '')
+    service_logger.note({searching_device: params[:device]})
+    device = Device.search(params[:device][:mac_address], params[:device][:serial_number])
+    logger.info "searched device:" + params[:device][:mac_address].inspect
+    if device.blank?
       flash[:alert] = I18n.t("errors.messages.not_found")
       redirect_to action: 'add'
-    elsif devices.first.paired?
+    elsif device.paired?
       flash[:alert] = I18n.t("warnings.settings.pairing.pair_already")
       redirect_to action: 'add'
     else
-      redirect_to action: 'check', id: devices.first.escaped_encrypted_id
+      redirect_to action: 'check', id: device.encoded_id
     end
   end
 
@@ -70,24 +66,33 @@ class DiscovererController < ApplicationController
   # 1. 同樣的public IP
   # 2. 裝置非本人配對中
   def search_available_device
-
     available_device_list = []
     available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
 
     service_logger.note({device_in_lan: available_ip_list})
 
-    Device.where('id in (?)', available_ip_list).each do |device|
-
+    Device.includes(:product).where('id in (?)', available_ip_list).each do |device|
       pairing_session = device.pairing_session.all
       pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
       presence = device.presence?
-
       available_device_list << device if !pairing && presence
     end
-
-    logger.debug('result of searching available device list:' + available_device_list.inspect)
     available_device_list
   end
+
+  def indicate
+    device_id = params[:id]
+    indicator_session = DeviceIndicatorSession.create
+    device = Device.find_by_encoded_id device_id
+    session = { device_id: device.id }
+    indicator_session.session.bulk_set(session)
+
+    job = {:job => 'led_indicator', :session_id => indicator_session.id}
+    AwsService.send_message_to_queue(job)
+
+    render :json => { "result" => "success" }, status: 200
+  end
+
 
   def mac_address_valid?(mac_address)
     # Sample: 20:13:10:00:00:A0  |  2013100000A0

@@ -1,0 +1,7 @@
+  親愛的<%= @user.first_name %>，您好:
+
+  <%= @full_domain %> 最近的更新時間是 <%= @last_signout_at %>。必須在60 天內，您的設備至少要上線回報一次，DDNS 主機名稱才不會從我們的系統中移除。 
+  如果您還需要使用 “<%= @full_domain %>”，且不想讓此主機名稱從我們的系統中刪除，請將您的 ZyXEL 設備立即連接上網。
+  如果您不再使用 “<%= @full_domain %>”，請忽略此訊息,您的主機名稱將會在30天後自動被移除。
+
+  myZyXELcloud Service 敬上

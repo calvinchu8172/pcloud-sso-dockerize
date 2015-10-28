@@ -51,12 +51,6 @@ class DdnsController < ApplicationController
     end
   end
 
-  # Set error message and redirect to setting page
-  def failure
-    flash[:error] = I18n.t("warnings.settings.ddns.failure")
-    redirect_to action: 'show', id: CGI::escape(params[:id])
-  end
-
   # POST /ddns/check
   # Check full domain name
   def check
@@ -67,7 +61,7 @@ class DdnsController < ApplicationController
     ddns = Ddns.find_by_hostname(hostname)
     filter_list = Settings.environments.filter_list
     # If hostname was exits, it will redirct to setting page and display error message
-    device = Device.find_by_encrypted_id(URI.decode(params[:id]))
+    device = Device.find_by_encoded_id(params[:id])
 
     if ddns && (!paired?(ddns.device_id) || ddns.device_id != device.id)
       flash[:error] = @full_domain.chomp('.') + " " + I18n.t("warnings.settings.ddns.exist")
@@ -79,7 +73,6 @@ class DdnsController < ApplicationController
       return
     end
 
-    # device = Device.find_by_encrypted_id(URI.decode(params[:id]))
     save_ddns_setting(device, hostname)
   end
 
@@ -91,18 +84,18 @@ class DdnsController < ApplicationController
       session = {device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start'}
       ddns_session = DdnsSession.create
       job = {:job => 'ddns', :session_id => ddns_session.id}
-      if ddns_session.session.bulk_set(session) && AWS::SQS.new.queues.named(Settings.environments.sqs.name).send_message(job.to_json)
+      if ddns_session.session.bulk_set(session) && AwsService.send_message_to_queue(job)
         redirect_to action: 'success', id: ddns_session.escaped_encrypted_id
         return
       end
 
       flash[:error] = I18n.t("warnings.invalid")
-      redirect_to action: 'show', id: device.escaped_encrypted_id
+      redirect_to action: 'show', id: device.encoded_id
     end
 
     # Redirct to my device page when device is not paired for current user
     def device_available
-      @device = Device.find_by_encrypted_id(params[:id])
+      @device = Device.find_by_encoded_id(params[:id])
       if @device
         if !paired?(@device.id) || !@device.find_module_list.include?(Ddns::MODULE_NAME)
           error_action
@@ -117,7 +110,7 @@ class DdnsController < ApplicationController
     end
 
     def error_action
-      flash[:error] = I18n.t("warnings.settings.ddns.not_found")
+      flash[:alert] = I18n.t("warnings.settings.ddns.not_found")
       redirect_to "/personal/index"
     end
     # Redirct to my device page when device is not paired for current user - end

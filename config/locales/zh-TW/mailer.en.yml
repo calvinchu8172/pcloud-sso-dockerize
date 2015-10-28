@@ -1,0 +1,5 @@
+---
+zh-TW:
+  mailer:
+    subjects:
+      notification: "您的 DDNS 過期通知"

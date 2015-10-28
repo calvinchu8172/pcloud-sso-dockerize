@@ -1,10 +1,5 @@
-
 Rails.application.routes.draw do
-
-  # get '*unmatched_route', :to => 'application#raise_not_found!'
-
-  # get "/404", :to => 'application#raise_not_found!'
-
+  # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
       # setting root path to personal index page, if user signed in
@@ -14,7 +9,7 @@ Rails.application.routes.draw do
 
       # setting root path to sign in page, if user not sign in
       unauthenticated do
-        root 'devise/sessions#new', as: :unauthenticated_root
+        root 'sessions#new', as: :unauthenticated_root
       end
     end
 
@@ -23,12 +18,9 @@ Rails.application.routes.draw do
     get 'hint/reset'
     get 'hint/sent'
     get 'hint/agreement'
-
-    resources :ddns
-    post 'ddns/check'
-    post 'discoverer/search'
-
-    get 'registrations/success'
+    get 'hint/confirm_sent'
+    # get 'help', to: 'help#index'
+    get 'help', to: 'help#index'
 
     devise_for :users, :controllers => {
       :registrations => "registrations",
@@ -37,27 +29,108 @@ Rails.application.routes.draw do
       :passwords => 'passwords',
       :omniauth_callbacks => "users/omniauth_callbacks"}
 
-    get 'device/register'
+    devise_scope :user do
+      get 'users/confirmation/edit', to: "confirmations#edit"
+      patch 'users/confirmation', to: "confirmations#update"
+    end
+
+    get 'ddns/:id', to: 'ddns#show'
+    get 'ddns/success/:id', to: 'ddns#success'
+    get 'ddns/failure/:id', to: 'ddns#failure'
+    post 'ddns/check'
+
+    get 'discoverer/index', to: 'discoverer#index'
+    get 'discoverer/add'
+    get 'discoverer/check/:id', to: 'discoverer#check'
+    get 'discoverer/indicate/:id', to: 'discoverer#indicate'
+    post 'discoverer/search'
+
+    get 'personal/index'
+    get 'personal/profile'
+    get 'personal/device_info/:id', to: 'personal#device_info'
+    get 'personal/check_status/:id', to: 'personal#check_status'
 
     unless Rails.env.production?
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     end
 
-    resources :upnp
+    get 'pairing/index/:id', to: 'pairing#index'
+    get 'pairing/waiting/:id', to: 'pairing#waiting'
+    get 'pairing/check_connection/:id', to: 'pairing#check_connection'
+    get 'pairing/cancel/:id', to: 'pairing#cancel'
 
-    get 'upnp/check/:id' , to: 'upnp#check'
-    get '/:controller(/:action(/:id))(.format)'
+    resources :package, only: [:show, :edit, :update]
+    get 'package/check/:id' , to: 'package#check'
+    get 'package/cancel/:id', to: 'package#cancel', as: 'cancel_package'
+
+    concern :upnp_mods do
+      resources :upnp, only: [:show, :edit, :update]
+      get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
+      get 'upnp/check/:id', to: 'upnp#check', format: 'json'
+    end
+
+    scope :path => '/1/', :module => 'mods/v1' do
+      concerns :upnp_mods
+    end
+
+    scope :path => '/2/', :module => 'mods/v2' do
+      concerns :upnp_mods
+      get 'upnp/reload/:id', to: 'upnp#reload', format: 'json'
+    end
+
+    get 'unpairing/index/:id', to: 'unpairing#index', as: 'unpairing_index'
+    get 'unpairing/success/:id', to: 'unpairing#success', as: 'unpairing_success'
+    get 'unpairing/destroy/:id', to: 'unpairing#destroy', as: 'unpairing_destroy'
+
     post 'oauth/confirm'
+    get 'oauth/new'
+
+    get 'invitations/accept/:id', to: 'invitations#accept'
+    get 'invitations/accept', to: 'invitations#accept'
+    get 'invitations/check_connection/:id', to: 'invitations#check_connection'
   end
 
+  # Routes for Pcloud REST API server
   constraints :host => Settings.environments.api_domain  do
 
-    post '/d/1/:action' => "device"
-    post '/d/2/:action' => "device"
+    # post '/d/1/:action' => "device"
+    # post '/d/2/:action' => "device"
 
-    root "application#raise_not_found!", via: :all
+    scope :path => '/d/1/', :module => "api/devices/v1" do
+      post 'register', to: 'register#create', format: 'json'
+    end
+
+    scope :path => '/d/2/', :module => "api/devices/v2" do
+      post 'register', to: 'register#create', format: 'json'
+    end
+
+    scope :path => '/d/3/', :module => "api/devices/v3" do
+      post 'register', to: 'register#create', format: 'json'
+      post 'register/lite', to: 'lite#create', format: 'json'
+    end
+
+    scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
+      # match ':controller(/:action(/:id(.:format)))', :via => :all
+      resource :token, format: 'json'
+      resource :register, format: 'json'
+      # put 'email' => 'emails#update', format: 'json'
+      resource :email, format: 'json'
+      resource :confirmation, format: 'json'
+      resource :password, format: 'json'
+      resource :xmpp_account, format: 'json'
+      get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
+      post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
+    end
+
+    scope :path => '/resource/1/', :module => "api/resource" do
+      post 'invitation', to: 'invitations#create', format: 'json'
+      get 'invitation', to: 'invitations#show', format: 'json'
+      delete 'permission', to: 'permissions#destroy', format:'json'
+      get 'device_list', to: 'personal#device_list', format: 'json'
+    end
   end
-  
-  get "*path", to: "application#raise_not_found!", via: :all
 
+  # Catch all routes
+  root "application#raise_not_found!", via: :all
+  get "*path", to: "application#raise_not_found!", via: :all
 end
