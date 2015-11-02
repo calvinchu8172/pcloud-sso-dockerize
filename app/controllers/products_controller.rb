@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_action :admin_auth!
   before_action :set_product, only: [:edit, :update]
   respond_to :html, :js
 
@@ -39,5 +40,13 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:name, :model_class_name, :asset, :pairing)
+    end
+
+    def admin_auth!
+      redis_id = Redis::HashKey.new("admin:" + current_user.id.to_s + ":session")
+
+      unless redis_id['name'] == current_user.email
+        redirect_to :root
+      end
     end
 end
