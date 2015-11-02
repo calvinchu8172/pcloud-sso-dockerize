@@ -8,7 +8,7 @@ class DdnsController < ApplicationController
   include ApplicationHelper
 
   before_action :authenticate_user!
-  before_action :device_available, :only => [:show]
+  before_action :device_available, :only => [:show, :check]
   before_action :validate_host_name, :only => [:check]
 
   def show
@@ -22,9 +22,8 @@ class DdnsController < ApplicationController
   end
 
   def success
-
     @ddns = DdnsSession.find_by_encrypted_id(URI.decode(params[:id]))
-    error_action and return if @ddns.nil?
+    set_device_not_found_error and return if @ddns.nil?
 
     raw_ddns_session = @ddns.session.all
     raw_ddns_session['id'] = @ddns.id
@@ -54,36 +53,25 @@ class DdnsController < ApplicationController
   # POST /ddns/check
   # Check full domain name
   def check
-
     hostname = params[:host_name].downcase
     @full_domain = hostname + "." + Settings.environments.ddns
-    # Need compare domain id when domain name have multiple
-    ddns = Ddns.find_by_hostname(hostname)
-    filter_list = Settings.environments.filter_list
-    # If hostname was exits, it will redirct to setting page and display error message
-    device = Device.find_by_encoded_id(params[:id])
-
-    if ddns && (!paired?(ddns.device_id) || ddns.device_id != device.id)
-      flash[:error] = @full_domain.chomp('.') + " " + I18n.t("warnings.settings.ddns.exist")
-      redirect_to action: 'show', id: params[:id]
-      return
-    elsif filter_list.include?(hostname)
-      flash[:error] = @full_domain.chomp('.') + " " + I18n.t("warnings.settings.ddns.exist")
-      redirect_to action: 'show', id: params[:id]
-      return
+    if hostname_occupied? (hostname)
+        flash[:error] = "#{@full_domain.chomp('.')} #{I18n.t('warnings.settings.ddns.exist')}"
+        redirect_to action: 'show', id: params[:id]
+        return
     end
-
-    save_ddns_setting(device, hostname)
+    save_ddns_setting(@device, hostname)
   end
 
   private
 
-    # If full domain was not exits, it will insert data to database and redirct to success page
+    # If full domain was not exists, it will insert data to database and redirct to success page
     def save_ddns_setting(device, hostname)
       flash[:error] = I18n.t("warnings.invalid")
       redirect_to(action: 'show', id: device.encoded_id) and return if device.ip_address.blank?
 
       session = { device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start' }
+
       ddns_session = DdnsSession.create
 
       job = {
@@ -107,44 +95,48 @@ class DdnsController < ApplicationController
     # Redirct to my device page when device is not paired for current user
     def device_available
       @device = Device.find_by_encoded_id(params[:id])
-      if @device
-        if !paired?(@device.id) || !@device.find_module_list.include?(Ddns::MODULE_NAME)
-          error_action
-        end
-      else
-        error_action
+      set_device_not_found_error and return unless @device.present?
+      set_device_not_found_error and return unless @device.paired_with?(current_user.id)
+      set_device_not_found_error and return unless @device.has_module?(Ddns::MODULE_NAME)
+    end
+
+    # The following conditions can represents the hostname is occupied by other user:
+    # * the hostname exists, and the device of ddns is not paired with current user
+    # * the hostname exists, and the device of ddns is not the device that user selected to do ddns setting
+    def hostname_occupied? hostname
+      ddns = Ddns.find_by_hostname(hostname)
+      if ddns.present?
+        return true if (!ddns.device.paired_with?(current_user.id) || !ddns.setting_for_device?(@device.id))
       end
+      return false
     end
 
-    def paired?(device_id)
-      Pairing.owner.exists?(['device_id = ? and user_id = ?', device_id, current_user.id])
-    end
-
-    def error_action
+    def set_device_not_found_error
       flash[:alert] = I18n.t("warnings.settings.ddns.not_found")
       redirect_to "/personal/index"
     end
-    # Redirct to my device page when device is not paired for current user - end
 
     # Validation for hostname
     def validate_host_name
-      invalid = false
+      filter_list = Settings.environments.filter_list
 
-      if params[:host_name].length < 3
-        invalid = true
-        error_message = I18n.t("warnings.settings.ddns.too_short")
-      elsif params[:host_name].length > 63
-        invalid = true
-        error_message = I18n.t("warnings.settings.ddns.too_long")
-      elsif /^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:host_name]).nil?
-        invalid = true
-        error_message = I18n.t("warnings.invalid")
-      end
+      error_conditions = {
+        I18n.t("warnings.settings.ddns.too_short") => (params[:host_name].length < 3),
+        I18n.t("warnings.settings.ddns.too_long") => (params[:host_name].length > 63),
+        I18n.t("warnings.invalid") => (
+          (/^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:host_name]).nil?) ||
+          (filter_list.include?(params[:host_name].downcase))
+        )
+      }
 
-      if invalid
-        service_logger.note({'invalid_ddns' => {:error_message => error_message}})
-        flash[:error] = error_message
-        redirect_to action: 'show', id: params[:id]
-      end
+      error_conditions.map { | error_message, condition_failed |
+        if condition_failed
+          service_logger.note({ 'invalid_ddns' => { :error_message => error_message } })
+          flash[:error] = error_message
+          redirect_to action: 'show', id: params[:id]
+          return
+        end
+      }
     end
+
 end
