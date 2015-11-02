@@ -80,13 +80,17 @@ class DdnsController < ApplicationController
 
     # If full domain was not exits, it will insert data to database and redirct to success page
     def save_ddns_setting(device, hostname)
+      flash[:error] = I18n.t("warnings.invalid")
+      redirect_to(action: 'show', id: device.encoded_id) and return if device.ip_address.blank?
+
       session = { device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start' }
       ddns_session = DdnsSession.create
+
       job = {
         :job => 'ddns',
         :session_id => ddns_session.id,
         :device_id => device.id,
-        :ip => device.ip_address,
+        :ip => device.ip_decode_hex,
         :full_domain => "#{hostname}.#{Settings.environments.ddns}",
         :xmpp_account => device.session['xmpp_account']
       }
