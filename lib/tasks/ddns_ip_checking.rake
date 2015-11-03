@@ -38,11 +38,14 @@ namespace :ddns_ip_checking do
     @data_to_fix = Array.new
     ddns = Ddns.includes(:device)
     ddns.each do |ddns|
+
       device = ddns.device
       device_session = device.session
-      ip = device_session.get('ip')
+      next if device_session.nil?
 
+      ip = device_session.get('ip')
       next if ddns.get_ip_addr == ip
+
       @data_to_fix << {
         ddns: ddns,
         device_id: device.id,

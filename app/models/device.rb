@@ -57,6 +57,10 @@ class Device < ActiveRecord::Base
     !self.pairing.owner.empty?
   end
 
+  def paired_with? user_id
+    Pairing.owner.exists?(['device_id = ? and user_id = ?', self.id, user_id])
+  end
+
   def update_ip_list new_ip
 
     unless self.session.get(:ip).nil?
@@ -94,6 +98,10 @@ class Device < ActiveRecord::Base
       module_name = "mods/v#{module_version}/#{module_name}"
     end
     module_name
+  end
+
+  def has_module? module_name
+    self.find_module_list.include?(module_name)
   end
 
   # ignore paring module at this step
@@ -158,5 +166,11 @@ class Device < ActiveRecord::Base
       return device if device.serial_number == serial_number
     end
     return
+  end
+
+  def ip_decode_hex
+    puts self.ip_address
+    puts "#{IPAddr.new(self.ip_address.to_i(16), Socket::AF_INET).to_s}"
+    IPAddr.new(self.ip_address.to_i(16), Socket::AF_INET).to_s
   end
 end
