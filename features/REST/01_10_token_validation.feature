@@ -1,4 +1,4 @@
-Feature: Token Validation
+Feature: [REST_01_10] Token Validation
 
   Background:
     Given a signed in client

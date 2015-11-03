@@ -1,4 +1,4 @@
-Feature: Log out from RESTful API
+Feature: [REST_01_12] Log out from RESTful API
 
   Background:
     Given a signed in client

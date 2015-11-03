@@ -1,4 +1,4 @@
-Feature: reauthentication
+Feature: [REST_01_14] reauthentication
 
   Background:
     Given a signed in client
