@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :pairing_log do
+    
+  end
+
   factory :user do
     sequence(:email)          {|n| "personal#{n}@example.com"}
     password                  "12345678"
