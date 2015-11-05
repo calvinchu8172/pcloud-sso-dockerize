@@ -18,7 +18,6 @@
 //= require ng-table
 //= require_tree .
 //= require bootstrap
-//= require bootstrap/dropdown
 //= require select2
 //= require entropizer
 //= require jquery-entropizer
