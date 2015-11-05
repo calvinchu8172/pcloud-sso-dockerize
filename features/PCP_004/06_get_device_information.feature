@@ -98,3 +98,13 @@ Feature: [PCP_004_06] Get Device Information
     Examples:
       | total_capacity | used_capacity | display_total |
       | 4096            | 1000          | 4096          |
+
+  Scenario: [PCP_004_06_07]
+    Forbid getting device information if user requests device info over 5 times in 1 minute
+    ( device info limit session will expired after 1 minute )
+
+    Given a user was signin and visits home page
+    And the user have already paired device
+    When user click on down arrow button and up arrow button over 5 times
+    When user click on down arrow button
+    Then the page should not display device information

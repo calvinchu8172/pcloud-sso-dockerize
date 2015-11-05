@@ -77,6 +77,14 @@ When(/^click on volumn div$/) do
   find(:xpath, '//div[@ng-click="changeUnit();"]').click
 end
 
+When(/^user click on down arrow button and up arrow button over 5 times$/) do
+  5.times do
+    steps "When user click on down arrow button"
+    wait_server_response(3)
+    steps "When user click on up arrow button"
+  end
+end
+
 Given(/^device feedback device info with:$/) do |table|
   data = table.rows_hash
   info_data = {}
