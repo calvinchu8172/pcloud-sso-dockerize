@@ -29,6 +29,7 @@ class Api::DevicesController < Api::Base
     end
 
     def error_log payload
-        logger.error("There is an 'Invalid signature error' when device registering , payload data: #{payload.to_json}}")
+        payload.delete_if{ |key, value| ['mac_address', 'serial_number', 'signature'].include?(key) }
+        logger.error("There is an 'Invalid signature error' when device registering , payload_data: #{payload.to_json}}")
     end
 end
