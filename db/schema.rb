@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103031121) do
+ActiveRecord::Schema.define(version: 20151106071429) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -88,6 +88,17 @@ ActiveRecord::Schema.define(version: 20151103031121) do
   end
 
   add_index "invitations", ["device_id"], name: "index_invitations_on_device_id", using: :btree
+
+  create_table "login_logs", force: :cascade do |t|
+    t.integer  "user_id",         limit: 4
+    t.datetime "sign_in_at"
+    t.datetime "sign_out_at"
+    t.datetime "sign_in_fail_at"
+    t.string   "sign_in_ip",      limit: 255
+    t.integer  "status",          limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "pairing_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
