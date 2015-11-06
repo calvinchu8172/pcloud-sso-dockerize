@@ -1,4 +1,7 @@
-FactoryGirl.define do  factory :pairing_log do
+FactoryGirl.define do  factory :login_log do
+    
+  end
+  factory :pairing_log do
     
   end
 
