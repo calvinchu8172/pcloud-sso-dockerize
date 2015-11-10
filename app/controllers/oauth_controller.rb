@@ -12,6 +12,16 @@ class OauthController < ApplicationController
       # Sign In and redirect to root path
       sign_in identity.user
       redirect_to session[:previous_url] || authenticated_root_path
+
+      user = identity.user
+      user_id = user.id
+      sign_in_at = Time.now
+      sign_out_at = nil
+      sign_in_fail_at = nil
+      sign_in_ip = user.current_sign_in_ip
+      status = 1
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+
     else
       # Redirect to Sign in page, when user un-agreement the terms
       flash[:notice] = I18n.t('activerecord.errors.messages.accepted')

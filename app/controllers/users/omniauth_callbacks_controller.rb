@@ -8,6 +8,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if !identity.user.blank?
       sign_in_and_redirect identity.user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => User::SOCIALS[params[:action].to_sym]) if is_navigational_format?
+
+      user = identity.user
+      user_id = user.id
+      sign_in_at = Time.now
+      sign_out_at = nil
+      sign_in_fail_at = nil
+      sign_in_ip = user.current_sign_in_ip
+      status = 1
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+
     else
       session["devise.omniauth_data"] = oauth_data
       redirect_to '/oauth/new'
