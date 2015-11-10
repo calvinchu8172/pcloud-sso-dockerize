@@ -18,6 +18,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.create(product_params)
+    error_message(@product)
   end
 
   def edit
@@ -26,6 +27,7 @@ class ProductsController < ApplicationController
 
   def update
     @product.update_attributes(product_params)
+    error_message(@product)
   end
 
   def destroy
@@ -47,6 +49,17 @@ class ProductsController < ApplicationController
 
       unless redis_id['name'] == current_user.email
         redirect_to :root
+      end
+    end
+
+    def error_message(obj)
+      if obj.errors.any?
+        messages = "<ul>"
+        obj.errors.each do |item, error|
+          messages += "<li>#{error}</li>"
+        end
+        messages += "</ul>"
+        flash[:error] = messages
       end
     end
 end

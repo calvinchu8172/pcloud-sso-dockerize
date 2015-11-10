@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  validates :name, uniqueness: { case_sensitive: false, message: "名稱不可以重複" }
+  validates :model_class_name, uniqueness: { case_sensitive: false, message: "型號不可以重複" }
 
   has_many :devices
   has_attached_file :asset, :storage => :s3, styles: {
