@@ -7,7 +7,25 @@ class Api::User::TokensController < Api::Base
     @user = Api::User::Token.authenticate(token_params)
 
     if @user.errors.present? && @user.errors[:authenticate].present?
+
+      user_id = @user.id
+      sign_in_at = nil
+      sign_out_at = nil
+      sign_in_fail_at = Time.now
+      sign_in_ip = @user.current_sign_in_ip
+      status = 2
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+
       return  render json: @user.errors[:authenticate].first, :status => 400
+    else
+      user_id = @user.id
+      sign_in_at = Time.now
+      sign_out_at = nil
+      sign_in_fail_at = nil
+      sign_in_ip = @user.current_sign_in_ip
+
+      status = 2
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
     end
   end
 
@@ -26,6 +44,20 @@ class Api::User::TokensController < Api::Base
 
   def destroy
     user = Api::User::Token.find_by_encoded_id(update_params[:cloud_id])
+
+    user_id = user.id
+    userx = LoginLog.where(user_id: user_id).last
+    if userx.sign_out_at == nil && userx.sign_in_at != nil
+      userx.update(sign_out_at: Time.now)
+    else
+      sign_in_at = nil
+      sign_out_at = Time.now
+      sign_in_fail_at = nil
+      sign_in_ip = current_user.current_sign_in_ip
+      status = 2
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+    end
+
     return render json: Api::User::INVALID_TOKEN_AUTHENTICATION, :status => 400 if !user or !user.revoke_token(update_params[:account_token])
     render json: {result: "success"}
   end
