@@ -11,14 +11,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       #記錄user註冊的os與oauth
       oauth = identity.provider
       identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
+      #記錄user登入的歷程
       user = identity.user
       user_id = user.id
       sign_in_at = Time.now
       sign_out_at = nil
       sign_in_fail_at = nil
       sign_in_ip = user.current_sign_in_ip
-      status = 1
-      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+      os = 'web'
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
 
     else
       session["devise.omniauth_data"] = oauth_data

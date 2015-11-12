@@ -13,19 +13,21 @@ class Api::User::TokensController < Api::Base
       sign_out_at = nil
       sign_in_fail_at = Time.now
       sign_in_ip = @user.current_sign_in_ip
-      status = 2
-      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+      os = LoginLog.check_os(token_params['os'])
+      oauth = @user.oauth
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
 
       return  render json: @user.errors[:authenticate].first, :status => 400
     else
+
       user_id = @user.id
       sign_in_at = Time.now
       sign_out_at = nil
       sign_in_fail_at = nil
       sign_in_ip = @user.current_sign_in_ip
-
-      status = 2
-      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+      os = LoginLog.check_os(token_params['os'])
+      oauth = @user.oauth
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
     end
   end
 
@@ -45,17 +47,19 @@ class Api::User::TokensController < Api::Base
   def destroy
     user = Api::User::Token.find_by_encoded_id(update_params[:cloud_id])
 
+    # 假如之前有登入的資料的話，就修改登出時間，若沒有，新增一筆登出資料
     user_id = user.id
-    userx = LoginLog.where(user_id: user_id).last
-    if userx.sign_out_at == nil && userx.sign_in_at != nil
-      userx.update(sign_out_at: Time.now)
+    log_user = LoginLog.where(user_id: user_id).last
+    if log_user.sign_out_at == nil && log_user.sign_in_at != nil
+      log_user.update(sign_out_at: Time.now)
     else
       sign_in_at = nil
       sign_out_at = Time.now
       sign_in_fail_at = nil
       sign_in_ip = current_user.current_sign_in_ip
-      status = 2
-      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, status)
+      os = user.os
+      oauth = user.oauth
+      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
     end
 
     return render json: Api::User::INVALID_TOKEN_AUTHENTICATION, :status => 400 if !user or !user.revoke_token(update_params[:account_token])
