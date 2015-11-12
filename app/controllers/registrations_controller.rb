@@ -66,6 +66,9 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     if verify_recaptcha
   	  super do |resource|
+        #寫入os及oauth來源資料至user
+        resource.os = 'web'
+        resource.oauth = 'email'
         @user = resource
       end
         user_id = @user.id

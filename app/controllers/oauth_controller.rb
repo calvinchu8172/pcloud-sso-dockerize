@@ -12,7 +12,9 @@ class OauthController < ApplicationController
       # Sign In and redirect to root path
       sign_in identity.user
       redirect_to session[:previous_url] || authenticated_root_path
-
+      #記錄user註冊的os與oauth
+      oauth = identity.provider
+      identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
       user = identity.user
       user_id = user.id
       sign_in_at = Time.now

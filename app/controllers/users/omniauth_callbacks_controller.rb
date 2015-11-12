@@ -8,7 +8,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if !identity.user.blank?
       sign_in_and_redirect identity.user, :event => :authentication #this will throw if @user is not activated
       set_flash_message(:notice, :success, :kind => User::SOCIALS[params[:action].to_sym]) if is_navigational_format?
-
+      #記錄user註冊的os與oauth
+      oauth = identity.provider
+      identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
       user = identity.user
       user_id = user.id
       sign_in_at = Time.now
