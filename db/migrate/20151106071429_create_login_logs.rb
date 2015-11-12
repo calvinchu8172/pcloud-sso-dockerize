@@ -6,7 +6,8 @@ class CreateLoginLogs < ActiveRecord::Migration
       t.datetime :sign_out_at
       t.datetime :sign_in_fail_at
       t.string :sign_in_ip
-      t.integer :status
+      t.string :os
+      t.string :oauth
 
       t.timestamps null: false
     end
