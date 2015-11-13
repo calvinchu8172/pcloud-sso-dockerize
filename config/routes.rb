@@ -91,6 +91,10 @@ Rails.application.routes.draw do
 
     resources :products, :path => "fs2g0a2vtz"
     get 'diagram', to: 'diagram#index'
+    get 'diagram/app_register', to: 'diagram#app_register'
+    get 'diagram/login_log', to: 'diagram#login_log'
+    get 'diagram/device_register', to: 'diagram#device_register'
+    get 'diagram/pairing_log', to: 'diagram#pairing_log'
   end
 
   # Routes for Pcloud REST API server
