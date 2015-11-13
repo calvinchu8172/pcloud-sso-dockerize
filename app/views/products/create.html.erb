@@ -1,0 +1,42 @@
+<div class="discoverer">
+
+  <div class="zyxel_bread">
+    <span>產品管理</span>
+  </div>
+
+  <div class="zyxel_content" style="max-width:660px">
+    
+    <% if flash.any? %>
+      <h2 class="text-center">產品建立失敗</h2>
+      <div class="alert alert-danger" role="alert">
+        <%= flash[:error].html_safe %>
+      </div>
+    <% else %>
+      <h2 class="text-center">產品建立完成</h2>
+      <table class="zyxel_table_style2 devices_list">
+        <thead>
+          <tr class="device">
+            <th class="device_info">產品</th>
+            <th class="device_info">產品圖</th>
+            <th class="device_info">配對示意圖</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="device">
+            <th class=""><span class="model_name"><%= @product.model_class_name %></span></th>
+            <td class=""><img src="<%= @product.asset.url(:thumb) %>"></td>
+            <td class=""><img src="<%= @product.pairing.url %>"></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+    
+
+    
+
+    <div class="zyxel_btn_area">
+      <%= link_to "返回產品列表", products_path, class: "zyxel_btn_ok" %>
+    </div>
+
+  </div>
+</div>
