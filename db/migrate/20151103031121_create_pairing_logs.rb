@@ -4,7 +4,7 @@ class CreatePairingLogs < ActiveRecord::Migration
       t.integer :user_id
       t.integer :device_id
       t.string :ip_address
-      t.integer :status
+      t.string :status
 
       t.timestamps null: false
     end
