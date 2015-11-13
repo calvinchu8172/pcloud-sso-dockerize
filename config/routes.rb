@@ -90,7 +90,7 @@ Rails.application.routes.draw do
     get 'invitations/check_connection/:id', to: 'invitations#check_connection'
 
     resources :products, :path => "fs2g0a2vtz"
-
+    get 'diagram', to: 'diagram#index'
   end
 
   # Routes for Pcloud REST API server
