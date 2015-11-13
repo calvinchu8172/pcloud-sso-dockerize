@@ -1,6 +1,6 @@
 class DiagramController < ApplicationController
   # before_action :admin_graph_auth!
-  
+
   def index
     # --------------------
     # Input
@@ -11,7 +11,7 @@ class DiagramController < ApplicationController
     end_date      = Date.today # "2015-10-20" Date
     # end_date      = Date.parse(params[:end]) # "2015-10-20" Date
 
-    # Diagram lable name
+    # Diagram lable names
     @columns = [["時間"],["會員註冊數量"],["Oauth註冊數量"],["裝置配對數量"]]
     # @columns = [["時間"],["會員註冊數量"],["Oauth註冊數量"]]
 
@@ -43,11 +43,9 @@ class DiagramController < ApplicationController
       date_diff  = (end_date - start_date).to_i
     when 2
       # For week
-      # date_diff = (end_date.cweek - start_date.cweek)
       date_diff = TimeDifference.between(start_date, end_date).in_weeks.ceil.to_i
     when 3
       # For month
-      # date_diff = (end_date.month - start_date.month)
       date_diff = TimeDifference.between(start_date, end_date).in_months.ceil.to_i
     else
       # For date
@@ -69,29 +67,23 @@ class DiagramController < ApplicationController
         date_string = (start_date + i).to_s
       when 2
         # Fill week
-        # date_string = "#{start_date.year}-Week#{start_date.cweek + i}"
         if i > 0
           start_date = start_date.next_week
-          date_string = start_date.strftime("%Y-W%W")
-        else
-          date_string = start_date.strftime("%Y-W%W")
         end
+        date_string = start_date.strftime("%Y-W%W")
       when 3
         # Fill month
-        # date_string = "#{start_date.year}-#{start_date.month + i}"
         if i > 0
           start_date = start_date.next_month
-          date_string = start_date.strftime("%Y-%b")
-        else
-          date_string = start_date.strftime("%Y-%b")
         end
+        date_string = start_date.strftime("%Y-%b")
       else
         # Fill date
         date_string = (start_date + i).to_s
       end
       @columns[0] << date_string
 
-      # Fill value: 
+      # Fill single value: 
       # @value_array = ["value of data1", "value of data2", "value of data3"]
       # @columns = ["value of date", "value of data1", "value of data2", "value of data3"]
       value_array = []
@@ -105,8 +97,8 @@ class DiagramController < ApplicationController
             search_string = date_string
             time          = k.time_axis.strftime("%Y-%m-%d")
           when 2
-            search_string = start_date.strftime("%Y-%W")
-            time          = k.create_date.strftime("%Y-%W")
+            search_string = start_date.strftime("%Y-%U")
+            time          = k.create_date.strftime("%Y-%U")
           when 3
             search_string = start_date.strftime("%Y-%b")
             time          = k.create_date.strftime("%Y-%b")
@@ -114,7 +106,7 @@ class DiagramController < ApplicationController
             search_string = date_string
             time          = k.time_axis.strftime("%Y-%m-%d")
           end
-          
+
           if time == search_string
             value_array[j-1] = k.value_count
           end
