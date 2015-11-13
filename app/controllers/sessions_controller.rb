@@ -23,12 +23,10 @@ class SessionsController < Devise::SessionsController
 
   # GET /resource/sign_out
   def destroy
-    #登出時，若已經有登入的時間，則寫入登出時間便可，若之前無登入時間的紀錄，則記錄新的一筆登出時間
+    # 假如之前沒有登入資料，就新增一筆登出資料，假如有登入的資料的話，就修改登出時間
     user_id = current_user.id
     log_user = LoginLog.where(user_id: user_id).last
-    if log_user.sign_out_at == nil && log_user.sign_in_at != nil
-      log_user.update(sign_out_at: Time.now)
-    else
+    if log_user == nil
       sign_in_at = nil
       sign_out_at = Time.now
       sign_in_fail_at = nil
@@ -36,6 +34,8 @@ class SessionsController < Devise::SessionsController
       os = 'web'
       oauth = 'email'
       LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
+    else
+      log_user.update(sign_out_at: Time.now)
     end
 
     super
