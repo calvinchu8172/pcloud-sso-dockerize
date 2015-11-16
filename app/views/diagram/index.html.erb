@@ -13,7 +13,7 @@
 
   <div class="zyxel_content" style="max-width:860px">
 
-    <!-- <table class="zyxel_table_style2 devices_list">
+<!--     <table class="zyxel_table_style2 devices_list">
       <thead>
         <tr class="device">
           <th class="device_info">產品</th>
@@ -43,10 +43,12 @@
       x: "<%= raw @columns[0][0] %>",
       columns: <%= raw @columns %>,
       type: 'area',
-      <% if @data_quantity == 3 %>
+      <% if @data_quantity >= 3 %>
+        <% if @graph_data_number == ( "1_1" || "3_3" || "5_1" ) %>
       axes: { // For second Y axis
         "<%= raw @columns[3][0] %>": 'y2'
-      }  
+      }
+        <% end %>
       <% end %>
     },
     zoom: {
@@ -67,7 +69,8 @@
           format: d3.format("d")
         }
       },
-      <% if @data_quantity == 3 %>
+      <% if @data_quantity >= 3 %>
+        <% if @graph_data_number == ( "1_1" || "3_3" || "5_1" ) %>
       y2: { // For second Y axis
         show: true,
         label: "<%= raw @columns[3][0] %>",
@@ -75,6 +78,7 @@
           format: d3.format("d")
         }
       }
+        <% end %>
       <% end %>
     }
   });
