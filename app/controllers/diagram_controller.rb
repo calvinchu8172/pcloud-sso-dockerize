@@ -1,23 +1,20 @@
 class DiagramController < ApplicationController
   # before_action :admin_graph_auth!
+  include GraphData
 
   def index
     # --------------------
     # Input
     # --------------------
-    data_quantity = params[:data_quantity].to_i # 3 Integer
-    period_scale  = params[:period_scale].to_i # 1 Integer
-    start_date    = Date.parse(params[:start]) # "2015-7-20" Date
-    end_date      = Date.today # "2015-10-20" Date
-    # end_date      = Date.parse(params[:end]) # "2015-10-20" Date
-
-    # Diagram lable names
-    @columns = [["時間"],["會員註冊數量"],["Oauth註冊數量"],["裝置配對數量"]]
-    # @columns = [["時間"],["會員註冊數量"],["Oauth註冊數量"]]
+    period_scale      = params[:period_scale].to_i
+    graph_data_number = params[:graph_data_number]
+    start_date        = Date.parse("2014-11-01") # Date.parse(params[:start])
+    end_date          = Date.today
 
     # --------------------
     # SQL data: related to data_quantity and period_scale
     # --------------------
+    # Scale would be one of this range: date, week or month.
     case period_scale
     when 1
       period = "date(created_at)"
@@ -26,12 +23,25 @@ class DiagramController < ApplicationController
     when 3
       period = "month(created_at)"
     else
-      period = "date(created_at)"
+      period = "month(created_at)" # In case data amount is oversized.
     end
 
-    @data1 = User.select("date(created_at) as create_date","#{period} as time_axis","count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data2 = Identity.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data3 = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
+    # Each case corresponds to cases in module GraphData
+    case graph_data_number
+    when "1_1"
+      graph_data = graph_1_1(period, start_date, end_date)
+    when "1_2"
+      graph_data = graph_1_2(period, start_date, end_date)
+    # when "1_3"
+    #   graph_data = graph_1_3(period, start_date, end_date)
+    end
+ 
+    @data_quantity = graph_data.length - 2
+    @columns_name  = graph_data[0]
+    @columns       = graph_data[1]
+    (3..@data_quantity).each do |l|
+      instance_variable_set("@data#{l-2}", graph_data[l-1])
+    end
 
     # --------------------
     # Logic for ploting
@@ -54,7 +64,7 @@ class DiagramController < ApplicationController
 
     # Accumulation
     accumulation = []
-    (1..data_quantity).each do |a|
+    (1..@data_quantity).each do |a|
       accumulation[a-1] = 0
     end
 
@@ -88,7 +98,7 @@ class DiagramController < ApplicationController
       # @columns = ["value of date", "value of data1", "value of data2", "value of data3"]
       value_array = []
 
-      (1..data_quantity).each do |j|
+      (1..@data_quantity).each do |j|
         value_array[j-1] = ""
 
         instance_variable_get("@data#{j}").any? do |k|

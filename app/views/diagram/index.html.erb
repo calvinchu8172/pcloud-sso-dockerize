@@ -8,7 +8,7 @@
   <!-- Modal -->
 
   <div class="zyxel_bread">
-    <span>數據圖表視覺化 <%= @get_var %></span>
+    <span>數據圖表視覺化 <%= @test %></span>
   </div>
 
   <div class="zyxel_content" style="max-width:860px">
@@ -43,9 +43,14 @@
       x: "<%= raw @columns[0][0] %>",
       columns: <%= raw @columns %>,
       type: 'area',
+      <% if @data_quantity == 3 %>
       axes: { // For second Y axis
         "<%= raw @columns[3][0] %>": 'y2'
-      }
+      }  
+      <% end %>
+    },
+    zoom: {
+        enabled: true
     },
     legend: {
       position: 'bottom'
@@ -62,6 +67,7 @@
           format: d3.format("d")
         }
       },
+      <% if @data_quantity == 3 %>
       y2: { // For second Y axis
         show: true,
         label: "<%= raw @columns[3][0] %>",
@@ -69,6 +75,7 @@
           format: d3.format("d")
         }
       }
+      <% end %>
     }
   });
 </script>
