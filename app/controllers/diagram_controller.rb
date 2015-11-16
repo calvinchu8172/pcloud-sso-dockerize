@@ -36,13 +36,13 @@ class DiagramController < ApplicationController
       axis_type ='date'
     when "5_3"
       graph_data = graph_5_3(period, start_date, end_date)
-      axis_type = 'modle'
+      axis_type = 'model'
     when "5_4"
       graph_data = graph_5_4(period, start_date, end_date)
-      axis_type = 'modle'
+      axis_type = 'model'
     when "5_5"
       graph_data = graph_5_5(period, start_date, end_date)
-      axis_type = 'modle'
+      axis_type = 'model'
     
     # when "1_3"
     #   graph_data = graph_1_3(period, start_date, end_date)
@@ -148,15 +148,15 @@ class DiagramController < ApplicationController
       end
     end
 
-    if axis_type == 'modle'
+    if axis_type == 'model'
       puts 'in controller'
       @grapy_type = 'bar'
       @data_quantity = graph_data.length - 2
       @columns_name  = graph_data[0]
       @columns       = graph_data[1]
       @data = graph_data[2]
-      @data.each do | modle , values |
-        @columns[0] << modle
+      @data.each do | model , values |
+        @columns[0] << model
         @columns[1] << values['value_count']
       end
     end
