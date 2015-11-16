@@ -42,7 +42,7 @@
     data: {
       x: "<%= raw @columns[0][0] %>",
       columns: <%= raw @columns %>,
-      type: 'area',
+      type: '<%= @grapy_type %>',
       <% if @data_quantity == 3 %>
       axes: { // For second Y axis
         "<%= raw @columns[3][0] %>": 'y2'
