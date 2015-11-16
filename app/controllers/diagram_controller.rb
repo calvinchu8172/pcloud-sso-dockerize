@@ -1,6 +1,5 @@
 class DiagramController < ApplicationController
   # before_action :admin_graph_auth!
-  before_action :fake_param
   include GraphData
 
   def index
@@ -181,10 +180,4 @@ class DiagramController < ApplicationController
       end
     end
 
-    def fake_param
-      params[:period_scale] = 2
-      params[:data_quantity] = 2
-      params[:start] = "2014-6-20"
-      params[:end] = "2014-11-20"
-    end
 end
