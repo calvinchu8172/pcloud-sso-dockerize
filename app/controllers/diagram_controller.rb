@@ -10,7 +10,7 @@ class DiagramController < ApplicationController
     graph_data_number = params[:graph_data_number]
     start_date        = Date.parse("2014-11-01") # Date.parse(params[:start])
     end_date          = Date.today
-
+    @grapy_type = 'area'
     # --------------------
     # SQL data: related to data_quantity and period_scale
     # --------------------
@@ -34,8 +34,6 @@ class DiagramController < ApplicationController
     when "1_2"
       graph_data = graph_1_2(period, start_date, end_date)
       axis_type = 'date'
-    # when "1_3"
-    #   graph_data = graph_1_3(period, start_date, end_date)
     when "3_3"
       graph_data = graph_3_3(period, start_date, end_date)
       axis_type = 'model'
@@ -44,6 +42,15 @@ class DiagramController < ApplicationController
       axis_type = 'model'
     when "5_2"
       graph_data = graph_5_2(period, start_date, end_date)
+      axis_type = 'model'
+    when "5_3"
+      graph_data = graph_5_3(period, start_date, end_date)
+      axis_type = 'model'
+    when "5_4"
+      graph_data = graph_5_4(period, start_date, end_date)
+      axis_type = 'model'
+    when "5_5"
+      graph_data = graph_5_5(period, start_date, end_date)
       axis_type = 'model'
     end
 
@@ -54,8 +61,8 @@ class DiagramController < ApplicationController
       instance_variable_set("@data#{l-2}", graph_data[l-1])
     end
 
-    if axis_type == 'date'
-
+    if  axis_type == 'date'
+      grapy_type = 'area'
       # --------------------
       # Logic for ploting
       # --------------------
@@ -142,11 +149,50 @@ class DiagramController < ApplicationController
           else
             @columns[j] << accumulation[j-1]
           end
+        end
+        @columns[0] << date_string
+
+        # Fill single value:
+        # @value_array = ["value of data1", "value of data2", "value of data3"]
+        # @columns = ["value of date", "value of data1", "value of data2", "value of data3"]
+        value_array = []
+
+        (1..@data_quantity).each do |j|
+          value_array[j-1] = ""
+
+          instance_variable_get("@data#{j}").any? do |k|
+            case period_scale
+            when 1
+              search_string = date_string
+              time          = k.time_axis.strftime("%Y-%m-%d")
+            when 2
+              search_string = start_date.strftime("%Y-%U")
+              time          = k.create_date.strftime("%Y-%U")
+            when 3
+              search_string = start_date.strftime("%Y-%b")
+              time          = k.create_date.strftime("%Y-%b")
+            else
+              search_string = date_string
+              time          = k.time_axis.strftime("%Y-%m-%d")
+            end
+
+            if time == search_string
+              value_array[j-1] = k.value_count
+            end
+          end
+
+          # Accumulation
+          unless value_array[j-1].blank?
+            accumulation[j-1] += value_array[j-1]
+            @columns[j] << accumulation[j-1]
+          else
+            @columns[j] << accumulation[j-1]
+          end
         end # (1..@data_quantity).each do |j| ... end
       end # (0..date_diff).each do |i| ... end
 
     elsif axis_type == 'model'
-
+      @grapy_type = 'bar'
       model_list = @data1.to_a
       # iterate the model name
       (0..(model_list.count-1)).each do |i|
@@ -166,8 +212,8 @@ class DiagramController < ApplicationController
           value_hash[model_class_name] = 0
         end # (1..data_quantity).each do |j| ... end
       end # (0..model_list.count-1).each do |i| ... end
-    end # if axis_type == 'date' ... elsif axis_type == 'model' ... end
 
+    end # if axis_type == 'date' ... elsif axis_type == 'model' ... end
   end
 
   private
