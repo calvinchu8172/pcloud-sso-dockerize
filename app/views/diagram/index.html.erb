@@ -8,11 +8,11 @@
   <!-- Modal -->
 
   <div class="zyxel_bread">
-    <span>數據圖表視覺化 <%= @test %></span>
+    <span><%= @columns_name %></span>
   </div>
 
   <div class="zyxel_content" style="max-width:860px">
-
+    <% puts "raw column: #{raw @columns[0][0]}" %>
     <!-- <table class="zyxel_table_style2 devices_list">
       <thead>
         <tr class="device">
@@ -38,44 +38,44 @@
   </div>
 </div>
 <script type="text/javascript">
-  var chart = c3.generate({
-    data: {
-      x: "<%= raw @columns[0][0] %>",
-      columns: <%= raw @columns %>,
-      type: 'area',
-      <% if @data_quantity == 3 %>
-      axes: { // For second Y axis
-        "<%= raw @columns[3][0] %>": 'y2'
-      }  
-      <% end %>
-    },
-    zoom: {
-        enabled: true
-    },
-    legend: {
-      position: 'bottom'
-      // position: 'right'
-    },
-    axis : {
-      x: {
-        label: "<%= raw @columns[0][0] %>",
-        type: 'category'
-      },
-      y: {
-        label: "<%= raw @columns[1][0] %>",
-        tick: {
-          format: d3.format("d")
+    var chart = c3.generate({
+      data: {
+        x: "<%= raw @columns[0][0] %>",
+        columns: <%= raw @columns %>,
+        type: 'area',
+        <% if @data_quantity == 3 %>
+        axes: { // For second Y axis
+          "<%= raw @columns[3][0] unless @columns[3][0].nil? %>": 'y2'
         }
+        <% end %>
       },
-      <% if @data_quantity == 3 %>
-      y2: { // For second Y axis
-        show: true,
-        label: "<%= raw @columns[3][0] %>",
-        tick: {
-          format: d3.format("d")
+      zoom: {
+          enabled: true
+      },
+      legend: {
+        position: 'bottom'
+        // position: 'right'
+      },
+      axis : {
+        x: {
+          label: "<%= raw @columns[0][0] %>",
+          type: 'category'
+        },
+        y: {
+          label: "<%= raw @columns[1][0] %>",
+          tick: {
+            format: d3.format("d")
+          }
+        },
+        <% if @data_quantity == 3 %>
+        y2: { // For second Y axis
+          show: true,
+          label: "<%= raw @columns[3][0] unless @columns[3][0].nil? %>",
+          tick: {
+            format: d3.format("d")
+          }
         }
+        <% end %>
       }
-      <% end %>
-    }
-  });
+    });
 </script>
