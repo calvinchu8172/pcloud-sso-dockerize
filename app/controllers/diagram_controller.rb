@@ -10,7 +10,7 @@ class DiagramController < ApplicationController
     graph_data_number = params[:graph_data_number]
     start_date        = Date.parse("2014-11-01") # Date.parse(params[:start])
     end_date          = Date.today
-    @grapy_type = 'area'
+
     # --------------------
     # SQL data: related to data_quantity and period_scale
     # --------------------
@@ -71,7 +71,8 @@ class DiagramController < ApplicationController
     # Logic for ploting
     # --------------------
     if axis_type == 'date'
-      grapy_type = 'area'
+      @graph_type = 'area'
+
       # Calculate date difference
       case period_scale
       when 1
@@ -156,70 +157,34 @@ class DiagramController < ApplicationController
             @columns[j] << accumulation[j-1]
           end
         end
-        @columns[0] << date_string
-
-        # Fill single value:
-        # @value_array = ["value of data1", "value of data2", "value of data3"]
-        # @columns = ["value of date", "value of data1", "value of data2", "value of data3"]
-        value_array = []
-
-        (1..@data_quantity).each do |j|
-          value_array[j-1] = ""
-
-          instance_variable_get("@data#{j}").any? do |k|
-            case period_scale
-            when 1
-              search_string = date_string
-              time          = k.time_axis.strftime("%Y-%m-%d")
-            when 2
-              search_string = start_date.strftime("%Y-%U")
-              time          = k.create_date.strftime("%Y-%U")
-            when 3
-              search_string = start_date.strftime("%Y-%b")
-              time          = k.create_date.strftime("%Y-%b")
-            else
-              search_string = date_string
-              time          = k.time_axis.strftime("%Y-%m-%d")
-            end
-
-            if time == search_string
-              value_array[j-1] = k.value_count
-            end
-          end
-
-          # Accumulation
-          unless value_array[j-1].blank?
-            accumulation[j-1] += value_array[j-1]
-            @columns[j] << accumulation[j-1]
-          else
-            @columns[j] << accumulation[j-1]
-          end
-        end # (1..@data_quantity).each do |j| ... end
-      end # (0..date_diff).each do |i| ... end
+      end
 
     elsif axis_type == 'model'
-      @grapy_type = 'bar'
-      model_list = @data1.to_a
-      # iterate the model name
+      @graph_type = 'bar'
+      model_list  = @data1.to_a
+
+      # Iterate the model name
       (0..(model_list.count-1)).each do |i|
+        
         model_class_name = model_list[i]['product_model']
         @columns[0] << model_class_name
         value_hash = { model_class_name => 0 }
 
         # iterate the data variable sequence (1, 2, ....)
         (1..@data_quantity).each do |j|
+
           # iterate the data variable (data1, data2, ....)
           instance_variable_get("@data#{j}").any? do |k|
             if model_class_name == k['product_model']
               value_hash[model_class_name] = (value_hash[model_class_name] + k['value_count']).to_f
             end
           end
+          
           @columns[j] << value_hash[model_class_name]
           value_hash[model_class_name] = 0
-        end # (1..data_quantity).each do |j| ... end
-      end # (0..model_list.count-1).each do |i| ... end
-
-    end # if axis_type == 'date' ... elsif axis_type == 'model' ... end
+        end
+      end
+    end
   end
 
   private
