@@ -32,8 +32,10 @@ class DiagramController < ApplicationController
       graph_data = graph_1_1(period, start_date, end_date)
     when "1_2"
       graph_data = graph_1_2(period, start_date, end_date)
-    # when "1_3"
-    #   graph_data = graph_1_3(period, start_date, end_date)
+    when "2_2"
+      graph_data = graph_2_2(period, start_date, end_date)
+    when "2_3"
+      graph_data = graph_2_3(period, start_date, end_date)
     end
  
     @data_quantity = graph_data.length - 2
