@@ -98,6 +98,8 @@ class Api::Device < Device
 
     return if self.pairing.blank?
 
+    PairingLog.record_pairing_log(self.id, self.pairing.first.user_id, self.ip_address, 'reset')
+
     self.pairing.destroy_all
     Job.new.push_device_id(self.id.to_s)
   end

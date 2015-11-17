@@ -98,6 +98,10 @@ class Api::User::OauthController < Api::Base
     @user.create_token
 
     render "api/user/tokens/create.json.jbuilder"
+
+    #註冊後寫入user的os及oauth來源資料
+    os = LoginLog.check_os(register_params['os'])
+    User.find(register.id).update(os: os, oauth: @provider)
   end
 
   def get_oauth_data(provider, user_id, access_token)

@@ -7,7 +7,7 @@ class DiagramController < ApplicationController
     # Input
     # --------------------
     period_scale      = params[:period_scale].to_i
-    graph_data_number = params[:graph_data_number]
+    @graph_data_number = params[:graph_data_number]
     start_date        = Date.parse("2014-11-01") # Date.parse(params[:start])
     end_date          = Date.today
 
@@ -27,25 +27,38 @@ class DiagramController < ApplicationController
     end
 
     # Each case corresponds to cases in module GraphData
-    case graph_data_number
+    case @graph_data_number
     when "1_1"
       graph_data = graph_1_1(period, start_date, end_date)
       axis_type = 'date'
+      @y2_axis = true
     when "1_2"
       graph_data = graph_1_2(period, start_date, end_date)
       axis_type = 'date'
+    when "1_3"
+      graph_data = graph_1_3(period, start_date, end_date)
+      axis_type = 'date'
+    when "1_4"
+      graph_data = graph_1_4(period, start_date, end_date)
+      axis_type = 'date'
+    when "2_1"
+      graph_data = graph_2_1(period, start_date, end_date)
     when "2_2"
       graph_data = graph_2_2(period, start_date, end_date)
       axis_type = 'date'
     when "2_3"
       graph_data = graph_2_3(period, start_date, end_date)
       axis_type = 'date'
+    when "3_1"
+      graph_data = graph_3_1(period, start_date, end_date)
     when "3_3"
       graph_data = graph_3_3(period, start_date, end_date)
       axis_type = 'model'
+      @y2_axis = true
     when "5_1"
       graph_data = graph_5_1(period, start_date, end_date)
       axis_type = 'model'
+      @y2_axis = true
     when "5_2"
       graph_data = graph_5_2(period, start_date, end_date)
       axis_type = 'model'

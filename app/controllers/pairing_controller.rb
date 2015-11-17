@@ -29,6 +29,8 @@ class PairingController < ApplicationController
   # GET /pairing/waiting/:id
   def waiting
 
+    PairingLog.record_pairing_log(@pairing_session["user_id"].to_i, @device.id, @device.ip_address, 'pair')
+
     return redirect_to action: "index", id: @device.encoded_id if @pairing_session.empty?
 
     @pairing_session['expire_in'] = @device.pairing_session_expire_in

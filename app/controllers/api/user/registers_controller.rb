@@ -29,6 +29,11 @@ class Api::User::RegistersController < Api::Base
     @user.create_token
 
   	render "api/user/tokens/create.json.jbuilder"
+
+    # api註冊後寫入os及oauth來源資料
+    os = LoginLog.check_os(valid_params['os'])
+    User.find(register.id).update(os: os, oauth: 'email')
+
   end
 
   private

@@ -12,6 +12,7 @@
   </div>
 
   <div class="zyxel_content" style="max-width:860px">
+
     <!-- <table class="zyxel_table_style2 devices_list">
       <thead>
         <tr class="device">
@@ -42,7 +43,7 @@
       x: "<%= raw @columns[0][0] %>",
       columns: <%= raw @columns %>,
       type: '<%= @graph_type %>',
-      <% if @data_quantity == 3 %>
+      <% if @y2_axis == true %>
       axes: { // For second Y axis
         "<%= raw @columns[3][0] %>": 'y2'
       }
@@ -66,7 +67,7 @@
           format: d3.format("d")
         }
       },
-      <% if @data_quantity == 3 %>
+      <% if @y2_axis == true %>
       y2: { // For second Y axis
         show: true,
         label: "<%= raw @columns[3][0] %>",
