@@ -8,11 +8,11 @@
   <!-- Modal -->
 
   <div class="zyxel_bread">
-    <span>數據圖表視覺化 <%= @test %></span>
+    <span><%= @columns_name %></span>
   </div>
 
   <div class="zyxel_content" style="max-width:860px">
-
+    <% puts "raw column: #{raw @columns[0][0]}" %>
     <!-- <table class="zyxel_table_style2 devices_list">
       <thead>
         <tr class="device">
@@ -42,11 +42,11 @@
     data: {
       x: "<%= raw @columns[0][0] %>",
       columns: <%= raw @columns %>,
-      type: 'area',
+      type: '<%= @grapy_type %>',
       <% if @data_quantity == 3 %>
       axes: { // For second Y axis
         "<%= raw @columns[3][0] %>": 'y2'
-      }  
+      }
       <% end %>
     },
     zoom: {
