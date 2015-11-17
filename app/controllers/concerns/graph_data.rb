@@ -185,4 +185,10 @@ module GraphData
     return [@columns_name, @columns, @data1]
   end
 
+  def unavailable
+    @columns_name = "無效的資料表"
+    @columns      = [[""],[""]]
+    return [@columns_name, @columns]
+  end
+
 end

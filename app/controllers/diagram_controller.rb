@@ -6,10 +6,11 @@ class DiagramController < ApplicationController
     # --------------------
     # Input
     # --------------------
-    period_scale      = params[:period_scale].to_i
-    @graph_data_number = params[:graph_data_number]
-    start_date        = Date.parse("2014-11-01") # Date.parse(params[:start])
-    end_date          = Date.today
+    period_scale       = params[:period_scale] ? (params[:period_scale].to_i) : 3
+    @graph_data_number = params[:graph_data_number] ? params[:graph_data_number] : "1_1"
+    start_date         = Date.parse("2014-11-01") # Date.parse(params[:start])
+    end_date           = Date.today
+    @url_prefix        = "/diagram?graph_data_number=#{@graph_data_number}"
 
     # --------------------
     # SQL data: related to data_quantity and period_scale
@@ -18,12 +19,16 @@ class DiagramController < ApplicationController
     case period_scale
     when 1
       period = "date(created_at)"
+      @scale  = "日"
     when 2
       period = "week(created_at)"
+      @scale  = "週"
     when 3
       period = "month(created_at)"
+      @scale  = "月"
     else
       period = "month(created_at)" # In case data amount is oversized.
+      @scale  = "月"
     end
 
     # Each case corresponds to cases in module GraphData
@@ -31,7 +36,8 @@ class DiagramController < ApplicationController
     when "1_1"
       graph_data = graph_1_1(period, start_date, end_date)
       axis_type = 'date'
-      @y2_axis = true
+      @y2_axis_show       = true
+      @y2_axis_label_name = graph_data[1][3][0]
     when "1_2"
       graph_data = graph_1_2(period, start_date, end_date)
       axis_type = 'date'
@@ -43,6 +49,7 @@ class DiagramController < ApplicationController
       axis_type = 'date'
     when "2_1"
       graph_data = graph_2_1(period, start_date, end_date)
+      axis_type = 'date'
     when "2_2"
       graph_data = graph_2_2(period, start_date, end_date)
       axis_type = 'date'
@@ -54,11 +61,13 @@ class DiagramController < ApplicationController
     when "3_3"
       graph_data = graph_3_3(period, start_date, end_date)
       axis_type = 'model'
-      @y2_axis = true
+      @y2_axis_show       = true
+      @y2_axis_label_name = graph_data[1][1][0]
     when "5_1"
       graph_data = graph_5_1(period, start_date, end_date)
       axis_type = 'model'
-      @y2_axis = true
+      @y2_axis_show       = true
+      @y2_axis_label_name = graph_data[1][2][0]
     when "5_2"
       graph_data = graph_5_2(period, start_date, end_date)
       axis_type = 'model'
@@ -71,6 +80,8 @@ class DiagramController < ApplicationController
     when "5_5"
       graph_data = graph_5_5(period, start_date, end_date)
       axis_type = 'model'
+    else
+      graph_data = unavailable
     end
 
     @data_quantity = graph_data.length - 2
