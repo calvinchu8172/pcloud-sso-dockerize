@@ -67,11 +67,11 @@ class DiagramController < ApplicationController
       instance_variable_set("@data#{l-2}", graph_data[l-1])
     end
 
-    if  axis_type == 'date'
+    # --------------------
+    # Logic for ploting
+    # --------------------
+    if axis_type == 'date'
       grapy_type = 'area'
-      # --------------------
-      # Logic for ploting
-      # --------------------
       # Calculate date difference
       case period_scale
       when 1
