@@ -37,14 +37,18 @@ module GraphData
 
   def graph_2_1(period, start_date, end_date)
     @columns_name = "裝置註冊數量統計表(報到數)依Model區分"
-    @columns      = [["時間"],["全部裝置註冊數量"],["裝置NAS540"],["裝置NSA325V2"],["裝置NSA325"],["裝置NSA320S"],["裝置NSA310S"]]
-    @data1        = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data2        = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(:product_id => 30).where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data3        = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(:product_id => 29).where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data4        = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(:product_id => 28).where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data5        = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(:product_id => 27).where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data6        = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(:product_id => 26).where(created_at: start_date..end_date).group(period).order(:created_at)
-    return [@columns_name, @columns, @data1, @data2, @data3, @data4, @data5, @data6]
+    @columns      = [["時間"]]
+    return_array  = [@columns_name, @columns]
+    i = 1
+    @model = Product.select('id', 'model_class_name').order('id')
+    @model.each do |m|
+      @columns << [m.model_class_name]
+      data = Device.select("date(created_at) as create_date", "#{period} as time_axis", "count(*) as value_count", :product_id).where(created_at: start_date..end_date, product_id: m.id).group(period).order(:created_at)
+      instance_variable_set("@data#{i}", data)
+      return_array << instance_variable_get("@data#{i}")
+      i += 1
+    end
+    return return_array
   end
 
   def graph_3_1(period, start_date, end_date)
