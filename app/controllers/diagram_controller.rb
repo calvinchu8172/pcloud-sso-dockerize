@@ -6,7 +6,7 @@ class DiagramController < ApplicationController
     # --------------------
     # Input
     # --------------------
-    period_scale       = params[:period_scale] ? (params[:period_scale].to_i) : 3
+    @period_scale      = params[:period_scale] ? (params[:period_scale].to_i) : 3
     @graph_data_number = params[:graph_data_number] ? params[:graph_data_number] : "1_1"
     start_date         = Date.parse("2014-11-01") # Date.parse(params[:start])
     end_date           = Date.today
@@ -16,7 +16,7 @@ class DiagramController < ApplicationController
     # SQL data: related to data_quantity and period_scale
     # --------------------
     # Scale would be one of this range: date, week or month.
-    case period_scale
+    case @period_scale
     when 1
       period = "date(created_at)"
       @scale  = "日"
@@ -98,7 +98,7 @@ class DiagramController < ApplicationController
       @graph_type = 'area'
 
       # Calculate date difference
-      case period_scale
+      case @period_scale
       when 1
         # For date
         date_diff  = (end_date - start_date).to_i + 1
@@ -122,7 +122,7 @@ class DiagramController < ApplicationController
       # Fill data in array per date range
       (0..date_diff-1).each do |i|
 
-        case period_scale
+        case @period_scale
         when 1
           # Fill date
           date_string = (start_date + i).to_s
@@ -150,7 +150,7 @@ class DiagramController < ApplicationController
           value_array[j-1] = ""
 
           instance_variable_get("@data#{j}").any? do |k|
-            case period_scale
+            case @period_scale
             when 1
               search_string = date_string
               time          = k.time_axis.strftime("%Y-%m-%d")

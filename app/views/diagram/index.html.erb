@@ -17,27 +17,27 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-pills nav-stacked">
-            <li class="<%= params[:graph_data_number]=="1_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_1">註冊數量</a></li>
-            <li class="<%= params[:graph_data_number]=="1_2" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_2">Oauth註冊數量</a></li>
-            <li class="<%= params[:graph_data_number]=="1_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_3">APP註冊數量</a></li>
-            <li class="<%= params[:graph_data_number]=="1_4" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_4">登入的方式與次數</a></li>
-            <li class="<%= params[:graph_data_number]=="2_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=2_1">裝置註冊數量統計</a></li>
-            <li class="<%= params[:graph_data_number]=="2_2" ? "active" : "" %>"><a href="/diagram?graph_data_number=2_2">裝置配對數量</a></li>
-            <li class="<%= params[:graph_data_number]=="2_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=2_3">裝置未配對數量</a></li>
-            <li class="<%= params[:graph_data_number]=="3_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=3_1">配對歷程</a></li>
-            <li class="<%= params[:graph_data_number]=="3_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=3_3">帳號與設備數量統計表</a></li>
-            <li class="<%= params[:graph_data_number]=="5_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_1">使用分享功能的NAS總數量及NAS總數量</a></li>
-            <li class="<%= params[:graph_data_number]=="5_2" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_2">使用分享功能的NAS數量及分享人數</a></li>
-            <li class="<%= params[:graph_data_number]=="5_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_3">沒有NAS的被邀請者人數</a></li>
-            <li class="<%= params[:graph_data_number]=="5_4" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_4">NAS分享次數</a></li>
-            <li class="<%= params[:graph_data_number]=="5_5" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_5">NAS 分享資料夾使用人數-邀請成功</a></li>
+            <li class="<%= @graph_data_number=="1_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_1<%= "&period_scale=#{@period_scale}" %>">註冊數量</a></li>
+            <li class="<%= @graph_data_number=="1_2" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_2<%= "&period_scale=#{@period_scale}" %>">Oauth註冊數量</a></li>
+            <li class="<%= @graph_data_number=="1_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_3<%= "&period_scale=#{@period_scale}" %>">APP註冊數量</a></li>
+            <li class="<%= @graph_data_number=="1_4" ? "active" : "" %>"><a href="/diagram?graph_data_number=1_4<%= "&period_scale=#{@period_scale}" %>">登入的方式與次數</a></li>
+            <li class="<%= @graph_data_number=="2_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=2_1<%= "&period_scale=#{@period_scale}" %>">裝置註冊數量統計</a></li>
+            <li class="<%= @graph_data_number=="2_2" ? "active" : "" %>"><a href="/diagram?graph_data_number=2_2<%= "&period_scale=#{@period_scale}" %>">裝置配對數量</a></li>
+            <li class="<%= @graph_data_number=="2_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=2_3<%= "&period_scale=#{@period_scale}" %>">裝置未配對數量</a></li>
+            <li class="<%= @graph_data_number=="3_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=3_1<%= "&period_scale=#{@period_scale}" %>">配對歷程</a></li>
+            <li class="<%= @graph_data_number=="3_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=3_3<%= "&period_scale=#{@period_scale}" %>">帳號與設備數量統計表</a></li>
+            <li class="<%= @graph_data_number=="5_1" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_1<%= "&period_scale=#{@period_scale}" %>">使用分享功能的NAS總數量及NAS總數量</a></li>
+            <li class="<%= @graph_data_number=="5_2" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_2<%= "&period_scale=#{@period_scale}" %>">使用分享功能的NAS數量及分享人數</a></li>
+            <li class="<%= @graph_data_number=="5_3" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_3<%= "&period_scale=#{@period_scale}" %>">沒有NAS的被邀請者人數</a></li>
+            <li class="<%= @graph_data_number=="5_4" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_4<%= "&period_scale=#{@period_scale}" %>">NAS分享次數</a></li>
+            <li class="<%= @graph_data_number=="5_5" ? "active" : "" %>"><a href="/diagram?graph_data_number=5_5<%= "&period_scale=#{@period_scale}" %>">NAS 分享資料夾使用人數-邀請成功</a></li>
           </ul>
         </div>
         <div class="col-md-10">
           <ul class="nav nav-pills">
-            <li class="<%= params[:period_scale]=="1" ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=1" %>">日</a></li>
-            <li class="<%= params[:period_scale]=="2" ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=2" %>">週</a></li>
-            <li class="<%= (params[:period_scale]!="1" && params[:period_scale]!="2") ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=3" %>">月</a></li>
+            <li class="<%= @period_scale==1 ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=1" %>">日</a></li>
+            <li class="<%= @period_scale==2 ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=2" %>">週</a></li>
+            <li class="<%= (@period_scale!=1 && @period_scale!=2) ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=3" %>">月</a></li>
           </ul>
           <div id="chart"></div>
         </div>
