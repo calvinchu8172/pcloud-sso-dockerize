@@ -101,7 +101,7 @@ class DiagramController < ApplicationController
       case period_scale
       when 1
         # For date
-        date_diff  = (end_date - start_date).to_i
+        date_diff  = (end_date - start_date).to_i + 1
       when 2
         # For week
         date_diff = TimeDifference.between(start_date, end_date).in_weeks.ceil.to_i
@@ -109,8 +109,8 @@ class DiagramController < ApplicationController
         # For month
         date_diff = TimeDifference.between(start_date, end_date).in_months.ceil.to_i
       else
-        # For date
-        date_diff  = (end_date - start_date).to_i
+        # For month
+        date_diff = TimeDifference.between(start_date, end_date).in_months.ceil.to_i
       end
 
       # Accumulation
@@ -120,7 +120,7 @@ class DiagramController < ApplicationController
       end
 
       # Fill data in array per date range
-      (0..date_diff).each do |i|
+      (0..date_diff-1).each do |i|
 
         case period_scale
         when 1
@@ -128,19 +128,16 @@ class DiagramController < ApplicationController
           date_string = (start_date + i).to_s
         when 2
           # Fill week
-          if i > 0
-            start_date = start_date.next_week
-          end
-          date_string = start_date.strftime("%Y-W%W")
+          start_date = start_date.next_week if i > 0
+          date_string = start_date.strftime("%Y-W%V")
         when 3
           # Fill month
-          if i > 0
-            start_date = start_date.next_month
-          end
+          start_date = start_date.next_month if i > 0
           date_string = start_date.strftime("%Y-%b")
         else
-          # Fill date
-          date_string = (start_date + i).to_s
+          # Fill month
+          start_date = start_date.next_month if i > 0
+          date_string = start_date.strftime("%Y-%b")
         end
         @columns[0] << date_string
 
@@ -164,8 +161,8 @@ class DiagramController < ApplicationController
               search_string = start_date.strftime("%Y-%b")
               time          = k.create_date.strftime("%Y-%b")
             else
-              search_string = date_string
-              time          = k.time_axis.strftime("%Y-%m-%d")
+              search_string = start_date.strftime("%Y-%b")
+              time          = k.create_date.strftime("%Y-%b")
             end
 
             if time == search_string
