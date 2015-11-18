@@ -1,3 +1,7 @@
+<style type="text/css">
+  /* Hide C3 X axis tick text */
+  g.c3-axis-x .tick text { opacity: 0; }
+</style>
 <div class="discoverer">
   <!-- Modal -->
   <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -66,11 +70,17 @@
     },
     axis : {
       x: {
-        label: "<%= raw @columns[0][0] %>",
-        type: 'category'
+        label: {
+          text: "<%= raw @columns[0][0] %>",
+          position: 'outer-left'
+        },
+        type: 'category',
       },
       y: {
-        label: "<%= raw @columns_name %>",
+        label: {
+          text: "<%= raw @columns_name %>",
+          position: 'outer-middle'
+        },
         tick: {
           format: d3.format("d")
         }
@@ -78,7 +88,10 @@
       <% if @y2_axis_show == true %>
       y2: { // For second Y axis
         show: true,
-        label: "<%= raw @y2_axis_label_name %>",
+        label: {
+          text: "<%= raw @y2_axis_label_name %>",
+          position: 'outer-middle'
+        },
         tick: {
           format: d3.format("d")
         }
