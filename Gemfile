@@ -87,6 +87,11 @@ gem 'json', '1.8.2'
 gem 'browser-timezone-rails'
 gem 'whenever', '~> 0.9.4', :require => false
 
+gem 'c3-rails'
+gem 'd3-rails'
+gem 'time_difference'
+# gem 'time_diff'
+
 group :test do
   gem 'action_mailer_cache_delivery'
   gem 'email_spec'

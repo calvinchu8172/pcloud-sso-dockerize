@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
           render "edit"
         end
       end
-      
+
 
     # Change password when type is password
     elsif params[:type] == "password"
@@ -65,7 +65,21 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     if verify_recaptcha
-  	  super
+  	  super do |resource|
+        #寫入os及oauth來源資料至user
+        resource.os = 'web'
+        resource.oauth = 'email'
+        @user = resource
+      end
+        # 記錄至Login_log
+        user_id = @user.id
+        sign_in_at = Time.now
+        sign_out_at = nil
+        sign_in_fail_at = nil
+        sign_in_ip = @user.current_sign_in_ip
+        os = 'web'
+        oauth = 'email'
+        LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
     else
       build_resource(sign_up_params)
       clean_up_passwords(resource)
@@ -74,7 +88,7 @@ class RegistrationsController < Devise::RegistrationsController
       render :new
     end
   end
-  
+
   protected
     def after_inactive_sign_up_path_for(resource)
       hint_confirm_path

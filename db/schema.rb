@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015092006) do
+ActiveRecord::Schema.define(version: 20151110074312) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20151015092006) do
   end
 
   add_index "ddns", ["device_id"], name: "index_ddns_on_device_id_unique", unique: true, using: :btree
-  add_index "ddns", ["domain_id"], name: "index_ddns_on_domain_id", using: :btree
+  add_index "ddns", ["domain_id"], name: "ddns_domain_id_fk", using: :btree
   add_index "ddns", ["hostname", "domain_id"], name: "index_ddns_on_hostname_and_domain_id_unique", unique: true, using: :btree
 
   create_table "devices", force: :cascade do |t|
@@ -88,6 +88,27 @@ ActiveRecord::Schema.define(version: 20151015092006) do
   end
 
   add_index "invitations", ["device_id"], name: "index_invitations_on_device_id", using: :btree
+
+  create_table "login_logs", force: :cascade do |t|
+    t.integer  "user_id",         limit: 4
+    t.datetime "sign_in_at"
+    t.datetime "sign_out_at"
+    t.datetime "sign_in_fail_at"
+    t.string   "sign_in_ip",      limit: 255
+    t.string   "os",              limit: 255
+    t.string   "oauth",           limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "pairing_logs", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "device_id",  limit: 4
+    t.string   "ip_address", limit: 255
+    t.string   "status",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "pairings", force: :cascade do |t|
     t.integer  "user_id",    limit: 4, null: false
@@ -144,6 +165,8 @@ ActiveRecord::Schema.define(version: 20151015092006) do
     t.string   "country",                limit: 2
     t.string   "middle_name",            limit: 255
     t.string   "display_name",           limit: 255,                null: false
+    t.string   "os",                     limit: 255
+    t.string   "oauth",                  limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
