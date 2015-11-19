@@ -1,5 +1,6 @@
 class DiagramController < ApplicationController
-  # before_action :admin_graph_auth!
+  before_action :authenticate_user!
+  before_action :admin_graph_auth!
   include GraphData
 
   def index
@@ -35,51 +36,51 @@ class DiagramController < ApplicationController
     case @graph_data_number
     when "1_1"
       graph_data = graph_1_1(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
       @y2_axis_show       = true
       @y2_axis_label_name = graph_data[1][3][0]
     when "1_2"
       graph_data = graph_1_2(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
     when "1_3"
       graph_data = graph_1_3(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
     when "1_4"
       graph_data = graph_1_4(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
     when "2_1"
       graph_data = graph_2_1(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
     when "2_2"
       graph_data = graph_2_2(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
     when "2_3"
       graph_data = graph_2_3(period, start_date, end_date)
-      axis_type = 'date'
+      @axis_type = 'date'
     when "3_1"
       graph_data = graph_3_1(period, start_date, end_date)
     when "3_3"
       graph_data = graph_3_3(period, start_date, end_date)
-      axis_type = 'model'
+      @axis_type = 'model'
       @y2_axis_show       = true
       @y2_axis_label_name = graph_data[1][1][0]
     when "5_1"
       graph_data = graph_5_1(period, start_date, end_date)
-      axis_type = 'model'
+      @axis_type = 'model'
       @y2_axis_show       = true
       @y2_axis_label_name = graph_data[1][2][0]
     when "5_2"
       graph_data = graph_5_2(period, start_date, end_date)
-      axis_type = 'model'
+      @axis_type = 'model'
     when "5_3"
       graph_data = graph_5_3(period, start_date, end_date)
-      axis_type = 'model'
+      @axis_type = 'model'
     when "5_4"
       graph_data = graph_5_4(period, start_date, end_date)
-      axis_type = 'model'
+      @axis_type = 'model'
     when "5_5"
       graph_data = graph_5_5(period, start_date, end_date)
-      axis_type = 'model'
+      @axis_type = 'model'
     else
       graph_data = unavailable
     end
@@ -94,7 +95,7 @@ class DiagramController < ApplicationController
     # --------------------
     # Logic for ploting
     # --------------------
-    if axis_type == 'date'
+    if @axis_type == 'date'
       @graph_type = 'area'
 
       # Calculate date difference
@@ -180,7 +181,7 @@ class DiagramController < ApplicationController
         end
       end
 
-    elsif axis_type == 'model'
+    elsif @axis_type == 'model'
       @graph_type = 'bar'
       model_list  = @data1.to_a
 

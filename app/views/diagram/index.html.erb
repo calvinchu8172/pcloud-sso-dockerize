@@ -13,7 +13,9 @@
 
   <div class="zyxel_bread">
     <span><%= @columns_name %></span>
+    <% if @axis_type == "date" %>
     <span style="float: right;"><%= "以#{@scale}為單位" %></span>
+    <% end %>
   </div>
 
   <div class="zyxel_content" style="max-width:100%;">
@@ -38,11 +40,13 @@
           </ul>
         </div>
         <div class="col-md-10">
+          <% if @axis_type == "date" %>
           <ul class="nav nav-pills">
             <li class="<%= @period_scale==1 ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=1" %>">日</a></li>
             <li class="<%= @period_scale==2 ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=2" %>">週</a></li>
             <li class="<%= (@period_scale!=1 && @period_scale!=2) ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=3" %>">月</a></li>
           </ul>
+          <% end %>
           <div id="chart"></div>
         </div>
       </div>
