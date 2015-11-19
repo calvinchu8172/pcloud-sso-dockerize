@@ -9,22 +9,23 @@ class UnpairingController < ApplicationController
 
   #GET /unpairing/success/:device_encrypted_id
   def success
-    @device = Device.find_by_encrypted_id(params[:id])
+    @device = Device.find_by_encoded_id(params[:id])
     service_logger.note({success_unpairing: params})
   end
 
   #GET /unpairing/destroy/:device_encrypted_id
   def destroy
+    PairingLog.record_pairing_log(@device.id, @pairing.user_id, @device.ip_address, 'unpair')
 
     @pairing.destroy
-    Job::UnpairMessage.new.push_device_id(@device.id.to_s)
-    redirect_to "/unpairing/success/" + @device.escaped_encrypted_id
+    Job.new.push_device_id(@device.id.to_s)
+    redirect_to unpairing_success_path(@device.encoded_id)
   end
 
   private
 
     def check_device_paired
-      @device = Device.find_by_encrypted_id(params[:id])
+      @device = Device.find_by_encoded_id(params[:id])
 
       return error_action if @device.nil?
 

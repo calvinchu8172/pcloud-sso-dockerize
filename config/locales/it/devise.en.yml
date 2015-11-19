@@ -1,0 +1,103 @@
+---
+it:
+  devise:
+    confirmations:
+      confirmed: Il tuo account è stato confermato con successo.
+      send_instructions: Fra pochi minuti, riceverai una e-mail con le istruzioni
+        per confermare il tuo account.
+      send_paranoid_instructions: Se il tuo indirizzo è presente nel nostro database,
+        fra pochi minuti, riceverai una e-mail con le istruzioni per confermare il
+        tuo account.
+      apply_account: Hai applicato il tuo account con successo.
+      finish_step: Per finire la registrazione controllare la propria casella di posta
+      click_step: e fare clic sul link di verifica.
+      confirm_before: Si prega di verificare prima la e-mail
+      change_account: Cambiare ad un’altra email
+      resend: Invia di nuovo la e-mail di conferma
+      confirm_sent: "È stata inviata un’altra e-mail di conferma."
+      same_email_address: Il nuovo indirizzo e-mail è uguale all’indirizzo e-mail
+        vecchio.
+    failure:
+      already_authenticated: Hai già effettuato l'accesso.
+      already_oauth_account: Già registrato tramite Facebook o Google+
+      inactive: Il tuo account non è ancora stato attivato.
+      invalid: E-mail o password non valida.
+      locked: Il tuo account è bloccato.
+      last_attempt: Hai ancora un tentativo, dopodiché il tuo account verrà bloccato.
+      not_found_in_database: E-mail o password non valida.
+      timeout: La sessione è scaduta. Accedi nuovamente per continuare.
+      unauthenticated: Devi effettuare l'accesso o registrarti per poter continuare.
+      unconfirmed: Devi confermare il tuo account prima di continuare.
+    mailer:
+      confirmation_instructions:
+        subject: ZyXEL Cloud - Conferma account
+        instruction: 'Grazie per esserti registrato con ZyXEL Nube, clicca sul seguente
+          link per confermare la registrazione dell''account:'
+        instruction_2: Clicca su questo link entro 3 giorni dal ricevimento della
+          presente e-mail.
+      reset_password_instructions:
+        subject: ZyXEL Cloud - Richiesta di modifica password
+        instruction: 'Hai richiesto di modificare la password del tuo account ZyXEL
+          Cloud. Fare clic sul seguente collegamento per iniziare la modifica della
+          password.:'
+        instruction_2: Se non hai fatto questa richiesta, ti preghiamo di ignorare
+          questa e-mail.
+      unlock_instructions:
+        subject: Istruzioni per lo sblocco
+    omniauth_callbacks:
+      failure: Impossibile autenticarti da %{kind} poiché "%{reason}".
+      success: Autenticazione eseguita con successo dall'account %{kind}.
+      fb_primary_mail: "(E-mail principale su Facebook)"
+    passwords:
+      no_token: Non è possibile accedere a questa pagina senza provenire da una e-mail
+        di reimpostazione password. Se vieni da una email di reimpostazione della
+        password, assicurati di avere usato l'URL completo fornito.
+      send_instructions: Fra pochi minuti riceverai una e-mail con le istruzioni per
+        reimpostare la password.
+      send_paranoid_instructions: Se il tuo indirizzo è presente nel nostro database,
+        fra pochi minuti, riceverai una e-mail con un link per il ripristino.
+      updated: La tua password è stata modificata correttamente. Adesso hai effettuato
+        l'accesso.
+      updated_not_active: La tua password è stata modificata correttamente.
+    registrations:
+      destroyed: Arrivederci! Account eliminato con successo. Ci auguriamo di rivederti
+        presto.
+      signed_up: Benvenuto! Iscrizione effettuata con successo.
+      signed_up_but_inactive: Iscrizione effettuata con successo. Tuttavia, non abbiamo
+        potuto registrarti in quanto il tuo account non è ancora attivo.
+      signed_up_but_locked: Iscrizione effettuata con successo. Tuttavia, non abbiamo
+        potuto registrarti in quanto il tuo account è bloccato.
+      signed_up_but_unconfirmed: Un messaggio con un link di conferma è stato inviato
+        al tuo indirizzo email. Si prega di aprire il link per attivare l'account.
+      update_needs_confirmation: Il tuo account è stato aggiornato con successo, ma
+        abbiamo bisogno di verificare il tuo nuovo indirizzo email. Controlla la tua
+        email e clicca sul link di conferma per finalizzare e confermare il nuovo
+        indirizzo email.
+      updated: Account aggiornato con successo.
+      captcha: C'è stato un errore con il codice captcha sotto. Inserire nuovamente
+        il codice.
+    sessions:
+      signed_in: Accesso effettuato correttamente.
+      signed_out: Disconnessione effettuata correttamente.
+    unlocks:
+      send_instructions: Fra pochi minuti, riceverai una e-mail con le istruzioni
+        per sbloccare il tuo account.
+      send_paranoid_instructions: Se il tuo account esiste, fra pochi minuti, riceverai
+        una e-mail con le istruzioni per sbloccare il tuo account.
+      unlocked: Il tuo account è stato sbloccato con successo. Effettua l'accesso
+        per continuare.
+  errors:
+    messages:
+      already_confirmed: "è già stato confermato, prova ad effettuare l'accesso."
+      confirmation_period_expired: necessita essere confermato entro %{period}, richiedine
+        uno nuovo
+      expired: "è scaduto, richiedine uno nuovo"
+      oauth_password: usare il proprio account di social network esistente (Facebook
+        o Google ) per modificare la password esistente.
+      not_found: non trovato
+      not_locked: non è stato bloccato
+      not_saved:
+        one: 1 errore ha impedito che questo %{resource} venisse salvato 1 errore
+          ha impedito che questo utente venisse salvato.
+        other: "%{count} errori hanno impedito che questo %{resource} venisse salvato
+          3 errori hanno impedito che questo utente venisse salvato"

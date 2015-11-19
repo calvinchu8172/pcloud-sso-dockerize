@@ -65,7 +65,7 @@ Given(/^the visitor success sign up and login$/) do
 
     When user click the confirm button
 
-    Then user will auto login and redirect to dashboard
+    Then user will redirect to login page
   }
 end
 
@@ -135,15 +135,15 @@ end
 
 # Check the sign up flow
 Then(/^the page will redirect to success page$/) do
-  expect(page.current_path).to eq(hint_confirm_path)
+  expect(page).to have_content("success")
 end
 
 # Check user account status, the new account should be saved
 Then(/^one new user created by (.*?)$/) do |account|
   @email = account
   user = User.find_by_email(@email)
-  user.should_not be_nil
-  user.confirmation_token.should_not be_nil
+  expect(user).to be_present
+  expect(user.confirmation_token).to be_present
 end
 
 # Check confirmation email status
@@ -152,10 +152,14 @@ Then(/^the new user should receive an email confirmation$/) do
 end
 
 # Check content for sent email page
-Then(/^the new user should see "(.*?)" and "(.*?)" button$/) do |btn1, btn2|
-  expect(page).to have_link(btn1, href: new_user_confirmation_path)
-  expect(page).to have_link(btn2, href: unauthenticated_root_path)
+Then(/^the user should see "(.*?)" button$/) do |btn|
+  expect(page).to have_link(btn)
 end
+
+Then(/^user should not see "(.*?)" button$/) do |btn|
+  expect(page).to have_no_link(btn)
+end
+
 
 # -------------------------------------------------------------------
 # ------------------------ Confirm account --------------------------
@@ -185,6 +189,10 @@ end
 
 Then(/^user will login and redirect to dashboard$/) do
   expect(page.current_path).to eq("/discoverer/index")
+end
+
+Then(/^user will redirect to login page$/) do
+  expect(page).to have_content("Sign in")
 end
 
 # Analog method of captcha

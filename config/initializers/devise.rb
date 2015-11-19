@@ -105,7 +105,14 @@ Devise.setup do |config|
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  # config.allow_unconfirmed_access_for = 3.days
+  config.allow_unconfirmed_access_for = nil
+  # ****************
+  # Ryan Li: According the "allow_unconfirmed_access_for" setting will reset the grace period when user
+  # resending the confirmation due to it identifies the "confirmation_sent_at" field of user,
+  # so I set it to nil, then it will always return true,
+  # and then I restrict the grace period by "using active_for_authentication?" method in user.rb,
+  # so the unconfirmed user whose "confirmation_sent_at" field value is 3 days ago can also login in successfully.
+  # *****************
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -256,7 +263,7 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-  config.allow_insecure_sign_in_after_confirmation = true
+  # config.allow_insecure_sign_in_after_confirmation = true
 
   config.warden do |manager|
     manager.failure_app = CustomFailure

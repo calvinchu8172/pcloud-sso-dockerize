@@ -1,5 +1,5 @@
 development:
-  delivery_method: :smtp
+  delivery_method: :letter_opener
   smtp_settings:
     address: ""
     user_name: ""
@@ -12,7 +12,7 @@ development:
     host: "pcloud.dev"
 
 test:
-  delivery_method: :cache
+  delivery_method: :test
   smtp_settings:
     address: ""
     user_name: ""

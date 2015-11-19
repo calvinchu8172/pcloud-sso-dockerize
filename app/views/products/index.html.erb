@@ -1,0 +1,43 @@
+<div class="discoverer">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div id="product-form" class="modal-content"></div>
+    </div>
+  </div>
+  <!-- Modal -->
+
+  <div class="zyxel_bread">
+    <span>產品管理</span>
+    <%= link_to "新增", new_product_path, class: "btn btn-primary", style: "float: right", remote: true, data: { toggle: "modal", target: "#myModal" } %>
+  </div>
+
+  <div class="zyxel_content" style="max-width:660px">
+
+    <table class="zyxel_table_style2 devices_list">
+      <thead>
+        <tr class="device">
+          <th class="device_info">產品</th>
+          <th class="device_info">產品圖</th>
+          <th class="device_info">配對示意圖</th>
+          <th class="device_info">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |device| %>
+        <tr class="device">
+          <th class=""><span class="model_name"><%= device.model_class_name %></span></th>
+          <td class=""><img src="<%= device.asset.url(:thumb) %>"></td>
+          <td class=""><img src="<%= device.pairing.url %>"></td>
+          <td> <%= link_to "編輯", edit_product_path(device), class: "btn btn-default", remote: true, data: { toggle: "modal", target: "#myModal" } %> </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <!-- <div class="zyxel_btn_area">
+      <%= link_to(I18n.t("labels.manually"), "#", class: "zyxel_btn_ok") %>
+    </div> -->
+
+  </div>
+</div>

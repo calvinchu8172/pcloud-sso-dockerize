@@ -1,0 +1,5 @@
+---
+ru:
+  mailer:
+    subjects:
+      notification: Your DDNS expired notification

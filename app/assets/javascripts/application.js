@@ -10,14 +10,19 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require jquery
-// require jquery_ujs
+//= require jquery
+//= require jquery_ujs
 //= require jquery.min
 //= require angular
 //= require angular-timer
 //= require ng-table
 //= require_tree .
-//= require bootstrap/dropdown
+//= require bootstrap
 //= require select2
 //= require entropizer
 //= require jquery-entropizer
+//= require jquery.cookie
+//= require jstz
+//= require browser_timezone_rails/set_time_zone
+//= require c3
+//= require d3

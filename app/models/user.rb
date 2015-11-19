@@ -1,7 +1,13 @@
 class User < ActiveRecord::Base
+  include Guards::AttrEncryptor
   enum gender: {male: true, female: false}
   before_create :add_default_display_name
   has_many :identity
+  has_many :pairings
+  has_many :devices, :through => :pairings
+  has_many :invitations, :through => :devices
+  has_many :accepted_users
+
 
   VALIDATE_MOBILE_REGEX = /\A[0-9#\+\(\)-]*\z/
 
@@ -25,7 +31,6 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     Identity.where(provider: auth.provider, uid: auth.uid.to_s).first_or_initialize
   end
-
 
   def self.sign_up_omniauth(auth, current_user, agreement)
     identity = Identity.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize
@@ -55,6 +60,14 @@ class User < ActiveRecord::Base
     self.middle_name = auth["extra"]["raw_info"]["middle_name"] if auth["extra"]["raw_info"]["middle_name"]
     self.language = auth["extra"]["raw_info"]["locale"] if auth["extra"]["raw_info"]["locale"]
     self.gender = auth["extra"]["raw_info"]["gender"] if auth["extra"]["raw_info"]["gender"] && auth["extra"]["raw_info"]["gender"] != "other"
+  end
+
+  def confirmation_expire_time
+    self.created_at + 3.days
+  end
+
+  def confirmation_valid?
+    Time.now.to_i < confirmation_expire_time.to_i
   end
 
   private

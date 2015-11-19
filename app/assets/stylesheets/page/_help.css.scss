@@ -77,7 +77,8 @@ div.help{
       display: none;
       padding: 5px 10px;
       overflow: hidden;
-      color: $zyxel_color2;
+      // color: $zyxel_color2;
+      font-weight: bold;
       border: 1px solid $zyxel_color4;
       transition: border-color 0.3s ease 0s;
       -webkit-transition: border-color 0.3s ease 0s; /* Chrome & safari */

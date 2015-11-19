@@ -1,6 +1,6 @@
 Given(/^the user visits DDNS setup page$/) do
 	page.set_rack_session(first_pairing: true)
-	visit "/ddns/#{@pairing.device.escaped_encrypted_id}"
+	visit "/ddns/#{@pairing.device.encoded_id}"
 end
 
 Given(/^the device was first setting DDNS after paired$/) do
@@ -18,6 +18,12 @@ Given(/^the user filled the invalid Hostname (.*?)$/) do |value|
 end
 
 Given(/^the user filled the exist Hostname$/) do
+  another_device = TestingHelper.create_device
+  Ddns.create(ip_address: "127.0.0.1", device_id: another_device.id, domain_id: Domain.first.id, hostname: "test")
+	submit_hostname('test')
+end
+
+Given(/^the user filled the reserved Hostname$/) do
 	submit_hostname('zyxel')
 end
 
@@ -38,7 +44,7 @@ When(/^the device already registered hostname (.*?)$/) do |value|
 end
 
 When(/^the user visits another device DDNS setup page$/) do
-	visit "/ddns/#{@other_paired.device.escaped_encrypted_id}"
+	visit "/ddns/#{@other_paired.device.encoded_id}"
 end
 
 # -------------------------------------------------------------------
@@ -62,12 +68,21 @@ end
 
 Then(/^the user will redirect to UPnP setup page$/) do
   current_url = URI.decode(page.current_path).chomp
-  expect_url = URI.decode("/upnp/" + @pairing.device.escaped_encrypted_id).chomp
+  module_version = @pairing.device.get_module_version('upnp')
+  expect_url = URI.decode("/#{module_version}/upnp/" + @pairing.device.encoded_id).chomp
   expect(current_url).to eq(expect_url)
 end
 
 Then(/^it should not do anything on DDNS setup page$/) do
 	expect(page).to	have_content I18n.t("warnings.settings.ddns.sync")
+end
+
+When(/^the user visits DDNS setup page with un\-existed device id$/) do
+	visit "/ddns/lksjdlkfjhsdl"
+end
+
+Then(/^the user should see error message "(.*?)"$/) do |error_message|
+  expect(page).to have_content(error_message)
 end
 # -------------------------------------------------------------------
 # ----------------------------   code   -----------------------------

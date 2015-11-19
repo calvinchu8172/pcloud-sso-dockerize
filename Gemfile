@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '4.2.3'
+gem 'mail', '2.5.4'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
@@ -16,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-gem 'immigrant'
+gem 'immigrant', '~> 0.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'angularjs-rails'
@@ -65,35 +67,45 @@ gem "omniauth-facebook"
 gem 'omniauth-google-oauth2'
 gem 'omniauth-twitter'
 #  Devise 3.1 no longer signs the user automatically in after confirmation
-gem 'devise', '3.1.0'
+gem 'devise', '3.5.1'
 gem 'devise-i18n'
 gem 'rails-i18n'
-gem "recaptcha", :require => "recaptcha/rails"
-gem 'i18n_country_select'
+gem "recaptcha", '~> 0.3.6', :require => "recaptcha/rails"
+gem 'i18n_country_select', '1.1.5'
+gem 'i18n-country-translations', '1.2.2'
 gem 'attr_encrypted'
 
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'rmagick'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1'
 gem 'rails_admin', group: [:test, :development, :staging]
 
-gem 'rest_client'
-gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
+gem 'rest-client'
+# gem 'netrc', :github => 'geemus/netrc', :branch => 'master'
 gem 'fluent-logger'
 gem 'json', '1.8.2'
+gem 'browser-timezone-rails'
+gem 'whenever', '~> 0.9.4', :require => false
+
+gem 'c3-rails'
+gem 'd3-rails'
+gem 'time_difference'
+# gem 'time_diff'
 
 group :test do
   gem 'action_mailer_cache_delivery'
   gem 'email_spec'
+  gem 'simplecov', :require => false
+end
+group :development do
+  gem 'brakeman', :require => false
 end
 
-# gem 'devise-async'
-# gem 'sidekiq'
 group :development, :test do
   gem 'faker'
   gem 'hipchat'
   gem 'capybara'
-  gem "capybara-webkit"
+  gem "capybara-webkit", '~> 1.7'
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails'
   gem 'database_cleaner'
@@ -101,4 +113,9 @@ group :development, :test do
   gem 'rack_session_access'
   gem 'yard'
   gem 'yard-cucumber'
+  gem 'pry'
+  # gem 'i18n-docs', github: 'local-ch/i18n-docs'
+  gem "letter_opener"
+  gem 'bullet'
 end
+

@@ -4,6 +4,12 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore Vim temporary file.
+*.sw?
+
+# Ignore .DS_Store
+.DS_Store
+
 # Ignore bundler config.
 /.bundle
 
@@ -23,8 +29,11 @@ config/settings/*.local.yml
 config/settings/development.yml
 config/settings/production.yml
 config/settings/test.yml
+config/settings/*.yml
 
 config/environments/*.local.yml
 config/*.yml
 
 /vendor/assets/components
+coverage
+.DS_Store

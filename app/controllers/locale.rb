@@ -35,6 +35,11 @@ module Locale
                         :"Magyar" => 'hu',
                         :"Français" => 'fr',
                         :"Español" => 'es'}
+
+    @options_path = {}
+    @locale_options.each do |key, value|
+      @options_path[key] = params.merge(locale: value)
+    end
   end
 
 

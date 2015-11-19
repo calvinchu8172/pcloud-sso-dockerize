@@ -5,8 +5,15 @@ class Pairing < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :device
+  has_many :invitations, :through => :device
 
   START_PERIOD = 10.seconds
   WAITING_PERIOD = 10.minutes
+
+  before_destroy :destroy_invitations
+
+  def destroy_invitations
+    self.invitations.each { |invitation| invitation.destroy }
+  end
 
 end

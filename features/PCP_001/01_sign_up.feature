@@ -112,7 +112,7 @@ Feature: [PCP_001_01] Sign Up
     And the new user should receive an email confirmation
 
   Scenario: [PCP_001_01_08]
-    In registration successfully page, should have resend confirm email link and confirm button
+    In registration successfully page, should have confirm email link
 
     When the visitor success sign up an account:
       | E-mail            | personal@example.com   |
@@ -120,10 +120,10 @@ Feature: [PCP_001_01] Sign Up
       | Confirm Password  | 12345678               |
 
     Then the page will redirect to success page
-    And the new user should see "Resend" and "Confirm" button
+    And the user should see "Unverified" button
 
   Scenario: [PCP_001_01_09]
-    Auto login after confirmed and redirect to confirmed page
+    Redirect to login page after confirmed
 
     When the visitor success sign up an account:
       | E-mail            | personal@example.com   |
@@ -140,7 +140,8 @@ Feature: [PCP_001_01] Sign Up
 
     When user click the confirm button
 
-    Then user will auto login and redirect to dashboard
+    Then user will redirect to login page
+    And user should not see "Unverified" button
 
   Scenario: [PCP_001_01_10]
     Redirect to login page when user click cancel button in sign up page
