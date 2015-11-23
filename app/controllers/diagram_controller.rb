@@ -59,6 +59,7 @@ class DiagramController < ApplicationController
       @axis_type = 'date'
     when "3_1"
       graph_data = graph_3_1(period, start_date, end_date)
+      @axis_type = 'date'
     when "3_3"
       graph_data = graph_3_3(period, start_date, end_date)
       @axis_type = 'model'
@@ -67,8 +68,8 @@ class DiagramController < ApplicationController
     when "5_1"
       graph_data = graph_5_1(period, start_date, end_date)
       @axis_type = 'model'
-      @y2_axis_show       = true
-      @y2_axis_label_name = graph_data[1][2][0]
+      # @y2_axis_show       = true
+      # @y2_axis_label_name = graph_data[1][2][0]
     when "5_2"
       graph_data = graph_5_2(period, start_date, end_date)
       @axis_type = 'model'
@@ -130,7 +131,7 @@ class DiagramController < ApplicationController
         when 2
           # Fill week
           start_date = start_date.next_week if i > 0
-          date_string = start_date.strftime("%Y-W%V")
+          date_string = "#{start_date.strftime("%Y-W%V(%m/%d")}~#{(start_date + 6).strftime("%m/%d)")}"
         when 3
           # Fill month
           start_date = start_date.next_month if i > 0
