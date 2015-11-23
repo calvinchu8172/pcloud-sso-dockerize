@@ -12,6 +12,7 @@ class Api::Devices::V3::RegisterController < Api::DevicesController
       @device = Api::Device::V3.new(payload.merge(current_ip_address: request.remote_ip))
       @device.valid?
 
+      error_log(payload) unless @device.errors[:signature].blank?
       return render json: {:error=>@device.errors[:signature].first[:description]}, :status => 400 unless @device.errors[:signature].blank?
       return render json: @device.errors[:parameter].first, :status => 400 unless @device.errors[:parameter].blank?
 
