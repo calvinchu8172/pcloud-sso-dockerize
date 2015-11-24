@@ -10,7 +10,8 @@ class DiagramController < ApplicationController
     @period_scale      = params[:period_scale] ? (params[:period_scale].to_i) : 3
     @graph_data_number = params[:graph_data_number] ? params[:graph_data_number] : "0"
     start_date         = Date.parse("2014-11-01") # Date.parse(params[:start])
-    end_date           = Date.today
+    # end_date           = Date.today
+    end_date           = DateTime.now
     @url_prefix        = "/diagram?graph_data_number=#{@graph_data_number}"
 
     # --------------------
