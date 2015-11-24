@@ -169,8 +169,6 @@ class Device < ActiveRecord::Base
   end
 
   def ip_decode_hex
-    puts self.ip_address
-    puts "#{IPAddr.new(self.ip_address.to_i(16), Socket::AF_INET).to_s}"
     IPAddr.new(self.ip_address.to_i(16), Socket::AF_INET).to_s
   end
 end

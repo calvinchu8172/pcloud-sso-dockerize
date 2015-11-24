@@ -68,7 +68,7 @@ class PairingController < ApplicationController
 
   # 判斷該session 是否已失效
   def check_timeout
-    logger.debug('@pairing_session status:' + @pairing_session['status'])
+    logger.debug("@pairing_session status: #{@pairing_session['status']}")
 
     expire_in = @device.pairing_session_expire_in.to_i
 

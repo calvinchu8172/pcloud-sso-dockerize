@@ -15,7 +15,7 @@ class UnpairingController < ApplicationController
 
   #GET /unpairing/destroy/:device_encrypted_id
   def destroy
-    PairingLog.record_pairing_log(@device.id, @pairing.user_id, @device.ip_address, 'unpair')
+    PairingLog.record_pairing_log(@pairing.user_id, @device.id, @device.ip_address, 'unpair')
 
     @pairing.destroy
     Job.new.push_device_id(@device.id.to_s)
