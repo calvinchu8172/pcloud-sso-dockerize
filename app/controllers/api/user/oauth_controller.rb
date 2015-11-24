@@ -23,8 +23,12 @@ class Api::User::OauthController < Api::Base
     register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
     return render :json => { :error_code => '001',  :description => 'unregistered' }, :status => 400 if register.nil?
     return render :json => { :error_code => '002',  :description => 'not binding yet' }, :status => 400 if identity.nil?
-    return render :json => { :error_code => '003',  :description => 'not have password' }, :status => 400 if  is_portal_user?(register)
+    return render :json => { :error_code => '003',  :description => 'not have password' }, :status => 400 if  is_portal_oauth_user?(register)
 
+    # register is not nil && identity is not nil && confirmation_token is not nil
+    # 1. 使用者有註冊過 ( email 或 OAuth )
+    # 2. 使用者有用 OAuth 註冊過
+    # 3. 使用者不是單純用 portal OAuth 註冊的使用者
     return render :json => { :result => 'registered', :account => register.email }, :status => 200
 
   end
@@ -46,14 +50,13 @@ class Api::User::OauthController < Api::Base
     data = get_oauth_data(@provider, user_id, access_token)
 
     if data.nil? || data['email'].nil?
-      logger.debug 'the oauth token is invalid'
       return render :json => { :error_code => '001', :description => "Invalid #{params[:oauth_provider].capitalize} account" }, :status => 400
     end
 
     identity = Identity.find_by(uid: data['id'], provider: @provider)
     register = identity.present? ? identity.user : Api::User::OauthUser.find_by(email: data['email'])
 
-    # Check the user registered before
+    # user 未註冊過，直接使用 OAuth 註冊。
     if register.nil?
       register = Api::User::OauthUser.new(register_params)
       register.email = data['email']
@@ -62,33 +65,39 @@ class Api::User::OauthController < Api::Base
       register.confirmed_at = Time.now.utc
 
       unless register.save
-        logger.debug 'Oauth user not save'
         return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless register.errors['signature'].empty?
       end
     end
 
-    if is_portal_user?(register)
+    # user 僅使用 portal OAuth 註冊過，而沒有用 email 註冊。使用者沒有 confirmation_token。
+    if is_portal_oauth_user?(register)
+
       register = Api::User::OauthUser.find(register.id)
       register.confirmation_token = Devise.friendly_token
       register.confirmed_at = Time.now.utc
 
       unless register.update(register_params)
-        logger.debug 'Oauth portal user not save'
         return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless register.errors['signature'].empty?
       end
-    else
+    else 
       return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
     end
 
-    # For varify password
+    # For verify password
     return render :json => { :error_code => '004', :description => 'Invalid email or password.' }, :status => 400 unless register.valid_password?(password)
 
+    # 未用過 oauth 註冊，需寫入 identity
     unless identity.present?
       identity = register.identity.new
       identity.provider = @provider
       identity.uid = data['id']
-
       identity.save
+    end
+
+    # 若使用者 OAuth 註冊完成，則寫入認證狀態
+    if register.confirmed_at.blank?
+      register.confirmed_at = Time.now.utc
+      register.update(register_params.select{ |k, v| k != 'password' })
     end
 
     @user = Api::User::Token.new(register.attributes)
@@ -107,7 +116,7 @@ class Api::User::OauthController < Api::Base
   def get_oauth_data(provider, user_id, access_token)
     begin
       data = RestClient.get('https://www.googleapis.com/oauth2/v1/userinfo', :params => {:access_token => access_token}) if provider == 'google_oauth2'
-      data = RestClient.get('https://graph.facebook.com/v2.3/me', :params => {:access_token => access_token}) if provider == 'facebook'
+      data = RestClient.get('https://graph.facebook.com/v2.3/me', :params => {:access_token => access_token, :fields => 'id,name,email'}) if provider == 'facebook'
       data = JSON.parse data
       data
     rescue Exception => e
@@ -117,7 +126,8 @@ class Api::User::OauthController < Api::Base
     end
   end
 
-  def is_portal_user?(user)
+  # 是否為 portal oauth user (僅使用 portal oauth 註冊過)
+  def is_portal_oauth_user?(user)
     user.confirmation_token.nil?
   end
 
