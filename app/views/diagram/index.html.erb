@@ -12,7 +12,7 @@
   <!-- Modal -->
 
   <div class="zyxel_bread">
-    <span><%= @columns_name %></span>
+    <span><%= @table_name %></span>
     <% if @axis_type == "date" %>
     <span style="float: right;"><%= "以#{@scale}為單位" %></span>
     <% end %>
@@ -40,7 +40,7 @@
           </ul>
         </div>
         <div class="col-md-10">
-          <% if @axis_type == "date" %>
+          <% if @axis_type == "date" || @axis_type == "individual_date" %>
           <ul class="nav nav-pills">
             <li class="<%= @period_scale==1 ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=1" %>">日</a></li>
             <li class="<%= @period_scale==2 ? "active" : "" %>"><a href="<%= "#{@url_prefix}&period_scale=2" %>">週</a></li>
@@ -82,7 +82,7 @@
       },
       y: {
         label: {
-          text: "<%= raw @columns_name %>",
+          text: "<%= raw @y_axis_name %>",
           position: 'outer-middle'
         },
         tick: {

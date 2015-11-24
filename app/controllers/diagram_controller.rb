@@ -8,9 +8,10 @@ class DiagramController < ApplicationController
     # Input
     # --------------------
     @period_scale      = params[:period_scale] ? (params[:period_scale].to_i) : 3
-    @graph_data_number = params[:graph_data_number] ? params[:graph_data_number] : "1_1"
+    @graph_data_number = params[:graph_data_number] ? params[:graph_data_number] : "0"
     start_date         = Date.parse("2014-11-01") # Date.parse(params[:start])
-    end_date           = Date.today
+    # end_date           = Date.today
+    end_date           = DateTime.now
     @url_prefix        = "/diagram?graph_data_number=#{@graph_data_number}"
 
     # --------------------
@@ -59,12 +60,12 @@ class DiagramController < ApplicationController
       @axis_type = 'date'
     when "3_1"
       graph_data = graph_3_1(period, start_date, end_date)
-      @axis_type = 'date'
+      @axis_type = 'individual_date'
     when "3_3"
       graph_data = graph_3_3(period, start_date, end_date)
       @axis_type = 'model'
-      @y2_axis_show       = true
-      @y2_axis_label_name = graph_data[1][1][0]
+      # @y2_axis_show       = true
+      # @y2_axis_label_name = graph_data[1][1][0]
     when "5_1"
       graph_data = graph_5_1(period, start_date, end_date)
       @axis_type = 'model'
@@ -96,8 +97,9 @@ class DiagramController < ApplicationController
     # --------------------
     # Logic for ploting
     # --------------------
-    if @axis_type == 'date'
-      @graph_type = 'area'
+    if @axis_type == 'date' || @axis_type == 'individual_date'
+
+      @graph_type = (@axis_type == 'date') ? 'area' : 'line'
 
       # Calculate date difference
       case @period_scale
@@ -172,13 +174,18 @@ class DiagramController < ApplicationController
             end
           end
 
-          # Accumulation
-          unless value_array[j-1].blank?
-            accumulation[j-1] += value_array[j-1]
-            @columns[j] << accumulation[j-1]
-          else
-            @columns[j] << accumulation[j-1]
+          if @axis_type == 'date'
+            # Accumulation
+            unless value_array[j-1].blank?
+              accumulation[j-1] += value_array[j-1]
+              @columns[j] << accumulation[j-1]
+            else
+              @columns[j] << accumulation[j-1]
+            end  
+          elsif @axis_type == 'individual_date'
+              @columns[j] << value_array[j-1]
           end
+
         end
       end
 
