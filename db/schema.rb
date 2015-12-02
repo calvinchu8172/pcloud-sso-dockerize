@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110074312) do
+ActiveRecord::Schema.define(version: 20151126101953) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -101,6 +101,12 @@ ActiveRecord::Schema.define(version: 20151110074312) do
     t.datetime "updated_at",                  null: false
   end
 
+  add_index "login_logs", ["created_at"], name: "index_login_logs_on_created_at", using: :btree
+  add_index "login_logs", ["oauth"], name: "index_login_logs_on_oauth", using: :btree
+  add_index "login_logs", ["os"], name: "index_login_logs_on_os", using: :btree
+  add_index "login_logs", ["sign_in_at"], name: "index_login_logs_on_sign_in_at", using: :btree
+  add_index "login_logs", ["user_id"], name: "index_login_logs_on_user_id", using: :btree
+
   create_table "pairing_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "device_id",  limit: 4
@@ -109,6 +115,11 @@ ActiveRecord::Schema.define(version: 20151110074312) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "pairing_logs", ["created_at"], name: "index_pairing_logs_on_created_at", using: :btree
+  add_index "pairing_logs", ["device_id"], name: "index_pairing_logs_on_device_id", using: :btree
+  add_index "pairing_logs", ["status"], name: "index_pairing_logs_on_status", using: :btree
+  add_index "pairing_logs", ["user_id"], name: "index_pairing_logs_on_user_id", using: :btree
 
   create_table "pairings", force: :cascade do |t|
     t.integer  "user_id",    limit: 4, null: false

@@ -6,7 +6,7 @@ class Api::User < User
 
   hash_key :app_info
 
-  AUTHENTICATION_TOKEN_TTL = 1.hour
+  AUTHENTICATION_TOKEN_TTL = 6.hour
   ACCOUNT_TOKEN_TTL = 1.month
   INVALID_SIGNATURE_ERROR = {error_code: "101", description: "Invalid signature"}
   INVALID_TOKEN_AUTHENTICATION = {error_code: '201', description: 'Invalid cloud id or token.'}
