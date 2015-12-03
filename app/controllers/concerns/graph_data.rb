@@ -3,10 +3,10 @@ module GraphData
   def graph_1_1(period, start_date, end_date)
     @table_name  = "註冊數量統計表"
     @y_axis_name = "註冊數量"
-    @columns     = [["時間"],["USER註冊數量(含OAuth數量)"],["OAuth註冊數量(FB&G+ 過濾同一個帳號)"],["Device配對數量(裝置配對現況)"]]
+    @columns     = [["時間"],["USER註冊數量(含OAuth數量)"],["OAuth註冊數量"],["Device配對數量(裝置配對現況)"]]
     @data1       = User.select("date(created_at) as create_date","#{period} as time_axis","count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
     @data2       = Identity.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
-    @data3       = Device.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
+    @data3       = Pairing.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
     return [@table_name, @columns, @data1, @data2, @data3]
   end
 
@@ -65,6 +65,7 @@ module GraphData
     @model.each do |m|
       @columns << [m.model_class_name]
       data = Pairing.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date, device_id: Device.where(product_id: m.model_id).pluck(:id)).group(period).order(:created_at)
+      # data = Pairing.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).where("device_id IN (SELECT id FROM devices WHERE product_id = #{m.model_id})").group(period).order(:created_at)
       instance_variable_set("@data#{i}", data)
       return_array << instance_variable_get("@data#{i}")
       i += 1
@@ -81,8 +82,8 @@ module GraphData
     @model = Device.select("product_id as model_id", "(select `name` from `products` where id=`product_id`) as model_class_name").group(:product_id).order(:product_id)
     @model.each do |m|
       @columns << [m.model_class_name]
-      data = Device.includes(:pairing).select("date(created_at) as create_date", "#{period} as time_axis", "count(*) as value_count", :product_id).where(created_at: start_date..end_date, product_id: m.model_id).where("devices.`id` <> ?", "pairings.device_id").group(period).order(:created_at)
-      # data = Device.includes(:pairing).select("date(created_at) as create_date", "#{period} as time_axis", "count(*) as value_count", :product_id).where(created_at: start_date..end_date, product_id: m.model_id).where.not(id: Pairings.pluck(:device_id)).group(period).order(:created_at)
+      data = Device.includes(:pairing).select("date(created_at) as create_date", "#{period} as time_axis", "count(*) as value_count", :product_id).where(created_at: start_date..end_date, product_id: m.model_id).where.not(id: Pairing.pluck(:device_id)).group(period).order(:created_at)
+      # data = Device.includes(:pairing).select("date(created_at) as create_date", "#{period} as time_axis", "count(*) as value_count", :product_id).where(created_at: start_date..end_date, product_id: m.model_id).where("id NOT IN (SELECT device_id FROM pairings)").group(period).order(:created_at) # Carter solution
       instance_variable_set("@data#{i}", data)
       return_array << instance_variable_get("@data#{i}")
       i += 1
