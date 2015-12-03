@@ -3,7 +3,7 @@ module GraphData
   def graph_1_1(period, start_date, end_date)
     @table_name  = "註冊數量統計表"
     @y_axis_name = "註冊數量"
-    @columns     = [["時間"],["USER註冊數量(含OAuth數量)"],["OAuth註冊數量(FB&G+ 過濾同一個帳號)"],["Device配對數量(裝置配對現況)"]]
+    @columns     = [["時間"],["USER註冊數量(含OAuth數量)"],["OAuth註冊數量"],["Device配對數量(裝置配對現況)"]]
     @data1       = User.select("date(created_at) as create_date","#{period} as time_axis","count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
     @data2       = Identity.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
     @data3       = Pairing.select("date(created_at) as create_date","#{period} as time_axis", "count(*) as value_count").where(created_at: start_date..end_date).group(period).order(:created_at)
