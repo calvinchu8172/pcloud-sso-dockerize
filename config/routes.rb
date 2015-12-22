@@ -131,6 +131,11 @@ Rails.application.routes.draw do
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
     end
+
+    scope :path => '/healthy/1/', :module => "api/healthy" do
+      get 'status', to: 'status#check', format: 'json'
+    end
+
   end
 
   # Catch all routes
