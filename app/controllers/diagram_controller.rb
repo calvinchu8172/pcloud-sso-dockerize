@@ -23,13 +23,13 @@ class DiagramController < ApplicationController
       period = "date(created_at)"
       @scale  = "日"
     when 2
-      period = "week(created_at)"
+      period = "week(created_at), year(created_at)"
       @scale  = "週"
     when 3
-      period = "month(created_at)"
+      period = "month(created_at), year(created_at)"
       @scale  = "月"
     else
-      period = "month(created_at)" # In case data amount is oversized.
+      period = "month(created_at), year(created_at)" # In case data amount is oversized.
       @scale  = "月"
     end
 
