@@ -133,7 +133,7 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do
-      get 'status', to: 'status#check', format: 'json'
+      get 'status', to: 'status#show', format: 'json'
     end
 
   end
