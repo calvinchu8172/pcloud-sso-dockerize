@@ -10,16 +10,18 @@ Feature: [REST_01_07] Facebook Register
     Given an existing certificate and RSA key
 
     When client send a POST request to /user/1/register/facebook with:
-    | user_id      | USER ID       |
-    | access_token | ACCESS TOKEN  |
-    | password     | test_password |
-    | signature    | SIGNATURE     |
+    | user_id         | USER ID       |
+    | access_token    | ACCESS TOKEN  |
+    | password        | test_password |
+    | signature       | SIGNATURE     |
+    | Accept-Language | fr            |
 
     Then the response status should be "200"
     And the JSON response should include:
       """
       ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
+    And Portal's language should be changed to "fr"
 
   Scenario: [REST_01_07_02]
     Client register by invalid facebook uuid and access token
@@ -115,16 +117,18 @@ Feature: [REST_01_07] Facebook Register
     And client already has a portal account
 
     When client send a POST request to /user/1/register/facebook with:
-    | user_id      | USER ID       |
-    | access_token | ACCESS TOKEN  |
-    | password     | test_password |
-    | signature    | SIGNATURE     |
+    | user_id         | USER ID       |
+    | access_token    | ACCESS TOKEN  |
+    | password        | test_password |
+    | signature       | SIGNATURE     |
+    | Accept-Language | fr            |
 
     Then the response status should be "200"
     And the JSON response should include:
       """
       ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
+    And Portal's language should be changed to "fr"
 
   Scenario: [REST_01_07_08]
     Client already has a portal accoutn, thne register by facebook uuid and access token with invalid signature
