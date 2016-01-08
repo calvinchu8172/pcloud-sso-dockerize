@@ -7,9 +7,10 @@ Feature: [REST_01_02] Register with E-mail account
     register
 
     When client send a POST request to /user/1/register with:
-      | id        | acceptance@ecoworkinc.com    |
-      | password  | secret123                    |
-      | signature | VALID SIGNATURE              |
+      | id              | acceptance@ecoworkinc.com    |
+      | password        | secret123                    |
+      | signature       | VALID SIGNATURE              |
+      | Accept-Language | fr                           |
 
     Then the response status should be "200"
     And the JSON response should include:
@@ -17,6 +18,7 @@ Feature: [REST_01_02] Register with E-mail account
       ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "stun_ip_addresses", "xmpp_account", "xmpp_ip_addresses"]
       """
     And Email deliveries should be 1
+    And Portal's language should be changed to "fr"
 
   Scenario: [REST_01_02_02]
     register with email has been taken

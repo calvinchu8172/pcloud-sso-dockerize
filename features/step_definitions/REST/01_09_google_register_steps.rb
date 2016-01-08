@@ -26,6 +26,8 @@ When(/^client send a POST request to \/user\/1\/register\/google with:$/) do |ta
   signature = create_signature(@certificate.serial, @uuid, @access_token)
   signature = data["signature"].include?("INVALID") ? "" : signature
 
+  header 'Accept-Language', data["Accept-Language"]
+
   post path, {
     user_id: @uuid,
     access_token: @access_token,
