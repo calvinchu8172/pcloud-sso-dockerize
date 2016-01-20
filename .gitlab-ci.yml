@@ -1,0 +1,28 @@
+before_script:
+  - 'apt-get update && apt-get install -y redis-server'
+  - /etc/init.d/redis-server start
+  - service redis-server status
+  - redis-cli ping
+  - touch log/application.log
+  - touch log/test.log
+  - rename 's/.sample//' config/settings/*.sample
+  - bundle install --jobs $(nproc) --path=/cache/bundler
+  - mysqladmin -uroot -h mysql create personal_cloud
+  - RAILS_ENV=test bundle exec rake db:migrate db:seed
+
+cucumber:
+  script:
+    - mkdir test-plans
+    # - xvfb-run -a bundle exec cucumber features --format html --out test-plans/output.html
+    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_rest.html
+    # - xvfb-run -a bundle exec cucumber features -r features -f ZyxelFormatter -o test-plans/output.html
+    # - xvfb-run cucumber --format html > test-plans/output.html
+    # - xvfb-run -a bundle exec cucumber -r features -o test-plans/output.html
+    # - yard config load_plugins true
+    # - yardoc 'app/**/*.rb' 'features/**/*.feature'
+  artifacts:
+    paths:
+      - test-plans/
+      - doc
+  only:
+    - feature/gitlab-ci
