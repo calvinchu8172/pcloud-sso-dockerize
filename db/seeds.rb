@@ -55,11 +55,11 @@ znf3QDjNYZvULC96M8LxgZzvs/m1+ddXYNJ/lqDz4/3CovA=
 puts Rails.env
 
 if Rails.env == 'test'
-  sql = 'DROP DATABASE IF EXISTS mongooseim2;'
+  sql = 'DROP DATABASE IF EXISTS mongooseim;'
   ActiveRecord::Base.connection.execute(sql)
-  sql = 'CREATE DATABASE mongooseim2;'
+  sql = 'CREATE DATABASE mongooseim;'
   ActiveRecord::Base.connection.execute(sql)
-  sql = 'USE mongooseim2;'
+  sql = 'USE mongooseim;'
   ActiveRecord::Base.connection.execute(sql)
   sql = " CREATE TABLE `users` (
       `username` varchar(250) NOT NULL,
