@@ -5,16 +5,19 @@ before_script:
   - redis-cli ping
   - touch log/application.log
   - touch log/test.log
-  - rename 's/.sample//' config/settings/*.sample
+  - rename 's/.example//' config/settings/*.example
+  - rename 's/.example//' config/*.example
   - bundle install --jobs $(nproc) --path=/cache/bundler
-  - mysqladmin -uroot -h mysql create personal_cloud
+  - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
 
 cucumber:
   script:
     - mkdir test-plans
     # - xvfb-run -a bundle exec cucumber features --format html --out test-plans/output.html
-    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_rest.html
+    - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/output_PCP001.html
+    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_REST.html
+    - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/output_Service.html
     # - xvfb-run -a bundle exec cucumber features -r features -f ZyxelFormatter -o test-plans/output.html
     # - xvfb-run cucumber --format html > test-plans/output.html
     # - xvfb-run -a bundle exec cucumber -r features -o test-plans/output.html
