@@ -19,7 +19,7 @@ cucumber:
     - mkdir test-plans
     # - xvfb-run -a bundle exec cucumber features --format html --out test-plans/output.html
     # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features
-    - xvfb-run -a bundle exec cucumber features/REST/ -r features
+    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_REST.html
     # - xvfb-run -a bundle exec cucumber features/Service/ -r features
     # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/output_PCP001.html
     # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_REST.html
