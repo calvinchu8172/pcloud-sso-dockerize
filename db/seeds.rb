@@ -49,3 +49,33 @@ tIgz6pXx38PwJah89///v9t70AKZCwjjOzm1fUFPMJKFAJD61Ua3iZY1Ek52L1dQ
 znf3QDjNYZvULC96M8LxgZzvs/m1+ddXYNJ/lqDz4/3CovA=
 -----END CERTIFICATE-----
 ")
+
+
+
+puts Rails.env
+
+if Rails.env == 'test'
+  sql = 'DROP DATABASE IF EXISTS mongooseim2;'
+  ActiveRecord::Base.connection.execute(sql)
+  sql = 'CREATE DATABASE mongooseim2;'
+  ActiveRecord::Base.connection.execute(sql)
+  sql = 'USE mongooseim2;'
+  ActiveRecord::Base.connection.execute(sql)
+  sql = " CREATE TABLE `users` (
+      `username` varchar(250) NOT NULL,
+      `password` text NOT NULL,
+      `pass_details` text,
+      `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`username`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8; "
+  ActiveRecord::Base.connection.execute(sql)
+
+  sql = " CREATE TABLE `last` (
+      `username` varchar(250) NOT NULL,
+      `seconds` int(11) NOT NULL,
+      `state` text NOT NULL,
+      `last_signin_at` int(11),
+      PRIMARY KEY (`username`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8; "
+  ActiveRecord::Base.connection.execute(sql)
+end
