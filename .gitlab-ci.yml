@@ -12,7 +12,7 @@ before_script:
   - bundle install --jobs $(nproc) --path=/cache/bundler
   - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
-  - mysql -uroot -Bse "show databases;"
+  # - mysql -uroot -Bse "show databases;"
 
 cucumber:
   script:
