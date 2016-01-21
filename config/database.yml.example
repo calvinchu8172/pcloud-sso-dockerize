@@ -25,7 +25,7 @@ xmpp_test:
   database: mongooseim
   host: mysql
   username: root
-  password: 12345678
+  password:
   collation: utf8_general_ci
 
 # Warning: The database defined as "test" will be erased and
