@@ -31,7 +31,7 @@ test:
   database: mycloud_test
   host: mysql
   username: root
-  password: 12345678
+  password:
   collation: utf8_general_ci
 
 
