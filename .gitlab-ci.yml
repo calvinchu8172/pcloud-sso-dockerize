@@ -4,6 +4,8 @@ before_script:
   - service redis-server status
   - redis-cli ping
   - touch log/application.log
+  - touch log/app.log
+  - touch log/db.log
   - touch log/test.log
   - rename 's/.example//' config/settings/*.example
   - rename 's/.example//' config/*.example
