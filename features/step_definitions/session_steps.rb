@@ -113,6 +113,7 @@ end
 
 # Click link
 When(/^the user click "(.*?)" link$/) do |link|
+  page.save_screenshot('test-plans/screenshot.png')
   click_link link
 end
 
