@@ -20,8 +20,8 @@ xmpp:
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
   name: 'alpha'
-  api_domain: '127.0.0.1'
-  portal_domain: '127.0.0.1'
+  api_domain: 'localhost'
+  portal_domain: 'localhost'
   ga_tracker: 'UA-57135359-1'
   paperclip:
     default:
@@ -39,12 +39,12 @@ environments:
     attributes:
       access_key_id:
       secret_access_key:
-      region:
+      region: 'us-east-1'
   ddns: pcloud.ecoworkinc.com
-  cdn:
+  cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   zones_info:
-    id:
-    name:
+    id: 'Z23KWXIJBQNA7O'
+    name: 'pcloud.ecoworkinc.com'
   filter_list:
     - api
     - www
