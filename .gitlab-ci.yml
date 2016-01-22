@@ -18,9 +18,9 @@ cucumber:
   script:
     - mkdir test-plans
     # - xvfb-run -a bundle exec cucumber features --format html --out test-plans/output.html
-    - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/output_REST.html
-    - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/output_REST.html
-    - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/output_REST.html
+    - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/output_PCP001.html
+    - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/output_PCP002.html
+    - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/output_PCP003.html
     # - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features --format html --out test-plans/output_REST.html
     # - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/output_REST.html
     # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/output_REST.html
