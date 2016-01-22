@@ -40,7 +40,6 @@ Then(/^the JSON response should include (\d+):$/) do |record_count, attributes|
 end
 
 Then(/^the response status should be "(.*?)"$/) do |status_code|
-
   puts "*****#{@certificate.serial}"
   puts "*****#{@certificate.content}"
   puts "*****#{last_response.status}"
