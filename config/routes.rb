@@ -136,6 +136,10 @@ Rails.application.routes.draw do
       get 'status', to: 'status#show', format: 'json'
     end
 
+    scope :path => '/device/1/', :module => "api/devices" do
+      post 'online_status', to: 'online_status#update', format: 'json'
+    end
+
   end
 
   # Catch all routes
