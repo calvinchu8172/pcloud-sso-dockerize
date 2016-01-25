@@ -10,7 +10,9 @@ end
 # ---------------------------    input   ----------------------------
 # -------------------------------------------------------------------
 Given(/^the user filled the valid Hostname$/) do
-	submit_hostname('valid')
+	within("div.zyxel_host_name") do
+		submit_hostname('valid')
+	end
 	page.save_screenshot('test-plans/screenshot1.png')
 end
 

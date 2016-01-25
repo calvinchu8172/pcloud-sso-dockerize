@@ -108,15 +108,12 @@ end
 
 # Click submit button
 When(/^the user click "(.*?)" button$/) do |button|
-  # click_button button
-  click_on button
-  page.save_screenshot('test-plans/screenshot_link.png')
+  click_button button
 end
 
 # Click link
 When(/^the user click "(.*?)" link$/) do |link|
   click_link link
-  page.save_screenshot('test-plans/screenshot_link.png')
 end
 
 When(/^the user have other devices$/) do
