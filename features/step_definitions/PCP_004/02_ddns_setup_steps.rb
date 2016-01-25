@@ -12,7 +12,6 @@ end
 Given(/^the user filled the valid Hostname$/) do
 	submit_hostname('valid')
 	page.save_screenshot('test-plans/screenshot1.png')
-	sleep 5
 end
 
 Given(/^the user filled the invalid Hostname (.*?)$/) do |value|
@@ -38,7 +37,9 @@ end
 When(/^the server update DDNS setting successfully$/) do
 	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
+	puts "***before set session: #{@ddns_session}"
 	set_ddns_session(@ddns_session,"success")
+	puts "***after set session: #{@ddns_session}"
 end
 
 When(/^the device already registered hostname (.*?)$/) do |value|
