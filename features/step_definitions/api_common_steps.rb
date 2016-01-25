@@ -97,7 +97,7 @@ def create_certificate_and_rsa_key
   cert.public_key = @rsa_key.public_key
   cert.subject = OpenSSL::X509::Name.parse 'CN=nobody/DC=example'
 
-  @certificate = Api::Certificate.create(serial: "serial_name", content: cert.to_pem)
+  @certificate = Api::Certificate.create(serial: "serial_name", content: "#{cert.to_pem}")
 end
 
 def create_signature(*arg)
