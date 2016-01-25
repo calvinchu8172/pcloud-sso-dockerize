@@ -14,7 +14,7 @@ class SslValidator < ActiveModel::Validator
 
 
 
-  # private
+  private
 
     def validate_signature(signature, key, serial)
       sha224 = OpenSSL::Digest::SHA224.new
