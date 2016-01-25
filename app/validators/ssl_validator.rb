@@ -21,7 +21,7 @@ class SslValidator < ActiveModel::Validator
       begin
         puts "validate signature in API"
         puts "print all certificate"
-        puts Api::Certificate.all
+        puts Api::Certificate.all.to_json
         puts Api::Certificate.first.serial
         puts Api::Certificate.first.content
         puts "********validate signature in API"
