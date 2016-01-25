@@ -5,18 +5,18 @@ When(/^client send a POST request to \/user\/1\/register with:$/) do |table|
   data = table.rows_hash
   path = '//' + Settings.environments.api_domain + "/user/1/register"
 
-  puts data
+  puts "Client sends data: #{data}"
 
   @email = id = data["id"]
   password = data["password"]
 
   certificate_serial = @certificate.serial
 
-  puts certificate_serial
+  puts "Client sends certificate_serial: #{certificate_serial}"
 
   signature = create_signature(id, certificate_serial)
 
-  puts signature
+  puts "Clent sends signature: #{signature}"
   # binding.pry
 
   signature = "" if data["signature"].include?("INVALID")
