@@ -6,6 +6,7 @@ class Api::Certificate < ActiveRecord::Base
     puts serial
     puts certificate.content
     puts OpenSSL::X509::Certificate.new(certificate.content).public_key
+    puts "end of find_public_by_serial"
 
     return OpenSSL::X509::Certificate.new(certificate.content).public_key
   end
