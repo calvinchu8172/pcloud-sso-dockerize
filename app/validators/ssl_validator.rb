@@ -4,6 +4,11 @@ class SslValidator < ActiveModel::Validator
 
     key = options[:signature_key].map{|field| record.send(field.to_s)}.join('')
     sha224 = OpenSSL::Digest::SHA224.new
+
+    puts "***#{record.signature}"
+    puts "***#{key}"
+    puts "***#{record.certificate_serial}"
+
     record.errors["signature"] = Api::User::INVALID_SIGNATURE_ERROR unless validate_signature(record.signature, key, record.certificate_serial)
   end
 
