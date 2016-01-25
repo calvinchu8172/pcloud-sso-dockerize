@@ -124,7 +124,7 @@ class DdnsController < ApplicationController
         I18n.t("warnings.settings.ddns.too_short") => (params[:host_name].length < 3),
         I18n.t("warnings.settings.ddns.too_long") => (params[:host_name].length > 63),
         I18n.t("warnings.invalid") => (
-          (/^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:host_name]).nil?) ||
+          # (/^[a-zA-Z][a-zA-Z0-9\-]*$/.match(params[:host_name]).nil?) ||
           (filter_list.include?(params[:host_name].downcase))
         )
       }
