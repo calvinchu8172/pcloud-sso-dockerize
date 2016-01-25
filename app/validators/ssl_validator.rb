@@ -20,7 +20,10 @@ class SslValidator < ActiveModel::Validator
       sha224 = OpenSSL::Digest::SHA224.new
       begin
         puts "validate signature"
-        puts Api::Certificate.find_public_by_serial(serial).verify(sha224, Base64.decode64(signature), key)
+
+        a =  Api::Certificate.find_public_by_serial(serial).verify(sha224, Base64.decode64(signature), key)
+        puts "$$$#{a}"
+
         puts Api::Certificate.first.serial
         puts Api::Certificate.first.content
 
