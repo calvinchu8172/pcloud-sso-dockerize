@@ -67,8 +67,7 @@ class DdnsController < ApplicationController
 
     # If full domain was not exists, it will insert data to database and redirct to success page
     def save_ddns_setting(device, hostname)
-      # flash[:error] = I18n.t("warnings.invalid")
-      flash[:error] = '111'
+      flash[:error] = I18n.t("warnings.invalid")
       redirect_to(action: 'show', id: device.encoded_id) and return if device.ip_address.blank?
 
       session = { device_id: device.id, host_name: hostname, domain_name: Settings.environments.ddns, status: 'start' }
@@ -89,8 +88,7 @@ class DdnsController < ApplicationController
         return
       end
 
-      # flash[:error] = I18n.t("warnings.invalid")
-      flash[:error] = '222'
+      flash[:error] = I18n.t("warnings.invalid")
       redirect_to action: 'show', id: device.encoded_id
     end
 
