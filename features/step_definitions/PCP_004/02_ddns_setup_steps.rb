@@ -10,7 +10,7 @@ end
 # ---------------------------    input   ----------------------------
 # -------------------------------------------------------------------
 Given(/^the user filled the valid Hostname$/) do
-	submit_hostname('calvin')
+	submit_hostname('valid')
 	page.save_screenshot('test-plans/screenshot1.png')
 end
 
