@@ -10,9 +10,9 @@ end
 # ---------------------------    input   ----------------------------
 # -------------------------------------------------------------------
 Given(/^the user filled the valid Hostname$/) do
-	within("div.zyxel_host_name") do
+	# within("div.zyxel_host_name") do
 		submit_hostname('valid')
-	end
+	# end
 	page.save_screenshot('test-plans/screenshot1.png')
 end
 
@@ -95,7 +95,7 @@ end
 # -------------------------------------------------------------------
 
 def submit_hostname(hostname)
-	fill_in 'host_name', with: hostname
+	fill_in 'ddns-host-name', with: hostname
 end
 
 def get_ddns_session(device_id)
