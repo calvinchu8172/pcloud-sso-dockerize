@@ -24,7 +24,11 @@ class SslValidator < ActiveModel::Validator
         puts Api::Certificate.first.content
         puts "********validate signature in API"
         puts Api::Certificate.find_public_by_serial(serial).to_json
-        a =  Api::Certificate.find_public_by_serial(serial).verify(sha224, Base64.decode64(signature), key)
+        begin
+          a =  Api::Certificate.find_public_by_serial(serial).verify(sha224, Base64.decode64(signature), key)
+        rescue Exception => e
+          puts e
+        end
         puts "$$$#{a.to_s}"
         puts "end of validate signature in API"
 
