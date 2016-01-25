@@ -84,9 +84,7 @@ class DdnsController < ApplicationController
         :xmpp_account => device.session['xmpp_account']
       }
       logger.debug("ddns job: #{job}")
-      if ddns_session.session.bulk_set(session)
-        # &&
-        # AwsService.send_message_to_queue(job)
+      if ddns_session.session.bulk_set(session) && AwsService.send_message_to_queue(job)
         redirect_to action: 'success', id: ddns_session.escaped_encrypted_id
         return
       end

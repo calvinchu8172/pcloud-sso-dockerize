@@ -66,7 +66,7 @@ end
 
 Then(/^the user should see success message on DDNS setup page$/) do
 	page.save_screenshot('test-plans/screenshot2.png')
-	# expect(page).to have_content('DDNS settings have been successfully.')
+	expect(page).to have_content('DDNS settings have been successfully.')
 	puts find('div.zyxel_content h2').text
 end
 
