@@ -19,7 +19,7 @@ class SslValidator < ActiveModel::Validator
     def validate_signature(signature, key, serial)
       sha224 = OpenSSL::Digest::SHA224.new
       begin
-        puts "validate signature"
+        puts "validate signature in API"
         puts Api::Certificate.first.serial
         puts Api::Certificate.first.content
         a =  Api::Certificate.find_public_by_serial(serial).verify(sha224, Base64.decode64(signature), key)
