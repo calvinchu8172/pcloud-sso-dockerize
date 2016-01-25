@@ -5,6 +5,7 @@ class Api::Certificate < ActiveRecord::Base
     puts "find_public_by_serial"
     puts serial
     puts certificate.content
+    puts "OPENSSL_VERSION: #{OpenSSL::OPENSSL_VERSION}"
     begin
       puts OpenSSL::X509::Certificate.new(certificate.content).public_key
     rescue Exception => e
