@@ -19,6 +19,7 @@ class SslValidator < ActiveModel::Validator
     def validate_signature(signature, key, serial)
       sha224 = OpenSSL::Digest::SHA224.new
       begin
+
         puts "validate signature in API"
         puts "print all certificate"
         puts Api::Certificate.all.to_json
