@@ -93,7 +93,8 @@ def submit_hostname(hostname)
 end
 
 def get_ddns_session(device_id)
-	redis = Redis.new
+	# redis = Redis.new
+	redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
 	@index = redis.GET "ddns:session:index"
 	DdnsSession.find(@index).session.all
 end
