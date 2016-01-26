@@ -25,7 +25,7 @@ cucumber:
     # - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/output_PCP005.html
     # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/output_PCP006.html
     # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/output_Service.html
-    - xvfb-run cucumber features/REST/01_02_register_with_email_account.feature:30 -r features
+    - xvfb-run cucumber features/REST/ -r features
     # - xvfb-run cucumber features/PCP_004/02_ddns_setup.feature -r features
     # - xvfb-run cucumber features/PCP_004/02_ddns_setup.feature:46 -r features
     # - xvfb-run -a bundle exec cucumber features/REST/ -r features
