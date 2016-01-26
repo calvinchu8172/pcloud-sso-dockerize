@@ -44,8 +44,6 @@ end
 # -------------------------------------------------------------------
 
 Then(/^the API should return success respond$/) do
-  puts "*****#{last_response.status}"
-  puts "*****#{last_response.body}"
   expect(last_response.status).to eq(200)
 end
 

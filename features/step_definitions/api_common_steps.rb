@@ -40,11 +40,6 @@ Then(/^the JSON response should include (\d+):$/) do |record_count, attributes|
 end
 
 Then(/^the response status should be "(.*?)"$/) do |status_code|
-  puts "*****puts the responese"
-  puts "*****#{@certificate.serial}"
-  puts "*****#{@certificate.content}"
-  puts "*****#{last_response.status}"
-  puts "*****#{last_response.body}"
   expect(last_response.status).to eq(status_code.to_i)
 end
 

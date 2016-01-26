@@ -11,7 +11,6 @@ end
 # -------------------------------------------------------------------
 Given(/^the user filled the valid Hostname$/) do
 	submit_hostname('valid')
-	# page.save_screenshot('test-plans/screenshot1.png')
 end
 
 Given(/^the user filled the invalid Hostname (.*?)$/) do |value|
@@ -37,9 +36,7 @@ end
 When(/^the server update DDNS setting successfully$/) do
 	wait_server_response
 	@ddns_session = get_ddns_session(@pairing.device_id)
-	# puts "***before set session: #{@ddns_session}"
 	set_ddns_session(@ddns_session,"success")
-	# puts "***after set session: #{@ddns_session}"
 end
 
 When(/^the device already registered hostname (.*?)$/) do |value|
@@ -65,7 +62,6 @@ Then(/^the user should see "(.*?)" message on DDNS setup page$/) do |msg|
 end
 
 Then(/^the user should see success message on DDNS setup page$/) do
-	# page.save_screenshot('test-plans/screenshot2.png')
 	expect(page).to have_content('DDNS settings have been successfully.')
 	puts find('div.zyxel_content h2').text
 end

@@ -55,9 +55,6 @@ if Rails.env == 'development'
 end
 
 
-
-puts Rails.env
-
 if Rails.env == 'test'
 
   sql = 'DROP DATABASE IF EXISTS mongooseim;'
