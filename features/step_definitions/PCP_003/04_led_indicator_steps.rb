@@ -1,5 +1,6 @@
 Given(/^a user visited search devices page$/) do
-  @redis = Redis.new
+  # @redis = Redis.new
+  @redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   @redis.flushdb
   @user = TestingHelper.create_and_signin
 end
