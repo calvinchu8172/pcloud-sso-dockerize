@@ -1,8 +1,8 @@
 before_script:
-  - 'apt-get update && apt-get install -y redis-server'
-  - /etc/init.d/redis-server start
-  - service redis-server status
-  - redis-cli ping
+  # - 'apt-get update && apt-get install -y redis-server'
+  # - /etc/init.d/redis-server start
+  # - service redis-server status
+  # - redis-cli ping
   - touch log/application.log
   - touch log/app.log
   - touch log/db.log
@@ -12,31 +12,18 @@ before_script:
   - bundle install --jobs $(nproc) --path=/cache/bundler
   - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
-  # - mysql -uroot -Bse "show databases;"
 
 cucumber:
   script:
     - mkdir test-plans
-    # - xvfb-run -a bundle exec cucumber features --format html --out test-plans/output.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/output_PCP001.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/output_PCP002.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/output_PCP003.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features --format html --out test-plans/output_PCP004.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/output_PCP005.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/output_PCP006.html
-    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_REST.html
-    # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/output_Service.html
-    # - xvfb-run cucumber features/PCP_004/02_ddns_setup.feature -r features
-    # - xvfb-run cucumber features/PCP_004/02_ddns_setup.feature:46 -r features
-    # - xvfb-run -a bundle exec cucumber features/REST/ -r features
-    # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_REST.html
-    # - xvfb-run -a bundle exec cucumber features/Service/ -r features
-    # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/output_PCP001.html
-    # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/output_REST.html
-    # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/output_Service.html
-    # - xvfb-run -a bundle exec cucumber features -r features -f ZyxelFormatter -o test-plans/output.html
-    # - xvfb-run cucumber --format html > test-plans/output.html
-    # - xvfb-run -a bundle exec cucumber -r features -o test-plans/output.html
+    - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/report_PCP001.html
+    - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/report_PCP002.html
+    - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/report_PCP003.html
+    - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features --format html --out test-plans/report_PCP004.html
+    - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/report_PCP005.html
+    - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/report_PCP006.html
+    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/report_REST.html
+    - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/report_Service.html
     # - yard config load_plugins true
     # - yardoc 'app/**/*.rb' 'features/**/*.feature'
   artifacts:
@@ -44,4 +31,5 @@ cucumber:
       - test-plans/
       - doc
   only:
-    - feature/gitlab-ci
+    - develop
+    # - feature/gitlab-ci

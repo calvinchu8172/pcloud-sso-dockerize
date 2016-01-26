@@ -69,6 +69,6 @@ recaptcha:
     public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
     private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
 redis:
-  web_host: '127.0.0.1'
-  xmpp_host: '127.0.0.1'
+  web_host: 'redis'
+  xmpp_host: 'redis'
   port: 6379
