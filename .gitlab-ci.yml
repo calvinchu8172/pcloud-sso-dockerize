@@ -39,5 +39,5 @@ cucumber:
       - test-plans/
       - doc
   only:
-    # - develop
-    - feature/gitlab-ci
+    - develop
+    # - feature/gitlab-ci
