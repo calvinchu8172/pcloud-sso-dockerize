@@ -16,22 +16,15 @@ before_script:
 cucumber:
   script:
     - mkdir test-plans
-    - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/report_PCP001.html
-    - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/report_PCP003.html
-    - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/report_PCP003.html
-    - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features --format html --out test-plans/report_PCP004.html
-    - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/report_PCP005.html
-    - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/report_PCP006.html
-    - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/report_REST.html
-    - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/report_Service.html
-    # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features
-    # - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features
-    # - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features
-    # - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features
-    # - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features
-    # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features
-    # - xvfb-run -a bundle exec cucumber features/REST/ -r features
-    # - xvfb-run -a bundle exec cucumber features/Service/ -r features
+    # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/report_PCP001.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/report_PCP003.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/report_PCP003.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features --format html --out test-plans/report_PCP004.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/report_PCP005.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/report_PCP006.html
+    # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/report_REST.html
+    # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/report_Service.html
+    - xvfb-run -a bundle exec cucumber --format html --out test-plans/report.html
     # - yard config load_plugins true
     # - yardoc 'app/**/*.rb' 'features/**/*.feature'
   artifacts:
