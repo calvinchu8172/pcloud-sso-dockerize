@@ -82,6 +82,7 @@ end
 
 def create_certificate_and_rsa_key
   @rsa_key = OpenSSL::PKey::RSA.new(2048)
+  name = OpenSSL::X509::Name.parse 'CN=nobody/DC=example'
 
   cert = OpenSSL::X509::Certificate.new
   cert.version = 2
@@ -90,7 +91,9 @@ def create_certificate_and_rsa_key
   cert.not_after = Time.now + 365*24*60*60
 
   cert.public_key = @rsa_key.public_key
-  cert.subject = OpenSSL::X509::Name.parse 'CN=nobody/DC=example'
+  cert.subject = name
+
+  cert.sign(@rsa_key, OpenSSL::Digest::SHA1.new)
 
   @certificate = Api::Certificate.create(serial: "serial_name", content: cert.to_pem)
 end

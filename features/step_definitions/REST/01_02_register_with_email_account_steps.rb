@@ -11,6 +11,7 @@ When(/^client send a POST request to \/user\/1\/register with:$/) do |table|
   certificate_serial = @certificate.serial
 
   signature = create_signature(id, certificate_serial)
+
   signature = "" if data["signature"].include?("INVALID")
 
   header 'Accept-Language', data["Accept-Language"]

@@ -34,7 +34,8 @@ end
 When(/^the user have other device$/) do
   @device2 = TestingHelper.create_device
   # Need add the key to mock the device was online
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   redis.HSET "s3:#{@device2.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
 end
 
@@ -61,7 +62,8 @@ When(/^the user unpairing this device$/) do
   expect(current_url).to eq(expect_url)
 
   # Need add the key to mock the device was online
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   redis.HSET "s3:#{@device.session['xmpp_account']}:#{Settings.xmpp.server}:#{Settings.xmpp.device_resource_id}".downcase, "1", "1"
 end
 
