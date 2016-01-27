@@ -1,0 +1,32 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: mycloud
+  host: 127.0.0.1
+  username: root
+  collation: utf8_general_ci
+
+xmpp_default: &xmpp_default
+  <<: *default
+  database: mogooseim
+
+development:
+  <<: *default
+
+xmpp_development:
+  <<: *xmpp_default
+
+xmpp_test:
+  <<: *xmpp_default
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: mycloud_test
+
+
+production:
+  <<: *default
