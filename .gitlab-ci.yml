@@ -3,7 +3,7 @@ before_script:
   # - /etc/init.d/redis-server start
   # - service redis-server status
   # - redis-cli ping
-  - touch log/application.log
+  # - touch log/application.log
   - touch log/app.log
   - touch log/db.log
   - touch log/test.log
