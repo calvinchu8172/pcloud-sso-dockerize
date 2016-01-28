@@ -33,4 +33,3 @@ cucumber:
       - doc
   only:
     - develop
-    # - feature/gitlab-ci
