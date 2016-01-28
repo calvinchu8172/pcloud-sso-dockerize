@@ -102,7 +102,8 @@ def check_rest_result_valid(device, result)
   expect(db_user.password).not_to be_empty
 
   # Check redis record
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   device_id = redis.GET("xmpp:#{name}:session")
   device_session = Device.find(device_id).session.all
   expect(device_session["xmpp_account"]).to eq(name)
@@ -119,7 +120,8 @@ end
 
 def create_rest_pairing(device)
 
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   pairing = Pairing.new
   pairing.device = device
   pairing.user = TestingHelper.create_and_signin
