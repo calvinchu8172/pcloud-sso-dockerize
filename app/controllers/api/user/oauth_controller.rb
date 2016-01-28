@@ -79,7 +79,7 @@ class Api::User::OauthController < Api::Base
       unless register.update(register_params)
         return render :json => Api::User::INVALID_SIGNATURE_ERROR , :status => 400 unless register.errors['signature'].empty?
       end
-    else 
+    else
       return render :json => { :error_code => '003',  :description => 'registered account' }, :status => 400 if identity.present?
     end
 
@@ -98,6 +98,14 @@ class Api::User::OauthController < Api::Base
     if register.confirmed_at.blank?
       register.confirmed_at = Time.now.utc
       register.update(register_params.select{ |k, v| k != 'password' })
+    end
+
+    #假如App打api的header有帶Accept-Language的話，就寫入Portal的語系與user的language欄位，與修改瀏覽器的cookies
+    #若app註冊時沒有帶accept-language，沒有帶則default的字串會大於5（例如最長的zh-TW字元大小為5），則user寫入內定值'en'
+    if !request.headers["Accept-Language"].blank? && request.headers["Accept-Language"].size < 6
+      I18n.locale = request.headers["Accept-Language"].to_sym
+      register.update(language: request.headers["Accept-Language"])
+      cookies["locale"] = request.headers["Accept-Language"]
     end
 
     @user = Api::User::Token.new(register.attributes)

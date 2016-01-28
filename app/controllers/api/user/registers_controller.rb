@@ -10,6 +10,14 @@ class Api::User::RegistersController < Api::Base
     register.email = valid_params[:id]
     register.agreement = "1"
 
+    #假如App打api的header有帶Accept-Language的話，就寫入Portal的語系與user的language欄位，與修改瀏覽器的cookies
+    #若app註冊時沒有帶accept-language，沒有帶則default的字串會大於5（例如最長的zh-TW字元大小為5），則user寫入內定值'en'
+    if !request.headers["Accept-Language"].blank? && request.headers["Accept-Language"].size < 6
+      I18n.locale = request.headers["Accept-Language"].to_sym
+      register.language = request.headers["Accept-Language"]
+      cookies["locale"] = request.headers["Accept-Language"]
+    end
+
     unless register.save
       {"001" => "email",
        "002" => "password"
