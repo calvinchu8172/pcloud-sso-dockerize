@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128100509) do
+ActiveRecord::Schema.define(version: 20160129065533) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -45,15 +45,16 @@ ActiveRecord::Schema.define(version: 20160128100509) do
   add_index "ddns", ["hostname", "domain_id"], name: "index_ddns_on_hostname_and_domain_id_unique", unique: true, using: :btree
 
   create_table "devices", force: :cascade do |t|
-    t.string   "serial_number",    limit: 100, null: false
-    t.string   "mac_address",      limit: 12,  null: false
-    t.string   "firmware_version", limit: 120, null: false
+    t.string   "serial_number",                  limit: 100,             null: false
+    t.string   "mac_address",                    limit: 12,              null: false
+    t.string   "firmware_version",               limit: 120,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "product_id",       limit: 4,   null: false
-    t.string   "ip_address",       limit: 15
-    t.integer  "online_status",    limit: 1
-    t.integer  "wol_status",       limit: 1
+    t.integer  "product_id",                     limit: 4,               null: false
+    t.string   "ip_address",                     limit: 15
+    t.integer  "online_status",                  limit: 1,   default: 0, null: false
+    t.integer  "wol_status",                     limit: 1,   default: 0, null: false
+    t.string   "mac_address_of_router_lan_port", limit: 25
   end
 
   add_index "devices", ["mac_address", "serial_number"], name: "index_devices_on_mac_address_and_serial_number", unique: true, using: :btree

@@ -3,7 +3,7 @@ class Api::Devices::V3::RegisterController < Api::DevicesController
 
   private
     def api_permit
-      params.permit(:certificate_serial, :mac_address, :serial_number, :model_name, :firmware_version, :signature, :module, :algo, :reset)
+      params.permit(:certificate_serial, :mac_address, :serial_number, :model_name, :firmware_version, :signature, :module, :algo, :reset, :mac_address_of_router_lan_port)
     end
 
     def device_checking
