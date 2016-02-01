@@ -8,7 +8,7 @@ class Api::Devices::OnlineStatusController < Api::Base
     device_target.wol_status = @device.wol_status if @device.wol_status.present?
 
     if device_target.save
-      render :json => { result: "success", device: device_target }
+      render :json => { result: "success"}
     else
       render :json => { result: device_target.errors.messages }, status: 400
     end
