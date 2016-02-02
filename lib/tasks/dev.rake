@@ -22,8 +22,8 @@ namespace :dev do
     puts "  password: #{user.password}"
     
     user2 = User.new(
-      email: "haydenwang@ecoworkinc.com",
-      password: "hhhhhhhh",
+      email: "tomohung@ecoworkinc.com",
+      password: "tttttttt",
       password_confirmation: "hhhhhhhh",
       edm_accept: "0",
       agreement: "1"
