@@ -161,7 +161,8 @@ Then(/^parent packages should become enable$/) do
 end
 
 def get_package_session
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   @session_index = redis.GET("package:session:index")
   PackageSession.find(@session_index).session.all
 end
@@ -178,7 +179,8 @@ def switch_package_on_off(target_package)
   find(:xpath, target_package).click
   find('button', :text => I18n.t("labels.submit")).click
 
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   package_session_id = redis.GET( 'package:session:index' )
 
   key = 'package:'+ package_session_id +':session'
