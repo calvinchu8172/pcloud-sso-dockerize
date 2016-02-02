@@ -24,7 +24,7 @@ namespace :dev do
     user2 = User.new(
       email: "tomohung@ecoworkinc.com",
       password: "tttttttt",
-      password_confirmation: "hhhhhhhh",
+      password_confirmation: "tttttttt",
       edm_accept: "0",
       agreement: "1"
       )
