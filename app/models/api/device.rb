@@ -17,6 +17,7 @@ class Api::Device < Device
       return true
     else
       instance.update_attribute(:ip_address, ip_encode_hex)
+      instance.update_attribute(:mac_address_of_router_lan_port, self.mac_address_of_router_lan_port) if self.mac_address_of_router_lan_port.present?
     end
 
     unless firmware_version == instance.firmware_version

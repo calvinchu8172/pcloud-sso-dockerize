@@ -12,7 +12,7 @@ class Api::DevicesController < Api::Base
 
   private
     def api_permit
-      params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :algo, :reset)
+      params.permit(:mac_address, :serial_number, :model_name, :firmware_version, :signature, :algo, :reset, :online_status)
     end
 
     def device_checking
