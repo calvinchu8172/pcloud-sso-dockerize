@@ -13,6 +13,7 @@ before_script:
   - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
 
+
 cucumber:
   script:
     - mkdir test-plans
@@ -33,4 +34,3 @@ cucumber:
       - doc
   only:
     - develop
-    # - feature/gitlab-ci

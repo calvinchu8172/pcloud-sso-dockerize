@@ -77,6 +77,8 @@ class Device < ActiveRecord::Base
   def find_next_tutorial current_step = nil
 
     module_list = self.find_module_list
+    skip_module = "upnp"
+    module_list = module_list.reject { |m| m == skip_module }
 
     DEFAULT_MODULE_LIST.each do |step|
       return step[:name] if module_list.include? step[:name]
