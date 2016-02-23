@@ -10,13 +10,15 @@ class Api::Device < Device
     instance = self.class.includes(pairing: :invitations).find_by( mac_address: mac_address, serial_number: serial_number)
     if instance.blank?
       # self.create!(instance.attributes.merge({product_id: @product.id}))
-      self.product_id = @product.id
-      self.ip_address = ip_encode_hex
+      # self.product_id = @product.id
+      # self.ip_address = ip_encode_hex
+      self.attributes = { product_id: @product.id, ip_address: ip_encode_hex, online_status: true }
       self.save
       logger.info('create new device id:' + self.id.to_s)
       return true
     else
-      instance.update_attribute(:ip_address, ip_encode_hex)
+      # instance.update_attribute(:ip_address, ip_encode_hex)  
+      instance.update( ip_address: ip_encode_hex, online_status: true )
       instance.update_attribute(:mac_address_of_router_lan_port, self.mac_address_of_router_lan_port) if self.mac_address_of_router_lan_port.present?
     end
 
