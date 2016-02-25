@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do

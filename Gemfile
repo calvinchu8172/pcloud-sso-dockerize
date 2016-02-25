@@ -92,6 +92,8 @@ gem 'd3-rails'
 gem 'time_difference'
 # gem 'time_diff'
 
+gem 'doorkeeper'
+
 group :test do
   gem 'action_mailer_cache_delivery'
   gem 'email_spec'
