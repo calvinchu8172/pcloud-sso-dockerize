@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-      session[:previous_url] || authenticated_root_path
+      stored_location_for(resource) || session[:previous_url] || authenticated_root_path
     end
 
     def device_paired_with?

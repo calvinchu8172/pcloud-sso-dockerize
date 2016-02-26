@@ -93,6 +93,9 @@ gem 'time_difference'
 # gem 'time_diff'
 
 gem 'doorkeeper'
+gem 'doorkeeper-i18n'
+gem 'rails-api'
+# gem 'logging-rails'
 
 group :test do
   gem 'action_mailer_cache_delivery'

@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   use_doorkeeper
+
+  scope module: 'oauth2' do
+    namespace :api do
+      namespace :v1 do
+        get 'my/info', to: 'my#info'
+      end
+    end
+  end
+
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
