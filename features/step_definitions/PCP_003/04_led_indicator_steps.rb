@@ -23,7 +23,7 @@ When(/^the connected device in the list is not paired$/) do
 end
 
 Then(/^the user should see the enabled "(.*?)" button of the device$/) do |arg1|
-  expect(page).to have_content I18n.t('labels.pairing')
+  # expect(page).to have_content I18n.t('labels.pairing')
   expect(page).to have_content I18n.t('labels.find_nas')
 end
 

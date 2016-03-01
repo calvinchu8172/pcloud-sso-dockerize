@@ -49,7 +49,7 @@ Feature: [PCP_004_02] DDNS Setup
 
 	  When the user click "Confirm" link
 
-	  Then the user will redirect to UPnP setup page
+	  Then the user will redirect to My Devices page
 
   Scenario:  [PCP_004_02_05]
     Redirect to My Devices page when user click cancel button in DDNS setup page
