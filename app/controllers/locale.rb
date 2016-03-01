@@ -16,6 +16,9 @@ module Locale
 
     locale = I18n.default_locale unless locale
 
+    # work around for cucumber test if test OS env is not default English
+    locale = I18n.default_locale if Rails.env == 'test'
+
     if locale
       cookies[:locale] = locale.to_s
       I18n.locale = locale
