@@ -25,7 +25,11 @@ class Api::Device < Device
       instance.update_attribute(:firmware_version, firmware_version)
     end
 
-    self.attributes = instance.attributes
+    #self.attributes = instance.attributes
+
+    self.attributes.keys.each do |key|
+       self.send("#{key}=", instance.send(key))
+    end
     self.ddns = instance.ddns if instance.ddns.present?
     return true
   end
