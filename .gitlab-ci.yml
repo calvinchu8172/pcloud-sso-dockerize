@@ -26,11 +26,12 @@ cucumber:
     # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/report_PCP006.html
     # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/report_REST.html
     # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/report_Service.html
-    # - yard config load_plugins true
-    # - yardoc 'app/**/*.rb' 'features/**/*.feature'
+    - yard config load_plugins true
+    - yardoc 'app/**/*.rb' 'features/**/*.rb' 'features/**/*.feature'
   artifacts:
     paths:
       - test-plans/
       - doc
   only:
     - develop
+    -
