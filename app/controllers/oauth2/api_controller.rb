@@ -1,11 +1,14 @@
-# class Oauth2::ApiController < ActionController::API
-class Oauth2::ApiController < ActionController::Base
+class Oauth2::ApiController < ActionController::API
 
   before_action :doorkeeper_authorize!
   # before_action :setup_mdc
-  # binding.pry
 
   private
+
+    # 若沒加上這個 gem 'browser-timezone-rails' 會出現 NameError (undefined local variable or method `cookies'
+    def set_time_zone(&action)
+      Time.use_zone(Time.zone, &action)
+    end
 
     # def setup_mdc
       # Logging.mdc['from'] = request.remote_ip
