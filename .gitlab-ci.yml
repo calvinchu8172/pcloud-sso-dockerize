@@ -34,4 +34,3 @@ cucumber:
       - doc
   only:
     - develop
-    - feature/20160308-1-modify-i18n-and-picture
