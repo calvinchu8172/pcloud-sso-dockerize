@@ -74,7 +74,7 @@ hu:
           myzyxelcloud-agent: 'A myZyXELcloud az Ön választása alkalmazásainak távoli kezelésére, és a ZyXEL hálózat eszköz erőforrásainak elérésére a világon bárhonnan, ahol van internet elérés.'
           owncloud: "Így létrehozhatja és kezelheti saját felhőjét."
           pyload: 'A NAS kezelje az Ön letöltéseit, beleértve a one-click-hosting site-okról történőeket is.'
-    pairing: Párosítás
+    pairing: Pair NAS with account
     paired: Párosítva
     unpairing: Párosítás törlése
     manually: Kézi hozzáadás

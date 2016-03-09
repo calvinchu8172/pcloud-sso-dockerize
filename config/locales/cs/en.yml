@@ -74,7 +74,7 @@ cs:
           myzyxelcloud-agent: 'Služba myZyXELcloud představuje vaše řešení pro vzdálené řízení aplikací a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv místa s připojení k Internetu!'
           owncloud: 'To vám umožní vytvořit a spravovat privátní cloud.'
           pyload: 'Tento balíček umožňuje stažení souborů do NAS na jedno kliknutí.'
-    pairing: Párování
+    pairing: Pair NAS with account
     paired: Spárováno
     unpairing: Rušení párování
     manually: Ručně přidat

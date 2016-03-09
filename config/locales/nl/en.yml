@@ -74,7 +74,7 @@ nl:
           myzyxelcloud-agent: 'myZyXELcloud, uw oplossing voor remote applicatiebeheer en veilig toegang tot uw ZyXEL netwerkapparaten en accessoires vanaf elke locatie met een internetverbinding!'
           owncloud: 'Dit stelt u in staat om uw Cloud te creëren en te beheren.'
           pyload: 'Laat de NAS uw downloads beheren en uitvoeren, waaronder die van one-click-hosting sites.'
-    pairing: Koppelen
+    pairing: Pair NAS with account
     paired: Gekoppeld
     unpairing: Ontkoppelen
     manually: handmatig toevoegen

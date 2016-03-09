@@ -74,7 +74,7 @@ it:
           myzyxelcloud-agent: 'myZyXELcloud, la soluzione per la gestione delle applicazioni remote e accesso sicuro ai tuoi dispositivi accessori di rete ZyXEL da qualsiasi parte che dispone di una connessione ad internet!'
           owncloud: 'Questo permette di creare e gestire il proprio cloud privato.'
           pyload: 'Permetti al NAS di gestire tutti i tuoi download, inclusi quelli dai siti di hosting più diffusi.'
-    pairing: Abbinamento in corso
+    pairing: Pair NAS with account
     paired: Associato
     unpairing: Disabbinamento in corso
     manually: Aggiungi manualmente
