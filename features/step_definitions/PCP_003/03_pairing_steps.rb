@@ -104,7 +104,9 @@ When(/^the user click "(.*?)" button when finished pairing$/) do |link|
 end
 
 When(/^the user click "(.*?)" link to start pairing$/) do |link|
-  click_link "Pairing", href: "/discoverer/check/#{@device2.encoded_id}"
+  # click_link "Pairing", href: "/discoverer/check/#{@device2.encoded_id}"
+  # 因為Pairing按鈕被改成圖，所以用xpath去找連結
+  find(:xpath, "//table/tbody/tr/td/a").click
 end
 
 # -------------------------------------------------------------------
@@ -112,7 +114,9 @@ end
 # -------------------------------------------------------------------
 
 Then(/^the user should see another devices$/) do
-  expect(page).to have_link "Pairing", href: "/discoverer/check/#{@device2.encoded_id}"
+  # expect(page).to have_link "Pairing", href: "/discoverer/check/#{@device2.encoded_id}"
+  # 因為Pairing按鈕被改成圖，所以用xpath去找連結
+  expect(page).to have_xpath "//table/tbody/tr/td/a"
 end
 
 Then(/^the user will see the error message about device is pairing$/) do
