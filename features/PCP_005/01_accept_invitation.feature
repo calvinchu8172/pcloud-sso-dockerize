@@ -48,10 +48,11 @@ Feature: [PCP_005_01] Accept Invitation
 
     Given user logined
     And user already acceped this invitation
+    And connect success but server send failure message with error code
 
     When a user visits accept invitation page
 
-    Then the invitation page should see an error message for "Invitation accept failed"
+    Then the invitation page should see an error message for "This myZyXELcloud account has been added."
 
   Scenario: [PCP_005_01_06]
     Show error message when invitation key counting expired
@@ -71,7 +72,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the visitor should see a "Invitation accept success" message and button for "Confirm"
+    Then the visitor should see a "Invitation accept success" message and button for "Next"
 
   Scenario: [PCP_005_01_08]
     Redirect user to login page when click "Confirm" button
@@ -80,9 +81,9 @@ Feature: [PCP_005_01] Accept Invitation
     And connect success and server send success message
 
     When a user visits accept invitation page
-    And user click "Confirm" button
+    And user click "Next" button
 
-    Then user will redirect to login page
+    Then user will redirect to Zyxel drive landing page
 
   Scenario: [PCP_005_01_09]
     Redirect user to accept invitation page when click "Retry" button

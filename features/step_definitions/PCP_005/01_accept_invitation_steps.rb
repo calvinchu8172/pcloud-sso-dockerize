@@ -35,6 +35,12 @@ Given(/^user already acceped this invitation$/) do
   AcceptedUser.last.finish_accept
 end
 
+When(/^connect success but server send failure message with error code$/) do
+  allow_any_instance_of(InvitationsController).to receive(:done?).and_return(true)
+  allow_any_instance_of(InvitationsController).to receive(:session_status).and_return("failure")
+  allow_any_instance_of(InvitationsController).to receive(:error_code).and_return("597")
+end
+
 Given(/^the invitation key expire count is zero$/) do
   Invitation.first.update_attributes(expire_count: 0)
 end
@@ -45,6 +51,10 @@ end
 
 Then(/^the user will redirect to discover page$/) do
   expect(page.current_path).to eq("/discoverer/index")
+end
+
+Then(/^user will redirect to Zyxel drive landing page$/) do
+  expect(page.current_url).to eq("http://zyxel.to/zdrive.dff2")
 end
 
 Then(/^the visitor should reload this page for retry$/) do
