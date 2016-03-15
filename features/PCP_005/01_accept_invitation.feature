@@ -52,7 +52,7 @@ Feature: [PCP_005_01] Accept Invitation
 
     When a user visits accept invitation page
 
-    Then the invitation page should see an error message for "This myZyXELcloud account has been added."
+    Then the invitation page should see an error message for "This myZyXELcloud account has already been added."
 
   Scenario: [PCP_005_01_06]
     Show error message when invitation key counting expired
