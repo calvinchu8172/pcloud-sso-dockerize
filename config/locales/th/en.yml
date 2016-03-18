@@ -15,6 +15,7 @@ th:
     retry: "ยกเลิก"
     submit: "ส่ง"
     confirm: "ยืนยัน"
+    next: Next
     ok: "ตกลง"
     or: "หรือ"
     expand_all: "ขยายทั้งหมด"
@@ -26,6 +27,7 @@ th:
         failure: "ยอมรับการเชิญไม่สำเร็จ"
         success_desc: "ขอแสดงความยินดีด้วย! คุณได้ร่วมใช้งานแชร์โฟลเดอร์ %{share_point} สำเร็จแล้ว"
         failure_desc: "การเชิญขเอง %{share_point} ยังไม่มี โปรดลองอีกครั้งในภายหลัง"
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS ตั้งค่า
         host_name: "ชื่อโฮสต์"

@@ -27,6 +27,7 @@ zh-TW:
         failure: "接受失敗"
         success_desc: "恭喜！你加入了共享文件夾 %{share_point} 成功。"
         failure_desc: "該邀請 %{share_point} 不可用，請稍後再試一次。"
+        accepted_desc: "此myZyXELcloud帳號已經被加入了。"
       ddns:
         instruction: DDNS設定
         host_name: Host Name

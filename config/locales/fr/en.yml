@@ -15,6 +15,7 @@ fr:
     retry: Réessayer
     submit: Envoyer
     confirm: Confirmer
+    next: Next
     ok: OK
     or: ou
     expand_all: Développer tout
@@ -26,6 +27,7 @@ fr:
         failure: Echec d'acceptation d'invitation
         success_desc: "Félicitations ! Vous avez rejoint le dossier partagé %{share_point} avec succès."
         failure_desc: "L'invitation à %{share_point} n'est pas disponible, réessayez plus tard."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: Installation DDNS
         host_name: Nom de l'hôte

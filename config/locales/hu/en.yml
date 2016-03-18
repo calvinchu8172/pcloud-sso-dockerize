@@ -15,6 +15,7 @@ hu:
     retry: "Újra"
     submit: Elküldés
     confirm: Megerősítés
+    next: Next
     ok: OK
     or: vagy
     expand_all: "Összes kibontása"
@@ -26,6 +27,7 @@ hu:
         failure: Meghívás elfogadása sikertelen
         success_desc: "Gratulálunk! Ön sikeresen csatlakozott %{share_point} megosztott mappához."
         failure_desc: "%{share_point} meghívása nem elérhető, kérjük, próbálja meg később."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS beállítás
         host_name: Gazda neve

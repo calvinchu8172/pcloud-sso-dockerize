@@ -15,6 +15,7 @@ en:
     retry: Retry
     submit: Submit
     confirm: Confirm
+    next: Next
     ok: OK
     or: or
     expand_all: Expand All
@@ -26,6 +27,7 @@ en:
         failure: Invitation accept failed
         success_desc: "Congratulation! You joined the shared folder %{share_point} successfully."
         failure_desc: "The invite to %{share_point} is not available, please try it again later."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS Setup
         host_name: Host Name
