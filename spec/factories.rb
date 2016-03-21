@@ -1,9 +1,4 @@
-FactoryGirl.define do  factory :login_log do
-    
-  end
-  factory :pairing_log do
-    
-  end
+FactoryGirl.define do
 
   factory :user do
     sequence(:email)          {|n| "personal#{n}@example.com"}
