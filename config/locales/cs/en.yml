@@ -15,6 +15,7 @@ cs:
     retry: Opakovat
     submit: Odeslat
     confirm: Potvrdit
+    next: Next
     ok: OK
     or: nebo
     expand_all: Rozbalit vše
@@ -26,6 +27,7 @@ cs:
         failure: Přijetí pozvánky se nezdařilo
         success_desc: "Blahopřejeme! Úspěšně jste se přidali do sdílené složky %{share_point}."
         failure_desc: "Pozvánka pro %{share_point} není dostupná. Zkuste to prosím později."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: Nastavení DDNS
         host_name: Název hostitele
@@ -74,7 +76,7 @@ cs:
           myzyxelcloud-agent: 'Služba myZyXELcloud představuje vaše řešení pro vzdálené řízení aplikací a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv místa s připojení k Internetu!'
           owncloud: 'To vám umožní vytvořit a spravovat privátní cloud.'
           pyload: 'Tento balíček umožňuje stažení souborů do NAS na jedno kliknutí.'
-    pairing: Párování
+    pairing: Pair NAS with account
     paired: Spárováno
     unpairing: Rušení párování
     manually: Ručně přidat

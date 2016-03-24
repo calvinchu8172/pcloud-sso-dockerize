@@ -17,12 +17,15 @@
 	</div>
 
 	<div class="bottom-content" ng-switch on="panel">
+
     <div class="countdown" ng-switch-when="loading">
       <%= image_tag 'loading.gif' %>
     </div>
+
     <div class="zyxel_btn_area i18n_fix" ng-switch-when="retry">
       <%= link_to(I18n.t("labels.retry"), "/invitations/accept/#{@invitation_key}", class: "zyxel_btn_ok zyxel_enabled") %>
     </div>
+
     <div class="zyxel_btn_area" ng-switch-when="done">
       <div><span class="zyxel_h2"><%= I18n.t("labels.settings.invitation.success") %></span></div>
       <div>
@@ -30,6 +33,9 @@
           <blockquote style="border-left: white;white-space: normal;">
             <%= I18n.t("labels.settings.invitation.success_desc", :share_point => "#{@share_point}") %>
           </blockquote>
+          <div id="zyxel_to", class="zyxel_btn_area">
+            <%= link_to(I18n.t("labels.next"), 'http://zyxel.to/zdrive.dff2', class: "zyxel_btn_ok") %>
+          </div>
           <div style="text-align: left; padding-left: 50px; margin-top: 40px; font-size: 23px"><%= I18n.t("warnings.settings.invitation.zyxel_drive") %></div>
           <div style="text-align: left; padding-left: 50px">
             <%= I18n.t("warnings.settings.invitation.zyxel_drive_desc") %>
@@ -43,9 +49,17 @@
       <div><%= link_to(image_tag("zdrive_invitation_qrcode.png"), SecondaryConfig.find(:zdrive_url)) %></div>
       <div><%= link_to(SecondaryConfig.find(:zdrive_url), SecondaryConfig.find(:zdrive_url)) %></div>
     </div>
-    <div class="zyxel_btn_area" ng-switch-when="done">
-      <%= link_to(I18n.t("labels.confirm"), root_path, class: "zyxel_btn_ok") %>
+
+    <div class="zyxel_btn_area" ng-switch-when="accepted">
+      <div><span class="zyxel_h2"><%= I18n.t("labels.settings.invitation.success") %></span></div>
+      <blockquote style="border-left: white;white-space: normal;">
+        <%= I18n.t("labels.settings.invitation.accepted_desc") %>
+      </blockquote>
+      <div id="zyxel_to", class="zyxel_btn_area">
+        <%= link_to(I18n.t("labels.next"), 'http://zyxel.to/zdrive.dff2', class: "zyxel_btn_ok") %>
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -59,8 +73,14 @@
 		$scope.interval = 3000;
 
 	    $scope.init = function(){
-	    	if($scope.validation.success == false){
+        if($scope.validation.accepted == true){
+          $scope.acceptedStep();
+          console.log('Accepted...');
+          return;
+        }
+        if($scope.validation.success == false){
 	    		$scope.failureStep();
+          console.log('Fail...');
 	    		return;
 	    	}
 		    if($scope.session.status == 'start'){
@@ -80,9 +100,16 @@
             console.log('接受邀請失敗，超過 30 秒未取得回應，timeout...');
 		        break;
 		      case 'failure':
-		        $scope.failureStep();
-            console.log('接受邀請失敗， error_code from NAS: '+$scope.session.error_code);
-		        break;
+            if($scope.session.error_code == '597') {
+              $scope.acceptedStep();
+              console.log('此邀請已經被接受過， error_code from NAS: ' + $scope.session.error_code);
+              break;
+            }
+            else {
+		          $scope.failureStep();
+              console.log('接受邀請失敗， error_code from NAS: ' + $scope.session.error_code);
+		          break;
+            }
 		      case 'done':
             $http.get($scope.logoutUrl)
 		        $scope.completedStep();
@@ -118,6 +145,11 @@
 	      $scope.step = 'done';
 	      $scope.panel = 'done';
 	    };
+
+      $scope.acceptedStep = function(){
+        $scope.step = 'done';
+        $scope.panel = 'accepted';
+      };
 
 	});
 </script>

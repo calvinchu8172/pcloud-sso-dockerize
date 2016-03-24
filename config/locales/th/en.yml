@@ -15,6 +15,7 @@ th:
     retry: "ยกเลิก"
     submit: "ส่ง"
     confirm: "ยืนยัน"
+    next: Next
     ok: "ตกลง"
     or: "หรือ"
     expand_all: "ขยายทั้งหมด"
@@ -26,6 +27,7 @@ th:
         failure: "ยอมรับการเชิญไม่สำเร็จ"
         success_desc: "ขอแสดงความยินดีด้วย! คุณได้ร่วมใช้งานแชร์โฟลเดอร์ %{share_point} สำเร็จแล้ว"
         failure_desc: "การเชิญขเอง %{share_point} ยังไม่มี โปรดลองอีกครั้งในภายหลัง"
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS ตั้งค่า
         host_name: "ชื่อโฮสต์"
@@ -74,7 +76,7 @@ th:
           myzyxelcloud-agent: 'myZyXELcloud, โซลูชั่นของคุณสำหรับการจัดการแอประยะไกลและการเข้าสูเครือข่ายอุปกรณ์เสริมของ ZyXEL ของคุณอย่างปลอดภัย จากทุกหนแห่งที่มีการเชื่อมตจ่ออินเทอร์เนต!'
           owncloud: "ขั้นตอนนี้จะช่วยให้คุณสามารถสร้างและจัดการคลาว์ส่วนตัวของคุณใช้"
           pyload: 'NAS สามารถจัดการ การดาวน์โหลดของคุณ รวมถึงจากไซต์วัน-คลิก-โฮสติ้ง'
-    pairing: "จับคู่"
+    pairing: "Pair NAS with account"
     paired: "จับคู่แล้ว"
     unpairing: "เลิกจับคู่"
     manually: "เพิ่มด้วยตนเอง"

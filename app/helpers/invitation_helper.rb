@@ -1,7 +1,7 @@
 module InvitationHelper
 
 	def check_invitation_available
-		@validation = { :success => false }
+		@validation = { :success => false, :accepted => false }
 		@invitation_key = params[:id] || ''
 		@user = current_user
 		@invitation = Invitation.find_by(key: @invitation_key) unless @invitation_key.blank?
@@ -30,6 +30,7 @@ module InvitationHelper
 		unless @accepted_user.blank?
 			if @accepted_user.status == 1
 				logger.info("已接受過相同的邀請")
+				@validation[:accepted] = true
 				render :template => '/invitations/accept'
 				return
 			end
