@@ -1,0 +1,70 @@
+.layout-rwd .header {
+
+  .header_h1_rwd {
+    text-align: left;
+  }
+}
+
+.layout-rwd .zyxel_content {
+
+  .signupForm {
+
+    .signup_cont {
+
+      .zyxel_btn_sns {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+}
+
+@media screen and (min-width: 768px) and (max-width: 979px) {
+}
+
+@media screen and (max-width: 767px) {
+}
+
+@media screen and (max-device-width: 480px) {
+
+  .layout-rwd .header {
+
+    .header_h1_rwd {
+      float: left !important;
+      margin-left: 5px;
+      text-align: left;
+    }
+
+    .nav > li {
+      margin-right: 0;
+    }
+  }
+
+  .layout-rwd .zyxel_content {
+
+    .signupForm {
+      margin-top: 0;
+
+      header {
+        padding-top: 0;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        font-size: 30px;
+      }
+
+      .signup_cont {
+        padding: 0;
+
+        .zyxel_btn_login_submit {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .layout-rwd .footer {
+    margin: 0 auto;
+  }
+}

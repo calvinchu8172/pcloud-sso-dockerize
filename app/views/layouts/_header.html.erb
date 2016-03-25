@@ -7,7 +7,7 @@
     </a>
   </h1>
 
-  <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
+  <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd hidden-xs">
     <%# Display member link when user signed in %>
     <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
       <li><%= show_unverified_button %></li>
