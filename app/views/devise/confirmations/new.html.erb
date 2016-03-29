@@ -24,7 +24,9 @@
         <%= link_to t("devise.confirmations.change_account"), users_confirmation_edit_path %>
       </div>
       <div style="float: right">
-        <%= f.submit t("devise.confirmations.resend"), class: "zyxel_btn_submit zyxel_btn_confirm" %>
+        <div class="zyxel_btn_area_right">
+          <%= f.submit t("devise.confirmations.resend"), class: "zyxel_btn_submit zyxel_btn_confirm" %>
+        </div>
       </div>
     </div>
   <% end %>
