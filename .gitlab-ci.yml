@@ -1,21 +1,19 @@
-before_script:
-  # - 'apt-get update && apt-get install -y redis-server'
-  # - /etc/init.d/redis-server start
-  # - service redis-server status
-  # - redis-cli ping
-  # - touch log/application.log
-  - touch log/app.log
-  - touch log/db.log
-  - touch log/test.log
-  - rename 's/.example//' config/settings/*.example
-  - rename 's/.example//' config/*.example
-  - bundle install --jobs $(nproc) --path=/cache/bundler
-  - mysqladmin -uroot -h mysql create mycloud_test
-  - RAILS_ENV=test bundle exec rake db:migrate db:seed
+image: 683422241496.dkr.ecr.us-east-1.amazonaws.com/cd-rails-base:latest
 
+stages:
+  - test
 
 cucumber:
+  stage: test
+  services:
+    - mysql:5.6
+    - redis:latest
   script:
+    - rename 's/.example//' config/settings/*.example
+    - rename 's/.example//' config/*.example
+    - bundle install --jobs $(nproc) --path=/cache/bundler
+    - mysqladmin -uroot -h mysql create mycloud_test
+    - RAILS_ENV=test bundle exec rake db:migrate db:seed
     - mkdir test-plans
     - xvfb-run -a bundle exec cucumber --format html --out test-plans/report.html
     # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/report_PCP001.html
