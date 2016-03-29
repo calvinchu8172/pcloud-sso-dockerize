@@ -218,7 +218,8 @@
   padding:30px 0 10px 0;
 }
 .zyxel_btn_sns {
-  width: 48%;
+  // width: 48%;
+  width: 100%; // 20160328因為登入頁採用RWD，因此facebook與google登入按鈕，寬度從48%改成100%，48%會走樣
   color: $zyxel_white;
   border: none;
   outline: none;

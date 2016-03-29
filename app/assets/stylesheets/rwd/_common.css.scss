@@ -39,6 +39,7 @@
 
     .nav > li {
       margin-right: 0;
+      margin-top: 20px;
     }
   }
 
@@ -61,6 +62,25 @@
           margin-bottom: 0;
         }
       }
+    }
+
+    // email confirmation button
+    .zyxel_btn_area {
+      border-spacing: 0;
+      width: 300px;
+
+      .zyxel_btn_area_right {
+        margin-right: 20px;
+      }
+
+      .zyxel_btn_area_center {
+        width: 290px;
+      }
+
+    }
+    // email change page label
+    .zyxel_table_style th{
+      text-align: center;
     }
   }
 

@@ -7,7 +7,7 @@
     </a>
   </h1>
 
-  <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd hidden-xs">
+  <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
     <%# Display member link when user signed in %>
     <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
       <li><%= show_unverified_button %></li>
@@ -17,7 +17,7 @@
     <% end %>
 
     <% if current_user.nil? && (current_page?(root_path) || current_page?(new_user_session_path))%>
-    <li class="dropdown">
+    <li class="dropdown hidden-xs">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <%= t('labels.language') %>
       </a>
