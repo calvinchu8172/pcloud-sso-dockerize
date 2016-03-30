@@ -38,3 +38,4 @@ config/*.yml
 /vendor/assets/components
 coverage
 .DS_Store
+.versions.conf
