@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   before_action :check_user_confirmation_expire, unless: :devise_controller?
 
   include Locale
-  before_filter :set_locale
 
   after_action :clear_log_context
   before_filter :setup_log_context

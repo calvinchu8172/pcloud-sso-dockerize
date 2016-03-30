@@ -65,15 +65,5 @@ module Pcloud
     # application with api
     config.api_only = false
 
-    config.to_prepare do
-      # Only Applications list
-      # Doorkeeper::ApplicationsController.layout "my_layout"
-
-      # Only Authorization endpoint
-      # Doorkeeper::AuthorizationsController.layout "my_layout"
-
-      # Only Authorized Applications
-      Doorkeeper::AuthorizedApplicationsController.layout "application"
-    end
   end
 end

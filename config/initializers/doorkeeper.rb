@@ -106,3 +106,6 @@ Doorkeeper.configure do
   # WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
 end
+
+Doorkeeper::AuthorizedApplicationsController.layout 'application'
+Doorkeeper::ApplicationController.send :include, Locale
