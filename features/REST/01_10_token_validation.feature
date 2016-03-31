@@ -43,7 +43,7 @@ Feature: [REST_01_10] Token Validation
       """
 
   Scenario: [REST_01_10_04]
-    Client access resource with expired authentication token
+    Client access resource with revoked access token
 
     When client send a GET request to /user/1/token with:
       |cloud_id             | ENCODED USER ID             |
@@ -54,7 +54,7 @@ Feature: [REST_01_10] Token Validation
     And the JSON response should include description: "Invalid cloud id or token."
 
   Scenario: [REST_01_10_05]
-    Client access resource with expired authentication token
+    Client access resource with expired access token
 
     When client send a GET request to /user/1/token with:
       |cloud_id             | ENCODED USER ID             |
