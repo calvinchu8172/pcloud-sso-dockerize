@@ -39,7 +39,7 @@ Feature: [REST_01_10] Token Validation
     And the JSON response should be
       """
       {"result":"valid",
-       "timeout":7200}
+       "timeout":21600}
       """
 
   Scenario: [REST_01_10_04]
