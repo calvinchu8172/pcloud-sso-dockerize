@@ -1,5 +1,7 @@
 class PasswordsController < Devise::PasswordsController
 
+  layout 'rwd'
+
   def create
     # Cannot reset password when user was login with oauth
     if omniauth_accout?(params[:user][:email])
