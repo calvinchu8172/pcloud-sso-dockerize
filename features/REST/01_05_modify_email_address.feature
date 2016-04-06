@@ -3,7 +3,7 @@ Feature: [REST_01_05] Modify Email Address
   Background:
 
   Scenario: [REST_01_05_01]
-    modify email account
+    modify email account with valid authentication token
 
     Given a signed in client
     And client has not confirmed
@@ -11,7 +11,7 @@ Feature: [REST_01_05] Modify Email Address
     When client send a PUT request to /user/1/email with:
       | email                | new@ecoworkinc.com           |
       | cloud_id             | VALID_CLOUD_ID               |
-      | authentication_token | VALID_AUTHENTICATION_TOKEN   |
+      | authentication_token | VALID AUTHENTICATION TOKEN   |
 
     Then the response status should be "200"
     And the JSON response should be
@@ -29,7 +29,7 @@ Feature: [REST_01_05] Modify Email Address
     When client send a PUT request to /user/1/email with:
       | email                | new@ecoworkinc.com           |
       | cloud_id             | VALID_CLOUD_ID               |
-      | authentication_token | INVALID_AUTHENTICATION_TOKEN |
+      | authentication_token | INVALID AUTHENTICATION TOKEN |
 
     Then the response status should be "400"
     And the JSON response should include error code: "201"
@@ -45,7 +45,7 @@ Feature: [REST_01_05] Modify Email Address
     When client send a PUT request to /user/1/email with:
       | email                | THE_SAME_EMAIL               |
       | cloud_id             | VALID_CLOUD_ID               |
-      | authentication_token | VALID_AUTHENTICATION_TOKEN   |
+      | authentication_token | VALID AUTHENTICATION TOKEN   |
 
     Then the response status should be "400"
     And the JSON response should include error code: "003"
@@ -65,7 +65,7 @@ Feature: [REST_01_05] Modify Email Address
     When client send a PUT request to /user/1/email with:
       | email                | taken@ecoworkinc.com         |
       | cloud_id             | VALID_CLOUD_ID               |
-      | authentication_token | VALID_AUTHENTICATION_TOKEN   |
+      | authentication_token | VALID AUTHENTICATION TOKEN   |
 
     Then the response status should be "400"
     And the JSON response should include error code: "002"
@@ -85,7 +85,7 @@ Feature: [REST_01_05] Modify Email Address
     When client send a PUT request to /user/1/email with:
       | email                | <email_format>             |
       | cloud_id             | VALID_CLOUD_ID             |
-      | authentication_token | VALID_AUTHENTICATION_TOKEN |
+      | authentication_token | VALID AUTHENTICATION TOKEN |
 
     Then the response status should be "400"
     And the JSON response should include error code: "004"
@@ -107,9 +107,59 @@ Feature: [REST_01_05] Modify Email Address
     When client send a PUT request to /user/1/email with:
       | email                | new@ecoworkinc.com           |
       | cloud_id             | VALID_CLOUD_ID               |
-      | authentication_token | AUTHENTICATION_TOKEN |
+      | authentication_token | VALID AUTHENTICATION TOKEN   |
 
     Then the response status should be "400"
     And the JSON response should include error code: "006"
     And the JSON response should include description: "the user has been confirmed"
+    And Email deliveries should be 0
+
+  Scenario: [REST_01_05_07]
+    modify email account with valid access token
+
+    Given a signed in client
+    And client has not confirmed
+
+    When client send a PUT request to /user/1/email with:
+      | email                | new@ecoworkinc.com           |
+      | cloud_id             | VALID_CLOUD_ID               |
+      | authentication_token | VALID ACCESS TOKEN           |
+
+    Then the response status should be "200"
+    And the JSON response should be
+      """
+      {"result":"success"}
+      """
+    And Email deliveries should be 1
+
+  Scenario: [REST_01_05_08]
+    modify email account with revoked access token
+
+    Given a signed in client
+    And client has not confirmed
+
+    When client send a PUT request to /user/1/email with:
+      | email                | new@ecoworkinc.com           |
+      | cloud_id             | VALID_CLOUD_ID               |
+      | authentication_token | REVOKED ACCESS TOKEN         |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "201"
+    And the JSON response should include description: "Invalid cloud id or token."
+    And Email deliveries should be 0
+
+  Scenario: [REST_01_05_09]
+    modify email account with expired access token
+
+    Given a signed in client
+    And client has not confirmed
+
+    When client send a PUT request to /user/1/email with:
+      | email                | new@ecoworkinc.com           |
+      | cloud_id             | VALID_CLOUD_ID               |
+      | authentication_token | EXPIRED ACCESS TOKEN         |
+
+    Then the response status should be "400"
+    And the JSON response should include error code: "201"
+    And the JSON response should include description: "Invalid cloud id or token."
     And Email deliveries should be 0
