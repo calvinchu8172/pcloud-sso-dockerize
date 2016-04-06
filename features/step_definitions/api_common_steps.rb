@@ -106,3 +106,23 @@ def create_signature(*arg)
   #signature = CGI::escape(Base64::encode64(private_key.sign(digest, data)))
   signature = Base64::encode64(private_key.sign(digest, data))
 end
+
+def check_authentication_token(authentication_token)
+  if authentication_token == "VALID AUTHENTICATION TOKEN"
+    authentication_token = @user.create_authentication_token
+  elsif authentication_token == "VALID ACCESS TOKEN"
+    access_token = Doorkeeper::AccessToken.create(:application_id => 1, :resource_owner_id => @user.id, :expires_in => 21600, scopes: "")
+    authentication_token = access_token.token
+  elsif authentication_token == "REVOKED ACCESS TOKEN"
+    access_token = Doorkeeper::AccessToken.create(:application_id => 1, :resource_owner_id => @user.id, :expires_in => 21600, :revoked_at => Time.now, scopes: "")
+    authentication_token = access_token.token
+  elsif authentication_token == "EXPIRED ACCESS TOKEN"
+    access_token = Doorkeeper::AccessToken.create(:application_id => 1, :resource_owner_id => @user.id, :expires_in => 21600, :created_at => Time.at(Time.now.to_i - 21700), scopes: "")
+    authentication_token = access_token.token
+  elsif authentication_token.include?("INVALID")
+    authentication_token = ""
+  else
+    authentication_token = ""
+  end
+end
+
