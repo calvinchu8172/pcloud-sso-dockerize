@@ -39,7 +39,7 @@ Doorkeeper.configure do
   # reuse_access_token
 
   # Issue access tokens with refresh token (disabled by default)
-  # use_refresh_token
+  use_refresh_token
 
   # Provide support for an owner to be assigned to each registered application (disabled by default)
   # Optional parameter :confirmation => true (default false) if you want to enforce ownership of
@@ -109,3 +109,5 @@ end
 
 Doorkeeper::AuthorizedApplicationsController.layout 'application'
 Doorkeeper::ApplicationController.send :include, Locale
+Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
+Doorkeeper::TokensController.send :include, OauthClientUserValidator
