@@ -65,7 +65,7 @@ FactoryGirl.define do
     sequence(:resource_owner_id) { |n| n }
     application_id            1
     redirect_uri 'https://app.com/callback'
-    expires_in 600
+    expires_in                600
   end
 
 end
