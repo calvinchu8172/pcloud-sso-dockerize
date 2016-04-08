@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope module: 'oauth2' do
     namespace :api do
       namespace :v1 do
-        get 'my/info', to: 'my#info'
+        get 'my/info', to: 'my#info', format: 'json'
       end
     end
   end
