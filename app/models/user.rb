@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Guards::AttrEncryptor
+  include UserOmniauth
   enum gender: {male: true, female: false}
   before_create :add_default_display_name
   has_many :identity
