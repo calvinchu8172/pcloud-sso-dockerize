@@ -14,7 +14,7 @@ Feature: [OAUTH_02] get user informaiton
     Then the response status should be "200"
     And the JSON response should include:
       """
-      ["user_id", "account_token", "authentication_token", "timeout", "confirmed"]
+      ["user_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
 
   Scenario: [OAUTH_02_02]

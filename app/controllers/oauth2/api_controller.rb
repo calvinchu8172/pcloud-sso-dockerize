@@ -1,6 +1,5 @@
 class Oauth2::ApiController < ActionController::API
-
-include ActionController::ImplicitRender #讓ActionController::API可以用jbuilder
+  include ActionController::ImplicitRender #讓ActionController::API可以用jbuilder
 
   before_action :doorkeeper_authorize!
   # before_action :setup_mdc
@@ -18,6 +17,6 @@ include ActionController::ImplicitRender #讓ActionController::API可以用jbuil
 
     def current_resource_owner
       # User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
-      Api::User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+      ::Api::User::Token.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
     end
 end
