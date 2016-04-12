@@ -59,6 +59,23 @@ Then(/^redirect to My Devices\/Search Devices page$/) do
   expect(page).to have_content("Successfully authenticated from Facebook account.")
 end
 
+Then(/^the user will redirect to editing password page$/) do
+  expect(page.current_path).to eq("/users/password/edit")
+end
+
+When(/^the user doesn't click Terms of Use page$/) do
+  find(:xpath, ".//input[@id='user_agreement']").set(false)
+  click_button "Confirm"
+end
+
+Then(/^user will stay in Terms of Use page$/) do
+  expect(page.current_path).to eq("/oauth/new")
+end
+
+Then(/^the user will see the warning message "(.*?)"$/) do |message|
+  expect(page.body).to have_content(message)
+end
+
 def set_omniauth(email = "personal@example.com", opts = {})
   default = {provider: :facebook,
              uuid:      "1234",
