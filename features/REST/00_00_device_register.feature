@@ -10,13 +10,11 @@ Feature: [REST_00_00] REST API testing
 
   Scenario Outline: [REST_00_00_01]
     Check correct update process when valid format
-
-    When the device already registration
-    And the device "<information>" was be changed to "<value>"
-    And the device send information to REST API /d/1/register
-    Then the API should return success respond
-    And the record in databases as expected
-
+     When the device already registration
+      And the device "<information>" was be changed to "<value>"
+      And the device send information to REST API /d/1/register
+     Then the API should return success respond
+      And the record in databases as expected
     Examples: Valid format
       | information      | value        |
       | firmware_version | 2.0          |
@@ -25,13 +23,11 @@ Feature: [REST_00_00] REST API testing
 
   Scenario Outline: [REST_00_00_02]
     Check incorrect update process when invalid format
-
     Given the device already registration
-    And the device "<information>" was be changed to "<value>"
-    And the device send information to REST API /d/1/register
-    Then the API should return "<http_status>" and "<json_message>" with failure responds
-    And the database does not have record
-
+      And the device "<information>" was be changed to "<value>"
+      And the device send information to REST API /d/1/register
+     Then the API should return "<http_status>" and "<json_message>" with failure responds
+      And the database does not have record
     Examples: Invalid mac_address format
       | information | value             | http_status | json_message      |
       | mac_address | @@@@@@@@@@        | 400         | invalid parameter |
@@ -42,47 +38,40 @@ Feature: [REST_00_00] REST API testing
 
   Scenario: [REST_00_00_03]
     Check standard device registration process
-
-    When the device send information to REST API /d/1/register
-    Then the API should return success respond
-    And the record in databases as expected
+     When the device send information to REST API /d/1/register
+     Then the API should return success respond
+      And the record in databases as expected
 
   Scenario: [REST_00_00_04]
     Check reset process
-
     Given the device already registration
-    And the device send reset request to REST API /d/1/register
-    Then the API should return success respond
-    And the databases should have not pairing record
+      And the device send reset request to REST API /d/1/register
+     Then the API should return success respond
+      And the databases should have not pairing record
 
   Scenario: [REST_00_00_05]
     Check correct update process when IP changed
-
     Given the device already registration
-    And the device IP was be changed
-    And the device send information to REST API /d/1/register
-    Then the API should return success respond
-    And the record in databases as expected
+      And the device IP was be changed
+      And the device send information to REST API /d/1/register
+     Then the API should return success respond
+      And the record in databases as expected
 
   Scenario: [REST_00_00_06]
     Check incorrect update process when signature invalid
-
     Given the device already registration
-    And the device signature was be changed to "abcde"
-    And the device send information to REST API /d/1/register
-    Then the API should return "400" and "Failure" with error responds
-    And the database does not have record
+      And the device signature was be changed to "abcde"
+      And the device send information to REST API /d/1/register
+     Then the API should return "400" and "Failure" with error responds
+      And the database does not have record
 
   Scenario Outline: [REST-00-00-07]
     Check device's IP address being same as in database every time it registered
-
-    When the device's IP is "<IP>"
-    And the device send information to REST API /d/1/register
-
-    Then the database should have the same IP record
-
+     When the device's IP is "<IP>"
+      And the device send information to REST API /d/1/register
+     Then the database should have the same IP record
     Examples:
-    |      IP     |
-    | 192.100.1.0 |
-    | 192.100.1.1 |
-    | 192.100.1.2 |
+      |      IP     |
+      | 192.100.1.0 |
+      | 192.100.1.1 |
+      | 192.100.1.2 |
