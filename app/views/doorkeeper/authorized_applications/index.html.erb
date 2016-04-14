@@ -10,13 +10,13 @@
         <span class="error_message"><%= flash[:notice] %></span>
       </div>
     <% end %>
-    <table class="zyxel_table_style zyxel_table_style1 user_info">
+    <table class="zyxel_table_style zyxel_table_style1 user_info" style="word-break: break-all;">
     <!-- <table class="zyxel_table_style1"> -->
       <thead>
       <tr>
-        <th><%= t('doorkeeper.authorized_applications.index.application') %></th>
-        <th><%= t('doorkeeper.authorized_applications.index.created_at') %></th>
-        <th></th>
+        <th class="col-xs-8 col-sm-4 col-md-4 col-lg-4"><%= t('doorkeeper.authorized_applications.index.application') %></th>
+        <th class="col-xs-3 col-sm-4 col-md-4 col-lg-4"><%= t('doorkeeper.authorized_applications.index.created_at') %></th>
+        <th class="col-xs-1 col-sm-4 col-md-4 col-lg-4"></th>
       </tr>
       </thead>
       <tbody>
@@ -31,7 +31,7 @@
     </table>
 
      <div class="zyxel_btn_area i18n_fix">
-      <%= link_to "使用者資訊", personal_profile_path, class: "zyxel_btn_ok" %>
+      <%= link_to I18n.t("labels.back_to_profile"), personal_profile_path, class: "zyxel_btn_ok" %>
     </div><!-- zyxel_btn_area -->
 
   </div> <!-- content -->

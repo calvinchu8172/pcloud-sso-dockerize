@@ -83,6 +83,7 @@ zh-TW:
     manually: "手動加入裝置"
     profile: "使用者資訊"
     back_to_home: "回主畫面"
+    back_to_profile: "回使用者資訊"
     change_password: "密碼修改"
     edit_profile: "資訊修改"
     mac_address: "硬體位置"

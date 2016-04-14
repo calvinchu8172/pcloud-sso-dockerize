@@ -107,7 +107,7 @@ Doorkeeper.configure do
   # realm "Doorkeeper"
 end
 
-Doorkeeper::AuthorizedApplicationsController.layout 'application'
+Doorkeeper::AuthorizedApplicationsController.layout 'rwd'
 Doorkeeper::AuthorizationsController.layout 'rwd'
 Doorkeeper::ApplicationController.send :include, Locale
 Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
