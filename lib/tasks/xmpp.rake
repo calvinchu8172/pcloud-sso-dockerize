@@ -14,7 +14,7 @@ namespace :xmpp do
 
     desc 'migrate xmpp database'
     task migrate: :environment do
-      ActiveRecord::Base.establish_connection("xmpp_#{Rails.env}")
+      ActiveRecord::Base.establish_connection("xmpp_#{Rails.env}".to_sym)
       ActiveRecord::Migrator.migrate([Rails.root.join('db/xmpp_migrate').to_s])
     end
   end
