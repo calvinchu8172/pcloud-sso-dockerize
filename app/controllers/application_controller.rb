@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   # rescue_from ActionController::RoutingError, with: :routing_error
-
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
+  before_action :check_skip_confirm
   before_action :check_user_confirmation_expire, unless: :devise_controller?
 
   include Locale
@@ -84,7 +84,17 @@ class ApplicationController < ActionController::Base
 
     def check_user_confirmation_expire
       return if current_user.nil?
-      redirect_to new_user_confirmation_path if (!current_user.confirmed? && !current_user.confirmation_valid?)
+
+      # redirect_to new_user_confirmation_path if ( !current_user.confirmed? && !current_user.confirmation_valid? )
+      if !current_user.confirmed? && !!warden.session['skip_confirm'] == false
+        redirect_to new_user_confirmation_path
+      end
+    end
+
+    def check_skip_confirm
+      if params['skip_confirm'] == 'true'
+        warden.session['skip_confirm'] = Time.now.to_i
+      end
     end
 
 end

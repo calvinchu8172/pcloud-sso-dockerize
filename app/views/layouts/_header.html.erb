@@ -12,7 +12,7 @@
     <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
       <li><%= show_unverified_button %></li>
       <li>
-        <%= link_to "", "/personal/profile", class: "member" %>
+        <%= link_to "", "/personal/profile", class: "member" if confirmed_or_skiped?%>
       </li>
     <% end %>
 
@@ -30,7 +30,8 @@
     <% end %>
 
     <%# Display sign out link when user signed in %>
-    <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
+    <%# if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
+    <% if user_signed_in? && !current_page?('/help')%>
       <li>
         <%= link_to t("labels.sign_out") , destroy_user_session_path, class: "sign_out" %>
       </li>
