@@ -109,6 +109,8 @@ end
 
 Doorkeeper::AuthorizedApplicationsController.layout 'rwd'
 Doorkeeper::AuthorizationsController.layout 'rwd'
+Doorkeeper::ApplicationsController.send :include, CheckUserConfirmation
+Doorkeeper::AuthorizedApplicationsController.send :include, CheckUserConfirmation
 Doorkeeper::ApplicationController.send :include, Locale
 Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
 Doorkeeper::TokensController.send :include, OauthClientUserValidator
