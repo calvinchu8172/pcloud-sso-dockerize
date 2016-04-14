@@ -31,7 +31,7 @@ Feature: [PCP_001_03] Login
 
 
   Scenario: [PCP_001_03_03]
-    Redirect to resend email of confirmation page when the user login successfully with an uncionfirmed account registered for over 3 days
+    Redirect to resend email of confirmation page when the user login successfully with an unconfirmed account registered for over 3 days
 
     Given the user try to login with an unconfirmed account
     And the user has registered more than 3 days
@@ -56,8 +56,9 @@ Feature: [PCP_001_03] Login
 
     When the user click "Sign in" button
 
-    Then user will login and redirect to dashboard
-    And the user should see the information when login successfully
+    # Then user will login and redirect to dashboard
+    Then the page should redirect to resend email of confirmation page
+    # And the user should see the information when login successfully
 
   Scenario: [PCP_001_03_05]
     Show information when login successfully
@@ -70,27 +71,37 @@ Feature: [PCP_001_03] Login
     Then user will login and redirect to dashboard
 
   Scenario: [PCP_001_03_06]
-    Show "Unverified" button when login successfully with an unconfirmed account registered not over 3 days
+    Show "Skip" button when login successfully with an unconfirmed account registered within 3 days
 
     Given the user filled the correct information
     # And the account was unconfirmed
 
     When the user click "Sign in" button
 
-    Then the user should see "Unverified" button
+    # Then the user should see "Unverified" button
+    Then the page should redirect to resend email of confirmation page
+    Then the user should see "Skip" button
+
+    When the user click on "Skip"
+    Then user will login and redirect to dashboard
 
 
   Scenario: [PCP_001_03_07]
-    Redirect to resend email of confirmation page when clicking "Unverified" button
+    If user doesn't confirm email over 3 days, user will only can visit resend email of confirmation page
 
     Given the user filled the correct information
+    And user doesn't confirm email over 3 days
 
     When the user click "Sign in" button
 
-    Then the user should see "Unverified" button
-
-    When the user click unverified link
+    # Then the user should see "Unverified" button
     Then the page should redirect to resend email of confirmation page
+    # Then the user should not see "Skip" button
+    Then user should not see "Skip" button
+    Then user can only visit resend email of confirmation page
+
+    # When the user click unverified link
+    # Then the page should redirect to resend email of confirmation page
 
   Scenario: [PCP_001_03_08]
     Resend confirmation email
@@ -98,7 +109,7 @@ Feature: [PCP_001_03] Login
     Given the user filled the correct information
 
     When the user click "Sign in" button
-    And the user click unverified link
+    # And the user click unverified link
     And the user click "Resend confirmation email" button
 
     Then confirmation email should be delivered
@@ -116,7 +127,7 @@ Feature: [PCP_001_03] Login
     Given the user filled the correct information
 
     When the user click "Sign in" button
-    And the user click unverified link
+    # And the user click unverified link
     And the user click "Change to another email" link
 
     And fill changing email "new@example.com"
@@ -135,7 +146,7 @@ Feature: [PCP_001_03] Login
     And an existing user's email is "andy@example.com"
 
     When the user click "Sign in" button
-    And the user click unverified link
+    # And the user click unverified link
     And the user click "Change to another email" link
     And fill changing email "andy@example.com"
     And the user click "Submit" button
