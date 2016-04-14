@@ -108,6 +108,7 @@ Doorkeeper.configure do
 end
 
 Doorkeeper::AuthorizedApplicationsController.layout 'application'
+Doorkeeper::AuthorizationsController.layout 'rwd'
 Doorkeeper::ApplicationController.send :include, Locale
 Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
 Doorkeeper::TokensController.send :include, OauthClientUserValidator
