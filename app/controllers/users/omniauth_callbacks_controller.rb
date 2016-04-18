@@ -1,7 +1,6 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    # binding.pry
     oauth_data      = filter_data(request.env["omniauth.auth"])
     identity        = User.from_omniauth(oauth_data)
     session[:oauth] = identity.provider
