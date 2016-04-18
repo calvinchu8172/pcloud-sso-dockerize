@@ -85,11 +85,11 @@ Feature: [PCP_004_03_02] UPnP Setup Version 2
 
 
 	Scenario: [PCP_004_03_02_09]
-	  Renew the port numbers between 1025 and 65535 for those disabled services in service list and the port numbers should not in the used wan port list
+	  Renew the port numbers between 6000 and 10000 for those disabled services in service list and the port numbers should not in the used wan port list
 
 	  When the device was online the device will response service list with used wan port list
 
-	  Then the port number of all disabled service will be given a random number between 1025 and 65535
+	  Then the port number of all disabled service will be given a random number between 6000 and 10000
 	  And those port numbers should not in the used wan port list
 
 
