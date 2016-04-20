@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160420070805) do
   create_table "certificates", force: :cascade do |t|
     t.string  "serial",    limit: 255,   null: false
     t.text    "content",   limit: 65535, null: false
-    t.integer "vendor_id", limit: 4,     null: false
+    t.integer "vendor_id", limit: 4
   end
 
   create_table "ddns", force: :cascade do |t|

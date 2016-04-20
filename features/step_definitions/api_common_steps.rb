@@ -95,7 +95,7 @@ def create_certificate_and_rsa_key
 
   cert.sign(@rsa_key, OpenSSL::Digest::SHA1.new)
 
-  @certificate = Api::Certificate.create(serial: "serial_name", content: cert.to_pem)
+  @certificate = Api::Certificate.create(serial: "serial_name", content: cert.to_pem, vendor_id: 1)
 end
 
 def create_signature(*arg)
