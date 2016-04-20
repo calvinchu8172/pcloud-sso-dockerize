@@ -72,3 +72,9 @@ redis:
   web_host: 'redis'
   xmpp_host: 'redis'
   port: 6379
+upnp:
+  random_port_max: '10000'
+  random_port_min: '6000'
+oauth_applications:
+  account: 'admin'
+  password: 'ecowork'
