@@ -6,7 +6,7 @@ module CheckUserConfirmation
     before_action :check_skip_confirm
     before_action :check_user_confirmation_expire
 
-    http_basic_authenticate_with :name => Settings.oauth_applications.account, :password => Settings.oauth_applications.password
+    # http_basic_authenticate_with :name => Settings.oauth_applications.account, :password => Settings.oauth_applications.password
 
       def check_user_confirmation_expire
         return if current_user.nil?
