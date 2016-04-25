@@ -85,8 +85,8 @@ class ApplicationController < ActionController::Base
     def check_user_confirmation_expire
       return if current_user.nil?
 
-      # redirect_to new_user_confirmation_path if ( !current_user.confirmed? && !current_user.confirmation_valid? )
       if !current_user.confirmed? && !!warden.session['skip_confirm'] == false
+        store_location_for(current_user, request.fullpath)
         redirect_to new_user_confirmation_path
       end
     end
@@ -94,6 +94,11 @@ class ApplicationController < ActionController::Base
     def check_skip_confirm
       if params['skip_confirm'] == 'true'
         warden.session['skip_confirm'] = Time.now.to_i
+
+        # 如果 devise stored_location_for 有值
+        if stored_location = stored_location_for(current_user)
+          redirect_to stored_location
+        end
       end
     end
 
