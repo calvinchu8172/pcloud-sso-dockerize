@@ -41,6 +41,9 @@ environments:
       secret_access_key:
       region: 'us-east-1'
   ddns: pcloud.ecoworkinc.com
+  upnp:
+    random_port_max: '10000'
+    random_port_min: '6000'
   cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   zones_info:
     id: 'Z23KWXIJBQNA7O'
@@ -72,9 +75,6 @@ redis:
   web_host: 'redis'
   xmpp_host: 'redis'
   port: 6379
-upnp:
-  random_port_max: '10000'
-  random_port_min: '6000'
 oauth_applications:
   account: 'admin'
   password: 'ecowork'
