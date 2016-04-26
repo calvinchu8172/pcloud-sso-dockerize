@@ -9,7 +9,7 @@
       <%= render "hint/terms/en" %>
     <% end %>
   </div>
-  <%= form_for(@user, html: {role: "form", name: "oauthForm"}, as: "user", url: oauth_confirm_path(params.merge(params))) do |f| %>
+  <%= form_for :user, html: { role: "form", name: "oauthForm" }, as: "user", url: oauth_confirm_url do |f| %>
 
     <div class="checkbox_area">
       <label for="user_agreement" class="checkbox_label"><span></span>
@@ -30,7 +30,7 @@
     <% end %>
 
     <div class="zyxel_btn_area i18n_fix">
-      <%= link_to I18n.t("labels.cancel"), new_session_path(@user), class: "zyxel_btn_back" %>
+      <%= link_to I18n.t("labels.cancel"), new_user_session_url, class: "zyxel_btn_back" %>
       <%= f.submit I18n.t("labels.confirm"), class: "zyxel_btn_submit" %>
     </div>
   <% end %>
