@@ -56,6 +56,7 @@ Feature: [OAUTH_01] refresh token and get access token
       """
       ["error", "error_description"]
       """
+    And the refresh token will be revoked
 
   Scenario: [OAUTH_01_04]
     Valid client user gets access token with valid grant code
@@ -95,7 +96,7 @@ Feature: [OAUTH_01] refresh token and get access token
 
 
   Scenario: [OAUTH_01_06]
-    Invalid client user gets access token with valid refresh token
+    Invalid client user gets access token with valid grand code
 
     Given client user did not confirmed and the trial period has been expired 3 days
     And 1 existing client app and grant code record

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  use_doorkeeper
+
+  use_doorkeeper scope: 'oauth' do
+    controllers authorizations: 'oauth2/authorizations',
+                tokens: 'oauth2/tokens',
+                applications: 'oauth2/applications',
+                authorized_applications: 'oauth2/authorized_applications'
+  end
 
   scope module: 'oauth2' do
     namespace :api do

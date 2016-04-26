@@ -73,3 +73,7 @@ Given(/^client user did not confirmed and the trial period has been expired (\d+
   @oauth_client_user.created_at = @oauth_client_user.created_at - 4.days
   @oauth_client_user.save
 end
+
+Then(/^the refresh token will be revoked$/) do
+  expect(Doorkeeper::AccessToken.find_by_refresh_token(@oauth_access_token.refresh_token).nil?).to eq(false)
+end

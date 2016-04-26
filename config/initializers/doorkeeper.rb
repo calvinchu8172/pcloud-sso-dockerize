@@ -107,12 +107,16 @@ Doorkeeper.configure do
   # realm "Doorkeeper"
 end
 
-Doorkeeper::AuthorizedApplicationsController.layout 'rwd'
-Doorkeeper::AuthorizationsController.layout 'rwd'
-Doorkeeper::ApplicationsController.send :include, CheckUserConfirmation
-Doorkeeper::ApplicationsController.send :include, HttpBasicAuthenticate
-Doorkeeper::AuthorizedApplicationsController.send :include, CheckUserConfirmation
-Doorkeeper::ApplicationController.send :include, Locale
-Doorkeeper::ApplicationController.send :include, CheckUserConfirmation
-Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
-Doorkeeper::TokensController.send :include, OauthClientUserValidator
+# Doorkeeper::AuthorizedApplicationsController.layout 'rwd'
+# Doorkeeper::AuthorizationsController.layout 'rwd'
+# Doorkeeper::ApplicationsController.send :include, CheckUserConfirmation
+# Doorkeeper::ApplicationsController.send :include, HttpBasicAuthenticate
+# Doorkeeper::AuthorizedApplicationsController.send :include, CheckUserConfirmation
+# Doorkeeper::ApplicationController.send :include, Locale
+
+
+# # Doorkeeper::ApplicationController.send :include, CheckUserConfirmation
+
+
+# Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
+# Doorkeeper::TokensController.send :include, OauthClientUserValidator

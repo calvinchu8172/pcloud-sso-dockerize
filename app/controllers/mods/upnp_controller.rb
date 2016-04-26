@@ -30,8 +30,8 @@ class Mods::UpnpController < ApplicationController
 
     service_logger.note({start_upnp: @session})
 
-    @random_port_max = Settings.upnp.random_port_max
-    @random_port_min = Settings.upnp.random_port_min
+    @random_port_max = Settings.environments.upnp.random_port_max
+    @random_port_min = Settings.environments.upnp.random_port_min
   end
 
   #PUT /{moduel_version}/upnp/:device_encoded_id
