@@ -16,7 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         # 記錄 user 註冊的 os 與 oauth
         oauth = identity.provider
         identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
-        identity.user.update(confirmed_at: Time.now.utc) if identity.user.confirmed?
+        identity.user.update(confirmed_at: Time.now.utc) unless identity.user.confirmed?
         # 記錄 user 登入的歷程
         user            = identity.user
         user_id         = user.id
@@ -52,7 +52,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #記錄user註冊的os與oauth
         oauth = identity.provider
         identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
-        identity.user.update(confirmed_at: Time.now.utc) if identity.user.confirmed?
+        identity.user.update(confirmed_at: Time.now.utc) unless identity.user.confirmed?
         #記錄登入的歷程
         user            = identity.user
         user_id         = user.id
