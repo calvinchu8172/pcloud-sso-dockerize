@@ -239,7 +239,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   config.omniauth :facebook, Settings.oauth.facebook_app_id, Settings.oauth.facebook_secret,
-    :auth_type => 'reauthenticate'
+    auth_type: 'reauthenticate', scope: 'email', info_fields: 'email, name'
   config.omniauth :google_oauth2, Settings.oauth.google_app_id, Settings.oauth.google_secret
 
   # If you want to use other strategies, that are not supported by Devise, or
