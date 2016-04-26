@@ -5,7 +5,6 @@ Feature: [REST_05] Request User's Device List API Testing
 
   Scenario Outline: [REST_05_01]
     request user device list with valid authentication token
-
     Given a user try to request own device list with <record_count> devices including <own> device and <other> device from APP
     When client send a GET request to "/resource/1/device_list" with:
       | cloud_id             | ENCODE USER ID               |
@@ -23,7 +22,6 @@ Feature: [REST_05] Request User's Device List API Testing
 
   Scenario: [REST_05_02]
     request user device list with expired authentication token
-
     # Given a user try to request own device list with 1 devices from APP
     Given a user try to request own device list with 1 devices including 1 device and 0 device from APP
     When client send a GET request to "/resource/1/device_list" with:
@@ -35,7 +33,6 @@ Feature: [REST_05] Request User's Device List API Testing
 
   Scenario Outline: [REST_05_03]
     request user device list with valid access token
-
     Given a user try to request own device list with <record_count> devices including <own> device and <other> device from APP
     When client send a GET request to "/resource/1/device_list" with:
       | cloud_id             | ENCODE USER ID               |
@@ -53,7 +50,6 @@ Feature: [REST_05] Request User's Device List API Testing
 
   Scenario: [REST_05_04]
     request user device list with revoked access token
-
     # Given a user try to request own device list with 1 devices from APP
     Given a user try to request own device list with 1 devices including 1 device and 0 device from APP
     When client send a GET request to "/resource/1/device_list" with:
@@ -65,7 +61,6 @@ Feature: [REST_05] Request User's Device List API Testing
 
   Scenario: [REST_05_05]
     request user device list with expired access token
-
     # Given a user try to request own device list with 1 devices from APP
     Given a user try to request own device list with 1 devices including 1 device and 0 device from APP
     When client send a GET request to "/resource/1/device_list" with:

@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 20160225041417) do
   add_index "devices", ["mac_address"], name: "index_devices_on_mac_address", using: :btree
   add_index "devices", ["product_id"], name: "devices_product_id_fk", using: :btree
 
+  create_table "diagram_datapoints", force: :cascade do |t|
+    t.string   "type",       limit: 255
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "domains", force: :cascade do |t|
     t.string   "domain_name", limit: 192, null: false
     t.datetime "created_at"
