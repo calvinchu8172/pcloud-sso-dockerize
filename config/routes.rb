@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       get   'users/confirmation/edit', to: 'confirmations#edit'
       patch 'users/confirmation',      to: 'confirmations#update'
       get   'oauth/new',               to: 'users/omniauth_callbacks#new'
-      post  'oauth/confirm',           to: 'users/omniauth_callbacks#confirm'
+      post  'oauth/new',               to: 'users/omniauth_callbacks#confirm'
       get   'oauth/login',             to: 'users/omniauth_callbacks#login'
       post  'oauth/login',             to: 'users/omniauth_callbacks#logining'
     end

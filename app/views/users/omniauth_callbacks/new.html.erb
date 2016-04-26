@@ -9,7 +9,7 @@
       <%= render "hint/terms/en" %>
     <% end %>
   </div>
-  <%= form_for :user, html: { role: "form", name: "oauthForm" }, as: "user", url: oauth_confirm_url do |f| %>
+  <%= form_for :user, html: { role: "form", name: "oauthForm" }, as: "user", url: oauth_new_url do |f| %>
 
     <div class="checkbox_area">
       <label for="user_agreement" class="checkbox_label"><span></span>
