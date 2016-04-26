@@ -46,8 +46,12 @@ Rails.application.routes.draw do
       :omniauth_callbacks => "users/omniauth_callbacks"}
 
     devise_scope :user do
-      get 'users/confirmation/edit', to: "confirmations#edit"
-      patch 'users/confirmation', to: "confirmations#update"
+      get   'users/confirmation/edit', to: 'confirmations#edit'
+      patch 'users/confirmation',      to: 'confirmations#update'
+      get   'oauth/new',               to: 'users/omniauth_callbacks#new'
+      post  'oauth/confirm',           to: 'users/omniauth_callbacks#confirm'
+      get   'oauth/login',             to: 'users/omniauth_callbacks#login'
+      post  'oauth/login',             to: 'users/omniauth_callbacks#logining'
     end
 
     get 'ddns/:id', to: 'ddns#show'
@@ -97,9 +101,6 @@ Rails.application.routes.draw do
     get 'unpairing/index/:id', to: 'unpairing#index', as: 'unpairing_index'
     get 'unpairing/success/:id', to: 'unpairing#success', as: 'unpairing_success'
     get 'unpairing/destroy/:id', to: 'unpairing#destroy', as: 'unpairing_destroy'
-
-    post 'oauth/confirm'
-    get 'oauth/new'
 
     get 'invitations/accept/:id', to: 'invitations#accept'
     get 'invitations/accept', to: 'invitations#accept'

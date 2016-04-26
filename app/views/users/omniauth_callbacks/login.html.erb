@@ -1,0 +1,23 @@
+<% provide(:flow, I18n.t('titles.login_account')) %>
+
+<div class="zyxel_content">
+  <%= form_for @user, url: users_oauth_login_url, html: { method: :post } do |f| %>
+    <fieldset>
+      <%= f.hidden_field :email %>
+      <table class="zyxel_table_style">
+        <tr>
+          <th><span>* </span><%= f.label :current_password, I18n.t("user.labels.current_password"), class: "th_label" %></th>
+          <td colspan="3">
+            <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
+            <div class="password_suggestion"><%= I18n.t("user.labels.password_suggestion")%></div>
+            <div id="password_meter"></div>
+          </td>
+        </tr>
+      </table>
+      <div class="zyxel_btn_area i18n_fix">
+        <%= link_to(I18n.t("labels.cancel"), "/", class: "zyxel_btn_back") %>
+        <%= f.submit I18n.t("labels.sign_in"), class: "zyxel_btn_submit" %>
+      </div><!-- zyxel_btn_area -->
+    </fieldset>
+  <% end %>
+</div>

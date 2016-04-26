@@ -4,7 +4,7 @@ module UserOmniauth
   included do
 
     def changed_password?
-      self.confirmation_token
+      !!self.confirmation_token
     end
 
     def set_change_password_token
