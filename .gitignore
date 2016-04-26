@@ -39,3 +39,7 @@ config/*.yml
 coverage
 .DS_Store
 .versions.conf
+
+# Ignore yard files
+/.yardoc
+/doc

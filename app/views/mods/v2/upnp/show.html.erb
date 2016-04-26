@@ -1,7 +1,7 @@
 <% provide(:flow, @device.product.model_class_name + "," + I18n.t("titles.settings.upnp")) %>
 <% provide(:tab, 'my_devices') %>
 
-<div class="upnp zyxel_content" style="max-width:700px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json() %>;loadConfig();">
+<div class="upnp zyxel_content" style="max-width:700px;" ng-app="upnp_app"  ng-controller="UpnpCtrl" ng-init="session=<%= @session.to_json() %>;random_port_max=<%= @random_port_max %>;random_port_min=<%= @random_port_min %>;loadConfig();">
 
   <%# Pairing information %>
   <div  ng-switch on="step">
@@ -129,6 +129,9 @@
     $scope.status = $scope.service['status'];
     $scope.on_focus_port;
     $scope.wan_port = $scope.service['wan_port'];
+    // randomPort的設定移到settings.yml裡面
+    $scope.random_port_max;
+    $scope.random_port_min;
 
 
     // 所有重算 port 號執行條件：
@@ -201,7 +204,7 @@
 
     // 重新計算port號
     $scope.randomPort = function(){
-      var rand_num = $scope.getRandomIntInclusive(65535, 1025);
+      var rand_num = $scope.getRandomIntInclusive($scope.random_port_min, $scope.random_port_max); //讀取settings.yml裡面的設定
       if($scope.used_wan_port_list.indexOf(rand_num) > -1 || $scope.randomed_num_list.indexOf(rand_num) > -1){
         rand_num = $scope.randomPort();
       }

@@ -1,26 +1,34 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def all
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    oauth_data = filter_data(request.env["omniauth.auth"])
-    identity = User.from_omniauth(oauth_data)
-
+    oauth_data      = filter_data(request.env["omniauth.auth"])
+    identity        = User.from_omniauth(oauth_data)
     session[:oauth] = identity.provider
-    if !identity.user.blank?
-      sign_in_and_redirect identity.user, :event => :authentication #this will throw if @user is not activated
-      set_flash_message(:notice, :success, :kind => User::SOCIALS[params[:action].to_sym]) if is_navigational_format?
-      #記錄user註冊的os與oauth
-      oauth = identity.provider
-      identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
-      #記錄user登入的歷程
-      user = identity.user
-      user_id = user.id
-      sign_in_at = Time.now
-      sign_out_at = nil
-      sign_in_fail_at = nil
-      sign_in_ip = user.current_sign_in_ip
-      os = 'web'
-      LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
 
+    if !identity.user.blank?
+
+      unless identity.user.changed_password?
+        change_password_token = identity.user.set_change_password_token
+        title = "bind_account"
+        redirect_to edit_password_url(identity.user, reset_password_token: change_password_token, title: title)
+      else
+        #記錄user註冊的os與oauth
+        oauth = identity.provider
+        identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
+        #記錄user登入的歷程
+        user = identity.user
+        user_id = user.id
+        sign_in_at = Time.now
+        sign_out_at = nil
+        sign_in_fail_at = nil
+        sign_in_ip = user.current_sign_in_ip
+        os = 'web'
+        LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
+
+        set_flash_message(:notice, :success, :kind => User::SOCIALS[params[:action].to_sym]) if is_navigational_format?
+
+        sign_in_and_redirect identity.user, :event => :authentication #this will throw if @user is not activated
+      end
     else
       session["devise.omniauth_data"] = oauth_data
       redirect_to '/oauth/new'

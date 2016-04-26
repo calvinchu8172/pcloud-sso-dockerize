@@ -116,6 +116,10 @@ When(/^the user click "(.*?)" link$/) do |link|
   click_link link
 end
 
+When(/^the user click on "(.*?)"$/) do |link_or_button|
+  click_on link_or_button
+end
+
 When(/^the user have other devices$/) do
   @other_paired = TestingHelper.create_pairing(@user.id)
 end

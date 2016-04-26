@@ -239,7 +239,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   config.omniauth :facebook, Settings.oauth.facebook_app_id, Settings.oauth.facebook_secret,
-    :auth_type => 'reauthenticate'
+    auth_type: 'reauthenticate', scope: 'email', info_fields: 'email, name'
   config.omniauth :google_oauth2, Settings.oauth.google_app_id, Settings.oauth.google_secret
 
   # If you want to use other strategies, that are not supported by Devise, or
@@ -265,12 +265,12 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   # config.allow_insecure_sign_in_after_confirmation = true
 
-  config.warden do |manager|
-    manager.failure_app = CustomFailure
-  end
+  # config.warden do |manager|
+  #   manager.failure_app = CustomFailure
+  # end
 
-  # Update user language when user sign in
-  Warden::Manager.after_authentication do |user,auth,opts|
-    user.update_attribute(:language, I18n.locale)
-  end
+  # # Update user language when user sign in
+  # Warden::Manager.after_authentication do |user,auth,opts|
+  #   user.update_attribute(:language, I18n.locale)
+  # end
 end

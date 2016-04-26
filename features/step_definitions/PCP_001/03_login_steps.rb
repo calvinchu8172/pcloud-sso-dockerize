@@ -1,6 +1,7 @@
 # Setup user account
 Given(/^a user want to login$/) do
   @user = FactoryGirl.create(:user)
+  ActionMailer::Base.deliveries.clear
 end
 
 # Go to Login page
@@ -80,6 +81,16 @@ end
 
 Then(/^the user email account should be changed to "(.*?)"$/) do |email|
   expect(User.first.email).to eq(email)
+end
+
+Given(/^user doesn't confirm email over (\d+) days$/) do |arg1|
+  @user.created_at = @user.created_at - 4.days
+  @user.save
+end
+
+Then(/^user can only visit resend email of confirmation page$/) do
+  visit root_path
+  expect(page.current_path).to eq("/users/confirmation/new")
 end
 
 # -------------------------------------------------------------------

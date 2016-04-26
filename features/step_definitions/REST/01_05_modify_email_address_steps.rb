@@ -7,7 +7,7 @@ When(/^client send a PUT request to \/user\/1\/email with:$/) do |table|
 
   email = data["email"].include?("SAME") ? @user.email : data["email"]
   cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id
-  authentication_token = data["authentication_token"].include?("INVALID") ? "" : @user.create_authentication_token
+  authentication_token = check_authentication_token(data["authentication_token"])
 
   put path, {
     cloud_id: cloud_id,

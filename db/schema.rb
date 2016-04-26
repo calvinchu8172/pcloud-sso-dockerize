@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129065533) do
+ActiveRecord::Schema.define(version: 20160225041417) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(version: 20160129065533) do
   add_index "devices", ["mac_address"], name: "index_devices_on_mac_address", using: :btree
   add_index "devices", ["product_id"], name: "devices_product_id_fk", using: :btree
 
+  create_table "diagram_datapoints", force: :cascade do |t|
+    t.string   "type",       limit: 255
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "domains", force: :cascade do |t|
     t.string   "domain_name", limit: 192, null: false
     t.datetime "created_at"
@@ -109,6 +116,46 @@ ActiveRecord::Schema.define(version: 20160129065533) do
   add_index "login_logs", ["os"], name: "index_login_logs_on_os", using: :btree
   add_index "login_logs", ["sign_in_at"], name: "index_login_logs_on_sign_in_at", using: :btree
   add_index "login_logs", ["user_id"], name: "index_login_logs_on_user_id", using: :btree
+
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.integer  "resource_owner_id", limit: 4,     null: false
+    t.integer  "application_id",    limit: 4,     null: false
+    t.string   "token",             limit: 255,   null: false
+    t.integer  "expires_in",        limit: 4,     null: false
+    t.text     "redirect_uri",      limit: 65535, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "revoked_at"
+    t.string   "scopes",            limit: 255
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.integer  "resource_owner_id", limit: 4
+    t.integer  "application_id",    limit: 4
+    t.string   "token",             limit: 255, null: false
+    t.string   "refresh_token",     limit: 255
+    t.integer  "expires_in",        limit: 4
+    t.datetime "revoked_at"
+    t.datetime "created_at",                    null: false
+    t.string   "scopes",            limit: 255
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string   "name",         limit: 255,                null: false
+    t.string   "uid",          limit: 255,                null: false
+    t.string   "secret",       limit: 255,                null: false
+    t.text     "redirect_uri", limit: 65535,              null: false
+    t.string   "scopes",       limit: 255,   default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "pairing_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4

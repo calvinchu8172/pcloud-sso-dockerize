@@ -43,4 +43,9 @@ module ApplicationHelper
     current_user.confirmed? || current_user.confirmation_valid?
   end
 
+  def confirmed_or_skiped?
+    current_user.confirmed? || !!warden.session['skip_confirm'] == true
+  end
+
+
 end

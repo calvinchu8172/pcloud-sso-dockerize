@@ -19,9 +19,13 @@
         </div>
       <% end %>
       <%# oAuth sign in %>
-      <div class="sns_sign">
-        <%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "zyxel_btn_sns sns_fb" %>
-        <%= link_to "Google", user_omniauth_authorize_path(:google_oauth2), class: "zyxel_btn_sns sns_google", style: "margin-right:0" %>
+      <div class="sns_sign row">
+        <div class="col-xs-6">
+          <%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "zyxel_btn_sns sns_fb" %>
+        </div>
+        <div class="col-xs-6">
+          <%= link_to "Google", user_omniauth_authorize_path(:google_oauth2), class: "zyxel_btn_sns sns_google", style: "margin-right:0" %>
+        </div>
       </div>
       <%# oAuth sign in - end %>
 
@@ -32,24 +36,31 @@
       <%# Form for Sign in %>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-        <fieldset>
+        <div class="form-group">
           <%= f.email_field :email, autofocus: true, placeholder: I18n.t("user.labels.email"), class: "input_style1" %>
+        </div>
 
+        <div class="form-group">
           <%= f.password_field :password, autocomplete: "off", placeholder: I18n.t("user.labels.password"), class: "input_style1" %>
+        </div>
 
-          <%# error message %>
-          <% if flash[:alert] && flash[:alert] == I18n.t("devise.failure.not_found_in_database") %>
-            <div class="zyxel_arlert_area">
-              <span class="error_message"><%= flash[:alert] %></span>
-            </div>
-          <% end %>
-
-          <div class="checkbox_area">
-            <%= f.check_box :remember_me %> <%= f.label :remember_me, "<span></span>#{I18n.t("user.labels.remember_me")}".html_safe %>
+        <%# error message %>
+        <% if flash[:alert] && flash[:alert] == I18n.t("devise.failure.not_found_in_database") %>
+          <div class="zyxel_arlert_area">
+            <span class="error_message"><%= flash[:alert] %></span>
           </div>
+        <% end %>
 
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :remember_me %> <%= f.label :remember_me, "<span></span>#{I18n.t("user.labels.remember_me")}".html_safe %>
+          </label>
+        </div>
+
+        <div class="form-group">
           <%= f.submit I18n.t("titles.sign_in"), class: "zyxel_btn_login_submit" %>
-        </fieldset>
+        </div>
+
       <% end %>
       <%# Form for Sign in - end %>
 
