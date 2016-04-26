@@ -1,0 +1,171 @@
+.layout-rwd .header {
+
+  .header_h1_rwd {
+    text-align: left;
+  }
+}
+
+.layout-rwd .zyxel_content {
+
+  .signupForm {
+
+    .signup_cont {
+
+      .zyxel_btn_sns {
+        width: 100%;
+      }
+    }
+  }
+
+  .zyxel_table_style {
+    color: $zyxel_color2;
+    .rwd_tbl_th {
+      padding-top: 12px;
+      vertical-align: top;
+      // height: 40px;
+      label{ display: inline; }
+      span { color: $zyxel_star; }
+    }
+    .rwd_tbl_td {
+      padding: 5px 0 0 10px;
+    }
+  }
+
+  .zyxel_btn_row {
+    overflow: inherit;
+    .zyxel_btn_back {
+      width: 100%;
+      background-color: #DADADA;
+      padding: 11px 0 13px 0;
+      color: #565656;
+      &:hover {
+        text-decoration:none;
+        color: #565656;
+        background-color:#CCCBCB;
+      }
+    }
+    .zyxel_btn_submit {
+      width: 100%;
+      background-color: #0075c9;
+      padding: 11px 0 13px 0;
+      &:hover {
+        text-decoration:none;
+        color:$zyxel_white;
+        background-color:$zyxel_color7;
+      }
+    }
+  }
+}
+
+.zyxel_content {
+  p.h4 {
+    strong.text-info {
+      color: #0075C9;
+    }
+  }
+
+}
+
+
+// .text-left-not-xs, .text-left-not-sm, .text-left-not-md, .text-left-not-lg {
+//     text-align: left;
+// }
+// .text-center-not-xs, .text-center-not-sm, .text-center-not-md, .text-center-not-lg {
+//     text-align: center;
+// }
+// .text-right-not-xs, .text-right-not-sm, .text-right-not-md, .text-right-not-lg {
+//     text-align: right;
+// }
+// .text-justify-not-xs, .text-justify-not-sm, .text-justify-not-md, .text-justify-not-lg {
+//     text-align: justify;
+// }
+
+@media screen and (min-width: 1200px) { // lg
+  .text-left-lg { text-align: left; }
+  .text-right-lg { text-align: right; }
+  .text-center-lg { text-align: center; }
+  .text-justify-lg { text-align: justify; }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) { // md
+  .text-left-md { text-align: left; }
+  .text-right-md { text-align: right; }
+  .text-center-md { text-align: center; }
+  .text-justify-md { text-align: justify; }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) { // sm
+  .text-left-sm { text-align: left; }
+  .text-right-sm { text-align: right; }
+  .text-center-sm { text-align: center; }
+  .text-justify-sm { text-align: justify; }
+}
+
+@media screen and (max-width: 767px) { // xs
+  .text-left-xs { text-align: left; }
+  .text-right-xs { text-align: right; }
+  .text-center-xs { text-align: center; }
+  .text-justify-xs { text-align: justify; }
+}
+
+@media screen and (max-device-width: 480px) {
+
+  .layout-rwd .header {
+
+    .header_h1_rwd {
+      float: left !important;
+      margin-left: 5px;
+      text-align: left;
+    }
+
+    .nav > li {
+      margin-right: 0;
+      margin-top: 20px;
+    }
+  }
+
+  .layout-rwd .zyxel_content {
+
+    .signupForm {
+      margin-top: 0;
+
+      header {
+        padding-top: 0;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        font-size: 30px;
+      }
+
+      .signup_cont {
+        padding: 0;
+
+        .zyxel_btn_login_submit {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    // email confirmation button
+    .zyxel_btn_area {
+      border-spacing: 0;
+      width: 300px;
+
+      .zyxel_btn_area_right {
+        margin-right: 20px;
+      }
+
+      .zyxel_btn_area_center {
+        width: 290px;
+      }
+
+    }
+    // email change page label
+    .zyxel_table_style th{
+      text-align: center;
+    }
+  }
+
+  .layout-rwd .footer {
+    margin: 0 auto;
+  }
+}

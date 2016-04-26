@@ -52,4 +52,20 @@ FactoryGirl.define do
     association :product_id,  factory: :product_id
   end
 
+  factory :oauth_client_app, class: Doorkeeper::Application do
+    sequence(:name)  { |n| "oauth_client_app_#{n}"}
+    redirect_uri 'https://app.com/callback'
+  end
+  factory :oauth_access_token, class: Doorkeeper::AccessToken do
+    sequence(:resource_owner_id) { |n| n }
+    application_id            1
+    expires_in                6.hours
+  end
+  factory :access_grant, class: Doorkeeper::AccessGrant do
+    sequence(:resource_owner_id) { |n| n }
+    application_id            1
+    redirect_uri 'https://app.com/callback'
+    expires_in                600
+  end
+
 end

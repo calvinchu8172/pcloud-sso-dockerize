@@ -3,12 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   # rescue_from ActionController::RoutingError, with: :routing_error
-
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
+  before_action :check_skip_confirm
   before_action :check_user_confirmation_expire, unless: :devise_controller?
 
   include Locale
-  before_filter :set_locale
 
   after_action :clear_log_context
   before_filter :setup_log_context
@@ -72,7 +71,7 @@ class ApplicationController < ActionController::Base
     end
 
     def after_sign_in_path_for(resource)
-      session[:previous_url] || authenticated_root_path
+      stored_location_for(resource) || session[:previous_url] || authenticated_root_path
     end
 
     def device_paired_with?
@@ -85,7 +84,22 @@ class ApplicationController < ActionController::Base
 
     def check_user_confirmation_expire
       return if current_user.nil?
-      redirect_to new_user_confirmation_path if (!current_user.confirmed? && !current_user.confirmation_valid?)
+
+      if !current_user.confirmed? && !!warden.session['skip_confirm'] == false
+        store_location_for(current_user, request.fullpath)
+        redirect_to new_user_confirmation_path
+      end
+    end
+
+    def check_skip_confirm
+      if params['skip_confirm'] == 'true'
+        warden.session['skip_confirm'] = Time.now.to_i
+
+        # 如果 devise stored_location_for 有值
+        if stored_location = stored_location_for(current_user)
+          redirect_to stored_location
+        end
+      end
     end
 
 end

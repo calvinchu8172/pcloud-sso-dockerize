@@ -156,6 +156,10 @@ Then(/^the user should see "(.*?)" button$/) do |btn|
   expect(page).to have_link(btn)
 end
 
+Then(/^user will visit page containing "(.*?)"$/) do |title|
+  expect(page).to have_content(title)
+end
+
 Then(/^user should not see "(.*?)" button$/) do |btn|
   expect(page).to have_no_link(btn)
 end

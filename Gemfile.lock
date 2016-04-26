@@ -52,25 +52,18 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     angularjs-rails (1.4.3)
-    arel (6.0.2)
+    arel (6.0.3)
     attr_encrypted (1.3.4)
       encryptor (>= 1.3.0)
     autoprefixer-rails (5.2.1.1)
       execjs
       json
-    awesome_print (1.6.1)
     aws-sdk (1.64.0)
       aws-sdk-v1 (= 1.64.0)
     aws-sdk-v1 (1.64.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     bcrypt (3.1.10)
-    better_errors (2.1.1)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-      rack (>= 0.9.0)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.5)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
@@ -91,9 +84,7 @@ GEM
     bullet (4.14.7)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
-    byebug (8.2.4)
     c3-rails (0.4.10)
-    callsite (0.0.11)
     capybara (2.4.4)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -138,7 +129,6 @@ GEM
     d3-rails (3.5.6)
       railties (>= 3.1)
     database_cleaner (1.4.1)
-    debug_inspector (0.0.2)
     devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -151,6 +141,9 @@ GEM
     docile (1.1.5)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
+    doorkeeper (3.1.0)
+      railties (>= 3.2)
+    doorkeeper-i18n (3.0.0)
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -174,27 +167,25 @@ GEM
     fssm (0.2.10)
     gherkin (2.12.2)
       multi_json (~> 1.3)
-    git-version-bump (0.15.1)
-    github-markup (1.4.0)
-    globalid (0.3.5)
+    globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.6)
       tilt
     hashie (3.4.2)
     highline (1.6.21)
     hike (1.2.3)
-    hirb (0.7.3)
-    hirb-unicode (0.0.5)
-      hirb (~> 0.5)
-      unicode-display_width (~> 0.1.1)
+    hipchat (1.5.2)
+      httparty
+      mimemagic
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     i18n-country-translations (1.2.2)
       i18n (~> 0.5)
       railties (>= 3.0)
-    i18n-docs (0.0.10)
-      rake
     i18n_country_select (1.1.5)
       i18n (~> 0.5)
       i18n-country-translations (~> 1.0, >= 1.0.3)
@@ -221,20 +212,16 @@ GEM
     letter_opener (1.4.1)
       launchy (~> 2.2)
     log4r (1.1.10)
-    loofah (2.0.2)
+    loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    meta_request (0.4.0)
-      callsite (~> 0.0, >= 0.0.11)
-      rack-contrib (~> 1.1)
-      railties (>= 3.0.0, < 5.1.0)
     method_source (0.8.2)
     mime-types (1.25.1)
     mimemagic (0.3.0)
-    mini_portile (0.6.2)
-    minitest (5.7.0)
+    mini_portile2 (2.0.0)
+    minitest (5.8.4)
     msgpack (0.5.12)
     multi_json (1.11.2)
     multi_test (0.1.2)
@@ -243,8 +230,8 @@ GEM
     mysql2 (0.3.16)
     nested_form (0.3.2)
     netrc (0.10.3)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7.2)
+      mini_portile2 (~> 2.0.0.rc2)
     oauth (0.4.7)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -275,17 +262,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-rails (0.3.4)
-      pry (>= 0.9.10)
-    pry-remote (0.1.8)
-      pry (~> 0.9)
-      slop (~> 3.0)
-    quiet_assets (1.1.0)
-      railties (>= 3.1, < 5.0)
     rack (1.6.4)
-    rack-contrib (1.4.0)
-      git-version-bump (~> 0.15)
-      rack (~> 1.4)
     rack-pjax (0.8.0)
       nokogiri (~> 1.5)
       rack (~> 1.1)
@@ -305,6 +282,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.3)
       sprockets-rails
+    rails-api (0.4.0)
+      actionpack (>= 3.2.11)
+      railties (>= 3.2.11)
     rails-assets-angular (1.2.28)
     rails-assets-angular-timer (1.2.1)
       rails-assets-angular (>= 1.0.7)
@@ -318,11 +298,11 @@ GEM
       rails-assets-angular (~> 1.2.9)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.2)
+    rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails-i18n (4.0.4)
       i18n (~> 0.6)
@@ -349,10 +329,9 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.15.0)
-    rake (10.4.2)
+    rake (10.5.0)
     rdoc (4.2.0)
     recaptcha (0.3.6)
-    redcarpet (3.3.4)
     redis (3.2.1)
     redis-objects (1.2.0)
       redis (>= 3.0.2)
@@ -414,10 +393,11 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.3.2)
+    sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    sqlite3 (1.3.10)
     terminal-table (1.5.2)
     thor (0.19.1)
     thread_safe (0.3.5)
@@ -437,7 +417,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
-    unicode-display_width (0.1.1)
     unicode_utils (1.4.0)
     unicorn (4.9.0)
       kgio (~> 2.6)
@@ -446,11 +425,6 @@ GEM
     uniform_notifier (1.9.0)
     warden (1.2.3)
       rack (>= 1.0)
-    web-console (2.3.0)
-      activemodel (>= 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (>= 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     xmpp4r (0.5.6)
@@ -469,15 +443,11 @@ DEPENDENCIES
   action_mailer_cache_delivery
   angularjs-rails
   attr_encrypted
-  awesome_print
   aws-sdk (~> 1)
-  better_errors
-  binding_of_caller
   bootstrap-sass
   brakeman
   browser-timezone-rails
   bullet
-  byebug
   c3-rails
   capybara
   capybara-webkit (~> 1.7)
@@ -488,15 +458,14 @@ DEPENDENCIES
   database_cleaner
   devise (= 3.5.1)
   devise-i18n
+  doorkeeper
+  doorkeeper-i18n
   email_spec
   factory_girl_rails
   faker
   fluent-logger
-  github-markup
-  hirb
-  hirb-unicode
+  hipchat
   i18n-country-translations (= 1.2.2)
-  i18n-docs
   i18n_country_select (= 1.1.5)
   immigrant (~> 0.1)
   jbuilder (~> 2.0)
@@ -505,7 +474,6 @@ DEPENDENCIES
   letter_opener
   log4r
   mail (= 2.5.4)
-  meta_request
   mysql2 (= 0.3.16)
   omniauth
   omniauth-facebook
@@ -513,11 +481,9 @@ DEPENDENCIES
   omniauth-twitter
   paperclip!
   pry
-  pry-rails
-  pry-remote
-  quiet_assets
   rack_session_access
   rails (= 4.2.3)
+  rails-api
   rails-assets-angular-timer (= 1.2.1)!
   rails-assets-entropizer (= 0.1.3)!
   rails-assets-jqlite!
@@ -526,24 +492,22 @@ DEPENDENCIES
   rails-i18n
   rails_admin
   rails_config
-  rake (= 10.4.2)
   recaptcha (~> 0.3.6)
-  redcarpet
   redis-objects
   rest-client
   rmagick
-  rspec-rails (~> 3.0)
+  rspec-rails
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   select2-rails
   simple_form
   simplecov
   spring
+  sqlite3
   time_difference
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
-  web-console (~> 2.0)
   whenever (~> 0.9.4)
   xmpp4r
   yard

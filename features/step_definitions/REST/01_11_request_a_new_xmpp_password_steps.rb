@@ -4,7 +4,7 @@ When(/^client send a PUT request to \/user\/1\/xmpp_account with:$/) do |table|
   path = '//' + Settings.environments.api_domain + "/user/1/xmpp_account"
 
   cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id
-  authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
+  authentication_token = check_authentication_token(data["authentication_token"])
   certificate_serial = @certificate.serial
 
   signature = create_signature(cloud_id, authentication_token, certificate_serial)

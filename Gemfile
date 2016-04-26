@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.3'
+gem 'rails-api'
 gem 'rails-i18n'
 gem 'rake', '10.4.2'
 
@@ -147,6 +148,8 @@ gem 'json', '1.8.2'
 gem 'browser-timezone-rails'
 gem 'whenever', '~> 0.9.4', require: false
 gem 'time_difference'
+gem 'doorkeeper'
+gem 'doorkeeper-i18n'
 
 group :development do
   gem 'brakeman', require: false

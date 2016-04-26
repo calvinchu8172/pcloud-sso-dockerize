@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset='utf-8' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>myZyXELcloud<%= page_title %></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= javascript_tag do %>
+  $(document).ready(function() {
+    $(".select_style").select2();
+    $("input:not([maxlength])").attr("maxlength", "255");
+    $('#password_meter').entropizer({
+      target: '#user_password',
+      maximum: 80,
+      update: function(data, ui){
+        ui.bar.css({
+          'background-color': data.color,
+          'width': data.percent + '%'
+        })
+      }
+    });
+  });
+  <% end %>
+</head>
+
+<body class="layout-rwd">
+
+  <%= render 'layouts/gtm' %>
+
+  <div class="container-fluid">
+
+    <%# header %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <%= render 'layouts/header' %>
+      </div>
+    </div>
+
+    <%# tab %>
+    <%= render 'layouts/devices_tab' %>
+
+    <%# breadcrumb %>
+    <% page_flow = breadcrumb(yield(:flow)) %>
+    <% if page_flow %>
+      <div class="zyxel_bread">
+        <% page_flow.each_with_index do |flow, index| %>
+          <% if index == page_flow.length - 1 %>
+            <span class="last"><%= flow %></span>
+          <% else %>
+            <span><%= flow %> &gt; </span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if yield(:disable_alert) != "hidden" %>
+      <% if flash[:alert] || flash[:notice] %>
+        <div class="alert_info">
+          <div class="zyxel_arlert_area">
+            <span class="error_message"><%= info = flash[:alert] ? flash[:alert] : flash[:notice] %></span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%# breadcrumb - end %>
+    <div class="row">
+      <div class="col-xs-12">
+        <%= yield %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="footer col-xs-12">
+        <span class="support hidden-xs">
+          <%= link_to 'Help', '/help', class:"zyxel_enabled", target: "_blank" %>
+          <div class="diver">|</div>
+          <%= link_to 'Support', 'http://www.zyxel.com/form/Support_Feedback.shtml', class:"zyxel_enabled", target: "_blank" %>
+        </span><br>
+
+        <span class="hidden-xs">Recommended browsers: Internet Explorer 10 and above, Firefox 33 and above, Chrome 38 and above, Safari 8 and above</span><br>
+        <span class="hidden-xs">Copyright © 2014-2015 ZyXEL Communications Corp. All Rights Reserved <%= "#{Version['version']}#{Version['suffix']}" %> Recommended screen resolution: 1280 by 1024</span><br>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

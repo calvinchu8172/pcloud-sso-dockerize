@@ -89,13 +89,13 @@ Feature: [PCP_001_01] Sign Up
       And the new user should receive an email confirmation
 
   Scenario: [PCP_001_01_08]
-    In registration successfully page, should have confirm email link
-     When the visitor success sign up an account:
+    If user doesn't confirm email yet, user will enter email confirmation notice page after sign up
+    When the visitor success sign up an account:
       | E-mail            | personal@example.com   |
       | Password          | 12345678               |
       | Confirm Password  | 12345678               |
-     Then the page will redirect to success page
-      And the user should see "Unverified" button
+
+    Then user will visit page containing "Resend Confirmation E-mail"
 
   Scenario: [PCP_001_01_09]
     Redirect to login page after confirmed

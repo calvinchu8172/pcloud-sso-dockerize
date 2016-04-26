@@ -1,5 +1,7 @@
 class SessionsController < Devise::SessionsController
 
+  layout 'rwd'
+
   # POST /resource/sign_in
   def create
     if omniauth_accout?(params[:user][:email])

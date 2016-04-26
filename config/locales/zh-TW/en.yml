@@ -3,6 +3,7 @@ zh-TW:
   labels:
     language: "語言"
     forgot_password: "忘記密碼"
+    bind_account: "綁定"
     resend_confirmation: "重新寄送"
     unverified: "未驗證"
     sign_in: "登入"
@@ -82,6 +83,7 @@ zh-TW:
     manually: "手動加入裝置"
     profile: "使用者資訊"
     back_to_home: "回主畫面"
+    back_to_profile: "回使用者資訊"
     change_password: "密碼修改"
     edit_profile: "資訊修改"
     mac_address: "硬體位置"
@@ -95,6 +97,7 @@ zh-TW:
   titles:
     change_password: "變更密碼"
     forgot_password: "密碼重設"
+    bind_account: "綁定帳號"
     resend_confirmation: "重新寄送確認信"
     sign_in: "登入帳號"
     sign_up: "帳號註冊"
@@ -117,6 +120,7 @@ zh-TW:
     confirmation_success: "您的帳戶已完成開通，已可使用 ZyXEL Cloud 之服務。"
     forgot_password: "您的密碼已完成重設。"
     sent_email: "您的email已經寄出"
+    agree_terms: "請同意使用者條款"
     settings:
       unpairing:
         instruction: "請問您是否要取消與此裝置的配對？"

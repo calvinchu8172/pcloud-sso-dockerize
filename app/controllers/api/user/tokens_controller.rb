@@ -32,7 +32,13 @@ class Api::User::TokensController < Api::Base
   end
 
   def show
-    render json: {result: 'valid', timeout: current_token_user.authentication_token_ttl} if current_token_user
+
+    if oauth_access_token
+      render json: {result: 'valid', timeout: oauth_access_token.expires_in}
+    elsif current_token_user
+      render json: {result: 'valid', timeout: current_token_user.authentication_token_ttl}
+    end
+
   end
 
   def update
