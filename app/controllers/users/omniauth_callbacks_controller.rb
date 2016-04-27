@@ -1,5 +1,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
+  layout 'rwd'
+
   def all
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     oauth_data      = filter_data(request.env['omniauth.auth'])

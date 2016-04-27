@@ -2,9 +2,7 @@
   <%# LOGO %>
 
   <h1 class="header_h1_rwd">
-    <a href="/">
-      <%= image_tag "logo.png", width: "118", height: "60" %>
-    </a>
+    <%= link_to_unless( in_oauth_flow?, image_tag("logo.png", width: "118", height: "60"), "/" ) %> 
   </h1>
 
   <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
