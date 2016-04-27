@@ -9,7 +9,6 @@
 
   <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
     <%# Display member link when user signed in %>
-    in_oauth_flow: <%= in_oauth_flow? %>
     <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? && !in_oauth_flow?  %>
       <li><%= show_unverified_button %></li>
       <li>
