@@ -28,7 +28,7 @@ Feature: [ASI_01] get vendor device list
       # ["cloud_id", "device_list", "device_name", "serial_number", "meta"]
       # """
   Scenario: [ASI_01_01_02]
-    If there is an exusting vendor device in database, and has not updated in 10 minutes. the vendor device will not be updated.
+    If there is an existing vendor device in database, and has not updated in 10 minutes. the vendor device will not be updated.
 
     # Given there is no vendor device in database
     Given there is an existed vendor device in database
@@ -48,7 +48,7 @@ Feature: [ASI_01] get vendor device list
       ["cloud_id", "device_list"]
       """
   Scenario: [ASI_01_01_03]
-    If there is an exusting vendor device in database, and has not updated in 10 minutes. the vendor device will be updated.
+    If there is an existing vendor device in database, and has not updated in 10 minutes. the vendor device will be updated.
 
     # Given there is no vendor device in database
     Given there is an existed vendor device in database

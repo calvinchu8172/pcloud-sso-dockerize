@@ -1,8 +1,8 @@
 class Api::Resource::VendorDevicesController < Api::Base
-  before_action :check_params
-  before_action :check_cloud_id
-  before_action :check_device
-  before_action :check_signature
+  before_action :check_params, :except => :crawl
+  before_action :check_cloud_id, :except => :crawl
+  before_action :check_device, :except => :crawl
+  before_action :check_signature, :except => :crawl
 
   def index
     begin
@@ -18,7 +18,7 @@ class Api::Resource::VendorDevicesController < Api::Base
       # 假如原本的user_id找不到vendor_devices，則去打ASI的API撈資料，存到DB，再傳json給NAS
       if vendor_devices.blank?
         device_list = get_devise_list_from_vendor(cloud_id)
-        save_data_to_db(device_list)
+        save_data_to_db(device_list, @user.id)
       else
       # 假如user_id找到vendor_devices，看每一個vendor_device的update日期是否超過十分鐘，
       # 若超過，則去打ASI的API撈資料，存到DB，再傳json給NAS
@@ -26,7 +26,7 @@ class Api::Resource::VendorDevicesController < Api::Base
         vendor_devices.each do |vendor_device|
           if Time.now - vendor_device.updated_at > 10*60
             device_list = get_devise_list_from_vendor(cloud_id)
-            save_data_to_db(device_list)
+            save_data_to_db(device_list, @user.id)
           end
         end
       end
@@ -35,6 +35,23 @@ class Api::Resource::VendorDevicesController < Api::Base
       render :json => { "cloud_id" => cloud_id,
                         "device_list" => scan_again_vendor_devices }, status: 200
 
+    rescue Exception => error
+      puts error.message
+      render :json => { error_code: "300", description: "Unexpected error." }, status: 400 if error
+    end
+  end
+
+  def crawl
+    begin
+      over_time_vendor_devices = VendorDevice.select(:id, :user_id, :udid, :device_name, :serial_number, :updated_at).where.not(updated_at: (Time.now - 10*60)..Time.now)
+      over_time_vendor_devices.each do |vendor_device|
+        # cloud_id = vendor_device.user.encoded_id
+        cloud_id = 'zyxoperator'
+        device_list = get_devise_list_from_vendor(cloud_id)
+        save_data_to_db(device_list, vendor_device.user_id)
+      end
+      render :json => { "result" => "success",
+                        "updated_vendor_devices" => over_time_vendor_devices }, status: 200
     rescue Exception => error
       puts error.message
       render :json => { error_code: "300", description: "Unexpected error." }, status: 400 if error
@@ -113,7 +130,7 @@ class Api::Resource::VendorDevicesController < Api::Base
 
     end
 
-    def save_data_to_db(device_list)
+    def save_data_to_db(device_list, user_id)
       devices = JSON.parse(device_list)["data"]
 
       devices.each do |device|
@@ -123,7 +140,7 @@ class Api::Resource::VendorDevicesController < Api::Base
         vendor_device = VendorDevice.find_or_initialize_by(udid: device["deviceId"])
         array = ["deviceLicenseKey", "productClass", "ip", "isOnline", "modelName", "nickName", "externalIp", "firmwareVersion", "deviceId"]
         vendor_device.update(
-          user_id: @user.id,
+          user_id: user_id,
           udid: device["deviceId"],
           vendor_id: 1,
           vendor_product_id: vendor_product.id,
