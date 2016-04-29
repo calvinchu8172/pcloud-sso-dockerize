@@ -147,6 +147,11 @@ Rails.application.routes.draw do
       get 'invitation', to: 'invitations#show', format: 'json'
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
+      resources :vendor_devices, format: 'json'  do
+        collection do
+          post 'crawl'
+        end
+      end
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do

@@ -67,5 +67,23 @@ FactoryGirl.define do
     redirect_uri 'https://app.com/callback'
     expires_in                600
   end
+  factory :vendor, class: Vendor do
+    id                        1
+    name                      "ASI"
+  end
+  factory :vendor_product, class: VendorProduct do
+    product_class_name        "IPCAM"
+    model_class_name          "C11W"
+  end
+  factory :vendor_device, class: VendorDevice do
+    udid                      "B01F81700417"
+    mac_address               "AABBCCDDEEFF"
+    device_name               "ABCDE12345678"
+    firmware_version          "V1"
+    serial_number             "12345678"
+    ipv4_lan                  "c0a80c4f"
+    online_status             1
+  end
+
 
 end

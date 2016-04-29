@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160318093021) do
+ActiveRecord::Schema.define(version: 20160426074150) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20160318093021) do
   add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
 
   create_table "certificates", force: :cascade do |t|
-    t.string "serial",  limit: 255,   null: false
-    t.text   "content", limit: 65535, null: false
+    t.string  "serial",    limit: 255,   null: false
+    t.text    "content",   limit: 65535, null: false
+    t.integer "vendor_id", limit: 4
   end
 
   create_table "ddns", force: :cascade do |t|
@@ -232,6 +233,54 @@ ActiveRecord::Schema.define(version: 20160318093021) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vendor_devices", force: :cascade do |t|
+    t.integer  "user_id",               limit: 4,     null: false
+    t.string   "udid",                  limit: 40,    null: false
+    t.integer  "vendor_id",             limit: 4,     null: false
+    t.integer  "vendor_product_id",     limit: 4,     null: false
+    t.string   "mac_address",           limit: 12
+    t.integer  "mac_range",             limit: 3
+    t.string   "mac_address_secondary", limit: 12
+    t.integer  "mac_range_secondary",   limit: 3
+    t.string   "device_name",           limit: 40
+    t.string   "firmware_version",      limit: 120,   null: false
+    t.string   "serial_number",         limit: 100,   null: false
+    t.string   "ipv4_lan",              limit: 15,    null: false
+    t.string   "ipv6_lan",              limit: 32
+    t.string   "ipv4_wan",              limit: 15
+    t.string   "ipv4_lan_secondary",    limit: 15
+    t.string   "ipv6_lan_secondary",    limit: 32
+    t.string   "ipv4_wan_secondary",    limit: 15
+    t.integer  "online_status",         limit: 1,     null: false
+    t.binary   "meta",                  limit: 65535
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "vendor_products", force: :cascade do |t|
+    t.integer  "vendor_id",          limit: 4,   null: false
+    t.string   "product_class_name", limit: 20,  null: false
+    t.string   "model_class_name",   limit: 255, null: false
+    t.string   "asset_file_name",    limit: 255
+    t.string   "asset_content_type", limit: 255
+    t.integer  "asset_file_size",    limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "vendor_source_ips", force: :cascade do |t|
+    t.integer  "vendor_id",  limit: 4,  null: false
+    t.string   "ip_address", limit: 15, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.string   "name",       limit: 20, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   add_foreign_key "accepted_users", "invitations", name: "accepted_users_invitation_id_fk"
   add_foreign_key "accepted_users", "users", name: "accepted_users_user_id_fk"

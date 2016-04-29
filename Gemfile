@@ -113,7 +113,7 @@ end
 
 gem 'immigrant', '~> 0.1'
 gem 'redis-objects'
-gem 'attr_encrypted'
+gem 'attr_encrypted', '1.3.0'
 
 
 # ------------- #
