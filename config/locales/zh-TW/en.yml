@@ -98,6 +98,7 @@ zh-TW:
     change_password: "變更密碼"
     forgot_password: "密碼重設"
     bind_account: "綁定帳號"
+    login_account: "myZyXELcloud 帳號"
     resend_confirmation: "重新寄送確認信"
     sign_in: "登入帳號"
     sign_up: "帳號註冊"

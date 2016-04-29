@@ -98,6 +98,7 @@ en:
     change_password: Change Password
     forgot_password: Reset Password
     bind_account: Bind your Facebook or Google+ Account
+    login_account: myZyXELcloud Account
     resend_confirmation: Resend Confirmation E-mail
     sign_in: Sign in
     sign_up: Sign Up

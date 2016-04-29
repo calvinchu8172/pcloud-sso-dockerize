@@ -1,0 +1,57 @@
+<% provide(:flow, I18n.t("titles.terms")) %>
+<% provide(:disable_alert, "hidden") %>
+
+<div class="zyxel_content oauth_agreement">
+  <div class="agree_note_box">
+    <% if I18n.locale.to_s  == "zh-TW" %>
+      <%= render "hint/terms/zh_TW" %>
+    <% else %>
+      <%= render "hint/terms/en" %>
+    <% end %>
+  </div>
+  <%= form_for :user, html: { role: "form", name: "oauthForm" }, as: "user", url: oauth_new_url do |f| %>
+
+    <div class="checkbox_area">
+      <label for="user_agreement" class="checkbox_label"><span></span>
+        <%= I18n.t("user.labels.terms.instruction") %>
+        <%= I18n.t("user.labels.terms.instruction_2") %>
+      </label>
+      <strong> *</strong>
+
+      <%= f.check_box :agreement, class: "th_label" %>
+      <label class="check_icon" for="user_agreement"><span></span></label>
+    </div>
+    <% if flash[:notice] %>
+      <div class="alert_info">
+        <div class="zyxel_arlert_area">
+          <span class="error_message"><%= flash[:notice] %></span>
+        </div>
+      </div>
+    <% end %>
+
+    <div style="margin: auto; margin-top: 30px;">
+      <div class="row zyxel_btn_row">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-2">
+          <%= link_to I18n.t("labels.cancel"), new_user_session_url, class: "btn btn-default zyxel_btn_back" %>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+          <%= f.submit I18n.t("labels.confirm"), class: "btn btn-default zyxel_btn_submit" %>
+        </div>
+      </div>
+    </div>
+
+<!--     <div class="sns_sign row">
+        <div class="col-xs-6">
+          <%= link_to "Facebook", user_omniauth_authorize_path(:facebook), class: "zyxel_btn_sns sns_fb" %>
+        </div>
+        <div class="col-xs-6">
+          <%= link_to "Google", user_omniauth_authorize_path(:google_oauth2), class: "zyxel_btn_sns sns_google", style: "margin-right:0" %>
+        </div>
+    </div> -->
+
+  <div>
+    
+  </div>
+
+  <% end %>
+</div>

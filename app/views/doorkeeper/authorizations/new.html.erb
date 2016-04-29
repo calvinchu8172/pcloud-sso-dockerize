@@ -1,6 +1,6 @@
 <div class="zyxel_bread">
   <span><%= t('.title') %></span>
-  <%= link_to I18n.t("labels.back_to_home"), authenticated_root_path, class: "zyxel_btn_main icon_home" %>
+  <%= link_to I18n.t("labels.back_to_home"), authenticated_root_path, class: "zyxel_btn_main icon_home" if !in_oauth_flow? %>
 </div>
 
 <div class="personal">
