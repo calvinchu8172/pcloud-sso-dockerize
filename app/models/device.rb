@@ -170,6 +170,10 @@ class Device < ActiveRecord::Base
     return
   end
 
+  def ip_encode_hex
+    IPAddr.new(current_ip_address).to_i.to_s(16).rjust(8, "0")
+  end
+  
   def ip_decode_hex
     IPAddr.new(self.ip_address.to_i(16), Socket::AF_INET).to_s
   end

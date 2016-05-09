@@ -7,30 +7,32 @@ class Api::Device < Device
 
   def checkin
 
-    instance = self.class.includes(pairing: :invitations).find_by( mac_address: mac_address, serial_number: serial_number)
+    instance = Device.includes(pairing: :invitations).find_by( mac_address: mac_address, serial_number: serial_number)
     if instance.blank?
-      # self.create!(instance.attributes.merge({product_id: @product.id}))
-      # self.product_id = @product.id
-      # self.ip_address = ip_encode_hex
+      # instance 不存在的情形下：
+      # self 的其他 attributes 是在 controller 的 device_checking 當中給值，Example: "@device = Api::Device::Vx.new(....)"，
+      # 因此 self 會有 model_class_name，且須通過 validate_model_name 的驗證。
       self.attributes = { product_id: @product.id, ip_address: ip_encode_hex, online_status: true }
       self.save
       logger.info('create new device id:' + self.id.to_s)
       return true
     else
-      # instance.update_attribute(:ip_address, ip_encode_hex)  
+      # instance 是由 DB 所查詢出來的 device 資料，即使用 "Api::Device" 接也不會有 model_class_name 的值，
+      # 因此當 instance 在 update 時，執行到 validate_model_name，就會出現錯誤，因為 model_class_name 是 nil，
+      # 所以 instance 的物件型態不可設為 "Api::Device"，因 Api::Device 會執行 validate_model_name，
+      # 且當 instance 已經存在 DB 當中時，因重複註冊並不會修改 model_class_name，因此 validate_model_name 可不被執行。
       instance.update( ip_address: ip_encode_hex, online_status: true )
       instance.update_attribute(:mac_address_of_router_lan_port, self.mac_address_of_router_lan_port) if self.mac_address_of_router_lan_port.present?
     end
-
+    
+    # 如果 instance.firmware_version (from DB) 和 firmware_version (from parameters) 的值不同，則修改 firmware_version
     unless firmware_version == instance.firmware_version
       logger.info('update device from fireware version' + firmware_version + ' from ' + firmware_version)
       instance.update_attribute(:firmware_version, firmware_version)
     end
 
-    #self.attributes = instance.attributes
-
     self.attributes.keys.each do |key|
-       self.send("#{key}=", instance.send(key))
+      self.send("#{key}=", instance.send(key))
     end
     self.ddns = instance.ddns if instance.ddns.present?
     return true
@@ -196,7 +198,5 @@ class Api::Device < Device
       errors.add(:parameter, {result: 'invalid parameter'}) if @product.blank?
     end
 
-    def ip_encode_hex
-      IPAddr.new(current_ip_address).to_i.to_s(16).rjust(8, "0")
-    end
+
 end
