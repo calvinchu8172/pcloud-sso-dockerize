@@ -2,17 +2,18 @@ Feature: [REST_00_02] Device Register V3
 
   Background:
     Given the device with information
-      | mac_address      | 099789665701 |
-      | serial_number    | A123456      |
-      | model_name       | NSA325       |
-      | firmware_version | 1.0          |
-      | algo             | 1            |
-      And an existing certificate and RSA key
+      | mac_address      | 099789665701  |
+      | serial_number    | A123456       |
+      | model_name       | NSA325        |
+      | firmware_version | 1.0           |
+      | algo             | 1             |
+      | ip_address       | 192.168.50.10 |
 
   Scenario Outline: [REST_00_02_01]
     Check correct update process when valid format
      When the device already registration
       And the device "<information>" was be changed to "<value>"
+      And the device IP was be changed to "192.168.50.11"
       And the device send information to REST API /d/3/register
      Then the API should return success respond
       And the record in databases as expected

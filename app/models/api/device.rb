@@ -198,7 +198,5 @@ class Api::Device < Device
       errors.add(:parameter, {result: 'invalid parameter'}) if @product.blank?
     end
 
-    def ip_encode_hex
-      IPAddr.new(current_ip_address).to_i.to_s(16).rjust(8, "0")
-    end
+
 end
