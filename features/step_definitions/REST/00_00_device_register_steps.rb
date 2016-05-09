@@ -15,7 +15,13 @@ When(/^the device send information to REST API \/d\/1\/register$/) do
 end
 
 Given(/^the device already registration$/) do
-  @registered_device = Device.checkin(@device.symbolize_keys)
+  @registered_device = Api::Device.checkin(@device.symbolize_keys)
+  @registered_device.model_class_name = @device['model_name'] unless @device['model_name'].blank?
+  if !@device['ip_address'].blank?
+    @registered_device.current_ip_address = @device['ip_address']
+    @registered_device.ip_address = @registered_device.ip_encode_hex
+  end 
+  @registered_device.save!
 end
 
 When(/^the device send reset request to REST API \/d\/1\/register$/) do
@@ -112,6 +118,9 @@ def check_rest_result_valid(device, result)
   if ENV['RAILS_TEST_IP_ADDRESS'].nil?
     expect(device_session["ip"]).to eq('127.0.0.1')
   else
+    #Check device ip address changed
+    device = Device.find(device_id)
+    expect(device.ip_decode_hex).to eq(ENV['RAILS_TEST_IP_ADDRESS'])
     expect(device_session["ip"]).to eq(ENV['RAILS_TEST_IP_ADDRESS'])
   end
 
