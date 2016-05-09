@@ -15,6 +15,7 @@ zh-TW:
     retry: "重試"
     submit: "提交"
     confirm: "確認"
+    next: "下一步"
     ok: OK
     or: "或"
     expand_all: "全部展開"
@@ -26,6 +27,7 @@ zh-TW:
         failure: "接受失敗"
         success_desc: "恭喜！你加入了共享文件夾 %{share_point} 成功。"
         failure_desc: "該邀請 %{share_point} 不可用，請稍後再試一次。"
+        accepted_desc: "此myZyXELcloud帳號已經被加入了。"
       ddns:
         instruction: DDNS設定
         host_name: Host Name
@@ -74,7 +76,7 @@ zh-TW:
           myzyxelcloud-agent: "myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台"
           owncloud: "允許你建立與管理個人雲."
           pyload: "透過NAS輕鬆管理免費空間(one-click-hosting)的下載任務。"
-    pairing: "裝置配對"
+    pairing: "在此帳號下配對 NAS"
     paired: "裝置已配對"
     unpairing: "取消配對"
     manually: "手動加入裝置"

@@ -15,6 +15,7 @@ ru:
     retry: "Повтор"
     submit: "Ввод"
     confirm: "Применить"
+    next: Next
     ok: OK
     or: "или"
     expand_all: "Развернуть все"
@@ -26,6 +27,7 @@ ru:
         failure: "Приглашение не принято"
         success_desc: "Поздравляем! Вы получили доступ к общей папке %{share_point}."
         failure_desc: "Приглашение к %{share_point} недоступно, повторите попытку позже."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: "Настройка DDNS"
         host_name: "Имя хоста"
@@ -74,7 +76,7 @@ ru:
           myzyxelcloud-agent: 'myZyXELcloud — это система для удаленного управления приложениями и безопасного доступа к вашим периферийным сетевым устройствам ZyXEL из любого места, где имеется интернет-соединение!'
           owncloud: "Обеспечивает создание и управление частным облаком."
           pyload: "Функциональный модуль для управления закачками на NAS, в том числе с популярных файловых хостингов."
-    pairing: "Сопряжение"
+    pairing: "Pair NAS with account"
     paired: "Подключено"
     unpairing: "Отмена сопряжения"
     manually: "Добавить вручную"

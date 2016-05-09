@@ -20,7 +20,7 @@
           </span>
         </th>
         <td class="td_right pairing_btn_fix">
-          <a ng-if="!device.paired" class="zyxel_btn_style1" href="/discoverer/check/{{device.device_id}}"  ><%= I18n.t("labels.pairing") %></a>
+          <a ng-if="!device.paired" class="" href="/discoverer/check/{{device.device_id}}"  ><%= image_tag "pairing_icon.gif", :size=> "130x42", :alt=>I18n.t("labels.pairing"), :title=>I18n.t("labels.pairing") %></a>
           <span ng-if="device.paired" class="zyxel_btn_style1 zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.paired") %></span>
           <a ng-if="device.has_indicator_module && !device.paired" ng-show="!device.indicated" class="zyxel_btn_style1" href="#" ng-click="doIndicate($index);"><%= I18n.t("labels.find_nas") %></a>
           <span ng-if="device.has_indicator_module && !device.paired" ng-show="device.indicated" class="zyxel_btn_style1 zyxel_btn_disabled pull-right disabled" ><%= I18n.t("labels.find_nas") %></span>

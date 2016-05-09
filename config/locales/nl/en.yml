@@ -15,6 +15,7 @@ nl:
     retry: Opnieuw
     submit: Verstuur
     confirm: Bevestig
+    next: Next
     ok: OK
     or: of
     expand_all: Allemaal uitvouwen
@@ -26,6 +27,7 @@ nl:
         failure: Mislukt om uitnodiging te accepteren
         success_desc: "Gefeliciteerd! U bent succesvol aan de gedeelde map %{share_point} toegevoegd"
         failure_desc: "De uitnodigning voor %{share_point} is niet mogelijk, probeer het later opnieuw."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS Setup
         host_name: Host Name
@@ -74,7 +76,7 @@ nl:
           myzyxelcloud-agent: 'myZyXELcloud, uw oplossing voor remote applicatiebeheer en veilig toegang tot uw ZyXEL netwerkapparaten en accessoires vanaf elke locatie met een internetverbinding!'
           owncloud: 'Dit stelt u in staat om uw Cloud te creëren en te beheren.'
           pyload: 'Laat de NAS uw downloads beheren en uitvoeren, waaronder die van one-click-hosting sites.'
-    pairing: Koppelen
+    pairing: Pair NAS with account
     paired: Gekoppeld
     unpairing: Ontkoppelen
     manually: handmatig toevoegen

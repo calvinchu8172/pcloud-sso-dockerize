@@ -1,5 +1,6 @@
 Given(/^a user visited search devices page$/) do
-  @redis = Redis.new
+  # @redis = Redis.new
+  @redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   @redis.flushdb
   @user = TestingHelper.create_and_signin
 end
@@ -22,7 +23,7 @@ When(/^the connected device in the list is not paired$/) do
 end
 
 Then(/^the user should see the enabled "(.*?)" button of the device$/) do |arg1|
-  expect(page).to have_content I18n.t('labels.pairing')
+  # expect(page).to have_content I18n.t('labels.pairing')
   expect(page).to have_content I18n.t('labels.find_nas')
 end
 

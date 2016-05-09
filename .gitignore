@@ -33,6 +33,7 @@ config/settings/*.yml
 
 config/environments/*.local.yml
 config/*.yml
+!config/cucumber.yml
 
 /vendor/assets/components
 coverage

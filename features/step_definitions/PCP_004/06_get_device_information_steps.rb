@@ -97,7 +97,8 @@ end
 
 def device_for_test(info_data = {})
 
-  @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
+  # @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
+  @redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
 
   info = %Q({"fan_speed":"759",
      "cpu_temperature_celsius":"39.00",

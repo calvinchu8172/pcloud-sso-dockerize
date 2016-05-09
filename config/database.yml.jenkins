@@ -2,15 +2,14 @@ default: &default
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: personal_cloud
+  database: mycloud
   host: 127.0.0.1
   username: root
-  password: 12345678
   collation: utf8_general_ci
 
 xmpp_default: &xmpp_default
   <<: *default
-  database: mongooseim
+  database: mogooseim
 
 development:
   <<: *default
@@ -19,27 +18,14 @@ xmpp_development:
   <<: *xmpp_default
 
 xmpp_test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: mongooseim
-  host: mysql
-  username: root
-  password:
-  collation: utf8_general_ci
+  <<: *xmpp_default
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
+  <<: *default
   database: mycloud_test
-  host: mysql
-  username: root
-  password:
-  collation: utf8_general_ci
 
 
 production:

@@ -194,7 +194,8 @@ end
 
 
 def get_upnp_session
-  redis = Redis.new
+  # redis = Redis.new
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
   @session_index = redis.GET("upnp:session:index")
   UpnpSession.find(@session_index).session.all
 end

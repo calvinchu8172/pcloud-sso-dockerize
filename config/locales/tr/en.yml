@@ -15,6 +15,7 @@ tr:
     retry: Tekrar Dene
     submit: Gönder
     confirm: Onayla
+    next: Next
     ok: Tamam
     or: veya
     expand_all: Tümünü Genişlet
@@ -26,6 +27,7 @@ tr:
         failure: Davet kabul edilmedi
         success_desc: "Tebrikler! Paylaşılan klasöre %{share_point} başarıyla katıldınız."
         failure_desc: "%{share_point} daveti mevcut değil; lütfen daha sonra tekrar deneyin."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS Ayarı
         host_name: Sunucu Adı
@@ -74,7 +76,7 @@ tr:
           myzyxelcloud-agent: 'myZyXELcloud, uzak uygulama yönetimi ve bir Internet bağlantısına sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza güvenli erişime yönelik çözümünüzdür!'
           owncloud: 'Kişisel bulut hesabınızı oluşturmanıza ve yönetmenize izin verir.'
           pyload: 'NAS cihazınızın one-click-hosting sitelerinin de içerisinde bulunduğu indirmelerini yönetebilirsiniz.'
-    pairing: Eşleştiriliyor
+    pairing: Pair NAS with account
     paired: Eşleştirildi
     unpairing: Eşleştirme kaldırılıyor
     manually: Elle Ekle

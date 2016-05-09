@@ -15,6 +15,7 @@ de:
     retry: Wiederholen
     submit: Abschicken
     confirm: Bestätigen
+    next: Next
     ok: OK
     or: oder
     expand_all: Alle erweitern
@@ -26,6 +27,7 @@ de:
         failure: Einladung annehmen fehlgeschlagen
         success_desc: "Herlichen Glückwunsch! Sie haben den geteilten Ordner %{share_point} erfolgreich aufgerufen."
         failure_desc: "Die Einladung zum %{share_point} ist nicht verfügbar, bitte versuchen Sie es später noch einmal."
+        accepted_desc: "This myZyXELcloud account has already been added."
       ddns:
         instruction: DDNS Einrichtung
         host_name: Host Name
@@ -74,7 +76,7 @@ de:
           myzyxelcloud-agent: 'vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und sicheren Zugriff auf Ihrem ZyXEL NAS'
           owncloud: 'Damit können Sie Ihre private Cloud erstellen und verwalten.'
           pyload: 'Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster Support.'
-    pairing: Verbinden
+    pairing: Pair NAS with account
     paired: Verbunden
     unpairing: Trennen
     manually: Manuelles hinzufügen

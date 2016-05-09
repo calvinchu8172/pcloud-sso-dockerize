@@ -22,7 +22,10 @@ class Api::Resource::PersonalController < Api::Base
           :firmware_ver => device.firmware_version,
           :model => device.product.model_class_name,
           :last_update_time => ddns.nil? ? '' : ddns.updated_at.strftime("%Y/%m/%d %H:%I:%S"),
-          :is_owner => is_owner
+          :is_owner => is_owner,
+          :online_status => device.online_status,
+          :wol_status => device.wol_status,
+          :mac_address_of_router_lan_port => device.mac_address_of_router_lan_port
         }
       end
       result.sort_by{ |device_id, obj| [obj[:is_owner] ? 1 : 0,  obj[:host_name]] }

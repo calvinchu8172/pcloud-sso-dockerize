@@ -42,7 +42,7 @@ class InvitationsController < ApplicationController
 		# update the status of accepted_user from 0 to 1
 		@accepted_user.finish_accept if done?
 		result = { :status => session_status, :expire_at => @accepted_session['expire_at'] }
-		result.store(:error_code, @accepted_session['error_code']) unless @accepted_session['error_code'].blank?
+		result.store(:error_code, error_code) unless error_code.blank?
 		render :json => result
   end
 
@@ -67,6 +67,10 @@ class InvitationsController < ApplicationController
 
 	def session_status
 		@accepted_session['status']
+	end
+
+	def error_code
+		@accepted_session['error_code']
 	end
 
 end
