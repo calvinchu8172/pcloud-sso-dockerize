@@ -8,6 +8,7 @@ Feature: [REST_00_02] Device Register V3
       | firmware_version | 1.0           |
       | algo             | 1             |
       | ip_address       | 192.168.50.10 |
+    And an existing certificate and RSA key
 
   Scenario Outline: [REST_00_02_01]
     Check correct update process when valid format
