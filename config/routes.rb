@@ -174,6 +174,7 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/device/1/', :module => "api/devices" do
+      get 'online_status', to: 'online_status#show', format: 'json'
       put 'online_status', to: 'online_status#update', format: 'json'
     end
 
