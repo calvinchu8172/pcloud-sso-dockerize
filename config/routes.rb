@@ -1,19 +1,19 @@
 Rails.application.routes.draw do
 
-  use_doorkeeper scope: 'oauth' do
-    controllers authorizations: 'oauth2/authorizations',
-                tokens: 'oauth2/tokens',
-                applications: 'oauth2/applications',
-                authorized_applications: 'oauth2/authorized_applications'
-  end
+  # use_doorkeeper scope: 'oauth' do
+  #   controllers authorizations: 'oauth2/authorizations',
+  #               tokens: 'oauth2/tokens',
+  #               applications: 'oauth2/applications',
+  #               authorized_applications: 'oauth2/authorized_applications'
+  # end
 
-  scope module: 'oauth2' do
-    namespace :api do
-      namespace :v1 do
-        get 'my/info', to: 'my#info', format: 'json'
-      end
-    end
-  end
+  # scope module: 'oauth2' do
+  #   namespace :api do
+  #     namespace :v1 do
+  #       get 'my/info', to: 'my#info', format: 'json'
+  #     end
+  #   end
+  # end
 
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
@@ -27,6 +27,13 @@ Rails.application.routes.draw do
       unauthenticated do
         root 'sessions#new', as: :unauthenticated_root
       end
+    end
+
+    use_doorkeeper scope: 'oauth' do
+      controllers authorizations: 'oauth2/authorizations',
+                  tokens: 'oauth2/tokens',
+                  applications: 'oauth2/applications',
+                  authorized_applications: 'oauth2/authorized_applications'
     end
 
     get 'hint/signup'
@@ -112,6 +119,14 @@ Rails.application.routes.draw do
 
   # Routes for Pcloud REST API server
   constraints :host => Settings.environments.api_domain  do
+
+    scope module: 'oauth2' do
+      namespace :api do
+        namespace :v1 do
+          get 'my/info', to: 'my#info', format: 'json'
+        end
+      end
+    end
 
     # post '/d/1/:action' => "device"
     # post '/d/2/:action' => "device"
