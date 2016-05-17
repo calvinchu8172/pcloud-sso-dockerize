@@ -36,7 +36,6 @@ class Api::Resource::VendorDevicesController < Api::Base
                         "device_list" => scan_again_vendor_devices }, status: 200
 
     rescue Exception => error
-      puts error.message
       render :json => { error_code: "300", description: "Unexpected error." }, status: 400 if error
     end
   end

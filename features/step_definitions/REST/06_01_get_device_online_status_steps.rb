@@ -4,8 +4,6 @@ Given(/^an device exists$/) do
 end
 
 When(/^user sends a GET request to \/device\/(\d+)\/online_status with:$/) do |arg1, table|
-  # table is a Cucumber::Ast::Table
-  # pending # express the regexp above with the code you wish you had
   data = table.rows_hash
   path = '//' + Settings.environments.api_domain + "/device/1/online_status"
 
