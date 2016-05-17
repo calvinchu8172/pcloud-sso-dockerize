@@ -160,6 +160,7 @@ Rails.application.routes.draw do
     scope :path => '/resource/1/', :module => "api/resource" do
       post 'invitation', to: 'invitations#create', format: 'json'
       get 'invitation', to: 'invitations#show', format: 'json'
+      post 'permission', to: 'permissions#create', format:'json'
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
       resources :vendor_devices, format: 'json'  do
