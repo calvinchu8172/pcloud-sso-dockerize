@@ -138,7 +138,7 @@ Feature: [REST_07_01] Accept Invitation API
       | description           | Invalid signature.             |
 
   Scenario: [REST_07_01_10]
-    The invitee is failed to accepts invitation with invalid signature.
+    The invitee is failed to accepts invitation with some other error.
 
     When something wrong when set session or other error
      And user sends a POST request to /resource/1/permission with:
