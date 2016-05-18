@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129065533) do
+ActiveRecord::Schema.define(version: 20160426074150) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20160129065533) do
   add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
 
   create_table "certificates", force: :cascade do |t|
-    t.string "serial",  limit: 255,   null: false
-    t.text   "content", limit: 65535, null: false
+    t.string  "serial",    limit: 255,   null: false
+    t.text    "content",   limit: 65535, null: false
+    t.integer "vendor_id", limit: 4
   end
 
   create_table "ddns", force: :cascade do |t|
@@ -60,6 +61,13 @@ ActiveRecord::Schema.define(version: 20160129065533) do
   add_index "devices", ["mac_address", "serial_number"], name: "index_devices_on_mac_address_and_serial_number", unique: true, using: :btree
   add_index "devices", ["mac_address"], name: "index_devices_on_mac_address", using: :btree
   add_index "devices", ["product_id"], name: "devices_product_id_fk", using: :btree
+
+  create_table "diagram_datapoints", force: :cascade do |t|
+    t.string   "type",       limit: 255
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "domains", force: :cascade do |t|
     t.string   "domain_name", limit: 192, null: false
@@ -109,6 +117,46 @@ ActiveRecord::Schema.define(version: 20160129065533) do
   add_index "login_logs", ["os"], name: "index_login_logs_on_os", using: :btree
   add_index "login_logs", ["sign_in_at"], name: "index_login_logs_on_sign_in_at", using: :btree
   add_index "login_logs", ["user_id"], name: "index_login_logs_on_user_id", using: :btree
+
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.integer  "resource_owner_id", limit: 4,     null: false
+    t.integer  "application_id",    limit: 4,     null: false
+    t.string   "token",             limit: 255,   null: false
+    t.integer  "expires_in",        limit: 4,     null: false
+    t.text     "redirect_uri",      limit: 65535, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "revoked_at"
+    t.string   "scopes",            limit: 255
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.integer  "resource_owner_id", limit: 4
+    t.integer  "application_id",    limit: 4
+    t.string   "token",             limit: 255, null: false
+    t.string   "refresh_token",     limit: 255
+    t.integer  "expires_in",        limit: 4
+    t.datetime "revoked_at"
+    t.datetime "created_at",                    null: false
+    t.string   "scopes",            limit: 255
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string   "name",         limit: 255,                null: false
+    t.string   "uid",          limit: 255,                null: false
+    t.string   "secret",       limit: 255,                null: false
+    t.text     "redirect_uri", limit: 65535,              null: false
+    t.string   "scopes",       limit: 255,   default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "pairing_logs", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -185,6 +233,54 @@ ActiveRecord::Schema.define(version: 20160129065533) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "vendor_devices", force: :cascade do |t|
+    t.integer  "user_id",               limit: 4,     null: false
+    t.string   "udid",                  limit: 40,    null: false
+    t.integer  "vendor_id",             limit: 4,     null: false
+    t.integer  "vendor_product_id",     limit: 4,     null: false
+    t.string   "mac_address",           limit: 12
+    t.integer  "mac_range",             limit: 3
+    t.string   "mac_address_secondary", limit: 12
+    t.integer  "mac_range_secondary",   limit: 3
+    t.string   "device_name",           limit: 40
+    t.string   "firmware_version",      limit: 120,   null: false
+    t.string   "serial_number",         limit: 100,   null: false
+    t.string   "ipv4_lan",              limit: 15,    null: false
+    t.string   "ipv6_lan",              limit: 32
+    t.string   "ipv4_wan",              limit: 15
+    t.string   "ipv4_lan_secondary",    limit: 15
+    t.string   "ipv6_lan_secondary",    limit: 32
+    t.string   "ipv4_wan_secondary",    limit: 15
+    t.integer  "online_status",         limit: 1,     null: false
+    t.binary   "meta",                  limit: 65535
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  create_table "vendor_products", force: :cascade do |t|
+    t.integer  "vendor_id",          limit: 4,   null: false
+    t.string   "product_class_name", limit: 20,  null: false
+    t.string   "model_class_name",   limit: 255, null: false
+    t.string   "asset_file_name",    limit: 255
+    t.string   "asset_content_type", limit: 255
+    t.integer  "asset_file_size",    limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "vendor_source_ips", force: :cascade do |t|
+    t.integer  "vendor_id",  limit: 4,  null: false
+    t.string   "ip_address", limit: 15, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.string   "name",       limit: 20, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   add_foreign_key "accepted_users", "invitations", name: "accepted_users_invitation_id_fk"
   add_foreign_key "accepted_users", "users", name: "accepted_users_user_id_fk"

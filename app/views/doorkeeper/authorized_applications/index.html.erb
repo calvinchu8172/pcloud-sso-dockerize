@@ -1,0 +1,63 @@
+<% provide(:disable_alert, "hidden") %>
+<div class="zyxel_bread">
+  <span><%= t('doorkeeper.authorized_applications.index.title') %></span>
+  <%= link_to I18n.t("labels.back_to_home"), authenticated_root_path, class: "zyxel_btn_main icon_home" %>
+</div>
+<div class="personal">
+  <div class="zyxel_content" style="max-width: 600px;">
+    <% if flash[:notice] %>
+      <div class="zyxel_arlert_area">
+        <span class="error_message"><%= flash[:notice] %></span>
+      </div>
+    <% end %>
+    <table class="zyxel_table_style zyxel_table_style1 user_info" style="word-break: break-all;">
+    <!-- <table class="zyxel_table_style1"> -->
+      <thead>
+      <tr>
+        <th class="col-xs-8 col-sm-4 col-md-4 col-lg-4"><%= t('doorkeeper.authorized_applications.index.application') %></th>
+        <th class="col-xs-3 col-sm-4 col-md-4 col-lg-4"><%= t('doorkeeper.authorized_applications.index.created_at') %></th>
+        <th class="col-xs-1 col-sm-4 col-md-4 col-lg-4"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @applications.each do |application| %>
+        <tr>
+          <td><%= application.name %></td>
+          <td><%= application.created_at.strftime(t('doorkeeper.authorized_applications.index.date_format')) %></td>
+          <td><%= render 'delete_form', application: application %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+     <div class="zyxel_btn_area i18n_fix">
+      <%= link_to I18n.t("labels.back_to_profile"), personal_profile_path, class: "zyxel_btn_ok" %>
+    </div><!-- zyxel_btn_area -->
+
+  </div> <!-- content -->
+</div> <!-- personal -->
+
+<!-- <header class="page-header">
+  <h1><%#= t('doorkeeper.authorized_applications.index.title') %></h1>
+</header>
+<main role="main">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th><%#= t('doorkeeper.authorized_applications.index.application') %></th>
+      <th><%#= t('doorkeeper.authorized_applications.index.created_at') %></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%# @applications.each do |application| %>
+      <tr>
+        <td><%#= application.name %></td>
+        <td><%#= application.created_at.strftime(t('doorkeeper.authorized_applications.index.date_format')) %></td>
+        <td><%#= render 'delete_form', application: application %></td>
+      </tr>
+    <%# end %>
+    </tbody>
+  </table>
+</main> -->

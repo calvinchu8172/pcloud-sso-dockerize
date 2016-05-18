@@ -4,6 +4,8 @@
 <div class="zyxel_content">
   <span class="zyxel_span3"><%= t("devise.confirmations.confirm_sent") %></span>
   <div class="zyxel_btn_area i18n_fix">
-    <%= link_to t("labels.ok") , destroy_user_session_path, class: "zyxel_btn_ok" %>
+    <div class="zyxel_btn_area_center">
+      <%= link_to t("labels.ok") , destroy_user_session_path, class: "zyxel_btn_ok" %>
+    </div>
   </div><!-- zyxel_btn_area -->
 </div><!-- content -->

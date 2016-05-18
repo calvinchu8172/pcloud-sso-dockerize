@@ -1,4 +1,20 @@
 Rails.application.routes.draw do
+
+  use_doorkeeper scope: 'oauth' do
+    controllers authorizations: 'oauth2/authorizations',
+                tokens: 'oauth2/tokens',
+                applications: 'oauth2/applications',
+                authorized_applications: 'oauth2/authorized_applications'
+  end
+
+  scope module: 'oauth2' do
+    namespace :api do
+      namespace :v1 do
+        get 'my/info', to: 'my#info', format: 'json'
+      end
+    end
+  end
+
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
@@ -30,8 +46,12 @@ Rails.application.routes.draw do
       :omniauth_callbacks => "users/omniauth_callbacks"}
 
     devise_scope :user do
-      get 'users/confirmation/edit', to: "confirmations#edit"
-      patch 'users/confirmation', to: "confirmations#update"
+      get   'users/confirmation/edit', to: 'confirmations#edit'
+      patch 'users/confirmation',      to: 'confirmations#update'
+      get   'oauth/new',               to: 'users/omniauth_callbacks#new'
+      post  'oauth/new',               to: 'users/omniauth_callbacks#confirm'
+      get   'oauth/login',             to: 'users/omniauth_callbacks#login'
+      post  'oauth/login',             to: 'users/omniauth_callbacks#logining'
     end
 
     get 'ddns/:id', to: 'ddns#show'
@@ -82,9 +102,6 @@ Rails.application.routes.draw do
     get 'unpairing/success/:id', to: 'unpairing#success', as: 'unpairing_success'
     get 'unpairing/destroy/:id', to: 'unpairing#destroy', as: 'unpairing_destroy'
 
-    post 'oauth/confirm'
-    get 'oauth/new'
-
     get 'invitations/accept/:id', to: 'invitations#accept'
     get 'invitations/accept', to: 'invitations#accept'
     get 'invitations/check_connection/:id', to: 'invitations#check_connection'
@@ -130,6 +147,11 @@ Rails.application.routes.draw do
       get 'invitation', to: 'invitations#show', format: 'json'
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
+      resources :vendor_devices, format: 'json'  do
+        collection do
+          post 'crawl'
+        end
+      end
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do

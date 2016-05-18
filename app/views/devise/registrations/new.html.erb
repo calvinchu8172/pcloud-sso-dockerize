@@ -1,84 +1,102 @@
 <% provide(:flow, I18n.t("titles.sign_up")) %>
-
 <div class="zyxel_content sign_up" style="max-width: 530px;">
+
   <%= form_for(resource, html: {role: "form"},as: resource_name, url: registration_path(resource_name)) do |f| %>
 
     <%# Hidden current user language %>
     <%=  f.hidden_field :language, :value => I18n.locale.to_s %>
     <%# Hidden current user language - end %>
 
-    <fieldset>
-      <table class="zyxel_table_style user_info">
+    <div class="zyxel_table_style user_info">
 
-        <%# e-Mail %>
-        <tr>
-          <th>
+      <%# e-Mail %>
+      <div class="row">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <span>* </span>
-            <%= f.label :email, I18n.t("user.labels.email"), class: "th_label" %>
-          </th>
-          <td>
-            <%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %>
-          </td>
-        </tr>
-        <%# e-Mail - end %>
+              <%= f.label :email, I18n.t("user.labels.email"), class: "th_label" %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %>
+        </div>
+      </div>
+      <%# e-Mail - end %>
 
-        <%# Password %>
-        <tr>
-          <th>
+      <%# Password %>
+      <div class="row">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <span>* </span>
-            <%= f.label :password, I18n.t("user.labels.password"), class: "th_label" %>
-          </th>
-          <td>
-            <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
-            <div class="password_suggestion"><%= I18n.t("user.labels.password_suggestion")%></div>
-            <div id="password_meter"></div>
-          </td>
-        </tr>
-        <%# Password -end %>
+              <%= f.label :password, I18n.t("user.labels.password"), class: "th_label" %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.password_field :password, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
+          <div class="password_suggestion"><%= I18n.t("user.labels.password_suggestion")%></div>
+          <div id="password_meter"></div>
+        </div>
+      </div>
+      <%# Password -end %>
 
-        <tr>
-          <th>
+      <%# Password Confirmation %>
+      <div class="row">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <span>* </span>
             <%= f.label :password_confirmation, I18n.t("user.labels.password_confirmation"), class: "th_label" %>
-          </th>
-          <td>
-            <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
-          </td>
-        </tr>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "input_style1 td_field", maxlength:14 %>
+        </div>
+      </div>
+      <%# Password Confirmation - end %>
 
-        <%# User name %>
-        <tr>
-          <th>
+      <%# User Name %>
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <%= f.label :first_name, I18n.t("user.labels.first_name") %>
-          </th>
-          <td>
-            <%= f.text_field :first_name, class: "input_style1" %>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <%= f.label :middle_name, I18n.t("user.labels.middle_name") %>
-          </th>
-          <td>
-            <%= f.text_field :middle_name, class: "input_style1" %>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <%= f.label :last_name, I18n.t("user.labels.last_name") %>
-          </th>
-          <td>
-            <%= f.text_field :last_name, class: "input_style1" %>
-          </td>
-        </tr>
-        <%# User name - end %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.text_field :first_name, class: "input_style1" %>
+        </div>
+      </div>
 
-        <%# Gender %>
-        <tr>
-          <th>
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
+            <%= f.label :middle_name, I18n.t("user.labels.middle_name") %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.text_field :middle_name, class: "input_style1" %>
+        </div>
+      </div>
+
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
+            <%= f.label :last_name, I18n.t("user.labels.last_name") %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.text_field :last_name, class: "input_style1" %>
+        </div>
+      </div>
+      <%# User Name - end %>
+
+      <%# Gender %>
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <%= f.label :gender, I18n.t("user.labels.gender") %>
-          </th>
-          <td>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <!-- <div style="margin-top: "> -->
             <label class="radio-inline">
               <%= f.radio_button :gender, "male"%>
               <%= label :gender, I18n.t("user.labels.male") %>
@@ -87,62 +105,72 @@
               <%= f.radio_button :gender, "female"%>
               <%= label :gender, I18n.t("user.labels.female") %>
             </label>
-          </td>
-        </tr>
-        <%# Gender - end %>
+          <!-- </div> -->
+        </div>
+      </div>
+      <%# Gender - end %>
 
-        <%# Birthday %>
-        <tr>
-          <th>
+      <%# Birthday %>
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <%= f.label :birthday, I18n.t("user.labels.birthday") %>
-          </th>
-          <td class="user_info_select">
-            <%= f.date_select :birthday, {start_year: 1955, end_year: Time.now.year, use_month_numbers: true, prompt: { day: I18n.t("user.labels.day"), month: I18n.t("user.labels.month"), year: I18n.t("user.labels.year") }}, class: "select_style select_width100" %>
-          </td>
-        </tr>
-        <%# Birthday - end %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td user_info_select col-xs-11 col-md-9">
+          <%= f.date_select :birthday, {start_year: 1955, end_year: Time.now.year, use_month_numbers: true, prompt: { day: I18n.t("user.labels.day"), month: I18n.t("user.labels.month"), year: I18n.t("user.labels.year") }}, class: "select_style select_width100" %>
+        </div>
+      </div>
+      <%# Birthday - end %>
 
-        <%# Phone number %>
-        <tr>
-          <th>
+      <%# Phone Number %>
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <%= f.label :mobile_number, I18n.t("user.labels.phone_number"), class: "th_label" %>
-          </th>
-          <td>
-            <%= f.text_field :mobile_number, class: "input_style1 td_field", maxlength: 40 %>
-          </td>
-        </tr>
-        <%# Phone number - end %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.text_field :mobile_number, class: "input_style1 td_field", maxlength: 40 %>
+        </div>
+      </div>
+      <%# Phone Number - end %>
 
-        <%# Country %>
-        <tr>
-          <th>
+      <%# Country %>
+      <div class="row hidden-xs">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
             <%= f.label :country, I18n.t("user.labels.country") %>
-          </th>
-          <td class="user_info_select">
-            <%= f.country_code_select :country, {'' => ''}, {}, {class: "select_style"} %>
-          </td>
-        </tr>
-        <%# Country - end %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td user_info_select col-xs-11 col-md-9">
+          <%= f.country_code_select :country, {'' => ''}, {}, {class: "select_style"} %>
+        </div>
+      </div>
+      <%# Country - end %>
 
-        <%# Recaptcha %>
-        <tr>
-          <th><span>* </span><%= I18n.t("user.labels.captcha") %></th>
-          <td>
-            <%= recaptcha_tags ajax: true %>
-            <% if flash[:error] %>
-              <div class="error">
-                <div class="zyxel_arlert_area">
-                  <label class="error_message"><%= flash[:error] %></label>
-                </div>
+      <%# Recaptcha %>
+      <div class="row">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
+            <span>* </span>
+            <%= I18n.t("user.labels.captcha") %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= recaptcha_tags ajax: true %>
+          <% if flash[:error] %>
+            <div class="error">
+              <div class="zyxel_arlert_area">
+                <label class="error_message"><%= flash[:error] %></label>
               </div>
-            <% end %>
-          </td>
-        </tr>
-        <%# Recaptcha - end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <%# Recaptcha - end %>
 
-      </table>
-    </fieldset>
-
+    </div>
 
     <div class="checkbox_i18n_wrap">
       <!-- Terms accept -->
@@ -155,9 +183,7 @@
         <label class="checkbox_label" for="user_agreement">
           <span></span>
           <%= I18n.t("user.labels.terms.instruction") %> 
-          <a href="#"  onClick="window.open('<%= hint_agreement_path %>','_blank')" >
-            <%= I18n.t("user.labels.terms.instruction_2") %>
-          </a>
+          <%= link_to I18n.t("user.labels.terms.instruction_2"), '#', data: { toggle: 'modal', target: '#user_agreement_dialog' } %>
           <strong> *</strong>
         </label>
         <!-- End of checkbox real label text -->
@@ -177,10 +203,38 @@
 
 
     <%# Submit and cancel button %>
-    <div class="zyxel_btn_area i18n_fix">
-      <a href="<%= new_session_path(resource_name) %>" class="zyxel_btn_back"><%= I18n.t("labels.cancel") %></a>
-      <%= f.submit I18n.t("labels.sign_up"), class: "zyxel_btn_submit" %>
+    <div>
+      <div class="row zyxel_btn_row">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-3">
+          <a class="btn btn-default zyxel_btn_back" href="<%= new_session_path(resource_name) %>" role="button"><%= I18n.t("labels.cancel") %></a>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+          <input class="btn btn-default zyxel_btn_submit" type="submit" value="<%= I18n.t("labels.sign_up") %>">
+        </div>
+      </div>
     </div>
     <%# Submit and cancel button - end %>
   <% end %>
+</div>
+
+<div class="modal fade" id="user_agreement_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <h4 class="modal-title" id="myModalLabel"><%= I18n.t("titles.terms") %></h4>
+      </div>
+      <div class="modal-body" style="overflow-y: scroll; height: 300px;">
+        <% if I18n.locale.to_s  == "zh-TW" %>
+          <%= render "hint/terms/zh_TW" %>
+        <% else %>
+          <%= render "hint/terms/en" %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
 </div>

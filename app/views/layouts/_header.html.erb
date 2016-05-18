@@ -2,22 +2,21 @@
   <%# LOGO %>
 
   <h1 class="header_h1_rwd">
-    <a href="/">
-      <%= image_tag "logo.png", width: "118", height: "60" %>
-    </a>
+    <%= link_to_unless( in_oauth_flow?, image_tag("logo.png", width: "118", height: "60"), "/" ) %> 
   </h1>
 
   <ul class="nav nav-pills nav_zyxel nav_zyxel_rwd">
     <%# Display member link when user signed in %>
-    <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
+    <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? && !in_oauth_flow?  %>
       <li><%= show_unverified_button %></li>
       <li>
-        <%= link_to "", "/personal/profile", class: "member" %>
+
+        <%= link_to "", "/personal/profile", class: "member" if confirmed_or_skiped? && !in_oauth_flow? %>
       </li>
     <% end %>
 
     <% if current_user.nil? && (current_page?(root_path) || current_page?(new_user_session_path))%>
-    <li class="dropdown">
+    <li class="dropdown hidden-xs">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
         <%= t('labels.language') %>
       </a>
@@ -30,7 +29,8 @@
     <% end %>
 
     <%# Display sign out link when user signed in %>
-    <% if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
+    <%# if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? %>
+    <% if user_signed_in? && !current_page?('/help')%>
       <li>
         <%= link_to t("labels.sign_out") , destroy_user_session_path, class: "sign_out" %>
       </li>

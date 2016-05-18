@@ -2,7 +2,7 @@
 
 <div class="zyxel_content">
   <div class="text-right" style="">
-    <%= link_to("Skip", root_path, class: "zyxel_btn_style2") if current_user && current_user.confirmation_valid? %>
+    <%= link_to("Skip", root_path(:skip_confirm => 'true'), class: "zyxel_btn_style2") if current_user && current_user.confirmation_valid? %>
   </div>
 
   <div> <%= image_tag("setp2.png", class: "step_confirmation") %></div>
@@ -24,7 +24,9 @@
         <%= link_to t("devise.confirmations.change_account"), users_confirmation_edit_path %>
       </div>
       <div style="float: right">
-        <%= f.submit t("devise.confirmations.resend"), class: "zyxel_btn_submit zyxel_btn_confirm" %>
+        <div class="zyxel_btn_area_right">
+          <%= f.submit t("devise.confirmations.resend"), class: "zyxel_btn_submit zyxel_btn_confirm" %>
+        </div>
       </div>
     </div>
   <% end %>

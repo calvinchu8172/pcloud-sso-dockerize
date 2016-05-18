@@ -61,5 +61,9 @@ module Pcloud
       ActiveRecord::Base.logger = Log4r::Logger["database"]
       # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
     end
+
+    # application with api
+    config.api_only = false
+
   end
 end

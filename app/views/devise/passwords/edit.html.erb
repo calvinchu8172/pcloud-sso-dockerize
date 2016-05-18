@@ -1,8 +1,13 @@
-<% provide(:flow, I18n.t("titles.forgot_password")) %>
+<% if params[:title] == 'bind_account' %>
+  <% provide(:flow, I18n.t("titles.bind_account")) %>
+<% else %>
+  <% provide(:flow, I18n.t("titles.forgot_password")) %>
+<% end %>
 
 <div class="zyxel_content">
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
     <%= f.hidden_field :reset_password_token %>
+    <%= hidden_field_tag :title, params[:title] %>
     <fieldset>
       <table class="zyxel_table_style">
         <tr>
@@ -28,7 +33,11 @@
       </table>
       <div class="zyxel_btn_area i18n_fix">
         <%= link_to(I18n.t("labels.cancel"), "/", class: "zyxel_btn_back") %>
-        <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
+        <% if params[:title] == 'bind_account' %>
+          <%= f.submit I18n.t("labels.bind_account"), class: "zyxel_btn_submit" %>
+        <% else %>
+          <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
+        <% end %>
       </div><!-- zyxel_btn_area -->
     </fieldset>
   <% end %>

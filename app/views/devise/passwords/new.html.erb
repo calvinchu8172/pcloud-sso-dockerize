@@ -2,16 +2,36 @@
 
 <div class="zyxel_content">
   <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-    <table class="zyxel_table_style">
+    <!-- <table class="zyxel_table_style">
       <tr>
         <th><span>* </span><%= f.label :email, class: "th_label" %></th>
         <td colspan="3"><%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %></td>
       </tr>
-    </table>
-    <div class="zyxel_btn_area i18n_fix">
-      <%= link_to(I18n.t("labels.cancel"), new_session_path(resource_name), class: "zyxel_btn_back") %>
-      <%= f.submit I18n.t("labels.submit"), class: "zyxel_btn_submit" %>
-    </div><!-- zyxel_btn_area -->
+    </table> -->
+    <div class="zyxel_table_style">
+      <div class="row">
+        <div class="rwd_tbl_th col-xs-11 col-md-3">
+          <div class="text-left-xs text-left-sm text-right">
+            <span>* </span><%= f.label :email, class: "th_label" %>
+          </div>
+        </div>
+        <div class="rwd_tbl_td col-xs-11 col-md-9">
+          <%= f.email_field :email, autofocus: true, class: "input_style1 td_field" %>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin: auto; margin-top: 30px;">
+      <div class="row zyxel_btn_row">
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-sm-offset-2 col-md-offset-2">
+          <%= link_to(I18n.t("labels.cancel"), new_session_path(resource_name), class: "btn btn-default zyxel_btn_back") %>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+          <%= f.submit I18n.t("labels.submit"), class: "btn btn-default zyxel_btn_submit" %>
+        </div>
+      </div>
+    </div>
+
 
   <% end %>
 </div>

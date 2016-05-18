@@ -33,19 +33,6 @@ Given(/^a user try to request own device list with (\d+) devices including (\d+)
 
 end
 
-When(/^APP sent a GET request to "(.*?)" with:$/) do |url_path, table|
-  data = table.rows_hash
-  path = '//' + Settings.environments.api_domain + url_path
-
-  authentication_token = data["authentication_token"].include?("EXPIRED") ? "" : @user.create_authentication_token
-  cloud_id = data["cloud_id"].include?("INVALID") ? "" : @user.encoded_id
-
-  get path, {
-    cloud_id: cloud_id,
-    authentication_token: authentication_token
-  }
-end
-
 Then(/^the JSON response should include$/) do |attributes|
   body_array = JSON.parse(last_response.body)
   attributes = JSON.parse(attributes)
