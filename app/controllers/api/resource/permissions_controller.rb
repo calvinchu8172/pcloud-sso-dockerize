@@ -2,10 +2,26 @@ class Api::Resource::PermissionsController < Api::Base
 	include CheckInvitationKey
 	skip_before_filter :verify_authenticity_token
 	before_filter :validate_delete_permission_params, :only => :destroy
-	before_action :check_params, :only => :create
-	before_action :check_cloud_id, :only => :create
-	before_action :check_invitation_key, :only => :create
-	before_action :check_signature, :only => :create
+	before_action :check_params, :only => [:show, :create]
+	before_action :check_cloud_id, :only => [:show, :create]
+	before_action :check_invitation_key_correct, :only => [:show, :create]
+  before_action :check_invitation_key_other_features, :only => :create
+	before_action :check_signature, :only => [:show, :create]
+  before_action :check_accepted_session, :only => :show
+  before_action :check_timeout, :only => :show
+  before_action :check_error_code, :only => :show
+
+	def show
+		begin
+
+			@accepted_user.finish_accept if done?
+
+    rescue Exception => error
+    	return render :json => { error_code: "300", description: "Unexpected error." }, status: 400 if error
+		end
+
+		render :json => { result: "success" }, status: 200
+	end
 
 	def create
 		begin
@@ -103,5 +119,36 @@ class Api::Resource::PermissionsController < Api::Base
       return false
     end
   end
+
+  def check_timeout
+	  if timeout?
+      return render :json => { error_code: "301", description: "Timeout." }, status: 400
+	  end
+	end
+
+	def timeout?
+		expire_in = @accepted_session['expire_at'].to_i - Time.now.to_i
+    logger.debug("expire_in: #{expire_in}")
+    ( @accepted_session['status'] == 'start' || @accepted_session['status'].nil? ) && expire_in <= 0
+	end
+
+  def check_error_code
+    if !error_code.blank?
+      return render :json => { error_code: "302", description: "Failed on creating permission, error code from NAS: #{error_code}." }, status: 400
+    end
+  end
+
+	def done?
+		@accepted_session['status'] == 'done'
+	end
+
+	def session_status
+		@accepted_session['status']
+	end
+
+	def error_code
+		@accepted_session['error_code']
+	end
+
 
 end
