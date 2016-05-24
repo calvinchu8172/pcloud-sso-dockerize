@@ -13,6 +13,12 @@ class Api::Device < Device
       # self 的其他 attributes 是在 controller 的 device_checking 當中給值，Example: "@device = Api::Device::Vx.new(....)"，
       # 因此 self 會有 model_class_name，且須通過 validate_model_name 的驗證。
       self.attributes = { product_id: @product.id, ip_address: ip_encode_hex, online_status: true }
+
+      logger.info("creating api device: #{self.to_json}")
+
+      existing_device = Device.find_by(mac_address: mac_address, serial_number: serial_number)
+      logger.info("existing api device: #{existing_device.to_json}")
+
       self.save
       logger.info('create new device id:' + self.id.to_s)
       return true
