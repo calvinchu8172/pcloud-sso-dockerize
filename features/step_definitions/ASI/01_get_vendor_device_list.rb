@@ -39,7 +39,10 @@ end
 
 Given(/^the ASI server return valid result$/) do
   data = "{\"resultCode\":\"000.000\",\"data\":[{\"ircutSupport\":\"1\",\"deviceLicenseKey\":\"IVSIPCSP01-V101V52TEY7KC0IZ\",\"productClass\":\"IPCAM\",\"network\":\"ETHERNET\",\"ip\":\"192.168.12.79\",\"recTagSupport\":\"0\",\"isOnline\":\"1\",\"devicePurchaseDate\":\"\",\"microphoneSupport\":\"1\",\"modelName\":\"C11W\",\"nickName\":\"B01F81700417\",\"externalIp\":\"192.168.12.1\",\"firmwareVersion\":\"C11W-2.0.8\",\"speakerSupport\":\"1\",\"ptzSupport\":\"-1\",\"deviceId\":\"B01F81700417\",\"deviceLicenseActivatedDate\":\"2016-04-27 14:29:39.0\"}],\"resultMessage\":\"Success.\"}"
-  allow_any_instance_of(Api::Resource::VendorDevicesController).to receive(:get_devise_list_from_vendor).with("zyxoperator").and_return(data)
+  # allow_any_instance_of(Api::Resource::VendorDevicesController).to receive(:get_devise_list_from_vendor).with("zyxoperator").and_return(data)
+  puts @cloud_id
+  allow_any_instance_of(Api::Resource::VendorDevicesController).to receive(:get_devise_list_from_vendor).with(@cloud_id).and_return(data)
+
 end
 
 Given(/^the ASI server return invalid result$/) do
