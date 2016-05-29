@@ -15,7 +15,7 @@ Feature: [ASI_02] crawler
       And the response status should be "200"
       And the JSON response should include:
        """
-       ["result", "over_time_vendor_devices", "updated_vendor_devices", "unchanged_vendor_devices"]
+       ["result", "device_list"]
        """
    Scenario: [ASI_02_01_02]
     If there is an existing vendor device in database, and has not updated in 10 minutes. the vendor device will be updated.
@@ -30,7 +30,7 @@ Feature: [ASI_02] crawler
       And the response status should be "200"
       And the JSON response should include:
        """
-       ["result", "over_time_vendor_devices", "updated_vendor_devices", "unchanged_vendor_devices"]
+       ["result", "device_list"]
        """
 
   Scenario: [ASI_02_01_03]
