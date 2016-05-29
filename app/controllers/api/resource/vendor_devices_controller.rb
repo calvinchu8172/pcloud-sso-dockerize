@@ -6,14 +6,15 @@ class Api::Resource::VendorDevicesController < Api::Base
 
   def index
     begin
+      @updated_vendor_devices = [] # save_data_to_db 會將更新過的 vendor_devices 存入一個 array
 
       # 目前因為只能用ASI給的cloud_id去測他們的API，所以需要先用他們給的cloud_id
-      cloud_id = 'zyxoperator'
+      # cloud_id = 'zyxoperator'
       # password = 'zyxoperator'
-      # raise 'A test exception.'
       vendor_devices = VendorDevice.where(user_id: @user.id)
       # vendor_devices = VendorDevice.where(user_id: cloud_id)
-      # cloud_id = @user.encoded_id
+      cloud_id = @user.encoded_id
+      # cloud_id = valid_params[:cloud_id]
 
       # 假如原本的user_id找不到vendor_devices，則去打ASI的API撈資料，存到DB，再傳json給NAS
       if vendor_devices.blank?
@@ -42,15 +43,25 @@ class Api::Resource::VendorDevicesController < Api::Base
 
   def crawl
     begin
+      @updated_vendor_devices = [] # save_data_to_db 會將更新過的 vendor_devices 存入一個 array
+      unchanged_vendor_devices = []
+
       over_time_vendor_devices = VendorDevice.select(:id, :user_id, :udid, :device_name, :serial_number, :updated_at).where.not(updated_at: (Time.now - 10*60)..Time.now)
       over_time_vendor_devices.each do |vendor_device|
-        # cloud_id = vendor_device.user.encoded_id
-        cloud_id = 'zyxoperator'
+        cloud_id = vendor_device.user.encoded_id
+        # cloud_id = 'zyxoperator'
+        logger.debug cloud_id
         device_list = get_devise_list_from_vendor(cloud_id)
         save_data_to_db(device_list, vendor_device.user_id)
       end
+
+      unchanged_vendor_devices = over_time_vendor_devices - @updated_vendor_devices
+
       render :json => { "result" => "success",
-                        "updated_vendor_devices" => over_time_vendor_devices }, status: 200
+                        "over_time_vendor_devices" => over_time_vendor_devices,
+                        "updated_vendor_devices" => @updated_vendor_devices,
+                        "unchanged_vendor_devices" => unchanged_vendor_devices
+                         }, status: 200
     rescue Exception => error
       puts error.message
       render :json => { error_code: "300", description: "Unexpected error." }, status: 400 if error
@@ -77,7 +88,10 @@ class Api::Resource::VendorDevicesController < Api::Base
     end
 
     def check_params
-      valid_params.each do |key, value|
+      if valid_params.keys != ["certificate_serial", "signature", "cloud_id", "mac_address", "serial_number"]
+        return render :json => { error_code: "000", description: "Missing required params." }, status: 400
+      end
+      valid_params.values.each do |value|
         return render :json => { error_code: "000", description: "Missing required params." }, status: 400 if value.blank?
       end
     end
@@ -112,21 +126,24 @@ class Api::Resource::VendorDevicesController < Api::Base
     end
 
     def get_devise_list_from_vendor(cloud_id)
-      data = RestClient.get('http://asicloud-beta.aethersi.com:10980/spu/ws/vpc/auth.do', :params => {
+      data = RestClient.get( Settings.asi.host + '/spu/ws/vpc/auth.do', :params => {
         :act => 'login',
         :vpcName => 'ZYX',
-        :username => 'zyxoperator',
-        :password => 'zyxoperator',
+        :username => Settings.asi.account,
+        :password => Settings.asi.password,
         :forcedLogin => '1'
         })
       data = JSON.parse(data)
+      logger.debug data
 
-      data = RestClient.get('http://asicloud-beta.aethersi.com:10980/spu/ws/vpc/device.do', :params => {
+      data = RestClient.get( Settings.asi.host + '/spu/ws/vpc/device.do', :params => {
         :act => 'getList',
         :accessToken => data['accessToken'],
         :username => cloud_id
         })
+      logger.debug data
 
+      return data
     end
 
     def save_data_to_db(device_list, user_id)
@@ -160,7 +177,10 @@ class Api::Resource::VendorDevicesController < Api::Base
           meta: device.delete_if { |key, _| array.include? key }.to_json,
           updated_at: Time.now
         )
+      @updated_vendor_devices << vendor_device
       end
+
+      @updated_vendor_devices.uniq! { |vendor_device| vendor_device[:id] }  # 有重複更新到的vendor_device，只取一個輸出結果
     end
 
     def convert_ip_decimal_to_hex(ip)

@@ -78,3 +78,7 @@ redis:
 oauth_applications:
   account: 'admin'
   password: 'ecowork'
+asi:
+  host: 'http://asicloud-beta.aethersi.com:10980'
+  account: 'zyxoperator'
+  password: 'zyxoperator'
