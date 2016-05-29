@@ -78,3 +78,10 @@ redis:
 oauth_applications:
   account: 'admin'
   password: 'ecowork'
+vendors
+  data_safe_period: 10 # minutes
+  asi:
+    vpcName: 'ZYX'
+    host: 'http://asicloud-beta.aethersi.com:10980'
+    account: 'zyxoperator'
+    password: 'zyxoperator'

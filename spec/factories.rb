@@ -22,12 +22,20 @@ FactoryGirl.define do
   factory :ddns do
     ip_address                "127.0.0.1"
     association :device_id,   factory: :device_id
-    association :domain_id, factory: :domain_id
+    association :domain_id,   factory: :domain_id
   end
   factory :identity do
     association :user_id,     factory: :user_id
     association :provider,    factory: :provider
     association :uid,         factory: :uid
+  end
+  factory :invitation do
+    share_point                "share_folder"
+    permission                 2
+    expire_count               5
+  end
+  factory :accepted_user do
+    status                     0
   end
   factory :api_user, class: Api::User do
     sequence(:email)          {|n| "personal#{n}@example.com"}

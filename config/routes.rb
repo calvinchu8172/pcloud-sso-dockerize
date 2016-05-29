@@ -1,19 +1,19 @@
 Rails.application.routes.draw do
 
-  use_doorkeeper scope: 'oauth' do
-    controllers authorizations: 'oauth2/authorizations',
-                tokens: 'oauth2/tokens',
-                applications: 'oauth2/applications',
-                authorized_applications: 'oauth2/authorized_applications'
-  end
+  # use_doorkeeper scope: 'oauth' do
+  #   controllers authorizations: 'oauth2/authorizations',
+  #               tokens: 'oauth2/tokens',
+  #               applications: 'oauth2/applications',
+  #               authorized_applications: 'oauth2/authorized_applications'
+  # end
 
-  scope module: 'oauth2' do
-    namespace :api do
-      namespace :v1 do
-        get 'my/info', to: 'my#info', format: 'json'
-      end
-    end
-  end
+  # scope module: 'oauth2' do
+  #   namespace :api do
+  #     namespace :v1 do
+  #       get 'my/info', to: 'my#info', format: 'json'
+  #     end
+  #   end
+  # end
 
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
@@ -27,6 +27,13 @@ Rails.application.routes.draw do
       unauthenticated do
         root 'sessions#new', as: :unauthenticated_root
       end
+    end
+
+    use_doorkeeper scope: 'oauth' do
+      controllers authorizations: 'oauth2/authorizations',
+                  tokens: 'oauth2/tokens',
+                  applications: 'oauth2/applications',
+                  authorized_applications: 'oauth2/authorized_applications'
     end
 
     get 'hint/signup'
@@ -113,6 +120,14 @@ Rails.application.routes.draw do
   # Routes for Pcloud REST API server
   constraints :host => Settings.environments.api_domain  do
 
+    scope module: 'oauth2' do
+      namespace :api do
+        namespace :v1 do
+          get 'my/info', to: 'my#info', format: 'json'
+        end
+      end
+    end
+
     # post '/d/1/:action' => "device"
     # post '/d/2/:action' => "device"
 
@@ -145,13 +160,13 @@ Rails.application.routes.draw do
     scope :path => '/resource/1/', :module => "api/resource" do
       post 'invitation', to: 'invitations#create', format: 'json'
       get 'invitation', to: 'invitations#show', format: 'json'
+      get 'permission', to: 'permissions#show', format:'json'
+      post 'permission', to: 'permissions#create', format:'json'
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
-      resources :vendor_devices, format: 'json'  do
-        collection do
-          post 'crawl'
-        end
-      end
+
+      get "vendor_devices", to: "vendor_devices#index", format: 'json' 
+      post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json' 
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do
@@ -159,6 +174,7 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/device/1/', :module => "api/devices" do
+      get 'online_status', to: 'online_status#show', format: 'json'
       put 'online_status', to: 'online_status#update', format: 'json'
     end
 
