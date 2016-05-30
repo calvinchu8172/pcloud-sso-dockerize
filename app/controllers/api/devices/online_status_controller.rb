@@ -14,8 +14,6 @@ class Api::Devices::OnlineStatusController < Api::Base
 
   end
 
-
-
   def update
     device_target = Device.find_by(serial_number: api_permit[:serial_number], mac_address: api_permit[:mac_address])
 

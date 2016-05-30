@@ -1,20 +1,5 @@
 Rails.application.routes.draw do
 
-  # use_doorkeeper scope: 'oauth' do
-  #   controllers authorizations: 'oauth2/authorizations',
-  #               tokens: 'oauth2/tokens',
-  #               applications: 'oauth2/applications',
-  #               authorized_applications: 'oauth2/authorized_applications'
-  # end
-
-  # scope module: 'oauth2' do
-  #   namespace :api do
-  #     namespace :v1 do
-  #       get 'my/info', to: 'my#info', format: 'json'
-  #     end
-  #   end
-  # end
-
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
@@ -160,13 +145,18 @@ Rails.application.routes.draw do
     scope :path => '/resource/1/', :module => "api/resource" do
       post 'invitation', to: 'invitations#create', format: 'json'
       get 'invitation', to: 'invitations#show', format: 'json'
-      get 'permission', to: 'permissions#show', format:'json'
-      post 'permission', to: 'permissions#create', format:'json'
+      # get 'permission', to: 'permissions#show', format:'json' # version 1.3
+      # post 'permission', to: 'permissions#create', format:'json' # version 1.3
       delete 'permission', to: 'permissions#destroy', format:'json'
+
       get 'device_list', to: 'personal#device_list', format: 'json'
 
       get "vendor_devices", to: "vendor_devices#index", format: 'json' 
       post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json' 
+    end
+
+    scope :path => '/devicedb/1/', :module => "api/devicedb" do
+      
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do
@@ -174,7 +164,7 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/device/1/', :module => "api/devices" do
-      get 'online_status', to: 'online_status#show', format: 'json'
+      # get 'online_status', to: 'online_status#show', format: 'json'
       put 'online_status', to: 'online_status#update', format: 'json'
     end
 
