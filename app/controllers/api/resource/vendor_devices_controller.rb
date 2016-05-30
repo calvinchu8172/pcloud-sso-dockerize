@@ -53,7 +53,7 @@ class Api::Resource::VendorDevicesController < Api::Base
       data_safe_period = Settings.vendors.asi.data_safe_period.to_i
 
       devices_that_need_updating = VendorDevice.select(
-          :id, :user_id
+          :user_id
         ).where.not(updated_at: data_safe_period.minutes.ago..Time.now).distinct
 
       logger.debug("devices_that_need_updating: #{devices_that_need_updating.to_json}")
