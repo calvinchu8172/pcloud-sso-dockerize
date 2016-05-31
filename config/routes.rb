@@ -59,6 +59,11 @@ Rails.application.routes.draw do
       post  'oauth/new',               to: 'users/omniauth_callbacks#confirm'
       get   'oauth/login',             to: 'users/omniauth_callbacks#login'
       post  'oauth/login',             to: 'users/omniauth_callbacks#logining'
+      resources :edm_users, only: :index, controller: 'users/edm_users' do
+        collection do
+          get 'download', to: 'users/edm_users#download_csv'
+        end
+      end
     end
 
     get 'ddns/:id', to: 'ddns#show'
@@ -165,8 +170,8 @@ Rails.application.routes.draw do
       delete 'permission', to: 'permissions#destroy', format:'json'
       get 'device_list', to: 'personal#device_list', format: 'json'
 
-      get "vendor_devices", to: "vendor_devices#index", format: 'json' 
-      post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json' 
+      get "vendor_devices", to: "vendor_devices#index", format: 'json'
+      post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json'
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do

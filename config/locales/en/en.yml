@@ -21,6 +21,7 @@ en:
     or: or
     expand_all: Expand All
     collapse_all: Collapse All
+    download: Download
     settings:
       invitation:
         connecting: Connecting...
@@ -112,6 +113,7 @@ en:
     unpairing: Unpairing
     terms: Terms of Use
     manually: Manually Add Device
+    download_edm_users_list: "Download EDM users list"
   warnings:
     not_config: DDNS is not Configured
     no_pairing_device: No device have been paired.

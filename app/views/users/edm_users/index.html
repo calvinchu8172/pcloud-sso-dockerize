@@ -1,0 +1,8 @@
+<div class="zyxel_bread">
+  <span><%= I18n.t("titles.download_edm_users_list") %></span>
+  <%= link_to I18n.t("labels.back_to_home"), authenticated_root_path, class: "zyxel_btn_main icon_home" %>
+</div>
+
+<div class="zyxel_btn_area i18n_fix">
+  <%= link_to I18n.t("labels.download"), download_edm_users_path(format: "csv"), class: "zyxel_btn_ok" %>
+</div><!-- zyxel_btn_area -->
