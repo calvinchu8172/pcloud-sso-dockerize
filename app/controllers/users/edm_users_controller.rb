@@ -63,11 +63,11 @@ class Users::EdmUsersController < ApplicationController
       redis_id = Redis::HashKey.new("admin:" + current_user.id.to_s + ":session")
 
       unless redis_id['name'] == current_user.email
-        redirect_to :root
+        redirect_to :root and return
       end
 
-      if redis_id['auth'].nil? || !redis_id['auth'].include?("download_edm_users")
-        redirect_to :root
+      if redis_id['auth'].nil? || !JSON.parse(redis_id['auth']).include?("download_edm_users")
+        redirect_to :root and return
       end
 
     end
