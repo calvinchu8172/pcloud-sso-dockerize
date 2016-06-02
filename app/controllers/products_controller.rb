@@ -30,9 +30,9 @@ class ProductsController < ApplicationController
     error_message(@product)
   end
 
-  def destroy
+  # def destroy
     
-  end
+  # end
 
   private
 

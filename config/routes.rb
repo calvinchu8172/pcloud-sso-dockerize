@@ -27,7 +27,6 @@ Rails.application.routes.draw do
     get 'hint/sent'
     get 'hint/agreement'
     get 'hint/confirm_sent'
-    # get 'help', to: 'help#index'
     get 'help', to: 'help#index'
 
     devise_for :users, :controllers => {
@@ -71,12 +70,12 @@ Rails.application.routes.draw do
     get 'pairing/check_connection/:id', to: 'pairing#check_connection'
     get 'pairing/cancel/:id', to: 'pairing#cancel'
 
-    resources :package, only: [:show, :edit, :update]
+    resources :package, only: [ :show, :edit, :update ]
     get 'package/check/:id' , to: 'package#check'
     get 'package/cancel/:id', to: 'package#cancel', as: 'cancel_package'
 
     concern :upnp_mods do
-      resources :upnp, only: [:show, :edit, :update]
+      resources :upnp, only: [ :show, :edit, :update ]
       get 'upnp/cancel/:id', to: 'upnp#cancel', format: 'json'
       get 'upnp/check/:id', to: 'upnp#check', format: 'json'
     end
@@ -98,7 +97,7 @@ Rails.application.routes.draw do
     get 'invitations/accept', to: 'invitations#accept'
     get 'invitations/check_connection/:id', to: 'invitations#check_connection'
 
-    resources :products, :path => "fs2g0a2vtz"
+    resources :products, :path => "fs2g0a2vtz", except: [:destroy]
     get 'diagram', to: 'diagram#index'
   end
 
@@ -112,9 +111,6 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    # post '/d/1/:action' => "device"
-    # post '/d/2/:action' => "device"
 
     scope :path => '/d/1/', :module => "api/devices/v1" do
       post 'register', to: 'register#create', format: 'json'
@@ -130,33 +126,40 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
-      # match ':controller(/:action(/:id(.:format)))', :via => :all
-      resource :token, format: 'json'
-      resource :register, format: 'json'
-      # put 'email' => 'emails#update', format: 'json'
-      resource :email, format: 'json'
-      resource :confirmation, format: 'json'
-      resource :password, format: 'json'
-      resource :xmpp_account, format: 'json'
+      resource :token, format: 'json', only: [ :create, :show, :update, :destroy ]
+      resource :register, format: 'json', only: [ :create ]
+      resource :email, format: 'json', only: [ :show, :update ]
+      resource :confirmation, format: 'json', only: [ :create ]
+      resource :password, format: 'json', only: [ :create ]
+      resource :xmpp_account, format: 'json', only: [ :update ]
       get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
       post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
     end
 
     scope :path => '/resource/1/', :module => "api/resource" do
+      # ---------------------- #
+      # ----- invitation ----- #
+      # ---------------------- #
       post 'invitation', to: 'invitations#create', format: 'json'
       get 'invitation', to: 'invitations#show', format: 'json'
+
+      # ---------------------- #
+      # ----- permission ----- #
+      # ---------------------- #
       # get 'permission', to: 'permissions#show', format:'json' # version 1.3
       # post 'permission', to: 'permissions#create', format:'json' # version 1.3
       delete 'permission', to: 'permissions#destroy', format:'json'
 
+      # ----------------------- #
+      # ----- device_list ----- #
+      # ----------------------- #
       get 'device_list', to: 'personal#device_list', format: 'json'
 
+      # -------------------------- #
+      # ----- vendor_devices ----- #
+      # -------------------------- #
       get "vendor_devices", to: "vendor_devices#index", format: 'json' 
       post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json' 
-    end
-
-    scope :path => '/devicedb/1/', :module => "api/devicedb" do
-      
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do
@@ -164,7 +167,7 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/device/1/', :module => "api/devices" do
-      # get 'online_status', to: 'online_status#show', format: 'json'
+      # get 'online_status', to: 'online_status#show', format: 'json' # version 1.3
       put 'online_status', to: 'online_status#update', format: 'json'
     end
 
