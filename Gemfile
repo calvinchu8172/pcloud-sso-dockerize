@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.6'
 gem 'rails-api'
 gem 'rails-i18n'
 gem 'rake', '10.4.2'
