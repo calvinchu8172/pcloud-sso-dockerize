@@ -138,7 +138,7 @@ zh-TW:
         in_pairing: "正在配對此裝置中"
         failure: "您的配對已逾時，請重新操作以進行配對"
         canceled: "您的配對流程已取消"
-        success: "已完成與此裝置的配對，請點擊”確定”按鈕以繼續設定裝置"
+        success: "已完成與此裝置的配對"
       ddns:
         instruction: "請使用："
         instruction_2: 3至63個字元
