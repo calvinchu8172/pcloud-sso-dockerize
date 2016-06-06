@@ -48,20 +48,26 @@ ActionController::Base.allow_rescue = false
 
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
+# begin
+#   DatabaseCleaner.strategy = :transaction
+#   DatabaseCleaner[:active_record,{:model => XmppUser}].strategy = :transaction
+
+#   Before do
+#     DatabaseCleaner.start
+#     DatabaseCleaner[:active_record,{:model => XmppUser}].start
+#   end
+
+#   After do
+#     DatabaseCleaner.clean
+#     DatabaseCleaner[:active_record,{:model => XmppUser}].clean
+#   end
+
+# rescue NameError
+#   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+# end
+
 begin
   DatabaseCleaner.strategy = :transaction
-  DatabaseCleaner[:active_record,{:model => XmppUser}].strategy = :transaction
-
-  Before do
-    DatabaseCleaner.start
-    DatabaseCleaner[:active_record,{:model => XmppUser}].start
-  end
-
-  After do
-    DatabaseCleaner.clean
-    DatabaseCleaner[:active_record,{:model => XmppUser}].clean
-  end
-
 rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
