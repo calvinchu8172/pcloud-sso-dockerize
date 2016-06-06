@@ -47,6 +47,8 @@ Then(/^the device has inviation and accepted_user$/) do
   user = FactoryGirl.create(:user)
   pairing = TestingHelper.create_pairing(user.id, Device.first)
   invitation = TestingHelper.create_invitation(user, user.pairings.first.device)
+  @invitation_id = invitation.id
+
   another_user = FactoryGirl.create(:user)
   invitation.accepted_by(another_user.id)
 end
