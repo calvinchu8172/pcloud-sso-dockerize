@@ -7,10 +7,10 @@ class Api::Devices::V3::LiteController < Api::Base
     @device = Api::Device::V3::Lite.trigger(payload.merge(ip_address: request.remote_ip))
 
     @device.valid?
-    return render json: {:error=>@device.errors[:signature].first[:description]}, :status => 400 unless @device.errors[:signature].blank?
+    return render json: {:error => @device.errors[:signature].first[:description]}, :status => 400 unless @device.errors[:signature].blank?
     return render json: @device.errors[:parameter].first, :status => 400 unless @device.errors[:parameter].blank?
 
-    render json: {result: 'success'}
+    render json: { result: 'success' }
   end
 
   private

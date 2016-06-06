@@ -1,7 +1,6 @@
 class XmppUser < ActiveRecord::Base
   include Redis::Objects
   establish_connection "xmpp_#{Rails.env}".to_sym
-
   # xmpp server db schema
   # DROP TABLE IF EXISTS `users`;
   # CREATE TABLE `users` (

@@ -11,7 +11,7 @@ FactoryGirl.define do
     sequence(:serial_number)  { |n| "1234567890#{n}"}
     sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
     firmware_version          "V4.70(AALS.0)_GPL_20140820"
-    ip_address                "c0a83201"
+    ip_address                Api::Device.new(current_ip_address: "192.168.50.1").ip_encode_hex
     association :product_id,  factory: :product_id
   end
   factory :pairing do
@@ -55,7 +55,7 @@ FactoryGirl.define do
     sequence(:serial_number)  { |n| "0123456789#{n}"}
     sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
     firmware_version          "V4.70(AALS.0)_GPL_20140820"
-    ip_address                "c0a83201"
+    ip_address                Api::Device.new(current_ip_address: "192.168.50.1").ip_encode_hex
     model_class_name          "NSA310S"
     association :product_id,  factory: :product_id
   end
@@ -89,7 +89,7 @@ FactoryGirl.define do
     device_name               "ABCDE12345678"
     firmware_version          "V1"
     serial_number             "12345678"
-    ipv4_lan                  "c0a80c4f"
+    ipv4_lan                  Api::Device.new(current_ip_address: "192.168.12.79").ip_encode_hex
     online_status             1
   end
 
