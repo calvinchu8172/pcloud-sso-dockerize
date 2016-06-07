@@ -177,3 +177,12 @@ th:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: "คุณสามารถดูและแชร์สิ่งต่างๆ ได้จากทุกที่"
         zyxel_drive_download_desc: "ดาวน์โหลดตอนนี้ที่"
+  blocks:
+    download:
+      instruction: "ดาวน์โหลดตอนนี้ที่"
+    drive:
+      heading: ZyXEL Drive
+      context: "คุณสามารถดูและแชร์สิ่งต่างๆ ได้จากทุกที่"
+    zcloud:
+      heading: ZyXEL zCloud
+      context: "เรียนรู้และสตรีมคอนเทนต์จาก NAS"

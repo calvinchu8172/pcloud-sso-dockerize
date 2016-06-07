@@ -177,3 +177,12 @@ it:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Vedete e condividi le vostre cose da qualsiasi luogo.
         zyxel_drive_download_desc: Scarica subito su
+  blocks:
+    download:
+      instruction: Scarica subito su
+    drive:
+      heading: ZyXEL Drive
+      context: Vedete e condividi le vostre cose da qualsiasi luogo.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Gioca ed effettua lo streaming del contenuto da NAS.

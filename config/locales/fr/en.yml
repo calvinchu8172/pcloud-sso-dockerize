@@ -177,3 +177,12 @@ fr:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Visualisez et partagez vos trucs de partout.
         zyxel_drive_download_desc: Téléchargez maintenant sur
+  blocks:
+    download:
+      instruction: Téléchargez maintenant sur
+    drive:
+      heading: ZyXEL Drive
+      context: Visualisez et partagez vos trucs de partout.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Jouez et diffusez le contenu à partir du NAS.

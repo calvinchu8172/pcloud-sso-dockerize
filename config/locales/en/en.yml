@@ -183,3 +183,12 @@ en:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: See and share your stuff from anywhere.
         zyxel_drive_download_desc: Download Now at
+  blocks:
+    download:
+      instruction: Download Now at
+    drive:
+      heading: ZyXEL Drive
+      context: See and share your stuff from anywhere.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Play and stream the content from NAS.

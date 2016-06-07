@@ -183,3 +183,12 @@ de:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Sehen und Teilen Sie Ihren Content von überall.
         zyxel_drive_download_desc: Jetzt herunterladen
+  blocks:
+    download:
+      instruction: Jetzt herunterladen
+    drive:
+      heading: ZyXEL Drive
+      context: Sehen und Teilen Sie Ihren Content von überall.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Spielen Sie NAS Content ab oder streamen Sie diesen

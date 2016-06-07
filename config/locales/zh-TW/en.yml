@@ -182,3 +182,12 @@ zh-TW:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: "隨時隨地觀看及分享你的資料"
         zyxel_drive_download_desc: "立即下載"
+  blocks:
+    download:
+      instruction: "立即下載"
+    drive:
+      heading: ZyXEL Drive
+      context: "隨時隨地觀看及分享你的資料"
+    zcloud:
+      heading: ZyXEL zCloud
+      context: "從 NAS 撥放及串流媒體檔案. "
