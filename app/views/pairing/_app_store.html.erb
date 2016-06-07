@@ -1,0 +1,38 @@
+<hr>
+  <div class="row">
+
+    <div class="col-xs-12 col-sm-6">
+      <div class="inner">
+        <div class="caption">
+          <h3><%= I18n.t("blocks.drive.heading") %></h3>
+          <p><%= I18n.t("blocks.drive.context") %></p>
+          <div class="caption_icon">
+            <%= image_tag("zdrive.png", :size => "300x100", :alt => "zdrive_icon") %>
+          </div>
+        </div>
+        <div class="zyxel_to">
+          <h4><%= I18n.t("blocks.download.instruction") %></h4>
+          <%= image_tag("zdrive_qrcode.png", :size => "100x100", :alt => "zdrive_qrcode") %>
+          <p><%= link_to "http://zyxel.to/zdrive", "http://zyxel.to/zdrive", id: "zdrive", :target => "_blank" %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <div class="inner">
+        <div class="caption">
+          <h3><%= I18n.t("blocks.zcloud.heading") %></h3>
+          <p><%= I18n.t("blocks.zcloud.context") %></p>
+          <div class="caption_icon">
+            <%= image_tag("zcloud.png", :size => "300x100", :alt => "zcloud_icon") %>
+          </div>
+        </div>
+        <div class="zyxel_to">
+          <h4><%= I18n.t("blocks.download.instruction") %></h4>
+          <%= image_tag("zcloud_qrcode.png", :size => "100x100", :alt => "zcloud_qrcode") %>
+          <p><%= link_to "http://zyxel.to/zcloud", "http://zyxel.to/zcloud", id: "zcloud", :target => "_blank" %></p>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- row -->
