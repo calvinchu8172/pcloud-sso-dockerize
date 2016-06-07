@@ -153,6 +153,11 @@ Then(/^the user should not see "(.*?)" button on pairing page$/) do |button|
   expect(page).to_not have_content(button)
 end
 
+Then(/^the user should see QR code on pairing page$/) do
+  expect(page).to have_xpath('//img[@src="/assets/zdrive_qrcode.png"]')
+  expect(page).to have_xpath('//img[@src="/assets/zcloud_qrcode.png"]')
+end
+
 Then(/^the user should see the pairing information$/) do
   expect(page).to have_content(I18n.t("warnings.settings.pairing.start.instruction"))
 end
