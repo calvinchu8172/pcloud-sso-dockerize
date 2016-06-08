@@ -90,7 +90,6 @@ Feature: [PCP_001_01] Sign Up
 
   Scenario: [PCP_001_01_08]
     If user doesn't confirm email yet, user will enter email confirmation notice page after sign up
-
     When the visitor success sign up an account:
       | E-mail            | personal@example.com   |
       | Password          | 12345678               |

@@ -48,7 +48,8 @@ module ApplicationHelper
   end
 
   def in_oauth_flow?
-    current_user && !!warden.session['in_oauth_flow']
+    @in_oauth_flow = (current_user && !!warden.session['in_oauth_flow'])
+    @in_oauth_flow
   end
     
 end

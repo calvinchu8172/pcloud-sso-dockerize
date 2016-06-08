@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  include ExceptionHandler
+  include Locale
+  include OauthFlow
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
@@ -6,10 +10,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_action :check_skip_confirm
   before_action :check_user_confirmation_expire, unless: :devise_controller?
-
-  include Locale
-  include OauthFlow
-
   after_action :clear_log_context
   before_filter :setup_log_context
 

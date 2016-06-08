@@ -4,6 +4,13 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
+
+    # 假如 Single Sign On 流程中 使用者 30 分鐘未操作導致 session expired，
+    # 則可使用下列方式儲存 client app 路徑，在 Exception 發生時，將 client 導回 client app
+    # unless current_user
+    #   cookies[:return_to] = request.query_parameters['redirect_uri']
+    # end
+
     current_user || warden.authenticate!(scope: :user)
     # fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
     # Put your resource owner authentication logic here.
