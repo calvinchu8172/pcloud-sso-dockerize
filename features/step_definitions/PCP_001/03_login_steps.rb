@@ -93,10 +93,6 @@ Then(/^user can only visit resend email of confirmation page$/) do
   expect(page.current_path).to eq("/users/confirmation/new")
 end
 
-When(/^the user's session is expired$/) do 
-  logout
-end
-
 
 # -------------------------------------------------------------------
 # -------------------------- Expect result --------------------------
