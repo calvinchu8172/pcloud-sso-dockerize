@@ -33,7 +33,7 @@ Feature: [PCP_003_03] Pairing
 	    And the user click the copy button of device within 10 minutes
 	   Then the user should see "Successfully paired." message on pairing page
 	    And the user should see "DDNS Setting" button on pairing page
-	    And the user should see "Device List" button on pairing page
+	    And the user should see "My Devices" button on pairing page
 	    And the user should see QR code on pairing page
 	   When the user click "DDNS Setting" button when finished pairing
 	   Then the user will redirect to DDNS setup page
@@ -46,9 +46,9 @@ Feature: [PCP_003_03] Pairing
 	    And the user click the copy button of device within 10 minutes
 	   Then the user should see "Successfully paired." message on pairing page
 	    And the user should not see "DDNS Setting" button on pairing page
-	    And the user should see "Device List" button on pairing page
+	    And the user should see "My Devices" button on pairing page
 	    And the user should see QR code on pairing page
-	   When the user click "Device List" button when finished pairing
+	   When the user click "My Devices" button when finished pairing
 	   Then the user will redirect to root page
 
 	Scenario: [PCP_003_03_06]

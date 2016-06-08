@@ -100,7 +100,9 @@ end
 When(/^the user click "(.*?)" button when finished pairing$/) do |link|
   @pairing = FactoryGirl.create(:pairing, user_id: @user.id, device_id: @device.id)
   wait_server_response
-  click_link link
+  within(:xpath, '//div[@class="bottom-content"]/div[@class="zyxel_btn_area ng-scope"]') do
+    click_link link
+  end
 end
 
 When(/^the user click "(.*?)" link to start pairing$/) do |link|
