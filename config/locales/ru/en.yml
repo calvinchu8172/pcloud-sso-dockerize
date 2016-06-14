@@ -177,3 +177,12 @@ ru:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: "Смотрите ваш контент и делитесь им откуда угодно."
         zyxel_drive_download_desc: "Загрузите сейчас через"
+  blocks:
+    download:
+      instruction: "Загрузите сейчас через"
+    drive:
+      heading: ZyXEL Drive
+      context: "Смотрите ваш контент и делитесь им откуда угодно."
+    zcloud:
+      heading: ZyXEL zCloud
+      context: "Воспроизводите игры и потоковый контент с устройства NAS."

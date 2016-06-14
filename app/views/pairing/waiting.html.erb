@@ -34,9 +34,15 @@
           <!-- button class="zyxel_btn_submit" ng-click="reconnect()"><%#= I18n.t("labels.retry") %></button -->
           <%= link_to(I18n.t("labels.retry"), "/pairing/index/#{@device.encoded_id}", class: "zyxel_btn_ok zyxel_enabled") %>
         </div>
+        <div ng-switch-when="done" class="app_store">
+          <%= render 'app_store' %>
+        </div>
         <div ng-switch-when="done" class="zyxel_btn_area">
           <% session[:first_pairing] = true %>
-          <%= link_to(I18n.t("labels.confirm"), tutorial_path(@device), class: "zyxel_btn_ok") %>
+          <%= link_to(I18n.t("labels.my_devices"), root_path, class: "zyxel_btn_ok") %>
+          <% if @device.find_module_list.include?('ddns') %>
+            <%= link_to(I18n.t("titles.settings.ddns"), tutorial_path(@device), class: "zyxel_btn_ok") %>
+          <% end %>
         </div>
         <div ng-switch-when="confirm_cancel" class="zyxel_btn_area i18n_fix">
           <button id="pairing_waiting_confirm_cancel_cancel_button" class="zyxel_btn_back" ng-click="continue()"><%= I18n.t("labels.cancel") %></button>

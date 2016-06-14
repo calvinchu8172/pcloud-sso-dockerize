@@ -177,3 +177,12 @@ es:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Consulte y comparta sus datos desde cualquier sitio.
         zyxel_drive_download_desc: Descargar ahora en
+  blocks:
+    download:
+      instruction: Descargar ahora en
+    drive:
+      heading: ZyXEL Drive
+      context: Consulte y comparta sus datos desde cualquier sitio.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Reproduzca y descargue el contenido desde NAS.

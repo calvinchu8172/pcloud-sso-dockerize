@@ -177,3 +177,12 @@ tr:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: "İçeriklerinizi her yerden görün ve paylaşın."
         zyxel_drive_download_desc: "Şimdi İndirin:"
+  blocks:
+    download:
+      instruction: "Şimdi İndirin:"
+    drive:
+      heading: ZyXEL Drive
+      context: "İçeriklerinizi her yerden görün ve paylaşın."
+    zcloud:
+      heading: ZyXEL zCloud
+      context: NAS'tan içerik oynatın ve akış yapın.

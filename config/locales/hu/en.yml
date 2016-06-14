@@ -177,3 +177,12 @@ hu:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Tekintse és ossza meg anyagait, bárhol is jár.
         zyxel_drive_download_desc: 'Töltse le most:'
+  blocks:
+    download:
+      instruction: 'Töltse le most:'
+    drive:
+      heading: ZyXEL Drive
+      context: Tekintse és ossza meg anyagait, bárhol is jár.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Játssza le a tartalmat NAS fiókjából.

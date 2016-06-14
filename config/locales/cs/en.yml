@@ -177,3 +177,12 @@ cs:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Zobrazujte a sdílejte své informace odkudkoli.
         zyxel_drive_download_desc: Stáhnout na
+  blocks:
+    download:
+      instruction: Stáhnout na
+    drive:
+      heading: ZyXEL Drive
+      context: Zobrazujte a sdílejte své informace odkudkoli.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Přehrávejte obsah z NAS.

@@ -177,3 +177,12 @@ pl:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Oglądaj i udostępniaj swoje rzeczy z dowolnego miejsca.
         zyxel_drive_download_desc: Pobierz teraz z
+  blocks:
+    download:
+      instruction: Pobierz teraz z
+    drive:
+      heading: ZyXEL Drive
+      context: Oglądaj i udostępniaj swoje rzeczy z dowolnego miejsca.
+    zcloud:
+      heading: ZyXEL zCloud
+      context: Odtwarzaj i transmituj zawartość z NAS.

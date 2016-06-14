@@ -13,7 +13,7 @@ Given(/^the user completely pairing a device$/) do
     When the user click "Confirm" button to start pairing
     And the user click the copy button of device within 10 minutes
     Then the user should see "Successfully paired." message on pairing page
-    When the user click "Confirm" button when finished pairing
+    When the user click "DDNS Setting" button when finished pairing
   }
 end
 
@@ -100,13 +100,21 @@ end
 When(/^the user click "(.*?)" button when finished pairing$/) do |link|
   @pairing = FactoryGirl.create(:pairing, user_id: @user.id, device_id: @device.id)
   wait_server_response
-  click_link link
+  within(:xpath, '//div[@class="bottom-content"]/div[@class="zyxel_btn_area ng-scope"]') do
+    click_link link
+  end
 end
 
 When(/^the user click "(.*?)" link to start pairing$/) do |link|
   # click_link "Pairing", href: "/discoverer/check/#{@device2.encoded_id}"
   # 因為Pairing按鈕被改成圖，所以用xpath去找連結
   find(:xpath, "//table/tbody/tr/td/a").click
+end
+
+When(/^the device doesn't have "(.*?)" module$/) do |device_module|
+  redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
+  key = "device:#{@device.id}:module_list"
+  redis.srem(key, device_module)
 end
 
 # -------------------------------------------------------------------
@@ -139,6 +147,19 @@ Then(/^the user should see "(.*?)" message on pairing page$/) do |msg|
   expect(page).to have_content(msg)
 end
 
+Then(/^the user should see "(.*?)" button on pairing page$/) do |button|
+  expect(page).to have_content(button)
+end
+
+Then(/^the user should not see "(.*?)" button on pairing page$/) do |button|
+  expect(page).to_not have_content(button)
+end
+
+Then(/^the user should see QR code on pairing page$/) do
+  expect(page).to have_xpath('//img[@src="/assets/zdrive_qrcode.png"]')
+  expect(page).to have_xpath('//img[@src="/assets/zcloud_qrcode.png"]')
+end
+
 Then(/^the user should see the pairing information$/) do
   expect(page).to have_content(I18n.t("warnings.settings.pairing.start.instruction"))
 end
@@ -147,6 +168,10 @@ Then(/^the user will redirect to DDNS setup page$/) do
   current_url = URI.decode(page.current_path).chomp
   expect_url = URI.decode("/ddns/" + @device.encoded_id).chomp
   expect(current_url).to eq(expect_url)
+end
+
+Then(/^the user will redirect to root page$/) do
+  expect(current_path).to eq("/")
 end
 
 Then(/^the user will go back to Pairing setup flow$/) do

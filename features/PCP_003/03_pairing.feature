@@ -26,13 +26,30 @@ Feature: [PCP_003_03] Pairing
 		  But the user did not click on the copy button of device within 10 minutes
 	   Then the user should see "Pairing has been canceled" message on pairing page
 
-	Scenario: [PCP_003_03_05]
-	  Show paired information and redirect to DDNS setting page when click confirm button
+	Scenario: [PCP_003_03_05_01]
+	  If the device has ddns module,
+	  Show paired information and redirect to DDNS setting page when click DDNS Setting button
 	   When the user click "Confirm" button to start pairing
 	    And the user click the copy button of device within 10 minutes
 	   Then the user should see "Successfully paired." message on pairing page
-	   When the user click "Confirm" button when finished pairing
+	    And the user should see "DDNS Setting" button on pairing page
+	    And the user should see "My Devices" button on pairing page
+	    And the user should see QR code on pairing page
+	   When the user click "DDNS Setting" button when finished pairing
 	   Then the user will redirect to DDNS setup page
+
+	Scenario: [PCP_003_03_05_02]
+	  If the device doesn't have ddns module,
+	  Show paired information and redirect to root page when click Device List button
+	   When the device doesn't have "ddns" module
+	    And the user click "Confirm" button to start pairing
+	    And the user click the copy button of device within 10 minutes
+	   Then the user should see "Successfully paired." message on pairing page
+	    And the user should not see "DDNS Setting" button on pairing page
+	    And the user should see "My Devices" button on pairing page
+	    And the user should see QR code on pairing page
+	   When the user click "My Devices" button when finished pairing
+	   Then the user will redirect to root page
 
 	Scenario: [PCP_003_03_06]
 		Disable any button in pairing process, except the cancel button
