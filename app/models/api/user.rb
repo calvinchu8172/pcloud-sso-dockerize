@@ -54,6 +54,16 @@ class Api::User < User
     info = {id: "m#{generate_xmpp_account}", password: generate_new_passoword}
     xmpp_user = XmppUser.find_or_initialize_by(username: info[:id])
     xmpp_user.password = info[:password]
+
+
+    # ------------------- #
+    # ------ debug ------ #
+    # ------------------- #
+    logger.info("find or initialize user: #{xmpp_user.to_json} ")
+    logger.info("id: #{info[:id]}")
+    existing_xmpp_user = XmppUser.find_by(username: info[:id])
+    logger.info("existing_xmpp_user: #{existing_xmpp_user.to_json}")
+
     xmpp_user.save
     info[:id] += "@#{Settings.xmpp.server}"
     info
