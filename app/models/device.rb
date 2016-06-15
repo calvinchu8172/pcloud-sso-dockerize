@@ -2,23 +2,21 @@ class Device < ActiveRecord::Base
   include Redis::Objects
   include Guards::AttrEncryptor
 
+  # relation
   belongs_to :product
   has_one :ddns
-
   has_many :pairing
   has_many :invitations
 
+  # redis session
   hash_key :session
   hash_key :pairing_session
   set :module_list
   hash_key :module_version
-  # attr_encrypted :id, :key => Rails.application.secrets.secret_key_base
 
+  # constant variable
   DEFAULT_MODULE_LIST = [{name: 'ddns', ver: '1'}, {name: 'upnp', ver: '1'}]
-
   IP_ADDRESSES_KEY = 'device:ip_addresses:'
-  # MODULE_LIST_KEY = 'device:module_version:'
-
 
   before_save { mac_address.downcase! }
 
@@ -47,10 +45,6 @@ class Device < ActiveRecord::Base
     end
 
     return instance
-  end
-
-  def self.ip_addresses_key_prefix
-    IP_ADDRESSES_KEY
   end
 
   def paired?
@@ -168,6 +162,29 @@ class Device < ActiveRecord::Base
       return device if device.serial_number == serial_number
     end
     return
+  end
+
+  # defined conditions that device is available to pair
+  def is_available_to_pair? current_user_id
+    ( self.is_not_in_pairing_session? || 
+      self.pairing_session_is_not_in_working_section? || 
+      self.is_pairing_by_current_user?(current_user_id)
+    ) && self.presence?
+  end
+
+  def is_not_in_pairing_session?
+    self.pairing_session.size == 0 
+  end
+
+  # pairing session not in handling
+  def pairing_session_is_not_in_working_section?
+    pairing_session = self.pairing_session.all
+    !Device.handling_status.include?(pairing_session['status'])
+  end
+
+  def is_pairing_by_current_user? current_user_id
+    pairing_session = self.pairing_session.all
+    pairing_session['user_id'] == current_user_id.to_s
   end
 
   def ip_encode_hex

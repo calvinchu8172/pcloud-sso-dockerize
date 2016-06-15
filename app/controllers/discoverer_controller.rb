@@ -46,7 +46,9 @@ class DiscovererController < ApplicationController
     params[:device][:mac_address].gsub!(/:/, '')
     service_logger.note({searching_device: params[:device]})
     device = Device.search(params[:device][:mac_address], params[:device][:serial_number])
-    logger.info "searched device:" + params[:device][:mac_address].inspect
+
+    logger.info("searched device:" + params[:device][:mac_address].inspect)
+    
     if device.blank?
       flash[:alert] = I18n.t("errors.messages.not_found")
       redirect_to action: 'add'
@@ -67,15 +69,14 @@ class DiscovererController < ApplicationController
   # 2. 裝置非本人配對中
   def search_available_device
     available_device_list = []
-    available_ip_list = Redis::HashKey.new(Device.ip_addresses_key_prefix + request.remote_ip.to_s).keys
+    available_ip_list = Redis::HashKey.new(Device::IP_ADDRESSES_KEY + request.remote_ip.to_s).keys
 
     service_logger.note({device_in_lan: available_ip_list})
 
     Device.includes(:product).where('id in (?)', available_ip_list).each do |device|
-      pairing_session = device.pairing_session.all
-      pairing = device.pairing_session.size != 0 && Device.handling_status.include?(pairing_session['status']) && pairing_session['user_id'] != current_user.id.to_s
-      presence = device.presence?
-      available_device_list << device if !pairing && presence
+      if device.is_available_to_pair?(current_user.id)
+        available_device_list << device
+      end
     end
     available_device_list
   end
