@@ -153,7 +153,6 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     doorkeeper (3.1.0)
       railties (>= 3.2)
-    doorkeeper-i18n (3.0.0)
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
@@ -495,7 +494,6 @@ DEPENDENCIES
   devise (= 3.5.1)
   devise-i18n
   doorkeeper
-  doorkeeper-i18n
   email_spec
   factory_girl_rails
   faker
@@ -559,4 +557,4 @@ DEPENDENCIES
   yard-cucumber
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

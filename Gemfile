@@ -149,7 +149,7 @@ gem 'browser-timezone-rails'
 gem 'whenever', '~> 0.9.4', require: false
 gem 'time_difference'
 gem 'doorkeeper'
-gem 'doorkeeper-i18n'
+# gem 'doorkeeper-i18n'
 
 group :development do
   gem 'brakeman', require: false
