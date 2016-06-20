@@ -18,21 +18,26 @@ class Api::Resource::InvitationsController < Api::Base
 		return render_error_response "004" if device.blank?
 
 		pairing = Pairing.find_by_device_id( device.id )
-		return render_error_response "004" if pairing.user_id.to_s != user.id.to_s
+		return render_error_response "004" if pairing.blank? || pairing.user_id.to_s != user.id.to_s
 
 		#組成字串
 		invitation_key =  cloud_id + share_point + device.id.to_s + Time.now.to_s
 		#加密
-		#require 'digest/hmac'
-		#Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1)
 		invitation_key = Digest::HMAC.hexdigest(invitation_key, "hash key", Digest::SHA1).to_s
-		invitation = Invitation.new( :key => invitation_key, :share_point => share_point, :permission => permission, :device_id => device.id, :expire_count => expire_count )
+		invitation = Invitation.new( 
+			key: invitation_key, 
+			share_point: share_point, 
+			permission: permission, 
+			device_id: device.id, 
+			expire_count: expire_count )
+
     begin
       invitation.save!
     rescue ActiveRecord::ActiveRecordError => e
       Rails.logger.error e
       render_error_response "019" and return
     end
+
 		render :json => { invitation_key: invitation_key }, status: 200
 	end
 
