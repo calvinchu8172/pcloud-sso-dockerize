@@ -34,8 +34,9 @@ class PersonalController < ApplicationController
     render :json => @session, status: 200
   end
 
+  # 限制每台 NAS 每分鐘 device information 被 access 的次數 (每分鐘上限 5 次)
   def check_device_info_access_limit
-    device_info_limit_session = Redis::HashKey.new("device:info:limit:#{@device.id}:#{@device.ip_decode_hex}:session")
+    device_info_limit_session = Redis::HashKey.new("device:info:limit:#{@device.id}:session")
     start_time = Time.now().to_i
     end_time = (start_time + 60.seconds)
     session_data = { start_time: start_time, end_time: end_time, access_count: 0 }
