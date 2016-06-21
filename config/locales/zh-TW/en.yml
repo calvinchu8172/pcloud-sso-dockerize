@@ -21,6 +21,7 @@ zh-TW:
     or: "或"
     expand_all: "全部展開"
     collapse_all: "全部收回"
+    download: "下載"
     settings:
       invitation:
         connecting: "連線中..."
@@ -112,6 +113,7 @@ zh-TW:
     unpairing: "取消配對"
     terms: "使用者條款"
     manually: "手動加入裝置"
+    download_edm_users_list: "下載 EDM users list"
   warnings:
     not_config: "尚未設定DDNS"
     no_pairing_device: "您沒有已配對的設備!"
