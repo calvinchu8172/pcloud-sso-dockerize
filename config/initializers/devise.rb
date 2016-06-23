@@ -238,8 +238,22 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  config.omniauth :facebook, Settings.oauth.facebook_app_id, Settings.oauth.facebook_secret,
-    auth_type: 'reauthenticate', scope: 'email', info_fields: 'email, name'
+  config.omniauth :facebook, 
+    Settings.oauth.facebook_app_id, 
+    Settings.oauth.facebook_secret,
+    auth_type: 'reauthenticate', 
+    scope: 'email', 
+    info_fields: 'email, name',
+    client_options: {
+      :site => "https://graph.facebook.com/v2.3",
+      :authorize_url => "https://www.facebook.com/v2.3/dialog/oauth"
+    },
+    # Incompatible with response type for v2.3 of Facebook API:
+    # https://github.com/mkdynamic/omniauth-facebook/issues/196
+    token_params: {
+      parse: :json
+    }
+
   config.omniauth :google_oauth2, Settings.oauth.google_app_id, Settings.oauth.google_secret
 
   # If you want to use other strategies, that are not supported by Devise, or
