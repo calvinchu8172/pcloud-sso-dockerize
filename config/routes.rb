@@ -151,8 +151,8 @@ Rails.application.routes.draw do
       # ---------------------- #
       # ----- permission ----- #
       # ---------------------- #
-      # get 'permission', to: 'permissions#show', format:'json' # version 1.3
-      # post 'permission', to: 'permissions#create', format:'json' # version 1.3
+      get 'permission', to: 'permissions#show', format:'json' # version 1.3
+      post 'permission', to: 'permissions#create', format:'json' # version 1.3
       delete 'permission', to: 'permissions#destroy', format:'json'
 
       # ----------------------- #
@@ -172,7 +172,7 @@ Rails.application.routes.draw do
     end
 
     scope :path => '/device/1/', :module => "api/devices" do
-      # get 'online_status', to: 'online_status#show', format: 'json' # version 1.3
+      get 'online_status', to: 'online_status#show', format: 'json' # version 1.3
       put 'online_status', to: 'online_status#update', format: 'json'
     end
 
