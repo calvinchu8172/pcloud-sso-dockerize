@@ -4,6 +4,9 @@ class PersonalController < ApplicationController
   before_action :check_device_info_access_limit, only: [:device_info]
   before_action :check_device_info_session, only: [:check_status]
 
+  def blank
+  end
+
   def index
     pairing = Pairing.includes(device: [:product, :ddns]).owner.where(user_id: current_user.id)
     service_logger.note({paired_device: pairing})

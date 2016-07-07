@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     devise_scope :user do
       # setting root path to personal index page, if user signed in
       authenticated :user do
-        root 'personal#index', as: :authenticated_root
+        # root 'personal#index', as: :authenticated_root
+        root 'personal#blank', as: :authenticated_root
       end
 
       # setting root path to sign in page, if user not sign in
@@ -163,8 +164,8 @@ Rails.application.routes.draw do
       # -------------------------- #
       # ----- vendor_devices ----- #
       # -------------------------- #
-      get "vendor_devices", to: "vendor_devices#index", format: 'json' 
-      post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json' 
+      get "vendor_devices", to: "vendor_devices#index", format: 'json'
+      post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json'
     end
 
     scope :path => '/healthy/1/', :module => "api/healthy" do
