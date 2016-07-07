@@ -118,65 +118,6 @@ Rails.application.routes.draw do
       end
     end
 
-    scope :path => '/d/1/', :module => "api/devices/v1" do
-      post 'register', to: 'register#create', format: 'json'
-    end
-
-    scope :path => '/d/2/', :module => "api/devices/v2" do
-      post 'register', to: 'register#create', format: 'json'
-    end
-
-    scope :path => '/d/3/', :module => "api/devices/v3" do
-      post 'register', to: 'register#create', format: 'json'
-      post 'register/lite', to: 'lite#create', format: 'json'
-    end
-
-    scope :path => '/user/1/', :module => "api/user", :as => "last_user_api" do
-      resource :token, format: 'json', only: [ :create, :show, :update, :destroy ]
-      resource :register, format: 'json', only: [ :create ]
-      resource :email, format: 'json', only: [ :show, :update ]
-      resource :confirmation, format: 'json', only: [ :create ]
-      resource :password, format: 'json', only: [ :create ]
-      resource :xmpp_account, format: 'json', only: [ :update ]
-      get 'checkin/:oauth_provider', to: 'oauth#mobile_checkin', format: 'json'
-      post 'register/:oauth_provider', to: 'oauth#mobile_register', format: 'json'
-    end
-
-    scope :path => '/resource/1/', :module => "api/resource" do
-      # ---------------------- #
-      # ----- invitation ----- #
-      # ---------------------- #
-      post 'invitation', to: 'invitations#create', format: 'json'
-      get 'invitation', to: 'invitations#show', format: 'json'
-
-      # ---------------------- #
-      # ----- permission ----- #
-      # ---------------------- #
-      get 'permission', to: 'permissions#show', format:'json' # version 1.3
-      post 'permission', to: 'permissions#create', format:'json' # version 1.3
-      delete 'permission', to: 'permissions#destroy', format:'json'
-
-      # ----------------------- #
-      # ----- device_list ----- #
-      # ----------------------- #
-      get 'device_list', to: 'personal#device_list', format: 'json'
-
-      # -------------------------- #
-      # ----- vendor_devices ----- #
-      # -------------------------- #
-      get "vendor_devices", to: "vendor_devices#index", format: 'json'
-      post "vendor_devices/crawl", to: "vendor_devices#crawl", format: 'json'
-    end
-
-    scope :path => '/healthy/1/', :module => "api/healthy" do
-      get 'status', to: 'status#show', format: 'json'
-    end
-
-    scope :path => '/device/1/', :module => "api/devices" do
-      get 'online_status', to: 'online_status#show', format: 'json' # version 1.3
-      put 'online_status', to: 'online_status#update', format: 'json'
-    end
-
   end
 
   # Catch all routes
