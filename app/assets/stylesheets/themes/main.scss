@@ -1,0 +1,115 @@
+body {
+  font-family: 'Open Sans', sans-serif, "微軟正黑體";
+
+  .main {
+    width: 460px;
+    margin: 0 auto;
+
+    .logo {
+      width: 72px;
+      height: 16px;
+      background: image-url('zyxel-logo.png') no-repeat;
+      margin: 50px auto 0 auto;
+    }
+
+    .title {
+      color: #8C8C8C;
+      margin: 40px auto 10px auto;
+      text-align: center;
+    }
+
+    .content {
+      color: #fff;
+      margin-bottom: 10px;
+      padding: 55px 35px;
+      background: image-url('content-heading.png') top no-repeat,
+        image-url('content-footer.png') bottom no-repeat,
+        image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+        image-url('#{$theme-type}/rainbow.png') bottom -20px right -23px no-repeat;
+      background-color: $bg-color;
+
+      a:not(.btn) {
+        color: #fff;
+        text-decoration: underline;
+
+        &:focus, &:active {
+          color: #fff;
+        }
+        &:hover {
+          color: darken(#fff, 10%);
+        }
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .oauth {
+      color: #8C8C8C;
+      margin: 10px auto 10px auto;
+      .or {
+        text-align: center;
+      }
+      .oauth_wrapper {
+        // background-color: #f00;
+        height: 60px;
+        margin-bottom: 20px;
+        .facebook {
+
+        }
+        .google {
+
+        }
+      }
+    }
+
+    .register {
+      margin-bottom: 20px;
+      .new_register {
+        color: #8C8C8C;
+        padding-left: 40px;
+      }
+      .create_account {
+        padding-left: 40px;
+        a.create_account_link {
+          color: $bg-color;
+          font-weight: bold;
+        }
+        a.create_account_link:hover {
+          color: darken($bg-color, 10%);
+          font-weight: bold;
+        }
+      }
+    }
+
+    .locale_and_help {
+      height: 40px;
+      .locale {
+        padding-left: 40px;
+      }
+      .help {
+        padding-right: 40px;
+        .abc {
+          // height: 30px;
+          // width: 150px;
+          // background-color: #f00;
+          float: right;
+          a {
+            line-height: 30px;
+            color: $bg-color;
+            &:hover {
+              color: darken($bg-color, 10%);
+            }
+          }
+        }
+      }
+    }
+
+    .footer {
+      color: #8C8C8C;
+      text-align: center;
+    }
+  }
+
+}

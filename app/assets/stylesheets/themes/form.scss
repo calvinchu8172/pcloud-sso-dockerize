@@ -1,0 +1,35 @@
+form {
+
+  &#new_user {
+
+    .user_remember_me {
+
+      .checkbox {
+        float: right;
+        margin: 0;
+
+        label {
+          font-weight: normal;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .form-control-feedback {
+    color: #8C8C8C;
+  }
+
+  .flash-wrapper {
+    min-height: 32px;
+
+    .alert {
+      padding: 5px 15px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .help-block, .has-error .help-block {
+    color: #fff;
+  }
+}

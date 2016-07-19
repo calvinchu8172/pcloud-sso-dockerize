@@ -1,0 +1,58 @@
+- content_for :title, I18n.t('titles.sign_in')
+
+= simple_form_for resource, as: resource_name, url: session_url(resource_name), metod: :post do |f|
+  = f.input :email, label: false, wrapper_html: { class: 'has-feedback' } do
+    = f.input_field :email, placeholder: I18n.t('user.labels.email'), autofocus: true, class: 'form-control', required: true
+    = content_tag 'span', fa_icon('envelope-o'), class: 'form-control-feedback'
+  = f.input :password, label: false, wrapper_html: { class: 'has-feedback' } do
+    = f.input_field :password, placeholder: I18n.t('user.labels.password'), class: 'form-control', required: true
+    = content_tag 'span', fa_icon('key'), class: 'form-control-feedback'
+  = f.input :remember_me, label: false do
+    = link_to I18n.t('labels.forgot_password'), new_user_password_url
+    .checkbox.checkbox-custom
+      = check_box_tag :remember_me, '1', params[:remember_me]
+      = label_tag :remember_me, I18n.t('user.labels.remember_me')
+  .flash-wrapper
+    - if flash.present?
+      - if flash[:success]
+        .alert.alert-success= simple_format flash[:success]
+      - if flash[:notice]
+        .alert.alert-info= simple_format flash[:notice]
+      - if flash[:alert]
+        .alert.alert-warning= simple_format flash[:alert]
+      - if flash[:error]
+        .alert.alert-danger= simple_format flash[:error]
+  = f.button :submit, I18n.t('titles.sign_in'), class: 'btn-custom btn-block'
+
+- content_for :oauth do
+  .or
+    = I18n.t("labels.or")
+  .oauth_wrapper
+    .facebook.col-xs-6.col-sm-6.col-md-6.col-lg-6
+      = button_to "", user_omniauth_authorize_path(:facebook), class: "btn-round fb"
+    .google.col-xs-6.col-sm-6.col-md-6.col-lg-6
+      = button_to "", user_omniauth_authorize_path(:google_oauth2), class: "btn-round google"
+
+- content_for :register do
+  .new_register
+    = "New to myZyXelCloud?"
+  .create_account
+    = link_to "Create Account", new_registration_path(resource_name), class: "create_account_link"
+
+- content_for :locale_and_help do
+  .locale.col-xs-6.col-sm-6.col-md-6.col-lg-6
+    .dropdown
+      %a.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }
+        .language=image_tag("icon-language.png")
+        .language=I18n.t('labels.language')
+        .language=image_tag("angle-down-green.png")
+      %ul.dropdown-menu{ :role => "menu" }
+        - @options_path.each do |l, value|
+          %li=link_to l, value
+
+  .help.col-xs-6.col-sm-6.col-md-6.col-lg-6
+    .abc
+      = image_tag("icon-help.png")
+      = link_to 'Help', '/help', target: "_blank"
+
+

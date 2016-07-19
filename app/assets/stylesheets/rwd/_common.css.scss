@@ -1,15 +1,47 @@
+.layout-rwd {
+   .a {
+    background-color: #f00;
+    width: 400px;
+    height:200px;
+    margin: 50px auto 0 auto;
+    padding-top: 50px;
+  }
+
+  .b {
+    background-color: #0f0;
+    width: 100px;
+    height:100px;
+    margin: 0 auto 0 auto;
+  }
+
+  .logo {
+    width: 72px;
+    height: 16px;
+    // background: image-url('zyxel-logo.png') no-repeat;
+    margin: 50px auto 0 auto;
+    display: block;
+  }
+
+}
+
+
+
 .layout-rwd .header {
 
   .header_h1_rwd {
-    text-align: left;
+    // text-align: center;
+    // margin: 50px auto 0 auto;
+
+    .logo {
+      width: 72px;
+      height: 16px;
+      // background: image-url('zyxel-logo.png') no-repeat;
+      margin: 50px auto 0 auto;
+      display: block;
+    }
+
   }
 
-  .header_h2_rwd {
-    text-align: left;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .layout-rwd .zyxel_content {

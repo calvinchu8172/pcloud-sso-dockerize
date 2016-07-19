@@ -11,27 +11,25 @@
   header {
     position: relative;
     padding: 28px 0 23px 0;
-    border-bottom: 2px solid $zyxel_color4;
+    // border-bottom: 2px solid $zyxel_color4;
     text-align: center;
-    color: $zyxel_color4;
-    font-size: 32px;
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      width: 0;
-      height: 0;
-      margin-left: -8px;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 8px solid $zyxel_color4;
-    }
+    color: $zyxel_color5;
+    font-size: 20px;
+    // &:after {
+    //   content: '';
+    //   position: absolute;
+    //   bottom: -8px;
+    //   left: 50%;
+    //   width: 0;
+    //   height: 0;
+    //   margin-left: -8px;
+    //   border-left: 8px solid transparent;
+    //   border-right: 8px solid transparent;
+    //   border-top: 8px solid $zyxel_color4;
+    // }
   }
 }
-.signup_cont {
-  padding: 8% 7% 7% 7%;
-}
+
 .divider {
   display: -webkit-box;
   display: -moz-box;

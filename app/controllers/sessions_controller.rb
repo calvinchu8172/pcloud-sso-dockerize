@@ -1,6 +1,7 @@
 class SessionsController < Devise::SessionsController
 
-  layout 'rwd'
+  # layout 'rwd'
+  layout 'sso'
 
   # POST /resource/sign_in
   def create
