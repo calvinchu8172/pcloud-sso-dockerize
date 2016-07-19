@@ -1,6 +1,8 @@
+@import 'application';
+
 $theme-type: 'red';
 $bg-color:   #FF2938;
 $btn-color:  #D9003C;
+$btn-color-light:   #FEAFB5;
 
-@import 'application';
 @import 'themes/*';

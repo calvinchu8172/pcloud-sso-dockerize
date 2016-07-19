@@ -10,54 +10,56 @@
 }
 
 .dropdown {
-  // border: 1px solid $zyxel_color4;
-  // background-color: lighten($bg-color, 20%);
-  // margin-right: 10px;
-  // @include border-radius(5px);
-  // border-radius: 5px;
-  // padding-left: 40px;
-  // background-color: lighten($bg-color, 25%);
-  // height: 30px;
-  // width: 150px;
-  // line-height: 30px;
-  // &:hover, &:focus{
-    // background-color: $bg-color;
-    // text-decoration: none;
-    // cursor: pointer;
-  // }
-
-  // .dropdown {
   > a {
     display: block;
     height: 30px;
     width: 150px;
-    // background-color: lighten($bg-color, 25%);
-    background-color: #e1f2cc;
+    background-color: $btn-color-light;
+    // background-color: lighten($btn-color, 40%);
     @include transition(background, 0.3s);
-    &:hover, &:focus{
-      color: $zyxel_white;
-      background-color: $bg-color;  /* Rewrite bootstrap nav css*/
-      text-decoration: none;
-    }
+
+    // 讓內部的子元件平均分布
+    display: flex;
+    display: -webkit-flex; /*for safari*/
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+
     .language {
-      display:inline;
-      margin: 0 10px 0 10px;
       color: #000;
+      line-height: 30px;
+    }
+
+    // .icon-language {
+    //   float:left;
+    //   line-height: 30px;
+    // }
+    // .language {
+    //   color: #000;
+    //   float:left;
+    //   line-height: 30px;
+    //   width: 60%;
+    //   text-align: center;
+    // }
+    // .icon-angle-down{
+    //   float:left;
+    //   line-height: 30px;
+    // }
+
+    &:hover, &:focus{
+      // color: $zyxel_white;
+      // background-color: darken($btn-color-light, 25%);  /* Rewrite bootstrap nav css*/
+      background-color: $bg-color;
+      text-decoration: none;
+      .language {
+        color: #fff;
+        @include transition(color, 0.3s);
+      }
     }
   }
-  li a {
-    color: $zyxel_color4;
-    font-weight: normal;
-  }
-  // .dropdown-toggle:after{
-  //   display: inline-block;
-  //   content: "›";
-  //   padding: 0px 0px 0px 2px;
-  //   transform: rotate(90deg);
-  //   -webkit-transform: rotate(90deg);
-  //   -moz-transform: rotate(90deg);
-  //   -o-transform: rotate(90deg);
-  // }
+
   .dropdown-menu {
     right:0;
     left: inherit;
@@ -66,11 +68,9 @@
       font-weight: normal;
       font-size: 13px;
       line-height: 2em;
-      &:hover,
-      &:focus {
-        color: $zyxel_white;
+      &:hover, &:focus {
+        color: #fff;
         text-decoration: none;
-        // background-color: $zyxel_color4;
         background-color: $bg-color;
       }
     }

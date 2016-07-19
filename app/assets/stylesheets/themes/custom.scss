@@ -3,14 +3,14 @@
 }
 
 .btn-round {
-  width: 60px;
-  height: 60px;
-  line-height: 60px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
   border-width: 0px;
-  border-radius: 60px; /* 高度 */
+  border-radius: 40px; /* 高度 */
   &.fb {
     background: #3A5794 image-url("fb.png") no-repeat center;
-    background-size: 30px 30px;
+    background-size: 22px 22px;
     float: right;
     &:hover {
       background-color: #344E85;

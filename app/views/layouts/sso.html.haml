@@ -15,19 +15,17 @@
     = csrf_meta_tags
 
   %body
-    .main.container
+    .main.container-fluid
       .logo
       .title
         = yield :title
+      .precontent
+        = yield :precontent
       .content
         = yield
-      .oauth
-        = yield :oauth
-      .register
-        = yield :register
-      .locale_and_help
-        = yield :locale_and_help
-      .footer
-        Copyright © 2016 ZyXEL Communications Corp.
-        %br
-        All rights reserved.
+      .postcontent
+        = yield :postcontent
+    .footer.container-fluid
+      Copyright © 2016 ZyXEL Communications Corp.
+      %br
+      All rights reserved.
