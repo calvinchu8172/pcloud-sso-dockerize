@@ -1,10 +1,13 @@
 body {
   font-family: 'Open Sans', sans-serif, "微軟正黑體";
+  .space {
+    height: 50px;
+  }
 
   .main {
-    width: 430px;
-    margin: 50px auto 0 auto;
-    padding: 0;
+    max-width: 430px;
+    margin: auto;
+    padding: 0 0 10px 0;
     box-shadow: 0px 0px 50px -20px #888888;
 
     .logo {
@@ -92,16 +95,12 @@ body {
             font-weight: bold;
           }
         }
-        // a.create_account_link:hover {
-        //   color: darken($bg-color, 10%);
-        //   font-weight: bold;
-        // }
       }
     }
 
     .locale_and_help {
       height: 40px;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
 
       .locale {
         padding-left: 40px;
@@ -122,15 +121,16 @@ body {
           }
         }
       }
-    }
 
-  }
+    } //.locale_and_help
+
+  } //.main
 
   .footer {
     color: #8C8C8C;
     text-align: center;
-    width: 430px;
+    max-width: 430px;
     margin: 10px auto;
   }
 
-}
+} // body
