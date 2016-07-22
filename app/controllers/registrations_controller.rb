@@ -2,7 +2,8 @@ require 'net/http'
 
 class RegistrationsController < Devise::RegistrationsController
 
-  layout 'rwd'
+  # layout 'rwd'
+  layout 'sso'
 
   def update
     account_update_params = devise_parameter_sanitizer.sanitize(:account_update)

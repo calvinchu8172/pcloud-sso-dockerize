@@ -3,7 +3,8 @@
   %head
     %meta{ charset: 'UTF-8' }
     %meta{ 'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
-    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    / %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" }
     %title ZyXEL PCloud
     = stylesheet_link_tag    theme, media: 'all'
     = javascript_include_tag 'application'
@@ -16,36 +17,22 @@
 
   %body
     .container-fluid.hidden-xs
-      .row
-        .col-xs-12
-          .space
+      .space
     .main.container-fluid
-      .row
-        .col-xs-12
-          .logo
-      .row
-        .col-xs-12
-          .title
-            = yield :title
-      .row
-        .col-xs-12
-          .precontent
-            = yield :precontent
-      .row
-        .col-xs-12
-          .content
-            = yield
-      .row
-        .col-xs-12
-          .postcontent
-            = yield :postcontent
-      .row.visible-xs-block
-        .col-xs-12
-          .footer
-            Copyright © 2016 ZyXEL Communications Corp.
+      .logo
+      .title
+        = yield :title
+      .precontent
+        = yield :precontent
+      .content
+        = yield
+      .postcontent
+        = yield :postcontent
+      .footer.visible-xs-block
+        = yield :footer
+      / .footer.visible-xs-block
+      /   Copyright © 2016 ZyXEL Communications Corp.
     .footer.container-fluid.hidden-xs
-      .row
-        .col-xs-12
-          Copyright © 2016 ZyXEL Communications Corp.
-          %br
-          All rights reserved.
+      Copyright © 2016 ZyXEL Communications Corp.
+      %br
+      All rights reserved.

@@ -2,6 +2,19 @@ form {
 
   &#new_user {
 
+    // .user_email {
+    //   input[type='email'] {
+    //     background-color: #f00 !important;
+    //   }
+    // }
+    // .user_email {
+    //   .form-aaa {
+    //     input[type='email'] {
+    //       background-color: #f00 !important;
+    //     }
+    //   }
+    // }
+
     .user_remember_me {
 
       .checkbox {
@@ -15,6 +28,10 @@ form {
       }
     }
   }
+
+  // .form-control {
+  //   background-color: #8C8C8C;
+  // }
 
   .form-control-feedback {
     color: #8C8C8C;

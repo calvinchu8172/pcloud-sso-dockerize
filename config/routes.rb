@@ -51,6 +51,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get 'personal/profile'
+
     unless Rails.env.production?
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     end
