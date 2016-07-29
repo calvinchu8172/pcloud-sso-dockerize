@@ -1,5 +1,7 @@
 .btn-custom {
   @include button-variant(#FFFFFF, $btn-color, $btn-color);
+  height: 40px;
+  font-size: 16px;
 }
 
 .btn-round {
@@ -31,16 +33,30 @@
   line-height: 34px;
   text-align: center;
   text-decoration: none !important;
-  // font-size: 14px;
+  font-size: 16px;
   a:hover {
     color: darken(#fff, 10%);
     text-decoration: underline !important;
   }
 }
 
-.recapcha {
-  margin: 15px 0;
-}
 
 @include checkbox-variant('.checkbox-custom', $btn-color);
 @include checkbox-variant-indeterminate('.checkbox-custom', $brand-primary);
+
+//customize bootstrap form
+.form-control {
+  height: 40px;
+  font-size: 16px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-control-feedback {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+

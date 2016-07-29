@@ -1,0 +1,23 @@
+.add-padding-right {
+  padding-right: 82.5px !important;
+}
+
+.add-show-hide {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.show-password-wrapper {
+  width: 40px;
+  height: 40px;
+  background-color: #f00;
+  top: -50px;
+  position: relative;
+  margin-bottom: -40px;
+  float: right;
+  background: image-url("eye-open.png") no-repeat center;
+  &:hover {
+    cursor: pointer;
+  }
+}

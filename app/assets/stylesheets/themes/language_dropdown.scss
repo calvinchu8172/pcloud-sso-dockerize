@@ -13,7 +13,7 @@
   > a {
     display: block;
     height: 30px;
-    width: 150px;
+    width: 156px;
     background-color: $btn-color-light;
     // background-color: lighten($btn-color, 40%);
     @include transition(background, 0.3s);

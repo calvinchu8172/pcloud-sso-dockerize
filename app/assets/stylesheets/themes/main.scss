@@ -12,16 +12,22 @@ body {
     box-shadow: 0px 0px 50px -20px #888888;
 
     .logo {
-      width: 72px;
-      height: 16px;
-      background: image-url('zyxel-logo.png') no-repeat;
-      margin: 50px auto 0 auto;
+      // width: 72px;
+      // height: 16px;
+      width: 120px;
+      height: 48px;
+      background: image-url('zyxel-logo.png') no-repeat center;
+      // margin: 50px auto 0 auto;
+      margin: 38px auto 0 auto;
     }
 
     .title {
       color: #8C8C8C;
-      margin: 40px auto 30px auto;
+      margin: 28px auto 25px auto;
       text-align: center;
+    }
+    .precontent {
+      max-width: 430px;
     }
 
     .content {
@@ -77,24 +83,27 @@ body {
 
     .oauth {
       color: #8C8C8C;
-      margin: 10px auto 10px auto;
+      margin: 5px auto 10px auto;
       .or {
         text-align: center;
+        font-size: 14px;
       }
       .oauth_wrapper {
         height: 40px;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
+        margin-bottom: 12px;
         .facebook {
-
+          padding-right: 11px;
         }
         .google {
-
+          padding-left: 11px;
         }
       }
     }
 
     .register {
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
+      margin-bottom: 12px;
       .new_register {
         color: #8C8C8C;
         padding-left: 40px;
@@ -113,19 +122,19 @@ body {
     }
 
     .locale_and_help {
-      height: 40px;
+      height: 30px;
       margin-bottom: 10px;
 
       .locale {
         padding-left: 40px;
       }
       .help {
-        padding-right: 40px;
+        padding-left: 83px;
         .help_wrapper {
           // height: 30px;
           // width: 150px;
           // background-color: #f00;
-          float: right;
+          // float: right;
           a {
             line-height: 30px;
             color: $bg-color;
@@ -149,20 +158,51 @@ body {
 
 } // body
 
+@media (max-width: 430px)
+{
+  body {
+    .main {
+      // 關掉陰影
+      box-shadow: 0px 0px 0px 0px;
+    }
+  }
+}
 
 @media (max-width: 320px)
 {
   body {
     .main {
       .content {
-        font-size: 12px;
-
+        font-size: 14px;
+        .signin_content_wrapper {
+          padding: 55px 15px;
+        }
+        .content_wrapper {
+          padding: 35px 15px 15px 15px;
+        }
       }
+      .register {
+        .new_register {
+          padding-left: 15px;
+        }
+        .create_account {
+          padding-left: 15px;
+        }
+      }
+      .locale_and_help {
+        margin-bottom: 10px;
+        .locale {
+          padding-left: 15px;
+        }
+      }
+
 
     }
 
     .footer {
       font-size: 12px;
+      // margin: 10px auto;
+      margin: 14px auto 5px auto;
     }
   } //body
 

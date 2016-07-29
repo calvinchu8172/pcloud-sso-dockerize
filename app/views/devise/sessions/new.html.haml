@@ -9,8 +9,8 @@
       = content_tag 'span', image_tag("email-gray.png"), class: 'form-control-feedback'
     = f.input :password, label: false, wrapper_html: { class: 'has-feedback' } do
       = f.input_field :password, placeholder: I18n.t('user.labels.password'), class: 'form-control', required: true
-      / = content_tag 'span', fa_icon('key'), class: 'form-control-feedback'
-      = content_tag 'span', image_tag("key-gray.png"), class: 'form-control-feedback'
+      / = content_tag 'span', image_tag("eye-open.png"), class: 'form-control-feedback'
+    .show-password-wrapper{:title => 'Show password'}
     = f.input :remember_me, label: false do
       = link_to I18n.t('labels.forgot_password'), new_user_password_url
       .checkbox.checkbox-custom
@@ -34,15 +34,15 @@
       = I18n.t("labels.or")
     .oauth_wrapper
       .facebook.col-xs-6.col-sm-6.col-md-6.col-lg-6
-        = button_to "", user_omniauth_authorize_path(:facebook), class: "btn-round fb"
+        = button_to "", user_omniauth_authorize_path(:facebook), title: "log in by facebook", class: "btn-round fb"
       .google.col-xs-6.col-sm-6.col-md-6.col-lg-6
-        = button_to "", user_omniauth_authorize_path(:google_oauth2), class: "btn-round google"
+        = button_to "", user_omniauth_authorize_path(:google_oauth2), title: "log in by google+", class: "btn-round google"
 
   .register
     .new_register
-      = "New to myZyXelCloud?"
+      = I18n.t('user.labels.new_to_cloud')
     .create_account
-      = link_to "Create Account", new_registration_path(resource_name), class: "create_account_link"
+      = link_to I18n.t('user.labels.create_account'), new_registration_path(resource_name), class: "create_account_link"
 
   .locale_and_help
     .locale.col-xs-6.col-sm-6.col-md-6.col-lg-6

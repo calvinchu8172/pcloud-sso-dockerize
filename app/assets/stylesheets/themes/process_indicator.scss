@@ -1,0 +1,35 @@
+.process_indicator_wrapper {
+  width: 100px;
+  height: 30px;
+  margin: -25px auto -5px auto;
+  .process_indicator {
+    width: 100px;
+    height: 30px;
+    .circle1 {
+      cx: 16px;
+      cy: 15px;
+      r: 6px;
+      fill: none;
+    }
+    .circle2 {
+      cx: 50px;
+      cy: 15px;
+      r: 6px;
+      fill: none;
+    }
+    .circle3 {
+      cx: 84px;
+      cy: 15px;
+      r: 6px;
+      fill: none;
+    }
+    .apply_theme {
+      stroke: $bg-color;
+      stroke-width: 2px;
+    }
+    .apply_gray {
+      stroke: #8c8c8c;
+      stroke-width: 2px;
+    }
+  }
+}

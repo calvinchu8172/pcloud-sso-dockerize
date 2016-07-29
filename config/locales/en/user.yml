@@ -25,6 +25,8 @@ en:
       remember_me: Remember Me
       language: Language
       captcha: Captcha
+      new_to_cloud: New to myZyXelCloud?
+      create_account: Create Account
       terms:
         instruction: I understand and agree the
         instruction_2: ZyXEL Cloud Terms of Use
