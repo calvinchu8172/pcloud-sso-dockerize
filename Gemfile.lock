@@ -358,7 +358,8 @@ GEM
     raindrops (0.15.0)
     rake (10.4.2)
     rdoc (4.2.0)
-    recaptcha (0.3.6)
+    recaptcha (3.3.0)
+      json
     redcarpet (3.3.4)
     redis (3.2.1)
     redis-objects (1.2.0)
@@ -538,7 +539,7 @@ DEPENDENCIES
   rails_admin
   rails_config
   rake (= 10.4.2)
-  recaptcha (~> 0.3.6)
+  recaptcha (~> 3.3.0)
   redcarpet
   redis-objects
   rest-client
