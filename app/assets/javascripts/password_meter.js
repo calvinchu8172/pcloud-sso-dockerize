@@ -16,37 +16,41 @@ $(document).ready(function() {
         $(".password-strength").remove();
       }
 
-      if (data.percent > 20) {
+      if (data.percent > 25) {
         $(".password-strength").remove();
         for (i = 0; i < 1; i++) {
           $(".password-meter-anchor").after("<div class='password-strength'></div>");
+          $(".password-strength").css( "background-color", "#ff2837" );
         }
       }
-      if (data.percent > 40) {
+      if (data.percent > 50) {
         $(".password-strength").remove();
         for (i = 0; i < 2; i++) {
           $(".password-meter-anchor").after("<div class='password-strength'></div>");
+          $(".password-strength").css( "background-color", "#ff2837" );
         }
       }
-      if (data.percent > 60) {
+      if (data.percent > 75) {
         $(".password-strength").remove();
         for (i = 0; i < 3; i++) {
           $(".password-meter-anchor").after("<div class='password-strength'></div>");
+          $(".password-strength").css( "background-color", "#ff8900" );
         }
       }
-      if (data.percent > 80) {
+      // if (data.percent > 80) {
+      //   $(".password-strength").remove();
+      //   for (i = 0; i < 4; i++) {
+      //     $(".password-meter-anchor").after("<div class='password-strength'></div>");
+      //   }
+      // }
+      if (data.percent == 100) {
         $(".password-strength").remove();
         for (i = 0; i < 4; i++) {
           $(".password-meter-anchor").after("<div class='password-strength'></div>");
+          $(".password-strength").css( "background-color", "#64be00" );
         }
       }
-      if (data.percent == 100) {
-        $(".password-strength").remove();
-        for (i = 0; i < 5; i++) {
-          $(".password-meter-anchor").after("<div class='password-strength'></div>");
-        }
-      }
-      $(".password-strength").css( "background-color", data.color );
+      // $(".password-strength").css( "background-color", data.color );
 
     }
   });
