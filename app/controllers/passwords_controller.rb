@@ -1,6 +1,7 @@
 class PasswordsController < Devise::PasswordsController
 
-  layout 'rwd'
+  # layout 'rwd'
+  layout 'sso'
 
   def create
     # Cannot reset password when user was login with oauth

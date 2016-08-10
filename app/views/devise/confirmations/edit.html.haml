@@ -1,0 +1,26 @@
+- content_for :title, I18n.t('titles.sign_up')
+
+- content_for :precontent do
+  .process_indicator_wrapper
+    %svg.process_indicator
+      %circle.circle1.apply_theme
+      %line.apply_theme{:x1 => 28, :y1 => 15, :x2 => 38, :y2 => 15}
+      %circle.circle2.apply_theme
+      %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 72, :y2 => 15}
+      %circle.circle3.apply_gray
+
+.content_wrapper
+  .inner_title
+    %h4
+      = fa_icon('check-circle-o')
+      = "更改其他郵件地址 Change to another email"
+
+  = simple_form_for current_user, url: {action: "update"} do |f|
+    = f.input :email, label: I18n.t("user.labels.email"), wrapper_html: { class: 'has-feedback' } do
+      = f.input_field :email, placeholder: I18n.t('user.labels.email'), autofocus: true, class: 'form-control', required: true
+      = content_tag 'span', image_tag("email-gray.png"), class: 'form-control-feedback'
+      .spacer{ :style => "height: 200px;" }
+      = f.button :submit, I18n.t('labels.submit'), class: 'btn-custom btn-block'
+
+    .btn-cancel
+      = link_to I18n.t('labels.cancel'), new_user_confirmation_path, class: 'btn-cancel'

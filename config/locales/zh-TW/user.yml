@@ -31,3 +31,5 @@ zh-TW:
         instruction: "我同意並且瞭解"
         instruction_2: ZyXEL Cloud 的使用條款
       edm: "我同意訂閱 ZyXEL Cloud 相關訊息"
+    titles:
+      reset_password: 重設密碼

@@ -20,6 +20,7 @@
       .space
     .main.container-fluid
       .logo
+        = link_to "", root_path, html_options = { :style => "display: block; width: 120px; height: 48px;" }
       .title
         = yield :title
       .precontent
@@ -28,8 +29,8 @@
         = yield
       .postcontent
         = yield :postcontent
-      .footer.visible-xs-block
-        = yield :footer
+      .inner_footer.visible-xs-block
+        = yield :inner_footer
       / .footer.visible-xs-block
       /   Copyright © 2016 ZyXEL Communications Corp.
     .footer.container-fluid.hidden-xs

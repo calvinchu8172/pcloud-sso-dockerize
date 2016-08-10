@@ -2,6 +2,20 @@
   @include button-variant(#FFFFFF, $btn-color, $btn-color);
   height: 40px;
   font-size: 16px;
+  line-height: 26px;
+}
+
+.btn-auth-deny {
+  // @include button-variant(#FFFFFF, transparent, transparent);
+  height: 40px;
+  font-size: 16px;
+  line-height: 26px;
+  background-color: transparent;
+  &:hover {
+    // background-color: #344E85;
+    color: darken(#fff, 10%);
+    text-decoration: underline;
+  }
 }
 
 .btn-round {
@@ -40,6 +54,16 @@
   }
 }
 
+.inner_title {
+  min-height: 20px;
+  margin: 40px 0 10px 10px;
+  // font-weight: bold;
+}
+
+// .spacer {
+//   height: 200px;
+// }
+
 
 @include checkbox-variant('.checkbox-custom', $btn-color);
 @include checkbox-variant-indeterminate('.checkbox-custom', $brand-primary);
@@ -60,3 +84,63 @@
   line-height: 40px;
 }
 
+.control-label {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.display-block {
+  display: block;
+}
+
+span.radio_button_gender {
+  label{
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}
+
+.even_distribution_wrapper {
+  // 讓內部的子元件平均分布
+  display: flex;
+  display: -webkit-flex; /*for safari*/
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+}
+
+.select-style {
+  border: 1px solid #cccccc;
+  @include border-radius(4px);
+  height: 40px;
+  font-size: 16px;
+  color: #000;
+  width: 30%;
+  margin-bottom: 10px;
+}
+
+.terms_and_edm {
+  margin-bottom: 18px;
+  label {
+    font-size: 14px;
+    width: 100%;
+    &::before {
+      margin-top: 8px;
+    }
+    &::after {
+      padding-top: 9px;
+    }
+  }
+}
+
+@media (max-width: 320px)
+{
+  .terms_and_edm {
+    label {
+      font-size: 12px;
+    }
+  }
+}

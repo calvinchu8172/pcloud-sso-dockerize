@@ -238,11 +238,11 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  config.omniauth :facebook, 
-    Settings.oauth.facebook_app_id, 
+  config.omniauth :facebook,
+    Settings.oauth.facebook_app_id,
     Settings.oauth.facebook_secret,
-    auth_type: 'reauthenticate', 
-    scope: 'email', 
+    auth_type: 'reauthenticate',
+    scope: 'email',
     info_fields: 'email, name',
     client_options: {
       :site => "https://graph.facebook.com/v2.3",

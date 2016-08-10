@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       # setting root path to personal index page, if user signed in
       authenticated :user do
         # root 'personal#index', as: :authenticated_root
-        root 'personal#blank', as: :authenticated_root
+        root 'welcome#index', as: :authenticated_root
       end
 
       # setting root path to sign in page, if user not sign in

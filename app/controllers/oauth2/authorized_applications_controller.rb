@@ -2,7 +2,10 @@ class Oauth2::AuthorizedApplicationsController < Doorkeeper::AuthorizedApplicati
 	include ExceptionHandler
   include CheckUserConfirmation
   include Locale
+  include Theme
 
-  layout 'rwd'
+  # layout 'rwd'
+  layout 'sso'
+
 
 end

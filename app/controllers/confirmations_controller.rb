@@ -1,6 +1,7 @@
 class ConfirmationsController < Devise::ConfirmationsController
 
-  layout 'rwd'
+  # layout 'rwd'
+  layout 'sso'
 
   before_action :user_login!, only: [:edit, :new, :create, :update]
   before_action :email_validate, only: [:update]

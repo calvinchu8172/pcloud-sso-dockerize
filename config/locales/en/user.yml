@@ -3,7 +3,8 @@ en:
   user:
     labels:
       country: Country
-      email: E-mail
+      email: Email
+      email_suggestion: Email as your account
       display_name: Display as
       first_name: First Name
       middle_name: Middle Name
@@ -30,4 +31,7 @@ en:
       terms:
         instruction: I understand and agree the
         instruction_2: ZyXEL Cloud Terms of Use
-      edm: Yes, send me emails on ZyXEL Cloud Products and Services
+      edm_1: Yes, send me emails on
+      edm_2: ZyXEL Cloud Products and Services
+    titles:
+      reset_password: Reset your password

@@ -1,0 +1,16 @@
+- content_for :title, "歡迎 Welcome"
+
+.content_wrapper
+  .inner_title
+    %h4
+      = "歡迎登入 Personal Cloud SSO Server"
+
+  .spacer{ :style => "height: 200px;" }
+
+  - if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? && !in_oauth_flow?
+    -  unless current_user.confirmed? || params["controller"] == "confirmations"
+      = link_to I18n.t("labels.unverified"), new_user_confirmation_path, class: "btn btn-custom btn-block"
+    = link_to "Profile", "/personal/profile", class: "btn btn-custom btn-block" if confirmed_or_skiped? && !in_oauth_flow?
+
+  - if user_signed_in? && !current_page?('/help')
+    = link_to t("labels.sign_out") , destroy_user_session_path, class: "btn btn-custom btn-block"

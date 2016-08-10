@@ -3,7 +3,9 @@ class Oauth2::AuthorizationsController < Doorkeeper::AuthorizationsController
   include CheckUserConfirmation
   include Locale
   include OauthFlow
+  include Theme
 
-  layout 'rwd'
+  # layout 'rwd'
+  layout 'sso'
 
 end
