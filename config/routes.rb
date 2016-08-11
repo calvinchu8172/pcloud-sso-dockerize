@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get 'hint/sent'
     get 'hint/agreement'
     get 'hint/confirm_sent'
-    get 'help', to: 'help#index'
+    # get 'help', to: 'help#index'
 
     devise_for :users, :controllers => {
       :registrations => "registrations",
@@ -44,11 +44,11 @@ Rails.application.routes.draw do
       post  'oauth/new',               to: 'users/omniauth_callbacks#confirm'
       get   'oauth/login',             to: 'users/omniauth_callbacks#login'
       post  'oauth/login',             to: 'users/omniauth_callbacks#logining'
-      resources :edm_users, only: :index, controller: 'users/edm_users' do
-        collection do
-          get 'download', to: 'users/edm_users#download_csv'
-        end
-      end
+      # resources :edm_users, only: :index, controller: 'users/edm_users' do
+        # collection do
+          # get 'download', to: 'users/edm_users#download_csv'
+        # end
+      # end
     end
 
     get 'personal/profile'
@@ -57,10 +57,6 @@ Rails.application.routes.draw do
       mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
     end
 
-  end
-
-  # Routes for Pcloud REST API server
-  constraints :host => Settings.environments.api_domain  do
 
     scope module: 'oauth2' do
       namespace :api do
@@ -72,7 +68,13 @@ Rails.application.routes.draw do
 
   end
 
+  # Routes for Pcloud REST API server
+  # constraints :host => Settings.environments.api_domain  do
+
+
+  # end
+
   # Catch all routes
-  root "application#raise_not_found!", via: :all
+  # root "application#raise_not_found!", via: :all
   get "*path", to: "application#raise_not_found!", via: :all
 end
