@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get 'hint/sent'
     get 'hint/agreement'
     get 'hint/confirm_sent'
-    # get 'help', to: 'help#index'
+    get 'help', to: 'help#index'
 
     devise_for :users, :controllers => {
       :registrations => "registrations",
@@ -75,6 +75,6 @@ Rails.application.routes.draw do
   # end
 
   # Catch all routes
-  # root "application#raise_not_found!", via: :all
+  root "application#raise_not_found!", via: :all
   get "*path", to: "application#raise_not_found!", via: :all
 end
