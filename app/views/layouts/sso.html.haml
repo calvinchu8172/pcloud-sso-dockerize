@@ -29,11 +29,9 @@
         = yield
       .postcontent
         = yield :postcontent
-      .inner_footer.visible-xs-block
-        = yield :inner_footer
-      / .footer.visible-xs-block
-      /   Copyright © 2016 ZyXEL Communications Corp.
-    .footer.container-fluid.hidden-xs
-      Copyright © 2016 ZyXEL Communications Corp.
-      / %br
-      / All rights reserved.
+      - if current_page?(new_user_session_path)
+        .footer.sign_in
+          = I18n.t('user.labels.copy_right')
+      - else
+        .footer.normal
+          = I18n.t('user.labels.copy_right')

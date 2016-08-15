@@ -158,38 +158,11 @@ body {
 
     } //.locale_and_help
 
-    .inner_footer {
-      .inner_footer_wrapper {
-        text-align: center;
-        max-width: 430px;
-        height: 36px;
-        font-size: 12px;
-        padding: 15px 10px 5px 10px;
-        line-height: 16px;
-        &.sign_in {
-          color: #8C8C8C;
-        }
-        &.normal {
-          color: #fff;
-          margin-top: -36px;
-        }
-      }
-    }
   } //.main
-
-  .footer {
-    color: #8C8C8C;
-    text-align: center;
-    max-width: 430px;
-    // margin: 10px auto;
-    height: 40px;
-    padding: 10px 0px;
-    line-height: 20px;
-  }
 
 } // body
 
-@media (min-width: 321px) and (max-width: 430px) // iPhone6, iphone6 Plus
+@media (min-width: 411px) and (max-width: 430px) // iPhone6 Plus
 {
   body {
     .main {
@@ -201,11 +174,29 @@ body {
           min-height: 83vh;
         }
       }
-    }
+
+    } //main
   }
 }
 
-@media (max-width: 320px) // iPhone5, iphone4
+@media (min-width: 321px) and (max-width: 410px) // iPhone6
+{
+  body {
+    .main {
+      // 關掉陰影
+      box-shadow: 0px 0px 0px 0px;
+      .content {
+        .content_wrapper {
+          // max-height: 600px;
+          min-height: 81vh;
+        }
+      }
+
+    } //main
+  }
+}
+
+@media (max-width: 320px) // iPhone5, iPhone4
 {
   body {
     .main {
@@ -241,11 +232,6 @@ body {
 
     }
 
-    .footer {
-      font-size: 12px;
-      // margin: 10px auto;
-      margin: 14px auto 5px auto;
-    }
   } //body
 
 }
