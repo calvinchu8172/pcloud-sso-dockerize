@@ -1,4 +1,4 @@
-.footer {
+footer {
   text-align: center;
   max-width: 430px;
   height: 36px;
@@ -20,7 +20,7 @@
 
 @media (min-width: 411px) and (max-width: 430px) // iPhone 6s plus
 {
-  .footer {
+  footer {
     &.sign_in {
       color: #b3b3b3;
       margin-top: 70px;
@@ -35,7 +35,7 @@
 
 @media (min-width: 321px) and (max-width: 410px) // iPhone 6s
 {
-  .footer {
+  footer {
     &.sign_in {
       color: #b3b3b3;
       margin-top: -25px;
@@ -52,7 +52,7 @@
 
 @media (max-width: 320px) // iPhone 5,4
 {
-  .footer {
+  footer {
     font-size: 12px;
     &.sign_in {
       color: #b3b3b3;

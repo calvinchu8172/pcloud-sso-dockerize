@@ -30,8 +30,8 @@
       .postcontent
         = yield :postcontent
       - if current_page?(new_user_session_path)
-        .footer.sign_in
+        %footer.sign_in
           = I18n.t('user.labels.copy_right')
       - else
-        .footer.normal
+        %footer.normal
           = I18n.t('user.labels.copy_right')
