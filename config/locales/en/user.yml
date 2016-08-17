@@ -10,6 +10,7 @@ en:
       middle_name: Middle Name
       last_name: Last Name
       password: Password
+      create_password: Create a password
       password_suggestion: 8-14 characters length
       password_confirmation: Confirm Password
       new_password: New Password
