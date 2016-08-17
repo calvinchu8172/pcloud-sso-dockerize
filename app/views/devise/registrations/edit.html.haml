@@ -1,9 +1,12 @@
 - content_for :title, I18n.t("labels.profile")
 
-.content_wrapper
+.content_wrapper.normal
   .inner_title
     %h4
-      = "Change your profile"
+      - if params[:type] == "profile"
+        = I18n.t("labels.edit_profile")
+      - elsif params[:type] == "password"
+        = I18n.t("titles.change_password")
     %p
       = I18n.t("user.labels.email")
       = current_user.email

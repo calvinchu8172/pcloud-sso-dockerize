@@ -9,11 +9,11 @@
       %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 72, :y2 => 15}
       %circle.circle3.apply_gray
 
-.content_wrapper
+.content_wrapper.normal
   .inner_title
     %h4
       = fa_icon('check-circle-o')
-      = "更改其他郵件地址 Change to another email"
+      = I18n.t('devise.confirmations.change_account')
 
   = simple_form_for current_user, url: {action: "update"} do |f|
     = f.input :email, label: I18n.t("user.labels.email"), wrapper_html: { class: 'has-feedback' } do

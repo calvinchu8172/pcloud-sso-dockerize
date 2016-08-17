@@ -9,11 +9,11 @@
       %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 72, :y2 => 15}
       %circle.circle3.apply_gray
 
-.content_wrapper
+.content_wrapper.normal
   .inner_title
     %h4
       = fa_icon('check-circle-o')
-      = I18n.t("devise.confirmations.confirm_sent") + " 請確認您的信箱"
+      = I18n.t("devise.confirmations.confirm_sent")
     %p
       = I18n.t("devise.confirmations.apply_account")
     %p
@@ -37,4 +37,4 @@
     = link_to t("devise.confirmations.change_account"), users_confirmation_edit_path, class: 'btn-cancel'
   .btn-cancel
     - if current_user && current_user.confirmation_valid?
-      = link_to("Skip", root_path(:skip_confirm => 'true'), class: "btn-cancel")
+      = link_to(I18n.t("labels.skip"), root_path(:skip_confirm => 'true'), class: "btn-cancel")

@@ -1,0 +1,23 @@
+<!-- <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  version="1.0"
+  width="430"
+  height="20"
+  style="background:#fff;"> -->
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="430"
+  height="20">
+  <defs>
+    <clipPath id="aa1">
+      <!-- <rect x="0" y="0" width="30" height="10" /> -->
+      <ellipse cx="215" cy="50" rx="305" ry="46" style="fill:yellow;"/>
+    </clipPath>
+  </defs>
+  <!-- <rect width="430px" height="20px" style="fill:#63BE02;" clip-path="url(#aa1)"/> -->
+  <!-- <rect width="430px" height="20px" style="fill:#f00;opacity:0.5;" clip-path="url(#aa1)"/> -->
+  <path d="M-80 60 A50 10,0 0 1 510 60 L430 20 L430 0 L0 0 L0 20 L-80 60 Z" fill="#fff"/>
+  <!-- <path d="M-80 60 A50 10,0 0 1 510 60 L430 20 L430 0 L0 0 L0 20 L-80 60 Z" fill="#00f"/> -->
+
+</svg>

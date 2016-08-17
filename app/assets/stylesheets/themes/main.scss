@@ -47,32 +47,36 @@ body {
         background: $bg-color image-url("email-white.png") no-repeat center;
         margin: -20px auto;
         // top: -50px;
-        top: 5px;
+        top: 0px;
         position: relative;
-      }
-      .signin_content_wrapper {
-        color: #fff;
-        padding: 55px 35px;
-        background:
-          image-url('content-heading.png') top no-repeat,
-          image-url('content-footer.png') bottom no-repeat,
-          image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
-          image-url('#{$theme-type}/rainbow.png') bottom -20px right -23px no-repeat;
-        background-color: $bg-color;
       }
       .content_wrapper {
         color: #fff;
-        // margin-bottom: 10px;
-        // margin: 0 -15px 10px -15px;
-        padding: 35px 35px 15px 35px;
-        background:
-          image-url('content-heading.png') top no-repeat,
-          // image-url('content-footer.png') bottom no-repeat,
-          // image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
-          image-url('#{$theme-type}/rainbow.png') bottom -38px right -44px no-repeat;
-        background-color: $bg-color;
-        min-height: 510px;
+        &.sign_in {
+          padding: 55px 35px 50px 35px;
+          background:
+            // image-url('content-heading.png') top no-repeat,
+            image-url('up_cover.svg') top no-repeat,
+            // image-url('content-footer.png') bottom no-repeat,
+            image-url('bottom_cover.svg') bottom no-repeat,
+            image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+            image-url('#{$theme-type}/rainbow.png') bottom -20px right -23px no-repeat;
+            // image-url('bottom_cover.svg') bottom no-repeat;
+          background-color: $bg-color;
+        }
+        &.normal {
+          padding: 35px 35px 15px 35px;
+          background:
+            // image-url('content-heading.png') top no-repeat,
+            image-url('up_cover.svg') top no-repeat,
+            // image-url('content-footer.png') bottom no-repeat,
+            // image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+            image-url('#{$theme-type}/rainbow.png') bottom -38px right -44px no-repeat;
+          background-color: $bg-color;
+          min-height: 510px;
+        }
       }
+
 
       a:not(.btn) {
         color: #fff;
@@ -93,7 +97,7 @@ body {
 
     .oauth {
       color: #8C8C8C;
-      margin: 5px auto 10px auto;
+      margin: 10px auto;
       .or {
         text-align: center;
         font-size: 14px;
@@ -170,8 +174,9 @@ body {
       box-shadow: 0px 0px 0px 0px;
       .content {
         .content_wrapper {
-          // max-height: 600px;
-          min-height: 83vh;
+          &.normal {
+            min-height: 83vh;
+          }
         }
       }
 
@@ -187,8 +192,9 @@ body {
       box-shadow: 0px 0px 0px 0px;
       .content {
         .content_wrapper {
-          // max-height: 600px;
-          min-height: 81vh;
+          &.normal {
+            min-height: 81vh;
+          }
         }
       }
 
@@ -204,12 +210,20 @@ body {
       box-shadow: 0px 0px 0px 0px;
       .content {
         font-size: 14px;
-        .signin_content_wrapper {
-          padding: 55px 15px;
-        }
         .content_wrapper {
-          min-height: 501px;
-          padding: 35px 15px 15px 15px;
+          &.sign_in {
+            padding: 55px 15px 30px 15px;
+            background:
+              image-url('up_cover.svg') top no-repeat,
+              image-url('bottom_cover.svg') bottom no-repeat,
+              image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+              image-url('#{$theme-type}/rainbow.png') bottom -30px right -23px no-repeat;
+            background-color: $bg-color;
+          }
+          &.normal {
+            min-height: 501px;
+            padding: 35px 15px 15px 15px;
+          }
         }
       }
       // .postcontent {

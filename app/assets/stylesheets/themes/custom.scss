@@ -2,7 +2,8 @@
   @include button-variant(#FFFFFF, $btn-color, $btn-color);
   height: 40px;
   font-size: 16px;
-  line-height: 26px;
+  // line-height: 26px;
+  line-height: 29px;
 }
 
 .btn-auth-deny {
@@ -72,6 +73,7 @@
 .form-control {
   height: 40px;
   font-size: 16px;
+  color: #595959;
 }
 
 .form-group {
@@ -81,7 +83,8 @@
 .form-control-feedback {
   width: 40px;
   height: 40px;
-  line-height: 40px;
+  // line-height: 40px;
+  line-height: 45px;
 }
 
 .control-label {

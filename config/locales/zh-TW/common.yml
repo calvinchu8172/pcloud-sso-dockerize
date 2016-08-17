@@ -17,6 +17,7 @@ zh-TW:
     submit: "提交"
     confirm: "確認"
     next: "下一步"
+    skip: "略過"
     ok: OK
     or: "或"
     expand_all: "全部展開"
@@ -114,6 +115,8 @@ zh-TW:
     terms: "使用者條款"
     manually: "手動加入裝置"
     download_edm_users_list: "下載 EDM users list"
+    welcome: 歡迎
+    welcome_to_sign_in: 歡迎登入 Personal Cloud SSO
   warnings:
     not_config: "尚未設定DDNS"
     no_pairing_device: "您沒有已配對的設備!"

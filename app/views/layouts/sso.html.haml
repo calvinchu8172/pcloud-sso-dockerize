@@ -15,7 +15,7 @@
       = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js'
     = csrf_meta_tags
 
-  %body
+  %body{ data: { controller: controller_name, action: action_name } }
     .container-fluid.hidden-xs
       .space
     .main.container-fluid
@@ -29,9 +29,11 @@
         = yield
       .postcontent
         = yield :postcontent
-      - if current_page?(new_user_session_path)
-        %footer.sign_in
-          = I18n.t('user.labels.copy_right')
-      - else
-        %footer.normal
-          = I18n.t('user.labels.copy_right')
+      %footer{ class: (current_path?(:sessions, [:new, :create]) ? 'sign_in' : 'normal') }
+        = I18n.t('user.labels.copy_right')
+      / - if current_page?(new_user_session_path)
+      /   %footer.sign_in
+      /     = I18n.t('user.labels.copy_right')
+      / - else
+      /   %footer.normal
+      /     = I18n.t('user.labels.copy_right')

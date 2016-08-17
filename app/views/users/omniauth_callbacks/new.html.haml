@@ -1,6 +1,6 @@
 - content_for :title, '合約'
 
-.content_wrapper
+.content_wrapper.normal
   .inner_title
     %h4
       = fa_icon('check-circle-o')
@@ -18,4 +18,4 @@
     = f.button :submit, I18n.t('titles.sign_up'), class: 'btn-custom btn-block'
 
   .btn-cancel
-    = link_to "Cancel", new_session_url(resource_name), class: 'btn-cancel'
+    = link_to I18n.t('labels.cancel'), new_session_url(resource_name), class: 'btn-cancel'

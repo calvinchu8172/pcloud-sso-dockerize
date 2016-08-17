@@ -2,13 +2,13 @@
 en:
   labels:
     language: Language
-    forgot_password: Forgot My Password
+    forgot_password: Forgot Password
     bind_account: Bind
     resend_confirmation: Resend
     unverified: Unverified
-    sign_in: Sign in
+    sign_in: SIGN IN
     sign_out: Log Out
-    sign_up: Sign Up
+    sign_up: SIGN UP
     my_devices: My Devices
     search_devices: Search Devices
     research: Search again
@@ -17,6 +17,7 @@ en:
     submit: Submit
     confirm: Confirm
     next: Next
+    skip: Skip
     ok: OK
     or: or
     expand_all: Expand All
@@ -101,7 +102,7 @@ en:
     bind_account: Bind your Facebook or Google+ Account
     login_account: myZyXELcloud Account
     resend_confirmation: Resend Confirmation E-mail
-    sign_in: Sign in
+    sign_in: Sign in with
     sign_up: Sign Up
     my_devices: Device List
     search_devices: Search Results
@@ -114,6 +115,8 @@ en:
     terms: Terms of Use
     manually: Manually Add Device
     download_edm_users_list: "Download EDM users list"
+    welcome: Welcome
+    welcome_to_sign_in: Welcome to sign in Personal Cloud SSO
   warnings:
     not_config: DDNS is not Configured
     no_pairing_device: No device have been paired.

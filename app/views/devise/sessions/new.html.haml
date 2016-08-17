@@ -3,7 +3,7 @@
     = I18n.t('titles.sign_in')
 
 .white_email
-.signin_content_wrapper
+.content_wrapper.sign_in
   = simple_form_for resource, as: resource_name, url: session_url(resource_name), method: :post do |f|
     = f.input :email, label: false, wrapper_html: { class: 'has-feedback' } do
       = f.input_field :email, placeholder: I18n.t('user.labels.email'), autofocus: true, class: 'form-control', required: true
@@ -28,7 +28,7 @@
           .alert.alert-warning= simple_format flash[:alert]
         - if flash[:error]
           .alert.alert-danger= simple_format flash[:error]
-    = f.button :submit, I18n.t('titles.sign_in'), class: 'btn-custom btn-block'
+    = f.button :submit, I18n.t('labels.sign_in'), class: 'btn-custom btn-block'
 
 - content_for :postcontent do
   .oauth
