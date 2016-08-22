@@ -72,6 +72,12 @@
 // }
 
 
+.alert-custom {
+  margin-bottom: 10px;
+  // height: 40px;
+  // line-height: 12px;
+}
+
 @include checkbox-variant('.checkbox-custom', $btn-color);
 @include checkbox-variant-indeterminate('.checkbox-custom', $brand-primary);
 

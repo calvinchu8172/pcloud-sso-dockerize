@@ -16,9 +16,10 @@
       / = content_tag 'span', image_tag("email-gray.png"), class: 'form-control-feedback'
     = f.input :password, label: I18n.t("user.labels.create_password"), wrapper_html: { class: 'has-feedback'} do
       = f.input_field :password, placeholder: I18n.t("user.labels.password_suggestion"), class: 'form-control add-padding-right', required: true, maxlength:14
+      .show-password-wrapper
       = content_tag 'span', class: 'form-control-feedback password-meter-wrapper' do
         .password-meter-anchor
-    .show-password-wrapper
+    / .show-password-wrapper
     / 這是原本的 password meter 的顯示方式，若要看可以解除註解
     / %div#password_meter
 
@@ -31,14 +32,10 @@
 
     .recaptcha
       .row
-        / .col-xs-12.col-md-12
-        /   .span.control-label= I18n.t("user.labels.captcha")
         .col-xs-12.col-md-12
           = recaptcha_tags ajax: true, hl: locale
           - if flash[:error]
-            .error
-              %label.zyxel_arlert_area
-                .error_message= flash[:error]
+            .alert.alert-warning.alert-custom= flash[:error]
 
     .terms_and_edm
       = f.input :agreement, label: (I18n.t('user.labels.terms.instruction') + "<br>" + link_to(I18n.t("user.labels.terms.instruction_2"), '#', data: { toggle: 'modal', target: '#user_agreement_dialog' })).html_safe, as: :boolean, boolean_style: :inline, wrapper_html: { class: 'checkbox-custom' }
