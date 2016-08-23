@@ -10,11 +10,9 @@ module Theme
     end
 
     def theme
-      puts "#{params[:theme]}"
       @theme = params[:theme] || cookies[:theme]
       @theme = default_theme unless @theme.try(:to_sym).in?(themes)
       cookies.permanent[:theme] = { value: @theme, httponly: true }
-      puts @theme
       @theme
     end
 
