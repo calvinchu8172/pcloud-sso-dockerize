@@ -1,7 +1,8 @@
 $ ->
 
   show_password_wrapper = $('.show-password-wrapper')
-  password      = $('input[id*=password]')
+  # password      = $('input[id*=password]')
+  password      = $('input[id=user_password]')
 
   show_password_wrapper.on 'click', ->
     if password.attr('type') == 'text'
