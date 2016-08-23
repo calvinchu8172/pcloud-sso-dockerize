@@ -63,14 +63,14 @@ environments:
     - services
   public_key:
 oauth:
-  facebook_app_id: 678292992243317
-  facebook_secret: 386ec08a3d700466bac2c66641c71e4b
+  facebook_app_id: 1417673045203233
+  facebook_secret: cbef4be0ae0d9fce4662e10731bbd812
   google_app_id: 14580324123-25ourkvv3ppvh4c1uph5gacjj6lq7q51.apps.googleusercontent.com
   google_secret: XXG2i7MwFpRvOn6hd4gg9nWv
 recaptcha:
   config:
-    public_key: '6LelPvUSAAAAAHQP8AccRDnMO0ETmgmtY-okFr95'
-    private_key: '6LelPvUSAAAAAGdYfFVdxTPayPH1cQG5jIpoDqcj'
+    public_key: '6Lei4iUTAAAAANfPA7XJx59uxGZNIsL9-J8J8qw5'
+    private_key: '6Lei4iUTAAAAACgQHawpA-pRWmC_xsUG5gMaGPst'
 redis:
   web_host: 'redis'
   xmpp_host: 'redis'
