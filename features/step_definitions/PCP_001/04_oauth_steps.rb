@@ -13,16 +13,19 @@ Given(/^the user was a member$/) do
 end
 
 When(/^the user click sign in with Facebook link and grant permission$/) do
-  click_link "Facebook"
+  # click_link "Facebook"
+  find(".btn-round.fb").click
 end
 
 When(/^the user click sign in with Facebook link and not grant permission$/) do
   set_invalid_omniauth
-  click_link "Facebook"
+  find(".btn-round.fb").click
+  # click_link "Facebook"
 end
 
 When(/^the user click sign in with Facebook link$/) do
-  click_link "Facebook"
+  # click_link "Facebook"
+  find(".btn-round.fb").click
 end
 
 Then(/^the user should see oauth feature "(.*?)" message$/) do |message|
@@ -34,7 +37,8 @@ When(/^the user grant permission$/) do
 end
 
 When(/^the user visits profile page$/) do
-  find("a.member").click
+  # find("a.member").click
+  click_on "Profile"
 end
 
 Then(/^the omniauth user should not see change password link$/) do
@@ -43,6 +47,10 @@ end
 
 Then(/^the user will redirect to Terms of Use page$/) do
   expect(page.current_path).to eq("/oauth/new")
+end
+
+Then(/^redirect to Welcome page$/) do
+  expect(page.current_path).to eq("/")
 end
 
 When(/^the user click Terms of Use page$/) do

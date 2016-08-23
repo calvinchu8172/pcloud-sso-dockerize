@@ -97,6 +97,10 @@ end
 # -------------------------------------------------------------------
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------
+Then(/^user will login and redirect to welcome page$/) do
+    expect(page.current_path).to eq("/")
+end
+
 Then(/^the page should redirect to resend email of confirmation page$/) do
   ActionMailer::Base.deliveries.clear
   expect(page.current_path).to eq(new_user_confirmation_path)
@@ -115,7 +119,8 @@ Then(/^the user should see the information when login successfully$/) do
 end
 
 Then(/^the user should see Sign In word in correct language$/) do
-  puts find('div.signupForm > header').text
+  # puts find('div.signupForm > header').text
+  puts find('div.title > div.title_sign_in').text
 end
 
 Then(/^the user language information will be changed after user login to system$/) do
@@ -123,7 +128,9 @@ Then(/^the user language information will be changed after user login to system$
     Given the user filled the correct information
     And the account was confirmed
   }
-  find('.zyxel_btn_login_submit').click
+  # find('.zyxel_btn_login_submit').click
+  # find('.btn-custom').click
+  click_on "SIGN IN"
   puts User.find(@user.id).language
 end
 

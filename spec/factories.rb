@@ -44,13 +44,13 @@ FactoryGirl.define do
     edm_accept                "0"
     agreement                 "1"
   end
-  factory :oauth_user, class: Api::User::OauthUser do
-    sequence(:email)          {|n| "personal#{n}@example.com"}
-    password                  "12345678"
-    password_confirmation     "12345678"
-    edm_accept                "0"
-    agreement                 "1"
-  end
+  # factory :oauth_user, class: Api::User::OauthUser do
+  #   sequence(:email)          {|n| "personal#{n}@example.com"}
+  #   password                  "12345678"
+  #   password_confirmation     "12345678"
+  #   edm_accept                "0"
+  #   agreement                 "1"
+  # end
   factory :api_device, class: Api::Device do
     sequence(:serial_number)  { |n| "0123456789#{n}"}
     sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}

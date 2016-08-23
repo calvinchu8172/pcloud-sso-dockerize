@@ -21,7 +21,8 @@ Feature: [PCP_001_04] oauth
 	    And the user was a member
 		 When the user click sign in with Facebook link
 	   Then the user should login
-	    And redirect to My Devices/Search Devices page
+	    # And redirect to My Devices/Search Devices page
+	   	And redirect to Welcome page
 
 	Scenario: [PCP_001_04_04]
 		Omniauth user can not change password

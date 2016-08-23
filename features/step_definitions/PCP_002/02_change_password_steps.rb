@@ -48,11 +48,13 @@ end
 # -------------------------------------------------------------------
 
 Then(/^the user will get error message from change password$/) do
-	expect(page).to have_selector('.zyxel_arlert_area')
+	# expect(page).to have_selector('.zyxel_arlert_area')
+  expect(page).to have_selector('span.help-block')
 end
 
 Then(/^the user will get success message from change password$/) do
-	expect(page).to have_selector('.zyxel_smallok_area')
+	# expect(page).to have_selector('.zyxel_smallok_area')
+  expect(page).to have_selector('span.alert')
 end
 
 Then(/^the user's account tokens and authentication tokens should all revoked$/) do

@@ -15,6 +15,7 @@ end
 # Assign the invalid value to item of field text
 Given(/^the visitor filled the invalid "(.*?)" (.*?)$/) do |item, value|
   fill_in item, with: value
+  # binding.pry
 end
 
 # Testing for recaptcha
@@ -29,6 +30,7 @@ end
 Given(/^the visitor filled the user information:$/) do |table|
   # filled in information to field text on sign up page
   filled_in_info(table)
+  # binding.pry
 end
 
 Given(/^the visitor filled all the required fields:$/) do |table|
@@ -42,18 +44,39 @@ Given(/^the email has been existed$/) do
 end
 
 Given(/^the visitor filled the user information$/) do
-  fill_in "E-mail", with: @user.email
-  fill_in "Password", with: "12345678"
-  fill_in "Confirm Password", with: "12345678"
+  fill_in "Email", with: @user.email
+  fill_in "Create a password", with: "12345678"
+  # fill_in "Confirm Password", with: "12345678"
 end
+
+
+# Given(/^the visitor success sign up and login$/) do
+#   steps %{
+#     When the visitor success sign up an account:
+#       | E-mail            | personal@example.com   |
+#       | Password          | 12345678               |
+#       | Confirm Password  | 12345678               |
+
+#     Then the page will redirect to success page
+#     And one new user created by personal@example.com
+#     And the new user should receive an email confirmation
+
+#     When the new user confirmed account within email
+
+#     Then the page will redirect to confirmed page
+
+#     When user click the confirm button
+
+#     Then user will redirect to login page
+#   }
+# end
 
 
 Given(/^the visitor success sign up and login$/) do
   steps %{
     When the visitor success sign up an account:
-      | E-mail            | personal@example.com   |
-      | Password          | 12345678               |
-      | Confirm Password  | 12345678               |
+      | Email                      | personal@example.com   |
+      | Create a password          | 12345678               |
 
     Then the page will redirect to success page
     And one new user created by personal@example.com
@@ -89,14 +112,15 @@ When(/^the visitor success sign up an account:$/) do |table|
 
   # Check user info store in DB is correctly
   user_info = table.rows_hash
-  expect(user_info["E-mail"]).to eq(User.find_by(email: user_info["E-mail"]).email)
+  expect(user_info["Email"]).to eq(User.find_by(email: user_info["Email"]).email)
 end
 
 When(/^the user try to sign in$/) do
   visit new_user_session_path
   fill_in "user[email]", with: "personal@example.com"
   fill_in "user[password]", with: "12345678"
-  find('.zyxel_btn_login_submit').click
+  # find('.zyxel_btn_login_submit').click
+  click_button 'SIGN IN'
 end
 
 # -------------------------------------------------------------------
@@ -113,20 +137,29 @@ Then(/^the visitor should see an error message for "(.*?)"$/) do |item|
       input_name << value << "_"
     end
   end
-  expect(page).to have_selector('div.input_error input[name="user[' + input_name + ']"]' )
-  puts item + " " + find('div.zyxel_arlert_area>label.error_message').text
+  # page.save_screenshot('screenshot.png')
+  # binding.pry
+  # expect(page).to have_selector('div.input_error input[name="user[' + input_name + ']"]' )
+  expect(page).to have_selector('span.help-block' )
+  # puts item + " " + find('div.zyxel_arlert_area>label.error_message').text
+  puts item + " " + find('span.help-block').text
 end
 
 # Check and display error message for captcha
 Then(/^the visitor should see an error message for Captcha code$/) do
-  expect(page).to have_selector('div#dynamic_recaptcha~div.error div.zyxel_arlert_area')
-  puts find('div#dynamic_recaptcha~div.error div.zyxel_arlert_area>label.error_message').text
+  # binding.pry
+  expect(page).to have_selector('div.alert')
+  expect(find('div.alert').text).to eq("There was an error with the captcha code below. Please re-enter the code.")
+  # puts find('div#dynamic_recaptcha~div.error div.zyxel_arlert_area>label.error_message').text
 end
 
 # Check and display error message for checkout
 Then(/^the visitor should see an error message for Terms of Use$/) do
-  expect(page).to have_selector('input[name="user[agreement]"]~div.zyxel_arlert_area')
-  puts "Terms of Use " + find('input[name="user[agreement]"]~div.zyxel_arlert_area>label.error_message').text
+  # expect(page).to have_selector('input[name="user[agreement]"]~div.zyxel_arlert_area')
+  expect(page).to have_selector('span.help-block')
+  expect(find('span.help-block').text).to eq("must be accepted")
+  # binding.pry
+  # puts "Terms of Use " + find('input[name="user[agreement]"]~div.zyxel_arlert_area>label.error_message').text
 end
 
 # -------------------------------------------------------------------
@@ -157,6 +190,8 @@ Then(/^the user should see "(.*?)" button$/) do |btn|
 end
 
 Then(/^user will visit page containing "(.*?)"$/) do |title|
+  # binding.pry
+  expect(current_path).to eq("/users/confirmation/new")
   expect(page).to have_content(title)
 end
 
@@ -192,7 +227,8 @@ Then(/^user will auto login and redirect to dashboard$/) do
 end
 
 Then(/^user will login and redirect to dashboard$/) do
-  expect(page.current_path).to eq("/discoverer/index")
+  # expect(page.current_path).to eq("/discoverer/index")
+  expect(page.current_path).to eq("/welcome/index")
 end
 
 Then(/^user will redirect to login page$/) do
