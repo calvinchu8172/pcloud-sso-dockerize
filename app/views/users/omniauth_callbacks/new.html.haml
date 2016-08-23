@@ -14,8 +14,10 @@
 
   = simple_form_for :user, html: { role: "form", name: "oauthForm" }, as: "user", url: oauth_new_url do |f|
     = f.input :agreement, label: I18n.t("user.labels.terms.instruction") + I18n.t("user.labels.terms.instruction_2"), as: :boolean, boolean_style: :inline, wrapper_html: { class: 'checkbox-custom' }
+    - if flash[:notice]
+      .alert.alert-warning.alert-custom= flash[:notice]
     .spacer{ :style => "height: 20px;" }
-    = f.button :submit, I18n.t('titles.sign_up'), class: 'btn-custom btn-block'
+    = f.button :submit, I18n.t('labels.confirm'), class: 'btn-custom btn-block'
 
   .btn-cancel
     = link_to I18n.t('labels.cancel'), new_session_url(resource_name)

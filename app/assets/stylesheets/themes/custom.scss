@@ -67,15 +67,11 @@
   // font-weight: bold;
 }
 
-// .spacer {
-//   height: 200px;
-// }
-
-
 .alert-custom {
   margin-bottom: 10px;
   // height: 40px;
   // line-height: 12px;
+  display: block;
 }
 
 @include checkbox-variant('.checkbox-custom', $btn-color);
@@ -86,6 +82,7 @@
   height: 40px;
   font-size: 16px;
   color: #595959;
+  border: 0px;
 }
 
 .form-group {

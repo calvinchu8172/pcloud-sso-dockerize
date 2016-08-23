@@ -7,7 +7,7 @@
       = I18n.t("labels.profile")
     %p
       -if flash[:notice]
-        %span= flash[:notice]
+        %span.alert.alert-info.alert-custom= flash[:notice]
 
   %table.profile_table
     %tr
@@ -62,7 +62,8 @@
     = check_box_tag :edm_accept, current_user.edm_accept, current_user.edm_accept, disabled: true
     = label_tag :edm_accept, I18n.t("user.labels.edm_1") + " " + I18n.t("user.labels.edm_2")
 
-  = link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "btn btn-custom btn-block"
+  - if !session[:oauth]
+    = link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "btn btn-custom btn-block"
   = link_to I18n.t("labels.edit_profile"), edit_user_registration_path(type: "profile"), class: "btn btn-custom btn-block"
   = link_to I18n.t("doorkeeper.authorized_applications.index.title"), oauth_authorized_applications_path, class: "btn btn-custom btn-block"
 
