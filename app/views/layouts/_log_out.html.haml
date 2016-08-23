@@ -1,0 +1,4 @@
+.log-out-wrapper
+  - if user_signed_in?
+    = fa_icon('sign-out')
+    = link_to t("labels.sign_out") , destroy_user_session_path, class: "sign_out"

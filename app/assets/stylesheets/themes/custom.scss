@@ -74,6 +74,26 @@
   display: block;
 }
 
+.log-out {
+  color: $bg-color;
+  width: 80px;
+  height: 80px;
+  // background-color: #00f;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  .log-out-wrapper {
+    height: 20px;
+    // background-color: #f00;
+    line-height: 20px;
+    text-align: center;
+    margin: 30px auto;
+    a {
+      color: $bg-color;
+    }
+  }
+}
+
 @include checkbox-variant('.checkbox-custom', $btn-color);
 @include checkbox-variant-indeterminate('.checkbox-custom', $brand-primary);
 

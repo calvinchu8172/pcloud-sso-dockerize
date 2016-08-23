@@ -18,6 +18,8 @@
   %body{ data: { controller: controller_name, action: action_name } }
     .container-fluid.hidden-xs
       .space
+    .log-out
+      = render 'layouts/log_out'
     .main.container-fluid
       .logo
         = link_to "", root_path, html_options = { :style => "display: block; width: 120px; height: 48px;" }
