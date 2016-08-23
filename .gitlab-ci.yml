@@ -33,5 +33,5 @@ cucumber:
       - doc
   only:
     - develop
-    # - feature/20160817-1-modify-all-pages
+    - feature/20160817-1-modify-all-pages
     - feature/20160823-1-gitlab-ci
