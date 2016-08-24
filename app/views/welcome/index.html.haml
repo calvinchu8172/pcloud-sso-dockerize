@@ -6,6 +6,11 @@
       = fa_icon('thumbs-o-up')
       = I18n.t("titles.welcome_to_sign_in")
 
+  - if flash[:alert]
+    %span.alert.alert-warning.alert-custom= flash[:alert]
+  - elsif flash[:notice]
+    %span.alert.alert-info.alert-custom= flash[:notice]
+
   .spacer{ :style => "height: 200px;" }
 
   / - if user_signed_in? && !current_page?('/help') && confirmed_or_valid_unconfirmed_access? && !in_oauth_flow?
