@@ -35,7 +35,8 @@
         .col-xs-12.col-md-12
           = recaptcha_tags ajax: true, hl: locale
           - if flash[:error]
-            .alert.alert-warning.alert-custom= flash[:error]
+            / .alert.alert-warning.alert-custom= flash[:error]
+            .alert-custom= flash[:error]
 
     .terms_and_edm
       = f.input :agreement, label: (I18n.t('user.labels.terms.instruction') + "<br>" + link_to(I18n.t("user.labels.terms.instruction_2"), '#', data: { toggle: 'modal', target: '#user_agreement_dialog' })).html_safe, as: :boolean, boolean_style: :inline, wrapper_html: { class: 'checkbox-custom' }

@@ -22,13 +22,17 @@
     / .flash-wrapper
     - if flash.present?
       - if flash[:success]
-        .alert.alert-success.alert-custom= simple_format flash[:success]
+        / .alert.alert-success.alert-custom= simple_format flash[:success]
+        .help-block= simple_format flash[:success]
       - if flash[:notice]
-        .alert.alert-info.alert-custom= simple_format flash[:notice]
+        / .alert.alert-info.alert-custom= simple_format flash[:notice]
+        .help-block= simple_format flash[:notice]
       - if flash[:alert]
-        .alert.alert-warning.alert-custom= simple_format flash[:alert]
+        / .alert.alert-warning.alert-custom= simple_format flash[:alert]
+        .help-block= simple_format flash[:alert]
       - if flash[:error]
-        .alert.alert-danger.alert-custom= simple_format flash[:error]
+        / .alert.alert-danger.alert-custom= simple_format flash[:error]
+        .help-block= simple_format flash[:error]
     - else
       .spacer{ :style => "height: 25px;" }
     = f.button :submit, I18n.t('labels.sign_in'), class: 'btn-custom btn-block'

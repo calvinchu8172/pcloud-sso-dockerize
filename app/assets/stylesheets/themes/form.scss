@@ -38,7 +38,10 @@ form {
   }
 
   .help-block, .has-error .help-block {
+    @if $theme-type == 'red' { color: #fff; }
+    @else { color: #f00; }
     // color: #fff;
+    // color: #eb132b;
   }
 }
 
