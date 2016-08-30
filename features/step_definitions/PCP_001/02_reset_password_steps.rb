@@ -47,8 +47,8 @@ end
 # Check error message
 Then(/^the user should see an error message from reset password$/) do
   # expect(page).to have_selector('div.input_error input[name="user[email]"]' )
-  expect(page).to have_selector('span.alert')
-  puts "Email " + find('span.alert').text
+  expect(page).to have_selector('span.help-block')
+  puts "Email " + find('span.help-block').text
 end
 
 # Check error message from reset password url

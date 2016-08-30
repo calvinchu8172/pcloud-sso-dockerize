@@ -148,8 +148,8 @@ end
 # Check and display error message for captcha
 Then(/^the visitor should see an error message for Captcha code$/) do
   # binding.pry
-  expect(page).to have_selector('div.alert')
-  expect(find('div.alert').text).to eq("There was an error with the captcha code below. Please re-enter the code.")
+  expect(page).to have_selector('div.alert-custom')
+  expect(find('div.alert-custom').text).to eq("There was an error with the captcha code below. Please re-enter the code.")
   # puts find('div#dynamic_recaptcha~div.error div.zyxel_arlert_area>label.error_message').text
 end
 
