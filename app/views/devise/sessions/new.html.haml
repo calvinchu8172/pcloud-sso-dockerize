@@ -53,16 +53,16 @@
     .locale.col-xs-6.col-sm-6.col-md-6.col-lg-6
       .dropdown
         %a.dropdown-toggle{ "data-toggle" => "dropdown", :href => "#" }
-          .language=image_tag("icon-language.png")
+          .language=image_tag("#{theme}/icon-language.png")
           .language=I18n.t('labels.language')
-          .language=image_tag("angle-down-green.png")
+          .language=image_tag("#{theme}/arrow-down.png")
         %ul.dropdown-menu{ :role => "menu" }
           - @options_path.each do |l, value|
             %li=link_to l, value
 
     .help.col-xs-6.col-sm-6.col-md-6.col-lg-6
       .help_wrapper
-        = image_tag("icon-help-green.png")
+        = image_tag("#{theme}/icon-help.png")
         = link_to 'Help', '/help', target: "_blank"
 
   / .spacer.hidden-xs{ :style => "height: 20px;" }
