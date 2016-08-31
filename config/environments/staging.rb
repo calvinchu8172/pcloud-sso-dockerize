@@ -38,7 +38,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.paperclip_defaults = Settings.environments.paperclip.default
 
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Access to rack session
   # config.middleware.use RackSessionAccess::Middleware
