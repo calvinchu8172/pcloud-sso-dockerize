@@ -151,6 +151,7 @@ gem 'browser-timezone-rails'
 gem 'whenever', '~> 0.9.4', require: false
 gem 'time_difference'
 gem 'doorkeeper'
+gem 'hamlit'
 # gem 'doorkeeper-i18n'
 
 group :development do
