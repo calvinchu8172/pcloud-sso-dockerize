@@ -4,15 +4,15 @@
   .process_indicator_wrapper
     %svg.process_indicator
       %circle.circle1.apply_theme
-      %line.apply_theme{:x1 => 28, :y1 => 15, :x2 => 38, :y2 => 15}
+      %line.apply_theme{:x1 => 23, :y1 => 15, :x2 => 38, :y2 => 15}
       %circle.circle2.apply_theme
-      %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 72, :y2 => 15}
+      %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 77, :y2 => 15}
       %circle.circle3.apply_gray
 
 .content_wrapper.normal
   .inner_title
     %h4
-      = fa_icon('check-circle-o')
+      / = fa_icon('check-circle-o')
       = I18n.t('devise.confirmations.change_account')
 
   = simple_form_for current_user, url: {action: "update"} do |f|

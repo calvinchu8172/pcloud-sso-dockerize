@@ -4,16 +4,15 @@
   .process_indicator_wrapper
     %svg.process_indicator
       %circle.circle1.apply_theme
-      %line.apply_theme{:x1 => 28, :y1 => 15, :x2 => 38, :y2 => 15}
+      %line.apply_theme{:x1 => 23, :y1 => 15, :x2 => 38, :y2 => 15}
       %circle.circle2.apply_theme
-      %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 72, :y2 => 15}
+      %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 77, :y2 => 15}
       %circle.circle3.apply_gray
 
 .content_wrapper.normal
   .inner_title
     %h4
-      = fa_icon('check-circle-o')
-      = I18n.t("devise.confirmations.confirm_sent")
+      = I18n.t("titles.check_confirmation")
     %p
       = I18n.t("devise.confirmations.apply_account")
     %p
@@ -24,7 +23,7 @@
       = I18n.t("devise.confirmations.confirm_before")
       %b= confirmation_expire_time_string
 
-  .spacer{ :style => "height: 200px;" }
+  .spacer{ :style => "height: 150px;" }
 
   = simple_form_for resource, as: resource_name, url: confirmation_path(resource_name), method: :post do |f|
     = f.hidden_field :email, value: current_user.email, wrapper_html: { class: 'has-feedback' }
