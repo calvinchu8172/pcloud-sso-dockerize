@@ -96,7 +96,7 @@ Feature: [PCP_001_01] Sign Up
       | Email                      | personal@example.com   |
       | Create a password          | 12345678               |
       # | Confirm Password  | 12345678               |
-    Then user will visit page containing "The confirmation email has been sent."
+    Then user will visit page containing "Check confirmation email"
 
   Scenario: [PCP_001_01_09]
     Redirect to login page after confirmed
