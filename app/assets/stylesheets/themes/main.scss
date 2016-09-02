@@ -51,6 +51,11 @@ body {
         position: relative;
       }
       .content_wrapper {
+        .inner_title {
+          h4 {
+            font-weight: bold;
+          }
+        }
         color: #fff;
         &.sign_in {
           padding: 55px 35px 50px 35px;

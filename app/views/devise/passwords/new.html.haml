@@ -3,7 +3,7 @@
 .content_wrapper.normal
   .inner_title
     %h4
-      = fa_icon('key')
+      / = fa_icon('key')
       = I18n.t('user.titles.reset_password')
   = simple_form_for resource, as: resource_name, url: password_path(resource_name), method: :post do |f|
     = f.input :email, label: I18n.t("user.labels.email"), wrapper_html: { class: 'has-feedback' } do

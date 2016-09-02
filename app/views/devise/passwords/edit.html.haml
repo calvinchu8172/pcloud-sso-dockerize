@@ -1,5 +1,5 @@
 - if params[:title] == 'bind_account'
-  - content_for :title, I18n.t("titles.bind_account")
+  - content_for :title, I18n.t("labels.bind_account")
 - else
   - content_for :title, I18n.t("titles.forgot_password")
 
@@ -7,11 +7,11 @@
   .inner_title
     - if params[:title] == 'bind_account'
       %h4
-        = fa_icon('check-circle-o')
+        / = fa_icon('check-circle-o')
         = I18n.t("titles.bind_account")
     - else
       %h4
-        = fa_icon('check-circle-o')
+        / = fa_icon('check-circle-o')
         = I18n.t("titles.forgot_password")
     %p
       / = fa_icon('envelope-o')

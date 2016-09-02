@@ -36,13 +36,11 @@ form {
   .form-control-feedback {
     color: #8C8C8C;
   }
+}
 
-  .help-block, .has-error .help-block {
-    @if $theme-type == 'red' { color: #fff; }
-    @else { color: #f00; }
-    // color: #fff;
-    // color: #eb132b;
-  }
+.help-block, .has-error .help-block {
+  @if $theme-type == 'red' { color: #fff; }
+  @else { color: #f00; }
 }
 
 .agree_note_box {

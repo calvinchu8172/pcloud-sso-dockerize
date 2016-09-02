@@ -1,9 +1,11 @@
-- content_for :title, '合約'
+- content_for :title do
+  .spacer{ :style => "height: 20px;" }
+
 
 .content_wrapper.normal
   .inner_title
     %h4
-      = fa_icon('check-circle-o')
+      / = fa_icon('check-circle-o')
       = I18n.t("titles.terms")
 
   .agree_note_box
@@ -13,9 +15,9 @@
       = render "hint/terms/en"
 
   = simple_form_for :user, html: { role: "form", name: "oauthForm" }, as: "user", url: oauth_new_url do |f|
-    = f.input :agreement, label: I18n.t("user.labels.terms.instruction") + I18n.t("user.labels.terms.instruction_2"), as: :boolean, boolean_style: :inline, wrapper_html: { class: 'checkbox-custom' }
+    = f.input :agreement, label: I18n.t("user.labels.terms.instruction") + " " + I18n.t("user.labels.terms.instruction_2"), as: :boolean, boolean_style: :inline, wrapper_html: { class: 'checkbox-custom' }
     - if flash[:notice]
-      .alert.alert-warning.alert-custom= flash[:notice]
+      .help-block.alert-custom= flash[:notice]
     .spacer{ :style => "height: 20px;" }
     = f.button :submit, I18n.t('labels.confirm'), class: 'btn-custom btn-block'
 

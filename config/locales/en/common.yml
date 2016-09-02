@@ -102,6 +102,7 @@ en:
     bind_account: Bind your Facebook or Google+ Account
     login_account: myZyXELcloud Account
     resend_confirmation: Resend Confirmation E-mail
+    check_confirmation: Check confirmation email
     sign_in: Sign in with
     sign_up: Sign Up
     my_devices: Device List
