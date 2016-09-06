@@ -68,6 +68,10 @@ Rails.application.routes.draw do
 
   end
 
+  scope :path => '/healthy/1/', :module => "api/healthy" do
+    get 'status', to: 'status#show', format: 'json'
+  end
+
   # Routes for Pcloud REST API server
   # constraints :host => Settings.environments.api_domain  do
 
