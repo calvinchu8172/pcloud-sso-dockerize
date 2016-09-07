@@ -16,16 +16,30 @@ form {
     // }
 
     .user_remember_me {
-
-      .checkbox {
-        float: right;
-        margin: 0;
-
-        label {
-          font-weight: normal;
-          color: #fff;
-        }
+      .forgot-password {
+        display: inline-block;
+        width: 50%;
+        padding-right: 5px;
       }
+      .remember-me {
+        float: right;
+        width: 50%;
+
+        .checkbox {
+          float: right;
+          margin: 0;
+          margin-top: 0;
+
+          label {
+            font-weight: normal;
+            color: #fff;
+            float: right;
+            word-break: break-all;
+          }
+        }
+
+      }
+
     }
   }
 

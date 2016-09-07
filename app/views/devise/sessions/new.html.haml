@@ -15,10 +15,11 @@
       / = content_tag 'span', image_tag("eye-open.png"), class: 'form-control-feedback'
     / .show-password-wrapper{:title => 'Show password'}
     = f.input :remember_me, label: false do
-      = link_to I18n.t('labels.forgot_password'), new_user_password_url
-      .checkbox.checkbox-custom
-        = check_box_tag :remember_me, '1', params[:remember_me]
-        = label_tag :remember_me, I18n.t('user.labels.remember_me')
+      = link_to I18n.t('labels.forgot_password'), new_user_password_url, class: 'forgot-password'
+      .remember-me
+        .checkbox.checkbox-custom
+          = check_box_tag :remember_me, '1', params[:remember_me]
+          = label_tag :remember_me, I18n.t('user.labels.remember_me')
     / .flash-wrapper
     - if flash.present?
       - if flash[:success]
