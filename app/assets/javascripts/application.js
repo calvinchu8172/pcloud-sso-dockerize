@@ -12,19 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.min
-//= require angular
-//= require angular-timer
-//= require ng-table
 //= require_tree .
 //= require bootstrap
-//= require select2
 //= require entropizer
 //= require jquery-entropizer
 //= require jquery.cookie
 //= require jstz
 //= require browser_timezone_rails/set_time_zone
-//= require c3
-//= require d3
 //= require show_hide_password
 //= require password_meter

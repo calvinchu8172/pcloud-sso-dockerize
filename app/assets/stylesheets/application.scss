@@ -23,8 +23,8 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "ng-table";
-@import "select2";
+// @import "ng-table";
+// @import "select2";
 
 
 // -------------------------------------
@@ -32,7 +32,7 @@
 // -------------------------------------
 
 @import "global/color";
-@import "global/mixin";
+// @import "global/mixin";
 // @import "global/base";
 
 
@@ -40,13 +40,13 @@
 //   Partials
 // -------------------------------------
 
-@import "partials/responsive";
-@import "partials/button";
+// @import "partials/responsive";
+// @import "partials/button";
 // @import "partials/dropdown";
 // @import "partials/table";
-@import "partials/text";
+// @import "partials/text";
 // @import "partials/form";
-@import "partials/app_store";
+// @import "partials/app_store";
 
 
 // -------------------------------------
