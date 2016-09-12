@@ -3,6 +3,7 @@ Given(/^the user was login and visits change password page$/) do
   # @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
   # @redis = Redis.new
   @redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
+  @redis.flushdb
   @user = TestingHelper.create_and_signin
 	visit edit_user_registration_path(type: "password")
 end
