@@ -28,4 +28,5 @@ cs:
       terms:
         instruction: Rozumím a souhlasím s
         instruction_2: Podmínky použití služby ZyXEL Cloud
-      edm: Ano, zasílejte mi e-mailové zprávy o produktech a službách ZyXEL Cloud
+      edm_1: Ano, zasílejte mi e-mailové zprávy o
+      edm_2: produktech a službách ZyXEL Cloud

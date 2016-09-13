@@ -28,4 +28,5 @@ tr:
       terms:
         instruction: ZyXEL Cloud Kullanım Hükümlerini
         instruction_2: ZyXEL Cloud kabul ediyorum
-      edm: Evet, bana ZyXEL Cloud Ürünleri ve Hizmetleri konusunda e-postalar gönder
+      edm_1: Evet, bana ZyXEL Cloud Ürünleri
+      edm_2: ve Hizmetleri konusunda e-postalar gönder

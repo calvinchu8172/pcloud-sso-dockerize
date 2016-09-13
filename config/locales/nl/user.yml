@@ -28,4 +28,5 @@ nl:
       terms:
         instruction: Ik ga akkoord met de voorwaarde
         instruction_2: ZyXEL Cloud gebruiksvoorwaarde
-      edm: Ja, stuur mij meer informatie over ZyXEL Cloud producten of diensten.
+      edm_1: Ja, stuur mij meer informatie over
+      edm_2: ZyXEL Cloud producten of diensten.

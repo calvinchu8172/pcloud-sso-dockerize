@@ -29,4 +29,5 @@ es:
       terms:
         instruction: Entiendo y estoy de acuerdo con los
         instruction_2: Términos de uso de ZyXEL Cloud
-      edm: Sí, enviarme correos electrónicos sobre productos y servicios ZyXEL Cloud
+      edm_1: Sí, enviarme correos electrónicos sobre
+      edm_2: productos y servicios ZyXEL Cloud

@@ -28,4 +28,5 @@ hu:
       terms:
         instruction: Megértem és elfogadom a
         instruction_2: ZyXEL Cloud felhasználási feltételeit
-      edm: Igen, szeretnék e-maileket kapni a ZyXEL Cloud termékekről és szolgáltatásokról
+      edm_1: Igen, szeretnék e-maileket kapni
+      edm_2: a ZyXEL Cloud termékekről és szolgáltatásokról
