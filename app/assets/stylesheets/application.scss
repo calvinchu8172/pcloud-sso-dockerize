@@ -6,12 +6,11 @@
 
 // *************************************
 //
-//   Personal Cloud Portal
+//   Personal Cloud SSO
 //
 // *************************************
 
 @import "compass";
-
 
 // -------------------------------------
 //   Vendor
@@ -23,49 +22,9 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-// @import "ng-table";
-// @import "select2";
-
-
-// -------------------------------------
-//   Global
-// -------------------------------------
-
-// @import "global/color";
-// @import "global/mixin";
-// @import "global/base";
-
-
-// -------------------------------------
-//   Partials
-// -------------------------------------
-
-// @import "partials/responsive";
-// @import "partials/button";
-// @import "partials/dropdown";
-// @import "partials/table";
-// @import "partials/text";
-// @import "partials/form";
-// @import "partials/app_store";
-
-
-// -------------------------------------
-//   Page
-// -------------------------------------
-
-// @import "page/*";
-
-
-// -------------------------------------
-//   RWD
-// -------------------------------------
-
-// @import "rwd/*";
 
 // -------------------------------------
 //   THEME
 // -------------------------------------
 
-// @import 'plugins/*';
 @import "font-awesome";
-// @import "partials/dropdown_sso";
