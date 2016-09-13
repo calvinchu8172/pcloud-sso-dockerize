@@ -51,6 +51,7 @@ zh-TW:
       buttons:
         authorize: '授權'
         deny: '拒絕'
+        back_to_your_application: '回到您的應用程式'
       error:
         title: '發生錯誤'
       new:

@@ -51,6 +51,7 @@ en:
       buttons:
         authorize: 'Authorize'
         deny: 'Deny'
+        back_to_your_application: 'Back to your application'
       error:
         title: 'An error has occurred'
       new:

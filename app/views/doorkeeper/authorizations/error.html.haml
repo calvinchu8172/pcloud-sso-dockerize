@@ -10,4 +10,4 @@
 
   .spacer{ :style => "height: 200px;" }
 
-  = link_to "Back to your application", @pre_auth.redirect_uri, class: "btn btn-custom btn-block"
+  = link_to I18n.t('doorkeeper.authorizations.buttons.back_to_your_application'), @pre_auth.redirect_uri, class: "btn btn-custom btn-block"
