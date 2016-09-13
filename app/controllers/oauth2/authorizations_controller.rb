@@ -5,7 +5,6 @@ class Oauth2::AuthorizationsController < Doorkeeper::AuthorizationsController
   include OauthFlow
   include Theme
 
-  # layout 'rwd'
-  layout 'sso'
+  layout 'application'
 
 end

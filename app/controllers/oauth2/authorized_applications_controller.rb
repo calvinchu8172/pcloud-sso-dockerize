@@ -4,8 +4,6 @@ class Oauth2::AuthorizedApplicationsController < Doorkeeper::AuthorizedApplicati
   include Locale
   include Theme
 
-  # layout 'rwd'
-  layout 'sso'
-
+  layout 'application'
 
 end
