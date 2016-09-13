@@ -2,6 +2,7 @@ class HintController < ApplicationController
 
   skip_before_action :check_user_confirmation_expire
   before_action :get_info
+
   def confirm
   end
 
