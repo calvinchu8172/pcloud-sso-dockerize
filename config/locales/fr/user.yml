@@ -1,0 +1,33 @@
+---
+fr:
+  user:
+    labels:
+      country: Pays
+      email: E-mail
+      display_name: Afficher comme
+      first_name: Prénom
+      middle_name: deuxième prénom
+      last_name: Nom de famille
+      password: Mot de passe
+      password_suggestion: 'suggestion de mot de passe : ''mot de passe de 8 à 14
+        caractères de longueur'''
+      password_confirmation: Confirmer le mot de passe
+      new_password: Nouveau mot de passe
+      new_password_confirmation: Confirmer le nouveau mot de passe
+      current_password: Mot de passe actuel
+      gender: Sexe
+      male: Masculin
+      female: Féminin
+      birthday: Anniversaire
+      year: Année
+      month: Mois
+      day: Jour
+      phone_number: Numéro de mobile
+      remember_me: Se souvenir de Moi
+      language: Langue
+      captcha: Captcha
+      terms:
+        instruction: Je comprends et accepte les
+        instruction_2: Conditions d'utilisation de ZyXEL Cloud
+      edm_1: Oui, m'envoyer des e-mails sur
+      edm_2: les Produits et Services ZyXEL Cloud

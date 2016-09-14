@@ -1,0 +1,252 @@
+body {
+  // font-family: 'Open Sans', sans-serif, "微軟正黑體";
+  font-family: "Century Gothic", "CenturyGothic", "AppleGothic", sans-serif, "微軟正黑體";
+  .space {
+    height: 50px;
+  }
+
+  .main {
+    max-width: 430px;
+    margin: auto;
+    // padding: 0 0 10px 0;
+    padding: 0;
+    box-shadow: 0px 0px 50px -20px #888888;
+
+    .logo {
+      // width: 72px;
+      // height: 16px;
+      width: 120px;
+      height: 48px;
+      background: image-url('zyxel-logo.png') no-repeat center;
+      // margin: 50px auto 0 auto;
+      margin: 38px auto 0 auto;
+    }
+
+    .title {
+      font-size: 16px;
+      color: #8C8C8C;
+      // margin: 20px auto 25px auto;
+      margin: 5px auto 17px auto;
+      text-align: center;
+      .title_sign_in {
+        margin: 26px auto 25px auto;
+      }
+
+    }
+    .precontent {
+      max-width: 430px;
+    }
+
+    .content {
+      .white_email {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-width: 0px;
+        border-radius: 40px; /* 高度 */
+        background: $bg-color image-url("email-white.png") no-repeat center;
+        margin: -20px auto;
+        // top: -50px;
+        top: 0px;
+        position: relative;
+      }
+      .content_wrapper {
+        .inner_title {
+          h4 {
+            font-weight: bold;
+          }
+        }
+        color: #fff;
+        &.sign_in {
+          padding: 55px 35px 50px 35px;
+          background:
+            image-url('up_cover.svg') top no-repeat,
+            image-url('bottom_cover.svg') bottom no-repeat,
+            image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+            image-url('#{$theme-type}/rainbow.png') bottom -20px right -23px no-repeat;
+          background-color: $bg-color;
+        }
+        &.normal {
+          padding: 35px 35px 15px 35px;
+          background:
+            image-url('up_cover.svg') top no-repeat,
+            image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+            image-url('#{$theme-type}/rainbow.png') bottom -38px right -23px no-repeat;
+          background-color: $bg-color;
+          min-height: 510px;
+        }
+      }
+
+
+      a:not(.btn) {
+        color: #fff;
+        text-decoration: underline;
+
+        &:focus, &:active {
+          color: #fff;
+        }
+        &:hover {
+          color: darken(#fff, 10%);
+        }
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .oauth {
+      color: #8C8C8C;
+      margin: 10px auto;
+      .or {
+        text-align: center;
+        font-size: 14px;
+      }
+      .oauth_wrapper {
+        height: 40px;
+        // margin-bottom: 20px;
+        margin-bottom: 12px;
+        .facebook {
+          padding-right: 11px;
+        }
+        .google {
+          padding-left: 11px;
+        }
+      }
+    }
+
+    .register {
+      // margin-bottom: 20px;
+      margin-bottom: 12px;
+      .new_register {
+        color: #8C8C8C;
+        padding-left: 40px;
+      }
+      .create_account {
+        padding-left: 40px;
+        a.create_account_link {
+          color: $bg-color;
+          font-weight: bold;
+          text-decoration: underline;
+          &:hover {
+            color: darken($bg-color, 10%);
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .locale_and_help {
+      height: 30px;
+      margin-bottom: 30px;
+
+      .locale {
+        padding-left: 40px;
+      }
+      .help {
+        padding-left: 83px;
+        .help_wrapper {
+          // height: 30px;
+          // width: 150px;
+          // background-color: #f00;
+          // float: right;
+          a {
+            line-height: 30px;
+            color: $bg-color;
+            &:hover {
+              color: darken($bg-color, 10%);
+            }
+          }
+        }
+      }
+
+    } //.locale_and_help
+
+  } //.main
+
+} // body
+
+@media (min-width: 411px) and (max-width: 430px) // iPhone6 Plus
+{
+  body {
+    .main {
+      // 關掉陰影
+      box-shadow: 0px 0px 0px 0px;
+      .content {
+        .content_wrapper {
+          &.normal {
+            min-height: 83vh;
+          }
+        }
+      }
+
+    } //main
+  }
+}
+
+@media (min-width: 321px) and (max-width: 410px) // iPhone6
+{
+  body {
+    .main {
+      // 關掉陰影
+      box-shadow: 0px 0px 0px 0px;
+      .content {
+        .content_wrapper {
+          &.normal {
+            min-height: 81vh;
+            padding: 35px;
+          }
+        }
+      }
+
+    } //main
+  }
+}
+
+@media (max-width: 320px) // iPhone5, iPhone4
+{
+  body {
+    .main {
+      // 關掉陰影
+      box-shadow: 0px 0px 0px 0px;
+      .content {
+        font-size: 14px;
+        .content_wrapper {
+          &.sign_in {
+            padding: 55px 15px 30px 15px;
+            background:
+              image-url('up_cover.svg') top no-repeat,
+              image-url('bottom_cover.svg') bottom no-repeat,
+              image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
+              image-url('#{$theme-type}/rainbow.png') bottom -30px right -23px no-repeat;
+            background-color: $bg-color;
+          }
+          &.normal {
+            min-height: 501px;
+            padding: 35px 15px 35px 15px;
+          }
+        }
+      }
+      // .postcontent {
+        .register {
+          .new_register {
+            padding-left: 15px;
+          }
+          .create_account {
+            padding-left: 15px;
+          }
+        }
+        .locale_and_help {
+          margin-bottom: 0px;
+          .locale {
+            padding-left: 15px;
+          }
+        }
+      // }
+
+
+    }
+
+  } //body
+
+}

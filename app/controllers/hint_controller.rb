@@ -1,6 +1,8 @@
 class HintController < ApplicationController
+
   skip_before_action :check_user_confirmation_expire
   before_action :get_info
+
   def confirm
   end
 
@@ -17,6 +19,9 @@ class HintController < ApplicationController
   end
 
   def agrement
+  end
+
+  def confirm_sent
   end
 
   private

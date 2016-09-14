@@ -26,8 +26,10 @@ Then(/^the user should see profile$/) do
 end
 
 Then(/^the user should see the error message under the "Display as"$/) do
-  expect(page).to have_selector('div.input_error input[name="user[display_name]"]' )
-  expect(page).to have_content("can't be blank")
+  # expect(page).to have_selector('div.input_error input[name="user[display_name]"]' )
+  expect(page).to have_selector('span.help-block' )
+  # expect(page).to have_content("can't be blank")
+  expect(find('span.help-block').text).to eq("can't be blank")
 end
 
 Then(/^the user's profile has been updated$/) do

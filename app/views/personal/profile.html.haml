@@ -1,0 +1,71 @@
+- content_for :title, I18n.t("labels.profile")
+
+.content_wrapper.normal
+  .inner_title
+    %h4
+      = fa_icon('user')
+      = I18n.t("labels.profile")
+    %p
+      -if flash[:notice]
+        / %span.alert.alert-info.alert-custom= flash[:notice]
+        %span.help-block.alert-custom= flash[:notice]
+
+  %table.profile_table
+    %tr
+      %th= I18n.t("user.labels.email")
+      %td{:colspan => '3'}
+        = current_user.email
+        - if session[:oauth] == 'facebook'
+          %span= I18n.t("devise.omniauth_callbacks.fb_primary_mail")
+
+    - if !current_user.display_name.blank?
+      %tr
+        %th= I18n.t("user.labels.display_name")
+        %td{:colspan => '3'}
+          = current_user.display_name
+    - if !current_user.first_name.blank?
+      %tr
+        %th= I18n.t("user.labels.first_name")
+        %td{:colspan => '3'}
+          = current_user.first_name
+    - if !current_user.middle_name.blank?
+      %tr
+        %th= I18n.t("user.labels.middle_name")
+        %td{:colspan => '3'}
+          = current_user.middle_name
+    - if !current_user.last_name.blank?
+      %tr
+        %th= I18n.t("user.labels.last_name")
+        %td{:colspan => '3'}
+          = current_user.last_name
+    - if !current_user.gender.blank?
+      %tr
+        %th= I18n.t("user.labels.gender")
+        %td{:colspan => '3'}
+          = I18n.t("user.labels.#{current_user.gender}")
+    - if !current_user.birthday.blank?
+      %tr
+        %th= I18n.t("user.labels.birthday")
+        %td{:colspan => '3'}
+          = current_user.birthday.strftime("%m/%d")
+    - if !current_user.mobile_number.blank?
+      %tr
+        %th= I18n.t("user.labels.phone_number")
+        %td{:colspan => '3'}
+          = current_user.mobile_number
+    - if !current_user.country.blank?
+      %tr
+        %th= I18n.t("user.labels.country")
+        %td{:colspan => '3'}
+          = I18n.t(current_user.country, :scope => :countries)
+
+  .checkbox.checkbox-custom
+    = check_box_tag :edm_accept, current_user.edm_accept, current_user.edm_accept, disabled: true
+    = label_tag :edm_accept, I18n.t("user.labels.edm_1") + " " + I18n.t("user.labels.edm_2")
+
+  - if !session[:oauth]
+    = link_to I18n.t("labels.change_password"), edit_user_registration_path(type: "password"), class: "btn btn-custom btn-block"
+  = link_to I18n.t("labels.edit_profile"), edit_user_registration_path(type: "profile"), class: "btn btn-custom btn-block"
+  = link_to I18n.t("doorkeeper.authorized_applications.index.title"), oauth_authorized_applications_path, class: "btn btn-custom btn-block"
+  = link_to I18n.t("labels.back_to_home"), root_path, class: "btn btn-custom btn-block"
+

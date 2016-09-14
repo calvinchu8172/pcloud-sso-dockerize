@@ -1,0 +1,87 @@
+magic_number: 890980
+api:
+  stun_ip_addresses:
+    - ec2-54-85-72-999.compute-1.amazonaws.com
+    - ec2-107-21-4-999.compute-1.amazonaws.com
+xmpp:
+  server: pcloud.dev
+  device_resource_id: device
+  bots:
+    - bot01@localhost
+    - bot02@localhost
+    - bot03@localhost
+    - bot04@localhost
+    - bot05@localhost
+    - bot06@localhost
+    - bot07@localhost
+    - bot08@localhost
+  nodes:
+    - ec2-54-85-72-129.compute-1.amazonaws.com
+    - ec2-107-21-4-229.compute-1.amazonaws.com
+environments:
+  name: 'alpha'
+  api_domain: 'localhost'
+  portal_domain: 'localhost'
+  ga_tracker: 'UA-57135359-1'
+  paperclip:
+    default:
+      storage: :s3
+      s3_credentials:
+        bucket: 's3-pcloud-test'
+        access_key_id:
+        secret_access_key:
+    attachment:
+      default:
+        s3_host_name: 's3-us-west-2.amazonaws.com'
+        path: '/:class/:attachment/:id_partition/:style/:filename'
+  sqs:
+    name: 'PCloud-Alpha-Bot-Jobs-Test'
+    attributes:
+      access_key_id:
+      secret_access_key:
+      region: 'us-east-1'
+  ddns: pcloud.ecoworkinc.com
+  upnp:
+    random_port_max: '10000'
+    random_port_min: '6000'
+  cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
+  zones_info:
+    id: 'Z23KWXIJBQNA7O'
+    name: 'pcloud.ecoworkinc.com'
+  filter_list:
+    - api
+    - www
+    - dns
+    - ddns
+    - upnp
+    - blog
+    - zyxel
+    - store
+    - host
+    - support
+    - service
+    - services
+  public_key:
+oauth:
+  facebook_app_id: 1417673045203233
+  facebook_secret: cbef4be0ae0d9fce4662e10731bbd812
+  google_app_id: 14580324123-25ourkvv3ppvh4c1uph5gacjj6lq7q51.apps.googleusercontent.com
+  google_secret: XXG2i7MwFpRvOn6hd4gg9nWv
+recaptcha:
+  config:
+    public_key: '6Lei4iUTAAAAANfPA7XJx59uxGZNIsL9-J8J8qw5'
+    private_key: '6Lei4iUTAAAAACgQHawpA-pRWmC_xsUG5gMaGPst'
+redis:
+  web_host: 'redis'
+  xmpp_host: 'redis'
+  port: 6379
+oauth_applications:
+  account: 'admin'
+  password: 'ecowork'
+vendors:
+  data_safe_period: 10 # minutes
+  asi:
+    vpcName: 'ZYX'
+    host: 'http://asicloud-beta.aethersi.com:10980'
+    account: 'zyxoperator'
+    password: 'zyxoperator'

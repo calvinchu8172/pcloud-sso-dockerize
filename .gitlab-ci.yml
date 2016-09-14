@@ -1,0 +1,38 @@
+image: 683422241496.dkr.ecr.us-east-1.amazonaws.com/cd-rails-base:latest
+
+stages:
+  - test
+
+cucumber:
+  stage: test
+  services:
+    - mysql:5.6
+    - redis:latest
+  script:
+    - rename 's/.example//' config/settings/*.example
+    - rename 's/.example//' config/*.example
+    - bundle install --jobs $(nproc) --path=/cache/bundler
+    - mysqladmin -uroot -h mysql create mycloud_test
+    - RAILS_ENV=test bundle exec rake db:migrate db:seed
+    - mkdir test-plans
+    - xvfb-run -a bundle exec cucumber --format html --out test-plans/report.html
+    # - xvfb-run -a bundle exec cucumber features/Oauth/ -r features --format html --out test-plans/report_Oauth.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_001/ -r features --format html --out test-plans/report_PCP001.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_002/ -r features --format html --out test-plans/report_PCP003.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_003/ -r features --format html --out test-plans/report_PCP003.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_004/ -r features --format html --out test-plans/report_PCP004.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_005/ -r features --format html --out test-plans/report_PCP005.html
+    # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/report_PCP006.html
+    # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/report_REST.html
+    # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/report_Service.html
+    - yard config load_plugins true
+    - yardoc 'app/**/*.rb' 'features/**/*.rb' 'features/**/*.feature'
+  artifacts:
+    paths:
+      - test-plans/
+      - doc
+  only:
+    - master
+    - develop
+    - feature/20160817-1-modify-all-pages
+    - feature/20160909-1-remove-unnecessary-files

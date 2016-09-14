@@ -1,0 +1,5 @@
+.log-out-wrapper
+  - if user_signed_in?
+    = link_to destroy_user_session_path do
+      = image_tag("#{theme}/logout.png")
+      = I18n.t("labels.sign_out")

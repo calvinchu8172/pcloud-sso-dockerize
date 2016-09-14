@@ -1,0 +1,78 @@
+// -------------------------------------
+//   Partials: dropdown
+//
+//   # Path: (unauthenticated_root)
+// -------------------------------------
+
+.nav_zyxel {
+  float: right;
+  margin-top: 20px;
+}
+
+.dropdown {
+  > a {
+    display: block;
+    height: 30px;
+    width: 156px;
+    background-color: $btn-color-light;
+    // background-color: lighten($btn-color, 40%);
+    @include transition(background, 0.3s);
+
+    // 讓內部的子元件平均分布
+    display: flex;
+    display: -webkit-flex; /*for safari*/
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+
+    .language {
+      color: #000;
+      line-height: 30px;
+    }
+
+    // .icon-language {
+    //   float:left;
+    //   line-height: 30px;
+    // }
+    // .language {
+    //   color: #000;
+    //   float:left;
+    //   line-height: 30px;
+    //   width: 60%;
+    //   text-align: center;
+    // }
+    // .icon-angle-down{
+    //   float:left;
+    //   line-height: 30px;
+    // }
+
+    &:hover, &:focus{
+      // color: $zyxel_white;
+      // background-color: darken($btn-color-light, 25%);  /* Rewrite bootstrap nav css*/
+      background-color: $bg-color;
+      text-decoration: none;
+      .language {
+        color: #fff;
+        @include transition(color, 0.3s);
+      }
+    }
+  }
+
+  .dropdown-menu {
+    // right:0;
+    // left: inherit;
+    li a {
+      color: #8c8c8c;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 2em;
+      &:hover, &:focus {
+        color: #fff;
+        text-decoration: none;
+        background-color: $bg-color;
+      }
+    }
+  }
+}

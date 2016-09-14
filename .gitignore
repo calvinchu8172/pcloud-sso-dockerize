@@ -33,7 +33,13 @@ config/settings/*.yml
 
 config/environments/*.local.yml
 config/*.yml
+!config/cucumber.yml
 
 /vendor/assets/components
 coverage
 .DS_Store
+.versions.conf
+
+# Ignore yard files
+/.yardoc
+/doc

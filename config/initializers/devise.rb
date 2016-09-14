@@ -154,7 +154,7 @@ Devise.setup do |config|
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  config.timeout_in = 30.minutes
 
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
@@ -238,8 +238,22 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
-  config.omniauth :facebook, Settings.oauth.facebook_app_id, Settings.oauth.facebook_secret,
-    :auth_type => 'reauthenticate'
+  config.omniauth :facebook,
+    Settings.oauth.facebook_app_id,
+    Settings.oauth.facebook_secret,
+    auth_type: 'reauthenticate',
+    scope: 'email',
+    info_fields: 'email, name',
+    client_options: {
+      :site => "https://graph.facebook.com/v2.3",
+      :authorize_url => "https://www.facebook.com/v2.3/dialog/oauth"
+    },
+    # Incompatible with response type for v2.3 of Facebook API:
+    # https://github.com/mkdynamic/omniauth-facebook/issues/196
+    token_params: {
+      parse: :json
+    }
+
   config.omniauth :google_oauth2, Settings.oauth.google_app_id, Settings.oauth.google_secret
 
   # If you want to use other strategies, that are not supported by Devise, or
@@ -265,12 +279,12 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   # config.allow_insecure_sign_in_after_confirmation = true
 
-  config.warden do |manager|
-    manager.failure_app = CustomFailure
-  end
+  # config.warden do |manager|
+  #   manager.failure_app = CustomFailure
+  # end
 
-  # Update user language when user sign in
-  Warden::Manager.after_authentication do |user,auth,opts|
-    user.update_attribute(:language, I18n.locale)
-  end
+  # # Update user language when user sign in
+  # Warden::Manager.after_authentication do |user,auth,opts|
+  #   user.update_attribute(:language, I18n.locale)
+  # end
 end

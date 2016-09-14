@@ -1,0 +1,30 @@
+- content_for :title, I18n.t("labels.profile")
+
+.content_wrapper.normal
+  .inner_title
+    %h4
+      - if params[:type] == "profile"
+        = I18n.t("labels.edit_profile")
+      - elsif params[:type] == "password"
+        = I18n.t("titles.change_password")
+    %p
+      = I18n.t("user.labels.email")
+      = current_user.email
+
+
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name, type: params[:type]), html: { method: :put }) do |f|
+    = f.hidden_field :email
+
+    - if params[:type] == "profile"
+      = render partial: "devise/registrations/edit_format/profile", locals: {f: f}
+    - elsif params[:type] == "password"
+      = render partial: "devise/registrations/edit_format/password", locals: {f: f}
+
+    / Submit and cancel button
+
+    = f.submit I18n.t("labels.submit"), class: "btn btn-custom btn-block"
+
+
+  .btn-cancel
+    = link_to I18n.t("labels.cancel"), "/personal/profile"
+

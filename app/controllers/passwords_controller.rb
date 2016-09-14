@@ -19,6 +19,9 @@ class PasswordsController < Devise::PasswordsController
 
   def update
     @email = get_user_email_by_password_token(params[:user][:reset_password_token])
+    user = User.find_by_email @email
+    user.confirmation_token = Devise.friendly_token
+    user.save
     super
   end
 
@@ -28,7 +31,7 @@ class PasswordsController < Devise::PasswordsController
     end
 
     def after_resetting_password_path_for(resource)
-      hint_reset_path
+      params[:title] == 'bind_account' ? after_sign_in_path_for(resource) : hint_reset_path
     end
 
   private

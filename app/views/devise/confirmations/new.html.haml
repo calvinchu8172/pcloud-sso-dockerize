@@ -1,0 +1,39 @@
+- content_for :title, I18n.t('titles.sign_up')
+
+- content_for :precontent do
+  .process_indicator_wrapper
+    %svg.process_indicator
+      %circle.circle1.apply_theme
+      %line.apply_theme{:x1 => 23, :y1 => 15, :x2 => 38, :y2 => 15}
+      %circle.circle2.apply_theme
+      %line.apply_gray{:x1 => 62, :y1 => 15, :x2 => 77, :y2 => 15}
+      %circle.circle3.apply_gray
+
+.content_wrapper.normal
+  .inner_title
+    %h4
+      = I18n.t("titles.check_confirmation")
+    %p
+      = I18n.t("devise.confirmations.apply_account")
+    %p
+      = I18n.t("devise.confirmations.finish_step") + " "
+      %u= current_user.email
+      = " " + I18n.t("devise.confirmations.click_step")
+    %p
+      = I18n.t("devise.confirmations.confirm_before")
+      %b= confirmation_expire_time_string
+
+  .spacer{ :style => "height: 150px;" }
+
+  = simple_form_for resource, as: resource_name, url: confirmation_path(resource_name), method: :post do |f|
+    = f.hidden_field :email, value: current_user.email, wrapper_html: { class: 'has-feedback' }
+    = f.submit I18n.t("devise.confirmations.resend"), class: "btn btn-custom btn-block"
+
+  / = link_to I18n.t("labels.confirm"), root_path, class: 'btn btn-custom btn-block'
+  / .btn-cancel
+  /   = link_to I18n.t("labels.resend_confirmation"), new_user_password_path, class: 'btn-cancel'
+  .btn-cancel
+    = link_to I18n.t("devise.confirmations.change_account"), users_confirmation_edit_path
+  .btn-cancel
+    - if current_user && current_user.confirmation_valid?
+      = link_to I18n.t("labels.skip"), root_path(:skip_confirm => 'true')

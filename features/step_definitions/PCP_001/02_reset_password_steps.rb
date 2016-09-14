@@ -46,20 +46,24 @@ end
 
 # Check error message
 Then(/^the user should see an error message from reset password$/) do
-  expect(page).to have_selector('div.input_error input[name="user[email]"]' )
-  puts "Email " + find('div.zyxel_arlert_area>label.error_message').text
+  # expect(page).to have_selector('div.input_error input[name="user[email]"]' )
+  expect(page).to have_selector('span.help-block')
+  puts "Email " + find('span.help-block').text
 end
 
 # Check error message from reset password url
 Then(/^the user should see an doesn't match error message$/) do
-  expect(page).to have_selector('div.input_error input[name="user[password_confirmation]"]')
-  puts "Email " + find('div.zyxel_arlert_area>label.error_message').text
+  binding.pry
+  # expect(page).to have_selector('div.input_error input[name="user[password_confirmation]"]')
+  # puts "Email " + find('div.zyxel_arlert_area>label.error_message').text
+  expect(page).to have_selector('span.alert')
+  puts "Email " + find('span.alert').text
 end
 
 # Check error message with different password
 And(/^the user fill in password New:"(.*?)", Confirm:"(.*?)" and submit$/) do |password1, password2|
   fill_in I18n.t("user.labels.new_password"), with: password1
-  fill_in I18n.t("user.labels.new_password_confirmation"), with: password2
+  # fill_in I18n.t("user.labels.new_password_confirmation"), with: password2
   click_button I18n.t("labels.submit")
 end
 

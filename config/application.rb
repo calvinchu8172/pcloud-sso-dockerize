@@ -13,6 +13,7 @@ require_relative '../lib/log4r/outputter/fluent_post_outputter'
 require "action_mailer/railtie"
 include Log4r
 
+require 'csv'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -61,5 +62,9 @@ module Pcloud
       ActiveRecord::Base.logger = Log4r::Logger["database"]
       # ActiveRecord::Base.logger = Log4r::Logger[Rails.env]
     end
+
+    # application with api
+    config.api_only = false
+
   end
 end

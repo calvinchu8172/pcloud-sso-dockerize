@@ -13,16 +13,19 @@ Given(/^the user was a member$/) do
 end
 
 When(/^the user click sign in with Facebook link and grant permission$/) do
-  click_link "Facebook"
+  # click_link "Facebook"
+  find(".btn-round.fb").click
 end
 
 When(/^the user click sign in with Facebook link and not grant permission$/) do
   set_invalid_omniauth
-  click_link "Facebook"
+  find(".btn-round.fb").click
+  # click_link "Facebook"
 end
 
 When(/^the user click sign in with Facebook link$/) do
-  click_link "Facebook"
+  # click_link "Facebook"
+  find(".btn-round.fb").click
 end
 
 Then(/^the user should see oauth feature "(.*?)" message$/) do |message|
@@ -34,7 +37,8 @@ When(/^the user grant permission$/) do
 end
 
 When(/^the user visits profile page$/) do
-  find("a.member").click
+  # find("a.member").click
+  click_on "Profile"
 end
 
 Then(/^the omniauth user should not see change password link$/) do
@@ -43,6 +47,10 @@ end
 
 Then(/^the user will redirect to Terms of Use page$/) do
   expect(page.current_path).to eq("/oauth/new")
+end
+
+Then(/^redirect to Welcome page$/) do
+  expect(page.current_path).to eq("/")
 end
 
 When(/^the user click Terms of Use page$/) do
@@ -57,6 +65,23 @@ end
 Then(/^redirect to My Devices\/Search Devices page$/) do
   expect(page.current_path).to eq("/discoverer/index")
   expect(page).to have_content("Successfully authenticated from Facebook account.")
+end
+
+Then(/^the user will redirect to editing password page$/) do
+  expect(page.current_path).to eq("/users/password/edit")
+end
+
+When(/^the user doesn't click Terms of Use page$/) do
+  find(:xpath, ".//input[@id='user_agreement']").set(false)
+  click_button "Confirm"
+end
+
+Then(/^user will stay in Terms of Use page$/) do
+  expect(page.current_path).to eq("/oauth/new")
+end
+
+Then(/^the user will see the warning message "(.*?)"$/) do |message|
+  expect(page.body).to have_content(message)
 end
 
 def set_omniauth(email = "personal@example.com", opts = {})

@@ -43,4 +43,13 @@ module ApplicationHelper
     current_user.confirmed? || current_user.confirmation_valid?
   end
 
+  def confirmed_or_skiped?
+    current_user.confirmed? || !!warden.session['skip_confirm'] == true
+  end
+
+  def in_oauth_flow?
+    @in_oauth_flow = (current_user && !!warden.session['in_oauth_flow'])
+    @in_oauth_flow
+  end
+    
 end

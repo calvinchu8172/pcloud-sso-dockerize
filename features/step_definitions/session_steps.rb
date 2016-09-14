@@ -1,5 +1,7 @@
-include Warden::Test::Helpers
-Warden.test_mode!
+
+# This module using methods of Warden::Test::Helpers such as "login_as", "logout",
+# about these methods please check https://github.com/hassox/warden/wiki/Testing,
+# about including Warden::Test::Helpers please check features/support/warden.rb.
 
 module TestingHelper
   def self.setup_test_email
@@ -11,6 +13,8 @@ module TestingHelper
     ActionMailer::Base.deliveries.clear
   end
   def self.signin_user(user)
+    # the "login_as" method is a method of Warden::Test::Helpers,
+    # about "login_as" method please check https://github.com/hassox/warden/wiki/Testing,
     login_as(user, scope: :user)
   end
 
@@ -116,6 +120,10 @@ When(/^the user click "(.*?)" link$/) do |link|
   click_link link
 end
 
+When(/^the user click on "(.*?)"$/) do |link_or_button|
+  click_on link_or_button
+end
+
 When(/^the user have other devices$/) do
   @other_paired = TestingHelper.create_pairing(@user.id)
 end
@@ -123,6 +131,12 @@ end
 Given(/^the user have a paired device$/) do
   @user = TestingHelper.create_and_signin
   @pairing = TestingHelper.create_pairing(@user.id)
+end
+
+When(/^the user's session is expired$/) do 
+  # the "logout" method is a method of Warden::Test::Helpers,
+  # about "logout" method please check https://github.com/hassox/warden/wiki/Testing,
+  logout
 end
 
 When(/^the user want to click link without cancel$/) do

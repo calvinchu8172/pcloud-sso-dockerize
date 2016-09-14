@@ -1,0 +1,123 @@
+form {
+
+  &#new_user {
+
+    // .user_email {
+    //   input[type='email'] {
+    //     background-color: #f00 !important;
+    //   }
+    // }
+    // .user_email {
+    //   .form-aaa {
+    //     input[type='email'] {
+    //       background-color: #f00 !important;
+    //     }
+    //   }
+    // }
+
+    .user_remember_me {
+      .forgot-password {
+        display: inline-block;
+        width: 50%;
+        padding-right: 5px;
+      }
+      .remember-me {
+        float: right;
+        width: 50%;
+
+        .checkbox {
+          float: right;
+          margin: 0;
+          margin-top: 0;
+
+          label {
+            font-weight: normal;
+            color: #fff;
+            float: right;
+            word-break: break-all;
+          }
+        }
+
+      }
+
+    }
+  }
+
+  // .form-control {
+  //   background-color: #8C8C8C;
+  // }
+
+  .form-control-feedback {
+    color: #8C8C8C;
+  }
+}
+
+.help-block, .has-error .help-block {
+  @if $theme-type == 'red' { color: #fff; }
+  @else { color: #f00; }
+}
+
+.agree_note_box {
+  padding: 0.9em;
+  height: 250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: transparent;
+  background-color: #fff;
+  color: #8c8c8c;
+  font-size: 14px;
+  border: 0px;
+  // @include border-radius(5px);
+  margin-bottom: 20px;
+  border-style: solid;
+}
+
+.profile_table {
+  tr {
+    height: 30px;
+   th {
+      width: 40%;
+      // border-bottom-width: 1px;
+      // border-bottom-style: solid;
+      // border-bottom-color: #E00;
+      // text-align: left;
+      padding-left: 15px
+    }
+    td {
+      // border-bottom-width: 1px;
+      // border-bottom-style: solid;
+      // border-bottom-color: #00f;
+    }
+  }
+}
+
+.authorized_app_table {
+  width: 100%;
+  font-size: 12px;
+  margin-bottom: 30px;
+  tr {
+    // width: 100%;
+    // padding: 0 5px;
+    height: 50px;
+    th, td {
+      padding-right: 5px;
+      // text-align: left;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #8c8c8c;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: #8c8c8c;
+    }
+    th:first-child {
+      width: 20%;
+      // background-color: #f00;
+    }
+    th:nth-child(2) {
+      width: 40%;
+      // background-color: #0f0;
+    }
+    td {
+    }
+  }
+}

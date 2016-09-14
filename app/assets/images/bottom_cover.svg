@@ -1,0 +1,31 @@
+<!-- <svg xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:svg="http://www.w3.org/2000/svg"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  version="1.0"
+  width="430"
+  height="20"
+  style="background:#fff;"> -->
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="430"
+  height="20">
+  <defs>
+    <clipPath id="aa1">
+      <!-- <rect x="0" y="0" width="30" height="10" /> -->
+      <!-- <ellipse cx="215" cy="-30" rx="305" ry="46" style="fill:yellow;"/> -->
+      <path d="M-80 -40 A50 10,0 0 0 510 -40" stroke="#000" fill="none"/>
+      <path d="M0 0 V20" stroke="black"/>
+      <path d="M0 20 H430" stroke="black"/>
+      <path d="M430 20 V-20" stroke="black"/>
+    </clipPath>
+  </defs>
+  <!-- <rect width="430px" height="20px" style="fill:#63BE02;opacity:1;" clip-path="url(#aa1)"/> -->
+  <!-- <image xlink:href="green/clouds.png" x="0" y="0"/> -->
+  <!-- <rect width="430px" height="20px" style="fill:#f00;opacity:0.5;" clip-path="url(#aa1)"/> -->
+  <!-- <path d="M-80 -40 A50 10,0 0 0 510 -40" stroke="#000" fill="#fff"/> -->
+  <!-- <path d="M0 0 V20" stroke="black"/> -->
+  <!-- <path d="M0 20 H430" stroke="black"/> -->
+  <!-- <path d="M430 20 V-20" stroke="black"/> -->
+  <path d="M-80 -40 A50 10,0 0 0 510 -40 L430 0 L430 20 L0 20 L0 0 L -80 -40 Z" fill="#fff"/>
+
+</svg>

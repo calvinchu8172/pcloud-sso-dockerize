@@ -1,6 +1,7 @@
 class PersonalController < ApplicationController
   before_action :authenticate_user!
   before_action :check_device_available, only: [:device_info]
+  before_action :check_device_info_access_limit, only: [:device_info]
   before_action :check_device_info_session, only: [:check_status]
 
   def index
@@ -31,6 +32,21 @@ class PersonalController < ApplicationController
   def device_info
     connect_to_device
     render :json => @session, status: 200
+  end
+
+  # 限制每台 NAS 每分鐘 device information 被 access 的次數 (每分鐘上限 5 次)
+  def check_device_info_access_limit
+    device_info_limit_session = Redis::HashKey.new("device:info:limit:#{@device.id}:session")
+    start_time = Time.now().to_i
+    end_time = (start_time + 60.seconds)
+    session_data = { start_time: start_time, end_time: end_time, access_count: 0 }
+    device_info_limit_session.bulk_set(session_data) if device_info_limit_session.empty?
+    device_info_limit_session.expireat(end_time)
+
+    access_count = device_info_limit_session[:access_count].to_i
+    render :json => { "result" => "failed" }, status: 400 and return if access_count >= 5
+
+    device_info_limit_session[:access_count] = access_count + 1
   end
 
   def connect_to_device

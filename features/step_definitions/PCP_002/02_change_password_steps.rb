@@ -1,6 +1,9 @@
 # Set a user who visit password change page
 Given(/^the user was login and visits change password page$/) do
-  @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
+  # @redis = Redis.new(:host => '127.0.0.1', :port => '6379', :db => 0 )
+  # @redis = Redis.new
+  @redis = Redis.new(:host => Settings.redis.web_host, :port => Settings.redis.port, :db => 0 )
+  @redis.flushdb
   @user = TestingHelper.create_and_signin
 	visit edit_user_registration_path(type: "password")
 end
@@ -46,11 +49,11 @@ end
 # -------------------------------------------------------------------
 
 Then(/^the user will get error message from change password$/) do
-	expect(page).to have_selector('.zyxel_arlert_area')
+  expect(page).to have_selector('span.help-block')
 end
 
 Then(/^the user will get success message from change password$/) do
-	expect(page).to have_selector('.zyxel_smallok_area')
+  expect(page).to have_selector('span.help-block')
 end
 
 Then(/^the user's account tokens and authentication tokens should all revoked$/) do

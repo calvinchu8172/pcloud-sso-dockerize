@@ -1,0 +1,30 @@
+/*
+*= require_self
+*= require c3
+* require jquery-ui
+*/
+
+// *************************************
+//
+//   Personal Cloud SSO
+//
+// *************************************
+
+@import "compass";
+
+// -------------------------------------
+//   Vendor
+//
+//   # Path: vendor/assets/components,
+//           vendor/assets/stylesheets,
+//           lib/assets/stylesheets
+// -------------------------------------
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// -------------------------------------
+//   THEME
+// -------------------------------------
+
+@import "font-awesome";

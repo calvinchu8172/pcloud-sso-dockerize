@@ -1,0 +1,159 @@
+.btn-custom {
+  @include button-variant(#FFFFFF, $btn-color, $btn-color);
+  height: 40px;
+  font-size: 16px;
+  // line-height: 26px;
+  line-height: 29px;
+  font-weight: bold;
+  // text-shadow: 0px 0px 0px #fff; //用陰影方式再加粗
+  // letter-spacing: 1px;
+}
+
+.btn-auth-deny {
+  // @include button-variant(#FFFFFF, transparent, transparent);
+  height: 40px;
+  font-size: 16px;
+  line-height: 26px;
+  background-color: transparent;
+  &:hover {
+    // background-color: #344E85;
+    color: darken(#fff, 10%);
+    text-decoration: underline;
+  }
+}
+
+.btn-round {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-width: 0px;
+  border-radius: 40px; /* 高度 */
+  &.fb {
+    background: #3A5794 image-url("fb.png") no-repeat center;
+    background-size: 22px 22px;
+    float: right;
+    &:hover {
+      background-color: #344E85;
+    }
+  }
+  &.google {
+    background: #dd4b39 image-url("google.png") no-repeat top 7px left 9px;
+    background-size: 25px 25px;
+    float: left;
+    &:hover {
+      background-color: #C64333;
+    }
+  }
+}
+
+.btn-cancel {
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  // text-decoration: none !important;
+  font-size: 16px;
+  a {
+    text-decoration: none !important;;
+  }
+  a:hover {
+    color: darken(#fff, 10%);
+    text-decoration: underline !important;
+  }
+}
+
+.inner_title {
+  min-height: 20px;
+  margin: 40px 0 10px 10px;
+  // font-weight: bold;
+}
+
+.alert-custom {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  // height: 40px;
+  // line-height: 12px;
+  display: block;
+}
+
+@include checkbox-variant('.checkbox-custom', $btn-color);
+@include checkbox-variant-indeterminate('.checkbox-custom', $brand-primary);
+
+//customize bootstrap form
+.form-control {
+  height: 40px;
+  font-size: 16px;
+  color: #595959;
+  border: 0px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-control-feedback {
+  width: 40px;
+  height: 40px;
+  // line-height: 40px;
+  line-height: 45px;
+}
+
+.control-label {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.display-block {
+  display: block;
+}
+
+span.radio_button_gender {
+  label{
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}
+
+.even_distribution_wrapper {
+  // 讓內部的子元件平均分布
+  display: flex;
+  display: -webkit-flex; /*for safari*/
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+}
+
+.select-style {
+  border: 1px solid #cccccc;
+  @include border-radius(4px);
+  height: 40px;
+  font-size: 16px;
+  color: #000;
+  width: 30%;
+  margin-bottom: 10px;
+}
+
+.terms_and_edm {
+  margin-bottom: 18px;
+  label {
+    font-size: 14px;
+    width: 100%;
+    &::before {
+      margin-top: 8px;
+    }
+    &::after {
+      padding-top: 9px;
+    }
+  }
+}
+
+@media (max-width: 320px)
+{
+  .terms_and_edm {
+    label {
+      font-size: 12px;
+    }
+  }
+}
