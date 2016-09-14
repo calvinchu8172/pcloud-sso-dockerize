@@ -34,5 +34,3 @@ cucumber:
   only:
     - master
     - develop
-    - feature/20160817-1-modify-all-pages
-    - feature/20160909-1-remove-unnecessary-files
