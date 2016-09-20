@@ -3,6 +3,7 @@ it:
   labels:
     language: Lingua
     forgot_password: Ho dimenticato la Password
+    bind_account: legare
     resend_confirmation: Nuovo invio
     unverified: Non verificato
     sign_in: Accedi
@@ -15,19 +16,23 @@ it:
     retry: Riprova
     submit: Invia
     confirm: Conferma
-    next: Next
+    next: Il prossimo
+    skip: Salta
     ok: OK
     or: o
     expand_all: Espandi tutto
     collapse_all: Comprimi tutto
+    download: Scaricare
     settings:
       invitation:
         connecting: Connessione in corso...
         success: Accettazione invito riuscita
         failure: Accettazione invito non riuscita
-        success_desc: "Congratulazioni! Iscrizione alla cartella condivisa %{share_point} riuscita."
-        failure_desc: "L’invito per il %{share_point} non è disponibile, riprovare in un secondo momento."
-        accepted_desc: "This myZyXELcloud account has already been added."
+        success_desc: Congratulazioni! Iscrizione alla cartella condivisa [nome del
+          punto condiviso] riuscita.
+        failure_desc: L’invito per il [nome punto condiviso] non è disponibile, riprovare
+          in un secondo momento.
+        accepted_desc: Questo account myZyxelCloud è già stato aggiunto
       ddns:
         instruction: Configurazione DDNS
         host_name: Nome host
@@ -63,25 +68,45 @@ it:
           failure: Errore
           no_update: Nessun aggiornamento
         description:
-          gallery: 'Questa applicazione basata sul Web consente all''NAS di ospitare immagini. Utilizzare le credenziali amministratore NAS per effettuare l''accesso. L''amministratore può creare account per altri utenti.'
-          googledriveclient: 'Questo offre un servizio di sincronizzazione a 2-vie tra NAS e Google Drive.'
-          squeezecenter: 'Questa opzione consente di gestire un dispositivo Squeezebox di Logitech collegato all''NAS.'
-          memopal: 'Memopal è un software di backup e memorizzazione online che archivia i file in tempo reale su un server remoto.'
-          nfs: 'NFS (Network File System) è un protocollo per la condivisione dei file implementato sopratutto sui sistemi simili a Unix.'
-          nzbget: 'Con questo pacchetto è possibile scaricare file .nzb da Usenet. Username:nzbget Password:1234'
-          php-mysql-phpmyadmin: 'Questo strumento può essere utilizzato per gestire MySQL dal Web. Inserire ''root'' come nome utente e ''1234'' come password per effettuare l''accesso.'
-          tftp: 'Il protocollo TFTP (Trivial File Transfer Protocol) è un protocollo di trasferimento file per Internet che utilizza la porta numero 69. È simile al protocollo FTP, con la differenza che utilizza il protocollo UDP (User Datagram Protocol) invece del protocollo TCP (Transmission Control Protocol). Non può elencare directory né utenti autenticati.'
-          transmission: 'Questo pacchetto è un client P2P che supporta file torrent e magnet.'
-          wordpress: 'Questa funzione consente di creare e gestire un blog. Utilizzare le credenziali amministratore NAS per effettuare l''accesso. L''amministratore può creare account per altri utenti.'
-          myzyxelcloud-agent: 'myZyXELcloud, la soluzione per la gestione delle applicazioni remote e accesso sicuro ai tuoi dispositivi accessori di rete ZyXEL da qualsiasi parte che dispone di una connessione ad internet!'
-          owncloud: 'Questo permette di creare e gestire il proprio cloud privato.'
-          pyload: 'Permetti al NAS di gestire tutti i tuoi download, inclusi quelli dai siti di hosting più diffusi.'
-    pairing: Pair NAS with account
+          gallery: Questa applicazione basata sul Web consente all'NAS di ospitare
+            immagini. Utilizzare le credenziali amministratore NAS per effettuare
+            l'accesso. L'amministratore può creare account per altri utenti.
+          googledriveclient: Questo offre un servizio di sincronizzazione a 2-vie
+            tra NAS e Google Drive.
+          squeezecenter: Questa opzione consente di gestire un dispositivo Squeezebox
+            di Logitech collegato all'NAS.
+          memopal: Memopal è un software di backup e memorizzazione online che archivia
+            i file in tempo reale su un server remoto.
+          nfs: NFS (Network File System) è un protocollo per la condivisione dei file
+            implementato sopratutto sui sistemi simili a Unix.
+          nzbget: Con questo pacchetto è possibile scaricare file .nzb da Usenet.
+            Username:nzbget Password:1234
+          php-mysql-phpmyadmin: Questo strumento può essere utilizzato per gestire
+            MySQL dal Web. Inserire 'root' come nome utente e '1234' come password
+            per effettuare l'accesso.
+          tftp: Il protocollo TFTP (Trivial File Transfer Protocol) è un protocollo
+            di trasferimento file per Internet che utilizza la porta numero 69. È
+            simile al protocollo FTP, con la differenza che utilizza il protocollo
+            UDP (User Datagram Protocol) invece del protocollo TCP (Transmission Control
+            Protocol). Non può elencare directory né utenti autenticati.
+          transmission: Questo pacchetto è un client P2P che supporta file torrent
+            e magnet.
+          wordpress: Questa funzione consente di creare e gestire un blog. Utilizzare
+            le credenziali amministratore NAS per effettuare l'accesso. L'amministratore
+            può creare account per altri utenti.
+          myzyxelcloud-agent: myZyXELcloud, la soluzione per la gestione delle applicazioni
+            remote e accesso sicuro ai tuoi dispositivi accessori di rete ZyXEL da
+            qualsiasi parte che dispone di una connessione ad internet!
+          owncloud: Questo permette di creare e gestire il proprio cloud privato.
+          pyload: Permetti al NAS di gestire tutti i tuoi download, inclusi quelli
+            dai siti di hosting più diffusi.
+    pairing: Coppia NAS con l'account
     paired: Associato
     unpairing: Disabbinamento in corso
     manually: Aggiungi manualmente
     profile: Profilo
     back_to_home: Home
+    back_to_profile: Torna al Profilo
     change_password: Modifica password
     edit_profile: Modifica profilo
     mac_address: Indirizzo MAC
@@ -95,7 +120,10 @@ it:
   titles:
     change_password: Modifica password
     forgot_password: Reimposta password
+    bind_account: Associare il tuo account Facebook o Google+
+    login_account: conto myZyxelCloud
     resend_confirmation: Invia nuovamente la email di conferma
+    check_confirmation: Controllare la posta elettronica di conferma
     sign_in: Accedi
     sign_up: Sottoscrizione di un abbonamento
     my_devices: Elenco dei dispositivi
@@ -108,6 +136,9 @@ it:
     unpairing: Disabbinamento in corso
     terms: Condizioni d'uso
     manually: Aggiungi manualmente dispositivo
+    download_edm_users_list: Scarica EDM lista degli utenti
+    welcome: benvenuto
+    welcome_to_sign_in: Benvenuti a firmare in Personal Cloud SSO
   warnings:
     not_config: DDNS is not Configured
     no_pairing_device: No device have been paired.
@@ -117,6 +148,7 @@ it:
     confirmation_success: Sentiti libero di godere dei servizi ZyXEL Cloud.
     forgot_password: La tua password è stata reimpostata.
     sent_email: Il messaggio e-mail è stato inviato.
+    agree_terms: Si prega di accettare le condizioni contrattuali utente
     settings:
       unpairing:
         instruction: Sicuro di voler disabbinare questo dispositivo?
@@ -133,7 +165,7 @@ it:
         in_pairing: L'abbinamento del dispositivo è in corso
         failure: Timeout abbinamento. Riprovare.
         canceled: L'abbinamento è stato annullato.
-        success: Abbinamento eseguito con successo. Cliccare il pulsante "Conferma" per impostare DDNS e UPnP.
+        success: Abbinamento eseguito con successo.
       ddns:
         instruction: 'Si prega di usare:'
         instruction_2: da 3 a 63 caratteri
@@ -152,7 +184,8 @@ it:
         sync: Sincronizzazione della configurazione UPnP in corso...
         success: Le impostazioni UPnP sono state aggiornate con successo.
         not_found: Dispositivo non trovato
-        cancel_instruction: Sei sicuro di voler annullare il flusso di configurazione UPnP?
+        cancel_instruction: Sei sicuro di voler annullare il flusso di configurazione
+          UPnP?
         error_code:
           num_799: Impossibile trovare il gateway del dispositivo
           num_798: Impossibile ottenere l'indirizzo IP del dispositivo
@@ -167,7 +200,8 @@ it:
         success: Le impostazioni Pacchetto sono state aggiornate con successo.
         failure: Timeout. Riprovare.
         not_found: Dispositivo non trovato
-        cancel_instruction: Siete sicuri di voler annullare il flusso di configurazione Pacchetto?
+        cancel_instruction: Siete sicuri di voler annullare il flusso di configurazione
+          Pacchetto?
         error_code:
           num_498: Non nell’elenco bot
           num_489: Impossibile recuperare l’elenco pacchetti

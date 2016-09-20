@@ -28,9 +28,9 @@ zh-TW:
         connecting: "連線中..."
         success: "接受成功"
         failure: "接受失敗"
-        success_desc: "恭喜！你加入了共享文件夾 %{share_point} 成功。"
-        failure_desc: "該邀請 %{share_point} 不可用，請稍後再試一次。"
-        accepted_desc: "此myZyXELcloud帳號已經被加入了。"
+        success_desc: "恭喜！你加入了共享文件夾[共享點名稱]成功。"
+        failure_desc: "該邀請[共享點名稱]不可用，請稍後再試一次。"
+        accepted_desc: "此 myZyxelCloud 帳號已經被加入了"
       ddns:
         instruction: DDNS設定
         host_name: Host Name
@@ -73,10 +73,11 @@ zh-TW:
           nfs: NFS (網路檔案系統 Network File System) 是一種檔案分享系統，常常用於 Unix 類型的系統。
           nzbget: "這個套件能夠從 Usenet 下載 .nzb 檔案。帳號:nzbget 密碼:1234"
           php-mysql-phpmyadmin: "這個套件可透過網頁來管理MySQL。輸入使用者名稱 'root' 與密碼 '1234' 來登入。"
-          tftp: "簡單檔案傳輸協定 (TFTP) 是使用 69 號通訊埠的網際網路檔案傳輸協定，類似 FTP，但使用 UDP (使用者資料報通訊協定) 而非 TCP (傳輸控制協定)。TFTP 無法列出目錄或驗證使用者。"
+          tftp: "簡單檔案傳輸協定 (TFTP) 是使用 69 號通訊埠的網際網路檔案傳輸協定，類似 FTP，但使用 UDP (使用者資料報通訊協定)
+            而非 TCP (傳輸控制協定)。TFTP 無法列出目錄或驗證使用者。"
           transmission: "這個套件是另一個支援 torrent 和 magnet 的 P2P 下載工具。"
           wordpress: "這個套件可讓您建立及管理一個部落格。 請用 NAS 管理帳號登入。管理者可以建立其他使用者的帳號。"
-          myzyxelcloud-agent: "myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台"
+          myzyxelcloud-agent: myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台
           owncloud: "允許你建立與管理個人雲."
           pyload: "透過NAS輕鬆管理免費空間(one-click-hosting)的下載任務。"
     pairing: "在此帳號下配對 NAS"
@@ -100,7 +101,7 @@ zh-TW:
     change_password: "變更密碼"
     forgot_password: "密碼重設"
     bind_account: "綁定帳號"
-    login_account: "myZyXELcloud 帳號"
+    login_account: myZyxelCloud 帳號
     resend_confirmation: "重新寄送確認信"
     check_confirmation: "請確認信箱中的認證信"
     sign_in: "登入帳號"
@@ -116,8 +117,8 @@ zh-TW:
     terms: "使用者條款"
     manually: "手動加入裝置"
     download_edm_users_list: "下載 EDM users list"
-    welcome: 歡迎
-    welcome_to_sign_in: 歡迎登入 Personal Cloud SSO
+    welcome: "歡迎"
+    welcome_to_sign_in: "歡迎登入 Personal Cloud SSO"
   warnings:
     not_config: "尚未設定DDNS"
     no_pairing_device: "您沒有已配對的設備!"

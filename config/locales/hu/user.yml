@@ -3,12 +3,13 @@ hu:
   user:
     labels:
       country: Ország
-      email: E-mail
+      email: Email
       display_name: Megjelenítés, mint
       first_name: Keresztnév
       middle_name: Középső név
       last_name: Vezetéknév
       password: Jelszó
+      create_password: Hozzon létre egy jelszót
       password_suggestion: 'jelszó javaslat: „8-14 karakter hosszú jelszó”'
       password_confirmation: Jelszó megerősítése
       new_password: "Új jelszó"
@@ -25,8 +26,13 @@ hu:
       remember_me: Emlékezzen rám
       language: Nyelv
       captcha: Captcha
+      new_to_cloud: "Új a myZyxelCloud?"
+      create_account: Fiók létrehozása
       terms:
         instruction: Megértem és elfogadom a
         instruction_2: ZyXEL Cloud felhasználási feltételeit
       edm_1: Igen, szeretnék e-maileket kapni
       edm_2: a ZyXEL Cloud termékekről és szolgáltatásokról
+      copy_right: "© 2016 Zyxel Communications Corp."
+    titles:
+      reset_password: "Állítsd vissza a jelszavad"

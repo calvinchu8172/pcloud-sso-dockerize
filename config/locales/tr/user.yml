@@ -9,6 +9,7 @@ tr:
       middle_name: "İkinci Ad"
       last_name: Soyadı
       password: "Şifre"
+      create_password: "şifre oluştur"
       password_suggestion: "Şifre önerisi: '8-14 karakterlik şifre uzunluğu'"
       password_confirmation: "Şifreyi Onayla"
       new_password: Yeni Şifre
@@ -25,8 +26,13 @@ tr:
       remember_me: Beni Hatırla
       language: Dil
       captcha: Güvenlik Kodu
+      new_to_cloud: myZyxelCloud Yeni?
+      create_account: Hesap açmak
       terms:
         instruction: ZyXEL Cloud Kullanım Hükümlerini
         instruction_2: ZyXEL Cloud kabul ediyorum
       edm_1: Evet, bana ZyXEL Cloud Ürünleri
       edm_2: ve Hizmetleri konusunda e-postalar gönder
+      copy_right: "© 2016 Zyxel Communications Corp."
+    titles:
+      reset_password: Parolanızı sıfırlayın

@@ -9,6 +9,7 @@ ru:
       middle_name: "Отчество"
       last_name: "Фамилия"
       password: "Пароль"
+      create_password: "Создайте пароль"
       password_suggestion: "рекомендуемый пароль: 'пароль длиной 8-14 символов'"
       password_confirmation: "Подтвердить пароль"
       new_password: "Новый пароль"
@@ -25,8 +26,13 @@ ru:
       remember_me: "Запомнить меня"
       language: "Язык"
       captcha: "Контрольный код"
+      new_to_cloud: "Новое в myZyxelCloud?"
+      create_account: "Регистрация"
       terms:
         instruction: "Я понимаю и соглашаюсь с положениями документа"
         instruction_2: "Условия использования ZyXEL Cloud"
-      edm_1: "Да, прошу присылать мне сообщения о "
+      edm_1: "Да, прошу присылать мне сообщения о"
       edm_2: "продукции и услугах ZyXEL Cloud"
+      copy_right: "© 2016 Zyxel Communications Corp."
+    titles:
+      reset_password: "Сбросить пароль"

@@ -3,12 +3,13 @@ nl:
   user:
     labels:
       country: Land
-      email: E-mail
+      email: Email
       display_name: laat zien als
       first_name: Voornaam
       middle_name: Tweede naam
       last_name: Achternaam
       password: Wachtwoord
+      create_password: Creëer een wachtwoord
       password_suggestion: Het wachtwoord dient 8-14 caracters lang te zijn
       password_confirmation: Bevestig wachtwoord
       new_password: Nieuw wachtwoord
@@ -25,8 +26,13 @@ nl:
       remember_me: Onthoud mijn gegevens
       language: Taal
       captcha: Captcha
+      new_to_cloud: Nieuw bij myZyxelCloud?
+      create_account: Account aanmaken
       terms:
         instruction: Ik ga akkoord met de voorwaarde
         instruction_2: ZyXEL Cloud gebruiksvoorwaarde
       edm_1: Ja, stuur mij meer informatie over
       edm_2: ZyXEL Cloud producten of diensten.
+      copy_right: "© 2016 Zyxel Communications Corp."
+    titles:
+      reset_password: Stel je wachtwoord opnieuw in

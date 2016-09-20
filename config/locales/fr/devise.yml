@@ -28,6 +28,7 @@ fr:
       timeout: Votre session a expiré. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire avant de continuer.
       unconfirmed: Vous devez confirmer votre compte avant de continuer.
+      password_invalid: Mot de passe incorrect
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Confirmation du compte

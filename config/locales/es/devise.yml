@@ -29,6 +29,7 @@ es:
       timeout: Su sesión ha caducado. Inicie sesión de nuevo para continuar.
       unauthenticated: Debe iniciar sesión o registrarse antes de continuar.
       unconfirmed: Debe confirmar su cuenta antes de continuar.
+      password_invalid: contraseña invalida
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Confirmación de cuenta

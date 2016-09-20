@@ -28,6 +28,7 @@ de:
       timeout: Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.
       unauthenticated: Sie müssen sich anmelden oder registrieren um fortzufahren.
       unconfirmed: Sie müssen Ihren Account aktivieren um fortzufahren.
+      password_invalid: ungültiges Passwort
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Account Bestätigung
