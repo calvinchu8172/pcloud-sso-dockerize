@@ -1,0 +1,284 @@
+// -------------------------------------
+//   Base
+// -------------------------------------
+
+html, body {
+  min-height: 100%;
+  font-family: 'Open Sans', sans-serif, "微軟正黑體";
+  font-weight: normal;
+  letter-spacing: .3px;
+}
+
+body {
+  @include background(linear-gradient(to bottom,  #FFF 0%, #fafffe 100%));
+}
+
+// changed
+.alert_info {
+  max-width: 580px;
+  margin: 0 auto;
+}
+.header {
+  height: 80px;
+  h1 {
+    float: left;
+  }
+}
+.zyxel_content{
+  max-width: 480px;
+  margin: 0 auto;
+  .checkbox_label, .zyxel_edm{
+    color:$zyxel_color2;
+    font-size:13px;
+  }
+  // Fix checkbox width issue in DE locale
+  &.oauth_agreement {
+    max-width:500px
+  }
+
+  .checkbox_i18n_wrap{
+    + .zyxel_btn_area.i18n_fix{
+      // Fix submit length in sign-up page
+      word-wrap: break-word;
+      margin: 60px auto;
+    }
+  }
+}
+.checkbox_area {
+  margin-top:0px;
+  margin-bottom:5px;
+  font-size:13px;
+  strong {
+    color: $zyxel_star;
+  }
+  a {
+    color: #666666;
+    text-decoration:none;
+    &:hover {
+      color: $zyxel_color1;
+    }
+  }
+  label {
+    color: $zyxel_color2;
+    font-weight:normal;
+  }
+}
+// changed
+.zyxel_device {
+  overflow: hidden;
+  padding-bottom: 10px;
+  .zyxel_device_image {
+    display: inline-block;
+  }
+  .zyxel_h2_icon1 {
+    display: inline-block;
+    padding-left: 10px;
+  }
+}
+.sns_sign {
+  text-align: center;
+}
+.zyxel_arlert_area{
+  margin-bottom: 15px;
+  .error_message{
+    background: image-url("alert.png") no-repeat left center;
+    color: #eb132b;
+    font-size: 15px;
+    padding: 5px 0 5px 27px;
+    font-weight: normal;
+  }
+}
+.zyxel_smallok_area{
+  margin-bottom: 15px;
+  span {
+    background: image-url("ok_small.png") no-repeat left center;
+    color: $zyxel_color7;
+    font-size: 15px;
+    line-height: 12px;
+    padding: 5px 0 5px 27px;
+  }
+}
+.hover_pop{
+  visibility: hidden;
+  position: absolute;
+  text-align: center;
+  font-size: 15px;
+  color: $zyxel_color4 !important;
+  background:white;
+  border:1px solid $zyxel_color3 !important;
+  @include border-radius(5px);
+  padding: 5px 10px !important;
+}
+// changed
+.user_info.zyxel_table_style, .add_label.zyxel_table_style {
+  th { width: 35% }
+}
+.agree_note_box {
+  padding: 0.9em;
+  height: 250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: transparent;
+  color: $zyxel_color2;
+  font-size: 14px;
+  border:1px solid $zyxel_color3;
+  @include border-radius(5px);
+  margin-bottom: 20px;
+  border-style: solid;
+}
+.hide_domain_name{
+  display: none;
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  top:-130%;
+  text-align: center;
+  /*background:$zyxel_color3;*/
+  span{
+    font-size: 15px;
+    color: $zyxel_color4 !important;
+    background:white;
+    border:1px solid $zyxel_color3 !important;
+    @include border-radius(5px);
+    padding: 5px 10px !important;
+  }
+  &:after, &:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-color: rgba(216, 216, 216, 0);
+    border-top-color: $zyxel_color3;
+    border-width: 10px;
+    margin-left: 10px;
+  }
+}
+.zyxel_table_style4 td.blue:hover + .hide_domain_name{
+  display: inline;
+}
+input[type="checkbox"]{ /* 把原生隱藏 */
+  display:none;
+  + label span {
+    display:inline-block;
+    width:18px;
+    height:18px;
+    vertical-align:middle;
+    background:image-url("check-box.png") left center no-repeat;
+    cursor:pointer;
+    margin-right:8px;
+  }
+  &:checked + label span { background: image-url("check-box.png") -18px center no-repeat; }
+  &.th_label {
+    & + .check_icon {
+      float: left;
+    }
+    & + .check_icon ~ .check_icon {
+      display: none;
+    }
+  }
+}
+.zyxel_content .radio label, .checkbox label{
+  padding-left:0;
+}
+.waiting{
+  text-align:center;
+  span {
+    display:block;
+    line-height:40px;
+    margin-bottom: 15px;
+  }
+}
+.zyxel_edm {
+  color: $zyxel_color2;
+  padding-left: 30px;
+  label {
+    margin-left: 5px;
+  }
+}
+// for select
+.user_info_select {
+  div.select_style {
+    &:first-of-type {
+      margin-left: 0px;
+    }
+    &:last-of-type {
+      margin-right: 0px;
+    }
+    &:only-of-type {
+      width: 100%;
+    }
+  }
+}
+// changed
+div.select_style {
+  border: 1px solid $zyxel_color3;
+  @include border-radius(5px);
+  height: 40px;
+  outline: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: $zyxel_color2;
+  margin: 7px 5px 7px 12px;
+  width: 25%;
+}
+// select2
+body {
+  .select2-container {
+    .select2-choice {
+      height: 100%;
+      padding: 5px 0 5px 8px;
+      background-image: none;
+      border: none;
+      color: $zyxel_color2;
+      .select2-arrow {
+        background-image: none;
+        background-color: $zyxel_white;
+        border-left: $zyxel_white;
+        b {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+  .select2-dropdown-open {
+    .select2-choice {
+      background-color: $zyxel_white;
+    }
+  }
+  .select2-dropdown-open.select2-drop-above {
+    border-top-color: transparent;
+    .select2-choice, .select2-choices {
+      border-color: transparent;
+      background-image: none;
+    }
+  }
+  .select2-drop {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    &.select2-drop-active {
+      border-color: $zyxel_color3;
+      color: $zyxel_color2;
+      margin-top: -3px;
+      &.select2-drop-above {
+        border-top-color: $zyxel_color3;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        margin-top: 3px;
+      }
+    }
+  }
+  .select2-search {
+    display: none;
+  }
+  .select2-results {
+    .select2-highlighted {
+      background: $zyxel_color4;
+    }
+  }
+}
