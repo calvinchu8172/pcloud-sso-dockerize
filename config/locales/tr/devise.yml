@@ -27,6 +27,7 @@ tr:
       timeout: Oturumunuzun süresi geçti. Lütfen devam etmek için tekrar oturum açın.
       unauthenticated: Devam etmeden önce oturum açmanız veya kaydolmanız gerekir.
       unconfirmed: Devam etmeden önce hesabınızı onaylamanız gerekir.
+      password_invalid: geçersiz şifre
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Hesap Onayı

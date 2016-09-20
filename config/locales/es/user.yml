@@ -9,6 +9,7 @@ es:
       middle_name: Segundo nombre
       last_name: Apellidos
       password: Contraseña
+      create_password: Crea una contraseña
       password_suggestion: 'sugerencia de contraseña: ''longitud de contraseña de
         8-14 caracteres'''
       password_confirmation: Confirmar contraseña
@@ -26,8 +27,13 @@ es:
       remember_me: Recordarme
       language: Idioma
       captcha: Captcha
+      new_to_cloud: Nuevo en myZyxelCloud?
+      create_account: Crear una cuenta
       terms:
         instruction: Entiendo y estoy de acuerdo con los
         instruction_2: Términos de uso de ZyXEL Cloud
       edm_1: Sí, enviarme correos electrónicos sobre
       edm_2: productos y servicios ZyXEL Cloud
+      copy_right: "© 2016 Zyxel Communications Corp."
+    titles:
+      reset_password: Restablecer su contraseña

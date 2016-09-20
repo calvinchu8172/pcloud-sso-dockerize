@@ -1,123 +1,124 @@
+---
 hu:
   activerecord:
     attributes:
-      doorkeeper/application:
-        name: 'Name'
-        redirect_uri: 'Redirect URI'
+      doorkeeper:
+        application:
+          name: Név
+          redirect_uri: "Átirányítás URI"
     errors:
       models:
-        doorkeeper/application:
-          attributes:
-            redirect_uri:
-              fragment_present: 'cannot contain a fragment.'
-              invalid_uri: 'must be a valid URI.'
-              relative_uri: 'must be an absolute URI.'
-              secured_uri: 'must be an HTTPS/SSL URI.'
-
+        doorkeeper:
+          application:
+            attributes:
+              redirect_uri:
+                fragment_present: nem tartalmazhat egy töredék.
+                invalid_uri: kell lennie egy érvényes URI.
+                relative_uri: kell, hogy legyen egy abszolút URI.
+                secured_uri: kell lennie HTTPS.SSL URI.
   doorkeeper:
     applications:
       confirmations:
-        destroy: 'Are you sure?'
+        destroy: biztos vagy ebben?
       buttons:
-        edit: 'Edit'
-        destroy: 'Destroy'
-        submit: 'Submit'
-        cancel: 'Cancel'
-        authorize: 'Authorize'
+        edit: szerkesztése
+        destroy: Elpusztítani
+        submit: beküldése
+        cancel: Megszünteti
+        authorize: engedélyez
       form:
-        error: 'Whoops! Check your form for possible errors'
+        error: Hoppá! Ellenőrizze az űrlap esetleges hibákért
       help:
-        redirect_uri: 'Use one line per URI'
-        native_redirect_uri: 'Use %{native_redirect_uri} for local tests'
-        scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
+        redirect_uri: Használja soronként egy URI
+        native_redirect_uri: A% {native_redirect_uri} helyi vizsgálatok
+        scopes: Külön körök szóközzel. Hagyja üresen az alapértelmezett hatókörét.
       edit:
-        title: 'Edit application'
+        title: alkalmazás szerkesztése
       index:
-        title: 'Your applications'
-        new: 'New Application'
-        name: 'Name'
-        callback_url: 'Callback URL'
+        title: Az alkalmazások
+        new: "új alkalmazás"
+        name: Név
+        callback_url: visszahívási URL
       new:
-        title: 'New Application'
+        title: "új alkalmazás"
       show:
-        title: 'Application: %{name}'
-        application_id: 'Application Id'
-        secret: 'Secret'
-        scopes: 'Scopes'
-        callback_urls: 'Callback urls'
-        actions: 'Actions'
-
+        title: Alkalmazás:% {name}
+        application_id: alkalmazás Id
+        secret: Titok
+        scopes: Scope
+        callback_urls: Visszahívás urls
+        actions: Hozzászólások
     authorizations:
       buttons:
-        authorize: 'Authorize'
-        deny: 'Deny'
+        authorize: engedélyez
+        deny: Tagadni
+        back_to_your_application: Vissza az alkalmazás
       error:
-        title: 'An error has occurred'
+        title: Hiba történt
       new:
-        title: 'Authorization required'
-        prompt: 'Authorize %{client_name} to use your account?'
-        able_to: 'This application will be able to'
+        title: engedély szükséges
+        prompt: Engedélyezheti% {client_név} kezelhető fiókja?
+        able_to: Ez az alkalmazás képes lesz
       show:
-        title: 'Authorization code'
-
+        title: Megerősítő kód
     authorized_applications:
       confirmations:
-        revoke: 'Are you sure?'
+        revoke: biztos vagy ebben?
       buttons:
-        revoke: 'Revoke'
+        revoke: visszavonja
       index:
-        title: 'Your authorized applications'
-        application: 'Application'
-        created_at: 'Created At'
-        date_format: '%Y-%m-%d %H:%M:%S'
-
+        title: Az engedélyezett alkalmazások
+        application: Alkalmazás
+        created_at: létrehozott
+        date_format: "% Y-% m-% d% H:% M:% S"
     errors:
       messages:
-        # Common error messages
-        invalid_request: 'The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.'
-        invalid_redirect_uri: 'The redirect uri included is not valid.'
-        unauthorized_client: 'The client is not authorized to perform this request using this method.'
-        access_denied: 'The resource owner or authorization server denied the request.'
-        invalid_scope: 'The requested scope is invalid, unknown, or malformed.'
-        server_error: 'The authorization server encountered an unexpected condition which prevented it from fulfilling the request.'
-        temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
-
-        #configuration error messages
-        credential_flow_not_configured: 'Resource Owner Password Credentials flow failed due to Doorkeeper.configure.resource_owner_from_credentials being unconfigured.'
-        resource_owner_authenticator_not_configured: 'Resource Owner find failed due to Doorkeeper.configure.resource_owner_authenticator being unconfiged.'
-
-        # Access grant errors
-        unsupported_response_type: 'The authorization server does not support this response type.'
-
-        # Access token errors
-        invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
-        invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
-        unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
-
-        # Password Access token errors
-        invalid_resource_owner: 'The provided resource owner credentials are not valid, or resource owner cannot be found'
-
+        invalid_request: A kérelem hiányzik egy szükséges paraméter tartalmaz egy
+          nem támogatott paraméter értéke, vagy egyéb módon a formátuma.
+        invalid_redirect_uri: Az átirányítás uri benne nem érvényes.
+        unauthorized_client: Az ügyfél nem jogosult a kérés teljesítéséhez ezzel a
+          módszerrel.
+        access_denied: Az erőforrás-tulajdonos vagy engedély szerver elutasította
+          a kérelmet.
+        invalid_scope: A kért szolgáltatás érvénytelen, ismeretlen, vagy hibás.
+        server_error: Az engedély szerver váratlan hibát észlelt, ami megakadályozta,
+          hogy teljesíteni a kérést.
+        temporarily_unavailable: Az engedély szerver jelenleg nem tudja kezelni a
+          kérést miatt átmeneti túlterheltség vagy karbantartás a szerveren.
+        credential_flow_not_configured: Erőforrás Tulajdonosi jelszó bizonyítványok
+          áramlás miatt nem sikerült Doorkeeper.configure.resource_owner_from_credentials
+          hogy konfigurálva.
+        resource_owner_authenticator_not_configured: Erőforrás Képviselő találj miatt
+          meghiúsult Doorkeeper.configure.resource_owner_authenticator hogy unconfiged.
+        unsupported_response_type: Az engedély kiszolgáló nem támogatja ezt a választ
+          típus.
+        invalid_client: Az ügyfél hitelesítése sikertelen miatt ismeretlen ügyfél
+          nem ügyfélhitelesítés benne, vagy nem támogatott hitelesítési módszert.
+        invalid_grant: Az előírt engedély megadása érvénytelen, lejárt, visszavonták,
+          nem egyezik az átirányítás URI alkalmazott engedélyezési kérelem vagy adtak
+          ki, hogy egy másik ügyfél.
+        unsupported_grant_type: Az engedély megadása nem támogatott az engedély szerver.
+        invalid_resource_owner: A megadott erőforrás tulajdonosa hitelesítő nem érvényes,
+          vagy erőforrás tulajdonosa nem található
         invalid_token:
-          revoked: "The access token was revoked"
-          expired: "The access token expired"
-          unknown: "The access token is invalid"
-
+          revoked: A hozzáférési token visszavonták
+          expired: A hozzáférési token lejárt
+          unknown: A hozzáférési token érvénytelen
     flash:
       applications:
         create:
-          notice: 'Application created.'
+          notice: Alkalmazás létre.
         destroy:
-          notice: 'Application deleted.'
+          notice: Alkalmazás hagyni.
         update:
-          notice: 'Application updated.'
+          notice: Az alkalmazás frissítése.
       authorized_applications:
         destroy:
-          notice: 'Application revoked.'
-
+          notice: Alkalmazás visszavonták.
     layouts:
       admin:
         nav:
-          oauth2_provider: 'OAuth2 Provider'
-          applications: 'Applications'
+          oauth2_provider: OAuth2 Szolgáltató
+          applications: alkalmazások
       application:
-        title: 'OAuth authorization required'
+        title: OAuth szükséges engedélyt

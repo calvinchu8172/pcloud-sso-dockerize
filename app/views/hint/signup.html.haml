@@ -1,0 +1,20 @@
+- content_for :title, I18n.t('titles.sign_up')
+
+- content_for :precontent do
+  .process_indicator_wrapper
+    %svg.process_indicator
+      %circle.circle1.apply_theme
+      %line.apply_theme{:x1 => 23, :y1 => 15, :x2 => 38, :y2 => 15}
+      %circle.circle2.apply_theme
+      %line.apply_theme{:x1 => 62, :y1 => 15, :x2 => 77, :y2 => 15}
+      %circle.circle3.apply_theme
+
+.content_wrapper.normal
+  .inner_title
+    %h4
+      = I18n.t("devise.confirmations.confirmed")
+    %p
+      = I18n.t("warnings.confirmation_success")
+  .spacer{ :style => "height: 220px;" }
+
+  = link_to I18n.t("labels.confirm"), root_path, class: 'btn btn-custom btn-block'

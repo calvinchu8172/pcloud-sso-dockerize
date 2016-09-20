@@ -1,123 +1,122 @@
+---
 tr:
   activerecord:
     attributes:
-      doorkeeper/application:
-        name: 'Name'
-        redirect_uri: 'Redirect URI'
+      doorkeeper:
+        application:
+          name: isim
+          redirect_uri: URI yönlendir
     errors:
       models:
-        doorkeeper/application:
-          attributes:
-            redirect_uri:
-              fragment_present: 'cannot contain a fragment.'
-              invalid_uri: 'must be a valid URI.'
-              relative_uri: 'must be an absolute URI.'
-              secured_uri: 'must be an HTTPS/SSL URI.'
-
+        doorkeeper:
+          application:
+            attributes:
+              redirect_uri:
+                fragment_present: Bir parçasını içeremez.
+                invalid_uri: Geçerli bir URI olmalıdır.
+                relative_uri: mutlak bir URI olmalıdır.
+                secured_uri: Bir HTTPS.SSL URI olmalıdır.
   doorkeeper:
     applications:
       confirmations:
-        destroy: 'Are you sure?'
+        destroy: Emin misiniz?
       buttons:
-        edit: 'Edit'
-        destroy: 'Destroy'
-        submit: 'Submit'
-        cancel: 'Cancel'
-        authorize: 'Authorize'
+        edit: Düzenleme
+        destroy: yıkmak
+        submit: Gönder
+        cancel: "İptal etmek"
+        authorize: Yetki vermek
       form:
-        error: 'Whoops! Check your form for possible errors'
+        error: Tüh! Olası hatalar için formunuzu kontrol edin
       help:
-        redirect_uri: 'Use one line per URI'
-        native_redirect_uri: 'Use %{native_redirect_uri} for local tests'
-        scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
+        redirect_uri: URI başına bir satırını kullanın
+        native_redirect_uri: Yerel testler için% {native_redirect_uri} kullanın
+        scopes: boşluk ayrı kapsamları. Varsayılan kapsamları kullanmak için boş bırakın.
       edit:
-        title: 'Edit application'
+        title: Düzenleme uygulaması
       index:
-        title: 'Your applications'
-        new: 'New Application'
-        name: 'Name'
-        callback_url: 'Callback URL'
+        title: sizin uygulamaları
+        new: Yeni uygulama
+        name: isim
+        callback_url: Geri arama URL
       new:
-        title: 'New Application'
+        title: Yeni uygulama
       show:
-        title: 'Application: %{name}'
-        application_id: 'Application Id'
-        secret: 'Secret'
-        scopes: 'Scopes'
-        callback_urls: 'Callback urls'
-        actions: 'Actions'
-
+        title: Uygulama Adı}
+        application_id: Uygulama Kimliği
+        secret: Gizli
+        scopes: kapsamları
+        callback_urls: Geri arama URL'ler
+        actions: Eylemler
     authorizations:
       buttons:
-        authorize: 'Authorize'
-        deny: 'Deny'
+        authorize: Yetki vermek
+        deny: Reddetmek
+        back_to_your_application: Geri uygulamanıza
       error:
-        title: 'An error has occurred'
+        title: bir hata oluştu
       new:
-        title: 'Authorization required'
-        prompt: 'Authorize %{client_name} to use your account?'
-        able_to: 'This application will be able to'
+        title: "İzin gerekmekte"
+        prompt: "% {CLIENT_NAME} hesabınızı kullanmasına izin?"
+        able_to: Bu uygulama, mümkün olacaktır
       show:
-        title: 'Authorization code'
-
+        title: Yetki Kodu
     authorized_applications:
       confirmations:
-        revoke: 'Are you sure?'
+        revoke: Emin misiniz?
       buttons:
-        revoke: 'Revoke'
+        revoke: iptal etmek
       index:
-        title: 'Your authorized applications'
-        application: 'Application'
-        created_at: 'Created At'
-        date_format: '%Y-%m-%d %H:%M:%S'
-
+        title: Yetkili uygulamalar
+        application: Uygulama
+        created_at: At düzenlendi
+        date_format: "% Y-% m-% d% H:% M:% S"
     errors:
       messages:
-        # Common error messages
-        invalid_request: 'The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.'
-        invalid_redirect_uri: 'The redirect uri included is not valid.'
-        unauthorized_client: 'The client is not authorized to perform this request using this method.'
-        access_denied: 'The resource owner or authorization server denied the request.'
-        invalid_scope: 'The requested scope is invalid, unknown, or malformed.'
-        server_error: 'The authorization server encountered an unexpected condition which prevented it from fulfilling the request.'
-        temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
-
-        #configuration error messages
-        credential_flow_not_configured: 'Resource Owner Password Credentials flow failed due to Doorkeeper.configure.resource_owner_from_credentials being unconfigured.'
-        resource_owner_authenticator_not_configured: 'Resource Owner find failed due to Doorkeeper.configure.resource_owner_authenticator being unconfiged.'
-
-        # Access grant errors
-        unsupported_response_type: 'The authorization server does not support this response type.'
-
-        # Access token errors
-        invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
-        invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
-        unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
-
-        # Password Access token errors
-        invalid_resource_owner: 'The provided resource owner credentials are not valid, or resource owner cannot be found'
-
+        invalid_request: gerekli bir parametre eksik istek, desteklenmeyen bir parametre
+          değeri içerir, ya da başka bozuk.
+        invalid_redirect_uri: uri dahil yönlendirme geçerli değil.
+        unauthorized_client: "İstemci, bu yöntemi kullanarak bu isteği gerçekleştirmek
+          için yetkisi yok."
+        access_denied: kaynak sahibi veya yetki sunucusu isteğini reddetti.
+        invalid_scope: "İstenen kapsam, geçersiz bilinmeyen, ya da bozuk."
+        server_error: yetkilendirme sunucusu isteği yerine getirmesini engelledi beklenmeyen
+          bir durumla karşılaştı.
+        temporarily_unavailable: yetkilendirme sunucusu nedeniyle sunucunun geçici
+          aşırı yüklenme veya bakım için şu anda isteği işleyemiyor.
+        credential_flow_not_configured: Kaynak Sahibi Şifre Kimlik Doorkeeper.configure.resource_owner_from_credentials
+          yapılandırılmamış olması nedeniyle başarısız akış.
+        resource_owner_authenticator_not_configured: Kaynak Sahibi Doorkeeper.configure.resource_owner_authenticator
+          unconfiged olması nedeniyle başarısız oldu bulmak.
+        unsupported_response_type: yetkilendirme sunucusu bu yanıtı türünü desteklemiyor.
+        invalid_client: Müşteri kimlik nedeniyle bilinmeyen istemci dahil hiçbir istemci
+          kimlik, ya da desteklenmeyen bir kimlik doğrulama yöntemi başarısız oldu.
+        invalid_grant: "öngörülen yetkinin hibe URI yetkilendirme isteği kullanılan,
+          ya da başka bir müşteriye verildiği yönlendirmeyi eşleşmiyor, iptal edilmiş,
+          süresi dolmuş, geçersiz."
+        unsupported_grant_type: yetki hibe tipi yetkilendirme sunucusu tarafından
+          desteklenmiyor.
+        invalid_resource_owner: sağlanan kaynak sahibi kimlik bilgileri geçerli değil,
+          ya da kaynak sahibi bulunamıyor
         invalid_token:
-          revoked: "The access token was revoked"
-          expired: "The access token expired"
-          unknown: "The access token is invalid"
-
+          revoked: erişim belirteci iptal edildi
+          expired: erişim belirteci süresi
+          unknown: erişim belirteci geçersiz
     flash:
       applications:
         create:
-          notice: 'Application created.'
+          notice: Uygulama yarattı.
         destroy:
-          notice: 'Application deleted.'
+          notice: Uygulama silindi.
         update:
-          notice: 'Application updated.'
+          notice: Uygulama güncellendi.
       authorized_applications:
         destroy:
-          notice: 'Application revoked.'
-
+          notice: Uygulama iptal.
     layouts:
       admin:
         nav:
-          oauth2_provider: 'OAuth2 Provider'
-          applications: 'Applications'
+          oauth2_provider: OAuth2 Sağlayıcı
+          applications: Uygulamalar
       application:
-        title: 'OAuth authorization required'
+        title: OAuth izin gereklidir

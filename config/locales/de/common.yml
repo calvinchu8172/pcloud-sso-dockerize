@@ -3,6 +3,7 @@ de:
   labels:
     language: Sprache
     forgot_password: Passwort vergessen
+    bind_account: Binden
     resend_confirmation: Bestätigung erneut senden
     unverified: Nicht verififiziert
     sign_in: Anmelden
@@ -15,19 +16,23 @@ de:
     retry: Wiederholen
     submit: Abschicken
     confirm: Bestätigen
-    next: Next
+    next: Nächster
+    skip: "Überspringen"
     ok: OK
     or: oder
     expand_all: Alle erweitern
     collapse_all: Alle zusammenklappen
+    download: Herunterladen
     settings:
       invitation:
         connecting: Verbinden...
         success: Einladung annehmen erfolgreich
         failure: Einladung annehmen fehlgeschlagen
-        success_desc: "Herlichen Glückwunsch! Sie haben den geteilten Ordner %{share_point} erfolgreich aufgerufen."
-        failure_desc: "Die Einladung zum %{share_point} ist nicht verfügbar, bitte versuchen Sie es später noch einmal."
-        accepted_desc: "This myZyXELcloud account has already been added."
+        success_desc: Herlichen Glückwunsch! Sie haben den geteilten Ordner [Ordner
+          Name] erfolgreich aufgerufen.
+        failure_desc: Die Einladung zum [Ordner Name] ist nicht verfügbar, bitte versuchen
+          Sie es später noch einmal.
+        accepted_desc: Dieses myZyxelCloud Konto wurde bereits hinzugefügt
       ddns:
         instruction: DDNS Einrichtung
         host_name: Host Name
@@ -63,25 +68,43 @@ de:
           failure: Fehlerhaft
           no_update: kein Update
         description:
-          gallery: Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten.
-          googledriveclient: Dies stellt den Dienst einer 2-Wege Synchronisierung zwischen dem NAS und Google Drive zur Verfügung.
-          squeezecenter: 'Hiermit haben Sie die Möglichkeit, ein Squeezebox-Gerät von Logitech zu verwalten, welches mit dem NAS verbunden ist.'
-          memopal: 'Memopal ist eine Online Backup und Online Speicherplatz Software, die Ihre Dateien in Echtzeit speichern kann.'
-          nfs: 'NFS (Network File System) ist ein Datenaustauschprotokoll, dass gewöhnlich in Unix-gestützten Systemen verwendet wird.'
-          nzbget: 'Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername: nzbget Passwort: 1234'
-          php-mysql-phpmyadmin: 'Mit diesem Werkzeug können Sie MySQL über das Internet verwalten. Geben Sie zum Anmelden als Benutzernamen ''root'' und als Kennwort ''1234'' ein.'
-          tftp: 'TFTP (Trivial File Transfer Protocol) ist ein Internet-Datenübertragungsprotokoll, das die Port-Nummer 69 verwendet. Es ist ähnlich wie FTP, verwendet aber UDP (User Datagram Protocol) anstelle von TCP (Transmission Control Protocol). Es kann weder Verzeichnisse auflisten noch Benutzer authentifizieren.'
-          transmission: 'Dieses Paket ist ein anderer P2P Client, welcher auch Magnet Links unterstützt.'
-          wordpress: 'Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator kann dann für andere Benutzer Konten einrichten.'
-          myzyxelcloud-agent: 'vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und sicheren Zugriff auf Ihrem ZyXEL NAS'
-          owncloud: 'Damit können Sie Ihre private Cloud erstellen und verwalten.'
-          pyload: 'Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster Support.'
-    pairing: Pair NAS with account
+          gallery: Mit dieser internetgestützten Anwendung kann Ihr NAS Bilder aufnehmen.
+            Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen. Der Administrator
+            kann dann für andere Benutzer Konten einrichten.
+          googledriveclient: Dies stellt den Dienst einer 2-Wege Synchronisierung
+            zwischen dem NAS und Google Drive zur Verfügung.
+          squeezecenter: Hiermit haben Sie die Möglichkeit, ein Squeezebox-Gerät von
+            Logitech zu verwalten, welches mit dem NAS verbunden ist.
+          memopal: Memopal ist eine Online Backup und Online Speicherplatz Software,
+            die Ihre Dateien in Echtzeit speichern kann.
+          nfs: NFS (Network File System) ist ein Datenaustauschprotokoll, dass gewöhnlich
+            in Unix-gestützten Systemen verwendet wird.
+          nzbget: 'Dieses Paket kann .nzb Dateien von Usenet downloaden. Benutzername:
+            nzbget Passwort: 1234'
+          php-mysql-phpmyadmin: Mit diesem Werkzeug können Sie MySQL über das Internet
+            verwalten. Geben Sie zum Anmelden als Benutzernamen 'root' und als Kennwort
+            '1234' ein.
+          tftp: TFTP (Trivial File Transfer Protocol) ist ein Internet-Datenübertragungsprotokoll,
+            das die Port-Nummer 69 verwendet. Es ist ähnlich wie FTP, verwendet aber
+            UDP (User Datagram Protocol) anstelle von TCP (Transmission Control Protocol).
+            Es kann weder Verzeichnisse auflisten noch Benutzer authentifizieren.
+          transmission: Dieses Paket ist ein anderer P2P Client, welcher auch Magnet
+            Links unterstützt.
+          wordpress: Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und
+            zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen.
+            Der Administrator kann dann für andere Benutzer Konten einrichten.
+          myzyxelcloud-agent: vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen
+            und sicheren Zugriff auf Ihrem ZyXEL NAS
+          owncloud: Damit können Sie Ihre private Cloud erstellen und verwalten.
+          pyload: Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster
+            Support.
+    pairing: Pair NAS mit Konto
     paired: Verbunden
     unpairing: Trennen
     manually: Manuelles hinzufügen
     profile: Profil
     back_to_home: Home
+    back_to_profile: Zurück zum Profil
     change_password: Passwort ändern
     edit_profile: Profil bearbeiten
     mac_address: MAC Adresse
@@ -95,7 +118,10 @@ de:
   titles:
     change_password: Passwort ändern
     forgot_password: Passwort zurücksetzen
+    bind_account: Binden Sie Ihre Facebook oder Google+ Konto
+    login_account: myZyxelCloud Konto
     resend_confirmation: Bestätigungs E-Mail erneut senden
+    check_confirmation: Prüfen Sie E-Mail-Bestätigung
     sign_in: Anmelden
     sign_up: Anmeldung
     my_devices: Geräte Liste
@@ -108,6 +134,9 @@ de:
     unpairing: Trennen
     terms: Nutzungsbedingungen
     manually: Manuelles hinzufügen eines Gerätes
+    download_edm_users_list: Herunterladen EDM Benutzerliste
+    welcome: Herzlich willkommen
+    welcome_to_sign_in: Willkommen in Personal Cloud SSO zu unterzeichnen
   warnings:
     not_config: DDNS ist nicht konfiguriert
     no_pairing_device: Kein Gerät wurde verbunden
@@ -117,6 +146,7 @@ de:
     confirmation_success: Fühlen Sie sich frei den ZyXEL Cloud Dienst zu nutzen.
     forgot_password: Ihr Passwort wurde zurückgesetzt.
     sent_email: E-Mail wurde gesendet
+    agree_terms: Bitte akzeptieren Sie die Nutzungsvereinbarung Bedingungen
     settings:
       unpairing:
         instruction: Sind Sie sicher das Sie dieses Gerät trennen möchten?
@@ -135,8 +165,7 @@ de:
         in_pairing: Gerät wird verbunden
         failure: Verbindungs Timeout. Bitte erneut versuchen.
         canceled: Verbinden wurde abgebrochen
-        success: Erfolgreich verbunden. Bitte klicken Sie den "Bestätigen" Button
-          um die DDNS und UPnP Einrichtung abzuschließen.
+        success: Erfolgreich verbunden.
       ddns:
         instruction: 'Bitte nutzen Sie:'
         instruction_2: 3-63 Zeichen

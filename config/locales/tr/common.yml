@@ -3,6 +3,7 @@ tr:
   labels:
     language: Dil
     forgot_password: "Şifremi Unuttum"
+    bind_account: bağlamak
     resend_confirmation: Onayı Tekrar Gönder
     unverified: Doğrulanmadı
     sign_in: Oturum Aç
@@ -15,19 +16,23 @@ tr:
     retry: Tekrar Dene
     submit: Gönder
     confirm: Onayla
-    next: Next
+    next: Sonraki
+    skip: atlamak
     ok: Tamam
     or: veya
     expand_all: Tümünü Genişlet
     collapse_all: Tümünü Daralt
+    download: indir
     settings:
       invitation:
         connecting: Bağlanıyor...
         success: Davet kabul edildi
         failure: Davet kabul edilmedi
-        success_desc: "Tebrikler! Paylaşılan klasöre %{share_point} başarıyla katıldınız."
-        failure_desc: "%{share_point} daveti mevcut değil; lütfen daha sonra tekrar deneyin."
-        accepted_desc: "This myZyXELcloud account has already been added."
+        success_desc: Tebrikler! Paylaşılan klasöre [paylaşım noktası adı] başarıyla
+          katıldınız.
+        failure_desc: "[Paylaşım noktası adı] daveti mevcut değil; lütfen daha sonra
+          tekrar deneyin."
+        accepted_desc: Bu myZyxelCloud hesabın zaten eklenmiş
       ddns:
         instruction: DDNS Ayarı
         host_name: Sunucu Adı
@@ -63,25 +68,43 @@ tr:
           failure: Başarısız
           no_update: hayır güncelleme
         description:
-          gallery: 'Bu Web-tabanlı uygulama fotoğraflarınızı yönetebilmek için NAS cihazınıza izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için hesap oluşturabilir.'
-          googledriveclient: 'NAS ve Google Drive arasında iki yönlü senkronizasyon hizmeti sunar.'
-          squeezecenter: 'NAS cihazınıza bağlı olan bir Logitech''ın Squeezebox cihazını yönetmenize imkan sağlar.'
-          memopal: 'Memopal dosyalarınızı gerçek zamanlı olarak uzak bir sunucuya arşivleyen bir çevrimiçi yedekleme ve depolama yazılımıdır.'
-          nfs: 'NFS (Network File System) daha çok Unix benzeri sistemlere entegre edilmiş bir dosya-paylaşım protokolüdür.'
-          nzbget: 'Bu paket .nzb dosyasını Usenet''ten indirmektedir. Varsayılan; kullanıcı adı: nzbget şifre: 1234'
-          php-mysql-phpmyadmin: 'Bu araç web üzerinden MySQL yönetmek için kullanılabilir. Giriş yapmak için kullanıcı adı olarak ''root'' ve şifre olarak ''1234'' giriniz.'
-          tftp: 'Trivial File Transfer Protocol (TFTP) 69 portunu kullanan bir internet dosya transfer protokolüdür. FTP ile benzerdir fakat TCP''den (Transmission Control Protocol) ziyade UDP''yi (User Datagram Protocol) kullanır. Yetkilendirilmiş kullanıcılar için dizinleri listeleyemez.'
-          transmission: 'Bu paket torrent ve magnet''i destekleyen bir başka P2P indirme istemcisidir.'
-          wordpress: 'Bir blog oluşturmanıza ve yönetmenize izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için hesap oluşturabilir.'
-          myzyxelcloud-agent: 'myZyXELcloud, uzak uygulama yönetimi ve bir Internet bağlantısına sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza güvenli erişime yönelik çözümünüzdür!'
-          owncloud: 'Kişisel bulut hesabınızı oluşturmanıza ve yönetmenize izin verir.'
-          pyload: 'NAS cihazınızın one-click-hosting sitelerinin de içerisinde bulunduğu indirmelerini yönetebilirsiniz.'
-    pairing: Pair NAS with account
+          gallery: Bu Web-tabanlı uygulama fotoğraflarınızı yönetebilmek için NAS
+            cihazınıza izin verir. Giriş yapmak için NAS cihazınıza admin girişi yapınız.
+            Admin, diğer kullanıcılar için hesap oluşturabilir.
+          googledriveclient: NAS ve Google Drive arasında iki yönlü senkronizasyon
+            hizmeti sunar.
+          squeezecenter: NAS cihazınıza bağlı olan bir Logitech'ın Squeezebox cihazını
+            yönetmenize imkan sağlar.
+          memopal: Memopal dosyalarınızı gerçek zamanlı olarak uzak bir sunucuya arşivleyen
+            bir çevrimiçi yedekleme ve depolama yazılımıdır.
+          nfs: NFS (Network File System) daha çok Unix benzeri sistemlere entegre
+            edilmiş bir dosya-paylaşım protokolüdür.
+          nzbget: 'Bu paket .nzb dosyasını Usenet''ten indirmektedir. Varsayılan;
+            kullanıcı adı: nzbget şifre: 1234'
+          php-mysql-phpmyadmin: Bu araç web üzerinden MySQL yönetmek için kullanılabilir.
+            Giriş yapmak için kullanıcı adı olarak 'root' ve şifre olarak '1234' giriniz.
+          tftp: Trivial File Transfer Protocol (TFTP) 69 portunu kullanan bir internet
+            dosya transfer protokolüdür. FTP ile benzerdir fakat TCP'den (Transmission
+            Control Protocol) ziyade UDP'yi (User Datagram Protocol) kullanır. Yetkilendirilmiş
+            kullanıcılar için dizinleri listeleyemez.
+          transmission: Bu paket torrent ve magnet'i destekleyen bir başka P2P indirme
+            istemcisidir.
+          wordpress: Bir blog oluşturmanıza ve yönetmenize izin verir. Giriş yapmak
+            için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için
+            hesap oluşturabilir.
+          myzyxelcloud-agent: myZyXELcloud, uzak uygulama yönetimi ve bir Internet
+            bağlantısına sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza
+            güvenli erişime yönelik çözümünüzdür!
+          owncloud: Kişisel bulut hesabınızı oluşturmanıza ve yönetmenize izin verir.
+          pyload: NAS cihazınızın one-click-hosting sitelerinin de içerisinde bulunduğu
+            indirmelerini yönetebilirsiniz.
+    pairing: hesapla Çifti NAS
     paired: Eşleştirildi
     unpairing: Eşleştirme kaldırılıyor
     manually: Elle Ekle
     profile: Profil
     back_to_home: Giriş
+    back_to_profile: Geri Profile
     change_password: "Şifre Değiştir"
     edit_profile: Profili Düzenle
     mac_address: MAC Adresi
@@ -95,7 +118,10 @@ tr:
   titles:
     change_password: "Şifre Değiştir"
     forgot_password: "Şifreyi Sıfırla"
+    bind_account: Facebook veya Google+ Hesabı Bind
+    login_account: myZyxelCloud Hesabı
     resend_confirmation: Onay E-postasını Tekrar Gönder
+    check_confirmation: Onay e-posta kontrol
     sign_in: Oturum Aç
     sign_up: Kaydol
     my_devices: Cihaz Listesi
@@ -108,6 +134,9 @@ tr:
     unpairing: Eşleştirme kaldırılıyor
     terms: Kullanım Hükümleri
     manually: Elle Cihaz Ekle
+    download_edm_users_list: Erozyon kullanıcıları listesini indirin
+    welcome: Hoşgeldiniz
+    welcome_to_sign_in: Personal Cloud TOA oturum hoş geldiniz
   warnings:
     not_config: DDNS yapılandırılmadı
     no_pairing_device: Hiçbir cihaz eşleştirilmedi.
@@ -117,6 +146,7 @@ tr:
     confirmation_success: ZyXEL Cloud Hizmetlerinin keyfini istediğiniz gibi çıkarın.
     forgot_password: "Şifreniz sıfırlandı."
     sent_email: E-posta gönderildi
+    agree_terms: kullanıcı sözleşmesi koşullarını kabul edin
     settings:
       unpairing:
         instruction: Bu cihazla eşleştirmeyi kaldırmak istediğinize emin misiniz?
@@ -133,7 +163,7 @@ tr:
         in_pairing: Cihaz eşleştiriliyor
         failure: Eşleştirme zaman aşımı. Lütfen tekrar deneyin.
         canceled: Eşleştirme iptal edildi
-        success: Başarıyla eşleştirildi. Lütfen DDNS ve UPnP ayarlamak için "Onayla" düğmesine tıklayın.
+        success: Başarıyla eşleştirildi
       ddns:
         instruction: 'Lütfen kullanın:'
         instruction_2: 3 ila 63 karakter
@@ -145,8 +175,10 @@ tr:
         success: DDNS ayarları başarıyla eşitlendi.
         failure: Sunucu meşgul; lütfen daha sonra tekrar deneyin
         not_found: Cihaz bulunamadı
-        too_short: Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka bir tane deneyin.
-        too_long: Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane deneyin.
+        too_short: Sunucu adınız en az 3 karakter uzunluğunda olmalıdır. Lütfen başka
+          bir tane deneyin.
+        too_long: Sunucu adınız 63 karakterden kısa olmalıdır. Lütfen başka bir tane
+          deneyin.
         exist: mevcut. Lütfen başka bir tane deneyin.
       upnp:
         sync: UPnP  ayarları eşitleniyor...

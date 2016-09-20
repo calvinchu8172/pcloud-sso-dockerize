@@ -27,6 +27,7 @@ nl:
       timeout: Uw sessie verlopen. Meld u opnieuw aan om verder te gaan.
       unauthenticated: U moet inloggen of aanmelden voordat u verder gaat.
       unconfirmed: U moet uw account te bevestigen voordat u verder gaat.
+      password_invalid: ongeldig wachtwoord
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Account Bevestiging

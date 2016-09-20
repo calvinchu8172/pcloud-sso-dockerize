@@ -28,6 +28,7 @@ cs:
       timeout: Relace uplynula. Přihlaste se znovu a pokračujte.
       unauthenticated: Před dalším pokračováním se přihlaste nebo zaregistrujte.
       unconfirmed: Před dalším pokračováním musíte potvrdit svůj účet.
+      password_invalid: neplatné heslo
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - potvrzení účtu

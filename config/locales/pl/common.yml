@@ -3,6 +3,7 @@ pl:
   labels:
     language: Język
     forgot_password: Zapomniane hasło
+    bind_account: Wiązać
     resend_confirmation: Wyślij ponownie
     unverified: Niezweryfikowany
     sign_in: Zaloguj
@@ -15,19 +16,23 @@ pl:
     retry: Spróbuj ponownie
     submit: Prześlij
     confirm: Potwierdź
-    next: Next
+    next: Następny
+    skip: Pominąć
     ok: OK
     or: lub
     expand_all: Rozszerz wszystkie
     collapse_all: Zwiń wszystkie
+    download: Pobieranie
     settings:
       invitation:
         connecting: "Łączenie..."
         success: Akceptacja zaproszenia zakończona powodzeniem
         failure: Akceptacja zaproszenia nieudana
-        success_desc: "Gratulacje! Dołączenie do współdzielonego folderu %{share_point} zakończyło się powodzeniem."
-        failure_desc: "Zaproszenie do %{share_point} jest niedostępne, spróbuj ponownie."
-        accepted_desc: "This myZyXELcloud account has already been added."
+        success_desc: Gratulacje! Dołączenie do współdzielonego folderu [nazwa punktu
+          współdzielenia] zakończyło się powodzeniem.
+        failure_desc: Zaproszenie do [nazwa punktu współdzielenia] jest niedostępne,
+          spróbuj ponownie.
+        accepted_desc: To konto myZyxelCloud został już dodany
       ddns:
         instruction: Konfiguracja DDNS
         host_name: Nazwa hosta
@@ -63,25 +68,44 @@ pl:
           failure: Niepowodzenie
           no_update: Brak aktualizacji
         description:
-          gallery: 'Ta aplikacja pozwala na udostępnianie obrazów przez urządzenie NAS. Zaloguj się jako administrator NAS. Administrator może później utworzyć konta dla innych użytkowników.'
-          googledriveclient: 'Zapewniamy usługę dwukierunkowej synchronizacji pomiędzy NAS oraz Google Drive.'
-          squeezecenter: 'To narzędzie pozwala zarządzać urządzeniem Logitech Squeezebox podłączonym do urządzenia NAS.'
-          memopal: 'Memopal to internetowe oprogramowanie do tworzenia kopii zapasowych i zapisywania danych, które archiwizuje pliki w czasie rzeczywistym na serwerze zdalnym.'
-          nfs: 'NFS (Network File System) to protokół wymiany plików używany głównie w systemach uniksowych.'
+          gallery: Ta aplikacja pozwala na udostępnianie obrazów przez urządzenie
+            NAS. Zaloguj się jako administrator NAS. Administrator może później utworzyć
+            konta dla innych użytkowników.
+          googledriveclient: Zapewniamy usługę dwukierunkowej synchronizacji pomiędzy
+            NAS oraz Google Drive.
+          squeezecenter: To narzędzie pozwala zarządzać urządzeniem Logitech Squeezebox
+            podłączonym do urządzenia NAS.
+          memopal: Memopal to internetowe oprogramowanie do tworzenia kopii zapasowych
+            i zapisywania danych, które archiwizuje pliki w czasie rzeczywistym na
+            serwerze zdalnym.
+          nfs: NFS (Network File System) to protokół wymiany plików używany głównie
+            w systemach uniksowych.
           nzbget: 'Ten pakiet ściąga pliki .nzb z Usenet. Użytkownik: nzbget Hasło:1234'
-          php-mysql-phpmyadmin: 'Narzędzie to umożliwia zarządzanie baza danych MySQL przez sieć. Wpisz ''root'' jako nazwę użytkownika i ''1234'' jako hasło, aby się zalogować.'
-          tftp: 'Trivial File Transfer Protocol (TFTP) to internetowy protokół przesyłania plików, który używa portu numer 69. Przypomina FTP, ale używa protokołu UDP (User Datagram Protocol) zamiast TCP (Transmission Control Protocol). Nie obsługuje listingów katalogu ani uwierzytelniania użytkowników.'
-          transmission: 'Ten pakiet jest innym klientem P2P który wspiera linki magnet i i pliki torrenta'
-          wordpress: 'To narzędzie pozwala utworzyć blog i zarządzać nim. Zaloguj się jako administrator NAS. Administrator może następnie utworzyć konta dla innych użytkowników.'
-          myzyxelcloud-agent: 'myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami i bezpiecznego dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego miejsca, w którym istnieje połączenie internetowe!'
-          owncloud: 'Pozwala na utworzenie i zarządzanie własną chmurą danych.'
-          pyload: 'NAS obsługuje pobieranie plików włączając pobieranie ze stron typu "one-clik-hosting".'
-    pairing: Pair NAS with account
+          php-mysql-phpmyadmin: Narzędzie to umożliwia zarządzanie baza danych MySQL
+            przez sieć. Wpisz 'root' jako nazwę użytkownika i '1234' jako hasło, aby
+            się zalogować.
+          tftp: Trivial File Transfer Protocol (TFTP) to internetowy protokół przesyłania
+            plików, który używa portu numer 69. Przypomina FTP, ale używa protokołu
+            UDP (User Datagram Protocol) zamiast TCP (Transmission Control Protocol).
+            Nie obsługuje listingów katalogu ani uwierzytelniania użytkowników.
+          transmission: Ten pakiet jest innym klientem P2P który wspiera linki magnet
+            i i pliki torrenta
+          wordpress: To narzędzie pozwala utworzyć blog i zarządzać nim. Zaloguj się
+            jako administrator NAS. Administrator może następnie utworzyć konta dla
+            innych użytkowników.
+          myzyxelcloud-agent: myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami
+            i bezpiecznego dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego
+            miejsca, w którym istnieje połączenie internetowe!
+          owncloud: Pozwala na utworzenie i zarządzanie własną chmurą danych.
+          pyload: NAS obsługuje pobieranie plików włączając pobieranie ze stron typu
+            "one-clik-hosting".
+    pairing: Para NAS z kontem
     paired: Sparowane
     unpairing: Anulowanie parowania
     manually: Dodaj ręcznie
     profile: Profil
     back_to_home: Strona główna
+    back_to_profile: Powrót do profilu
     change_password: Zmień hasło
     edit_profile: Edytuj profil
     mac_address: Adres MAC
@@ -95,7 +119,10 @@ pl:
   titles:
     change_password: Zmień hasło
     forgot_password: Resetuj hasło
+    bind_account: Powiązać swoje konto Facebook i Google+
+    login_account: konto myZyxelCloud
     resend_confirmation: Wyślij ponownie e-mail potwierdzający
+    check_confirmation: Sprawdzić e-mail z potwierdzeniem
     sign_in: Zaloguj
     sign_up: Zarejestruj
     my_devices: Lista urządzeń
@@ -108,6 +135,9 @@ pl:
     unpairing: Anulowanie parowania
     terms: Warunki użytkowania
     manually: Ręcznie dodaj urządzenie
+    download_edm_users_list: Pobierz listę użytkowników EDM
+    welcome: Witamy
+    welcome_to_sign_in: Zapraszamy do zalogowania się Personal Cloud OSM
   warnings:
     not_config: Usługa DDNS nie jest skonfigurowana
     no_pairing_device: Nie sparowano urządzeń
@@ -117,6 +147,7 @@ pl:
     confirmation_success: Zapraszamy do korzystania z usług ZyXEL Cloud.
     forgot_password: Hasło zostało zresetowane.
     sent_email: Wysłano wiadomość e-mail
+    agree_terms: Proszę zaakceptować warunki Umowy z użytkownikiem
     settings:
       unpairing:
         instruction: Czy na pewno chcesz anulować parowanie z tym urządzeniem?
@@ -133,7 +164,7 @@ pl:
         in_pairing: Urządzenie jest parowane
         failure: Limit czasu parowania. Spróbuj ponownie.
         canceled: Parowanie anulowane
-        success: Parowanie zakończone powodzeniem. Kliknij przycisk „Potwierdź”, aby skonfigurować DDNS oraz UPnP.
+        success: Parowanie zakończone powodzeniem.
       ddns:
         instruction: 'Wykorzystaj:'
         instruction_2: od 3 do 63 znaków

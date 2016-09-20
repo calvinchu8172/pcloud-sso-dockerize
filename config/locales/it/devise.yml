@@ -28,6 +28,7 @@ it:
       timeout: La sessione è scaduta. Accedi nuovamente per continuare.
       unauthenticated: Devi effettuare l'accesso o registrarti per poter continuare.
       unconfirmed: Devi confermare il tuo account prima di continuare.
+      password_invalid: password non valida
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Conferma account

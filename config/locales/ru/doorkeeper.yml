@@ -1,123 +1,125 @@
+---
 ru:
   activerecord:
     attributes:
-      doorkeeper/application:
-        name: 'Name'
-        redirect_uri: 'Redirect URI'
+      doorkeeper:
+        application:
+          name: "имя"
+          redirect_uri: "Перенаправление URI"
     errors:
       models:
-        doorkeeper/application:
-          attributes:
-            redirect_uri:
-              fragment_present: 'cannot contain a fragment.'
-              invalid_uri: 'must be a valid URI.'
-              relative_uri: 'must be an absolute URI.'
-              secured_uri: 'must be an HTTPS/SSL URI.'
-
+        doorkeeper:
+          application:
+            attributes:
+              redirect_uri:
+                fragment_present: "не может содержать фрагмент."
+                invalid_uri: "должен быть допустимым URI."
+                relative_uri: "должен быть абсолютным URI."
+                secured_uri: "должен являться HTTPS.SSL URI."
   doorkeeper:
     applications:
       confirmations:
-        destroy: 'Are you sure?'
+        destroy: "Ты уверен?"
       buttons:
-        edit: 'Edit'
-        destroy: 'Destroy'
-        submit: 'Submit'
-        cancel: 'Cancel'
-        authorize: 'Authorize'
+        edit: "редактировать"
+        destroy: "уничтожить"
+        submit: "Отправить"
+        cancel: "Отмена"
+        authorize: "санкционировать"
       form:
-        error: 'Whoops! Check your form for possible errors'
+        error: "Упс! Проверьте форму на наличие ошибок"
       help:
-        redirect_uri: 'Use one line per URI'
-        native_redirect_uri: 'Use %{native_redirect_uri} for local tests'
-        scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
+        redirect_uri: "Используйте одну строку на URI"
+        native_redirect_uri: "Используйте% {native_redirect_uri} для локальных тестов"
+        scopes: "Отдельные прицелы с пробелами. Оставьте пустым, чтобы использовать
+          области видимости по умолчанию."
       edit:
-        title: 'Edit application'
+        title: "Редактирование приложения"
       index:
-        title: 'Your applications'
-        new: 'New Application'
-        name: 'Name'
-        callback_url: 'Callback URL'
+        title: "Ваши приложения"
+        new: "Новое приложение"
+        name: "имя"
+        callback_url: Callback URL
       new:
-        title: 'New Application'
+        title: "Новое приложение"
       show:
-        title: 'Application: %{name}'
-        application_id: 'Application Id'
-        secret: 'Secret'
-        scopes: 'Scopes'
-        callback_urls: 'Callback urls'
-        actions: 'Actions'
-
+        title: "Имя приложения}"
+        application_id: "Идентификатор приложения"
+        secret: "секрет"
+        scopes: "Области применения"
+        callback_urls: "Обратный звонок URLs"
+        actions: "действия"
     authorizations:
       buttons:
-        authorize: 'Authorize'
-        deny: 'Deny'
+        authorize: "санкционировать"
+        deny: "Отрицать"
+        back_to_your_application: "Назад к приложению"
       error:
-        title: 'An error has occurred'
+        title: "произошла ошибка"
       new:
-        title: 'Authorization required'
-        prompt: 'Authorize %{client_name} to use your account?'
-        able_to: 'This application will be able to'
+        title: "Требуется Авторизация"
+        prompt: "Авторизоваться% {CLIENT_NAME} использовать свой аккаунт?"
+        able_to: "Это приложение будет иметь возможность"
       show:
-        title: 'Authorization code'
-
+        title: "Код авторизации"
     authorized_applications:
       confirmations:
-        revoke: 'Are you sure?'
+        revoke: "Ты уверен?"
       buttons:
-        revoke: 'Revoke'
+        revoke: "отзывать"
       index:
-        title: 'Your authorized applications'
-        application: 'Application'
-        created_at: 'Created At'
-        date_format: '%Y-%m-%d %H:%M:%S'
-
+        title: "Ваши авторизованные приложения"
+        application: "заявка"
+        created_at: "Создан в"
+        date_format: "% Y-% m-% d% H:% M:% S"
     errors:
       messages:
-        # Common error messages
-        invalid_request: 'The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.'
-        invalid_redirect_uri: 'The redirect uri included is not valid.'
-        unauthorized_client: 'The client is not authorized to perform this request using this method.'
-        access_denied: 'The resource owner or authorization server denied the request.'
-        invalid_scope: 'The requested scope is invalid, unknown, or malformed.'
-        server_error: 'The authorization server encountered an unexpected condition which prevented it from fulfilling the request.'
-        temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
-
-        #configuration error messages
-        credential_flow_not_configured: 'Resource Owner Password Credentials flow failed due to Doorkeeper.configure.resource_owner_from_credentials being unconfigured.'
-        resource_owner_authenticator_not_configured: 'Resource Owner find failed due to Doorkeeper.configure.resource_owner_authenticator being unconfiged.'
-
-        # Access grant errors
-        unsupported_response_type: 'The authorization server does not support this response type.'
-
-        # Access token errors
-        invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
-        invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
-        unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
-
-        # Password Access token errors
-        invalid_resource_owner: 'The provided resource owner credentials are not valid, or resource owner cannot be found'
-
+        invalid_request: "Запрос отсутствует обязательный параметр, включает неподдерживаемый
+          значение параметра, или иным образом поврежден."
+        invalid_redirect_uri: "Перенаправлением URI включены не является действительным."
+        unauthorized_client: "Клиент не имеет права выполнять этот запрос, используя
+          этот метод."
+        access_denied: "Сервер владелец ресурса или авторизации отклонил запрос."
+        invalid_scope: "Запрашиваемая область является недействительным, неизвестно,
+          или имеет неправильный формат."
+        server_error: "Сервер авторизации столкнулся с непредвиденным условием, которое
+          не позволяет ему выполнить запрос."
+        temporarily_unavailable: "Сервер авторизации в настоящее время не может обработать
+          запрос из-за временной перегрузки или обслуживания сервера."
+        credential_flow_not_configured: "Владелец ресурса Пароль Учетные данные течь
+          не удалось из-за Doorkeeper.configure.resource_owner_from_credentials быть
+          сконфигурировано."
+        resource_owner_authenticator_not_configured: "Владелец ресурса найти не удалось
+          из-за Doorkeeper.configure.resource_owner_authenticator быть unconfiged."
+        unsupported_response_type: "Сервер авторизации не поддерживает этот тип ответа."
+        invalid_client: "Аутентификация клиента не удалось из-за неизвестного клиента,
+          без аутентификации клиента, включенным или неподдерживаемый метод аутентификации."
+        invalid_grant: "Предоставленный грант авторизации недействителен, просрочен,
+          аннулирована, не соответствует перенаправлением URI, используемый в запросе
+          авторизации, или был выдан другому клиенту."
+        unsupported_grant_type: "Тип гранта разрешение не поддерживается сервером
+          авторизации."
+        invalid_resource_owner: "Предоставленные учетные данные владельца ресурса
+          не являются действительными, или владелец ресурса не может быть найден"
         invalid_token:
-          revoked: "The access token was revoked"
-          expired: "The access token expired"
-          unknown: "The access token is invalid"
-
+          revoked: "Маркер доступа был отменен"
+          expired: "Маркер доступа истекло"
+          unknown: "Маркер доступа является недействительным"
     flash:
       applications:
         create:
-          notice: 'Application created.'
+          notice: "Приложение, созданное."
         destroy:
-          notice: 'Application deleted.'
+          notice: "удален Применение."
         update:
-          notice: 'Application updated.'
+          notice: "Обновленное приложение."
       authorized_applications:
         destroy:
-          notice: 'Application revoked.'
-
+          notice: "отозвана Application."
     layouts:
       admin:
         nav:
-          oauth2_provider: 'OAuth2 Provider'
-          applications: 'Applications'
+          oauth2_provider: OAuth2 Провайдер
+          applications: "Приложения"
       application:
-        title: 'OAuth authorization required'
+        title: "требуется разрешение OAuth"

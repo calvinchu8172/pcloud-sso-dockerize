@@ -1,123 +1,111 @@
+---
 th:
   activerecord:
     attributes:
-      doorkeeper/application:
-        name: 'Name'
-        redirect_uri: 'Redirect URI'
+      doorkeeper:
+        application:
+          name: "ชื่อ"
+          redirect_uri: "เปลี่ยนเส้นทางURI"
     errors:
       models:
-        doorkeeper/application:
-          attributes:
-            redirect_uri:
-              fragment_present: 'cannot contain a fragment.'
-              invalid_uri: 'must be a valid URI.'
-              relative_uri: 'must be an absolute URI.'
-              secured_uri: 'must be an HTTPS/SSL URI.'
-
+        doorkeeper:
+          application:
+            attributes:
+              redirect_uri:
+                fragment_present: "ไม่สามารถมีเศษ"
+                invalid_uri: "จะต้องเป็นURIที่ถูกต้อง"
+                relative_uri: "ต้องเป็นURIแน่นอน"
+                secured_uri: "ต้องเป็นHTTPS.SSL URI"
   doorkeeper:
     applications:
       confirmations:
-        destroy: 'Are you sure?'
+        destroy: "คุณแน่ใจไหม?"
       buttons:
-        edit: 'Edit'
-        destroy: 'Destroy'
-        submit: 'Submit'
-        cancel: 'Cancel'
-        authorize: 'Authorize'
+        edit: "แก้ไข"
+        destroy: "ทำลาย"
+        submit: "เสนอ"
+        cancel: "ยกเลิก"
+        authorize: "อนุญาต"
       form:
-        error: 'Whoops! Check your form for possible errors'
+        error: "อ๊ะ!ตรวจสอบรูปแบบของคุณสำหรับข้อผิดพลาดได้"
       help:
-        redirect_uri: 'Use one line per URI'
-        native_redirect_uri: 'Use %{native_redirect_uri} for local tests'
-        scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
+        redirect_uri: "ใช้หนึ่งบรรทัดต่อURI"
+        native_redirect_uri: "ใช้% {} native_redirect_uriสำหรับการทดสอบในท้องถิ่น"
+        scopes: "ขอบเขตเฉพาะกิจการที่มีช่องว่างเว้นว่างไว้เพื่อใช้ขอบเขตเริ่มต้น"
       edit:
-        title: 'Edit application'
+        title: "แก้ไขแอพลิเคชัน"
       index:
-        title: 'Your applications'
-        new: 'New Application'
-        name: 'Name'
-        callback_url: 'Callback URL'
+        title: "การใช้งานของคุณ"
+        new: "แอพลิเคชันใหม่"
+        name: "ชื่อ"
+        callback_url: URL เรียกกลับ
       new:
-        title: 'New Application'
+        title: "แอพลิเคชันใหม่"
       show:
-        title: 'Application: %{name}'
-        application_id: 'Application Id'
-        secret: 'Secret'
-        scopes: 'Scopes'
-        callback_urls: 'Callback urls'
-        actions: 'Actions'
-
+        title: "การประยุกต์ใช้:% {name}"
+        application_id: "แอพลิเคชันId"
+        secret: "ความลับ"
+        scopes: "ขอบเขต"
+        callback_urls: URL ที่โทรกลับ
+        actions: "การปฏิบัติ"
     authorizations:
       buttons:
-        authorize: 'Authorize'
-        deny: 'Deny'
+        authorize: "อนุญาต"
+        deny: "ปฏิเสธ"
+        back_to_your_application: "กลับไปที่แอพลิเคชันของคุณ"
       error:
-        title: 'An error has occurred'
+        title: "เกิดข้อผิดพลาด"
       new:
-        title: 'Authorization required'
-        prompt: 'Authorize %{client_name} to use your account?'
-        able_to: 'This application will be able to'
+        title: "ต้องการการอนุมัติ"
+        prompt: "อนุญาต% {} CLIENT_NAMEใช้บัญชีของคุณหรือไม่"
+        able_to: "โปรแกรมนี้จะสามารถ"
       show:
-        title: 'Authorization code'
-
+        title: "รหัสอนุมัติ"
     authorized_applications:
       confirmations:
-        revoke: 'Are you sure?'
+        revoke: "คุณแน่ใจไหม?"
       buttons:
-        revoke: 'Revoke'
+        revoke: "ถอน"
       index:
-        title: 'Your authorized applications'
-        application: 'Application'
-        created_at: 'Created At'
-        date_format: '%Y-%m-%d %H:%M:%S'
-
+        title: "การใช้งานที่ได้รับอนุญาตของคุณ"
+        application: "ใบสมัคร"
+        created_at: "สร้างขึ้นใน"
+        date_format: "% Y-% M-% d% H: M%:% s"
     errors:
       messages:
-        # Common error messages
-        invalid_request: 'The request is missing a required parameter, includes an unsupported parameter value, or is otherwise malformed.'
-        invalid_redirect_uri: 'The redirect uri included is not valid.'
-        unauthorized_client: 'The client is not authorized to perform this request using this method.'
-        access_denied: 'The resource owner or authorization server denied the request.'
-        invalid_scope: 'The requested scope is invalid, unknown, or malformed.'
-        server_error: 'The authorization server encountered an unexpected condition which prevented it from fulfilling the request.'
-        temporarily_unavailable: 'The authorization server is currently unable to handle the request due to a temporary overloading or maintenance of the server.'
-
-        #configuration error messages
-        credential_flow_not_configured: 'Resource Owner Password Credentials flow failed due to Doorkeeper.configure.resource_owner_from_credentials being unconfigured.'
-        resource_owner_authenticator_not_configured: 'Resource Owner find failed due to Doorkeeper.configure.resource_owner_authenticator being unconfiged.'
-
-        # Access grant errors
-        unsupported_response_type: 'The authorization server does not support this response type.'
-
-        # Access token errors
-        invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
-        invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
-        unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
-
-        # Password Access token errors
-        invalid_resource_owner: 'The provided resource owner credentials are not valid, or resource owner cannot be found'
-
+        invalid_request: "การร้องขอขาดพารามิเตอร์ที่จำเป็นรวมถึงค่าพารามิเตอร์ที่ได้รับการสนับสนุนหรือไม่ถูกต้องมิฉะนั้น"
+        invalid_redirect_uri: URI ที่เปลี่ยนเส้นทางรวมไม่ถูกต้อง
+        unauthorized_client: "ลูกค้าจะได้รับอนุญาตให้ดำเนินการคำขอนี้ใช้วิธีการนี​​้"
+        access_denied: "เซิร์ฟเวอร์เจ้าของทรัพยากรหรือการอนุญาตให้ปฏิเสธการร้องขอ"
+        invalid_scope: "ขอบเขตที่ต้องการที่ไม่ถูกต้องที่ไม่รู้จักหรือไม่ถูกต้อง"
+        server_error: "เซิร์ฟเวอร์การอนุมัติที่พบสภาพที่ไม่คาดคิดซึ่งป้องกันไม่ให้มันจากการตอบสนองการร้องขอ"
+        temporarily_unavailable: "เซิร์ฟเวอร์การอนุญาตอยู่ในขณะนี้ไม่สามารถจัดการคำขอเนื่องจากการบรรทุกเกินพิกัดชั่วคราวหรือการบำรุงรักษาของเซิร์ฟเวอร์"
+        credential_flow_not_configured: "เจ้าของทรัพยากรรหัสผ่านในการไหลล้มเหลวเนื่องจากไม่มีการกำหนดค่าเป็นDoorkeeper.configure.resource_owner_from_credentials"
+        resource_owner_authenticator_not_configured: "เจ้าของทรัพยากรพบว่าล้มเหลวเนื่องจากDoorkeeper.configure.resource_owner_authenticatorถูกunconfiged"
+        unsupported_response_type: "เซิร์ฟเวอร์การอนุมัติไม่สนับสนุนชนิดการตอบสนองนี้"
+        invalid_client: "ตรวจสอบลูกค้าล้มเหลวเนื่องจากลูกค้าที่ไม่รู้จัก,ไม่มีการตรวจสอบลูกค้ารวมหรือวิธีการตรวจสอบได้รับการสนับสนุน"
+        invalid_grant: "ทุนการอนุมัติระบุไม่ถูกต้องหมดอายุเพิกถอนไม่ตรงกับการเปลี่ยนเส้นทางURIใช้ในคำขออนุมัติหรือไม่ก็ออกไปยังลูกค้าอีก"
+        unsupported_grant_type: "ประเภทการอนุมัติทุนจะไม่ได้รับการสนับสนุนโดยเซิร์ฟเวอร์การอนุมัติ"
+        invalid_resource_owner: "ข้อมูลประจำตัวของเจ้าของทรัพยากรที่ระบุไม่ถูกต้องหรือเจ้าของทรัพยากรที่ไม่สามารถพบได้"
         invalid_token:
-          revoked: "The access token was revoked"
-          expired: "The access token expired"
-          unknown: "The access token is invalid"
-
+          revoked: "โทเค็นการเข้าถึงถูกเพิกถอน"
+          expired: "โทเค็นการเข้าถึงหมดอายุ"
+          unknown: "โทเค็นการเข้าถึงไม่ถูกต้อง"
     flash:
       applications:
         create:
-          notice: 'Application created.'
+          notice: "แอพลิเคชันที่สร้างขึ้น"
         destroy:
-          notice: 'Application deleted.'
+          notice: "แอพลิเคชันที่ถูกลบ"
         update:
-          notice: 'Application updated.'
+          notice: "การประยุกต์ใช้การปรับปรุง"
       authorized_applications:
         destroy:
-          notice: 'Application revoked.'
-
+          notice: "แอพลิเคชันที่ถูกเพิกถอน"
     layouts:
       admin:
         nav:
-          oauth2_provider: 'OAuth2 Provider'
-          applications: 'Applications'
+          oauth2_provider: "ผู้ให้บริการOAuth2"
+          applications: "การประยุกต์ใช้งาน"
       application:
-        title: 'OAuth authorization required'
+        title: "อนุมัติOAuthต้อง"

@@ -27,6 +27,7 @@ pl:
       timeout: Sesja wygasła. Zaloguj się ponownie, aby kontynuować.
       unauthenticated: Kontynuacja wymaga zalogowania lub rejestracji.
       unconfirmed: Kontynuacja wymaga potwierdzenia konta.
+      password_invalid: nieprawidłowe hasło
     mailer:
       confirmation_instructions:
         subject: Potwierdzenie konta - ZyXEL Cloud

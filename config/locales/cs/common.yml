@@ -3,6 +3,7 @@ cs:
   labels:
     language: Jazyk
     forgot_password: Zapomněl jsem své heslo
+    bind_account: lemovat
     resend_confirmation: Znovu zaslat
     unverified: Neověřeno
     sign_in: Přihlásit
@@ -15,19 +16,23 @@ cs:
     retry: Opakovat
     submit: Odeslat
     confirm: Potvrdit
-    next: Next
+    next: Další
+    skip: Přeskočit
     ok: OK
     or: nebo
     expand_all: Rozbalit vše
     collapse_all: Sbalit vše
+    download: Ke stažení
     settings:
       invitation:
         connecting: Připojování...
         success: Přijetí pozvánky bylo úspěšné
         failure: Přijetí pozvánky se nezdařilo
-        success_desc: "Blahopřejeme! Úspěšně jste se přidali do sdílené složky %{share_point}."
-        failure_desc: "Pozvánka pro %{share_point} není dostupná. Zkuste to prosím později."
-        accepted_desc: "This myZyXELcloud account has already been added."
+        success_desc: Blahopřejeme! Úspěšně jste se přidali do sdílené složky [název
+          sdíleného bodu].
+        failure_desc: Pozvánka pro [název sdíleného bodu] není dostupná. Zkuste to
+          prosím později.
+        accepted_desc: Tento účet myZyxelCloud již byla přidána
       ddns:
         instruction: Nastavení DDNS
         host_name: Název hostitele
@@ -63,25 +68,41 @@ cs:
           failure: Neúspěch
           no_update: "Žádná aktualizace"
         description:
-          gallery: 'Tato webová aplikace umožňuje zařízení NAS fungovat jako hostitelské zařízení, kde se ukládají fotografie. Přihlaste se pomocí administrátorského účtu a vytvořte účty pro další uživatele.'
-          googledriveclient: 'To nabízí službu dvoucestné synchronizace mezi serverem NAS a službou Google Drive.'
-          squeezecenter: 'Slouží pro správu zařízení Logitech''s Squeezebox připojeného k NAS.        '
-          memopal: 'Memopal je software pro online zálohování a ukládání dat, který archivuje vaše soubory v reálném čase na vzdálený server.'
-          nfs: 'NFS (Network File System) je protokol pro sdílení souborů, který je obvykle implementován na systémech na Unixové bázi.'
-          nzbget: 'Tento balíček stáhne  soubor *.nzb ze server Usenet. Tovární Jmého:nzbget a Heslo:1234'
-          php-mysql-phpmyadmin: 'Tento nástroj se používá ke správě MySQL přes web. Přihlaste se uživatelským jménem ''root'' a heslem ''1234''.'
-          tftp: 'Trivial File Transfer Protocol (TFTP) je protokol pro přenos souborů po internetu, který pracuje na portu 69. Je podobný FTP, ale je založen na protokolu UDP (User Datagram Protocol) místo na protokolu TCP (Transmission Control Protocol).'
-          transmission: 'Tento balíček je další P2P klient, který podporuje torrenty a magnet “link”.'
-          wordpress: 'Slouží pro vytvoření a správu blogu. Přihlaste se pomocí administrátorského účtu a vytvořte účty pro další uživatele.'
-          myzyxelcloud-agent: 'Služba myZyXELcloud představuje vaše řešení pro vzdálené řízení aplikací a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv místa s připojení k Internetu!'
-          owncloud: 'To vám umožní vytvořit a spravovat privátní cloud.'
-          pyload: 'Tento balíček umožňuje stažení souborů do NAS na jedno kliknutí.'
-    pairing: Pair NAS with account
+          gallery: Tato webová aplikace umožňuje zařízení NAS fungovat jako hostitelské
+            zařízení, kde se ukládají fotografie. Přihlaste se pomocí administrátorského
+            účtu a vytvořte účty pro další uživatele.
+          googledriveclient: To nabízí službu dvoucestné synchronizace mezi serverem
+            NAS a službou Google Drive.
+          squeezecenter: Slouží pro správu zařízení Logitech's Squeezebox připojeného
+            k NAS.
+          memopal: Memopal je software pro online zálohování a ukládání dat, který
+            archivuje vaše soubory v reálném čase na vzdálený server.
+          nfs: NFS (Network File System) je protokol pro sdílení souborů, který je
+            obvykle implementován na systémech na Unixové bázi.
+          nzbget: Tento balíček stáhne  soubor *.nzb ze server Usenet. Tovární Jmého:nzbget
+            a Heslo:1234
+          php-mysql-phpmyadmin: Tento nástroj se používá ke správě MySQL přes web.
+            Přihlaste se uživatelským jménem 'root' a heslem '1234'.
+          tftp: Trivial File Transfer Protocol (TFTP) je protokol pro přenos souborů
+            po internetu, který pracuje na portu 69. Je podobný FTP, ale je založen
+            na protokolu UDP (User Datagram Protocol) místo na protokolu TCP (Transmission
+            Control Protocol).
+          transmission: Tento balíček je další P2P klient, který podporuje torrenty
+            a magnet “link”.
+          wordpress: Slouží pro vytvoření a správu blogu. Přihlaste se pomocí administrátorského
+            účtu a vytvořte účty pro další uživatele.
+          myzyxelcloud-agent: Služba myZyXELcloud představuje vaše řešení pro vzdálené
+            řízení aplikací a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv
+            místa s připojení k Internetu!
+          owncloud: To vám umožní vytvořit a spravovat privátní cloud.
+          pyload: Tento balíček umožňuje stažení souborů do NAS na jedno kliknutí.
+    pairing: Dvojice NAS s účtem
     paired: Spárováno
     unpairing: Rušení párování
     manually: Ručně přidat
     profile: Profil
     back_to_home: Domů
+    back_to_profile: Zpět na Profil
     change_password: Změnit heslo
     edit_profile: Upravit profil
     mac_address: Adresa MAC
@@ -95,7 +116,10 @@ cs:
   titles:
     change_password: Změnit heslo
     forgot_password: Resetovat heslo
+    bind_account: Svázat svůj účet na Facebooku nebo Google+
+    login_account: "účet myZyxelCloud"
     resend_confirmation: Znovu odeslat potvrzující e-mail
+    check_confirmation: Zkontrolujte potvrzovací e-mail
     sign_in: Přihlásit
     sign_up: Registrovat
     my_devices: Seznam zařízení
@@ -108,6 +132,9 @@ cs:
     unpairing: Rušení párování
     terms: Podmínky použití
     manually: Ručně přidat zařízení
+    download_edm_users_list: Ke stažení EDM seznamu uživatelů
+    welcome: Vítejte
+    welcome_to_sign_in: Vítejte přihlásit Osobní Cloud SSO
   warnings:
     not_config: DDNS není nakonfigurováno
     no_pairing_device: Nebylo spárování žádné zařízení.
@@ -117,6 +144,7 @@ cs:
     confirmation_success: Užívejte si nyní služeb ZyXEL Cloud.
     forgot_password: Vaše heslo bylo resetováno.
     sent_email: E-mail byl odeslán
+    agree_terms: Přijměte prosím Dohody uživatel termíny
     settings:
       unpairing:
         instruction: Opravdu chcete zrušit spárování tohoto zařízení?
@@ -133,7 +161,7 @@ cs:
         in_pairing: Zařízení se páruje
         failure: "Časový limit párování. Opakujte akci znovu."
         canceled: Párování bylo zrušeno
-        success: "Úspěšně spárováno. Klikněte na tlačítko „Potvrdit“ a nastavte DDNS a UPnP."
+        success: "Úspěšně spárováno."
       ddns:
         instruction: 'Použijte:'
         instruction_2: 3 až 63 znaků
@@ -177,12 +205,3 @@ cs:
         zyxel_drive: ZyXEL Drive
         zyxel_drive_desc: Zobrazujte a sdílejte své informace odkudkoli.
         zyxel_drive_download_desc: Stáhnout na
-  blocks:
-    download:
-      instruction: Stáhnout na
-    drive:
-      heading: ZyXEL Drive
-      context: Zobrazujte a sdílejte své informace odkudkoli.
-    zcloud:
-      heading: ZyXEL zCloud
-      context: Přehrávejte obsah z NAS.

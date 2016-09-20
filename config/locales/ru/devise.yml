@@ -36,6 +36,7 @@ ru:
         в систему снова."
       unauthenticated: "Чтобы продолжить, вам нужно войти в систему снова."
       unconfirmed: "Прежде чем продолжить, вы должны подтвердить вашу учетную запись."
+      password_invalid: "Неверный пароль"
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Подтверждение учетной записи

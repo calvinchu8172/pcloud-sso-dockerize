@@ -13,8 +13,8 @@ de:
         auch durch myZyXELcloud mit Ihrer Email anmelden.
     sign_in:
       title: Anmeldung über soziale Netzwerke
-      step_1: 'Bitte bestätigen Sie in myZyXELcloud Ihre Daten aus dem öffentlichen
-        Profil von Facebook. '
+      step_1: Bitte bestätigen Sie in myZyXELcloud Ihre Daten aus dem öffentlichen
+        Profil von Facebook.
       step_2: Bitte bestätigen Sie in myZyXELcloud Ihre Daten aus dem öffentlichen
         Profil von Google+.
       step_3: Bitte lesen und bestätigen Sie die Nutzensbedingungen.
@@ -96,8 +96,8 @@ de:
       step_9: Ihnen werden Informationen zum RAID Status, zu der CPU Temperatur, Lüfter
         Geschwindigkeit sowie der Festplatten Status angezeigt. Die Anzeige inkludiert
         auch diverse Warn-Status Meldungen im Fehlerfall.
-      step_10: 'System Informationen werden ab NAS Firmware v5.1 oder höher sowie
-        Cloud Agent v1.0.0 oder höher unterstützt. '
+      step_10: System Informationen werden ab NAS Firmware v5.1 oder höher sowie Cloud
+        Agent v1.0.0 oder höher unterstützt.
     package:
       title: Paket Einrichtung
       step_1: Aktivieren oder Deaktivieren der Paket Dienste

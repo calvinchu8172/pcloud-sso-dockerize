@@ -27,6 +27,7 @@ hu:
       timeout: A munkamenet lejárt. A folytatáshoz jelentkezzen be újra.
       unauthenticated: A folytatáshoz be kell jelentkeznie vagy regisztrálnia kell.
       unconfirmed: A folytatáshoz hitelesítenie kell fiókját.
+      password_invalid: "Érvénytelen jelszó"
     mailer:
       confirmation_instructions:
         subject: ZyXEL Cloud - Fiókhitelesítés

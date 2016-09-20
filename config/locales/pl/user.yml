@@ -3,12 +3,13 @@ pl:
   user:
     labels:
       country: Kraj
-      email: E-mail
+      email: Email
       display_name: Wyświetlaj jako
       first_name: Imię
       middle_name: Drugie imię
       last_name: Nazwisko
       password: Hasło
+      create_password: Stwórz hasło
       password_suggestion: 'sugerowane hasło: „o długości 8-14 znaków”'
       password_confirmation: Potwierdź hasło
       new_password: Nowe hasło
@@ -25,9 +26,13 @@ pl:
       remember_me: Pamiętaj mnie
       language: Język
       captcha: Kod obrazkowy
+      new_to_cloud: Nowy w myZyxelCloud?
+      create_account: Utworzyć konto
       terms:
         instruction: Rozumiem i zgadzam się z
         instruction_2: warunkami użytkowania ZyXEL Cloud
       edm_1: Tak, proszę o przesyłanie mi wiadomości na
-      edm_2: temat produktów i usług ZyXEL
-        Cloud
+      edm_2: temat produktów i usług ZyXEL Cloud
+      copy_right: "© 2016 Zyxel Communications Corp."
+    titles:
+      reset_password: Zresetuj swoje hasło
