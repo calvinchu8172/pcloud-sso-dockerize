@@ -68,6 +68,7 @@
     .help.col-xs-6.col-sm-6.col-md-6.col-lg-6
       .help_wrapper
         = image_tag("#{theme}/icon-help.png")
-        = link_to 'Help', '/help', target: "_blank"
+        / = link_to 'Help', '/help', target: "_blank"
+        = link_to 'Help', '#', data: { toggle: 'modal', target: '#help_dialog' }
 
-  / .spacer.hidden-xs{ :style => "height: 20px;" }
+  = render "help/help"

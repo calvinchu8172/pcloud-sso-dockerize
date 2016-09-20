@@ -21,3 +21,4 @@
 //= require browser_timezone_rails/set_time_zone
 //= require show_hide_password
 //= require password_meter
+//= require help_page
