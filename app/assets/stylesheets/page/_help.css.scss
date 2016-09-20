@@ -4,13 +4,19 @@
 //   # Path: /help
 // -------------------------------------
 
-div.help_wrapper1{
+.help_content_wrapper{
   max-width: 100%;
   padding: 0px 15px;
+  @media (min-width: 321px) and (max-width: 430px) {
+    padding: 0px 0px;
+  }
+  @media (max-width: 320px) {
+    padding: 0px 0px;
+  }
   .btn_wrap{
     margin: 0 0 20px;
     #expand, #collapse{
-      color: #FFF;
+      color: white;
       padding: 10px 20px;
       background: $btn-color;
       transition: background-color 0.3s ease 0s;
@@ -31,7 +37,7 @@ div.help_wrapper1{
       }
       &:hover{
         text-decoration:none;
-        color:#FFF;
+        color: white;
         background-color:darken($btn-color, 10%);
       }
     }
@@ -40,7 +46,7 @@ div.help_wrapper1{
     li{
       list-style-type: none;
       &:not(:last-of-type) {
-        border-bottom: 1px solid #FFF;
+        border-bottom: 1px solid white;
       }
       &:first-of-type h2 {
         -webkit-border-radius: 3px 3px 0 0;
@@ -109,5 +115,17 @@ div.help_wrapper1{
   }
   img{
     width:100%;
+  }
+}
+
+.modal-body-rwd {
+  overflow-y: scroll;
+  height: 400px;
+  color: black;
+  @media (min-width: 321px) and (max-width: 430px) {
+    height: 350px;
+  }
+  @media (max-width: 320px) {
+    height: 300px;
   }
 }
