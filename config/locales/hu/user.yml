@@ -4,6 +4,7 @@ hu:
     labels:
       country: Ország
       email: Email
+      email_suggestion: E-mail a fiók
       display_name: Megjelenítés, mint
       first_name: Keresztnév
       middle_name: Középső név

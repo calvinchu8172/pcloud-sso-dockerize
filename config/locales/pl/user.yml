@@ -4,6 +4,7 @@ pl:
     labels:
       country: Kraj
       email: Email
+      email_suggestion: E-mail w koncie
       display_name: Wyświetlaj jako
       first_name: Imię
       middle_name: Drugie imię
