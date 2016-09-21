@@ -4,6 +4,7 @@ ru:
     labels:
       country: "Страна"
       email: "Эл.почта"
+      email_suggestion: "Электронная почта в качестве учетной записи"
       display_name: "Отображать как"
       first_name: "Имя"
       middle_name: "Отчество"
