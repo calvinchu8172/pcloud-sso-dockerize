@@ -4,6 +4,7 @@ nl:
     labels:
       country: Land
       email: Email
+      email_suggestion: E-mail als uw account
       display_name: laat zien als
       first_name: Voornaam
       middle_name: Tweede naam

@@ -4,6 +4,7 @@ zh-TW:
     labels:
       country: "國家"
       email: "電子郵件"
+      email_suggestion: "請輸入 Email"
       display_name: "顯示名稱"
       first_name: "名"
       middle_name: "中間名"
