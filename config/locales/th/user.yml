@@ -4,6 +4,7 @@ th:
     labels:
       country: "ประเทศ"
       email: "อีเมล"
+      email_suggestion: "อีเมล์ที่บัญชีของคุณ"
       display_name: "แสดงผลเป็น"
       first_name: "ชื่อ"
       middle_name: "ชื่อกลาง"

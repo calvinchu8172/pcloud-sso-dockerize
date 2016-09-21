@@ -4,6 +4,7 @@ tr:
     labels:
       country: "Ülke"
       email: E-posta
+      email_suggestion: Hesabınıza olarak e-posta
       display_name: 'Görüntüleme şekli:'
       first_name: "İlk Ad"
       middle_name: "İkinci Ad"

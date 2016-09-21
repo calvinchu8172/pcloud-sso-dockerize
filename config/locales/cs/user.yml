@@ -4,6 +4,7 @@ cs:
     labels:
       country: Země
       email: Email
+      email_suggestion: E-mail jako váš účet
       display_name: Zobrazit jako
       first_name: Jméno
       middle_name: Druhé jméno
