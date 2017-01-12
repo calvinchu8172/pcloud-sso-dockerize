@@ -5,6 +5,8 @@ stages:
 
 cucumber:
   stage: test
+  tags:
+    - ruby
   services:
     - mysql:5.6
     - redis:latest
