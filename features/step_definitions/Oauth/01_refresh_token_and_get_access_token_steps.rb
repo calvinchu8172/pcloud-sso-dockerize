@@ -38,13 +38,15 @@ When(/^client send a POST request to \/oauth\/token with:$/) do |table|
     redirect_uri = @oauth_client_app.redirect_uri
 
 
-    post path, {
+    response = post path, {
       grant_type: grant_type,
       refresh_token: refresh_token,
       client_id: client_id,
       client_secret: client_secret,
       redirect_uri: redirect_uri
     }
+    data = JSON.parse response.body
+    @oauth_access_token = Doorkeeper::AccessToken.find_by(token: data['access_token'])
   end
 
   if grant_type == 'authorization_code'
