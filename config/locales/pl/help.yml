@@ -3,30 +3,30 @@ pl:
   help:
     intro:
       title: Wprowadzenie
-      step_1: myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami i bezpiecznego
-        dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego miejsca, w którym
+      step_1: myZyxelCloud to rozwiązanie zdalnego zarządzania aplikacjami i bezpiecznego
+        dostępu do akcesoriów urządzeń sieciowych Zyxel z dowolnego miejsca, w którym
         istnieje połączenie internetowe!
-      step_2: myZyXELcloud umożliwia 3 sposoby logowania się do portalu w chmurze.
+      step_2: myZyxelCloud umożliwia 3 sposoby logowania się do portalu w chmurze.
         Możliwe jest zalogowanie się za pomocą istniejącego konta sieci społecznościowej
         czyli „FACEBOOK” lub „Google+”, bez wprowadzania dodatkowych danych użytkownika.
         Jeżeli nie posiadasz jednak konta sieci społecznościowej, możliwe jest także
-        zarejestrowanie konta myZyXELcloud za pomocą adresu e-mail.
+        zarejestrowanie konta myZyxelCloud za pomocą adresu e-mail.
     sign_in:
       title: Zaloguj się za pomocą sieci społecznościowej
-      step_1: Zaakceptuj prośbę myZyXELcloud o udostępnienie danych profilu publicznego
+      step_1: Zaakceptuj prośbę myZyxelCloud o udostępnienie danych profilu publicznego
         i adresu e-mail FACEBOOK.
-      step_2: Zaakceptuj prośbę myZyXELcloud o udostępnienie danych profilu publicznego
+      step_2: Zaakceptuj prośbę myZyxelCloud o udostępnienie danych profilu publicznego
         i adresu e-mail Google+.
       step_3: Prosimy o zaznaczenie kratki, co oznacza zgodę na warunki użytkowania
-        chmury ZyXEL.
+        chmury Zyxel.
       step_4: Po zalogowaniu się za pomocą konta sieci społecznościowej można edytować
-        profil użytkownika na portalu myZyXELcloud. Jeżeli chcesz zmienić hasło, użyj
+        profil użytkownika na portalu myZyxelCloud. Jeżeli chcesz zmienić hasło, użyj
         istniejącego konta na portalu społecznościowym (FACEBOOK lub Google+) do zmiany
         bieżącego hasła.
     register:
       title: Zaloguj się za pomocą sieci społecznościowej
       step_1: Uzupełnij wszystkie wymagane dane na stronie rejestracyjnej
-      step_2: myZyXELcloud prześle wiadomość potwierdzającą na Twój adres e-mail.
+      step_2: myZyxelCloud prześle wiadomość potwierdzającą na Twój adres e-mail.
       step_3: 'Wciśnij przycisk „niezweryfikowany”:'
       step_4: Jeżeli wiadomość weryfikacyjna nie dotarła, można wybrać opcję „zmień
         na inny adres e-mail” lub „wyślij e-mail weryfikacyjny ponownie”
@@ -40,7 +40,7 @@ pl:
       title: Zapomniane hasło
       step_1: Jeżeli nie pamiętasz hasła kliknij łącze „forgot my password (nie pamiętam
         hasła)” na stronie logowania.
-      step_2: myZyXELcloud prześle wiadomość na zarejestrowany adres e-mail, aby zresetować
+      step_2: myZyxelCloud prześle wiadomość na zarejestrowany adres e-mail, aby zresetować
         hasło.
       step_3: 'P.S. W przypadku rejestracji przez konto społecznościowe: jeżeli chcesz
         zmienić hasło do konta, należy użyć istniejącego konta sieci społecznościowej
@@ -48,12 +48,12 @@ pl:
       step_4: Kliknij łącze w wiadomości e-mail, aby rozpocząć procedurę resetowania
         hasła.
       step_5: Wprowadź nowe hasło i wciśnij przycisk submit (prześlij).
-      step_6: Nastąpi automatyczne zalogowanie na koncie myZyXELcloud za pomocą nowego
+      step_6: Nastąpi automatyczne zalogowanie na koncie myZyxelCloud za pomocą nowego
         zresetowanego hasła.
     profile:
       title: Edycja profilu użytkownika w chmurze i zmiana hasła
       step_1: Kliknij ikonę użytkownika <i class="member_icon"></i> po prawej stronie
-        po zalogowaniu na koncie myZyXELcloud.
+        po zalogowaniu na koncie myZyxelCloud.
       step_2: Aby zmienić hasło do konta, wprowadź bieżące hasło oraz nowe hasło.
       step_3: Edycja profilu użytkownika
     pair:
@@ -63,7 +63,7 @@ pl:
         „manually add (dodaj ręcznie)”, aby dodać urządzenie w trybie ręcznym.
       step_2: Kliknięcie „Zlokalizuj NAS” powinno spowodować miganie wskaźnika LED
         NAS przez 30 sekund.
-      step_3: Portal myZyXELcloud wymaga wprowadzenia danych takich jak adres MAC
+      step_3: Portal myZyxelCloud wymaga wprowadzenia danych takich jak adres MAC
         oraz numer seryjny, aby ręcznie dodać urządzenie.
       step_4: Kliknij przycisk „Submit (Prześlij)”, aby zatwierdzić parowanie urządzenia
       step_5: W ciągu 10 minut wciśnij przycisk pairing (parowanie) na urządzeniu.
@@ -75,13 +75,13 @@ pl:
         znak musi być literą.
     upnp:
       title: Ustawienia UPnP
-      step_1: Następnie myZyXELcloud zsynchronizuje ustawienia UPnP
-      step_2: myZyXELcloud wyświetli listę wszystkich usług UPnP, które są już zainstalowane
+      step_1: Następnie myZyxelCloud zsynchronizuje ustawienia UPnP
+      step_2: myZyxelCloud wyświetli listę wszystkich usług UPnP, które są już zainstalowane
         na urządzeniu. Wybierz usługę(i), które chcesz włączyć lub wyłączyć.
       step_3: Kliknięcie „Pokaż port usługi” wyświetli listę numerów portów wszystkich
         usług. Numer portu usługi można zdefiniować lub pozwolić portalowi w chmurze
         na automatyczne wygenerowanie dostępnych portów usług od 1024~65535
-      step_4: 'myZyXELcloud odpowie zaktualizowanymi wynikami ustawień UPnP (przykład:
+      step_4: 'myZyxelCloud odpowie zaktualizowanymi wynikami ustawień UPnP (przykład:
         NAS540 HTTP gdzie domyślny port usługi sieciowej to 8000, URL należy wprowadzić
         jako http:// yourname:8000, natomiast chmura ownCloud to http://yourname.zyxel.me:5000/pkg/ownCloud/,
         gdzie FTP to ftp://yourname.zyxel.me)'
@@ -103,7 +103,7 @@ pl:
       title: Konfiguracja pakietu
       step_1: Włączanie lub wyłączanie usługi pakietowej
       step_2: Kliknij „Konfiguracja pakietu”
-      step_3: myZyXELcloud zsynchronizuje ustawienia pakietowe z NAS.
+      step_3: myZyxelCloud zsynchronizuje ustawienia pakietowe z NAS.
       step_4: Portal wyświetli listę wszystkich usług pakietowych, które są już zainstalowane
         na urządzeniu. Wybierz pakiet(y), które chcesz włączyć lub wyłączyć.
       step_5: Kliknij „Prześlij”

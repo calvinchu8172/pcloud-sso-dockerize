@@ -30,13 +30,13 @@ hu:
       password_invalid: "Érvénytelen jelszó"
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Fiókhitelesítés
-        instruction: Köszönjük, hogy regisztrált a ZyXEL Cloud-on, fiókja hitelesítéséhez
+        subject: Zyxel Cloud - Fiókhitelesítés
+        instruction: Köszönjük, hogy regisztrált a Zyxel Cloud-on, fiókja hitelesítéséhez
           kattintson a lenti hivatkozásra.
         instruction_2: Az e-mail kézhezvételét követő 3 napon belül kattintson a hivatkozásra.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Jelszócsere kérelem
-        instruction: 'Kérte ZyXEL Cloud fiókjához tartozó jelszavának cseréjét. Kattintson
+        subject: Zyxel Cloud - Jelszócsere kérelem
+        instruction: 'Kérte Zyxel Cloud fiókjához tartozó jelszavának cseréjét. Kattintson
           a lenti hivatkozásra a jelszócsere megkezdéséhez.:'
         instruction_2: Ha nem Ön kérte ezt, kérjük, hagyja figyelmen kívül az e-mailt.
       unlock_instructions:

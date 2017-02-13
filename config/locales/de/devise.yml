@@ -31,14 +31,14 @@ de:
       password_invalid: ungültiges Passwort
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Account Bestätigung
-        instruction: 'Vielen Dank für Ihre Registrierung bei ZyXEL Cloud. Bitte klicken
+        subject: Zyxel Cloud - Account Bestätigung
+        instruction: 'Vielen Dank für Ihre Registrierung bei Zyxel Cloud. Bitte klicken
           Sie auf den folgenden Link um Ihre Registrierung abzuschließen:'
         instruction_2: Bitte klicken Sie innerhalb von 3 Tagen nach Erhalt der E-Mail
           auf den Link.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Anfrage zum Passwort zurücksetzen
-        instruction: Sie möchten Ihr ZyXEL Cloud Account Passwort ändern. Bitte klicken
+        subject: Zyxel Cloud - Anfrage zum Passwort zurücksetzen
+        instruction: Sie möchten Ihr Zyxel Cloud Account Passwort ändern. Bitte klicken
           Sie dazu auf den folgenden Link
         instruction_2: Wenn Sie dies nicht angefragt haben, ignorieren Sie bitte diese
           E-Mail.

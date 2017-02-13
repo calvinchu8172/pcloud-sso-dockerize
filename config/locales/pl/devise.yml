@@ -30,13 +30,13 @@ pl:
       password_invalid: nieprawidłowe hasło
     mailer:
       confirmation_instructions:
-        subject: Potwierdzenie konta - ZyXEL Cloud
-        instruction: Dziękujemy za rejestrację na ZyXEL Cloud, kliknij poniższe łącze,
+        subject: Potwierdzenie konta - Zyxel Cloud
+        instruction: Dziękujemy za rejestrację na Zyxel Cloud, kliknij poniższe łącze,
           aby potwierdzić rejestrację konta
         instruction_2: Kliknij łącze w ciągu 3 dni od otrzymania wiadomości e-mail.
       reset_password_instructions:
-        subject: ZyXEL Cloud - żądanie zmiany hasła
-        instruction: Otrzymaliśmy prośbę o zmianę hasła do Twojego konta ZyXEL Cloud.
+        subject: Zyxel Cloud - żądanie zmiany hasła
+        instruction: Otrzymaliśmy prośbę o zmianę hasła do Twojego konta Zyxel Cloud.
           Kliknij poniższe łącze, aby rozpocząć procedurę zmiany hasła
         instruction_2: Jeżeli jest to błąd, prosimy zignorować tę wiadomość.
       unlock_instructions:

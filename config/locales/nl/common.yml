@@ -95,8 +95,8 @@ nl:
           wordpress: Dit stelt u in staat om een blog te creëren en te beheren. Gebruik
             de NAS Administratoraccount om in te loggen. De Administrator kan dan
             accounts maken voor andere gebruikers.
-          myzyxelcloud-agent: myZyXELcloud, uw oplossing voor remote applicatiebeheer
-            en veilig toegang tot uw ZyXEL netwerkapparaten en accessoires vanaf elke
+          myzyxelcloud-agent: myZyxelCloud, uw oplossing voor remote applicatiebeheer
+            en veilig toegang tot uw Zyxel netwerkapparaten en accessoires vanaf elke
             locatie met een internetverbinding!
           owncloud: Dit stelt u in staat om uw Cloud te creëren en te beheren.
           pyload: Laat de NAS uw downloads beheren en uitvoeren, waaronder die van
@@ -146,7 +146,7 @@ nl:
     invalid: is ongeldig
     invalid_device: Ongeldige apparaat
     applied_success: U hebt uw account met succes toegepast.
-    confirmation_success: Geniet van de ZyXEL Cloud Service.
+    confirmation_success: Geniet van de Zyxel Cloud Service.
     forgot_password: Uw wachtwoord is gereset.
     sent_email: E-mail is verzonden
     agree_terms: Gelieve de gebruikersovereenkomst termen
@@ -209,15 +209,15 @@ nl:
           num_488: Kan pakket niet inschakelen
           num_487: Kan pakket niet uitschakelen
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Bekijk en deel uw content overal vandaan
         zyxel_drive_download_desc: Download nu naar
   blocks:
     download:
       instruction: Download nu naar
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Bekijk en deel uw content overal vandaan
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Speel en stream content van uw NAS

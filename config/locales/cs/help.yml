@@ -3,29 +3,29 @@ cs:
   help:
     intro:
       title: "Úvod"
-      step_1: Služba myZyXELcloud představuje vaše řešení pro vzdálené řízení aplikací
-        a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv místa s připojení
+      step_1: Služba myZyxelCloud představuje vaše řešení pro vzdálené řízení aplikací
+        a bezpečný přístup k síťovým zařízením Zyxel z jakéhokoliv místa s připojení
         k Internetu!
-      step_2: Služba myZyXELcloud nabízí 3 způsoby pro přihlášení ke cloudovému portálu.
+      step_2: Služba myZyxelCloud nabízí 3 způsoby pro přihlášení ke cloudovému portálu.
         Můžete se přihlásit pomocí svého stávajícího účtu sociálních sítí „FACEBOOK“
         nebo „Google+“, aniž byste museli zadívat další uživatelské informace. Pokud
-        nemáte žádný účet sociální sítě, můžete se ke službě myZyXELcloud zaregistrovat
+        nemáte žádný účet sociální sítě, můžete se ke službě myZyxelCloud zaregistrovat
         také pomocí své e-mailová adresy.
     sign_in:
       title: Přihlásit pomocí účtu sociální sítě
-      step_1: Přijměte mou žádost o zaregistrování ke službě myZyXELcloud pomocí mého
+      step_1: Přijměte mou žádost o zaregistrování ke službě myZyxelCloud pomocí mého
         veřejného profilu a e-mailové adresy sítě FACEBOOK.
-      step_2: Přijměte mou žádost o zaregistrování ke službě myZyXELcloud pomocí mého
+      step_2: Přijměte mou žádost o zaregistrování ke službě myZyxelCloud pomocí mého
         veřejného profilu a e-mailové adresy sítě Google+.
-      step_3: Zkontrolujte si podmínky použití služby myZyXELcloud a vyjádřete s nimi
+      step_3: Zkontrolujte si podmínky použití služby myZyxelCloud a vyjádřete s nimi
         souhlas.
       step_4: Po přihlášení pomocí svého účtu sociální sítě můžete upravit svůj profil
-        na portálu služby myZyXELcloud. Pokud chcete změnit heslo svého účtu, použijte
+        na portálu služby myZyxelCloud. Pokud chcete změnit heslo svého účtu, použijte
         stávající účet sociální sítě (FACEBOOK nebo Google+) a změňte stávající heslo.
     register:
-      title: Registrovat na portálu služby myZyXELcloud
+      title: Registrovat na portálu služby myZyxelCloud
       step_1: Vyplňte všechny požadované informace na stránce registrace
-      step_2: Služba myZyXELcloud vám zašle potvrzující e-mail na váš e-mailový účet.
+      step_2: Služba myZyxelCloud vám zašle potvrzující e-mail na váš e-mailový účet.
       step_3: 'Stiskněte tlačítko Neověřeno:'
       step_4: Pokud jste neobdrželi potvrzovací e-mail, můžete „změnit e-mail“ nebo
         „znovu poslat potvrzovací e-mail“
@@ -38,17 +38,17 @@ cs:
       title: Zapomněl jsem své heslo
       step_1: Pokud jste zapomněli své heslo, klikněte na tlačítko „forgot my password“
         (Zapomněl jsem své heslo) v odkazu na stránce přihlášení.
-      step_2: Služba myZyXELcloud vám zašle e-mail na registrovaný e-­mailový účet,
+      step_2: Služba myZyxelCloud vám zašle e-mail na registrovaný e-­mailový účet,
         jehož pomocí resetujete své stávající heslo k účtu.
       step_3: 'V případě účtu sociální sítě: Pokud chcete změnit heslo svého účtu,
         použijte stávající účet sociální sítě (FACEBOOK nebo Google+) a změňte stávající
         heslo.'
       step_4: Klikněte na odkaz v e-mailová zprávě a aktivujte resetování svého hesla.
       step_5: Zadejte své nové heslo a stiskněte tlačítko submit (Odeslat).
-      step_6: Služba myZyXELcloud vás automaticky přihlásí s novým heslem pro resetování.
+      step_6: Služba myZyxelCloud vás automaticky přihlásí s novým heslem pro resetování.
     profile:
       title: Upravit profil uživatele a změnit heslo
-      step_1: Přihlaste se k účtu služby myZyXELcloud stiskněte ikonu uživatele <i
+      step_1: Přihlaste se k účtu služby myZyxelCloud stiskněte ikonu uživatele <i
         class="member_icon"></i> vpravo.
       step_2: Zadejte stávající heslo a nové heslo pro změnu hesla účtu.
       step_3: Upravit profil uživatele cloudu
@@ -59,7 +59,7 @@ cs:
         ručně) a přidejte zařízení ručně.
       step_2: Po kliknutí na možnost „Najít NAS“ by měl indikátor LED NAS blikat po
         dobu 30 sekund.
-      step_3: Služba myZyXELcloud vyžaduje zadání adresy MAC a sériového čísla zařízení.
+      step_3: Služba myZyxelCloud vyžaduje zadání adresy MAC a sériového čísla zařízení.
       step_4: Stiskněte tlačítko „Submit“ (Odeslat) a potvrďte spárování svého zařízení.
       step_5: Do 10 minut stiskněte tlačítko pairing (Párování) na svém zařízení.
       step_6: Stiskněte tlačítko „Confirm“ (Potvrdit) a nastavte služby DDNS a UPnP.
@@ -69,13 +69,13 @@ cs:
         První znak by měl být písmeno.
     upnp:
       title: Nastavení UPnP
-      step_1: Služba myZyXELcloud synchronizuje nastavení UPnP
-      step_2: Služba myZyXELcloud uvede seznam všech služeb UPnP, která jsou již instalované
+      step_1: Služba myZyxelCloud synchronizuje nastavení UPnP
+      step_2: Služba myZyxelCloud uvede seznam všech služeb UPnP, která jsou již instalované
         ve vašem zařízení. Vyberte, které služby chcete povolit nebo zakázat.
       step_3: Kliknutím na možnost Zobrazit port služby zobrazíte seznam čísel portů
         pro všechny služby. Číslo portu služby lze určit, případně nechat cloudovým
         portálem automaticky vygenerovat dostupný port služby od 1024~65535
-      step_4: 'Služba myZyXELcloud odešle aktualizované výsledky nastavení služby
+      step_4: 'Služba myZyxelCloud odešle aktualizované výsledky nastavení služby
         UPnP (příklad: výchozí port služby HTTP zařízení NAS540 je 8000, zadejte proto
         adresu URL ve formě http:// yourname:8000, služba ownCloud bude http://yourname.zyxel.me:5000/pkg/ownCloud/,
         služba FTP bude ftp://yourname.zyxel.me)'
@@ -96,7 +96,7 @@ cs:
       title: Nastavení balíčku
       step_1: Povolit nebo zakázat službu balíčku
       step_2: Klikněte na možnost Nastavení balíčku
-      step_3: myZyXELcloud provede synchronizaci nastavení balíčku z vašeho NAS.
+      step_3: myZyxelCloud provede synchronizaci nastavení balíčku z vašeho NAS.
       step_4: Na portálu se zobrazí seznam všech služeb balíčku, která jsou již nainstalovaná
         ve vašem zařízení. Vyberte, které balíčky chcete povolit nebo zakázat.
       step_5: Klikněte na možnost Odeslat

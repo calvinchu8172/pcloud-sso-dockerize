@@ -31,9 +31,9 @@ hu:
       create_account: Fiók létrehozása
       terms:
         instruction: Megértem és elfogadom a
-        instruction_2: ZyXEL Cloud felhasználási feltételeit
+        instruction_2: Zyxel Cloud felhasználási feltételeit
       edm_1: Igen, szeretnék e-maileket kapni
-      edm_2: a ZyXEL Cloud termékekről és szolgáltatásokról
+      edm_2: a Zyxel Cloud termékekről és szolgáltatásokról
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: "Állítsd vissza a jelszavad"

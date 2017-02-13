@@ -32,9 +32,9 @@ fr:
       create_account: Créer un compte
       terms:
         instruction: Je comprends et accepte les
-        instruction_2: Conditions d'utilisation de ZyXEL Cloud
+        instruction_2: Conditions d'utilisation de Zyxel Cloud
       edm_1: Oui, m'envoyer des e-mails sur
-      edm_2: les Produits et Services ZyXEL Cloud
+      edm_2: les Produits et Services Zyxel Cloud
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: réinitialisez votre mot de passe

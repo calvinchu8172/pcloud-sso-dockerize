@@ -93,9 +93,9 @@ es:
             y magnet
           wordpress: Esto le permite crear y administrar un blog. Utilice las credenciales
             de administrador NAS para iniciar sesión.
-          myzyxelcloud-agent: "¡myZyXELcloud, su solución para la administración remota
+          myzyxelcloud-agent: "¡myZyxelCloud, su solución para la administración remota
             de aplicaciones y acceso seguro a los accesorios de los dispositivos de
-            la red ZyXEL desde cualquier lugar con conexión a Internet!"
+            la red Zyxel desde cualquier lugar con conexión a Internet!"
           owncloud: Esto le permite crear y administrar su nube privada.
           pyload: Deja que el NAS gestione tus descargas incluyendo las de sitios
             de descarga directa.
@@ -144,7 +144,7 @@ es:
     invalid: no es válido
     invalid_device: Dispositivo no válido
     applied_success: Ha aplicado su cuenta con éxito.
-    confirmation_success: Disfrute de los servicios ZyXEL Cloud.
+    confirmation_success: Disfrute de los servicios Zyxel Cloud.
     forgot_password: Su contraseña ha sido restaurada.
     sent_email: Su correo electrónico se ha enviado
     agree_terms: Por favor, acepta los términos del acuerdo de usuario
@@ -210,15 +210,15 @@ es:
           num_488: No se puede habilitar paquete
           num_487: No se puede deshabilitar paquete
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Consulte y comparta sus datos desde cualquier sitio.
         zyxel_drive_download_desc: Descargar ahora en
   blocks:
     download:
       instruction: Descargar ahora en
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Consulte y comparta sus datos desde cualquier sitio.
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Reproduzca y descargue el contenido desde NAS.

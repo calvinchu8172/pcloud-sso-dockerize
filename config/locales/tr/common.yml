@@ -93,8 +93,8 @@ tr:
           wordpress: Bir blog oluşturmanıza ve yönetmenize izin verir. Giriş yapmak
             için NAS cihazınıza admin girişi yapınız. Admin, diğer kullanıcılar için
             hesap oluşturabilir.
-          myzyxelcloud-agent: myZyXELcloud, uzak uygulama yönetimi ve bir Internet
-            bağlantısına sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza
+          myzyxelcloud-agent: myZyxelCloud, uzak uygulama yönetimi ve bir Internet
+            bağlantısına sahip herhangi bir yerden Zyxel ağ cihazları aksesuarınıza
             güvenli erişime yönelik çözümünüzdür!
           owncloud: Kişisel bulut hesabınızı oluşturmanıza ve yönetmenize izin verir.
           pyload: NAS cihazınızın one-click-hosting sitelerinin de içerisinde bulunduğu
@@ -144,7 +144,7 @@ tr:
     invalid: geçersiz
     invalid_device: Geçersiz cihaz
     applied_success: Hesabınızı başarıyla uyguladınız.
-    confirmation_success: ZyXEL Cloud Hizmetlerinin keyfini istediğiniz gibi çıkarın.
+    confirmation_success: Zyxel Cloud Hizmetlerinin keyfini istediğiniz gibi çıkarın.
     forgot_password: "Şifreniz sıfırlandı."
     sent_email: E-posta gönderildi
     agree_terms: kullanıcı sözleşmesi koşullarını kabul edin
@@ -207,15 +207,15 @@ tr:
           num_488: Paket etkinleştirilemiyor
           num_487: Paket devre dışı bırakılamıyor
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: "İçeriklerinizi her yerden görün ve paylaşın."
         zyxel_drive_download_desc: "Şimdi İndirin:"
   blocks:
     download:
       instruction: "Şimdi İndirin:"
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: "İçeriklerinizi her yerden görün ve paylaşın."
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: NAS'tan içerik oynatın ve akış yapın.

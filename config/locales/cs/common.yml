@@ -92,8 +92,8 @@ cs:
             a magnet “link”.
           wordpress: Slouží pro vytvoření a správu blogu. Přihlaste se pomocí administrátorského
             účtu a vytvořte účty pro další uživatele.
-          myzyxelcloud-agent: Služba myZyXELcloud představuje vaše řešení pro vzdálené
-            řízení aplikací a bezpečný přístup k síťovým zařízením ZyXEL z jakéhokoliv
+          myzyxelcloud-agent: Služba myZyxelCloud představuje vaše řešení pro vzdálené
+            řízení aplikací a bezpečný přístup k síťovým zařízením Zyxel z jakéhokoliv
             místa s připojení k Internetu!
           owncloud: To vám umožní vytvořit a spravovat privátní cloud.
           pyload: Tento balíček umožňuje stažení souborů do NAS na jedno kliknutí.
@@ -142,7 +142,7 @@ cs:
     invalid: je neplatné
     invalid_device: Neplatné zařízení
     applied_success: Svůj účet jste aplikovali úspěšně.
-    confirmation_success: Užívejte si nyní služeb ZyXEL Cloud.
+    confirmation_success: Užívejte si nyní služeb Zyxel Cloud.
     forgot_password: Vaše heslo bylo resetováno.
     sent_email: E-mail byl odeslán
     agree_terms: Přijměte prosím Dohody uživatel termíny
@@ -203,6 +203,6 @@ cs:
           num_488: Nelze povolit balíček
           num_487: Nelze zakázat balíček
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Zobrazujte a sdílejte své informace odkudkoli.
         zyxel_drive_download_desc: Stáhnout na

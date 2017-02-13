@@ -94,8 +94,8 @@ pl:
           wordpress: To narzędzie pozwala utworzyć blog i zarządzać nim. Zaloguj się
             jako administrator NAS. Administrator może następnie utworzyć konta dla
             innych użytkowników.
-          myzyxelcloud-agent: myZyXELcloud to rozwiązanie zdalnego zarządzania aplikacjami
-            i bezpiecznego dostępu do akcesoriów urządzeń sieciowych ZyXEL z dowolnego
+          myzyxelcloud-agent: myZyxelCloud to rozwiązanie zdalnego zarządzania aplikacjami
+            i bezpiecznego dostępu do akcesoriów urządzeń sieciowych Zyxel z dowolnego
             miejsca, w którym istnieje połączenie internetowe!
           owncloud: Pozwala na utworzenie i zarządzanie własną chmurą danych.
           pyload: NAS obsługuje pobieranie plików włączając pobieranie ze stron typu
@@ -145,7 +145,7 @@ pl:
     invalid: jest nieprawidłowe
     invalid_device: Nieprawidłowe urządzenie
     applied_success: Zmiany na koncie wprowadzono z powodzeniem.
-    confirmation_success: Zapraszamy do korzystania z usług ZyXEL Cloud.
+    confirmation_success: Zapraszamy do korzystania z usług Zyxel Cloud.
     forgot_password: Hasło zostało zresetowane.
     sent_email: Wysłano wiadomość e-mail
     agree_terms: Proszę zaakceptować warunki Umowy z użytkownikiem
@@ -206,15 +206,15 @@ pl:
           num_488: Nie można włączyć pakietu
           num_487: Nie można wyłączyć pakietu
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Oglądaj i udostępniaj swoje rzeczy z dowolnego miejsca.
         zyxel_drive_download_desc: Pobierz teraz z
   blocks:
     download:
       instruction: Pobierz teraz z
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Oglądaj i udostępniaj swoje rzeczy z dowolnego miejsca.
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Odtwarzaj i transmituj zawartość z NAS.

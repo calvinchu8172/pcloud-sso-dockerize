@@ -33,6 +33,6 @@ tr:
       Enter 'root' as the username and '1234' as the password to log in.
     php_mysql_phpmyadmin_https: This tool can be used to manage MySQL through the
       web. Enter 'root' as the username and '1234' as the password to log in.
-    myzyxelcloud_agent: myZyXELcloud, uzak uygulama yönetimi ve bir Internet bağlantısına
-      sahip herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza güvenli erişime yönelik
+    myzyxelcloud_agent: myZyxelCloud, uzak uygulama yönetimi ve bir Internet bağlantısına
+      sahip herhangi bir yerden Zyxel ağ cihazları aksesuarınıza güvenli erişime yönelik
       çözümünüzdür!

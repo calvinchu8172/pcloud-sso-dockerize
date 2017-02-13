@@ -96,8 +96,8 @@ fr:
           wordpress: Cela vous permet de créer et de gérer un blog. Utilisez les informations
             d'identification de l'administrateur du NAS pour ouvrir une session. L'administrateur
             peut alors créer des comptes pour les autres utilisateurs.
-          myzyxelcloud-agent: myZyXELcloud, votre solution pour la gestion des applications
-            à distance et l'accès en toute sécurité à vos appareils du réseau ZyXEL
+          myzyxelcloud-agent: myZyxelCloud, votre solution pour la gestion des applications
+            à distance et l'accès en toute sécurité à vos appareils du réseau Zyxel
             depuis n'importe quel endroit équipé d'une connexion Internet !
           owncloud: Cela vous permet de créer et de gérer votre cloud privé.
           pyload: Demandez aux NAS de gérer vos téléchargements y compris ceux des
@@ -147,7 +147,7 @@ fr:
     invalid: est invalide
     invalid_device: appareil non valide
     applied_success: Vous avez appliqué votre compte avec succès.
-    confirmation_success: N'hésitez pas à profiter des Services de ZyXEL Cloud.
+    confirmation_success: N'hésitez pas à profiter des Services de Zyxel Cloud.
     forgot_password: Votre mot de passe a été réinitialisé.
     sent_email: L'e-mail a été envoyé
     agree_terms: S'il vous plaît accepter les termes de l'accord de l'utilisateur
@@ -215,15 +215,15 @@ fr:
           num_488: Impossible d'activer le paquet
           num_487: Impossible désactiver le paquet
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Visualisez et partagez vos trucs de partout.
         zyxel_drive_download_desc: Téléchargez maintenant sur
   blocks:
     download:
       instruction: Téléchargez maintenant sur
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Visualisez et partagez vos trucs de partout.
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Jouez et diffusez le contenu à partir du NAS.

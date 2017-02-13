@@ -28,12 +28,12 @@ th:
       password_invalid: "รหัสผ่านไม่ถูกต้อง"
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - การยืนยันบัญชี
-        instruction: "ขอบคุณในการลงทะเบียนด้วย ZyXEL Cloud, กรุณาคลิกที่ลิงค์ต่อไปนี้เพื่อยืนยันการลงทะเบียนบัญชีของคุณ"
+        subject: Zyxel Cloud - การยืนยันบัญชี
+        instruction: "ขอบคุณในการลงทะเบียนด้วย Zyxel Cloud, กรุณาคลิกที่ลิงค์ต่อไปนี้เพื่อยืนยันการลงทะเบียนบัญชีของคุณ"
         instruction_2: "กรุณาคลิกที่ลิงค์นี้ภายใน 3 วันนับจากวันที่ได้รับอีเมล์นี้"
       reset_password_instructions:
-        subject: ZyXEL Cloud - การร้องขอเปลี่ยนรหัสผ่าน
-        instruction: "คุณได้รับการร้องขอให้เปลี่ยนรหัสผ่านบัญชี ZyXEL Cloud ของคุณ
+        subject: Zyxel Cloud - การร้องขอเปลี่ยนรหัสผ่าน
+        instruction: "คุณได้รับการร้องขอให้เปลี่ยนรหัสผ่านบัญชี Zyxel Cloud ของคุณ
           กรุณาคลิกที่ลิงค์ต่อไปนี้เพื่อเริ่มการเปลี่ยนรหัสผ่าน"
         instruction_2: "หากคุณไม่ได้ทำการร้องขอนี้ กรุณาอย่าสนใจอีเมล์นี้"
       unlock_instructions:

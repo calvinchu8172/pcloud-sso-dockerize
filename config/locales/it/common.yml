@@ -95,8 +95,8 @@ it:
           wordpress: Questa funzione consente di creare e gestire un blog. Utilizzare
             le credenziali amministratore NAS per effettuare l'accesso. L'amministratore
             può creare account per altri utenti.
-          myzyxelcloud-agent: myZyXELcloud, la soluzione per la gestione delle applicazioni
-            remote e accesso sicuro ai tuoi dispositivi accessori di rete ZyXEL da
+          myzyxelcloud-agent: myZyxelCloud, la soluzione per la gestione delle applicazioni
+            remote e accesso sicuro ai tuoi dispositivi accessori di rete Zyxel da
             qualsiasi parte che dispone di una connessione ad internet!
           owncloud: Questo permette di creare e gestire il proprio cloud privato.
           pyload: Permetti al NAS di gestire tutti i tuoi download, inclusi quelli
@@ -146,7 +146,7 @@ it:
     invalid: non è valido
     invalid_device: Dispositivo non valido
     applied_success: Hai applicato il tuo account con successo.
-    confirmation_success: Sentiti libero di godere dei servizi ZyXEL Cloud.
+    confirmation_success: Sentiti libero di godere dei servizi Zyxel Cloud.
     forgot_password: La tua password è stata reimpostata.
     sent_email: Il messaggio e-mail è stato inviato.
     agree_terms: Si prega di accettare le condizioni contrattuali utente
@@ -209,15 +209,15 @@ it:
           num_488: Impossibile abilitare questo pacchetto.
           num_487: Impossibile disabilitare questo pacchetto.
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Vedete e condividi le vostre cose da qualsiasi luogo.
         zyxel_drive_download_desc: Scarica subito su
   blocks:
     download:
       instruction: Scarica subito su
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Vedete e condividi le vostre cose da qualsiasi luogo.
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Gioca ed effettua lo streaming del contenuto da NAS.
