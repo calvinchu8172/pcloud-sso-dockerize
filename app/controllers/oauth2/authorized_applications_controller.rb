@@ -1,5 +1,5 @@
 class Oauth2::AuthorizedApplicationsController < Doorkeeper::AuthorizedApplicationsController
-	include ExceptionHandler
+  include ExceptionHandler
   include CheckUserConfirmation
   include Locale
   include Theme

@@ -140,6 +140,10 @@ Then(/^confirmation email should be delivered$/) do
   expect(@email.subject).to include("Account Confirmation")
 end
 
+Then(/^the "(.*?)" link will open the new tab$/) do |link|
+  expect(find_link(link)[:target]).to eq('_blank')
+end
+
 def filled_in_login_info(password)
   fill_in "user[email]", with: @user.email
   fill_in "user[password]", with: password
