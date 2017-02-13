@@ -43,7 +43,7 @@ de:
       new:
         title: Neue Bewerbung
       show:
-        title: 'Anwendungs %{name}'
+        title: Anwendungs %{name}
         application_id: Anwendungs-ID
         secret: Geheimnis
         scopes: Scopes

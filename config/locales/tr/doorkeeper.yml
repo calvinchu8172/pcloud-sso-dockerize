@@ -42,7 +42,7 @@ tr:
       new:
         title: Yeni uygulama
       show:
-        title: 'Uygulama Adı %{name}'
+        title: Uygulama Adı %{name}
         application_id: Uygulama Kimliği
         secret: Gizli
         scopes: kapsamları
@@ -57,7 +57,7 @@ tr:
         title: bir hata oluştu
       new:
         title: "İzin gerekmekte"
-        prompt: " %{client_name} hesabınızı kullanmasına izin?"
+        prompt: "%{client_name} hesabınızı kullanmasına izin?"
         able_to: Bu uygulama, mümkün olacaktır
       show:
         title: Yetki Kodu
