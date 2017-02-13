@@ -70,7 +70,8 @@ nl:
         title: Jouw geauthoriseerde applicaties
         application: Applicatie
         created_at: Aangemaakt op
-        date_format: "%d-%m-%Y %H:%M:%S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: Het verzoek mist een vereiste parameter, bevat een niet-ondersteunde

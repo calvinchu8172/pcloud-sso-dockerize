@@ -30,7 +30,7 @@ zh-TW:
         error: Whoops! 確認表單內可能的錯誤
       help:
         redirect_uri: "每個網址必須只有一行"
-        native_redirect_uri: "使用%{native_redirect_uri}作本地端測試"
+        native_redirect_uri: "使用 %{native_redirect_uri} 作本地端測試"
       edit:
         title: "編輯應用"
       index:
@@ -55,7 +55,7 @@ zh-TW:
         title: "發生錯誤"
       new:
         title: "授權需求"
-        prompt: "授權%{client_name}使用您的帳戶?"
+        prompt: "授權 %{client_name} 使用您的帳戶?"
         able_to: "這個應用將會"
       show:
         title: "授權碼"
@@ -69,6 +69,7 @@ zh-TW:
         application: "應用"
         created_at: "建立時間"
         date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: "你目前沒有授權的應用"
     errors:
       messages:
         invalid_request: "這個請求少了一個必要的參數，可能是不支援的參數值或是其他格式錯誤"

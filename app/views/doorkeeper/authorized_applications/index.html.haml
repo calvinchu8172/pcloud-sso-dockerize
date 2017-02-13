@@ -10,7 +10,7 @@
         %span= flash[:notice]
 
   - if @applications.empty?
-    %p= "You have no authorized application."
+    %p= I18n.t('doorkeeper.authorized_applications.index.no_application')
   - else
     %table.authorized_app_table
       %tr
@@ -20,7 +20,7 @@
       - @applications.each do |application|
         %tr
           %td= application.name
-          %td= application.created_at.strftime(t('doorkeeper.authorized_applications.index.date_format'))
+          %td= application.access_tokens.last.created_at.strftime(t('doorkeeper.authorized_applications.index.date_format'))
           %td= render 'delete_form', application: application
 
   = link_to I18n.t("labels.back_to_profile"), personal_profile_path, class: "btn btn-custom btn-block"

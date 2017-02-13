@@ -30,7 +30,7 @@ cs:
         error: Jejda! Zkontrolujte, zda vaše formuláře za případné chyby
       help:
         redirect_uri: Použijte jeden řádek URI
-        native_redirect_uri: Použijte% {} native_redirect_uri pro místní testy
+        native_redirect_uri: Použijte %{native_redirect_uri} pro místní testy
         scopes: Samostatné obory s mezerami. Ponechte prázdné použít výchozí obory.
       edit:
         title: "Úprava aplikací"
@@ -42,7 +42,7 @@ cs:
       new:
         title: Nová aplikace
       show:
-        title: Použití:% {name}
+        title: 'Použití: %{name}'
         application_id: ID aplikace
         secret: Tajný
         scopes: scopes
@@ -57,7 +57,7 @@ cs:
         title: Došlo k chybě
       new:
         title: Je potřebná autorizace
-        prompt: Autorizovat% {} CLIENT_NAME používat svůj účet?
+        prompt: Autorizovat %{client_name} používat svůj účet?
         able_to: Tato aplikace bude moci
       show:
         title: Autorizační kód
@@ -70,7 +70,8 @@ cs:
         title: Váš autorizovaný aplikací
         application: Aplikace
         created_at: Na vytvořil
-        date_format: "% Y% m-% d% H:% M:% S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: Požadavek chybí požadovaný parametr, obsahuje nepodporovaný

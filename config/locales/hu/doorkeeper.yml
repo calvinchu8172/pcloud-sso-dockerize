@@ -30,7 +30,7 @@ hu:
         error: Hoppá! Ellenőrizze az űrlap esetleges hibákért
       help:
         redirect_uri: Használja soronként egy URI
-        native_redirect_uri: A% {native_redirect_uri} helyi vizsgálatok
+        native_redirect_uri: A %{native_redirect_uri} helyi vizsgálatok
         scopes: Külön körök szóközzel. Hagyja üresen az alapértelmezett hatókörét.
       edit:
         title: alkalmazás szerkesztése
@@ -42,7 +42,7 @@ hu:
       new:
         title: "új alkalmazás"
       show:
-        title: Alkalmazás:% {name}
+        title: 'Alkalmazás: %{name}'
         application_id: alkalmazás Id
         secret: Titok
         scopes: Scope
@@ -57,7 +57,7 @@ hu:
         title: Hiba történt
       new:
         title: engedély szükséges
-        prompt: Engedélyezheti% {client_név} kezelhető fiókja?
+        prompt: Engedélyezheti %{client_name} kezelhető fiókja?
         able_to: Ez az alkalmazás képes lesz
       show:
         title: Megerősítő kód
@@ -70,7 +70,8 @@ hu:
         title: Az engedélyezett alkalmazások
         application: Alkalmazás
         created_at: létrehozott
-        date_format: "% Y-% m-% d% H:% M:% S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: A kérelem hiányzik egy szükséges paraméter tartalmaz egy

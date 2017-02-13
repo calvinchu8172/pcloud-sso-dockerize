@@ -30,7 +30,7 @@ th:
         error: "อ๊ะ!ตรวจสอบรูปแบบของคุณสำหรับข้อผิดพลาดได้"
       help:
         redirect_uri: "ใช้หนึ่งบรรทัดต่อURI"
-        native_redirect_uri: "ใช้% {} native_redirect_uriสำหรับการทดสอบในท้องถิ่น"
+        native_redirect_uri: "ใช้ %{native_redirect_uri} สำหรับการทดสอบในท้องถิ่น"
         scopes: "ขอบเขตเฉพาะกิจการที่มีช่องว่างเว้นว่างไว้เพื่อใช้ขอบเขตเริ่มต้น"
       edit:
         title: "แก้ไขแอพลิเคชัน"
@@ -42,7 +42,7 @@ th:
       new:
         title: "แอพลิเคชันใหม่"
       show:
-        title: "การประยุกต์ใช้:% {name}"
+        title: "การประยุกต์ใช้: %{name}"
         application_id: "แอพลิเคชันId"
         secret: "ความลับ"
         scopes: "ขอบเขต"
@@ -57,7 +57,7 @@ th:
         title: "เกิดข้อผิดพลาด"
       new:
         title: "ต้องการการอนุมัติ"
-        prompt: "อนุญาต% {} CLIENT_NAMEใช้บัญชีของคุณหรือไม่"
+        prompt: "อนุญาต %{client_name} ใช้บัญชีของคุณหรือไม่"
         able_to: "โปรแกรมนี้จะสามารถ"
       show:
         title: "รหัสอนุมัติ"
@@ -70,7 +70,8 @@ th:
         title: "การใช้งานที่ได้รับอนุญาตของคุณ"
         application: "ใบสมัคร"
         created_at: "สร้างขึ้นใน"
-        date_format: "% Y-% M-% d% H: M%:% s"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: "การร้องขอขาดพารามิเตอร์ที่จำเป็นรวมถึงค่าพารามิเตอร์ที่ได้รับการสนับสนุนหรือไม่ถูกต้องมิฉะนั้น"
