@@ -23,6 +23,7 @@ cs:
     expand_all: Rozbalit vše
     collapse_all: Sbalit vše
     download: Ke stažení
+    wait: Please wait...
     settings:
       invitation:
         connecting: Připojování...

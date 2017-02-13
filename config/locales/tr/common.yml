@@ -23,6 +23,7 @@ tr:
     expand_all: Tümünü Genişlet
     collapse_all: Tümünü Daralt
     download: indir
+    wait: Please wait...
     settings:
       invitation:
         connecting: Bağlanıyor...

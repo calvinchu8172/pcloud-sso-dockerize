@@ -23,6 +23,7 @@ hu:
     expand_all: "Összes kibontása"
     collapse_all: "Összes elrejtése"
     download: Letöltés
+    wait: Please wait...
     settings:
       invitation:
         connecting: Csatlakozás...

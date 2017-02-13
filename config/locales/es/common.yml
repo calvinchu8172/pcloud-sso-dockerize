@@ -23,6 +23,7 @@ es:
     expand_all: Desplegar todo
     collapse_all: Contraer todo
     download: Descargar
+    wait: Please wait...
     settings:
       invitation:
         connecting: Conectando...

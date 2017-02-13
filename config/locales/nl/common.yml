@@ -23,6 +23,7 @@ nl:
     expand_all: Allemaal uitvouwen
     collapse_all: Allemaal inklappen
     download: Download
+    wait: Please wait...
     settings:
       invitation:
         connecting: Verbinden...

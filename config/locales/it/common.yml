@@ -23,6 +23,7 @@ it:
     expand_all: Espandi tutto
     collapse_all: Comprimi tutto
     download: Scaricare
+    wait: Please wait...
     settings:
       invitation:
         connecting: Connessione in corso...

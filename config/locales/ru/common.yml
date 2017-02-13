@@ -23,6 +23,7 @@ ru:
     expand_all: "Развернуть все"
     collapse_all: "Свернуть все"
     download: "Скачать"
+    wait: Please wait...
     settings:
       invitation:
         connecting: "Соединение..."

@@ -23,6 +23,7 @@ pl:
     expand_all: Rozszerz wszystkie
     collapse_all: Zwiń wszystkie
     download: Pobieranie
+    wait: Please wait...
     settings:
       invitation:
         connecting: "Łączenie..."

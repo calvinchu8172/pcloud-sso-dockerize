@@ -23,6 +23,7 @@ zh-TW:
     expand_all: "全部展開"
     collapse_all: "全部收回"
     download: "下載"
+    wait: "請稍等..."
     settings:
       invitation:
         connecting: "連線中..."

@@ -23,6 +23,7 @@ th:
     expand_all: "ขยายทั้งหมด"
     collapse_all: "ยุบทั้งหมด"
     download: "ดาวน์โหลด"
+    wait: Please wait...
     settings:
       invitation:
         connecting: "กำลังเชื่อมต่อ..."

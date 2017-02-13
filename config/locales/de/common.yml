@@ -23,6 +23,7 @@ de:
     expand_all: Alle erweitern
     collapse_all: Alle zusammenklappen
     download: Herunterladen
+    wait: Please wait...
     settings:
       invitation:
         connecting: Verbinden...
