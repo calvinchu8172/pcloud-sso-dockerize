@@ -49,6 +49,9 @@ module Locale
       @locale_options.each do |key, value|
         @options_path[key] = params.merge(locale: value)
       end
+
+      # if user signed in, update user language
+      current_user.locale!(locale) if user_signed_in?
     end
 
 

@@ -72,6 +72,14 @@ class User < ActiveRecord::Base
     Time.now.to_i < confirmation_expire_time.to_i
   end
 
+  # 更新語言
+  def locale!(locale)
+    if self.language != locale.to_s
+      self.language = locale
+      save(validate: false)
+    end
+  end
+
   private
     def add_default_display_name
       if self.display_name.blank?
