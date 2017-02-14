@@ -1,9 +1,9 @@
-Feature: [OAUTH_02] get user informaiton
+Feature: [OAUTH_03] get user informaiton
 
   Background:
     Given an oauth client user exists
 
-  Scenario: [OAUTH_02_01]
+  Scenario: [OAUTH_3_01]
     Valid client user get user information with valid access token
 
     Given client user confirmed
@@ -14,10 +14,10 @@ Feature: [OAUTH_02] get user informaiton
     Then the response status should be "200"
     And the JSON response should include:
       """
-      ["id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
+      ["id", "email", "language", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
 
-  Scenario: [OAUTH_02_02]
+  Scenario: [OAUTH_03_02]
     Valid client user get user information with invalid access token
 
     Given client user confirmed
@@ -32,7 +32,7 @@ Feature: [OAUTH_02] get user informaiton
       """
 
   @timecop
-  Scenario: [OAUTH_02_03]
+  Scenario: [OAUTH_03_03]
    Valid client user get user information with valid refresh token
    
    Given Time now is "2017-01-01 00:00:00"
@@ -43,7 +43,7 @@ Feature: [OAUTH_02] get user informaiton
    Then the response status should be "200"
    And the JSON response should include:
      """
-     ["id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
+     ["id", "email", "language", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
      """
     Given "30" days later
     When client send a POST request to /oauth/token with:
