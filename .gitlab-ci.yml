@@ -36,3 +36,4 @@ cucumber:
   only:
     - master
     - develop
+    - feature/20170214-1-modify-cucumber-test
