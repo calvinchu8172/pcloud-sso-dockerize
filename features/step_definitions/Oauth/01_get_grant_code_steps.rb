@@ -8,7 +8,6 @@ end
 
 Given(/^user visits authorization page$/) do
   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=code&theme=yellow&locale=zh_TW"
-  page.save_screenshot('screenshot.png')
 end
 
 Given(/^the user filled the correct login information$/) do
@@ -18,7 +17,6 @@ end
 
 When(/^the user click "(.*?)" button aa$/) do |button|
   click_button button
-  page.save_screenshot('screenshot2.png')
   color = page.evaluate_script("$('.content_wrapper').css('background-color')")
 end
 
