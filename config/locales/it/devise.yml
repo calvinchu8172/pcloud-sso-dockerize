@@ -31,14 +31,14 @@ it:
       password_invalid: password non valida
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Conferma account
-        instruction: 'Grazie per esserti registrato con ZyXEL Nube, clicca sul seguente
+        subject: Zyxel Cloud - Conferma account
+        instruction: 'Grazie per esserti registrato con Zyxel Nube, clicca sul seguente
           link per confermare la registrazione dell''account:'
         instruction_2: Clicca su questo link entro 3 giorni dal ricevimento della
           presente e-mail.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Richiesta di modifica password
-        instruction: 'Hai richiesto di modificare la password del tuo account ZyXEL
+        subject: Zyxel Cloud - Richiesta di modifica password
+        instruction: 'Hai richiesto di modificare la password del tuo account Zyxel
           Cloud. Fare clic sul seguente collegamento per iniziare la modifica della
           password.:'
         instruction_2: Se non hai fatto questa richiesta, ti preghiamo di ignorare

@@ -23,6 +23,7 @@ hu:
     expand_all: "Összes kibontása"
     collapse_all: "Összes elrejtése"
     download: Letöltés
+    wait: Please wait...
     settings:
       invitation:
         connecting: Csatlakozás...
@@ -94,8 +95,8 @@ hu:
           wordpress: Segítségével létrehozhat és kezelhet egy blogot. Használja a
             NAS adminisztrátor bejelentkezési adatokat a belépéshez. Az adminisztrátor
             további fiókokat készíthet más felhasználóknak.
-          myzyxelcloud-agent: A myZyXELcloud az Ön választása alkalmazásainak távoli
-            kezelésére, és a ZyXEL hálózat eszköz erőforrásainak elérésére a világon
+          myzyxelcloud-agent: A myZyxelCloud az Ön választása alkalmazásainak távoli
+            kezelésére, és a Zyxel hálózat eszköz erőforrásainak elérésére a világon
             bárhonnan, ahol van internet elérés.
           owncloud: "Így létrehozhatja és kezelheti saját felhőjét."
           pyload: A NAS kezelje az Ön letöltéseit, beleértve a one-click-hosting site-okról
@@ -145,7 +146,7 @@ hu:
     invalid: "érvénytelen"
     invalid_device: "Érvénytelen eszköz"
     applied_success: Sikeresen beállította fiókját.
-    confirmation_success: Köszönjük, hogy a ZyXEL Cloud szolgáltatásait használja!
+    confirmation_success: Köszönjük, hogy a Zyxel Cloud szolgáltatásait használja!
     forgot_password: Jelszavát visszaállítottuk.
     sent_email: Az e-mailt elküldtük
     agree_terms: Kérem, fogadja el a felhasználói megállapodást feltételek
@@ -206,15 +207,15 @@ hu:
           num_488: Csomag engedélyezése nem lehetséges
           num_487: Csomag letiltása nem lehetséges
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Tekintse és ossza meg anyagait, bárhol is jár.
         zyxel_drive_download_desc: 'Töltse le most:'
   blocks:
     download:
       instruction: 'Töltse le most:'
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Tekintse és ossza meg anyagait, bárhol is jár.
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Játssza le a tartalmat NAS fiókjából.

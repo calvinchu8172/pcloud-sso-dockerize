@@ -31,9 +31,9 @@ nl:
       create_account: Account aanmaken
       terms:
         instruction: Ik ga akkoord met de voorwaarde
-        instruction_2: ZyXEL Cloud gebruiksvoorwaarde
+        instruction_2: Zyxel Cloud gebruiksvoorwaarde
       edm_1: Ja, stuur mij meer informatie over
-      edm_2: ZyXEL Cloud producten of diensten.
+      edm_2: Zyxel Cloud producten of diensten.
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: Stel je wachtwoord opnieuw in

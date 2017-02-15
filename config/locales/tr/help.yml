@@ -3,28 +3,28 @@ tr:
   help:
     intro:
       title: Giriş
-      step_1: myZyXELcloud, uzak uygulama yönetimi ve bir Internet bağlantısına sahip
-        herhangi bir yerden ZyXEL ağ cihazları aksesuarınıza güvenli erişime yönelik
+      step_1: myZyxelCloud, uzak uygulama yönetimi ve bir Internet bağlantısına sahip
+        herhangi bir yerden Zyxel ağ cihazları aksesuarınıza güvenli erişime yönelik
         çözümünüzdür!
-      step_2: myZyXELcloud, bulut portalında oturum açmak için 3 yol sağlar. Ek kullanıcı
+      step_2: myZyxelCloud, bulut portalında oturum açmak için 3 yol sağlar. Ek kullanıcı
         bilgileri girmeden, var olan “FACEBOOK” veya “Google+” sosyal ağ hesabınızı
         kullanarak oturum açabilirsiniz. Bir sosyal ağ hesabınız yoksa, e-posta adresinizle
-        myZyXELcloud kaydı yaptırabilirsiniz.
+        myZyxelCloud kaydı yaptırabilirsiniz.
     sign_in:
       title: Sosyal ağla oturum açın
       step_1: Genel profilinizin ve e-posta adresinizin FACEBOOK'tan alınması için
-        lütfen myZyXELcloud isteğini kabul edin.
+        lütfen myZyxelCloud isteğini kabul edin.
       step_2: Genel profilinizin ve e-posta adresinizin Google+'tan alınması için
-        lütfen myZyXELcloud isteğini kabul edin.
-      step_3: Lütfen ZyXEL bulut kullanım hükümlerini inceleyip kabul edin.
-      step_4: Sosyal ağ hesabınızla oturum açtıktan sonra, myZyXELcloud portalı üzerinde
+        lütfen myZyxelCloud isteğini kabul edin.
+      step_3: Lütfen Zyxel bulut kullanım hükümlerini inceleyip kabul edin.
+      step_4: Sosyal ağ hesabınızla oturum açtıktan sonra, myZyxelCloud portalı üzerinde
         kullanıcı profilinizi düzenleyebilirsiniz. Hesap şifrenizi değiştirmek isterseniz,
         var olan şifrenizi değiştirmek için lütfen var olan sosyal ağ hesabınızı (FACEBOOK
         veya Google+) kullanın.
     register:
-      title: myZyXELcloud portalına kaydolun
+      title: myZyxelCloud portalına kaydolun
       step_1: Lütfen kaydolma sayfasındaki tüm gerekli bilgileri doldurun
-      step_2: myZyXELcloud, e-posta hesabınıza bir onay e-postası gönderecektir.
+      step_2: myZyxelCloud, e-posta hesabınıza bir onay e-postası gönderecektir.
       step_3: 'Doğrulanmadı düğmesine basın:'
       step_4: Bir onay e-postası almadıysanız, “başka e-posta adresine değiştir” veya
         "onay e-postasını tekrar gönder” öğesini seçebilirsiniz.
@@ -37,7 +37,7 @@ tr:
       title: "Şifremi unuttum"
       step_1: Şifrenizi unutursanız, lütfen oturum açma sayfasındaki “forgot my password”
         ("şifremi unuttum") bağlantısına tıklayın.
-      step_2: myZyXELcloud, hesap şifrenizi sıfırlamak için kayıtlı e-posta hesabınıza
+      step_2: myZyxelCloud, hesap şifrenizi sıfırlamak için kayıtlı e-posta hesabınıza
         bir e-posta gönderecektir.
       step_3: 'Not: Sosyal ağ hesabı için, hesap şifrenizi değiştirmek isterseniz,
         var olan şifrenizi değiştirmek amacıyla lütfen var olan sosyal ağ hesabınızı
@@ -45,10 +45,10 @@ tr:
       step_4: "Şifrenizi sıfırlamaya başlamak için lütfen e-posta mesajındaki bağlantıya
         tıklayın."
       step_5: Lütfen yeni şifrenizi girip Submit (Gönder) düğmesine basın.
-      step_6: myZyXELcloud, yeni sıfırlanan şifrenizle otomatik olarak oturum açacaktır.
+      step_6: myZyxelCloud, yeni sıfırlanan şifrenizle otomatik olarak oturum açacaktır.
     profile:
       title: Bulut kullanıcı profilini düzenleyin ve şifreyi değiştirin
-      step_1: myZyXELcloud oturumu açtıktan sonra lütfen sağ taraftaki kullanıcı simgesine
+      step_1: myZyxelCloud oturumu açtıktan sonra lütfen sağ taraftaki kullanıcı simgesine
       step_2: Geçerli şifreyi ve hesap şifresini değiştirmeye yönelik yeni şifreyi
         girin.
       step_3: Bulut kullanıcı profilini düzenleyin
@@ -59,7 +59,7 @@ tr:
         Add” (Elle Ekle) düğmesine basın.
       step_2: "‘NAS'ı bul’ öğesine tıklamak, NAS LED göstergenizin 30 saniye boyunca
         yanıp sönmesini sağlamalıdır."
-      step_3: myZyXELcloud, cihazınızın elle eklenmesi için MAC adresi ve seri numarası
+      step_3: myZyxelCloud, cihazınızın elle eklenmesi için MAC adresi ve seri numarası
         bilgilerinizi girmenizi gerektirir.
       step_4: Onaylayıp cihazınızı eşleştirmek için lütfen “Submit” (Gönder) düğmesine
         basın.
@@ -71,14 +71,14 @@ tr:
         adı girin. İlk karakter bir harf olmalıdır.
     upnp:
       title: UPnP Ayarı
-      step_1: Ardından, myZyXELcloud, UPnP ayarlarını eşitleyecektir.
-      step_2: myZyXELcloud, cihazınızda yüklü olan tüm UPnP hizmetlerini listeleyecektir;
+      step_1: Ardından, myZyxelCloud, UPnP ayarlarını eşitleyecektir.
+      step_2: myZyxelCloud, cihazınızda yüklü olan tüm UPnP hizmetlerini listeleyecektir;
         lütfen etkinleştirmek veya devre dışı bırakmak istediğiniz hizmetleri seçin.
       step_3: "“Hizmet Bağlantı Noktasını Göster” öğesine tıklamak, tüm hizmetlere
         yönelik bağlantı noktası numarasını listeleyecektir. Hizmet bağlantı noktası
         numarası tanımlanabilir veya bulut portalının 1024~65535 arasından kullanılabilir
         bir hizmet bağlantı noktasını otomatik olarak oluşturması sağlanır."
-      step_4: 'myZyXELcloud, güncellenmiş UPnP ayarlarının sonuçlarıyla yanıt verecektir
+      step_4: 'myZyxelCloud, güncellenmiş UPnP ayarlarının sonuçlarıyla yanıt verecektir
         (örnek: NAS540 HTTP web hizmeti varsayılan bağlantı noktası 8000 olduğunda,
         URL http://yourname:8000, ownCloud http://yourname.zyxel.me:5000/pkg/ownCloud/
         ve FTP ftp://yourname.zyxel.me şeklindedir).'
@@ -98,7 +98,7 @@ tr:
       title: Paket Kurulumu
       step_1: Paket hizmetini etkinleştirin veya devre dışı bırakın
       step_2: "“Paket Kurulumu” öğesine tıklayın"
-      step_3: myZyXELcloud, NAS'ınızdan Paket ayarlarını eşitleyecek.
+      step_3: myZyxelCloud, NAS'ınızdan Paket ayarlarını eşitleyecek.
       step_4: Portal, cihazınızda yüklü olan tüm paket hizmetlerini listeleyecektir;
         lütfen etkinleştirmek veya devre dışı bırakmak istediğiniz paketleri seçin.
       step_5: Gönder düğmesine tıklayın

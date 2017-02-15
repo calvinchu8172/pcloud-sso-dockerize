@@ -18,4 +18,4 @@ zh-TW:
     wordpress_https: "這個套件可讓您建立及管理一個部落格。 請用 NAS 管理帳號登入。管理者可以建立其他使用者的帳號。"
     php_mysql_phpmyadmin_http: "這個套件可透過網頁來管理MySQL。輸入使用者名稱 'root' 與密碼 '1234' 來登入。"
     php_mysql_phpmyadmin_https: "這個套件可透過網頁來管理MySQL。輸入使用者名稱 'root' 與密碼 '1234' 來登入。"
-    myzyxelcloud_agent: myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台
+    myzyxelcloud_agent: myZyxelCloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台

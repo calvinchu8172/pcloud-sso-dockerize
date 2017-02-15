@@ -32,14 +32,14 @@ es:
       password_invalid: contraseña invalida
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Confirmación de cuenta
-        instruction: Gracias por registrarse en ZyXEL Cloud, haga clic en el enlace
+        subject: Zyxel Cloud - Confirmación de cuenta
+        instruction: Gracias por registrarse en Zyxel Cloud, haga clic en el enlace
           siguiente para confirmar el registro
         instruction_2: Haga clic en este enlace antes de 3 días tras la recepción
           de este correo electrónico.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Solicitud de cambio de contraseña
-        instruction: Ha solicitado cambiar la contraseña de su cuenta ZyXEL Cloud.
+        subject: Zyxel Cloud - Solicitud de cambio de contraseña
+        instruction: Ha solicitado cambiar la contraseña de su cuenta Zyxel Cloud.
           Haga clic en el enlace siguiente para comenzar a cambiar la contraseña
         instruction_2: Si no ha solicitado esto, ignore el correo electrónico.
       unlock_instructions:

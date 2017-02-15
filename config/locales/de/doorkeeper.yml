@@ -30,7 +30,7 @@ de:
         error: Hoppla! Überprüfen Sie Ihre Form auf mögliche Fehler
       help:
         redirect_uri: Verwenden Sie eine Zeile pro URI
-        native_redirect_uri: Verwenden Sie% {native_redirect_uri} für lokale Tests
+        native_redirect_uri: Verwenden Sie %{native_redirect_uri} für lokale Tests
         scopes: Getrennte Bereiche mit Leerzeichen. Freilassen , die Standardbereiche
           zu verwenden.
       edit:
@@ -43,7 +43,7 @@ de:
       new:
         title: Neue Bewerbung
       show:
-        title: Anwendungsname}
+        title: Anwendungs %{name}
         application_id: Anwendungs-ID
         secret: Geheimnis
         scopes: Scopes
@@ -58,7 +58,7 @@ de:
         title: Ein Fehler ist aufgetreten
       new:
         title: Autorisierung erforderlich
-        prompt: Autorisieren% {client_name} Ihr Konto zu benutzen?
+        prompt: Autorisieren %{client_name} Ihr Konto zu benutzen?
         able_to: Diese Anwendung in der Lage,
       show:
         title: Autorisierungscode
@@ -71,7 +71,8 @@ de:
         title: Ihre autorisierte Anwendungen
         application: Anwendung
         created_at: Hergestellt in
-        date_format: "% Y-% m-% d% H:% M:% S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: Die Anforderung wird über einen erforderlichen Parameter

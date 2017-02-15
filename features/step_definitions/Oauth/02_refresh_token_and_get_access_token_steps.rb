@@ -38,13 +38,16 @@ When(/^client send a POST request to \/oauth\/token with:$/) do |table|
     redirect_uri = @oauth_client_app.redirect_uri
 
 
-    post path, {
+    response = post path, {
       grant_type: grant_type,
       refresh_token: refresh_token,
       client_id: client_id,
       client_secret: client_secret,
       redirect_uri: redirect_uri
     }
+    data = JSON.parse response.body
+    @revoked_oauth_access_token = @oauth_access_token
+    @oauth_access_token = Doorkeeper::AccessToken.find_by(token: data['access_token'])
   end
 
   if grant_type == 'authorization_code'
@@ -75,5 +78,5 @@ Given(/^client user did not confirmed and the trial period has been expired (\d+
 end
 
 Then(/^the refresh token will be revoked$/) do
-  expect(Doorkeeper::AccessToken.find_by_refresh_token(@oauth_access_token.refresh_token).nil?).to eq(false)
+  expect(Doorkeeper::AccessToken.find_by_refresh_token(@revoked_oauth_access_token.refresh_token).nil?).to eq(false)
 end

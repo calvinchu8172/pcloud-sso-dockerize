@@ -93,6 +93,7 @@ group :test do
   gem 'rack_session_access'
   gem 'letter_opener'
   gem 'action_mailer_cache_delivery'
+  gem 'timecop', '0.8.1'
 end
 
 

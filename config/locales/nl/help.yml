@@ -3,28 +3,28 @@ nl:
   help:
     intro:
       title: Introductie
-      step_1: myZyXELcloud, uw oplossing voor remote applicatiebeheer en veilig toegang
-        tot uw ZyXEL netwerkapparaten en accessoires vanaf elke locatie met een internetverbinding!
-      step_2: myZyXELcloud biedt 3 manieren om uzelf in de cloud portal aan te melden.
+      step_1: myZyxelCloud, uw oplossing voor remote applicatiebeheer en veilig toegang
+        tot uw Zyxel netwerkapparaten en accessoires vanaf elke locatie met een internetverbinding!
+      step_2: myZyxelCloud biedt 3 manieren om uzelf in de cloud portal aan te melden.
         U kunt inloggen met behulp van uw bestaande sociale netwerk-account van "Facebook"
         of "Google+" zonder het invoeren van additionele gegevens. Als u niet over
-        een sociaal netwerk-account beschikt, kunt u ook inschrijven door myZyXELcloud
+        een sociaal netwerk-account beschikt, kunt u ook inschrijven door myZyxelCloud
         met uw e-mail.
     sign_in:
       title: Aanmelden via sociale netwerken
-      step_1: MyZyXELcloud verzoek om uw publieke profiel en e-mailadres van Facebook
+      step_1: MyZyxelcloud verzoek om uw publieke profiel en e-mailadres van Facebook
         halen accepteren.
-      step_2: 'Gelieve myZyXELcloud verzoek om uw publieke profiel en e-mailadres
+      step_2: 'Gelieve myZyxelCloud verzoek om uw publieke profiel en e-mailadres
         van Google+ halen         accepteren.'
-      step_3: Controleer en accepteer de ZyXEL cloud gebruiksvoorwaarden.
+      step_3: Controleer en accepteer de Zyxel cloud gebruiksvoorwaarden.
       step_4: Na het inloggen met behulp van uw sociale netwerk-account, kunt u uw
-        gebruikersprofiel op myZyXELcloud portal bewerken. Als u wilt uw account wachtwoord
+        gebruikersprofiel op myZyxelCloud portal bewerken. Als u wilt uw account wachtwoord
         te wijzigen, dan kunt u gebruik maken van uw bestaande sociale netwerk-account
         (Facebook of Google+) om uw bestaande wachtwoord te wijzigen.
     register:
-      title: Aanmelden bij myZyXELcloud portal
+      title: Aanmelden bij myZyxelCloud portal
       step_1: Gelieve alle verplichte informatie op de pagina aanmelden vullen
-      step_2: myZyXELcloud stuurt u een bevestiging per e-mail naar uw e-mailaccount.
+      step_2: myZyxelCloud stuurt u een bevestiging per e-mail naar uw e-mailaccount.
       step_3: 'Klik op de verificatie knop:'
       step_4: Als u geen bevestigingsemail heft ontvangen, controleer uw email adres
         en/of verzend opnieuw of gebruik een ander emailadres
@@ -36,7 +36,7 @@ nl:
       title: Wachtwoord herstel
       step_1: Als u uw wachtwoord bent vergeten, klik dan op de link op het bord in
         de pagina "mijn wachtwoord vergeten".
-      step_2: myZyXELcloud zal een e-mail te sturen naar uw geregistreerde e-mail
+      step_2: myZyxelCloud zal een e-mail te sturen naar uw geregistreerde e-mail
         account om uw wachtwoord opnieuw in te stellen.
       step_3: 'PS Voor de sociale netwerk-account: als u wilt uw account wachtwoord
         te wijzigen, dan kunt u gebruik maken van uw bestaande sociale netwerk-account
@@ -44,11 +44,11 @@ nl:
       step_4: Klik op de link in het e-mailbericht te beginnen met het opnieuw instellen
         van uw wachtwoord.
       step_5: Voer alstublieft uw nieuwe wachtwoord in en druk op submit knop.
-      step_6: myZyXELcloud zal u automatisch aanmelden met uw nieuwe wachtwoord.
+      step_6: myZyxelCloud zal u automatisch aanmelden met uw nieuwe wachtwoord.
     profile:
       title: Wijzigen Cloud gebruikersprofiel en wachtwoord wijzigen
       step_1: Drukt u op de gebruiker pictogram op de rechterkant nadat u ingelogged
-        bent op myZyXELcloud
+        bent op myZyxelCloud
       step_2: Voer uw huidige en het nieuwe wachtwoord voor uw account wachtwoord
         te wijzigen.
       step_3: Bewerk cloud gebruikersprofiel
@@ -60,7 +60,7 @@ nl:
       step_2: Drukt u op zoek-knop om te beginnen met het zoeken van uw apparaat automatisch.
         Als het niet in staat om uw apparaat te vinden, drukt u op op de knop "handmatig
         toevoegen" om uw apparaat handmatig toevoegen.
-      step_3: myZyXELcloud vereist dat je de invoer van uw MAC-adres en het serienummer
+      step_3: myZyxelCloud vereist dat je de invoer van uw MAC-adres en het serienummer
         op uw apparaat handmatig toevoegen.
       step_4: Druk op de "Submit" knop om het koppelen van uw toestel te bevestigen
       step_5: Binnen 10 minuten, drukt u op de verbidnings-knop op uw toestel.
@@ -71,14 +71,14 @@ nl:
         Het eerste teken moet een letter zijn.
     upnp:
       title: UPnP instellingen
-      step_1: Vervolgens zal myZyXELcloud uw UPnP instellingen synchroniseren
-      step_2: myZyXELcloud zal alle UPnP diensten in een lijst tonene die al op uw
+      step_1: Vervolgens zal myZyxelCloud uw UPnP instellingen synchroniseren
+      step_2: myZyxelCloud zal alle UPnP diensten in een lijst tonene die al op uw
         apparaat zijn geïnstalleerd, selecteert u welke dienst (en) die u wilt in-
         of uitschakelen
-      step_3: myZyXELcloud zal alle UPnP diensten in een lijst tonene die al op uw
+      step_3: myZyxelCloud zal alle UPnP diensten in een lijst tonene die al op uw
         apparaat zijn geïnstalleerd, selecteert u welke dienst (en) die u wilt in-
         of uitschakelen
-      step_4: 'myZyXELcloud zal reageren met de bijgewerkte resultaten van UPnP-instellingen,         (voorbeeld: NAS540 HTTP webservice standaard poort is 8000, vul dan de URL
+      step_4: 'myZyxelCloud zal reageren met de bijgewerkte resultaten van UPnP-instellingen,         (voorbeeld: NAS540 HTTP webservice standaard poort is 8000, vul dan de URL
         http: // uwnaam: 8000, en ownCloud wordt http://yourname.zyxel.me:5000/pkg/ownCloud/,
         FTP is ftp: / /yourname.zyxel.me)'
       step_5: |-
@@ -96,7 +96,7 @@ nl:
       title: Pakket setup
       step_1: Schakle pakketten in of uit
       step_2: Klik pakket setup
-      step_3: myZyXELcloud zorgt voor synchronisatie van de packetinstellingen naar
+      step_3: myZyxelCloud zorgt voor synchronisatie van de packetinstellingen naar
         uw NAS
       step_4: Het Portaal zal een lijst van alle pakket diensten die al op uw apparaat
         geïnstalleerd zijn weergeven, selecteer welk pakket (en) u wilt activeren

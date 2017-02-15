@@ -30,9 +30,9 @@ tr:
       new_to_cloud: myZyxelCloud Yeni?
       create_account: Hesap açmak
       terms:
-        instruction: ZyXEL Cloud Kullanım Hükümlerini
-        instruction_2: ZyXEL Cloud kabul ediyorum
-      edm_1: Evet, bana ZyXEL Cloud Ürünleri
+        instruction: Zyxel Cloud Kullanım Hükümlerini
+        instruction_2: Zyxel Cloud kabul ediyorum
+      edm_1: Evet, bana Zyxel Cloud Ürünleri
       edm_2: ve Hizmetleri konusunda e-postalar gönder
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:

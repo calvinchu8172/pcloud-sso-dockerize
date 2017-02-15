@@ -3,30 +3,30 @@ it:
   help:
     intro:
       title: Introduzione
-      step_1: myZyXELcloud, la soluzione per la gestione delle applicazioni remote
-        e accesso sicuro ai tuoi dispositivi accessori di rete ZyXEL da qualsiasi
+      step_1: myZyxelCloud, la soluzione per la gestione delle applicazioni remote
+        e accesso sicuro ai tuoi dispositivi accessori di rete Zyxel da qualsiasi
         parte che dispone di una connessione ad internet!
-      step_2: myZyXELcloud offre 3 modi per accedere al portale cloud. È possibile
+      step_2: myZyxelCloud offre 3 modi per accedere al portale cloud. È possibile
         effettuare il login utilizzando il proprio account di social network esistente
         da "FACEBOOK" o "Google+" senza inserire informazioni utente aggiuntive. Se
         non si dispone di un account di social network, è anche possibile registrare
-        da myZyXELcloud con la propria email.
+        da myZyxelCloud con la propria email.
     sign_in:
       title: Accedi tramite social network
-      step_1: Si prega di accettare la richiesta myZyXELcloud per recuperare il vostro
+      step_1: Si prega di accettare la richiesta myZyxelCloud per recuperare il vostro
         profilo e indirizzo e-mail pubblico da FACEBOOK.
-      step_2: Si prega di accettare la richiesta myZyXELcloud per recuperare il vostro
+      step_2: Si prega di accettare la richiesta myZyxelCloud per recuperare il vostro
         profilo e indirizzo e-mail pubblico da Google+.
-      step_3: Si prega di verificare e concordare le condizioni d'uso ZyXEL cloud.
+      step_3: Si prega di verificare e concordare le condizioni d'uso Zyxel cloud.
       step_4: Dopo avere effettuato l'accesso tramite il proprio account di social
-        network, è possibile modificare il proprio profilo utente sul portale myZyXELcloud.
+        network, è possibile modificare il proprio profilo utente sul portale myZyxelCloud.
         Se si desidera cambiare la password dell'account, si prega di utilizzare i
         social network esistenti (Facebook o Google ) per modificare la password esistente.
     register:
-      title: Registra tramite il portale myZyXELcloud
+      title: Registra tramite il portale myZyxelCloud
       step_1: Si prega di compilare tutte le informazioni richieste nella pagina di
         accesso
-      step_2: myZyXELcloud invierà una e-mail di conferma al tuo account di posta
+      step_2: myZyxelCloud invierà una e-mail di conferma al tuo account di posta
         elettronica.
       step_3: 'Premere il tasto non verificato:'
       step_4: Se non avete ricevuto una mail di conferma, è possibile scegliere "passare
@@ -41,7 +41,7 @@ it:
       title: Ho dimenticato la Password
       step_1: Se hai dimenticato la password, clicca sul link "forgot my password
         (Ho dimenticato la password)" sulla pagina di accesso.
-      step_2: myZyXELcloud invierà una e-mail all'account e-mail che hai registrato
+      step_2: myZyxelCloud invierà una e-mail all'account e-mail che hai registrato
         per reimpostare la password dell'account.
       step_3: 'P.S: Per account social: Se si desidera cambiare la password dell''account,
         si prega di utilizzare i social network esistenti (Facebook o Google ) per
@@ -50,11 +50,11 @@ it:
         reimpostare la password.
       step_5: Si prega di inserire la nuova password e premere il pulsante submit
         (Invia).
-      step_6: myZyXELcloud effettuerà l'accesso automaticamente con la tua nuova password.
+      step_6: myZyxelCloud effettuerà l'accesso automaticamente con la tua nuova password.
     profile:
       title: Modifica il profilo utente del cloud e modifica la password
       step_1: Si prega di premere l'icona utente <i class="member_icon"></i> sul lato
-        destro dopo aver effettuato l'accesso su myZyXELcloud.
+        destro dopo aver effettuato l'accesso su myZyxelCloud.
       step_2: Immetti la password corrente e la password nuova per modificare la password
         dell'account.
       step_3: Modifica del profilo utente del cloud.
@@ -66,7 +66,7 @@ it:
         dispositivo manualmente.
       step_2: Fare clic su 'Individua NAS' il LED del vostro indicatore NAS dovrebbe
         lampeggiare per 30 secondi.
-      step_3: myZyXELcloud richiede di inserire il tuo indirizzo MAC e numero di serie
+      step_3: myZyxelCloud richiede di inserire il tuo indirizzo MAC e numero di serie
         numero per aggiungere manualmente il dispositivo.
       step_4: Premere "Submit (Invia)" per confermare e abbinare il dispositivo
       step_5: Entro 10 minuti, premere il pulsante pairing (abbinamento) del proprio
@@ -79,14 +79,14 @@ it:
         Il primo carattere deve essere una lettera.
     upnp:
       title: Impostazione UPnP
-      step_1: Dopodiché, myZyXELcloud sincronizzerà le impostazioni UPnP
-      step_2: myZyXELcloud elencherà tutti i servizi UPnP che sono già installati
+      step_1: Dopodiché, myZyxelCloud sincronizzerà le impostazioni UPnP
+      step_2: myZyxelCloud elencherà tutti i servizi UPnP che sono già installati
         sul dispositivo, selezionare quale servizio (i) si desidera attivare o disattivare.
       step_3: Fare clic su "Mostra porta di servizio” verrà visualizzato un elenco
         del numero di porta di tutti i servizi. Il numero di porta di servizio può
         essere definito o lasciare il portale cloud generare automaticamente una porta
         di servizio disponibile tra 1024 ~ 65535
-      step_4: 'myZyXELcloud risponderà con i risultati aggiornati delle impostazioni
+      step_4: 'myZyxelCloud risponderà con i risultati aggiornati delle impostazioni
         UPnP, (esempio: la porta predefinita del servizio web HTTP NAS540 è 8000,
         immettere il URL come http:// yourname:8000, e ownCloud è http://yourname.zyxel.me:5000/pkg/ownCloud/,
         per FTP è ftp://yourname.zyxel.me )'
@@ -108,7 +108,7 @@ it:
       title: Impostazione pacchetto
       step_1: Attivare o disattivare il servizio pacchetto
       step_2: Fare clic su “Imposta pacchetto”
-      step_3: myZyXELcloud sincronizzerà le impostazioni Pacchetto dal NAS.
+      step_3: myZyxelCloud sincronizzerà le impostazioni Pacchetto dal NAS.
       step_4: Il portale elncherà tutti i servizi pacchetto che sono già installati
         sul dispositivo, selezionare quale pacchetto(i) si desidera attivare o disattivare
       step_5: Fai clic su Invia

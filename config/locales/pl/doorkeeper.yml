@@ -30,7 +30,7 @@ pl:
         error: Ups! Sprawdź swoją formę za możliwe błędy
       help:
         redirect_uri: Użyj jednej linijki na URI
-        native_redirect_uri: Użyj% {native_redirect_uri} dla lokalnych testów
+        native_redirect_uri: Użyj %{native_redirect_uri} dla lokalnych testów
         scopes: Oddzielne zakresy ze spacjami. Pozostaw puste, aby korzystać z domyślnych
           zakresów.
       edit:
@@ -43,7 +43,7 @@ pl:
       new:
         title: Nowa aplikacja
       show:
-        title: Nazwa aplikacji}
+        title: 'Nazwa aplikacji: %{name}'
         application_id: Identyfikator Aplikacji
         secret: Sekret
         scopes: zakresy
@@ -58,7 +58,7 @@ pl:
         title: Wystąpił błąd
       new:
         title: Wymagana Autoryzacja
-        prompt: Autoryzacja% {CLIENT_NAME} korzystać z konta?
+        prompt: Autoryzacja %{client_name} korzystać z konta?
         able_to: Ta aplikacja będzie mógł
       show:
         title: Kod autoryzacji
@@ -71,7 +71,8 @@ pl:
         title: Twoje autoryzowane aplikacje
         application: Podanie
         created_at: Utworzono
-        date_format: "% Y-% m-% d% H:% M:% S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: We wniosku brakuje wymaganego parametru, zawiera nieobsługiwany

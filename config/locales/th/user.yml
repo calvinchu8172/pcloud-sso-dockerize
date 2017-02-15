@@ -31,9 +31,9 @@ th:
       create_account: "สร้างบัญชี"
       terms:
         instruction: "ข้าพเจ้าเข้าใจและยอมรับ"
-        instruction_2: ZyXEL Cloud เงื่อนไขการใช้งาน
+        instruction_2: Zyxel Cloud เงื่อนไขการใช้งาน
       edm_1: "ใช่ กรุณาส่งอีเมลหาฉันเกี่ยวกับ"
-      edm_2: ZyXEL Cloud ผลิตภัณฑ์และการบริการ
+      edm_2: Zyxel Cloud ผลิตภัณฑ์และการบริการ
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: "รีเซ็ตรหัสผ่านของคุณ"

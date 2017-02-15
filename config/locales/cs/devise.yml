@@ -31,13 +31,13 @@ cs:
       password_invalid: neplatné heslo
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - potvrzení účtu
-        instruction: 'Děkujeme vám, že jste se zaregistrovali ve službě ZyXEL Cloud.
+        subject: Zyxel Cloud - potvrzení účtu
+        instruction: 'Děkujeme vám, že jste se zaregistrovali ve službě Zyxel Cloud.
           Klikněte na následující odkaz a potvrďte svou registraci účtu:'
         instruction_2: Klikněte na tento odkaz do 3 dnů od obdržení tohoto e-mailu.
       reset_password_instructions:
-        subject: ZyXEL Cloud - požadavek změny hesla
-        instruction: 'Vyžádali jste si změnu hesla svého účtu služby ZyXEL Cloud.
+        subject: Zyxel Cloud - požadavek změny hesla
+        instruction: 'Vyžádali jste si změnu hesla svého účtu služby Zyxel Cloud.
           Kliknutím na následující odkaz začnete změnu svého hesla:'
         instruction_2: Pokud jste si toto nevyžádali, ignorujte tento e-mail.
       unlock_instructions:

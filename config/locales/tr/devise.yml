@@ -30,14 +30,14 @@ tr:
       password_invalid: geçersiz şifre
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Hesap Onayı
-        instruction: ZyXEL Cloud'a kaydolduğunuz için teşekkür ederiz. Hesap kaydınızı
+        subject: Zyxel Cloud - Hesap Onayı
+        instruction: Zyxel Cloud'a kaydolduğunuz için teşekkür ederiz. Hesap kaydınızı
           onaylamak için lütfen aşağıdaki bağlantıya tıklayın
         instruction_2: Lütfen bu e-postayı aldıktan sonraki 3 gün içinde bu bağlantıya
           tıklayın.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Şifre Değişikliği İsteği
-        instruction: ZyXEL Cloud hesabınızın şifresini değiştirmeyi istediniz. Şifreyi
+        subject: Zyxel Cloud - Şifre Değişikliği İsteği
+        instruction: Zyxel Cloud hesabınızın şifresini değiştirmeyi istediniz. Şifreyi
           değiştirmeye başlamak için lütfen aşağıdaki bağlantıya tıklayın
         instruction_2: Böyle bir istekte bulunmadıysanız lütfen bu e-postayı göz ardı
           edin.

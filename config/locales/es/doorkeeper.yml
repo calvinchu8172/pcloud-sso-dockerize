@@ -71,7 +71,8 @@ es:
         title: Tus aplicaciones autorizadas
         application: Aplicación
         created_at: Creada el
-        date_format: "%d/%m/%Y %H:%M:%S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: La petición no tiene un parámetro obligatorio, incluye un

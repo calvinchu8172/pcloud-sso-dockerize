@@ -31,15 +31,15 @@ fr:
       password_invalid: Mot de passe incorrect
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Confirmation du compte
-        instruction: Merci de votre inscription avec ZyXEL Cloud, cliquez sur le lien
+        subject: Zyxel Cloud - Confirmation du compte
+        instruction: Merci de votre inscription avec Zyxel Cloud, cliquez sur le lien
           suivant pour confirmer l'enregistrement de votre compte
         instruction_2: Cliquez sur ce lien dans les 3 jours suivant la réception de
           cet e-mail.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Demande de changement de mot de passe
+        subject: Zyxel Cloud - Demande de changement de mot de passe
         instruction: Vous avez demandé à modifier le mot de passe de votre compte
-          ZyXEL Cloud. Cliquez sur le lien ci-dessous pour commencer à changer le
+          Zyxel Cloud. Cliquez sur le lien ci-dessous pour commencer à changer le
           mot de passe
         instruction_2: Si vous n'avez pas demandé cela, ignorez cet e-mail.
       unlock_instructions:

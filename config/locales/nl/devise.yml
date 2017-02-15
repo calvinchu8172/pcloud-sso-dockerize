@@ -30,13 +30,13 @@ nl:
       password_invalid: ongeldig wachtwoord
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - Account Bevestiging
-        instruction: 'Bedankt voor het registreren met ZyXEL Cloud, klik dan op de
+        subject: Zyxel Cloud - Account Bevestiging
+        instruction: 'Bedankt voor het registreren met Zyxel Cloud, klik dan op de
           volgende link om uw account registratie te bevestigen:'
         instruction_2: Klik op deze link binnen 3 dagen na ontvangst van deze e-mail.
       reset_password_instructions:
-        subject: ZyXEL Cloud - Wachtwoord verander verzoek
-        instruction: 'U heeft gevraagd om het wachtwoord van uw ZyXEL Cloud-account
+        subject: Zyxel Cloud - Wachtwoord verander verzoek
+        instruction: 'U heeft gevraagd om het wachtwoord van uw Zyxel Cloud-account
           te wijzigen. Klik op de volgende link om te beginnen met het veranderen
           van het wachtwoord:'
         instruction_2: Als u dit niet heeft aangevraagd, negeer deze e-mail.

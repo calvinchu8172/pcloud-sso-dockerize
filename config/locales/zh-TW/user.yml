@@ -31,9 +31,9 @@ zh-TW:
       create_account: "建立帳號"
       terms:
         instruction: "我同意並且瞭解"
-        instruction_2: ZyXEL Cloud 的使用條款
+        instruction_2: Zyxel Cloud 的使用條款
       edm_1: "我同意訂閱"
-      edm_2: ZyXEL Cloud 相關訊息
+      edm_2: Zyxel Cloud 相關訊息
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: "重設密碼"

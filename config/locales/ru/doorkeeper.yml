@@ -30,7 +30,7 @@ ru:
         error: "Упс! Проверьте форму на наличие ошибок"
       help:
         redirect_uri: "Используйте одну строку на URI"
-        native_redirect_uri: "Используйте% {native_redirect_uri} для локальных тестов"
+        native_redirect_uri: "Используйте %{native_redirect_uri} для локальных тестов"
         scopes: "Отдельные прицелы с пробелами. Оставьте пустым, чтобы использовать
           области видимости по умолчанию."
       edit:
@@ -43,7 +43,7 @@ ru:
       new:
         title: "Новое приложение"
       show:
-        title: "Имя приложения}"
+        title: "Имя приложения: %{name}"
         application_id: "Идентификатор приложения"
         secret: "секрет"
         scopes: "Области применения"
@@ -58,7 +58,7 @@ ru:
         title: "произошла ошибка"
       new:
         title: "Требуется Авторизация"
-        prompt: "Авторизоваться% {CLIENT_NAME} использовать свой аккаунт?"
+        prompt: "Авторизоваться %{client_name} использовать свой аккаунт?"
         able_to: "Это приложение будет иметь возможность"
       show:
         title: "Код авторизации"
@@ -71,7 +71,8 @@ ru:
         title: "Ваши авторизованные приложения"
         application: "заявка"
         created_at: "Создан в"
-        date_format: "% Y-% m-% d% H:% M:% S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: "Запрос отсутствует обязательный параметр, включает неподдерживаемый

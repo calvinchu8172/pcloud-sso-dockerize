@@ -23,6 +23,7 @@ de:
     expand_all: Alle erweitern
     collapse_all: Alle zusammenklappen
     download: Herunterladen
+    wait: Please wait...
     settings:
       invitation:
         connecting: Verbinden...
@@ -93,8 +94,8 @@ de:
           wordpress: Hiermit haben Sie die Möglichkeit, ein Blog zu erstellen und
             zu verwalten. Verwenden Sie zum Anmelden die NAS-Administratorberechtigungen.
             Der Administrator kann dann für andere Benutzer Konten einrichten.
-          myzyxelcloud-agent: vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen
-            und sicheren Zugriff auf Ihrem ZyXEL NAS
+          myzyxelcloud-agent: vMeine Zyxel Cloud ist die Lösung für Remote Anwendungen
+            und sicheren Zugriff auf Ihrem Zyxel NAS
           owncloud: Damit können Sie Ihre private Cloud erstellen und verwalten.
           pyload: Benutze den NAS um Downloads zu verwalten, inklusive One-Click-Hoster
             Support.
@@ -143,7 +144,7 @@ de:
     invalid: ist ungültig
     invalid_device: Falsches Gerät
     applied_success: Sie haben Ihren Account erfolgreich bestätigt.
-    confirmation_success: Fühlen Sie sich frei den ZyXEL Cloud Dienst zu nutzen.
+    confirmation_success: Fühlen Sie sich frei den Zyxel Cloud Dienst zu nutzen.
     forgot_password: Ihr Passwort wurde zurückgesetzt.
     sent_email: E-Mail wurde gesendet
     agree_terms: Bitte akzeptieren Sie die Nutzungsvereinbarung Bedingungen
@@ -209,15 +210,15 @@ de:
           num_488: Paket kann nicht aktiviert werden
           num_487: Paket kann nicht deaktiviert werden
       invitation:
-        zyxel_drive: ZyXEL Drive
+        zyxel_drive: Zyxel Drive
         zyxel_drive_desc: Sehen und Teilen Sie Ihren Content von überall.
         zyxel_drive_download_desc: Jetzt herunterladen
   blocks:
     download:
       instruction: Jetzt herunterladen
     drive:
-      heading: ZyXEL Drive
+      heading: Zyxel Drive
       context: Sehen und Teilen Sie Ihren Content von überall.
     zcloud:
-      heading: ZyXEL zCloud
+      heading: Zyxel zCloud
       context: Spielen Sie NAS Content ab oder streamen Sie diesen

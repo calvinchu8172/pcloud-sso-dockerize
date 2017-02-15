@@ -31,9 +31,9 @@ ru:
       create_account: "Регистрация"
       terms:
         instruction: "Я понимаю и соглашаюсь с положениями документа"
-        instruction_2: "Условия использования ZyXEL Cloud"
+        instruction_2: "Условия использования Zyxel Cloud"
       edm_1: "Да, прошу присылать мне сообщения о"
-      edm_2: "продукции и услугах ZyXEL Cloud"
+      edm_2: "продукции и услугах Zyxel Cloud"
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: "Сбросить пароль"

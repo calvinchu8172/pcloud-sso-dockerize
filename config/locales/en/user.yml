@@ -27,13 +27,13 @@ en:
       remember_me: Remember me
       language: Language
       captcha: Captcha
-      new_to_cloud: New to myZyXelCloud?
+      new_to_cloud: New to myZyxelCloud?
       create_account: Create Account
       terms:
         instruction: I understand and agree the
-        instruction_2: ZyXEL Cloud Terms of Use
+        instruction_2: Zyxel Cloud Terms of Use
       edm_1: Yes, send me emails on
-      edm_2: ZyXEL Cloud Products and Services
+      edm_2: Zyxel Cloud Products and Services
       copy_right: "© 2016 Zyxel Communications Corp."
     titles:
       reset_password: Reset your password

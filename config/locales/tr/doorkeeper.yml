@@ -30,7 +30,7 @@ tr:
         error: Tüh! Olası hatalar için formunuzu kontrol edin
       help:
         redirect_uri: URI başına bir satırını kullanın
-        native_redirect_uri: Yerel testler için% {native_redirect_uri} kullanın
+        native_redirect_uri: Yerel testler için %{native_redirect_uri} kullanın
         scopes: boşluk ayrı kapsamları. Varsayılan kapsamları kullanmak için boş bırakın.
       edit:
         title: Düzenleme uygulaması
@@ -42,7 +42,7 @@ tr:
       new:
         title: Yeni uygulama
       show:
-        title: Uygulama Adı}
+        title: Uygulama Adı %{name}
         application_id: Uygulama Kimliği
         secret: Gizli
         scopes: kapsamları
@@ -57,7 +57,7 @@ tr:
         title: bir hata oluştu
       new:
         title: "İzin gerekmekte"
-        prompt: "% {CLIENT_NAME} hesabınızı kullanmasına izin?"
+        prompt: "%{client_name} hesabınızı kullanmasına izin?"
         able_to: Bu uygulama, mümkün olacaktır
       show:
         title: Yetki Kodu
@@ -70,7 +70,8 @@ tr:
         title: Yetkili uygulamalar
         application: Uygulama
         created_at: At düzenlendi
-        date_format: "% Y-% m-% d% H:% M:% S"
+        date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: gerekli bir parametre eksik istek, desteklenmeyen bir parametre

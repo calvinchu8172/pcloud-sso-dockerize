@@ -111,3 +111,9 @@ Feature: [PCP_001_03] Login
       And fill changing email "andy@example.com"
       And the user click "Submit" button
      Then the page should redirect to edit email confirmation page
+
+  Scenario: [PCP_001_03_12]
+    Check click Forgot Password and Create Account will open a new tab 
+    Then the "Forgot Password" link will open the new tab
+     And the "Create Account" link will open the new tab
+

@@ -34,5 +34,5 @@ de:
     php_mysql_phpmyadmin_https: Mit diesem Werkzeug können Sie MySQL über das Internet
       verwalten. Geben Sie zum Anmelden als Benutzernamen 'root' und als Kennwort
       '1234' ein.
-    myzyxelcloud_agent: vMeine ZyXEL Cloud ist die Lösung für Remote Anwendungen und
-      sicheren Zugriff auf Ihrem ZyXEL NAS
+    myzyxelcloud_agent: myZyxelCloud ist die Lösung für Remote Anwendungen und sicheren
+      Zugriff auf Ihrem Zyxel NAS

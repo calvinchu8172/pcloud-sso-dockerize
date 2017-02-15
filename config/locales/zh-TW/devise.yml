@@ -27,12 +27,12 @@ zh-TW:
       password_invalid: "密碼是無效的。"
     mailer:
       confirmation_instructions:
-        subject: ZyXEL Cloud - 帳號驗證
-        instruction: "感謝您註冊 ZyXEL Cloud 的帳號，請經由下方連結進行您的帳號驗證："
+        subject: Zyxel Cloud - 帳號驗證
+        instruction: "感謝您註冊 Zyxel Cloud 的帳號，請經由下方連結進行您的帳號驗證："
         instruction_2: "請您於三天內經由上方連結驗證您的帳號。"
       reset_password_instructions:
-        subject: ZyXEL Cloud - 修改密碼
-        instruction: "您要求修改您的 ZyXEL Cloud 密碼，請經由下方連結進行密碼的修改："
+        subject: Zyxel Cloud - 修改密碼
+        instruction: "您要求修改您的 Zyxel Cloud 密碼，請經由下方連結進行密碼的修改："
         instruction_2: "若您並沒有要求修改密碼，請您略過此封郵件。"
       unlock_instructions:
         subject: "帳號解鎖步驟"

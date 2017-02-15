@@ -3,29 +3,29 @@ de:
   help:
     intro:
       title: Einleitung
-      step_1: myZyXELcloud,Ihre Lösung für Fernverwaltung und sicheren Zugriff auf
+      step_1: myZyxelCloud,Ihre Lösung für Fernverwaltung und sicheren Zugriff auf
         Ihre Zyxel-Netzwerkgeräte von überall, wo eine Internetverbindung zur Verfügung
         steht.!
-      step_2: myZyXELcloud bietet 3 Anmeldemöglichkeiten im Cloud–Portal. Sie können
+      step_2: myZyxelCloud bietet 3 Anmeldemöglichkeiten im Cloud–Portal. Sie können
         sich von Ihrem bestehenden sozialen Netzwerk-Account zum Beispiel Facebook
         oder Google, ohne zusätzliche Eingabe von Benutzerinformationen, anmelden.
         Wenn Sie nicht über ein soziales Netzwerk angemeldet sind, können Sie sich
-        auch durch myZyXELcloud mit Ihrer Email anmelden.
+        auch durch myZyxelCloud mit Ihrer Email anmelden.
     sign_in:
       title: Anmeldung über soziale Netzwerke
-      step_1: Bitte bestätigen Sie in myZyXELcloud Ihre Daten aus dem öffentlichen
+      step_1: Bitte bestätigen Sie in myZyxelCloud Ihre Daten aus dem öffentlichen
         Profil von Facebook.
-      step_2: Bitte bestätigen Sie in myZyXELcloud Ihre Daten aus dem öffentlichen
+      step_2: Bitte bestätigen Sie in myZyxelCloud Ihre Daten aus dem öffentlichen
         Profil von Google+.
       step_3: Bitte lesen und bestätigen Sie die Nutzensbedingungen.
       step_4: Nachdem Sie in Ihrem sozialen Netzwerk-Konto angemeldet sind, können
-        Sie Ihr Benutzerprofil in myZyXELcloud Portal bearbeiten. Wenn Sie Ihr Passwort
+        Sie Ihr Benutzerprofil in myZyxelCloud Portal bearbeiten. Wenn Sie Ihr Passwort
         ändern möchten, verwenden Sie bitte den sozialen Netzwerk Account (Facebook
         oder Google).
     register:
-      title: Registrierung bei myZyXELcloud
+      title: Registrierung bei myZyxelCloud
       step_1: Bitte füllen Sie alle Informationsfelder auf der Anmeldeseite aus
-      step_2: myZyXELcloud wird Ihnen eine Bestätigungs-Email an Ihr Email-Konto senden
+      step_2: myZyxelCloud wird Ihnen eine Bestätigungs-Email an Ihr Email-Konto senden
       step_3: Bitte drücken Sie den Button “nicht geprüft”
       step_4: Wenn Sie keine Bestätigungs E-Mail erhalten haben, können Sie den Button
         “andere E-Mail Adresse verwenden” oder “E-Mail erneut senden” drücken
@@ -39,7 +39,7 @@ de:
       title: Passwort vergessen
       step_1: Wenn Sie Ihr Passwort vergessen haben, klicken Sie auf den Link “Passwort
         vergesen” auf der Anmeldeseite.
-      step_2: myZyXELcloud wird eine Email an Ihr registriertes E-Mail-Konto senden,
+      step_2: myZyxelCloud wird eine Email an Ihr registriertes E-Mail-Konto senden,
         um Ihr Passwort zurück zu setzen.
       step_3: 'Für soziale Netzwerk-Accounts: Wenn Sie Ihr Passwort ändern möchten,
         wenden Sie bitte an den Service des sozialen Netzwerk Account (Facebook oder
@@ -51,7 +51,7 @@ de:
     profile:
       title: Cloud Benutzerprofil und Passwort ändern
       step_1: Bitte drücken Sie das Benutzer-ICON auf der rechten Seite nachdem Sie
-        sich in myZyXELcloud angemeldet haben.
+        sich in myZyxelCloud angemeldet haben.
       step_2: Um Ihr Passwort zu ändern, tragen Sie bitte Ihr aktuelles und neues
         Passwort ein.
       step_3: Benutzerprofil bearbeiten
@@ -61,7 +61,7 @@ de:
         zu starten. Wenn Sie Ihr Gerät nicht finden, bitte drücken Sie den „manuelle
         Suche Button“ und tragen Ihr Gerät ein.
       step_2: Drücken Sie “NAS finden” damit die LED am NAS 30 Sekunden lang blinkt
-      step_3: myZyXELcloud benötigt die Eingabe Ihrer NAS MAC Adresse und die Seriennummer,
+      step_3: myZyxelCloud benötigt die Eingabe Ihrer NAS MAC Adresse und die Seriennummer,
         um Ihr Gerät hinzu zufügen.
       step_4: Für die Verbindung der Geräte drücken Sie den “Eingabe Button” um Ihr
         Gerät zu bestätigen.
@@ -73,14 +73,14 @@ de:
         Das erste Zeichen muss ein Buchstabe sein.
     upnp:
       title: UPnP EInstellungen
-      step_1: Als nächstes wird myZyXELcloud Ihre UPnP Einstellungen synchronisieren.
-      step_2: myZyXELcloud wird alle UPnP Services, die in Ihrem Gerät installiert
+      step_1: Als nächstes wird myZyxelCloud Ihre UPnP Einstellungen synchronisieren.
+      step_2: myZyxelCloud wird alle UPnP Services, die in Ihrem Gerät installiert
         sind auflisten. Bitte wählen Sie aus welchen Service sie aktivieren oder deaktivieren
         möchten.
       step_3: Ein Klick auf “Dienst Port anzeigen” zeigt Ihnen eine Port-Liste aller
         Dienste. Die Dienst-Port Nummer kann selbst definiert werden oder automatisch
         erstellt werden. Verfügbare Dienst-Ports sind 1024-65535.
-      step_4: 'myZyXELcloud wird Ihnen die aktualisierten UPnP Einstellungen anzeigen.,
+      step_4: 'myZyxelCloud wird Ihnen die aktualisierten UPnP Einstellungen anzeigen.,
         (example: NAS540 HTTP web service default port is 8000, please enter the URL
         as http:// yourname:8000, and ownCloud is http://yourname.zyxel.me:5000/pkg/ownCloud/,
         FTP is ftp://yourname.zyxel.me)'
@@ -102,7 +102,7 @@ de:
       title: Paket Einrichtung
       step_1: Aktivieren oder Deaktivieren der Paket Dienste
       step_2: Klicken Sie “Paket Einrichtung”
-      step_3: myZyXELcloud synchronisiert nun Ihre Paket Einstellungem vom NAS.
+      step_3: myZyxelCloud synchronisiert nun Ihre Paket Einstellungem vom NAS.
       step_4: Das Portal listet alle verfügbaren Pakete auf die derzeit auf Ihrem
         Gerät installiert sind. Bitte wählen Sie welche Pakete Sie aktivieren oder
         deaktivieren möchten.

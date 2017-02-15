@@ -72,6 +72,7 @@ fr:
         application: Application
         created_at: Créé le
         date_format: "%Y-%m-%d %H:%M:%S"
+        no_application: You have no authorized application.
     errors:
       messages:
         invalid_request: La demande manque un paramètre requis, inclut une valeur

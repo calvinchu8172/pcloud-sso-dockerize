@@ -1,6 +1,7 @@
 # json.user @user
 json.id @user.encoded_id
 json.email @user.email
+json.language @user.language
 json.account_token @account_token
 json.authentication_token @authentication_token
 json.timeout @time_out

@@ -3,27 +3,27 @@ hu:
   help:
     intro:
       title: Bevezető
-      step_1: A myZyXELcloud az Ön választása alkalmazásainak távoli kezelésére, és
-        a ZyXEL hálózat eszköz erőforrásainak elérésére a világon bárhonnan, ahol
+      step_1: A myZyxelCloud az Ön választása alkalmazásainak távoli kezelésére, és
+        a Zyxel hálózat eszköz erőforrásainak elérésére a világon bárhonnan, ahol
         van internet elérés.
-      step_2: A myZyXELcloud segítségével 3 módon jelentkezhet be a felhőbe. Bejelentkezhet
+      step_2: A myZyxelCloud segítségével 3 módon jelentkezhet be a felhőbe. Bejelentkezhet
         a már létező közösségi fiókjával, mint a „FACEBOOK” vagy a „Google+”, és nem
         kell további felhasználói adatokat megadnia. Ha nem rendelkezik közösségi
-        fiókkal, e-mail címével is regisztrálhat a myZyXELcloud szolgáltatásra.
+        fiókkal, e-mail címével is regisztrálhat a myZyxelCloud szolgáltatásra.
     sign_in:
       title: Bejelentkezés közösségi fiókkal
-      step_1: Fogadja el a myZyXELcloud kérését, hogy hozzáférhessen nyilvános profiljához
+      step_1: Fogadja el a myZyxelCloud kérését, hogy hozzáférhessen nyilvános profiljához
         és e-mail címéhez FACEBOOK adatlapján.
-      step_2: Fogadja el a myZyXELcloud kérését, hogy hozzáférhessen nyilvános profiljához
+      step_2: Fogadja el a myZyxelCloud kérését, hogy hozzáférhessen nyilvános profiljához
         és e-mail címéhez Google+ adatlapján.
-      step_3: Olvassa el és fogadja el a ZyXEL Cloud felhasználási feltételeit.
-      step_4: Miután bejelentkezett közösségi fiókjával, a myZyXELcloud portálon szerkesztheti
+      step_3: Olvassa el és fogadja el a Zyxel Cloud felhasználási feltételeit.
+      step_4: Miután bejelentkezett közösségi fiókjával, a myZyxelCloud portálon szerkesztheti
         felhasználói profilját. Ha szeretné módosítani fiókja jelszavát, a közösségi
         fiókjának (FACEBOOK vagy Google+) segítségével módosíthatja korábbi jelszavát.
     register:
-      title: Regisztráció a myZyXELcloud portálon
+      title: Regisztráció a myZyxelCloud portálon
       step_1: Adjon meg minden szükséges adatot a regisztrációs oldalon.
-      step_2: A myZyXELcloud megerősítő e-mailt fog küldeni e-mail fiókjára.
+      step_2: A myZyxelCloud megerősítő e-mailt fog küldeni e-mail fiókjára.
       step_3: 'Nyomja meg a ''nincs megerősítve'' gombot:'
       step_4: Ha nem kapott megerősítő e-mailt, választhatja az "e-mail cím cseréje"
         vagy a "megerősítő e-mail újraküldése" lehetőséget
@@ -36,7 +36,7 @@ hu:
       title: Elfelejtett jelszó
       step_1: Ha elfelejtette jelszavát, kattintson a „forgot my password” (elfelejtett
         jelszó) hivatkozásra a bejelentkező oldalon.
-      step_2: A myZyXELcloud jelszava visszaállításához egy jelszó-visszaállítási
+      step_2: A myZyxelCloud jelszava visszaállításához egy jelszó-visszaállítási
         e-mailt fog küldeni regisztrált e-mail címére.
       step_3: 'U.i. közösségi fiókokhoz: Ha szeretné fiókja jelszavát módosítani,
         a közösségi fiókjának (FACEBOOK vagy Google+) segítségével módosíthatja korábbi
@@ -44,11 +44,11 @@ hu:
       step_4: Kattintson az e-mailben kapott hivatkozásra a jelszó visszaállításának
         megkezdéséhez.
       step_5: Adja meg új jelszavát, és nyomja meg a submit (elküldés) gombot.
-      step_6: "Új jelszavával automatikusan bejelentkezik a myZyXELcloud-ra."
+      step_6: "Új jelszavával automatikusan bejelentkezik a myZyxelCloud-ra."
     profile:
       title: Felhasználói profil szerkesztése és jelszó módosítása
       step_1: Kattintson a <i class="member_icon"></i> felhasználó ikonra a jobb oldalon,
-        miután bejelentkezett a myZyXELcloud-ra.
+        miután bejelentkezett a myZyxelCloud-ra.
       step_2: Módosításhoz adja meg eddigi jelszavát, majd az új jelszót.
       step_3: Felhasználói profil szerkesztése
     pair:
@@ -58,7 +58,7 @@ hu:
         az eszköz kézi hozzáadásához.
       step_2: A ‘NAS helyének keresése' lehetőségre kattintva a NAS LED jelzőfényének
         villognia kell 30 másodpercig.
-      step_3: Ha kézzel ad eszközöket myZyXELcloud szolgáltatáshoz, meg kell adni
+      step_3: Ha kézzel ad eszközöket myZyxelCloud szolgáltatáshoz, meg kell adni
         a MAC címet és a sorozatszámot.
       step_4: Nyomja meg a „submit” (elküldés) gombot az eszköz párosításának megerősítéséhez
       step_5: 10 percen belül nyomja meg a pairing (párosítás) gombot készülékén.
@@ -70,15 +70,15 @@ hu:
         betű legyen.
     upnp:
       title: UPnP beállítás
-      step_1: Ezt követően a myZyXELcloud szinkronizálja az UPnP beállításokat.
-      step_2: A myZyXELcloud kilistáz minden UPnP szolgáltatást, mely már telepítve
+      step_1: Ezt követően a myZyxelCloud szinkronizálja az UPnP beállításokat.
+      step_2: A myZyxelCloud kilistáz minden UPnP szolgáltatást, mely már telepítve
         van eszközére, válassza ki, mely szolgáltatás(oka)t szeretne engedélyezni
         vagy kikapcsolni.
       step_3: A “Szolgáltatásport mutatása” lehetőségre kattintva kilistázódik az
         összes szolgáltatás portszáma. A szolgáltatásport számát meghatározhatja,
         vagy pedig hagyhatja, hogy a felhő portál automatikusan hozza létre az elérhető
         szolgáltatásportot 1024 és 65535 között
-      step_4: 'A myZyXELcloud a frissített UPnP beállításokkal válaszol (például:
+      step_4: 'A myZyxelCloud a frissített UPnP beállításokkal válaszol (például:
         a NAS540 HTTP web szolgáltatás alapértelmezett portja a 8000, az URL-t a következőképp
         adja meg: http:// yourname:8000, és a saját felhője: http://yourname.zyxel.me:5000/pkg/ownCloud/,
         az FTP: ftp://yourname.zyxel.me).'
@@ -100,7 +100,7 @@ hu:
       title: Csomag beállítása
       step_1: Csomag szolgáltatás engedélyezése vagy letiltása
       step_2: Kattintson a “Csomag beállítása” lehetőségre
-      step_3: A myZyXELcloud szinkronizálja a Csomag beállításokat az NAS alapján.
+      step_3: A myZyxelCloud szinkronizálja a Csomag beállításokat az NAS alapján.
       step_4: A portál kilistáz minden csomag szolgáltatást, mely már telepítve van
         eszközére, válassza ki, mely csomag(oka)t szeretne engedélyezni vagy kikapcsolni
       step_5: Kattintson a Submit (Küldés) gombra

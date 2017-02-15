@@ -3,27 +3,27 @@ en:
   help:
     intro:
       title: Introduction
-      step_1: myZyXELcloud, your solution for remote application management and secure
-        access to your ZyXEL network devices from anywhere that has an internet connection!
-      step_2: myZyXELcloud provides 3 ways to sign in the cloud portal. You can login
+      step_1: myZyxelCloud, your solution for remote application management and secure
+        access to your Zyxel network devices from anywhere that has an internet connection!
+      step_2: myZyxelCloud provides 3 ways to sign in the cloud portal. You can login
         by using your existing social network account from either “FACEBOOK” or “Google+”
         without entering additional user information. If you don’t have a social network
-        account, you also can register by myZyXELcloud with your email.
+        account, you also can register by myZyxelCloud with your email.
     sign_in:
       title: Sign in by social network
-      step_1: Please accept myZyXELcloud request to retrieve your public profile and
+      step_1: Please accept myZyxelCloud request to retrieve your public profile and
         e-mail address from FACEBOOK.
-      step_2: Please accept myZyXELcloud request to retrieve your public profile and
+      step_2: Please accept myZyxelCloud request to retrieve your public profile and
         e-mail address from Google+.
       step_3: Please read the terms of use and confirm to agree to it.
       step_4: After your social network account is signed in, you can edit your user
-        profile in myZyXELcloud portal. If you want to change your account password,
+        profile in myZyxelCloud portal. If you want to change your account password,
         please use your existing social network account (FACEBOOK or Google+) to change
         your existing password.
     register:
-      title: Register by myZyXELcloud portal
+      title: Register by myZyxelCloud portal
       step_1: Please fill in all required information fields in the sign up page
-      step_2: myZyXELcloud will send a confirmation e-mail to your e-mail account.
+      step_2: myZyxelCloud will send a confirmation e-mail to your e-mail account.
       step_3: 'Press the unverified button:'
       step_4: If you haven’t received a confirmation email, you can choose “change
         to another e-mail” or resend confirmation e-mail”
@@ -36,7 +36,7 @@ en:
       title: Forgot my password
       step_1: If you’ve forgotten your password, please click on “forgot my password”
         link at the sign in page.
-      step_2: myZyXELcloud will send an e-mail to your registered e-mail account to
+      step_2: myZyxelCloud will send an e-mail to your registered e-mail account to
         assist you on resetting your account password.
       step_3: 'For social network accounts: If you want to change your account password,
         please use your existing social network account’s service (FACEBOOK or Google+)
@@ -44,11 +44,11 @@ en:
       step_4: Please click the link in the e-mail message to begin resetting your
         password.
       step_5: Please input your new password and press the submit button.
-      step_6: myZyXELcloud will sign in with your new reset password automatically.
+      step_6: myZyxelCloud will sign in with your new reset password automatically.
     profile:
       title: Edit cloud user profile and change password
       step_1: Please press the user icon <i class="member_icon"></i> on the right
-        hand side after you have signed in myZyXELcloud.
+        hand side after you have signed in myZyxelCloud.
       step_2: Input current password and new password for changing your existing account
         password.
       step_3: Edit cloud user profile
@@ -59,7 +59,7 @@ en:
         to add your device manually.
       step_2: Click ‘Locate NAS’ it should make your NAS LED indicator flash for 30
         seconds.
-      step_3: myZyXELcloud requires input of your NAS’ MAC address and serial number
+      step_3: myZyxelCloud requires input of your NAS’ MAC address and serial number
         information to manually add your device.
       step_4: Press “Submit” button to confirm and pair your device
       step_5: Within 10 minutes, press the pairing button on your NAS device.
@@ -70,13 +70,13 @@ en:
         First character should be a letter.
     upnp:
       title: UPnP Setting
-      step_1: Next, myZyXELcloud will synchronize your UPnP settings
-      step_2: myZyXELcloud will lists all UPnP services that’s already installed on
+      step_1: Next, myZyxelCloud will synchronize your UPnP settings
+      step_2: myZyxelCloud will lists all UPnP services that’s already installed on
         your device, please select which service(s) you would like to enable or disable.
       step_3: Click “Show Service Port” will list the port number of all services.
         The service port number can be defined or lets the cloud portal to automatically
         generate an available service port from 1024~65535
-      step_4: 'myZyXELcloud will respond with the updated results of UPnP settings,
+      step_4: 'myZyxelCloud will respond with the updated results of UPnP settings,
         (example: NAS540 HTTP web service default port is 8000, please enter the URL
         as http:// yourname:8000, and ownCloud is http://yourname.zyxel.me:5000/pkg/ownCloud/,
         FTP is ftp://yourname.zyxel.me)'
@@ -94,7 +94,7 @@ en:
       title: Package Setup
       step_1: Enable or disable package service
       step_2: Click “Package Setup”
-      step_3: myZyXELcloud will synchronize Package settings from your NAS.
+      step_3: myZyxelCloud will synchronize Package settings from your NAS.
       step_4: Portal will lists all package services that’s already installed on your
         device, please select which package(s) you would like to enable or disable.
       step_5: Click Submit

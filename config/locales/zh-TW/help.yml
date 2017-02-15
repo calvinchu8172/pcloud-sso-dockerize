@@ -3,19 +3,19 @@ zh-TW:
   help:
     intro:
       title: "介紹"
-      step_1: myZyXELcloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台
-      step_2: myZyXELcloud 提供三種方式登入雲端入口網站，你可以從Facebook和 Google+ 使用現有的社群帳號作登入，並且不需用輸入額外的用戶資訊。如果你沒有網路社群帳號，你也可以在myZyXELcloud透過電子郵件的方式註冊。
+      step_1: myZyxelCloud 提供您一個在任何具有網路連線的地方，遠端控管應用程式及安全存取合勤網路設備的平台
+      step_2: myZyxelCloud 提供三種方式登入雲端入口網站，你可以從Facebook和 Google+ 使用現有的社群帳號作登入，並且不需用輸入額外的用戶資訊。如果你沒有網路社群帳號，你也可以在myZyxelCloud透過電子郵件的方式註冊。
     sign_in:
       title: "透過社群網站進行登入動作"
-      step_1: "請接受 myZyXELcloud 從Facebook取得你對外公開的使用者檔案的請求"
-      step_2: "請接受 myZyXELcloud 從Google+取得你對外公開的使用者檔案的請求"
+      step_1: "請接受 myZyxelCloud 從Facebook取得你對外公開的使用者檔案的請求"
+      step_2: "請接受 myZyxelCloud 從Google+取得你對外公開的使用者檔案的請求"
       step_3: "請確認並且同意合勤雲端使用者條款"
-      step_4: "當您透過網路社群帳號登入後，您可以在myZyXELcloud 網站編輯個人檔案，但是如果你想要變更您的帳號密碼，請使用您現有的社群網路(FACEBOOK
+      step_4: "當您透過網路社群帳號登入後，您可以在myZyxelCloud 網站編輯個人檔案，但是如果你想要變更您的帳號密碼，請使用您現有的社群網路(FACEBOOK
         或 Google+)來變更您現有的密碼。"
     register:
-      title: "透過myZyXELcloud 網站進行註冊"
+      title: "透過myZyxelCloud 網站進行註冊"
       step_1: "請在註冊頁面填寫所有的必要資訊"
-      step_2: myZyXELcloud 將會寄出確認信件到您填寫的郵件位址
+      step_2: myZyxelCloud 將會寄出確認信件到您填寫的郵件位址
       step_3: "按下未驗證按鈕"
       step_4: "如果您未收到確認信件，您可以選擇修改信箱位置或者重寄確認信"
       step_5: "如果您在現有的信箱位置遇到任何問題，您可以更改信箱位置"
@@ -24,21 +24,21 @@ zh-TW:
     forget_pwd:
       title: "忘記密碼"
       step_1: "如果您忘記您的密碼，請點選在登入頁面的”忘記密碼”連結"
-      step_2: myZyXELcloud 將會寄出一封重置密碼的郵件到您註冊的郵件信箱位址
+      step_2: myZyxelCloud 將會寄出一封重置密碼的郵件到您註冊的郵件信箱位址
       step_3: "注意: 對社群網路帳號: 如果你想要變更您的帳號密碼，請使用您現有的社群網路(FACEBOOK 或 Google+)來變更您現有的密碼。"
       step_4: "請點選在信件中的連結來重置您的密碼"
       step_5: "請輸入您的新密碼並且按下提交按鍵"
-      step_6: myZyXELcloud 將會自動使用您的新密碼作登入動作
+      step_6: myZyxelCloud 將會自動使用您的新密碼作登入動作
     profile:
       title: "編輯雲端使用者的個人資訊和變更密碼"
-      step_1: 登入myZyXELcloud之後，請按下在右手邊的使用者圖像 <i class="member_icon"></i>
+      step_1: 登入myZyxelCloud之後，請按下在右手邊的使用者圖像 <i class="member_icon"></i>
       step_2: "請輸入現在的密碼和新的密碼來更改您的帳號密碼"
       step_3: "編輯雲端使用者個人資訊"
     pair:
       title: "裝置配對"
       step_1: "請按下搜尋按鈕來自動開始搜尋您的裝置，如果沒有成功發現您的裝置，請點選”手動加入裝置按鍵” 來透過手動的方式增加您的裝置。"
       step_2: "按下NAS定位按鍵會讓NAS的LED燈號閃爍三十秒鐘"
-      step_3: myZyXELcloud手動加入裝置過程，將會要求您輸入您的網路硬體位置 (MAC address) 和產品序號
+      step_3: myZyxelCloud手動加入裝置過程，將會要求您輸入您的網路硬體位置 (MAC address) 和產品序號
       step_4: "請點選”提交”按鈕來確認配對您的裝置"
       step_5: "請在十分鐘內，在您的裝置上點選”配對”按鈕"
       step_6: "請按下”確認”按鈕繼續設定 DDNS 和 UPnP服務"
@@ -47,10 +47,10 @@ zh-TW:
       step_1: "請輸入三到六十三個字元來命名您希望的DDNS名稱，第一個字元必須是英文字母"
     upnp:
       title: UPnP 設定
-      step_1: "下一步，myZyXELcloud將會同步化UPnP設定"
-      step_2: myZyXELcloud將會列出您已安裝在裝置內的所有UPnP服務，請選擇您想要開啟或關閉哪一個 (些) 服務
+      step_1: "下一步，myZyxelCloud將會同步化UPnP設定"
+      step_2: myZyxelCloud將會列出您已安裝在裝置內的所有UPnP服務，請選擇您想要開啟或關閉哪一個 (些) 服務
       step_3: "按下”顯示服務埠”按鍵將會列出所有服務的埠號，服務埠號可以自行定義，或者讓雲端主機自動的在有效的埠號1024-65535中幫您挑選。"
-      step_4: 'myZyXELcloud 將會回應您UPnP設定更新的結果 (範例: NAS540 HTTP網頁服務預設的連接埠是8000, 請輸入網址如下http://
+      step_4: 'myZyxelCloud 將會回應您UPnP設定更新的結果 (範例: NAS540 HTTP網頁服務預設的連接埠是8000, 請輸入網址如下http://
         您的名稱.zyxel.me:8000，owncloud服務預設的連接埠是5000, 請輸入網址如下http:// 您的名稱.zyxel.me:5000
         FTP檔案伺服器服務是 ftp://您的名稱.zyxel.me'
       step_5: |-
@@ -66,7 +66,7 @@ zh-TW:
       title: "套件設定"
       step_1: "開啟或關閉套件服務"
       step_2: "按下套件設定"
-      step_3: myZyXELcloud將會從NAS同步您的套件設定
+      step_3: myZyxelCloud將會從NAS同步您的套件設定
       step_4: "網頁將會列出所有已經安裝於設備中的套件服務，請選擇開啟或關閉任一套件服務."
       step_5: "按下確認送出"
       step_6: "套件服務設定的功能只支援在NAS韌體 v5.1 或之後，Cloud Agent v1.0.0或之後的版本."
