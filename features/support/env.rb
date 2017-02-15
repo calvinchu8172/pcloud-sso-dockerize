@@ -49,8 +49,8 @@ ActionController::Base.allow_rescue = false
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin
-  DatabaseCleaner.strategy = :truncation
-  DatabaseCleaner[:active_record,{:model => XmppUser}].strategy = :truncation
+  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner[:active_record,{:model => XmppUser}].strategy = :transaction
 
   Before do
     DatabaseCleaner.start
@@ -90,7 +90,7 @@ end
 # Possible values are :truncation and :transaction
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
-Cucumber::Rails::Database.javascript_strategy = :truncation
+Cucumber::Rails::Database.javascript_strategy = :transaction
 
 if Bullet.enable?
   Before do

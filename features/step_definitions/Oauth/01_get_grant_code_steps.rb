@@ -1,7 +1,7 @@
 Given(/^an oauth client user exists to get grant code$/) do
-  @oauth_client_user = FactoryGirl.create(:oauth_user)
-  @email = @oauth_client_user.email
-  @password = @oauth_client_user.password
+  @oauth_client_user = FactoryGirl.create(:user)
+  # @email = @oauth_client_user.email
+  # @password = @oauth_client_user.password
 end
 
 Given(/^(\d+) existing client app$/) do |arg1|
@@ -17,10 +17,12 @@ Given(/^user visits authorization page$/) do
 end
 
 Given(/^the user filled the correct login information$/) do
-  puts @oauth_client_user
-  puts @email
-  fill_in "user[email]", with: @email
-  fill_in "user[password]", with: @password
+  # puts @oauth_client_user
+  # puts @email
+  # fill_in "user[email]", with: @email
+  # fill_in "user[password]", with: @password
+  fill_in "user[email]", with: @oauth_client_user.email
+  fill_in "user[password]", with: @oauth_client_user.password
 end
 
 When(/^the user click "(.*?)" button aa$/) do |button|
