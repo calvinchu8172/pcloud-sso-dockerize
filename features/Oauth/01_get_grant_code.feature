@@ -25,19 +25,28 @@ Feature: [OAUTH_01] get grant code
      When the user click "Deny" button
      Then user will be redirect to his app url with deny message
 
-  Scenario Outline: [OAUTH_01_03]
+  # Scenario Outline: [OAUTH_01_03]
+  #   User gets error message with error params
+
+  #   Given user visits authorization page with wrong <params>
+  #     And the user filled the correct login information
+  #    When the user click "SIGN IN" button
+  #    When the user click "Skip" link
+  #    Then user see the <error_message> on page
+  #   Examples:
+  #     | params                | error_message             |
+  #     | invalid_client_id     | invalid_client            |
+  #     | invalid_redirect_uri  | invalid_redirect_uri      |
+  #     | invalid_response_type | unsupported_response_type |
+
+  Scenario: [OAUTH_01_03]
     User gets error message with error params
 
-    Given user visits authorization page with wrong <params>
+    Given user visits authorization page with invalid client id
       And the user filled the correct login information
      When the user click "SIGN IN" button
      When the user click "Skip" link
-     Then user see the <error_message> on page
-    Examples:
-      | params                | error_message             |
-      # | invalid_client_id     | invalid_client            |
-      | invalid_redirect_uri  | invalid_redirect_uri      |
-      | invalid_response_type | unsupported_response_type |
+     Then user sees the error message on page
      
   Scenario Outline:  [OAUTH_01_04]
     Client app changes theme color

@@ -45,6 +45,15 @@ Given(/^user visits authorization page with wrong (.*?)$/) do |params|
   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=#{params}" if params == 'invalid_response_type'
 end
 
+Given(/^user visits authorization page with invalid client id$/) do
+  visit "/oauth/authorize?client_id=invalid_client_id&redirect_uri=#{@redirect_uri}&response_type=code"
+end
+
+Then(/^user sees the error message on page$/) do
+  expect(page).to have_content(I18n.t("doorkeeper.authorizations.error.title"))
+  expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_client"))
+end
+
 Then(/^user see the (.*?) on page$/) do |error_message|	
   expect(page).to have_content(I18n.t("doorkeeper.authorizations.error.title"))
   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_client")) if error_message == 'invalid_client'
