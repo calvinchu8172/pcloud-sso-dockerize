@@ -28,11 +28,11 @@ Feature: [OAUTH_01] get grant code
   Scenario Outline: [OAUTH_01_03]
     User gets error message with error params
 
-    Given user visits authorization page with wrong "<params>"
+    Given user visits authorization page with wrong <params>
       And the user filled the correct login information
      When the user click "SIGN IN" button
      When the user click "Skip" link
-     Then user see the "<error_message>" on page
+     Then user see the <error_message> on page
     Examples:
       | params                | error_message             |
       | invalid_client_id     | invalid_client            |
