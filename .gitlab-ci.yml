@@ -15,7 +15,7 @@ cucumber:
     - rename 's/.example//' config/*.example
     - bundle install --jobs $(nproc) --path=/cache/bundler
     - mysqladmin -uroot -h mysql create mycloud_test
-    - RAILS_ENV=test bundle exec rake db:migrate db:seed
+    - RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
     - mkdir test-plans
     - xvfb-run -a bundle exec cucumber --format html --out test-plans/report.html
     # - xvfb-run -a bundle exec cucumber features/Oauth/ -r features --format html --out test-plans/report_Oauth.html
