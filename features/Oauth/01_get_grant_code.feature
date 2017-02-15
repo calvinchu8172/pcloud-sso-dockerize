@@ -35,7 +35,7 @@ Feature: [OAUTH_01] get grant code
      Then user see the <error_message> on page
     Examples:
       | params                | error_message             |
-      | invalid_client_id     | invalid_client            |
+      # | invalid_client_id     | invalid_client            |
       | invalid_redirect_uri  | invalid_redirect_uri      |
       | invalid_response_type | unsupported_response_type |
      
