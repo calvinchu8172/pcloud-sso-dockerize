@@ -30,7 +30,9 @@ end
 
 
 Given(/^user visits authorization page with wrong (.*?)$/) do |params|	
-  visit "/oauth/authorize?client_id=error_client_id&#{@redirect_uri}=error_client_id&response_type=code&theme=yellow&locale=zh_TW"
+  visit "/oauth/authorize?client_id=#{params}&redirect_uri=#{@redirect_uri}&response_type=code" if params == 'invalid_client_id'
+  visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{params}&response_type=code" if params == 'invalid_redirect_uri'
+  visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=#{params}" if params == 'invalid_response_type'
 end
 
 Then(/^user see the (.*?) on page$/) do |error_message|	
