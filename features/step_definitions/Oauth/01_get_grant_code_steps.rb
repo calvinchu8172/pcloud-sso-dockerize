@@ -1,3 +1,7 @@
+Given(/^an oauth client user exists to get grant code$/) do
+  @oauth_client_user = FactoryGirl.create(:user)
+end
+
 Given(/^(\d+) existing client app$/) do |arg1|
   @oauth_client_app = FactoryGirl.create(:oauth_client_app)
   # @oauth_access_token = FactoryGirl.create(:oauth_access_token, resource_owner_id: @oauth_client_user.id, application_id: @oauth_client_app.id, use_refresh_token: true)
@@ -11,6 +15,7 @@ Given(/^user visits authorization page$/) do
 end
 
 Given(/^the user filled the correct login information$/) do
+  puts @oauth_client_user.email
   fill_in "user[email]", with: @oauth_client_user.email
   fill_in "user[password]", with: @oauth_client_user.password
 end

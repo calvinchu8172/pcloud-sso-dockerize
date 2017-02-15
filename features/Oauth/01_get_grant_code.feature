@@ -2,7 +2,7 @@
 Feature: [OAUTH_01] get grant code
 
   Background:
-    Given an oauth client user exists
+    Given an oauth client user exists to get grant code
       And 1 existing client app
 
   Scenario: [OAUTH_01_01]
