@@ -40,15 +40,33 @@ Feature: [OAUTH_01] get grant code
   #     | invalid_response_type | unsupported_response_type |
 
   Scenario: [OAUTH_01_03]
-    User gets error message with error params
+    User gets invalid client message on page with invalid client id 
 
-    Given user visits authorization page with invalid client id
+    Given user visits authorization page with "invalid_client_id"
       And the user filled the correct login information
      When the user click "SIGN IN" button
      When the user click "Skip" link
-     Then user sees the error message on page
+     Then user sees the "invalid_client" message on page
+
+  Scenario: [OAUTH_01_04]
+    User gets invalid redirect uri message on page with invalid redirect uri
+
+    Given user visits authorization page with "invalid_redirect_uri"
+      And the user filled the correct login information
+     When the user click "SIGN IN" button
+     When the user click "Skip" link
+     Then user sees the "invalid_redirect_uri" message on page
      
-  Scenario Outline:  [OAUTH_01_04]
+  Scenario: [OAUTH_01_05]
+    User gets invalid redirect uri message on page with invalid redirect uri
+
+    Given user visits authorization page with "unsupported_response_type"
+      And the user filled the correct login information
+     When the user click "SIGN IN" button
+     When the user click "Skip" link
+     Then user sees the "unsupported_response_type" message on page
+     
+  Scenario Outline:  [OAUTH_01_06]
     Client app changes theme color
 
     Given user visits authorization page with <color> theme

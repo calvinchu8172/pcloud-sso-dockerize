@@ -1,7 +1,5 @@
 Given(/^an oauth client user exists to get grant code$/) do
   @oauth_client_user = FactoryGirl.create(:user)
-  # @email = @oauth_client_user.email
-  # @password = @oauth_client_user.password
 end
 
 Given(/^(\d+) existing client app$/) do |arg1|
@@ -17,17 +15,8 @@ Given(/^user visits authorization page$/) do
 end
 
 Given(/^the user filled the correct login information$/) do
-  # puts @oauth_client_user
-  # puts @email
-  # fill_in "user[email]", with: @email
-  # fill_in "user[password]", with: @password
   fill_in "user[email]", with: @oauth_client_user.email
   fill_in "user[password]", with: @oauth_client_user.password
-end
-
-When(/^the user click "(.*?)" button aa$/) do |button|
-  click_button button
-  color = page.evaluate_script("$('.content_wrapper').css('background-color')")
 end
 
 Then(/^user will be redirect to his app url with grant code\.$/) do
@@ -38,28 +27,41 @@ Then(/^user will be redirect to his app url with deny message$/) do
   expect(current_url).to eq(@oauth_client_app.redirect_uri + '?error=access_denied&error_description=The+resource+owner+or+authorization+server+denied+the+request.')
 end
 
-
-Given(/^user visits authorization page with wrong (.*?)$/) do |params|	
-  visit "/oauth/authorize?client_id=#{params}&redirect_uri=#{@redirect_uri}&response_type=code" if params == 'invalid_client_id'
-  visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{params}&response_type=code" if params == 'invalid_redirect_uri'
-  visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=#{params}" if params == 'invalid_response_type'
-end
+# Given(/^user visits authorization page with wrong (.*?)$/) do |params|	
+#   visit "/oauth/authorize?client_id=#{params}&redirect_uri=#{@redirect_uri}&response_type=code" if params == 'invalid_client_id'
+#   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{params}&response_type=code" if params == 'invalid_redirect_uri'
+#   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=#{params}" if params == 'invalid_response_type'
+# end
 
 Given(/^user visits authorization page with invalid client id$/) do
   visit "/oauth/authorize?client_id=invalid_client_id&redirect_uri=#{@redirect_uri}&response_type=code"
 end
 
-Then(/^user sees the error message on page$/) do
+Then(/^user sees the invalid client message on page$/) do
   expect(page).to have_content(I18n.t("doorkeeper.authorizations.error.title"))
   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_client"))
 end
 
-Then(/^user see the (.*?) on page$/) do |error_message|	
+Given(/^user visits authorization page with "(.*?)"$/) do |params|
+  visit "/oauth/authorize?client_id=#{params}&redirect_uri=#{@redirect_uri}&response_type=code" if params == 'invalid_client_id'
+  visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{params}&response_type=code" if params == 'invalid_redirect_uri'
+  visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=#{params}" if params == 'unsupported_response_type'
+end
+
+Then(/^user sees the "(.*?)" message on page$/) do |error_message|
   expect(page).to have_content(I18n.t("doorkeeper.authorizations.error.title"))
   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_client")) if error_message == 'invalid_client'
   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_redirect_uri")) if error_message == 'invalid_redirect_uri'
   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.unsupported_response_type")) if error_message == 'unsupported_response_type'
 end
+
+
+# Then(/^user see the (.*?) on page$/) do |error_message|	
+#   expect(page).to have_content(I18n.t("doorkeeper.authorizations.error.title"))
+#   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_client")) if error_message == 'invalid_client'
+#   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_redirect_uri")) if error_message == 'invalid_redirect_uri'
+#   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.unsupported_response_type")) if error_message == 'unsupported_response_type'
+# end
 
 
 Given(/^user visits authorization page with (.*?) theme$/) do |color|
