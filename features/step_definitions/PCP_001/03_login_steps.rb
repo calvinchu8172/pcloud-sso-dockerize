@@ -98,7 +98,41 @@ end
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------
 Then(/^user will login and redirect to welcome page$/) do
-    expect(page.current_path).to eq("/")
+  expect(page.current_path).to eq("/")
+end
+
+Then(/^user will login and see welcome on welcome page$/) do
+  expect(page).to have_content('Welcome')
+end
+
+Then(/^user will see log in page$/) do
+  expect(page).to have_content('Remember me')
+end
+
+Then(/^the timeout session is '(\d+)' minutes$/) do |minutes|
+  puts @user.timeout_in
+  expect(@user.timeout_in).to eq(minutes.to_i*60)
+end
+
+Given(/^the user checked Remember me$/) do
+  # within(".remember-me") do
+  #   check('remember_me')
+  #   page.check('remember_me')
+  #   page.check('Remember me')
+  #   find("input[type='checkbox'][value='1']").set(true)
+  #   find("input[type='checkbox'][value='1']").click
+  #   find(:css, "#remember_me[value='1']").set(true)
+  #   find(:css, "#remember_me[value='1']").click
+  #   check(find("input[type='checkbox']")['1'])
+  # end
+  @user.remember_me!
+  # page.save_screenshot('screenshot.png')
+  # binding.pry
+end
+
+Then(/^the remember me session has '(\d+)' days$/) do |days|
+  remain_time = ((@user.remember_expires_at - Time.now)/(24*60*60)).ceil.to_s
+  expect(remain_time).to eq(days)
 end
 
 Then(/^the page should redirect to resend email of confirmation page$/) do
