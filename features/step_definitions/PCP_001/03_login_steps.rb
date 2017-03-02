@@ -105,7 +105,7 @@ Then(/^user will login and see welcome on welcome page$/) do
   expect(page).to have_content('Welcome')
 end
 
-Then(/^user will see log in page$/) do
+Then(/^user will see login page$/) do
   expect(page).to have_content('Remember me')
 end
 
