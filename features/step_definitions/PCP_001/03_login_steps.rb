@@ -116,21 +116,26 @@ end
 
 Given(/^the user checked Remember me$/) do
   # within(".remember-me") do
-  #   check('remember_me')
-  #   page.check('remember_me')
-  #   page.check('Remember me')
-  #   find("input[type='checkbox'][value='1']").set(true)
-  #   find("input[type='checkbox'][value='1']").click
-  #   find(:css, "#remember_me[value='1']").set(true)
-  #   find(:css, "#remember_me[value='1']").click
+    check('user[remember_me]')
+    # check('user_remember_me')
+    # page.check('user[remember_me]')
+    # page.check('Remember me')
+    # find("input[type='checkbox'][value='1']").set(true)
+    # find("input[type='checkbox'][value='1']").click
+    # find(:css, "#user_remember_me[value='1']").set(true)
+    # find(:css, "#user_remember_me[value='1']").click
   #   check(find("input[type='checkbox']")['1'])
   # end
-  @user.remember_me!
+  # @user.remember_me!
+  expect(find('#user_remember_me')).to be_checked
   # page.save_screenshot('screenshot.png')
   # binding.pry
 end
 
 Then(/^the remember me session has '(\d+)' days$/) do |days|
+  # binding.pry
+  puts @user.email
+  puts @user.remember_expires_at
   remain_time = ((@user.remember_expires_at - Time.now)/(24*60*60)).ceil.to_s
   expect(remain_time).to eq(days)
 end
