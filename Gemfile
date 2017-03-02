@@ -11,7 +11,7 @@ gem 'rake', '10.4.2'
 
 gem 'mysql2', '0.4.5'
 
-group :development, :test do
+group :development do
   # for optimize database
   gem 'bullet'
 end
@@ -30,7 +30,6 @@ group :development, :test do
   gem 'hirb-unicode', require: false
   # rails 4 tools
   gem 'byebug'
-  gem 'spring'
 end
 
 group :development do
@@ -40,6 +39,7 @@ group :development do
   gem 'meta_request'
   # rails 4 tools
   gem 'web-console', '~> 2.0'
+  gem 'spring'
 end
 
 # ---------------- #
@@ -103,7 +103,6 @@ group :development do
   gem 'letter_opener'
 end
 
-gem 'mail', '2.5.4'
 gem 'devise', '3.5.1'
 gem 'devise-i18n'
 gem 'xmpp4r'
@@ -113,16 +112,10 @@ gem 'omniauth'
 gem 'omniauth-oauth2', '1.3.1'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'omniauth-twitter'
 gem 'recaptcha', '~> 3.3.0', require: 'recaptcha/rails'
 gem 'paperclip'
 gem 'aws-sdk', '~> 1'
-gem 'rails_admin', group: [:test, :development, :staging]
-gem 'rest-client'
 gem 'json', '1.8.2'
-gem 'browser-timezone-rails'
-gem 'whenever', '~> 0.9.4', require: false
-gem 'time_difference'
 gem 'doorkeeper'
 gem 'hamlit'
 
@@ -130,9 +123,9 @@ group :development do
   gem 'brakeman', require: false
 end
 
-# -------------- #
-# -   for UI   - #
-# -------------- #
+# ---------- #
+# - for UI - #
+# ---------- #
 
 gem 'select2-rails'
 gem 'font-awesome-rails', '4.6.3.1'
@@ -140,21 +133,15 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'angularjs-rails'
-gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'simple_form', '3.2.1'
 gem 'bootstrap-sass'
 gem 'compass-rails'
-gem 'c3-rails'
-gem 'd3-rails'
 gem 'i18n_country_select', '1.1.5'
 gem 'i18n-country-translations', '1.2.2'
+gem 'browser-timezone-rails', '1.0.1'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-angular-timer', '1.2.1'
-  gem 'rails-assets-ng-table', '0.3.2'
-  gem 'rails-assets-jqlite'
   gem 'rails-assets-jquery-entropizer', '0.1.0'
   gem 'rails-assets-entropizer', '0.1.3'
 end

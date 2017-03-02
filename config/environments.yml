@@ -2,7 +2,5 @@ production:
   reference: 'personal-cloud-config.alpha.yml'
 test:
   reference: 'personal-cloud-config.dev.yml'
-staging:
-  reference: 'personal-cloud-config.alpha.yml'
 development:
   reference: 'personal-cloud-config.dev.yml'

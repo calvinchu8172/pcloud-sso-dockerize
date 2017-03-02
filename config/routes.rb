@@ -3,9 +3,8 @@ Rails.application.routes.draw do
   # Routes for Pcloud portal
   constraints :host => Settings.environments.portal_domain do
     devise_scope :user do
-      # setting root path to personal index page, if user signed in
+      # setting root path to welcome index page, if user signed in
       authenticated :user do
-        # root 'personal#index', as: :authenticated_root
         root 'welcome#index', as: :authenticated_root
       end
 
@@ -44,19 +43,9 @@ Rails.application.routes.draw do
       post  'oauth/new',               to: 'users/omniauth_callbacks#confirm'
       get   'oauth/login',             to: 'users/omniauth_callbacks#login'
       post  'oauth/login',             to: 'users/omniauth_callbacks#logining'
-      # resources :edm_users, only: :index, controller: 'users/edm_users' do
-        # collection do
-          # get 'download', to: 'users/edm_users#download_csv'
-        # end
-      # end
     end
 
     get 'personal/profile'
-
-    unless Rails.env.production?
-      mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-    end
-
 
     scope module: 'oauth2' do
       namespace :api do
@@ -65,18 +54,11 @@ Rails.application.routes.draw do
         end
       end
     end
-
   end
 
   scope :path => '/healthy/1/', :module => "api/healthy" do
     get 'status', to: 'status#show', format: 'json'
   end
-
-  # Routes for Pcloud REST API server
-  # constraints :host => Settings.environments.api_domain  do
-
-
-  # end
 
   # Catch all routes
   root "application#raise_not_found!", via: :all
