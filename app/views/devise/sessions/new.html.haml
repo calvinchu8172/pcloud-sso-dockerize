@@ -36,7 +36,7 @@
         .help-block= simple_format flash[:error]
     - else
       .spacer{ :style => "height: 25px;" }
-    = f.button :submit, I18n.t('labels.sign_in'), class: 'btn-custom btn-block'
+    = f.button :submit, I18n.t('labels.sign_in'), class: 'btn-custom btn-block', data: { disable_with: I18n.t('labels.wait') }
 
 - content_for :postcontent do
   .oauth

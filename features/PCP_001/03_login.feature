@@ -117,7 +117,7 @@ Feature: [PCP_001_03] Login
      Then the "Forgot Password" link will open the new tab
       And the "Create Account" link will open the new tab
 
-  @javascript @timecop
+  @timecop
   Scenario: [PCP_001_03_13]
     Check Timeout function without Remember me
     Given the user filled the correct information
@@ -129,8 +129,8 @@ Feature: [PCP_001_03] Login
       And the user visits login page
      Then user will see login page
 
-  @javascript @timecop
-  Scenario: [PCP_001_03_13]
+  @timecop
+  Scenario: [PCP_001_03_14]
     Check Remember Me function
     Given the user filled the correct information
       And the user checked Remember me

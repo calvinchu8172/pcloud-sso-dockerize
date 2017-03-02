@@ -110,34 +110,18 @@ Then(/^user will see login page$/) do
 end
 
 Then(/^the timeout session is '(\d+)' minutes$/) do |minutes|
-  puts @user.timeout_in
-  expect(@user.timeout_in).to eq(minutes.to_i*60)
+  expect(@user.timeout_in).to eq(minutes.to_i * 60)
 end
 
 Given(/^the user checked Remember me$/) do
-  # within(".remember-me") do
-    check('user[remember_me]')
-    # check('user_remember_me')
-    # page.check('user[remember_me]')
-    # page.check('Remember me')
-    # find("input[type='checkbox'][value='1']").set(true)
-    # find("input[type='checkbox'][value='1']").click
-    # find(:css, "#user_remember_me[value='1']").set(true)
-    # find(:css, "#user_remember_me[value='1']").click
-  #   check(find("input[type='checkbox']")['1'])
-  # end
-  # @user.remember_me!
+  check('user_remember_me')
   expect(find('#user_remember_me')).to be_checked
-  # page.save_screenshot('screenshot.png')
-  # binding.pry
 end
 
 Then(/^the remember me session has '(\d+)' days$/) do |days|
-  # binding.pry
-  puts @user.email
-  puts @user.remember_expires_at
-  remain_time = ((@user.remember_expires_at - Time.now)/(24*60*60)).ceil.to_s
-  expect(remain_time).to eq(days)
+  @user = @user.reload
+  remain_time = (@user.remember_expires_at.to_datetime - DateTime.now).ceil
+  expect(remain_time).to eq(days.to_i)
 end
 
 Then(/^the page should redirect to resend email of confirmation page$/) do
@@ -167,8 +151,6 @@ Then(/^the user language information will be changed after user login to system$
     Given the user filled the correct information
     And the account was confirmed
   }
-  # find('.zyxel_btn_login_submit').click
-  # find('.btn-custom').click
   click_on "SIGN IN"
   puts User.find(@user.id).language
 end
