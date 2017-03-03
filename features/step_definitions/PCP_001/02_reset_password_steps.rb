@@ -53,7 +53,6 @@ end
 
 # Check error message from reset password url
 Then(/^the user should see an doesn't match error message$/) do
-  binding.pry
   # expect(page).to have_selector('div.input_error input[name="user[password_confirmation]"]')
   # puts "Email " + find('div.zyxel_arlert_area>label.error_message').text
   expect(page).to have_selector('span.alert')
