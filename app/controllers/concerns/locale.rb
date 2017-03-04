@@ -3,10 +3,9 @@ module Locale
 
   included do
 
-    before_action :set_locale
+    prepend_before_action :set_locale
 
     def set_locale
-
       # note: cookie(change before) > user.lang(registered) > browser > default
       locale = if params[:locale]
                # Return cookie if user change locale

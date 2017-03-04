@@ -12,8 +12,5 @@ module OauthFlow
 				end
 			end
 		end
-
-		
 	end
-
 end
