@@ -15,11 +15,11 @@ class Oauth2::AuthorizationsController < Doorkeeper::AuthorizationsController
 
     # 如果使用者未登入, 則將 sso_url 存入 cookies
     def store_sso_url
-      cookies[:sso_url] = request.fullpath unless user_signed_in?
+      session[:sso_url] = request.fullpath unless user_signed_in?
     end
 
     # 如果轉址至 redirect_uri, 則清空 cookies 中的 sso_url
     def clear_sso_url
-      cookies.delete(:sso_url) if response.code == '302'
+      session.delete(:sso_url) if response.code == '302'
     end
 end
