@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
     # 3. 存在 session 的 previous_url
     # 4. 已驗證後的 root_path
     def after_sign_in_path_for(resource)
-      cookies[:sso_url] ||
+      session[:sso_url] ||
       stored_location_for(resource) ||
       session[:previous_url] ||
       authenticated_root_path
@@ -111,5 +111,4 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
 end
