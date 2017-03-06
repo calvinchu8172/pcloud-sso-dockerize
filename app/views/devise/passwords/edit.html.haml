@@ -7,14 +7,11 @@
   .inner_title
     - if params[:title] == 'bind_account'
       %h4
-        / = fa_icon('check-circle-o')
         = I18n.t("titles.bind_account")
     - else
       %h4
-        / = fa_icon('check-circle-o')
         = I18n.t("titles.forgot_password")
     %p
-      / = fa_icon('envelope-o')
       = I18n.t("user.labels.email")
       = @email
 
@@ -26,14 +23,13 @@
       .show-password-wrapper
       = content_tag 'span', class: 'form-control-feedback password-meter-wrapper' do
         .password-meter-anchor
-    / .show-password-wrapper
 
     .spacer{ :style => "height: 180px;" }
 
     - if params[:title] == 'bind_account'
-      = f.button :submit, I18n.t('labels.bind_account'), class: 'btn-custom btn-block'
+      = f.button :submit, I18n.t('labels.bind_account'), class: 'btn-custom btn-block', data: { disable_with: I18n.t('labels.wait') }
     - else
-      = f.button :submit, I18n.t('labels.submit'), class: 'btn-custom btn-block'
+      = f.button :submit, I18n.t('labels.submit'), class: 'btn-custom btn-block', data: { disable_with: I18n.t('labels.wait') }
 
   .btn-cancel
     = link_to I18n.t("labels.cancel"), new_session_url(resource_name)
