@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
   # rescue_from ActionController::RoutingError, with: :routing_error
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
   before_action :check_skip_confirm
@@ -72,8 +72,16 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    # 登入後轉址，優先順序如下：
+    # 1. 透過 SSO 登入，存在 cookies 的 sso_url
+    # 2. devise 預設的 stored_location
+    # 3. 存在 session 的 previous_url
+    # 4. 已驗證後的 root_path
     def after_sign_in_path_for(resource)
-      stored_location_for(resource) || session[:previous_url] || authenticated_root_path
+      session[:sso_url] ||
+      stored_location_for(resource) ||
+      session[:previous_url] ||
+      authenticated_root_path
     end
 
     def device_paired_with?
@@ -103,5 +111,4 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
 end

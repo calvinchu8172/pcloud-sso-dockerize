@@ -98,7 +98,30 @@ end
 # -------------------------- Expect result --------------------------
 # -------------------------------------------------------------------
 Then(/^user will login and redirect to welcome page$/) do
-    expect(page.current_path).to eq("/")
+  expect(page.current_path).to eq("/")
+end
+
+Then(/^user will login and see welcome on welcome page$/) do
+  expect(page).to have_content('Welcome')
+end
+
+Then(/^user will see login page$/) do
+  expect(page).to have_content('Remember me')
+end
+
+Then(/^the timeout session is '(\d+)' minutes$/) do |minutes|
+  expect(@user.timeout_in).to eq(minutes.to_i * 60)
+end
+
+Given(/^the user checked Remember me$/) do
+  check('user_remember_me')
+  expect(find('#user_remember_me')).to be_checked
+end
+
+Then(/^the remember me session has '(\d+)' days$/) do |days|
+  @user = @user.reload
+  remain_time = (@user.remember_expires_at.to_datetime - DateTime.now).ceil
+  expect(remain_time).to eq(days.to_i)
 end
 
 Then(/^the page should redirect to resend email of confirmation page$/) do
@@ -128,8 +151,6 @@ Then(/^the user language information will be changed after user login to system$
     Given the user filled the correct information
     And the account was confirmed
   }
-  # find('.zyxel_btn_login_submit').click
-  # find('.btn-custom').click
   click_on "SIGN IN"
   puts User.find(@user.id).language
 end

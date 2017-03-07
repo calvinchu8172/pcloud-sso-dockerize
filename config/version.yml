@@ -4,9 +4,6 @@ development:
 test:
   version: '2.7.3'
   suffix: '-testing'
-staging:
-  version: '2.7.3'
-  suffix: '-alpha'
 production:
   version: '2.7.3'
   suffix: '-release'

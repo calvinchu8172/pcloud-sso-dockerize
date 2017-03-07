@@ -2,14 +2,14 @@ Given(/^a user visits home page$/) do
   visit unauthenticated_root_path
 end
 
-Given(/^the user was not a member$/) do
-  set_omniauth
+Given(/^the user was not a Facebook member$/) do
+  set_facebook_omniauth
 end
 
-Given(/^the user was a member$/) do
+Given(/^the user was a Facebook member$/) do
   @user = TestingHelper.create_and_confirm
   @identity = FactoryGirl.create(:identity, user_id: @user.id, provider: "facebook", uid: "1234")
-  set_omniauth(@user.email)
+  set_facebook_omniauth(@user.email)
 end
 
 When(/^the user click sign in with Facebook link and grant permission$/) do
@@ -84,7 +84,7 @@ Then(/^the user will see the warning message "(.*?)"$/) do |message|
   expect(page.body).to have_content(message)
 end
 
-def set_omniauth(email = "personal@example.com", opts = {})
+def set_facebook_omniauth(email = "personal@example.com", opts = {})
   default = {provider: :facebook,
              uuid:      "1234",
              facebook: {

@@ -65,7 +65,7 @@ Feature: [PCP_001_03] Login
     Given the user filled the correct information
      When the user click "SIGN IN" button
      Then the page should redirect to resend email of confirmation page
-     And  the user should see "Skip" button
+      And the user should see "Skip" button
      When the user's session is expired
       And the user click on "Skip"
      Then user will redirect to login page
@@ -113,7 +113,36 @@ Feature: [PCP_001_03] Login
      Then the page should redirect to edit email confirmation page
 
   Scenario: [PCP_001_03_12]
-    Check click Forgot Password and Create Account will open a new tab 
-    Then the "Forgot Password" link will open the new tab
-     And the "Create Account" link will open the new tab
+    Check click Forgot Password and Create Account will open a new tab
+     Then the "Forgot Password" link will open the new tab
+      And the "Create Account" link will open the new tab
 
+  @timecop
+  Scenario: [PCP_001_03_13]
+    Check Timeout function without Remember me
+    Given the user filled the correct information
+      And the account was confirmed
+     When the user click "SIGN IN" button
+     Then user will login and see welcome on welcome page
+      And the timeout session is '30' minutes
+    Given "1" days later
+      And the user visits login page
+     Then user will see login page
+
+  @timecop
+  Scenario: [PCP_001_03_14]
+    Check Remember Me function
+    Given the user filled the correct information
+      And the user checked Remember me
+      And the account was confirmed
+     When the user click "SIGN IN" button
+     Then user will login and see welcome on welcome page
+      And the remember me session has '14' days
+      And the timeout session is '30' minutes
+    Given "10" days later
+      And the user visits login page
+     Then the remember me session has '4' days
+     Then user will login and see welcome on welcome page
+    Given "15" days later
+      And the user visits login page
+     Then user will see login page

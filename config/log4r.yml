@@ -3,7 +3,7 @@ default_app_logger: &app_logger
   name          : application
   level         : DEBUG
   trace         : 'true'
-  outputters    : 
+  outputters    :
     - app_file
 
 default_service_logger: &service_logger
@@ -94,9 +94,6 @@ production:
   <<: *default_config
 
 test:
-  <<: *default_config
-
-staging:
   <<: *default_config
 
 development:

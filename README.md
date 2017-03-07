@@ -1,10 +1,4 @@
-# Personal Cloud Portal
-
-## Frontend
-
-前端是採用Angularjs Framework
-並使用bower 作為JavaScript的套件管理
-相關套件放置在bower.json裏
+# Personal Cloud SSO
 
 ## Setting
 
@@ -37,12 +31,12 @@
 
 * redis
 
-  * web_host 用於儲存與Bot溝通過程中的Session 資訊
-  * xmpp_host 儲存 MongooseIM 的Session，在portal 中用於判斷Device 是否在線上
+  * web_host 用於儲存與 Bot 溝通過程中的Session 資訊
+  * xmpp_host 儲存 MongooseIM 的 Session，在 portal 中用於判斷 Device 是否在線上
 
 ## Databases
 
-Personal Cloud Restful API 共有兩組db
+Personal Cloud 共有兩組 db
 
   - app db
   - xmpp db: 由 MongooseIM 管理

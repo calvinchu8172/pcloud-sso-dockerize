@@ -29,7 +29,7 @@ namespace :ddns_ip_checking do
     if Rails.env == "development"
       @rake_log = Services::RakeLogger.rails_log # only for development environment. output to STDOUT and cron.log
     else
-      @rake_log = Rails.logger # for staging and production, log will be saved in system log
+      @rake_log = Rails.logger # for production, log will be saved in system log
     end
   end
 

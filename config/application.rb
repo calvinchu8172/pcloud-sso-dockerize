@@ -1,6 +1,15 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "sprockets/railtie"
+# require "rails/test_unit/railtie"
 
 require_relative '../lib/service_logger'
 
@@ -8,22 +17,21 @@ require_relative '../lib/service_logger'
 require 'log4r'
 require 'log4r/yamlconfigurator'
 require 'log4r/outputter/datefileoutputter'
-
 require_relative '../lib/log4r/outputter/fluent_post_outputter'
-require "action_mailer/railtie"
 include Log4r
 
 require 'csv'
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-# APP_CONFIG = YAML.load_file('config/oauth_env_variable.yml')[Rails.env] rescue {}
-# APP_CONFIG = Settings.oauth
+
 module Pcloud
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.autoload_paths << Rails.root.join('lib')
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -32,26 +40,17 @@ module Pcloud
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr, :cs, :ru, :pl, :it, :hu, :fr, :es]
-    # config.autoload_paths += %W(#{config.root}/lib)
-    config.autoload_paths << Rails.root.join('lib')
-
-    # for bower install path
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
-
-    config.encoding = "utf-8"
 
     config.exceptions_app = self.routes
-
-    # config.autoload_paths += Dir["#{config.root}/app/models/**/"]
 
     # override ActionView::Base.field_error_proc
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
       html_tag
     }
 
+    # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
     # assign log4r's logger as rails' logger.
@@ -65,6 +64,5 @@ module Pcloud
 
     # application with api
     config.api_only = false
-
   end
 end

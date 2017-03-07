@@ -36,3 +36,4 @@ cucumber:
   only:
     - master
     - develop
+    - feature/20170302-1-fix-remember-me-bugs

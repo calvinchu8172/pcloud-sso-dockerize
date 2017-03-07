@@ -241,7 +241,6 @@ Devise.setup do |config|
   config.omniauth :facebook,
     Settings.oauth.facebook_app_id,
     Settings.oauth.facebook_secret,
-    auth_type: 'reauthenticate',
     scope: 'email',
     info_fields: 'email, name',
     client_options: {
