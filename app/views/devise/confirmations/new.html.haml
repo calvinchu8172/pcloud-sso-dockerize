@@ -35,6 +35,7 @@
   .btn-cancel
     = link_to I18n.t("devise.confirmations.change_account"), users_confirmation_edit_path
   - if current_user && current_user.confirmation_valid?
-    = link_to I18n.t("labels.skip"), root_path(:skip_confirm => 'true'), class: "btn-cancel"
-  - if user_signed_in? && !current_page?('/help')
+    .btn-cancel
+      = link_to I18n.t("labels.skip"), root_path(:skip_confirm => 'true')
+  - if current_user && !current_user.confirmation_valid?
     = link_to I18n.t("labels.sign_out") , destroy_user_session_path, class: "btn btn-custom btn-block"
