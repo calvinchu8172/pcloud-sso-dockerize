@@ -1,16 +1,16 @@
 class PasswordsController < Devise::PasswordsController
 
-  # def create
-  #   # Cannot reset password when user was login with oauth
-  #   if omniauth_accout?(params[:user][:email])
-  #     self.resource = User.find_by_email(params[:user][:email])
-  #     yield resource if block_given?
-  #     resource.errors.add(:email, :oauth_password)
-  #     render "new"
-  #   else
-  #     super
-  #   end
-  # end
+  def create
+    # Cannot reset password when user was login with oauth
+    if omniauth_accout?(params[:user][:email])
+      self.resource = User.find_by_email(params[:user][:email])
+      yield resource if block_given?
+      resource.errors.add(:email, :oauth_password)
+      render "new"
+    else
+      super
+    end
+  end
 
   def edit
     super
