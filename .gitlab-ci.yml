@@ -36,4 +36,4 @@ cucumber:
   only:
     - master
     - develop
-    - feature/20170302-1-fix-remember-me-bugs
+    - feature/20170307-1-remain-facebook-enter-password-and-keep-binging-password-and-block-oauth-user-reset-password
