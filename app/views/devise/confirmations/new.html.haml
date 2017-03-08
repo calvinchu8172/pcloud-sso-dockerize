@@ -37,5 +37,3 @@
   - if current_user && current_user.confirmation_valid?
     .btn-cancel
       = link_to I18n.t("labels.skip"), root_path(:skip_confirm => 'true')
-  - if current_user && !current_user.confirmation_valid?
-    = link_to I18n.t("labels.sign_out") , destroy_user_session_path, class: "btn btn-custom btn-block"
