@@ -3,6 +3,7 @@ class Oauth2::Api::V1::MyController < Oauth2::ApiController
   def info
 
     @user = current_resource_owner
+    @app_id = app.uid
     token = @user.create_token_set
     @account_token = token[:account_token]
     @authentication_token = token[:authentication_token]
@@ -11,4 +12,10 @@ class Oauth2::Api::V1::MyController < Oauth2::ApiController
     @xmpp_account = @user.apply_for_xmpp_account if params[:uuid]
     # render json: current_resource_owner.to_json
   end
+
+  private
+
+    def app
+      Doorkeeper::AccessToken.find_by(token: params["access_token"]).application
+    end
 end
