@@ -37,8 +37,8 @@ Feature: [PCP_001_05] Google oauth
 	  Then the user will redirect to Terms of Use page
 	   And the user should see oauth feature "Terms of Use" message
     When the user click Terms of Use page
-    Then the user will redirect to editing password page
-    # Then redirect to Welcome page
+    # Then the user will redirect to editing password page
+    Then redirect to Welcome page
 
   Scenario:  [PCP_001_05_06]
 	  If user doesn't check the box of user agreement terms, the user will see message
