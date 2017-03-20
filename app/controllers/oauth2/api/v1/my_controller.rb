@@ -16,6 +16,6 @@ class Oauth2::Api::V1::MyController < Oauth2::ApiController
   private
 
     def app
-      Doorkeeper::AccessToken.find_by(token: params["access_token"]).application
+      doorkeeper_token.application if doorkeeper_token
     end
 end
