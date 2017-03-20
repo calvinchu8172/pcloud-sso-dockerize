@@ -8,11 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     session['devise.omniauth_data'] = oauth_data
 
     if !identity.user.blank?
-      unless identity.user.changed_password?
-        change_password_token = identity.user.set_change_password_token
-        title = 'bind_account'
-        redirect_to edit_password_url(identity.user, reset_password_token: change_password_token, title: title)
-      else
+      # unless identity.user.changed_password?
+        # change_password_token = identity.user.set_change_password_token
+        # title = 'bind_account'
+        # redirect_to edit_password_url(identity.user, reset_password_token: change_password_token, title: title)
+      # else
         # 記錄 user 註冊的 os 與 oauth
         oauth = identity.provider
         identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
@@ -28,7 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
         set_flash_message(:notice, :success, kind: User::SOCIALS[oauth.to_sym]) if is_navigational_format?
         sign_in_and_redirect identity.user, event: :authentication # this will throw if @user is not activated
-      end
+      # end
     else
       redirect_to oauth_new_url
     end
@@ -44,11 +44,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       identity = User.sign_up_omniauth(session['devise.omniauth_data'], current_user, agreement)
       # Sign In and redirect to root path
       # sign_in identity.user
-      unless identity.user.changed_password?
-        change_password_token = identity.user.set_change_password_token
-        title = "bind_account"
-        redirect_to edit_password_url(identity.user, reset_password_token: change_password_token, title: title)
-      else
+      # unless identity.user.changed_password?
+        # change_password_token = identity.user.set_change_password_token
+        # title = "bind_account"
+        # redirect_to edit_password_url(identity.user, reset_password_token: change_password_token, title: title)
+      # else
         #記錄user註冊的os與oauth
         oauth = identity.provider
         identity.user.update(os: 'web', oauth: oauth) if identity.user.os.nil? || identity.user.oauth.nil?
@@ -64,7 +64,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         LoginLog.record_login_log(user_id, sign_in_at, sign_out_at, sign_in_fail_at, sign_in_ip, os, oauth)
         set_flash_message(:notice, :success, kind: User::SOCIALS[oauth.to_sym]) if is_navigational_format?
         sign_in_and_redirect identity.user, event: :authentication # this will throw if @user is not activated
-      end
+      # end
     else
       # Redirect to Sign in page, when user un-agreement the terms
       flash.now[:notice] = I18n.t('warnings.agree_terms')

@@ -14,7 +14,7 @@ Feature: [OAUTH_03] get user informaiton
     Then the response status should be "200"
     And the JSON response should include:
       """
-      ["id", "email", "language", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
+      ["id", "email", "language", "app_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
       """
 
   Scenario: [OAUTH_03_02]
@@ -34,7 +34,7 @@ Feature: [OAUTH_03] get user informaiton
   @timecop
   Scenario: [OAUTH_03_03]
    Valid client user get user information with valid refresh token
-   
+
    Given Time now is "2017-01-01 00:00:00"
    Given client user confirmed
    And 1 existing client app and access token record
@@ -43,7 +43,7 @@ Feature: [OAUTH_03] get user informaiton
    Then the response status should be "200"
    And the JSON response should include:
      """
-     ["id", "email", "language", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
+     ["id", "email", "language", "app_id", "account_token", "authentication_token", "timeout", "confirmed", "registered_at", "bot_list", "xmpp_ip_addresses", "stun_ip_addresses", "xmpp_account"]
      """
     Given "30" days later
     When client send a POST request to /oauth/token with:
