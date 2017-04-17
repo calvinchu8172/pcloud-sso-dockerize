@@ -7,18 +7,18 @@ FactoryGirl.define do
     edm_accept                "0"
     agreement                 "1"
   end
-  # factory :device do
-  #   sequence(:serial_number)  { |n| "1234567890#{n}"}
-  #   sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
-  #   firmware_version          "V4.70(AALS.0)_GPL_20140820"
-  #   ip_address                IPAddr.new("192.168.50.1").to_i.to_s(16).rjust(8, "0")
-  #   association :product_id,  factory: :product_id
-  # end
-  # factory :pairing do
-  #   association :user_id,     factory: :user_id
-  #   association :device_id,   factory: :device_id
-  #   ownership                 "0"
-  # end
+  factory :device do
+    sequence(:serial_number)  { |n| "1234567890#{n}"}
+    sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
+    firmware_version          "V4.70(AALS.0)_GPL_20140820"
+    ip_address                IPAddr.new("192.168.50.1").to_i.to_s(16).rjust(8, "0")
+    association :product_id,  factory: :product_id
+  end
+  factory :pairing do
+    association :user_id,     factory: :user_id
+    association :device_id,   factory: :device_id
+    ownership                 "0"
+  end
   # factory :ddns do
   #   ip_address                "127.0.0.1"
   #   association :device_id,   factory: :device_id
@@ -51,15 +51,14 @@ FactoryGirl.define do
   #   edm_accept                "0"
   #   agreement                 "1"
   # end
-  # factory :api_device, class: Api::Device do
-  #   sequence(:serial_number)  { |n| "0123456789#{n}"}
-  #   sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
-  #   firmware_version          "V4.70(AALS.0)_GPL_20140820"
-  #   ip_address                IPAddr.new("192.168.50.1").to_i.to_s(16).rjust(8, "0")
-  #   model_class_name          "NSA310S"
-  #   association :product_id,  factory: :product_id
-  # end
-
+  factory :api_device, class: Api::Device do
+    sequence(:serial_number)  { |n| "0123456789#{n}"}
+    sequence(:mac_address)    { |n| "#{n}".rjust(12, "0")}
+    firmware_version          "V4.70(AALS.0)_GPL_20140820"
+    ip_address                IPAddr.new("192.168.50.1").to_i.to_s(16).rjust(8, "0")
+    model_class_name          "NSA310S"
+    association :product_id,  factory: :product_id
+  end
   factory :oauth_client_app, class: Doorkeeper::Application do
     sequence(:name)  { |n| "oauth_client_app_#{n}"}
     redirect_uri 'https://app.com/callback'

@@ -15,8 +15,8 @@ Given(/^the device is registered$/) do
   model_class_name = @device_given_attrs['model_name'].blank? ? 'NAS325' : @device_given_attrs['model_name']
   product = Product.find_by(model_class_name: model_class_name)
 
-  # Todo: 
-  # 1. 把 ip_encode_hex、ip_decode_hex 另外拉出單獨的 utility class 處理 
+  # Todo:
+  # 1. 把 ip_encode_hex、ip_decode_hex 另外拉出單獨的 utility class 處理
   # 2. Device before_save 應該執行 ip_encode_hex
   current_ip = Api::Device.new(current_ip_address: @device_given_attrs['ip_address']).ip_encode_hex
 
@@ -29,11 +29,11 @@ Given(/^the device is registered$/) do
     )
 end
 
-Given(/^the device is not registered$/) do 
+Given(/^the device is not registered$/) do
   @is_device_registered = false
 
   device = Device.find_by(
-    mac_address: @device_given_attrs['mac_address'], 
+    mac_address: @device_given_attrs['mac_address'],
     serial_number: @device_given_attrs['serial_number']
     )
   expect(device).to be_nil
@@ -60,10 +60,10 @@ When(/^the device "(.*?)" was be changed to "(.*?)"$/) do |key, value|
     steps %{ When the device's IP is "#{value}" }
   end
 
-  # if the invalid signature is not specified  
+  # if the invalid signature is not specified
   reset_signature(@device_given_attrs) if key != 'signature'
 
-  # if the invalid signature is specified  
+  # if the invalid signature is specified
   @invalid_signature = true if key == 'signature'
 end
 
@@ -151,12 +151,12 @@ end
 
 Then(/^the JSON response should include error code: "(.*?)"$/) do |error_code|
   body = JSON.parse(last_response.body)
-  expect(body["error_code"]).to eq(error_code)
+  expect(body["code"]).to eq(error_code)
 end
 
-Then(/^the JSON response should include description: "(.*?)"$/) do |description|
+Then(/^the JSON response should include error message: "(.*?)"$/) do |message|
   body = JSON.parse(last_response.body)
-  expect(body["description"]).to eq(description)
+  expect(body["message"]).to eq(message)
 end
 
 Given(/^an existing certificate and RSA key$/) do
@@ -249,10 +249,10 @@ def get_device_xmpp_username_with_host(device)
 end
 
 def check_rest_result_valid(device, result)
-  
+
   username = get_device_xmpp_username(device)
   xmpp_account = get_device_xmpp_username_with_host(device)
-  
+
   # Check json result
   expect(result["xmpp_account"]).to eq(xmpp_account)
   expect(result["xmpp_bots"]).to eq(Settings.xmpp.bots)

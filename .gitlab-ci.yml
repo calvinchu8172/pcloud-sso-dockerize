@@ -27,8 +27,8 @@ cucumber:
     # - xvfb-run -a bundle exec cucumber features/PCP_006/ -r features --format html --out test-plans/report_PCP006.html
     # - xvfb-run -a bundle exec cucumber features/REST/ -r features --format html --out test-plans/report_REST.html
     # - xvfb-run -a bundle exec cucumber features/Service/ -r features --format html --out test-plans/report_Service.html
-    - yard config load_plugins true
-    - yardoc 'app/**/*.rb' 'features/**/*.rb' 'features/**/*.feature'
+    - bundle exec yard config load_plugins true
+    - bundle exec yardoc 'app/**/*.rb' 'features/**/*.rb' 'features/**/*.feature'
   artifacts:
     paths:
       - test-plans/
@@ -36,4 +36,4 @@ cucumber:
   only:
     - master
     - develop
-    - feature/20170307-1-remain-facebook-enter-password-and-keep-binging-password-and-block-oauth-user-reset-password
+    - feature/20170327-1-device-authentication-api

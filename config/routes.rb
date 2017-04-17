@@ -54,10 +54,14 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
 
-  scope :path => '/healthy/1/', :module => "api/healthy" do
-    get 'status', to: 'status#show', format: 'json'
+    scope :path => '/d/oauth', :module => "api/devices" do
+      post 'authorize', to: 'authorize#create', format: 'json'
+    end
+
+    scope :path => '/healthy/1/', :module => "api/healthy" do
+      get 'status', to: 'status#show', format: 'json'
+    end
   end
 
   # Catch all routes
