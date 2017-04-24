@@ -36,4 +36,3 @@ cucumber:
   only:
     - master
     - develop
-    - feature/20170327-1-device-authentication-api
