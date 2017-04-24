@@ -96,7 +96,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.24"
+     And the JSON response should include error code: "400.25"
      And the JSON response should include error message: "Missing Required Parameter: cloud_id"
 
   Scenario: [REST_01_07]
@@ -111,7 +111,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.21"
+     And the JSON response should include error code: "400.22"
      And the JSON response should include error message: "Missing Required Parameter: mac_address"
 
   Scenario: [REST_01_08]
@@ -126,7 +126,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.22"
+     And the JSON response should include error code: "400.23"
      And the JSON response should include error message: "Missing Required Parameter: serial_number"
 
   Scenario: [REST_01_09]
@@ -156,7 +156,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.23"
+     And the JSON response should include error code: "400.24"
      And the JSON response should include error message: "Device Not Found"
 
   Scenario: [REST_01_11]
@@ -171,7 +171,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.23"
+     And the JSON response should include error code: "400.24"
      And the JSON response should include error message: "Device Not Found"
 
   Scenario: [REST_01_12]
@@ -186,7 +186,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.23"
+     And the JSON response should include error code: "400.24"
      And the JSON response should include error message: "Device Not Found"
 
   Scenario: [REST_01_13]
@@ -201,7 +201,7 @@ Feature: [REST_01] Device Authentication API
       | signature             | VALID SIGNATURE                |
 
     Then the response status should be "400"
-     And the JSON response should include error code: "400.25"
+     And the JSON response should include error code: "400.26"
      And the JSON response should include error message: "Invalid cloud_id"
 
   Scenario: [REST_01_13]
