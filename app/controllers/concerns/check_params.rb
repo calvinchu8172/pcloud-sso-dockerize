@@ -9,14 +9,15 @@ module CheckParams
 
     compare = filter - params.keys
 
-    if compare.include?(filter[0])
+    # if compare.include?(filter[0])
+    if compare.include?('app_id')
       return render :json => { code: "400.4", message: error("400.4") }, status: 400
-    elsif compare.include?(filter[1])
-      return render :json => { code: "400.24", message: error("400.24") }, status: 400
-    elsif compare.include?(filter[2])
-      return render :json => { code: "400.21", message: error("400.21") }, status: 400
-    elsif compare.include?(filter[3])
+    elsif compare.include?('cloud_id')
+      return render :json => { code: "400.25", message: error("400.25") }, status: 400
+    elsif compare.include?('mac_address')
       return render :json => { code: "400.22", message: error("400.22") }, status: 400
+    elsif compare.include?('serial_number')
+      return render :json => { code: "400.23", message: error("400.23") }, status: 400
     end
 
   end

@@ -91,14 +91,14 @@ class Api::Devices::AuthorizeController < ApplicationController
     def query_device
       @device = Device.find_by(mac_address: valid_params["mac_address"], serial_number: valid_params["serial_number"])
       if @device.nil?
-        return render :json => { code: "400.23", message: error("400.23") }, status: 400
+        return render :json => { code: "400.24", message: error("400.24") }, status: 400
       end
     end
 
     def query_user
       @user = User.find_by_encoded_id(valid_params["cloud_id"])
       if @user.nil?
-        return render :json => { code: "400.25", message: error("400.25") }, status: 400
+        return render :json => { code: "400.26", message: error("400.26") }, status: 400
       end
     end
 
