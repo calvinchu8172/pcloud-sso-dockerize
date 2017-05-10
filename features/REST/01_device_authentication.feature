@@ -21,7 +21,10 @@ Feature: [REST_01] Device Authentication API
     Then the response status should be "200"
     And the JSON response should include access_token and refresh_token:
       | access_token | xxxxxxxxxx |
+      | token_type   | bearer     |
+      | expires_in   | 21600      |
       | refresh_token| xxxxxxxxxx |
+      | created_at   | xxxxxxxxxx |
 
   Scenario: [REST_01_02]
     Device fails to ask Access Token if certificate serial is empty.

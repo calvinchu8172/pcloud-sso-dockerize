@@ -89,8 +89,6 @@ end
 
 Then(/^the JSON response should include access_token and refresh_token:$/) do |table|
   token = Doorkeeper::AccessToken.find_by_application_id(@app.id)
-  access_token = token.token
-  refresh_token = token.refresh_token
   data = table.rows_hash
   body_hash = JSON.parse(last_response.body)
 
@@ -99,8 +97,12 @@ Then(/^the JSON response should include access_token and refresh_token:$/) do |t
     expect(body_hash["data"].key?(key)).to be true
   end
 
-  expect(body_hash["data"]["access_token"]).to eq access_token
-  expect(body_hash["data"]["refresh_token"]).to eq refresh_token
+  expect(body_hash["data"]["access_token"]).to eq token.token
+  expect(body_hash["data"]["token_type"]).to eq "bearer"
+  expect(body_hash["data"]["expires_in"]).to eq token.expires_in
+  expect(body_hash["data"]["refresh_token"]).to eq token.refresh_token
+  expect(body_hash["data"]["created_at"]).to eq token.created_at.to_i
+
 end
 
 When(/^the device is not paired$/) do
