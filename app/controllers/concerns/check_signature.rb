@@ -2,7 +2,6 @@ module CheckSignature
   include ApiErrors
 
   def check_signature(params, signature)
-    puts "***check signature"
     params = sort_params(params)
     key = params.values.join("")
     certificate_serial = params["certificate_serial"]

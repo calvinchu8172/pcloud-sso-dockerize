@@ -41,7 +41,10 @@ class Api::Devices::AuthorizeController < ApplicationController
     {
       data: {
               access_token: access_token.token,
-              refresh_token: access_token.refresh_token
+              token_type: "bearer",
+              expires_in: access_token.expires_in,
+              refresh_token: access_token.refresh_token,
+              created_at: access_token.created_at.to_i
             }
     }
 

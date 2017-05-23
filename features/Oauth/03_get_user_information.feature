@@ -30,9 +30,28 @@ Feature: [OAUTH_03] get user informaiton
       """
       ["error", "invalid_token", "error_description", "The access token is invalid"]
       """
+    And the JSON response should include error code: "401.0"
+    And the JSON response should include error message: "Invalid access_token"
 
   @timecop
   Scenario: [OAUTH_03_03]
+    Valid client user get user information with expired access token
+
+    Given client user confirmed
+    And 1 existing client app and access token record
+    Given "1" days later
+    When client send a GET request to /api/v1/my/info with:
+      | access_token         | VALID ACCESS TOKEN            |
+    Then the response status should be "401"
+    And the JSON response should include error:
+      """
+      ["error", "invalid_token", "error_description", "The access token expired"]
+      """
+    And the JSON response should include error code: "401.1"
+    And the JSON response should include error message: "Access Token Expired"
+
+  @timecop
+  Scenario: [OAUTH_03_04]
    Valid client user get user information with valid refresh token
 
    Given Time now is "2017-01-01 00:00:00"
