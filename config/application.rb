@@ -64,5 +64,19 @@ module Pcloud
 
     # application with api
     config.api_only = false
+
+    cache_store_settings = {
+      host: Settings.redis.web_host,
+      port: Settings.redis.port,
+      db: Settings.redis.session_cache_db,
+      namespace: "cache"
+    }
+
+    unless Settings.redis.cache_expires_after.blank? 
+      cache_store_settings[:expire_after] = Settings.redis.cache_expires_after.to_i.days
+    end
+
+    config.cache_store = :redis_store, cache_store_settings
+
   end
 end
