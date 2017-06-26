@@ -118,6 +118,7 @@ gem 'aws-sdk', '~> 1'
 gem 'json', '1.8.2'
 gem 'doorkeeper'
 gem 'hamlit'
+gem 'redis-rails'
 
 group :development do
   gem 'brakeman', require: false
