@@ -91,6 +91,10 @@ FactoryGirl.define do
   #   ipv4_lan                  IPAddr.new("192.168.12.79").to_i.to_s(16).rjust(8, "0")
   #   online_status             1
   # end
-
-
+  factory :product do
+    show                      true
+    category_id               1
+  end
+  factory :category do
+  end
 end
