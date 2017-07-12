@@ -16,6 +16,17 @@ Feature: [OAUTH_01] get grant code
      Then user will be redirect to his app url with grant code.
 
   Scenario: [OAUTH_01_02]
+    User can still authorize client app and get grant code if the APP has no redirect_uri, but still need to carry redirect_uri in url
+
+    Given the app has no redirct_uri
+    Given user visits authorization page
+      And the user filled the correct login information
+     When the user click "SIGN IN" button
+     When the user click "Skip" link
+     When the user click "Authorize" button
+     Then user will be redirect to his app url with grant code.
+
+  Scenario: [OAUTH_01_03]
     User denies aithorization and get deny message
 
     Given user visits authorization page
@@ -25,8 +36,8 @@ Feature: [OAUTH_01] get grant code
      When the user click "Deny" button
      Then user will be redirect to his app url with deny message
 
-  Scenario: [OAUTH_01_03]
-    User gets invalid client message on page with invalid client id 
+  Scenario: [OAUTH_01_04]
+    User gets invalid client message on page with invalid client id
 
     Given user visits authorization page with "invalid_client_id"
       And the user filled the correct login information
@@ -34,7 +45,7 @@ Feature: [OAUTH_01] get grant code
      When the user click "Skip" link
      Then user sees the "invalid_client" message on page
 
-  Scenario: [OAUTH_01_04]
+  Scenario: [OAUTH_01_05]
     User gets invalid redirect uri message on page with invalid redirect uri
 
     Given user visits authorization page with "invalid_redirect_uri"
@@ -42,17 +53,17 @@ Feature: [OAUTH_01] get grant code
      When the user click "SIGN IN" button
      When the user click "Skip" link
      Then user sees the "invalid_redirect_uri" message on page
-     
-  Scenario: [OAUTH_01_05]
-    User gets invalid redirect uri message on page with invalid redirect uri
+
+  Scenario: [OAUTH_01_06]
+    User gets unsupported response type message on page with invalid response type
 
     Given user visits authorization page with "unsupported_response_type"
       And the user filled the correct login information
      When the user click "SIGN IN" button
      When the user click "Skip" link
      Then user sees the "unsupported_response_type" message on page
-     
-  Scenario Outline:  [OAUTH_01_06]
+
+  Scenario Outline:  [OAUTH_01_07]
     Client app changes theme color
 
     Given user visits authorization page with <color> theme
@@ -64,3 +75,4 @@ Feature: [OAUTH_01] get grant code
       | yellow         | rgb(255, 200, 3) |
       | orange         | rgb(255, 138, 3) |
       | red            | rgb(255, 41, 56) |
+
