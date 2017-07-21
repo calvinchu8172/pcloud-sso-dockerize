@@ -16,6 +16,11 @@ en:
                 invalid_uri: must be a valid URI.
                 relative_uri: must be an absolute URI.
                 secured_uri: must be an HTTPS.SSL URI.
+              logout_redirect_uri:
+                fragment_present: cannot contain a fragment.
+                invalid_uri: must be a valid URI.
+                relative_uri: must be an absolute URI.
+                secured_uri: must be an HTTPS.SSL URI.
   doorkeeper:
     applications:
       confirmations:
@@ -48,6 +53,7 @@ en:
         scopes: Scopes
         callback_urls: Callback urls
         actions: Actions
+        logout_redirect_uri: Logout Callback urls
     authorizations:
       buttons:
         authorize: Authorize
