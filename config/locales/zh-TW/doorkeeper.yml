@@ -74,6 +74,7 @@ zh-TW:
         title: "你授權的應用"
         application: "應用"
         created_at: "建立時間"
+        last_updated_at: "上一次更新時間"
         date_format: "%Y-%m-%d %H:%M:%S"
         no_application: "你目前沒有授權的應用"
     errors:
