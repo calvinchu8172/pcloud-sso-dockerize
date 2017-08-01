@@ -124,6 +124,7 @@ module ApplicationExtension
 
     validates :name, :secret, :uid, presence: true
     validates :uid, uniqueness: true
+    validates :logout_redirect_uri, :redirect_uri, redirect_uri: true, allow_blank: true
   end
 end
 

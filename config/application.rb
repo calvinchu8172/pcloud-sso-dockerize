@@ -42,13 +42,14 @@ module Pcloud
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:en, :de, :nl, :"zh-TW", :th, :tr, :cs, :ru, :pl, :it, :hu, :fr, :es]
+    config.i18n.fallbacks = true
 
     config.exceptions_app = self.routes
 
     # override ActionView::Base.field_error_proc
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
-      html_tag
-    }
+    # config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+    #   html_tag
+    # }
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
@@ -72,7 +73,7 @@ module Pcloud
       namespace: "cache"
     }
 
-    unless Settings.redis.cache_expires_after.blank? 
+    unless Settings.redis.cache_expires_after.blank?
       cache_store_settings[:expire_after] = Settings.redis.cache_expires_after.to_i.days
     end
 

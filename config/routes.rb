@@ -20,6 +20,7 @@ Rails.application.routes.draw do
                   applications: 'oauth2/applications',
                   authorized_applications: 'oauth2/authorized_applications'
     end
+    get 'oauth/logout', to: 'oauth2/authorizations#logout'
 
     get 'hint/signup'
     get 'hint/confirm'
