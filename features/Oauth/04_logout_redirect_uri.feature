@@ -32,5 +32,13 @@ Feature: [OAUTH_04] logout redirect uri
       And user visits logout url without logout_redirect_uri
      Then user will be redirect to login page
 
+  Scenario: [OAUTH_04_05]
+    client app has logout redirect uri and user will redirect to login page after logout without log_redirect_uri
+
+    Given client app has logout redirect uri
+      And the user's session is expired
+      And user visits logout url
+     Then user will be redirect to logout redirect uri
+
 
 
