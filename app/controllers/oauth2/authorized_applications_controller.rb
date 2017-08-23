@@ -6,4 +6,6 @@ class Oauth2::AuthorizedApplicationsController < Doorkeeper::AuthorizedApplicati
 
   layout 'application'
 
+  before_action :authenticate_resource_owner!
+
 end

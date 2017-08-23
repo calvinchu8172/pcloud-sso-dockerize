@@ -4,6 +4,8 @@ class Oauth2::ApplicationsController < Doorkeeper::ApplicationsController
   include Locale
   include Theme
 
+  before_action :authenticate_resource_owner!
+
   private
 
   # application strong parameter
