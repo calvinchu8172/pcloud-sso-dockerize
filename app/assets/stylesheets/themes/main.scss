@@ -51,6 +51,11 @@ body {
         position: relative;
       }
       .content_wrapper {
+        .env {
+          line-height: 0%;
+          float: right;
+          margin-top: -10px;
+        }
         .inner_title {
           h4 {
             font-weight: bold;
