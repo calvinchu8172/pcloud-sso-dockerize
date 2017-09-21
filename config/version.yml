@@ -1,9 +1,9 @@
 development:
-  version: '2.12.0'
+  version: '2.13.0'
   suffix: '-dev'
 test:
-  version: '2.12.0'
+  version: '2.13.0'
   suffix: '-testing'
 production:
-  version: '2.12.0'
+  version: '2.13.0'
   suffix: '-release'

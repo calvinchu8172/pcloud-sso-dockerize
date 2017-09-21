@@ -43,3 +43,8 @@ coverage
 # Ignore yard files
 /.yardoc
 /doc
+
+# Ignore local rvm ruby version and gemset
+/.ruby-gemset
+/.ruby-version
+/.versions.conf

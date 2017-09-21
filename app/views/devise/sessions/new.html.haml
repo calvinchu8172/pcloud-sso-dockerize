@@ -4,6 +4,9 @@
 
 .white_email
 .content_wrapper.sign_in
+  - unless Settings.environments.name == 'production'
+    .env
+      = "(#{Settings.environments.name})"
   = simple_form_for resource, as: resource_name, url: session_url(resource_name), method: :post do |f|
     = f.input :email, label: false, wrapper_html: { class: 'has-feedback' } do
       = f.input_field :email, placeholder: I18n.t('user.labels.email'), autofocus: true, class: 'form-control', required: true
