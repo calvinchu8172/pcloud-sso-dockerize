@@ -53,6 +53,7 @@ footer {
 @media (max-width: 320px) // iPhone 5,4
 {
   footer {
+    padding: 10px 10px 5px 10px;
     font-size: 12px;
     &.sign_in {
       color: #b3b3b3;
