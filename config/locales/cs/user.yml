@@ -34,6 +34,6 @@ cs:
         instruction_2: Podmínky použití služby Zyxel Cloud
       edm_1: Ano, zasílejte mi e-mailové zprávy o
       edm_2: produktech a službách Zyxel Cloud
-      copy_right: "© 2016 Zyxel Communications Corp."
+      copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Obnovit heslo

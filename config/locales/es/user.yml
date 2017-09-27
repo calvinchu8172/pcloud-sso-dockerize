@@ -35,6 +35,6 @@ es:
         instruction_2: Términos de uso de Zyxel Cloud
       edm_1: Sí, enviarme correos electrónicos sobre
       edm_2: productos y servicios Zyxel Cloud
-      copy_right: "© 2016 Zyxel Communications Corp."
+      copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Restablecer su contraseña
