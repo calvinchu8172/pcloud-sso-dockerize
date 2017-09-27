@@ -25,8 +25,7 @@ body {
     .title {
       font-size: 16px;
       color: #8C8C8C;
-      // margin: 20px auto 25px auto;
-      margin: 5px auto 17px auto;
+      margin: 5px auto 25px auto;
       text-align: center;
       .title_sign_in {
         margin: 26px auto 25px auto;
@@ -170,6 +169,30 @@ body {
   } //.main
 
 } // body
+
+
+@media (max-width: 430px)
+{
+  .logo {
+    display: none;
+  }
+  .title {
+    display: none;
+  }
+  .content {
+    .white_email {
+      top: 10px !important;
+    }
+    .content_wrapper {
+      &.sign_in {
+        margin-top: 10px;
+      }
+    }
+  }
+  .precontent {
+    margin-top: 15px;
+  }
+}
 
 @media (min-width: 411px) and (max-width: 430px) // iPhone6 Plus
 {
