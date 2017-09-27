@@ -24,6 +24,7 @@ fr:
     collapse_all: Réduire tout
     download: Télécharger
     wait: Please wait...
+    help: Aide
     settings:
       invitation:
         connecting: Connexion...

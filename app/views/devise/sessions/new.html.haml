@@ -72,6 +72,6 @@
       .help_wrapper
         = image_tag("#{theme}/icon-help.png")
         / = link_to 'Help', '/help', target: "_blank"
-        = link_to 'Help', '#', data: { toggle: 'modal', target: '#help_dialog' }
+        = link_to I18n.t('labels.help'), '#', data: { toggle: 'modal', target: '#help_dialog' }
 
   = render "help/help"

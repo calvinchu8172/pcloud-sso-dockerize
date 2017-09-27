@@ -24,6 +24,7 @@ en:
     collapse_all: Collapse All
     download: Download
     wait: Please wait...
+    help: Help
     settings:
       invitation:
         connecting: Connecting...

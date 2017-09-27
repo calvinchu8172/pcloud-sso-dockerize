@@ -148,12 +148,9 @@ body {
         padding-left: 40px;
       }
       .help {
-        padding-left: 83px;
+        // padding-left: 83px;
         .help_wrapper {
-          // height: 30px;
-          // width: 150px;
-          // background-color: #f00;
-          // float: right;
+          float: right;
           a {
             line-height: 30px;
             color: $bg-color;
