@@ -167,7 +167,8 @@ body {
 
 } // body
 
-
+// 20170927 @media (max-width: 430px) 此部份是 Zyxel 在 APP 版面要拿掉 logo 與 title 而作的調整
+// 此段拿掉便會回復原狀
 @media (max-width: 430px)
 {
   .logo {
@@ -178,16 +179,18 @@ body {
   }
   .content {
     .white_email {
-      top: 10px !important;
+      top: 20px !important;
     }
     .content_wrapper {
       &.sign_in {
-        margin-top: 10px;
+        margin-top: 20px;
       }
     }
   }
   .precontent {
-    margin-top: 15px;
+    .process_indicator_wrapper {
+      margin: auto;
+    }
   }
 }
 
