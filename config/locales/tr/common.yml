@@ -24,7 +24,7 @@ tr:
     collapse_all: Tümünü Daralt
     download: indir
     wait: Please wait...
-    help: Yardım
+    help: yardım et
     settings:
       invitation:
         connecting: Bağlanıyor...

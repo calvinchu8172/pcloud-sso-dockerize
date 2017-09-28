@@ -24,6 +24,7 @@ es:
     collapse_all: Contraer todo
     download: Descargar
     wait: Please wait...
+    help: Pomoc
     settings:
       invitation:
         connecting: Conectando...

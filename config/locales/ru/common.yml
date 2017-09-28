@@ -24,7 +24,7 @@ ru:
     collapse_all: "Свернуть все"
     download: "Скачать"
     wait: Please wait...
-    help: Справка
+    help: Помогите
     settings:
       invitation:
         connecting: "Соединение..."

@@ -24,6 +24,7 @@ nl:
     collapse_all: Allemaal inklappen
     download: Download
     wait: Please wait...
+    help: helpen
     settings:
       invitation:
         connecting: Verbinden...

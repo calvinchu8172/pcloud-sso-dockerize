@@ -24,7 +24,7 @@ th:
     collapse_all: "ยุบทั้งหมด"
     download: "ดาวน์โหลด"
     wait: Please wait...
-    help: วิธีใช้
+    help: ช่วยด้วย
     settings:
       invitation:
         connecting: "กำลังเชื่อมต่อ..."
