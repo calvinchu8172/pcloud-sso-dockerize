@@ -24,6 +24,7 @@ it:
     collapse_all: Comprimi tutto
     download: Scaricare
     wait: Please wait...
+    help: Aiuto
     settings:
       invitation:
         connecting: Connessione in corso...

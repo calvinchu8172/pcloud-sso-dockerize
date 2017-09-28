@@ -34,6 +34,6 @@ tr:
         instruction_2: Zyxel Cloud kabul ediyorum
       edm_1: Evet, bana Zyxel Cloud Ürünleri
       edm_2: ve Hizmetleri konusunda e-postalar gönder
-      copy_right: "© 2016 Zyxel Communications Corp."
+      copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Parolanızı sıfırlayın

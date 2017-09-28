@@ -24,6 +24,7 @@ hu:
     collapse_all: "Összes elrejtése"
     download: Letöltés
     wait: Please wait...
+    help: Segítség
     settings:
       invitation:
         connecting: Csatlakozás...

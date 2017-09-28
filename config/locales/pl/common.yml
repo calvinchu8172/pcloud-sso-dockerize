@@ -24,6 +24,7 @@ pl:
     collapse_all: Zwiń wszystkie
     download: Pobieranie
     wait: Please wait...
+    help: Wsparcie
     settings:
       invitation:
         connecting: "Łączenie..."

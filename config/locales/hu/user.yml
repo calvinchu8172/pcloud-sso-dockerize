@@ -34,6 +34,6 @@ hu:
         instruction_2: Zyxel Cloud felhasználási feltételeit
       edm_1: Igen, szeretnék e-maileket kapni
       edm_2: a Zyxel Cloud termékekről és szolgáltatásokról
-      copy_right: "© 2016 Zyxel Communications Corp."
+      copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: "Állítsd vissza a jelszavad"

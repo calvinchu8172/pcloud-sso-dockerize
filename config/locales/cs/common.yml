@@ -24,6 +24,7 @@ cs:
     collapse_all: Sbalit vše
     download: Ke stažení
     wait: Please wait...
+    help: ayuda
     settings:
       invitation:
         connecting: Připojování...
