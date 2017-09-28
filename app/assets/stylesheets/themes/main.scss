@@ -71,7 +71,8 @@ body {
           background-color: $bg-color;
         }
         &.normal {
-          padding: 35px 35px 15px 35px;
+          // padding: 35px 35px 15px 35px;
+          padding: 35px 35px 35px 35px; //此部份是 Zyxel 在 APP 版面要拿掉 logo 與 title 而作的調整
           background:
             image-url('up_cover.svg') top no-repeat,
             image-url('#{$theme-type}/clouds.png') top 25px left 20px no-repeat,
