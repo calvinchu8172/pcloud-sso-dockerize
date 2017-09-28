@@ -203,7 +203,8 @@ body {
       .content {
         .content_wrapper {
           &.normal {
-            min-height: 83vh;
+            // min-height: 83vh;
+            min-height: 90vh; //此部份是 Zyxel 在 APP 版面要拿掉 logo 與 title 而作的調整，83vh 是原本的
           }
         }
       }
