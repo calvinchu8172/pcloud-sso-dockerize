@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721064854) do
+ActiveRecord::Schema.define(version: 20170922080411) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -34,9 +34,12 @@ ActiveRecord::Schema.define(version: 20170721064854) do
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
   create_table "certificates", force: :cascade do |t|
-    t.string  "serial",    limit: 255,   null: false
-    t.text    "content",   limit: 65535, null: false
-    t.integer "vendor_id", limit: 4
+    t.string   "serial",      limit: 255,   null: false
+    t.text     "content",     limit: 65535, null: false
+    t.integer  "vendor_id",   limit: 4
+    t.string   "description", limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "ddns", force: :cascade do |t|
@@ -214,6 +217,26 @@ ActiveRecord::Schema.define(version: 20170721064854) do
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["model_class_name"], name: "index_products_on_model_class_name", unique: true, using: :btree
 
+  create_table "template_contents", force: :cascade do |t|
+    t.integer  "template_id", limit: 4,     null: false
+    t.string   "locale",      limit: 255
+    t.string   "title",       limit: 255
+    t.text     "content",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "template_contents", ["locale"], name: "index_template_contents_on_locale", using: :btree
+  add_index "template_contents", ["template_id"], name: "index_template_contents_on_template_id", using: :btree
+
+  create_table "templates", force: :cascade do |t|
+    t.string   "identity",   limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "templates", ["identity"], name: "index_templates_on_identity", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",   null: false
     t.string   "encrypted_password",     limit: 60,  default: "",   null: false
@@ -243,6 +266,7 @@ ActiveRecord::Schema.define(version: 20170721064854) do
     t.string   "display_name",           limit: 255,                null: false
     t.string   "os",                     limit: 255
     t.string   "oauth",                  limit: 255
+    t.datetime "revoked_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
