@@ -10,6 +10,10 @@ Given(/^(\d+) existing client app$/) do |arg1|
   @redirect_uri = @oauth_client_app.redirect_uri
 end
 
+Given(/^the app has no redirct_uri$/) do
+  @oauth_client_app.update(redirect_uri: '')
+end
+
 Given(/^user visits authorization page$/) do
   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=code&theme=yellow&locale=zh_TW"
 end
@@ -20,14 +24,15 @@ Given(/^the user filled the correct login information$/) do
 end
 
 Then(/^user will be redirect to his app url with grant code\.$/) do
-  expect(current_url).to eq(@oauth_client_app.redirect_uri + '?code=' + @oauth_client_app.access_grants.last.token)
+  # expect(current_url).to eq(@oauth_client_app.redirect_uri + '?code=' + @oauth_client_app.access_grants.last.token)
+  expect(current_url).to eq(@redirect_uri + '?code=' + @oauth_client_app.access_grants.last.token)
 end
 
 Then(/^user will be redirect to his app url with deny message$/) do
   expect(current_url).to eq(@oauth_client_app.redirect_uri + '?error=access_denied&error_description=The+resource+owner+or+authorization+server+denied+the+request.')
 end
 
-# Given(/^user visits authorization page with wrong (.*?)$/) do |params|	
+# Given(/^user visits authorization page with wrong (.*?)$/) do |params|
 #   visit "/oauth/authorize?client_id=#{params}&redirect_uri=#{@redirect_uri}&response_type=code" if params == 'invalid_client_id'
 #   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{params}&response_type=code" if params == 'invalid_redirect_uri'
 #   visit "/oauth/authorize?client_id=#{@client_id}&redirect_uri=#{@redirect_uri}&response_type=#{params}" if params == 'invalid_response_type'
@@ -56,7 +61,7 @@ Then(/^user sees the "(.*?)" message on page$/) do |error_message|
 end
 
 
-# Then(/^user see the (.*?) on page$/) do |error_message|	
+# Then(/^user see the (.*?) on page$/) do |error_message|
 #   expect(page).to have_content(I18n.t("doorkeeper.authorizations.error.title"))
 #   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_client")) if error_message == 'invalid_client'
 #   expect(page).to have_content(I18n.t("doorkeeper.errors.messages.invalid_redirect_uri")) if error_message == 'invalid_redirect_uri'

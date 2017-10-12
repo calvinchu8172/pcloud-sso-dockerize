@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426074150) do
+ActiveRecord::Schema.define(version: 20170922080411) do
 
   create_table "accepted_users", force: :cascade do |t|
     t.integer  "invitation_id", limit: 4, null: false
@@ -25,10 +25,21 @@ ActiveRecord::Schema.define(version: 20160426074150) do
   add_index "accepted_users", ["invitation_id"], name: "index_accepted_users_on_invitation_id", using: :btree
   add_index "accepted_users", ["user_id"], name: "index_accepted_users_on_user_id", using: :btree
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
+
   create_table "certificates", force: :cascade do |t|
-    t.string  "serial",    limit: 255,   null: false
-    t.text    "content",   limit: 65535, null: false
-    t.integer "vendor_id", limit: 4
+    t.string   "serial",      limit: 255,   null: false
+    t.text     "content",     limit: 65535, null: false
+    t.integer  "vendor_id",   limit: 4
+    t.string   "description", limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "ddns", force: :cascade do |t|
@@ -56,8 +67,10 @@ ActiveRecord::Schema.define(version: 20160426074150) do
     t.integer  "online_status",                  limit: 1,   default: 0, null: false
     t.integer  "wol_status",                     limit: 1,   default: 0, null: false
     t.string   "mac_address_of_router_lan_port", limit: 25
+    t.string   "country",                        limit: 3
   end
 
+  add_index "devices", ["country"], name: "index_devices_on_country", using: :btree
   add_index "devices", ["mac_address", "serial_number"], name: "index_devices_on_mac_address_and_serial_number", unique: true, using: :btree
   add_index "devices", ["mac_address"], name: "index_devices_on_mac_address", using: :btree
   add_index "devices", ["product_id"], name: "devices_product_id_fk", using: :btree
@@ -147,13 +160,14 @@ ActiveRecord::Schema.define(version: 20160426074150) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: :cascade do |t|
-    t.string   "name",         limit: 255,                null: false
-    t.string   "uid",          limit: 255,                null: false
-    t.string   "secret",       limit: 255,                null: false
-    t.text     "redirect_uri", limit: 65535,              null: false
-    t.string   "scopes",       limit: 255,   default: "", null: false
+    t.string   "name",                limit: 255,                null: false
+    t.string   "uid",                 limit: 255,                null: false
+    t.string   "secret",              limit: 255,                null: false
+    t.text     "redirect_uri",        limit: 65535
+    t.string   "scopes",              limit: 255,   default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "logout_redirect_uri", limit: 65535
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
@@ -196,9 +210,32 @@ ActiveRecord::Schema.define(version: 20160426074150) do
     t.string   "pairing_content_type", limit: 255
     t.integer  "pairing_file_size",    limit: 4
     t.datetime "pairing_updated_at"
+    t.boolean  "show"
+    t.integer  "category_id",          limit: 4,   null: false
   end
 
+  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
   add_index "products", ["model_class_name"], name: "index_products_on_model_class_name", unique: true, using: :btree
+
+  create_table "template_contents", force: :cascade do |t|
+    t.integer  "template_id", limit: 4,     null: false
+    t.string   "locale",      limit: 255
+    t.string   "title",       limit: 255
+    t.text     "content",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "template_contents", ["locale"], name: "index_template_contents_on_locale", using: :btree
+  add_index "template_contents", ["template_id"], name: "index_template_contents_on_template_id", using: :btree
+
+  create_table "templates", force: :cascade do |t|
+    t.string   "identity",   limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "templates", ["identity"], name: "index_templates_on_identity", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",   null: false
@@ -229,6 +266,7 @@ ActiveRecord::Schema.define(version: 20160426074150) do
     t.string   "display_name",           limit: 255,                null: false
     t.string   "os",                     limit: 255
     t.string   "oauth",                  limit: 255
+    t.datetime "revoked_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

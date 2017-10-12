@@ -279,9 +279,9 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   # config.allow_insecure_sign_in_after_confirmation = true
 
-  # config.warden do |manager|
-  #   manager.failure_app = CustomFailure
-  # end
+  config.warden do |manager|
+    manager.failure_app = PcloudFailureApp
+  end
 
   # # Update user language when user sign in
   # Warden::Manager.after_authentication do |user,auth,opts|

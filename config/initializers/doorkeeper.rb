@@ -114,16 +114,32 @@ Doorkeeper.configure do
   # realm "Doorkeeper"
 end
 
-# Doorkeeper::AuthorizedApplicationsController.layout 'rwd'
-# Doorkeeper::AuthorizationsController.layout 'rwd'
-# Doorkeeper::ApplicationsController.send :include, CheckUserConfirmation
-# Doorkeeper::ApplicationsController.send :include, HttpBasicAuthenticate
-# Doorkeeper::AuthorizedApplicationsController.send :include, CheckUserConfirmation
-# Doorkeeper::ApplicationController.send :include, Locale
+# 新增 Doorkeeper::Application 擴充功能
+module ApplicationExtension
+  extend ActiveSupport::Concern
 
+  included do
 
-# # Doorkeeper::ApplicationController.send :include, CheckUserConfirmation
+    clear_validators!
 
+    validates :name, :secret, :uid, presence: true
+    validates :uid, uniqueness: true
+    validates :logout_redirect_uri, :redirect_uri, redirect_uri: true, allow_blank: true
+  end
+end
 
-# Doorkeeper::ApplicationMetalController.send :include, AbstractController::Callbacks
-# Doorkeeper::TokensController.send :include, OauthClientUserValidator
+Doorkeeper::Application.send(:include, ApplicationExtension)
+
+module Doorkeeper
+  module OAuth
+    class PreAuthorization
+
+      def validate_redirect_uri
+        return false unless redirect_uri.present?
+        client.redirect_uri.blank? ||
+        Helpers::URIChecker.native_uri?(redirect_uri) ||
+        Helpers::URIChecker.valid_for_authorization?(redirect_uri, client.redirect_uri)
+      end
+    end
+  end
+end

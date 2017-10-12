@@ -24,6 +24,7 @@ zh-TW:
     collapse_all: "全部收回"
     download: "下載"
     wait: "請稍等..."
+    help: 幫助
     settings:
       invitation:
         connecting: "連線中..."

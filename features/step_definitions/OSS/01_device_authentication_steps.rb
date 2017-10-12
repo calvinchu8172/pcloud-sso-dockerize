@@ -7,6 +7,7 @@ end
 
 Given(/^an device exists$/) do
   TestingHelper::create_product_table if Product.count == 0
+  TestingHelper::create_category_table
   @device = FactoryGirl.create(:device, product_id: 30)
 end
 

@@ -34,6 +34,6 @@ ru:
         instruction_2: "Условия использования Zyxel Cloud"
       edm_1: "Да, прошу присылать мне сообщения о"
       edm_2: "продукции и услугах Zyxel Cloud"
-      copy_right: "© 2016 Zyxel Communications Corp."
+      copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: "Сбросить пароль"

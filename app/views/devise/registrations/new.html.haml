@@ -15,10 +15,12 @@
       = f.input_field :email, placeholder: I18n.t('user.labels.email_suggestion'), autofocus: true, class: 'form-control', required: true
       / = content_tag 'span', image_tag("email-gray.png"), class: 'form-control-feedback'
     = f.input :password, label: I18n.t("user.labels.create_password"), wrapper_html: { class: 'has-feedback'} do
-      = f.input_field :password, placeholder: I18n.t("user.labels.password_suggestion"), class: 'form-control add-padding-right', required: true, maxlength:14
+      = f.input_field :password, class: 'form-control add-padding-right', required: true, maxlength:14
       .show-password-wrapper
       = content_tag 'span', class: 'form-control-feedback password-meter-wrapper' do
         .password-meter-anchor
+      .password_suggestion
+        = I18n.t("user.labels.password_suggestion")
     / .show-password-wrapper
     / 這是原本的 password meter 的顯示方式，若要看可以解除註解
     / %div#password_meter

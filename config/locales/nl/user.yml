@@ -34,6 +34,6 @@ nl:
         instruction_2: Zyxel Cloud gebruiksvoorwaarde
       edm_1: Ja, stuur mij meer informatie over
       edm_2: Zyxel Cloud producten of diensten.
-      copy_right: "© 2016 Zyxel Communications Corp."
+      copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Stel je wachtwoord opnieuw in
