@@ -1,20 +1,26 @@
-version: '2'
+version: '3'
 services:
   db:
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=12345678
+      MYSQL_ROOT_PASSWORD: 12345678
     volumes:
-      - db-data:/var/lib/mysql
+      - /tmp/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
   redis:
     image: redis
+    restart: always
+    ports:
+      - "6379:6379"
   web:
     build: .
     command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      RAILS_ENV: development
+      WAIT_HOSTS: db:3306
     volumes:
       - .:/home/app/rails-app
     ports:
@@ -22,11 +28,3 @@ services:
     links:
       - db
       - redis
-    depends_on:
-      - db
-      - redis
-volumes:
-  db-data:
-    driver: local
-  bundle:
-    driver: local
