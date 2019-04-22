@@ -1,4 +1,4 @@
-FROM ruby:2.3.3
+FROM drecom/ubuntu-ruby:2.3.3
 MAINTAINER Calvin Chu <calvinchu8172@gmail.com>
 
 ENV LANG C.UTF-8

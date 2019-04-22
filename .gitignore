@@ -48,3 +48,6 @@ coverage
 /.ruby-gemset
 /.ruby-version
 /.versions.conf
+
+# Ignore env file for Docker
+/*.env
