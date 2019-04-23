@@ -27,3 +27,20 @@ services:
     depends_on:
       - db
       - redis
+  nginx:
+    image: nginx-certbot
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/log/nginx:/var/log/nginx
+      - /etc/nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt
+    restart: always
+    depends_on: 
+      - web
+    env_file: .env
