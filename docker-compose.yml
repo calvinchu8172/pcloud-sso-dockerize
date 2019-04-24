@@ -7,7 +7,7 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - /tmp/mysql:/var/lib/mysql
+      - /opt/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
   redis:
@@ -16,20 +16,18 @@ services:
     restart: always
     ports:
       - "6379:6379"
-  web:
+  app:
     build: .
-    container_name: web
+    container_name: app
     env_file: .env
     volumes:
       - .:/home/app/rails-app
-    ports:
-      - "80:80"
     depends_on:
       - db
       - redis
-  nginx:
+  web:
     image: nginx-certbot
-    container_name: nginx
+    container_name: web
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
@@ -37,10 +35,10 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /var/log/nginx:/var/log/nginx
-      - /etc/nginx/conf.d:/etc/nginx/conf.d
-      - /etc/letsencrypt:/etc/letsencrypt
+      - /opt/log/nginx:/var/log/nginx
+      - /opt/nginx/conf.d:/etc/nginx/conf.d
+      - /opt/letsencrypt:/etc/letsencrypt
     restart: always
     depends_on: 
-      - web
+      - app
     env_file: .env

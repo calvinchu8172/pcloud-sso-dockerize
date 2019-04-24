@@ -1,5 +1,4 @@
 FROM drecom/ubuntu-ruby:2.3.3
-MAINTAINER Calvin Chu <calvinchu8172@gmail.com>
 
 ENV LANG C.UTF-8
 # 指定時區，否則會用 GMT

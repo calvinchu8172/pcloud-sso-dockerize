@@ -51,3 +51,4 @@ coverage
 
 # Ignore env file for Docker
 /*.env
+/secret
