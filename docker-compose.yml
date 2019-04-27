@@ -34,10 +34,10 @@ services:
     ports:
       - 80:80
       - 443:443
-    volumes:
-      - /opt/log/nginx:/var/log/nginx
-      - /opt/nginx/conf.d:/etc/nginx/conf.d
-      - /opt/letsencrypt:/etc/letsencrypt
+    # volumes:
+    #   - /opt/log/nginx:/var/log/nginx
+    #   - /opt/nginx/conf.d:/etc/nginx/conf.d
+    #   - /opt/letsencrypt:/etc/letsencrypt
     restart: always
     depends_on: 
       - app

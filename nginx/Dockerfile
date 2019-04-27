@@ -15,5 +15,13 @@ RUN mkdir log
 
 # copy over static assets
 COPY public public/
+COPY secret secret/
 
 COPY nginx/sso.local.conf /etc/nginx/conf.d/nginx.conf
+
+EXPOSE 80
+
+# CMD [ "service nginx start" ]
+
+# Use the "exec" form of CMD so Nginx shuts down gracefully on SIGTERM (i.e. `docker stop`)
+CMD [ "nginx-debug", "-g", "daemon off;" ]
