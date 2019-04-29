@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV APP_HOME /home/app/rails-app
 
-WORKDIR APP_HOME
+WORKDIR $APP_HOME
 
 # create log directory
 RUN mkdir log
