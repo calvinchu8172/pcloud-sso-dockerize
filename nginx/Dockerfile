@@ -17,7 +17,10 @@ RUN mkdir log
 COPY public public/
 COPY secret secret/
 
-COPY nginx/sso.local.conf /etc/nginx/conf.d/nginx.conf
+COPY nginx/sso.local.conf /tmp/docker.nginx
+
+# COPY nginx/sso.local.conf /etc/nginx/conf.d/nginx.conf
+RUN envsubst '$APP_HOME' < /tmp/docker.nginx > /etc/nginx/conf.d/nginx.conf
 
 EXPOSE 80
 
