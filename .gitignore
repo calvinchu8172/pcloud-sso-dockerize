@@ -30,9 +30,11 @@ config/settings/development.yml
 config/settings/production.yml
 config/settings/test.yml
 config/settings/*.yml
+config/settings/*.yml.backup
 
 config/environments/*.local.yml
 config/*.yml
+config/*.yml.backup
 !config/cucumber.yml
 
 /vendor/assets/components
