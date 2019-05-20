@@ -32,7 +32,7 @@ services:
     container_name: web
     build:
       context: .
-      dockerfile: ./nginx/Dockerfile
+      dockerfile: ./nginx/Dockerfile_dev
     ports:
       - 80:80
       - 443:443
