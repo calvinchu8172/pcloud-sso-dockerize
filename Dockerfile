@@ -17,12 +17,12 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 
 RUN mkdir -p $APP_HOME
-COPY . $APP_HOME
+COPY ./pcloud-sso $APP_HOME
 WORKDIR $APP_HOME
 RUN bundle install
 
 # Add a script to be executed every time the container starts.
-COPY entrypoint.sh /usr/bin/
+COPY ./pcloud-sso/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
