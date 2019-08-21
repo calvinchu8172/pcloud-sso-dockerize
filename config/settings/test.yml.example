@@ -4,44 +4,53 @@ api:
     - ec2-54-85-72-999.compute-1.amazonaws.com
     - ec2-107-21-4-999.compute-1.amazonaws.com
 xmpp:
-  server: pcloud.dev
+  server: mongooseim
   device_resource_id: device
   bots:
-    - bot01@localhost
-    - bot02@localhost
-    - bot03@localhost
-    - bot04@localhost
-    - bot05@localhost
-    - bot06@localhost
-    - bot07@localhost
-    - bot08@localhost
+    - bot01@mongooseim
+    - bot02@mongooseim
+    - bot03@mongooseim
+    - bot04@mongooseim
+    - bot05@mongooseim
+    - bot06@mongooseim
+    - bot07@mongooseim
+    - bot08@mongooseim
   nodes:
     - ec2-54-85-72-129.compute-1.amazonaws.com
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
-  name: 'alpha'
-  api_domain: 'localhost'
-  portal_domain: 'localhost'
+  name: 'production'
+  api_domain: 'sso.lovefunthing.com'
+  portal_domain: 'sso.lovefunthing.com'
   ga_tracker: 'UA-57135359-1'
   paperclip:
     default:
       storage: :s3
       s3_credentials:
-        bucket: 's3-pcloud-test'
-        access_key_id:
-        secret_access_key:
+        bucket: 'sso.lovefunthing.com'
+        access_key_id: <%= ENV["AWS_ACCESS_KEY_ID"] %>
+        secret_access_key: <%= ENV["AWS_SECRET_ACCESS_KEY"] %>
     attachment:
       default:
         s3_host_name: 's3-us-west-2.amazonaws.com'
         path: '/:class/:attachment/:id_partition/:style/:filename'
-  ddns: pcloud.ecoworkinc.com
+  sqs:
+    bot_jobs:
+      name: 'pcloud-bot-jobs-prod'
+    push_jobs:
+      name: 'Cloud-Push-Jobs-Prod'
+    attributes:
+      access_key_id: <%= ENV["AWS_ACCESS_KEY_ID"] %>
+      secret_access_key: <%= ENV["AWS_SECRET_ACCESS_KEY"] %>
+      region: 'us-east-1'
+  ddns: 'lovefunthing.com'
   upnp:
     random_port_max: '10000'
     random_port_min: '6000'
   cdn: 'https://d3k0gq7ryrjfe4.cloudfront.net'
   zones_info:
-    id: 'Z23KWXIJBQNA7O'
-    name: 'pcloud.ecoworkinc.com'
+    id: 'Z1LTE4IQLEVG76'
+    name: 'lovefunthing.com'
   filter_list:
     - api
     - www
@@ -55,25 +64,27 @@ environments:
     - support
     - service
     - services
-  public_key:
+    - sso
+    - portal
+    - calvin
 oauth:
-  facebook_app_id: 1417673045203233
-  facebook_secret: cbef4be0ae0d9fce4662e10731bbd812
-  google_app_id: 14580324123-25ourkvv3ppvh4c1uph5gacjj6lq7q51.apps.googleusercontent.com
-  google_secret: XXG2i7MwFpRvOn6hd4gg9nWv
+  facebook_app_id: <%= ENV['FACEBOOK_APP_ID'] %>
+  facebook_secret: <%= ENV['FACEBOOK_APP_SECRET'] %>
+  google_app_id: <%= ENV['GOOGLE_APP_ID'] %>
+  google_secret: <%= ENV['GOOGLE_APP_SECRET'] %>
 recaptcha:
   config:
-    public_key: '6Lei4iUTAAAAANfPA7XJx59uxGZNIsL9-J8J8qw5'
-    private_key: '6Lei4iUTAAAAACgQHawpA-pRWmC_xsUG5gMaGPst'
+    public_key: <%= ENV['RECAPCHA_PUBLIC_KEY'] %>
+    private_key: <%= ENV['RECAPCHA_PRIVATE_KEY'] %>
 redis:
-  web_host: 'redis'
-  xmpp_host: 'redis'
+  web_host: redis
+  xmpp_host: redis
   port: 6379
 oauth_applications:
   account: 'admin'
   password: 'ecowork'
 vendors:
-  data_safe_period: 10 # minutes
+  data_safe_period: '10'
   asi:
     vpcName: 'ZYX'
     host: 'http://asicloud-beta.aethersi.com:10980'
