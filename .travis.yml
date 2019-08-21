@@ -4,6 +4,7 @@ rvm:
   - 2.3.3
 
 install:
+  - gem install capybara-webkit -v '1.7.1'
   - bundle install
 
 script:
