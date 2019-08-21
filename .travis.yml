@@ -1,5 +1,5 @@
 language: ruby
-cache: bundler
+# cache: bundler
 
 addons:
   apt:
@@ -22,7 +22,7 @@ script:
   # - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
   - mkdir test-plans
-  - xvfb-run cucumber
+  - xvfb-run -a bundle exec cucumber
 
 before_script:
   - mysql -e 'CREATE DATABASE mycloud_test;'
