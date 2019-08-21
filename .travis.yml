@@ -3,10 +3,12 @@ language: ruby
 rvm:
   - 2.3.3
 
+install:
+  - bundle install --jobs $(nproc) --path=/cache/bundler
+
 script:
   - rename 's/.example//' config/settings/*.example
   - rename 's/.example//' config/*.example
-  - bundle install --jobs $(nproc) --path=/cache/bundler
   - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
   - mkdir test-plans
