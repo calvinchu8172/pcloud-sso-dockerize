@@ -26,7 +26,7 @@ script:
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
   - mkdir test-plans
   # - xvfb-run -a bundle exec cucumber
-  - xvfb-run -a bundle exec cucumber features/Oauth/01_get_grant_code.feature -r features --format html --out test-plans/report.html
+  - xvfb-run -a bundle exec cucumber features/Oauth/01_get_grant_code.feature:12 -r features --format html --out test-plans/report.html
 
 before_script:
   - mysql -e 'CREATE DATABASE mycloud_test;'
