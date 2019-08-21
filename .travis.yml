@@ -1,10 +1,20 @@
 language: ruby
+# cache: bundler
+
+addons:
+  apt:
+    packages:
+      - imagemagick 
+      - libmagickwand-dev 
+      - qt5-default 
+      - libqt5webkit5-dev
+      - xvfb
 
 rvm:
   - 2.3.3
 
 install:
-  - gem install capybara-webkit -v '1.7.1'
+  # - gem install capybara-webkit -v 1.7.1
   - bundle install
 
 script:
