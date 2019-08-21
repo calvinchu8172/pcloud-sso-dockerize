@@ -1,5 +1,5 @@
 language: ruby
-# cache: bundler
+cache: bundler
 
 addons:
   apt:
@@ -14,16 +14,18 @@ rvm:
   - 2.3.3
 
 install:
-  # - gem install capybara-webkit -v 1.7.1
   - bundle install
 
 script:
   - rename 's/.example//' config/settings/*.example
   - rename 's/.example//' config/*.example
-  - mysqladmin -uroot -h mysql create mycloud_test
+  # - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
   - mkdir test-plans
   - xvfb-run -a bundle exec cucumber
+
+before_script:
+  - mysql -e 'CREATE DATABASE mycloud_test;'
     
 services:
   - mysql
