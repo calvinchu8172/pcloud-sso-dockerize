@@ -1,0 +1,24 @@
+language: ruby
+
+rvm:
+  - 2.3.3
+
+script:
+  - rename 's/.example//' config/settings/*.example
+  - rename 's/.example//' config/*.example
+  - bundle install --jobs $(nproc) --path=/cache/bundler
+  - mysqladmin -uroot -h mysql create mycloud_test
+  - RAILS_ENV=test bundle exec rake db:migrate db:seed
+  - mkdir test-plans
+  - xvfb-run -a bundle exec cucumber
+    
+services:
+  - mysql
+  - redis-server
+
+notifications:
+  email: false
+
+branches:
+  only:
+    - feature/20190821-1-travis-ci-test
