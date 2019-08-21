@@ -19,6 +19,7 @@ Given(/^user visits authorization page$/) do
 end
 
 Given(/^the user filled the correct login information$/) do
+  page.save_screenshot('test-plans/screenshot.png')
   fill_in "user[email]", with: @oauth_client_user.email
   fill_in "user[password]", with: @oauth_client_user.password
 end
