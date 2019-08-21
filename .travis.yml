@@ -22,7 +22,7 @@ script:
   # - mysqladmin -uroot -h mysql create mycloud_test
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
   - mkdir test-plans
-  - xvfb-run -a bundle exec cucumber
+  - xvfb-run cucumber
 
 before_script:
   - mysql -e 'CREATE DATABASE mycloud_test;'
