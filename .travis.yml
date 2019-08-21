@@ -12,7 +12,9 @@ addons:
   artifacts:
     s3_region: "us-east-1"
     paths:
-      - test-plans/*.*
+      - test-plans/screenshot.png
+      - test-plans/*.png
+      - test-plans/*.html
 
 rvm:
   - 2.3.3
@@ -21,6 +23,7 @@ install:
   - bundle install
 
 script:
+  - printenv
   - pwd
   - rename 's/.example//' config/settings/*.example
   - cat config/settings/test.yml
@@ -33,6 +36,9 @@ script:
 
 before_script:
   - mysql -e 'CREATE DATABASE mycloud_test;'
+
+after_script:
+  - ls test-plans
     
 services:
   - mysql
