@@ -12,7 +12,7 @@ addons:
   artifacts:
     s3_region: "us-east-1"
     paths:
-      - $HOME/test-plans/*.*
+      - test-plans/*.*
 
 rvm:
   - 2.3.3
@@ -21,8 +21,11 @@ install:
   - bundle install
 
 script:
+  - pwd
   - rename 's/.example//' config/settings/*.example
+  - cat config/settings/test.yml
   - rename 's/.example//' config/*.example
+  - cat config/database.yml
   - RAILS_ENV=test bundle exec rake db:migrate db:seed
   - mkdir test-plans
   # - xvfb-run -a bundle exec cucumber
