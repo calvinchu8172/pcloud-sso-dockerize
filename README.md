@@ -1,4 +1,6 @@
-# Personal Cloud SSO
+[![Build Status](https://travis-ci.org/calvinchu8172/pcloud-sso-dockerize.svg?branch=develop)](https://travis-ci.org/calvinchu8172/pcloud-sso-dockerize)
+
+# Personal Cloud SSO 
 
 ## Setting
 

@@ -20,8 +20,8 @@ xmpp:
     - ec2-107-21-4-229.compute-1.amazonaws.com
 environments:
   name: 'production'
-  api_domain: '127.0.0.1'
-  portal_domain: '127.0.0.1'
+  api_domain: 'localhost'
+  portal_domain: 'localhost'
   ga_tracker: 'UA-57135359-1'
   paperclip:
     default:
@@ -77,8 +77,8 @@ recaptcha:
     public_key: <%= ENV['RECAPCHA_PUBLIC_KEY'] %>
     private_key: <%= ENV['RECAPCHA_PRIVATE_KEY'] %>
 redis:
-  web_host: '127.0.0.1'
-  xmpp_host: '127.0.0.1'
+  web_host: 'localhost'
+  xmpp_host: 'localhost'
   port: 6379
 oauth_applications:
   account: 'admin'
