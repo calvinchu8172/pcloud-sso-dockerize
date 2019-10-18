@@ -27,13 +27,13 @@ hu:
       remember_me: Emlékezzen rám
       language: Nyelv
       captcha: Captcha
-      new_to_cloud: "Új a myZyxelCloud?"
+      # new_to_cloud: "Új a myZyxelCloud?"
       create_account: Fiók létrehozása
-      terms:
-        instruction: Megértem és elfogadom a
-        instruction_2: Zyxel Cloud felhasználási feltételeit
-      edm_1: Igen, szeretnék e-maileket kapni
-      edm_2: a Zyxel Cloud termékekről és szolgáltatásokról
-      copy_right: "© %{current_year} Zyxel Communications Corp."
+      # terms:
+      #   instruction: Megértem és elfogadom a
+      #   instruction_2: Zyxel Cloud felhasználási feltételeit
+      # edm_1: Igen, szeretnék e-maileket kapni
+      # edm_2: a Zyxel Cloud termékekről és szolgáltatásokról
+      # copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: "Állítsd vissza a jelszavad"

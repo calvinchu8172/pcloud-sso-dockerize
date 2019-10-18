@@ -27,13 +27,13 @@ cs:
       remember_me: Zapamatovat si mě
       language: Jazyk
       captcha: Kód Captcha
-      new_to_cloud: Nový myZyxelCloud?
+      # new_to_cloud: Nový myZyxelCloud?
       create_account: Vytvořit účet
-      terms:
-        instruction: Rozumím a souhlasím s
-        instruction_2: Podmínky použití služby Zyxel Cloud
-      edm_1: Ano, zasílejte mi e-mailové zprávy o
-      edm_2: produktech a službách Zyxel Cloud
-      copy_right: "© %{current_year} Zyxel Communications Corp."
+      # terms:
+      #   instruction: Rozumím a souhlasím s
+      #   instruction_2: Podmínky použití služby Zyxel Cloud
+      # edm_1: Ano, zasílejte mi e-mailové zprávy o
+      # edm_2: produktech a službách Zyxel Cloud
+      # copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Obnovit heslo

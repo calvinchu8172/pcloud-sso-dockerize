@@ -27,13 +27,13 @@ zh-TW:
       remember_me: "記住我"
       language: "偏好語系"
       captcha: "驗証碼"
-      new_to_cloud: "第一次到 myZyxelCloud"
+      new_to_cloud: "第一次登入？"
       create_account: "建立帳號"
       terms:
         instruction: "我同意並且瞭解"
-        instruction_2: Zyxel Cloud 的使用條款
+        instruction_2: 相關使用條款
       edm_1: "我同意訂閱"
-      edm_2: Zyxel Cloud 相關訊息
-      copy_right: "© %{current_year} Zyxel Communications Corp."
+      edm_2: 相關訊息
+      copy_right: "© %{current_year} 僅個人作品展示，非商業用途，請放心測試。"
     titles:
       reset_password: "重設密碼"

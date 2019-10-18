@@ -27,13 +27,13 @@ ru:
       remember_me: "Запомнить меня"
       language: "Язык"
       captcha: "Контрольный код"
-      new_to_cloud: "Новое в myZyxelCloud?"
+      # new_to_cloud: "Новое в myZyxelCloud?"
       create_account: "Регистрация"
-      terms:
-        instruction: "Я понимаю и соглашаюсь с положениями документа"
-        instruction_2: "Условия использования Zyxel Cloud"
-      edm_1: "Да, прошу присылать мне сообщения о"
-      edm_2: "продукции и услугах Zyxel Cloud"
-      copy_right: "© %{current_year} Zyxel Communications Corp."
+      # terms:
+      #   instruction: "Я понимаю и соглашаюсь с положениями документа"
+      #   instruction_2: "Условия использования Zyxel Cloud"
+      # edm_1: "Да, прошу присылать мне сообщения о"
+      # edm_2: "продукции и услугах Zyxel Cloud"
+      # copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: "Сбросить пароль"

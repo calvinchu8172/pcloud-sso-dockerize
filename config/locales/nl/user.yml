@@ -27,13 +27,13 @@ nl:
       remember_me: Onthoud mijn gegevens
       language: Taal
       captcha: Captcha
-      new_to_cloud: Nieuw bij myZyxelCloud?
+      # new_to_cloud: Nieuw bij myZyxelCloud?
       create_account: Account aanmaken
-      terms:
-        instruction: Ik ga akkoord met de voorwaarde
-        instruction_2: Zyxel Cloud gebruiksvoorwaarde
-      edm_1: Ja, stuur mij meer informatie over
-      edm_2: Zyxel Cloud producten of diensten.
-      copy_right: "© %{current_year} Zyxel Communications Corp."
+      # terms:
+      #   instruction: Ik ga akkoord met de voorwaarde
+      #   instruction_2: Zyxel Cloud gebruiksvoorwaarde
+      # edm_1: Ja, stuur mij meer informatie over
+      # edm_2: Zyxel Cloud producten of diensten.
+      # copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Stel je wachtwoord opnieuw in

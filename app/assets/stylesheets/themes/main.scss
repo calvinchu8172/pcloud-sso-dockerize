@@ -8,27 +8,26 @@ body {
   .main {
     max-width: 430px;
     margin: auto;
-    // padding: 0 0 10px 0;
     padding: 0;
     box-shadow: 0px 0px 50px -20px #888888;
 
     .logo {
-      // width: 72px;
-      // height: 16px;
-      width: 120px;
-      height: 48px;
-      background: image-url('zyxel-logo.png') no-repeat center;
-      // margin: 50px auto 0 auto;
-      margin: 38px auto 0 auto;
+      margin-top: 10px;
+      padding: 0px 100px;
+      img {
+        width: 230px;
+        display: block;
+        margin: auto;
+      }
     }
 
     .title {
       font-size: 16px;
       color: #8C8C8C;
-      margin: 5px auto 25px auto;
+      margin: 0px auto 25px auto;
       text-align: center;
       .title_sign_in {
-        margin: 26px auto 25px auto;
+        // margin: 26px auto 25px auto;
       }
 
     }
@@ -125,10 +124,14 @@ body {
       margin-bottom: 12px;
       .new_register {
         color: #8C8C8C;
-        padding-left: 40px;
+        text-align: center;
+        width: 100px;
+        margin: auto;
       }
       .create_account {
-        padding-left: 40px;
+        text-align: center;
+        width: 100px;
+        margin: auto;
         a.create_account_link {
           color: $bg-color;
           font-weight: bold;
@@ -146,7 +149,9 @@ body {
       margin-bottom: 30px;
 
       .locale {
-        padding-left: 40px;
+        width: 156px;
+        display: block;
+        margin: auto;
       }
       .help {
         // padding-left: 83px;
@@ -271,16 +276,15 @@ body {
       // .postcontent {
         .register {
           .new_register {
-            padding-left: 15px;
+            // padding-left: 15px;
           }
           .create_account {
-            padding-left: 15px;
+            // padding-left: 15px;
           }
         }
         .locale_and_help {
           margin-bottom: 0px;
           .locale {
-            padding-left: 15px;
           }
         }
       // }

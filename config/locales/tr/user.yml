@@ -27,13 +27,13 @@ tr:
       remember_me: Beni Hatırla
       language: Dil
       captcha: Güvenlik Kodu
-      new_to_cloud: myZyxelCloud Yeni?
+      # new_to_cloud: myZyxelCloud Yeni?
       create_account: Hesap açmak
-      terms:
-        instruction: Zyxel Cloud Kullanım Hükümlerini
-        instruction_2: Zyxel Cloud kabul ediyorum
-      edm_1: Evet, bana Zyxel Cloud Ürünleri
-      edm_2: ve Hizmetleri konusunda e-postalar gönder
-      copy_right: "© %{current_year} Zyxel Communications Corp."
+      # terms:
+      #   instruction: Zyxel Cloud Kullanım Hükümlerini
+      #   instruction_2: Zyxel Cloud kabul ediyorum
+      # edm_1: Evet, bana Zyxel Cloud Ürünleri
+      # edm_2: ve Hizmetleri konusunda e-postalar gönder
+      # copy_right: "© %{current_year} Zyxel Communications Corp."
     titles:
       reset_password: Parolanızı sıfırlayın
