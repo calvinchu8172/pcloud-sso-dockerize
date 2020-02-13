@@ -103,7 +103,7 @@ group :development do
   gem 'letter_opener'
 end
 
-gem 'devise', '3.5.1'
+gem 'devise', '4.7.1'
 gem 'devise-i18n'
 gem 'xmpp4r'
 gem 'rails_config'
