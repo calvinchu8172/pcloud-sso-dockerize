@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.7.1'
 gem 'rails-api'
 gem 'rails-i18n'
-gem 'rake', '10.4.2'
+gem 'rake', '12.3.3'
 
 # ---------------- #
 # - for Database - #
