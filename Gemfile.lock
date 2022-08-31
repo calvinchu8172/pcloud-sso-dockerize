@@ -168,7 +168,7 @@ GEM
       temple (~> 0.7.6)
       thor
       tilt
-    hashie (3.6.0)
+    hashie (5.0.0)
     highline (1.6.21)
     hike (1.2.3)
     hirb (0.7.3)
@@ -216,7 +216,9 @@ GEM
       railties (>= 3.0.0, < 5.1.0)
     method_source (0.8.2)
     mime-types (2.99.3)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     msgpack (0.5.12)
@@ -233,8 +235,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
-    omniauth (1.9.0)
-      hashie (>= 3.4.6, < 3.7.0)
+    omniauth (1.9.2)
+      hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
     omniauth-facebook (3.0.0)
       omniauth-oauth2 (~> 1.2)
